@@ -45,7 +45,7 @@ Recorder.prototype.attachActionListeners = function(window){
             function(event) {
                 var recordToolbarButton = document.getElementById("record-button");
                 if (recordToolbarButton.getAttribute("checked")) {
-                    self.recordCommand("waitForPageToLoad", null, 30000);
+                    self.recordCommand("waitForPageToLoad", null, 30000, ValueType.NUMBER);
                     var url = event.target.URL || event.target.baseURI;
                     logger.debug("Unloading Window " + url);
                     self.generateSource();
@@ -258,11 +258,11 @@ Recorder.prototype.updateWindowUrl = function(element){
     }
 };
 
-Recorder.prototype.recordCommand = function(name, element, value){    
-    logger.debug("Recording command (name: " + name + ", element: " + element + ", value: " + value + ")");
+Recorder.prototype.recordCommand = function(name, element, value, valueType){
+    logger.debug("Recording command (name: " + name + ", element: " + element + ", value: " + value + ", type: " + valueType + ")");
     if(element != null && element != undefined){
         if(this.first){
-            this.workspace.addCommand("open", null, element.ownerDocument.location.href);
+            this.workspace.addCommand("open", null, element.ownerDocument.location.href, valueType);
             var ocmd = new TestCmd("open", null, element.ownerDocument.location.href);
             this.recordCommandList.push(ocmd);
             this.first = false;
@@ -270,14 +270,14 @@ Recorder.prototype.recordCommand = function(name, element, value){
         var uid = this.recordDomNode(element);
         var count = teJQuery(element).data("count");
         teJQuery(element).data("count", count + 1);
-        this.workspace.addCommand(name, uid, value);
+        this.workspace.addCommand(name, uid, value, valueType);
         var cmd = new TestCmd(name, uid, value);
         this.recordCommandList.push(cmd);
         this.cmdListView.setTestCommands(this.recordCommandList);
         this.cmdListView.rowInserted();
         this.updateWindowUrl(element);
     }else{
-        this.workspace.addCommand(name, null, value);
+        this.workspace.addCommand(name, null, value, valueType);
         var cmd = new TestCmd(name, null, value);
         this.recordCommandList.push(cmd);
         this.cmdListView.setTestCommands(this.recordCommandList);

@@ -858,22 +858,70 @@ Editor.prototype.updateUiObject = function(){
     }
 };
 
-Editor.prototype.exportUiModule = function(){
-    if(this.workspace.innerTree != null){
-        var txt = this.workspace.innerTree.createUiModule();
-//        logger.debug("Create UI Module:\n" + txt);
+Editor.prototype.exportUiModule = function() {
+    try {
+        if (this.recorder.app != null && this.recorder.app.notEmpty()) {
+            var txt = this.recorder.app.toUiModule();
+            //        logger.debug("Create UI Module:\n" + txt);
 
-        var dir = Preferences.getPref("extensions.trump.exportdirectory");
-        if (dir == undefined || dir == null) {
-            if (this.os == "Windows") {
-                dir = Preferences.DEFAULT_OPTIONS.defaultWinDirectory;
-            } else {
-                dir = Preferences.DEFAULT_OPTIONS.defaultDirectory;
+            var dir = Preferences.getPref("extensions.trump.exportdirectory");
+            if (dir == undefined || dir == null) {
+                if (this.os == "Windows") {
+                    dir = Preferences.DEFAULT_OPTIONS.defaultWinDirectory;
+                } else {
+                    dir = Preferences.DEFAULT_OPTIONS.defaultDirectory;
+                }
             }
-        }
 
-        FileUtils.saveAs(dir, txt);
-        logger.debug("UI Module is exported to directory " + dir);
+            FileUtils.saveAs(dir, txt);
+            logger.debug("UI Module is exported to directory " + dir);
+        }
+    } catch(error) {
+        logger.error("Error exporting UI Module:\n" + describeErrorStack(error));
+    }
+};
+
+Editor.prototype.exportGroovyDsl = function(){
+    try {
+        if (this.recorder.app != null && this.recorder.app.notEmpty()) {
+            var txt = this.recorder.app.toGroovyDsl();
+
+            var dir = Preferences.getPref("extensions.trump.exportdirectory");
+            if (dir == undefined || dir == null) {
+                if (this.os == "Windows") {
+                    dir = Preferences.DEFAULT_OPTIONS.defaultWinDirectory;
+                } else {
+                    dir = Preferences.DEFAULT_OPTIONS.defaultDirectory;
+                }
+            }
+
+            FileUtils.saveAs(dir, txt);
+            logger.debug("Groovy DSL script is exported to directory " + dir);
+        }
+    } catch(error) {
+        logger.error("Error exporting Groovy DSL script:\n" + describeErrorStack(error));
+    }
+};
+
+Editor.prototype.exportJavaCode = function(){
+    try {
+        if (this.recorder.app != null && this.recorder.app.notEmpty()) {
+            var txt = this.recorder.app.toJavaCode();
+
+            var dir = Preferences.getPref("extensions.trump.exportdirectory");
+            if (dir == undefined || dir == null) {
+                if (this.os == "Windows") {
+                    dir = Preferences.DEFAULT_OPTIONS.defaultWinDirectory;
+                } else {
+                    dir = Preferences.DEFAULT_OPTIONS.defaultDirectory;
+                }
+            }
+
+            FileUtils.saveAs(dir, txt);
+            logger.debug("Java test file is exported to directory " + dir);
+        }
+    } catch(error) {
+        logger.error("Error exporting Java test file:\n" + describeErrorStack(error));
     }
 };
 

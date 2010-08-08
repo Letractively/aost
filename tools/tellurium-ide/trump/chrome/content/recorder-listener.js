@@ -3,7 +3,7 @@ Recorder.prototype.typeListener = function(event) {
     var tagName = event.target.tagName.toLowerCase();
     var type = event.target.type;
     if (('input' == tagName && ('text' == type || 'password' == type || 'file' == type)) || 'textarea' == tagName) {
-        recorder.recordCommand("type", event.target, event.target.value);
+        recorder.recordCommand("type", event.target, event.target.value, ValueType.STRING);
     }
 };
 
@@ -51,7 +51,7 @@ Recorder.prototype.clickListener = function(event){
 //                recorder.recordCommand('mouseOver', this.mouseoverLocator, '');
 //                delete recorder.mouseoverLocator;
 //            }
-            recorder.recordCommand("click", event.target, null);
+            recorder.recordCommand("click", event.target, null, null);
         } else {
             var target = event.target;
             recorder.callIfMeaningfulEvent(function() {
@@ -68,7 +68,7 @@ Recorder.prototype.selectListener = function(event) {
         if (!event.target.multiple) {
             var option = event.target.options[event.target.selectedIndex];
             logger.debug('selected Index=' + event.target.selectedIndex);
-            recorder.recordCommand("select", event.target, recorder.getOption(option));
+            recorder.recordCommand("select", event.target, recorder.getOption(option), ValueType.STRING);
         } else {
             logger.debug('change selection on select-multiple');
             var options = event.target.options;
@@ -80,9 +80,9 @@ Recorder.prototype.selectListener = function(event) {
                 if (options[i]._wasSelected != options[i].selected) {
                     var value = this.getOption(options[i]);
                     if (options[i].selected) {
-                        recorder.recordCommand("addSelection", event.target, value);
+                        recorder.recordCommand("addSelection", event.target, value, ValueType.STRING);
                     } else {
-                        recorder.recordCommand("removeSelection", event.target, value);
+                        recorder.recordCommand("removeSelection", event.target, value, ValueType.STRING);
                     }
                     options[i]._wasSelected = options[i].selected;
                 }

@@ -27,8 +27,11 @@
          <!--   <menuitem label="New"/>
             <menuitem label="Open"/>
             <menuitem label="Save"/> -->
-            <menuitem label="&exportUiModule.label;" oncommand="window.editor.exportUiModule();"/>
-            <menuseparator/>
+              <menuitem label="&exportGroovyDSL.label;" oncommand="window.editor.exportGroovyDsl();"/>
+              <menuseparator/>
+              <menuitem label="&exportUiModule.label;" oncommand="window.editor.exportUiModule();"/>
+              <menuitem label="&exportJavaCode.label;" oncommand="window.editor.exportJavaCode();"/>
+              <menuseparator/>
 <!--            <menuitem label="&exportToWindow.label;" oncommand="window.editor.exportToWindow();"/>
             <menuseparator/>-->
             <menuitem label="Exit" oncommand="window.close()" />

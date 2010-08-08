@@ -9,6 +9,7 @@ function UiPage(){
     this.dom = null;
 
     this.commandList = null;
+
 }
 
 function App(){
@@ -17,7 +18,13 @@ function App(){
     this.cmdIndex = new Hashtable();
     this.uiAlg = new UiAlg();
     this.refUidMap = null;
+    this.cmdMap = new Hashtable();
+    this.initCmdMap();
 }
+
+App.prototype.initCmdMap = function(){
+    this.cmdMap.put("open", "connectUrl");
+};
 
 App.prototype.clearAll = function(){
     this.pages = new Array();
@@ -63,7 +70,7 @@ App.prototype.getCommandList = function(){
                 for(var j=0; j<commandList.length; j++){
                     var uiCmd = commandList[j];
                     this.cmdIndex.put(uiCmd.seq, uiCmd);
-                    var cmd = new TeCommand(uiCmd.seq, uiCmd.name, uiCmd.uid, uiCmd.value, uiCmd.ref);
+                    var cmd = new TeCommand(uiCmd.seq, uiCmd.name, uiCmd.uid, uiCmd.value, uiCmd.valueType, uiCmd.ref);
                     list.push(cmd);
                 }
             }
@@ -114,6 +121,10 @@ App.prototype.getUids = function(uid) {
 
 App.prototype.isEmpty = function(){
     return this.pages.length == 0;
+};
+
+App.prototype.notEmpty = function(){
+    return this.pages.length > 0;
 };
 
 App.prototype.getUiModule = function(uid){
@@ -171,14 +182,56 @@ App.prototype.toSource = function(){
         }
 
         for(var j=0; j<this.pages.length; j++){
-            code = code + this.describeCommand(this.pages[j].commandList) + "\n";
+            code = code + this.describeCommand(this.pages[j].commandList, null) + "\n";
         }
     }
 
     return code;
 };
 
-App.prototype.describeCommand = function(commandList){
+App.prototype.toGroovyDsl = function(){
+    var code = "";
+    if(this.pages.length > 0){
+        for(var i=0; i<this.pages.length; i++){
+            if(this.pages[i].uim != null){
+                code = code + this.describeUiModule(this.pages[i].uim) + "\n";
+            }
+        }
+        code = code + this.describeTestSetup();
+        for(var j=0; j<this.pages.length; j++){
+            code = code + this.describeCommand(this.pages[j].commandList, this.cmdMap) + "\n";
+        }
+    }
+
+    return code;
+};
+
+App.prototype.toUiModule = function(){
+    var code = "";
+    if(this.pages.length > 0){
+        for(var i=0; i<this.pages.length; i++){
+            if(this.pages[i].uim != null){
+                code = code + this.describeUiModule(this.pages[i].uim) + "\n";
+            }
+        }
+    }
+
+    return code;
+};
+
+App.prototype.toJavaCode = function(){
+    var code = "";
+    if(this.pages.length > 0){
+        code = code + this.describeTestSetup();
+        for(var j=0; j<this.pages.length; j++){
+            code = code + this.describeCommand(this.pages[j].commandList, this.cmdMap) + "\n";
+        }
+    }
+
+    return code;
+};
+
+/*App.prototype.describeCommand = function(commandList){
     var sb = new StringBuffer();
     if(commandList != null && commandList.length > 0){
         for(var i=0; i<commandList.length; i++){
@@ -194,6 +247,39 @@ App.prototype.describeCommand = function(commandList){
                 }
 //                sb.append(" \"").append(cmd.value).append("\"");
                 sb.append(" ").append(cmd.value);
+            }
+            sb.append("\n");
+        }
+    }
+
+    return sb.toString();
+};*/
+
+App.prototype.describeTestSetup = function(){
+    return "\t\tconnectSeleniumServer()\n";
+};
+
+App.prototype.describeCommand = function(commandList, mapper){
+    var sb = new StringBuffer();
+    if(commandList != null && commandList.length > 0){
+        for(var i=0; i<commandList.length; i++){
+            var cmd = commandList[i];
+            var name = cmd.name;
+            if(mapper != null){
+                name = this.cmdMap.get(cmd.name) || cmd.name;
+            }
+            sb.append("\t\t").append(name);
+            if(cmd.uid != null && cmd.uid != undefined){
+                sb.append(" \"").append(cmd.uid).append("\"");
+            }
+            if(cmd.value != null && cmd.value != undefined){
+                if(cmd.uid != null && cmd.uid != undefined){
+                    sb.append(",");
+                }
+                if(cmd.valueType == ValueType.STRING)
+                    sb.append(" \"").append(cmd.value).append("\"");
+                else
+                    sb.append(" ").append(cmd.value);
             }
             sb.append("\n");
         }

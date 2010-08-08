@@ -4,20 +4,29 @@ function NodeRef(dom, frameName, ref){
     this.ref = ref;
 }
 
-function UiCommand(name, ref, value, uid, seq){
+const ValueType = {
+    NUMBER: "number",
+    STRING: 'string',
+    BOOLEAN: 'boolean',
+    OBJECT: 'object'
+};
+
+function UiCommand(name, ref, value, valueType, uid, seq){
     this.name = name;
     this.value = value;
     this.ref = ref;
     this.uid = uid;
     this.seq = seq;
+    this.valueType = valueType;
 }
 
-function TeCommand(seq, name, uid, value, ref){
+function TeCommand(seq, name, uid, value, valueType, ref){
     this.flag = true;
     this.seq = seq;
     this.name = name;
     this.uid = uid;
     this.value = value;
+    this.valueType = valueType;
     this.ref = ref;
     this.result = "";
 }
@@ -73,8 +82,8 @@ Workspace.prototype.addNode = function(dom, frameName, ref){
     this.tagObjectArray.push(tagObject);
 };
 
-Workspace.prototype.addCommand = function(name, ref, value){
-    var command = new UiCommand(name, ref, value, null, null);
+Workspace.prototype.addCommand = function(name, ref, value, valueType){
+    var command = new UiCommand(name, ref, value, valueType, null, null);
     this.commandList.push(command);
 };
 
@@ -102,7 +111,7 @@ Workspace.prototype.convertCommand = function(){
             }
 //            if(uid == undefined)
 //                logger.warn("Cannot find UID for reference ID " + cmd.ref + " for command " + cmd.name);
-            var ccmd = new UiCommand(cmd.name, cmd.ref, cmd.value, uid, this.sequence.next());
+            var ccmd = new UiCommand(cmd.name, cmd.ref, cmd.value, cmd.valueType, uid, this.sequence.next());
             this.convertedCommandList.push(ccmd);
         }
     }
