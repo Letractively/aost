@@ -68,7 +68,7 @@ Recorder.prototype.selectListener = function(event) {
         if (!event.target.multiple) {
             var option = event.target.options[event.target.selectedIndex];
             logger.debug('selected Index=' + event.target.selectedIndex);
-            recorder.recordCommand("select", event.target, recorder.getOption(option), ValueType.STRING);
+            recorder.recordCommand("select", event.target, recorder.getTextReg(option), ValueType.STRING);
         } else {
             logger.debug('change selection on select-multiple');
             var options = event.target.options;
@@ -78,7 +78,7 @@ Recorder.prototype.selectListener = function(event) {
                     logger.warn('_wasSelected was not recorded');
                 }
                 if (options[i]._wasSelected != options[i].selected) {
-                    var value = this.getOption(options[i]);
+                    var value = this.getTextReg(options[i]);
                     if (options[i].selected) {
                         recorder.recordCommand("addSelection", event.target, value, ValueType.STRING);
                     } else {

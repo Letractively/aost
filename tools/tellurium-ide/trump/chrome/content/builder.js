@@ -61,7 +61,10 @@ Builder.prototype.getText = function(node) {
                             //if we do have double quota " inside
                             //throw away the text attribute because if it is way too difficult to escape
                             txt = null;
+                        }else{
+                            txt = this.getTextReg(txt);
                         }
+
                     }
 
                     break;
@@ -71,6 +74,26 @@ Builder.prototype.getText = function(node) {
     }
 
     return txt;
+};
+
+Builder.prototype.getTextReg = function(txt) {
+    var text = txt.replace(/^ *(.*?) *$/, "$1");
+    if (text.match(/\xA0/)) { // if the text contains &nbsp;
+        return "regexp:" + text.replace(/[\(\)\[\]\\\^\$\*\+\?\.\|\{\}]/g, function(str) {return '\\' + str})
+                                      .replace(/\s+/g, function(str) {
+                if (str.match(/\xA0/)) {
+                    if (str.length > 1) {
+                        return "\\s+";
+                    } else {
+                        return "\\s";
+                    }
+                } else {
+                    return str;
+                }
+            });
+    } else {
+        return text;
+    }
 };
 
 Builder.prototype.buildTagObject = function(node, tag, name, attributes, parent, xpath, refId, frameName){

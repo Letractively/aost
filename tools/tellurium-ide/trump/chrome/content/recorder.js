@@ -323,7 +323,7 @@ Recorder.prototype.callIfMeaningfulEvent = function(handler) {
     }, 50);
 };
 
-Recorder.prototype.getOption = function(option) {
+Recorder.prototype.getTextReg = function(option) {
     var label = option.text.replace(/^ *(.*?) *$/, "$1");
     if (label.match(/\xA0/)) { // if the text contains &nbsp;
         return "label=regexp:" + label.replace(/[\(\)\[\]\\\^\$\*\+\?\.\|\{\}]/g, function(str) {return '\\' + str})
@@ -363,7 +363,6 @@ Recorder.prototype.generateSource = function(){
         this.savePage();
         this.reloadRecorder();
         var src = this.app.toSource();
-//        var src = this.workspace.convertSource();
         var sourceTextNode = document.getElementById("exportSource");
         sourceTextNode.value = src;
         logger.info("UI Module and commands are generated, please see them on the UI module source view.");
