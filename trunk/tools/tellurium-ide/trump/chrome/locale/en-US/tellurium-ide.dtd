@@ -21,6 +21,9 @@
 <!ENTITY exportToWindow.label "Export To Window">
 <!ENTITY exportToWindowsTab.label "Source View">
 <!ENTITY TestSpeed.label "Speed">
+<!ENTITY exportUiModule.label "Export UI Module">
+<!ENTITY exportGroovyDSL.label "Export Groovy DSL">
+<!ENTITY exportJavaCode.label "Export Java Code">
 
 <!ENTITY settingsTab.label "Settings">
 <!ENTITY element.label "DOM Node">
@@ -57,7 +60,6 @@
 <!ENTITY cancel.label "Cancel">
 <!ENTITY show.label "Show">
 <!ENTITY message.label "Message">
-<!ENTITY exportUiModule.label "Export">
 
 <!ENTITY runCommand.label "Run">
 <!ENTITY commandName.label "Command">

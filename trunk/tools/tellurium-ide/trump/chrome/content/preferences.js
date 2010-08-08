@@ -39,7 +39,7 @@ var Preferences = {
 
 Preferences.DEFAULT_OPTIONS = {
 
-    defaultDirectory: "/",
+    defaultDirectory: "/tmp",
 
     defaultWinDirectory: "c:\\",
 
