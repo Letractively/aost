@@ -32,8 +32,11 @@
               <menuitem label="&exportUiModule.label;" oncommand="window.editor.exportUiModule();"/>
               <menuitem label="&exportJavaCode.label;" oncommand="window.editor.exportJavaCode();"/>
               <menuseparator/>
-<!--            <menuitem label="&exportToWindow.label;" oncommand="window.editor.exportToWindow();"/>
-            <menuseparator/>-->
+              <menuitem label="&clipboardGroovyDSL.label;" oncommand="window.editor.clipboardGroovyDsl();"/>
+              <menuseparator/>
+              <menuitem label="&clipboardUiModule.label;" oncommand="window.editor.clipboardUiModule();"/>
+              <menuitem label="&clipboardJavaCode.label;" oncommand="window.editor.clipboardJavaCode();"/>
+            <menuseparator/>
             <menuitem label="Exit" oncommand="window.close()" />
           </menupopup>
         </menu>

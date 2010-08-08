@@ -858,6 +858,28 @@ Editor.prototype.updateUiObject = function(){
     }
 };
 
+Editor.prototype.exportGroovyDsl = function(){
+    try {
+        if (this.recorder.app != null && this.recorder.app.notEmpty()) {
+            var txt = this.recorder.app.toGroovyDsl();
+
+            var dir = Preferences.getPref("extensions.trump.exportdirectory");
+            if (dir == undefined || dir == null) {
+                if (this.os == "Windows") {
+                    dir = Preferences.DEFAULT_OPTIONS.defaultWinDirectory;
+                } else {
+                    dir = Preferences.DEFAULT_OPTIONS.defaultDirectory;
+                }
+            }
+
+            FileUtils.saveAs(dir, txt);
+            logger.debug("Groovy DSL script is exported to directory " + dir);
+        }
+    } catch(error) {
+        logger.error("Error exporting Groovy DSL script:\n" + describeErrorStack(error));
+    }
+};
+
 Editor.prototype.exportUiModule = function() {
     try {
         if (this.recorder.app != null && this.recorder.app.notEmpty()) {
@@ -881,28 +903,6 @@ Editor.prototype.exportUiModule = function() {
     }
 };
 
-Editor.prototype.exportGroovyDsl = function(){
-    try {
-        if (this.recorder.app != null && this.recorder.app.notEmpty()) {
-            var txt = this.recorder.app.toGroovyDsl();
-
-            var dir = Preferences.getPref("extensions.trump.exportdirectory");
-            if (dir == undefined || dir == null) {
-                if (this.os == "Windows") {
-                    dir = Preferences.DEFAULT_OPTIONS.defaultWinDirectory;
-                } else {
-                    dir = Preferences.DEFAULT_OPTIONS.defaultDirectory;
-                }
-            }
-
-            FileUtils.saveAs(dir, txt);
-            logger.debug("Groovy DSL script is exported to directory " + dir);
-        }
-    } catch(error) {
-        logger.error("Error exporting Groovy DSL script:\n" + describeErrorStack(error));
-    }
-};
-
 Editor.prototype.exportJavaCode = function(){
     try {
         if (this.recorder.app != null && this.recorder.app.notEmpty()) {
@@ -923,6 +923,95 @@ Editor.prototype.exportJavaCode = function(){
     } catch(error) {
         logger.error("Error exporting Java test file:\n" + describeErrorStack(error));
     }
+};
+
+Editor.prototype.clipboardGroovyDsl = function(){
+    try {
+        if (this.recorder.app != null && this.recorder.app.notEmpty()) {
+            var txt = this.recorder.app.toGroovyDsl();
+
+            if(txt != null && txt.length > 0){
+                this.copyToClipboard(txt);
+                logger.debug("Groovy DSL is copied to clipboard");
+            }else{
+                logger.warn("Groovy DSL is empty");
+            }
+        }
+    } catch(error) {
+        logger.error("Error copying Groovy DSL script:\n" + describeErrorStack(error));
+    }
+};
+
+Editor.prototype.clipboardUiModule = function() {
+    try {
+        if (this.recorder.app != null && this.recorder.app.notEmpty()) {
+            var txt = this.recorder.app.toUiModule();
+
+             if(txt != null && txt.length > 0){
+                this.copyToClipboard(txt);
+                logger.debug("UI Module is copied to clipboard");
+            }else{
+                logger.warn("Ui Module is empty");
+            }
+        }
+    } catch(error) {
+        logger.error("Error copying UI Module:\n" + describeErrorStack(error));
+    }
+};
+
+Editor.prototype.clipboardJavaCode = function(){
+    try {
+        if (this.recorder.app != null && this.recorder.app.notEmpty()) {
+            var txt = this.recorder.app.toJavaCode();
+
+            if(txt != null && txt.length > 0){
+                this.copyToClipboard(txt);
+                logger.debug("Java test file is copied to clipboard");
+            }else{
+                logger.warn("Java test file is empty");
+            }
+        }
+    } catch(error) {
+        logger.error("Error copying Java test file:\n" + describeErrorStack(error));
+    }
+};
+
+Editor.prototype.copyToClipboard = function(copytext) {
+    var str = Components.classes["@mozilla.org/supports-string;1"].createInstance(Components.interfaces.nsISupportsString);
+    if (!str) return false;
+    str.data = copytext;
+
+    var trans = Components.classes["@mozilla.org/widget/transferable;1"].createInstance(Components.interfaces.nsITransferable);    
+    if (!trans) return false;
+
+    trans.addDataFlavor("text/unicode");
+    trans.setTransferData("text/unicode", str, copytext.length * 2);
+
+    var clip = Components.classes["@mozilla.org/widget/clipboard;1"].createInstance(Components.interfaces.nsIClipboard);
+    if (!clip) return false;
+
+    clip.emptyClipboard(clip.kGlobalClipboard);
+    clip.setData(trans, null, clip.kGlobalClipboard);
+};
+
+Editor.prototype.pasteFromClipboard = function() {
+    var clip = Components.classes["@mozilla.org/widget/clipboard;1"].createInstance(Components.interfaces.nsIClipboard);
+    if (!clip) return false;
+
+    var trans = Components.classes["@mozilla.org/widget/transferable;1"].createInstance(Components.interfaces.nsITransferable);
+     if (!trans) return false;
+    trans.addDataFlavor("text/unicode");
+    clip.getData(trans, clip.kGlobalClipboard);
+
+    var str = new Object();
+    var strLength = new Object();
+
+    var pastetext = "";
+    trans.getTransferData("text/unicode", str, strLength);
+    if (str) str = str.value.QueryInterface(Components.interfaces.nsISupportsString);
+    if (str) pastetext = str.data.substring(0, strLength.value / 2);
+
+    return pastetext;
 };
 
 Editor.prototype.exportToWindow = function(){
