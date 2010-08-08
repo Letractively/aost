@@ -706,12 +706,6 @@ Editor.prototype.fillUiObjectFields = function(uiObject){
 
     var xml = uiObject.buildAttributeXml();
     this.buildUiAttributeTree(xml);
-/*    if (uiObject.node != null) {
-        var xml = uiObject.node.buildAttributeXml();
-        this.buildUiAttributeTree(xml);
-    } else {
-        logger.warn("Ui object " + uiObject.uid + " does not point to a Node in the tree")
-    }*/
 };
 
 Editor.prototype.enableUiObjectFields = function(){
@@ -823,18 +817,8 @@ Editor.prototype.updateUiObject = function(){
                this.recorder.app.updateUiModule(oldUimId, uim);
             }
         }
-/*        if(uiObject.parent == null && isUidChanged){
-            uim.id = uiObject.uid;
-//            uim.buildUiIndex();
-            this.recorder.app.updateUiModule(oldUimId, uim);
-*//*            this.workspace.id = uiObject.uid;
-            this.workspace.innerTree.root.id = uiObject.uid;
-            this.workspace.innerTree.buildIndex();*//*
-        }*/
-        
-        //        this.validateUI();
+
         this.validateOneUiModule(uim);
-        //        this.customizeButton();
         var xml = uim.buildXML();
 
         this.buildCustomizeTree(xml);
@@ -884,7 +868,6 @@ Editor.prototype.exportUiModule = function() {
     try {
         if (this.recorder.app != null && this.recorder.app.notEmpty()) {
             var txt = this.recorder.app.toUiModule();
-            //        logger.debug("Create UI Module:\n" + txt);
 
             var dir = Preferences.getPref("extensions.trump.exportdirectory");
             if (dir == undefined || dir == null) {
@@ -1043,7 +1026,6 @@ Editor.prototype.updateOptions = function(){
     }
     logger.jslog = jslog;
 
-//    var elem = document.getElementById("logging-console");
     var elem = window.frames["logViewFrame"].document.getElementById("logging-console");
     if (elem != null) {
         var logWrap = Preferences.getPref("extensions.trump.logwrap");
@@ -1069,9 +1051,6 @@ function TestCmd(name, uid, param){
 Editor.prototype.customizeButton = function(){
     this.switchToCustomizeTab();
     var xml = DEFAULT_XML;
-/*    if(this.workspace.innerTree != null){
-        xml = this.workspace.buildXML();
-    }*/
 
     this.buildCustomizeTree(xml);
     var uiTypes = this.builder.getAvailableUiTypes();
@@ -1089,18 +1068,7 @@ Editor.prototype.customizeButton = function(){
 };
 
 Editor.prototype.generateButton = function(){
-   this.switchToSourceTab();
-/*
-    try {
-        this.workspace.generateUiModule(this.recorder.tagObjectArray);
-
-        this.updateSource();
-
-        this.validateUI();
-
-    }catch(error){
-        logger.error("Error generating UI Module:\n" + describeErrorStack(error));
-    }*/
+    this.switchToSourceTab();
     try {
         this.recorder.generateSource();
     }catch(error){
