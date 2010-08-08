@@ -9,9 +9,22 @@ var BrowserBot = Class.extend({
         this.newPageLoaded = false;
         this.pageLoadError = null;
         this.defaultTimeout = 30000;
-        this.pagePollTimeout = 500;
+        this.pagePollTimeout = 1000;
         this.pageTimeoutTimerId = null;
         this.pagePollTimerId = null;
+    },
+
+    clear: function() {
+        if (this.pageTimeoutTimerId != null) {
+            clearTimeout(this.pageTimeoutTimerId);
+            this.pageTimeoutTimerId = null;
+        }
+        if (this.pagePollTimerId != null) {
+            clearInterval(this.pagePollTimerId);
+            this.pagePollTimerId = null;
+        }
+        this.newPageLoaded = true;
+        this.pageLoadError = null;
     },
 
     getCurrentWindow: function(){
@@ -28,8 +41,13 @@ var BrowserBot = Class.extend({
 
     checkReadyState: function() {
         try{
-            var doc = this.getMostRecentDocument();
-            if (doc.readyState == "complete") {
+            var win = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+                    .getService(Components.interfaces.nsIWindowMediator)
+                    .getMostRecentWindow("navigator:browser");
+
+            var doc =  win.getBrowser().contentDocument;
+
+            if (doc.readyState == "complete" || (this.newPageLoaded)) {
                 clearInterval(this.pagePollTimerId);
                 this.pagePollTimerId = null;
                 this.newPageLoaded = true;

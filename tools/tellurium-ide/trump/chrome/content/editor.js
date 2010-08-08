@@ -224,6 +224,7 @@ Editor.prototype.endRecord = function(){
         
         var app = this.recorder.app;
         if (app != null) {
+            browserBot.clear();
             this.cmdView.clearAll();
             this.testRunner.prepareFor(app);
             var commandList = this.testRunner.commandList;
@@ -469,6 +470,7 @@ Editor.prototype.clearButton = function(){
     this.command.clearCache();
     this.cleanupAutoComplete();   
     document.getElementById("windowURL").value = null;
+    browserBot.clear();
 };
 
 Editor.prototype.clearCustomizeUiObject = function(){
