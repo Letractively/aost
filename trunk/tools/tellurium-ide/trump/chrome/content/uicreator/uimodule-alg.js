@@ -1,5 +1,69 @@
 //New UI Module generation Algorithm
+var OptionalTagSet = ["input", "select", "table", "form", "ul", "ol", "button", "a"];
 
+function UimAlg(tagObjectArray, refIdSetter){
+    this.tagObjectArray = tagObjectArray;
+    this.markedNodeArray = new Array();
+    this.refIdSetter = refIdSetter;
+    this.builder = new Builder();
+}
+
+UimAlg.prototype.build = function(){
+    if(this.tagObjectArray && this.tagObjectArray.length > 0){
+        for(var i=0; i<this.tagObjectArray.length; i++){
+            this.mark(this.tagObjectArray[i]);
+        }
+
+        var leave = new Array();
+        for(var i=0; i<this.markedNodeArray.length; i++){
+            var $node = this.markedNodeArray[i];
+            var children = $node.data("children");
+            if(children.size() == 0){
+                leave.push($node);
+            }
+            var sid = $node.data("sid");
+            var tagObject = this.builder.createTagObject($node.get(0), sid, null);
+        }
+    }
+};
+
+UimAlg.prototype.mark = function(node){
+    var $current = teJQuery(node);
+    var children = $current.data("children");
+    if(children == null)
+        $current.data("children", new Array());
+    this.markedNodeArray.push($current);
+    var $parent = $current.parent();
+    if($parent.size() > 0){
+        var tag = $parent.get(0).tagName.toLowerCase();
+        while (tag != "html" && tag != "body") {
+            if (OptionalTagSet.indexOf(tag) != -1 || $parent.attr("onchange")
+                    || $parent.attr("onclick") || $parent.attr("ondblclick") ) {
+                var sid = $parent.data("sid");
+                if (sid == null) {
+                    $parent.data("sid", this.refIdSetter.getRefId());
+                    $parent.data("optional", true);
+                    var pChildren = new Array();
+                    pChildren.push($current);
+                    $parent.data("children", pChildren);
+                    $current.data("parent", $parent);
+                    $current = $parent;
+                    $parent = $parent.parent();
+                } else {
+                    var pChildren = $parent.data("children");
+                    if (pChildren == null) {
+                        pChildren = new Array();
+                    }
+                    pChildren.push($current);
+                    $parent.data("children", pChildren);
+                    $current.data("parent", $parent);
+                    break;
+                }
+
+            }
+        }
+    }
+};
 
 //DOM Node
 function DNode(){
