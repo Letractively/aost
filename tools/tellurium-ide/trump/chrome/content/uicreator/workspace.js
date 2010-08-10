@@ -123,8 +123,9 @@ Workspace.prototype.isEmpty = function(){
 
 Workspace.prototype.generate = function(){
     if (this.tagObjectArray != null && this.tagObjectArray.length > 0) {
-        this.preBuild(this.tagObjectArray);
-        this.generateUiModule(this.tagObjectArray);
+//        this.preBuild(this.tagObjectArray);
+//        this.generateUiModule(this.tagObjectArray);
+        this.buildUiModule();
         this.validateUiModule();
         this.buildRefUidMap();
     }
@@ -366,6 +367,13 @@ Workspace.prototype.generateUiModule = function(tagArrays){
         this.innerTree.buildUiObject(this.uiBuilder, this.checker);
         this.innerTree.buildIndex();
     }
+};
+
+Workspace.prototype.buildUiModule = function(){
+    var alg = new UimAlg(this.tagObjectArray, this.refIdSetter);
+    this.innerTree = alg.build();
+    this.innerTree.buildUiObject(this.uiBuilder, this.checker);
+    this.innerTree.buildIndex();    
 };
 
 Workspace.prototype.buildRefUidMap = function(){

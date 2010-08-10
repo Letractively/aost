@@ -112,8 +112,8 @@ Recorder.prototype.nodeRemovedListener = function(event) {
 Recorder.prototype.uiSelectListener = function(event){
     var recorder = event.data.recorder;
     logger.debug('listener: event.type=' + event.type + ', target=' + event.target.tagName);
-    var state = document.getElementById("record-button").getAttribute("class");
-    if(state == RecordState.PAUSE)
+//    var state = document.getElementById("record-button").getAttribute("class");
+//    if(state == RecordState.PAUSE)
         event.preventDefault();
     var element = event.target;
     recorder.recordDomNode(element);

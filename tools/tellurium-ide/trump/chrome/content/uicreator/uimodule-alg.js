@@ -1,5 +1,11 @@
 //New UI Module generation Algorithm
 var OptionalTagSet = ["input", "select", "table", "form", "ul", "ol", "button", "a"];
+const UimConst = {
+    CHILDREN: "children",
+    PARENT: "parent",
+    SID: "sid",
+    EXCLUDE: "exclude"
+};
 
 function UimAlg(tagObjectArray, refIdSetter){
     this.tagObjectArray = tagObjectArray;
@@ -18,16 +24,94 @@ UimAlg.prototype.build = function(){
         for(var i=0; i<this.markedNodeArray.length; i++){
             var $node = this.markedNodeArray[i];
             var children = $node.data("children");
-            if(children.size() == 0){
+            if(children == null || children.length == 0){
                 leave.push($node);
             }
+        }
+
+        var $leaf = leave[0];
+
+        var $top = this.reachTop($leaf);
+        this.chooseRoot($top);
+
+        for(var i=0; i<this.markedNodeArray.length; i++){
+            var $node = this.markedNodeArray[i];
             var sid = $node.data("sid");
             var tagObject = this.builder.createTagObject($node.get(0), sid, null);
+            var nodeObject = new NodeObject();
+            nodeObject.id = suggestName(tagObject);
+            nodeObject.refId = $node.data("sid");
+            nodeObject.attributes = tagObject.attributes;
+            nodeObject.domNode = $node.get(0);
+            $node.data("nodeObject", nodeObject);
+        }
+
+        var leaf = null;
+        for(var i=0; i<this.markedNodeArray.length; i++){
+            var $node = this.markedNodeArray[i];
+            var nodeObject = $node.data("nodeObject");
+            var $parent = $node.data("parent");
+            if(!$node.data("exclude")){
+                leaf = nodeObject;
+            }
+            if($parent == undefined || $parent.size() == 0){
+                nodeObject.parent = null;
+            }else{
+                var parentNodeObject = $parent.data("nodeObject");
+                nodeObject.parent = parentNodeObject;
+            }
+            var children = $node.data("children");
+            if(children != null && children.length > 0){
+                for(var j=0; j<children.length; j++){
+                    var $child = children[j];
+                    nodeObject.addChild($child.data("nodeObject"));
+                }
+            }
+        }
+
+        var tree = new Tree();
+        var root = leaf.parent;
+        while(root != null){
+            tree.root = root;
+            root = root.parent;
+        }
+//        tree.root = root;
+
+        return tree;
+    }
+
+    return null;
+};
+
+UimAlg.prototype.reachTop = function($node){
+    var $parent = $node.data("parent");
+    var $current = $node;
+    while($parent != undefined && $parent != null){
+        $current = $parent;
+        $parent = $parent.data("parent");
+    }
+
+    return $current;
+};
+
+UimAlg.prototype.chooseRoot = function($top){
+    var children = $top.data("children");
+    var optional = $top.data("optional");
+    var $parent = $top;
+    if(optional && children != null && children.length == 1){
+        var $child = children[0];
+        children = $child.data("children");
+        while(children.length == 1 && $child.data("optional")){
+            $parent.data("exclude", true);
+            $child.data("parent", null);
+            $parent = $child;
+            $child = children[0];
         }
     }
 };
 
-UimAlg.prototype.mark = function(node){
+UimAlg.prototype.mark = function(tagObject){
+    var node = tagObject.node;
     var $current = teJQuery(node);
     var children = $current.data("children");
     if(children == null)
@@ -37,8 +121,9 @@ UimAlg.prototype.mark = function(node){
     if($parent.size() > 0){
         var tag = $parent.get(0).tagName.toLowerCase();
         while (tag != "html" && tag != "body") {
-            if (OptionalTagSet.indexOf(tag) != -1 || $parent.attr("onchange")
-                    || $parent.attr("onclick") || $parent.attr("ondblclick") ) {
+//            if (OptionalTagSet.indexOf(tag) != -1 || $parent.attr("onchange")
+//                    || $parent.attr("onclick") || $parent.attr("ondblclick") ) {
+            if (OptionalTagSet.indexOf(tag) != -1){
                 var sid = $parent.data("sid");
                 if (sid == null) {
                     $parent.data("sid", this.refIdSetter.getRefId());
@@ -48,7 +133,9 @@ UimAlg.prototype.mark = function(node){
                     $parent.data("children", pChildren);
                     $current.data("parent", $parent);
                     $current = $parent;
+                    this.markedNodeArray.push($parent);
                     $parent = $parent.parent();
+                    tag = $parent.get(0).tagName.toLowerCase();
                 } else {
                     var pChildren = $parent.data("children");
                     if (pChildren == null) {
@@ -60,6 +147,9 @@ UimAlg.prototype.mark = function(node){
                     break;
                 }
 
+            }else{
+                $parent = $parent.parent();
+                tag = $parent.get(0).tagName.toLowerCase();                
             }
         }
     }
