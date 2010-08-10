@@ -50,9 +50,6 @@ UimAlg.prototype.build = function(){
             var $node = this.markedNodeArray[i];
             var nodeObject = $node.data("nodeObject");
             var $parent = $node.data("parent");
-//            if(!$node.data("exclude")){
-//                leaf = nodeObject;
-//            }
             if($parent == undefined || $parent.size() == 0){
                 nodeObject.parent = null;
             }else{
