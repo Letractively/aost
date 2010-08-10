@@ -230,7 +230,7 @@ Recorder.prototype.recordDomNode = function (element){
             this.treeView.setTagObjects(this.tagObjectArray);
             this.treeView.rowInserted();
             this.workspace.addNode(element, this.frameName, refId);
-        } else {
+        }else {
             refId = teJQuery(element).data("sid");
             var count = teJQuery(element).data("count");
             if (count == "0") {

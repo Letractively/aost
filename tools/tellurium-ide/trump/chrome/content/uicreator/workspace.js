@@ -372,6 +372,7 @@ Workspace.prototype.generateUiModule = function(tagArrays){
 Workspace.prototype.buildUiModule = function(){
     var alg = new UimAlg(this.tagObjectArray, this.refIdSetter);
     this.innerTree = alg.build();
+    this.innerTree.postProcess();
     this.innerTree.buildUiObject(this.uiBuilder, this.checker);
     this.innerTree.buildIndex();    
 };

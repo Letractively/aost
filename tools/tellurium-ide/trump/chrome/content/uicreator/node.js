@@ -37,9 +37,80 @@ function NodeObject(){
     //The UI object associated with this node
 //    this.uiobject = new NodeUiObject();
     this.uiobject = null;
+
+    this.exclude = false;
     
 //    this.xmlutil = new XmlUtil();
 }
+
+NodeObject.prototype.buildFromDomNode = function(domNode){
+    var lowerCaseNodeName ;
+    var attributes;
+    //Check if its an ELEMENT TYPE NODE
+    if (getNodeType(domNode) == constants.ELEMENT_TYPE_NODE) {
+        lowerCaseNodeName = getNodeName(domNode).toLowerCase();
+        attributes = getNotBlackListedAttributes(domNode.attributes);
+        attributes.set("tag", lowerCaseNodeName);
+        var txt = this.getText(domNode);
+
+        if(txt != null && trimString(txt).length > 0){
+            attributes.set("text", txt);
+        }
+
+        this.node = domNode;
+        this.tag = lowerCaseNodeName;
+        this.attributes = attributes;
+    }
+};
+
+NodeObject.prototype.getText = function(node) {
+    var txt = null;
+    if (getNodeType(node) == constants.ELEMENT_TYPE_NODE) {
+        if (node.childNodes.length > 0) {
+            for (var i = 0; i < node.childNodes.length; i++) {
+                if (node.childNodes[i].nodeType == Node.TEXT_NODE) {
+                    txt = node.childNodes[i].nodeValue;
+                    if (txt != null) {
+                        //test if the regular expression includes "
+                        var regexp = new RegExp(/\"/);
+                        if(regexp.test(txt)){
+                            //if we do have double quota " inside
+                            //throw away the text attribute because if it is way too difficult to escape
+                            txt = null;
+                        }else{
+                            txt = this.getTextReg(txt);
+                        }
+
+                    }
+
+                    break;
+                }
+            }
+        }
+    }
+
+    return txt;
+};
+
+NodeObject.prototype.getTextReg = function(txt) {
+    var text = txt.replace(/^ *(.*?) *$/, "$1");
+    if (text.match(/\xA0/)) { // if the text contains &nbsp;
+        return "regexp:" + text.replace(/[\(\)\[\]\\\^\$\*\+\?\.\|\{\}]/g, function(str) {return '\\' + str})
+                                      .replace(/\s+/g, function(str) {
+                if (str.match(/\xA0/)) {
+                    if (str.length > 1) {
+                        return "\\s+";
+                    } else {
+                        return "\\s";
+                    }
+                } else {
+                    return str;
+                }
+            });
+    } else {
+        return text;
+    }
+};
 
 NodeObject.prototype.clearValidFlag = function(){
     if(this.uiobject != null)
@@ -357,6 +428,10 @@ NodeObject.prototype.findChild = function(uid){
     return null;
 };
 
+NodeObject.prototype.getChildrenSize = function(){
+    return this.children.length;
+};
+
 //based on the xpath for the node, set the header and trailer
 //i.e,
 //     header + node's tag + trailer
@@ -480,12 +555,12 @@ NodeObject.prototype.processNewNode = function(){
         current.processNewNode();
     }
 
-    if(this.newNode){
+/*    if(this.newNode){
         this.selectTag();
         this.id = suggestName(this);
     }else{
         this.setHeaderTrailerForRegularNode();
-    }
+    }*/
 
     var pos = this.checkNodePosition();
     if(pos != null){
