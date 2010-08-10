@@ -189,13 +189,17 @@ UimAlg.prototype.reachTop = function($node){
 
 UimAlg.prototype.chooseRoot = function(top){
     var parent = top;
-/*    if(parent.newNode && parent.getChildrenSize() == 1){
-        parent.exclude = true;
-        parent = parent.children[0];
-        parent.parent = null;
-    }*/
 
-    return parent;
+    if(parent.newNode && parent.getChildrenSize() == 1){
+        var child = parent.children[0];
+        while(child.newNode && child.getChildrenSize() == 1){
+            parent = child;
+            child = parent.children[0];
+            child.parent = null;
+        }
+    }
+
+    return child;
 };
 
 UimAlg.prototype.mark = function(tagObject) {
@@ -232,7 +236,11 @@ UimAlg.prototype.mark = function(tagObject) {
                     this.markedNodeArray.push($parent);
                     $current = $parent;
                     $parent = $parent.parent();
-                    tag = $parent.get(0).tagName.toLowerCase();
+                    if ($parent == undefined || $parent == null || $parent.size() == 0) {
+                        break;
+                    } else {
+                        tag = $parent.get(0).tagName.toLowerCase();
+                    }
                 } else {
                     var pNodeObject = $parent.data(UimConst.NODEOBJECT);
                     if (pNodeObject == null) {
@@ -250,7 +258,11 @@ UimAlg.prototype.mark = function(tagObject) {
                 }
             } else {
                 $parent = $parent.parent();
-                tag = $parent.get(0).tagName.toLowerCase();
+                if($parent == undefined || $parent == null || $parent.size() == 0){
+                    break;
+                }else{
+                    tag = $parent.get(0).tagName.toLowerCase();
+                }
             }
         }
     }

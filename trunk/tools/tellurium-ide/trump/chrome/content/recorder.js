@@ -43,12 +43,16 @@ Recorder.prototype.attachActionListeners = function(window){
     var self = this;
     window.addEventListener("beforeunload",
             function(event) {
-                var recordToolbarButton = document.getElementById("record-button");
-                if (recordToolbarButton.getAttribute("checked")) {
-                    self.recordCommand("waitForPageToLoad", null, 30000, ValueType.NUMBER);
-                    var url = event.target.URL || event.target.baseURI;
-                    logger.debug("Unloading Window " + url);
-                    self.generateSource();
+                try {
+                    var recordToolbarButton = document.getElementById("record-button");
+                    if (recordToolbarButton.getAttribute("checked")) {
+                        self.recordCommand("waitForPageToLoad", null, 30000, ValueType.NUMBER);
+                        var url = event.target.URL || event.target.baseURI;
+                        logger.debug("Unloading Window " + url);
+                        self.generateSource();
+                    }
+                } catch(error) {
+                    logger.error("Error processing beforeunload event:\n" + describeErrorStack(error));
                 }
             },
      false);
