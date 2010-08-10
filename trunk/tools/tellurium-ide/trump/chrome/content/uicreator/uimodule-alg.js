@@ -1,6 +1,7 @@
 //New UI Module generation Algorithm
 var OptionalTagSet = ["input", "select", "table", "form", "ul", "ol", "button", "a"];
 const UimConst = {
+    NODEOBJECT: "nodeObject",
     CHILDREN: "children",
     PARENT: "parent",
     SID: "sid",
@@ -14,6 +15,7 @@ function UimAlg(tagObjectArray, refIdSetter){
     this.builder = new Builder();
 }
 
+/*
 UimAlg.prototype.build = function(){
     if(this.tagObjectArray && this.tagObjectArray.length > 0){
         for(var i=0; i<this.tagObjectArray.length; i++){
@@ -147,11 +149,190 @@ UimAlg.prototype.mark = function(tagObject){
 
             }else{
                 $parent = $parent.parent();
-                tag = $parent.get(0).tagName.toLowerCase();                
+                tag = $parent.get(0).tagName.toLowerCase();
             }
         }
     }
 };
+*/
+
+UimAlg.prototype.build = function(){
+    if(this.tagObjectArray && this.tagObjectArray.length > 0){
+        for(var i=0; i<this.tagObjectArray.length; i++){
+            this.mark(this.tagObjectArray[i]);
+        }
+
+        var $leaf = teJQuery(this.tagObjectArray[0].node);
+
+        var top = this.reachTop($leaf);
+        var root = this.chooseRoot(top);
+
+        var tree = new Tree();
+        tree.root = root;
+        tree.document = this.tagObjectArray[0].node.ownerDocument;
+
+        return tree;
+    }
+
+    return null;
+};
+
+UimAlg.prototype.reachTop = function($node){
+    var nodeObject = $node.data(UimConst.NODEOBJECT);
+    var top = nodeObject;
+    while(top != null && top.parent != null){
+        top = top.parent;
+    }
+
+    return top;
+};
+
+UimAlg.prototype.chooseRoot = function(top){
+    var parent = top;
+/*    if(parent.newNode && parent.getChildrenSize() == 1){
+        parent.exclude = true;
+        parent = parent.children[0];
+        parent.parent = null;
+    }*/
+
+    return parent;
+};
+
+UimAlg.prototype.mark = function(tagObject) {
+    var node = tagObject.node;
+    var $current = teJQuery(node);
+    var nodeObject = $current.data(UimConst.NODEOBJECT);
+    if (nodeObject == null) {
+        nodeObject = new NodeObject();
+        nodeObject.domNode = node;
+        nodeObject.refId = tagObject.refId;
+        nodeObject.attributes = tagObject.attributes;
+        nodeObject.id = this.suggestName(tagObject.tag, tagObject.attributes);
+        nodeObject.tag = tagObject.tag;
+        $current.data(UimConst.NODEOBJECT, nodeObject);
+        this.markedNodeArray.push($current);
+    }
+    var $parent = $current.parent();
+    if ($parent.size() > 0) {
+        var tag = $parent.get(0).tagName.toLowerCase();
+        while (tag != "html" && tag != "body") {
+            if (OptionalTagSet.indexOf(tag) != -1) {
+                var sid = $parent.data(UimConst.SID);
+                if (sid == null) {
+                    var pNodeObject = new NodeObject();
+                    pNodeObject.buildFromDomNode($parent.get(0));
+                    pNodeObject.refId = this.refIdSetter.getRefId();
+                    pNodeObject.newNode = true;
+                    pNodeObject.id = this.suggestName(pNodeObject.tag, pNodeObject.attributes);
+                    var cNodeObject = $current.data(UimConst.NODEOBJECT);
+                    pNodeObject.addChild(cNodeObject);
+                    $parent.data(UimConst.NODEOBJECT, pNodeObject);
+                    $parent.data(UimConst.SID, pNodeObject.refId);
+                    cNodeObject.parent = pNodeObject;
+                    this.markedNodeArray.push($parent);
+                    $current = $parent;
+                    $parent = $parent.parent();
+                    tag = $parent.get(0).tagName.toLowerCase();
+                } else {
+                    var pNodeObject = $parent.data(UimConst.NODEOBJECT);
+                    if (pNodeObject == null) {
+                        pNodeObject.buildFromDomNode($parent.get(0));
+                        pNodeObject.refId = sid;
+                        pNodeObject.id = this.suggestName(pNodeObject.tag, pNodeObject.attributes);
+                        $parent.data(UimConst.NODEOBJECT, pNodeObject);
+                        this.markedNodeArray.push($parent);
+                    }
+                    var cNodeObject = $current.data(UimConst.NODEOBJECT);
+                    pNodeObject.addChild(cNodeObject);
+                    cNodeObject.parent = pNodeObject;
+
+                    break;
+                }
+            } else {
+                $parent = $parent.parent();
+                tag = $parent.get(0).tagName.toLowerCase();
+            }
+        }
+    }
+};
+
+UimAlg.prototype.suggestName = function(tag, attributes){
+
+    var name = attributes.get("id");
+    if(name == null || name.length == 0){
+        name = attributes.get("value");
+    }
+    if(name == null || name.length == 0){
+        name = attributes.get("name");
+    }
+    if(name == null || name.length == 0){
+        name = attributes.get("title");
+    }
+    if(name == null || name.length == 0){
+        name = attributes.get("text");
+    }
+    if(name == null || name.length == 0){
+        name = attributes.get("class");
+    }
+    if(name == null || name.length == 0){
+        if(tag == "input"){
+            var type = attributes.get("type");
+            if(type == "text"){
+                name = "Input";
+            }else if(type == "submit"){
+                name = "Submit";
+            }else if(type == "image"){
+                name = "Image";
+            }else if(type == "checkbox"){
+                name = "Option";
+            }else if(type == "radio"){
+                name = "Option";
+            }else if(type == "password"){
+                name = "Password";
+            }else{
+                name = "Button";
+            }
+        }else if(tag == "a" || tag == "link"){
+            name = "Link";
+        }else if(tag == "select"){
+            name = "Select";
+        }else if(tag == "tr"){
+            name = "Section";
+        }else if(tag == "td"){
+            name = "Part";
+        }else if(tag == "th"){
+            name = "Header";
+        }else if(tag == "tfoot"){
+            name = "Footer";
+        }else if(tag == "tbody"){
+            name = "Group";
+        }else if(tag == "form"){
+            name = "Form";
+        }else if(tag == "image"){
+            name = "Image";
+        }else if(tag == "table"){
+            name = "Table";
+        }
+    }
+    if(name != null && name.length > 0){
+        var split = name.split(" ");
+        if(split.length > 1){
+            name = split[0].toCamel() + split[1].toCamel();
+        }
+    }
+
+    if(name != null && name.length > 0){
+        //remove special characters and only keep alphanumeric and "_"
+        name = name.replace(/[^a-zA-Z_0-9]+/g,'');
+    }
+
+    if(name == null || name.trim().length == 0){
+        name = tag;
+    }
+
+    return name.toCamel();
+};
+
 
 //DOM Node
 function DNode(){
