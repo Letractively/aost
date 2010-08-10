@@ -46,14 +46,13 @@ UimAlg.prototype.build = function(){
             $node.data("nodeObject", nodeObject);
         }
 
-        var leaf = null;
         for(var i=0; i<this.markedNodeArray.length; i++){
             var $node = this.markedNodeArray[i];
             var nodeObject = $node.data("nodeObject");
             var $parent = $node.data("parent");
-            if(!$node.data("exclude")){
-                leaf = nodeObject;
-            }
+//            if(!$node.data("exclude")){
+//                leaf = nodeObject;
+//            }
             if($parent == undefined || $parent.size() == 0){
                 nodeObject.parent = null;
             }else{
@@ -69,7 +68,9 @@ UimAlg.prototype.build = function(){
             }
         }
 
+        var leaf = teJQuery(this.tagObjectArray[0].node).data("nodeObject");
         var tree = new Tree();
+        tree.root = leaf;
         var root = leaf.parent;
         while(root != null){
             tree.root = root;
