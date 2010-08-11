@@ -1,6 +1,7 @@
 //New UI Module generation Algorithm
-var OptionalTagSet = ["input", "select", "table", "form", "ul", "ol", "button", "a"];
-var ContainerTagSet = ["table", "form", "ul", "ol"];
+//var OptionalTagSet = ["input", "select", "table", "form", "ul", "ol", "button", "a"];
+var ContainerTagSet = ["input", "select", "table", "form", "ul", "ol", "dl", "button", "a"];
+var TableTagSet = ["tr", "th", "td", "tfoot", "tbody"];
 
 const UimConst = {
     NODE_OBJECT: "nodeObject",
@@ -27,11 +28,11 @@ UimAlg.prototype.build = function(){
 
         var top = this.reachTop($leaf);
         var root = this.chooseRoot(top);
-        this.addExtra(root);
-        
+
         var tree = new Tree();
         tree.root = root;
         tree.document = this.tagObjectArray[0].node.ownerDocument;
+        this.addExtra(root);
 
         return tree;
     }
@@ -70,6 +71,14 @@ UimAlg.prototype.chooseRoot = function(top){
         lowest = lowest.children[0];
     }
 
+    if(lowest.getChildrenSize() == 0 && lowest.parent != null){
+        lowest = lowest.parent;
+        var tag = lowest.domNode.tagName.toLowerCase();
+        if(TableTagSet.indexOf(tag) != -1 || tag == "li" || tag == "dd" || tag == "dt"){
+            lowest = lowest.parent;    
+        }
+    }
+    
     lowest.parent = null;
 
     return lowest;
