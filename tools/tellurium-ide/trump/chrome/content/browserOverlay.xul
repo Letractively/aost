@@ -63,7 +63,7 @@
 /*
             getBrowserBot: function() {
                 var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator);
-                var editorWindow = wm.getMostRecentWindow('global:trump-ide');
+                var editorWindow = wm.getMostRecentWindow('global:tellurium-ide');
 
                 return editorWindow.browserBot;
             },
@@ -71,7 +71,7 @@
 
             getEditor: function() {
                 var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator);
-                var editorWindow = wm.getMostRecentWindow('global:trump-ide');
+                var editorWindow = wm.getMostRecentWindow('global:tellurium-ide');
 
                 return editorWindow.editor;
             },

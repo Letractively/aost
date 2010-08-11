@@ -8,7 +8,7 @@ Copyright 2008 Vivek Mongolu
 <!ENTITY % telluriumIdeDTD SYSTEM "chrome://trump/locale/tellurium-ide.dtd">
 %telluriumIdeDTD;
 ]>
-<overlay id="trump-ide-common"
+<overlay id="tellurium-ide-common"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
     <script type="application/x-javascript" src="chrome://trump/content/extlib/log4js.js"/>
