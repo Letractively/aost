@@ -102,8 +102,7 @@ UimAlg.prototype.markNode = function(node) {
         while (tag != "html" && tag != "body") {
             var pNode = $parent.get(0);
             if (ContainerTagSet.indexOf(tag) != -1
-                || pNode.getAttribute("onclick") != null
-                || pNode.getAttribute("ondblclick") != null
+                || (tag == "div" && (pNode.getAttribute("onclick") != null || pNode.getAttribute("ondblclick") != null
                 || pNode.getAttribute("onchange") != null
                 || pNode.getAttribute("onkeydown") != null
                 || pNode.getAttribute("onkeypress") != null
@@ -111,7 +110,7 @@ UimAlg.prototype.markNode = function(node) {
                 || pNode.getAttribute("onmousedown") != null
                 || pNode.getAttribute("onmouseout") != null
                 || pNode.getAttribute("onmouseover") != null
-                || pNode.getAttribute("onblur") != null ) {
+                || pNode.getAttribute("onblur") != null ))) {            
                 var sid = $parent.data(UimConst.SID);
                 if (sid == null) {
                     var pNodeObject = new NodeObject();
@@ -179,8 +178,7 @@ UimAlg.prototype.mark = function(tagObject) {
         while (tag != "html" && tag != "body") {
             var pNode = $parent.get(0);
             if (ContainerTagSet.indexOf(tag) != -1
-                || pNode.getAttribute("onclick") != null
-                || pNode.getAttribute("ondblclick") != null
+                || (tag == "div" && (pNode.getAttribute("onclick") != null || pNode.getAttribute("ondblclick") != null
                 || pNode.getAttribute("onchange") != null
                 || pNode.getAttribute("onkeydown") != null
                 || pNode.getAttribute("onkeypress") != null
@@ -188,7 +186,7 @@ UimAlg.prototype.mark = function(tagObject) {
                 || pNode.getAttribute("onmousedown") != null
                 || pNode.getAttribute("onmouseout") != null
                 || pNode.getAttribute("onmouseover") != null
-                || pNode.getAttribute("onblur") != null ) {
+                || pNode.getAttribute("onblur") != null ))) {
                 var sid = $parent.data(UimConst.SID);
                 if (sid == null) {
                     var pNodeObject = new NodeObject();
