@@ -201,8 +201,14 @@ teJQuery.fn.outerHTML = function() {
 //    var $me = teJQuery("<div/>").append( teJQuery(this[0]).clone() );
 
 //    return teJQuery("<div/>").append( teJQuery(this[0]).clone() ).html();
-    var doc = this[0] ? this[0].ownerDocument : document;
-    return teJQuery('<div/>', doc).append( this.eq(0).clone() ).html();
+    try{
+        var doc = this[0] ? this[0].ownerDocument : document;
+        return teJQuery('<div/>', doc).append( this.eq(0).clone() ).html();
+    }catch(error){
+        fbWarn("Error getting outHTML: " + error.message, error);
+        return "";
+    }
+
 };
 
 function getColor(elem, cssName){

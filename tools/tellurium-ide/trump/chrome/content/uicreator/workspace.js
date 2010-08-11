@@ -20,6 +20,17 @@ function UiCommand(name, ref, value, valueType, uid, seq){
     this.valueType = valueType;
 }
 
+UiCommand.prototype.toString = function(){
+    var sb = new StringBuffer();
+    sb.append("[seq: ").append(this.seq).append(", name: ").append(this.name).append(", value").append(this.value)
+            .append(", value: ").append(this.value).append(", ref:").append(this.ref).append("]");
+    return sb.toString();
+};
+
+UiCommand.prototype.isEqual = function(cmd){
+    return this.name == cmd.name && this.uid == cmd.uid && this.value == cmd.value && this.ref == cmd.ref;
+};
+
 function TeCommand(seq, name, uid, value, valueType, ref){
     this.flag = true;
     this.seq = seq;
@@ -84,7 +95,15 @@ Workspace.prototype.addNode = function(dom, frameName, ref){
 
 Workspace.prototype.addCommand = function(name, ref, value, valueType){
     var command = new UiCommand(name, ref, value, valueType, null, null);
+    if(this.commandList.length > 0){
+        var prevCmd = this.commandList[this.commandList.length-1];
+        if(command.isEqual(prevCmd)){
+            logger.warn("Duplicated command: " + command.toString() + ", ignore it.");
+            return false;
+        }
+    }
     this.commandList.push(command);
+    return true;
 };
 
 Workspace.prototype.clear = function(){
