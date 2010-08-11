@@ -206,7 +206,7 @@ teJQuery.fn.outerHTML = function() {
     return $me.html();*/
 //    return teJQuery("<div/>").append( teJQuery(this[0]).clone() ).html();
     var doc = this[0] ? this[0].ownerDocument : document;
-    return teJQuery('<div>', doc).append( this.eq(0).clone() ).html();
+    return teJQuery('<div/>', doc).append( this.eq(0).clone() ).html();
 };
 
 function getColor(elem, cssName){
