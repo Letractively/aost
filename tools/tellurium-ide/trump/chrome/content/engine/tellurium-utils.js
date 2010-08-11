@@ -981,3 +981,29 @@ function escapedCharacterProof (str){
 
     return str;
 }
+
+(function() {
+    te_special = /[\$\\]/;
+    teJQuery.escape = function jQuery$escape(s) {
+        var left = s.split(te_special, 1)[0];
+        if (left == s) return s;
+        return left + '\\' +
+                s.substr(left.length, 1) +
+                teJQuery.escape(s.substr(left.length + 1));
+    }
+})();
+
+function Escapee(){
+    this.specials = ['#', '&', '~', '=', '>', "'", ':', '"', '!', ';', ','];
+    this.regexSpecials = [ '.', '*', '+', '|', '[', ']', '(', ')', '/', '^', '$'];
+    this.sRE = new RegExp('(' + this.specials.join('|') + '|\\' + this.regexSpecials.join('|\\') + ')', 'g');
+}
+
+Escapee.prototype.escape = function(val){
+    if(val != null && trimString(val).length > 1){
+
+        return val.replace(this.sRE, '\\$1');
+    }
+
+    return val;
+};

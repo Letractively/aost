@@ -204,12 +204,12 @@ App.prototype.toGroovyDsl = function(){
     if(this.pages.length > 0){
         for(var i=0; i<this.pages.length; i++){
             if(this.pages[i].uim != null){
-                sb.append(this.describeUiModule(this.pages[i].uim)).append("\n");
+                sb.append(teJQuery.escape(this.describeUiModule(this.pages[i].uim))).append("\n");
             }
         }
         sb.append(this.describeTestSetup());
         for(var j=0; j<this.pages.length; j++){
-            sb.append(this.describeCommand(this.pages[j].commandList, this.cmdMap)).append("\n");
+            sb.append(teJQuery.escape(this.describeCommand(this.pages[j].commandList, this.cmdMap))).append("\n");
         }
     }
 
@@ -246,7 +246,7 @@ App.prototype.toUiModule = function() {
     if (this.pages.length > 0) {
         for (var i = 0; i < this.pages.length; i++) {
             if (this.pages[i].uim != null) {
-                sb.append(this.describeUiModule(this.pages[i].uim)).append("\n");
+                sb.append(teJQuery.escape(this.describeUiModule(this.pages[i].uim))).append("\n");
             }
         }
         sb.append("\t}\n\n");
@@ -254,7 +254,7 @@ App.prototype.toUiModule = function() {
 
         for(var j=0; j<this.pages.length; j++){
             sb.append("\tpublic void execFlow").append(j+1).append("{\n");
-            sb.append(this.describeCommand(this.pages[j].commandList, this.cmdMap));
+            sb.append(teJQuery.escape(this.describeCommand(this.pages[j].commandList, this.cmdMap)));
             sb.append("\t}\n\n");
         }
         sb.append("}\n");
