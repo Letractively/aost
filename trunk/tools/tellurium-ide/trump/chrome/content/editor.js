@@ -64,13 +64,17 @@ function Editor(window) {
 
 }
 
-Editor.prototype.onDOMContentLoaded = function(event){
-    var recordToolbarButton = document.getElementById("record-button");
-    if(recordToolbarButton.getAttribute("checked")){
-        logger.debug("Register window on DOMContentLoaded");
-        this.recorder.registerForWindow(event.target.defaultView);        
-    }else{
-        this.testRunner.updateDom();
+Editor.prototype.onDOMContentLoaded = function(event) {
+    try {
+        var recordToolbarButton = document.getElementById("record-button");
+        if (recordToolbarButton.getAttribute("checked")) {
+            logger.debug("Register window on DOMContentLoaded");
+            this.recorder.registerForWindow(event.target.defaultView);
+        } else {
+            this.testRunner.updateDom();
+        }
+    } catch(error) {
+        logger.error("Error processing onDOMContentLoaded:\n" + describeErrorStack(error));
     }
 };
 
@@ -234,7 +238,7 @@ Editor.prototype.endRecord = function(){
 //            }
         }
     } catch(error) {
-        logger.error("Error:\n" + describeErrorStack(error));
+        logger.error("Error end record processing:\n" + describeErrorStack(error));
     }
 };
 
