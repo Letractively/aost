@@ -562,7 +562,8 @@ NodeObject.prototype.processNewNode = function(){
         this.setHeaderTrailerForRegularNode();
     }*/
 
-    var pos = this.checkNodePosition();
+//    var pos = this.checkNodePosition();
+    var pos = teJQuery(this.domNode).index();
     if(pos != null){
         this.attributes.set(this.constants.POSITION, new String(pos));
     }
