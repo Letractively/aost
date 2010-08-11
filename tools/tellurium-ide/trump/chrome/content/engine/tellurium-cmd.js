@@ -620,6 +620,7 @@ TelluriumCommandExecutor.prototype.waitForPageToLoad = function(uid, timeout){
     }, timeout);
 
     this.browserBot.pollPageLoad();
+    this.clearCache();
 };
 
 TelluriumCommandExecutor.prototype.onPageLoad = function(){
@@ -658,6 +659,7 @@ TelluriumCommandExecutor.prototype.open = function(uid, url){
     this.browserBot.pageTimeoutTimerId = null;
     //Strange, change the timeout value to 3000, got the error that the dom is not set.
     setTimeout(WaitPageLoad, 1000, self);
+    this.clearCache();
 };
 
 function arrayToString(array){
