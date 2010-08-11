@@ -188,18 +188,15 @@ UimAlg.prototype.reachTop = function($node){
 };
 
 UimAlg.prototype.chooseRoot = function(top){
-    var parent = top;
+    var lowest = top;
 
-    if(parent.newNode && parent.getChildrenSize() == 1){
-        var child = parent.children[0];
-        while(child.newNode && child.getChildrenSize() == 1){
-            parent = child;
-            child = parent.children[0];
-            child.parent = null;
-        }
+    while(lowest.newNode && lowest.getChildrenSize() == 1){
+        lowest = lowest.children[0];
     }
 
-    return child;
+    lowest.parent = null;
+
+    return lowest;
 };
 
 UimAlg.prototype.mark = function(tagObject) {
