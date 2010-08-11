@@ -1,5 +1,6 @@
 import groovy.grape.Grape;
 
+Grape.grab(group:'org.antlr', module:'antlr', version:'3.1.1', classLoader:this.class.classLoader.rootLoader)
 Grape.grab(group:'org.telluriumsource', module:'tellurium-udl', version:'0.8.0-SNAPSHOT', classLoader:this.class.classLoader.rootLoader)
 Grape.grab(group:'org.telluriumsource', module:'tellurium-core', version:'0.8.0-SNAPSHOT', classLoader:this.class.classLoader.rootLoader)
 Grape.grab(group:'org.stringtree', module:'stringtree-json', version:'2.0.10', classLoader:this.class.classLoader.rootLoader)
@@ -12,6 +13,7 @@ Grape.grab(group:'junit', module:'junit', version:'4.7', classLoader:this.class.
 import org.telluriumsource.dsl.DslScriptExecutor
 
 @Grapes([
+   @Grab(group='org.antlr', module='antlr', version='3.1.1'),
    @Grab(group='org.codehaus.groovy', module='groovy-all', version='1.7.0'),
    @Grab(group='org.seleniumhq.selenium.server', module='selenium-server', version='1.0.1-te4-SNAPSHOT'),
    @Grab(group='org.seleniumhq.selenium.client-drivers', module='selenium-java-client-driver', version='1.0.1'),
