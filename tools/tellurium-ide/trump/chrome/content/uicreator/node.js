@@ -57,7 +57,8 @@ NodeObject.prototype.buildFromDomNode = function(domNode){
             attributes.set("text", txt);
         }
 
-        this.node = domNode;
+//        this.node = domNode;
+        this.domNode = domNode;
         this.tag = lowerCaseNodeName;
         this.attributes = attributes;
     }

@@ -3,7 +3,7 @@ var OptionalTagSet = ["input", "select", "table", "form", "ul", "ol", "button", 
 var ContainerTagSet = ["table", "form", "ul", "ol"];
 
 const UimConst = {
-    NODEOBJECT: "nodeObject",
+    NODE_OBJECT: "nodeObject",
     CHILDREN: "children",
     PARENT: "parent",
     SID: "sid",
@@ -27,7 +27,8 @@ UimAlg.prototype.build = function(){
 
         var top = this.reachTop($leaf);
         var root = this.chooseRoot(top);
-
+        this.addExtra(root);
+        
         var tree = new Tree();
         tree.root = root;
         tree.document = this.tagObjectArray[0].node.ownerDocument;
@@ -38,8 +39,22 @@ UimAlg.prototype.build = function(){
     return null;
 };
 
+UimAlg.prototype.addExtra = function(root){
+    var $extras = teJQuery(root.domNode).find(":input, a, form, select, button, table").filter(":visible");
+    if($extras.length > 10){
+        $extras = $extras.filter(":not(a)");
+    }
+
+    for (var i = 0; i < $extras.length; i++) {
+        var $extra = $extras.eq(i);
+        if (!$extra.data("sid")) {
+            this.markNode($extra.get(0));
+        }
+    }
+};
+
 UimAlg.prototype.reachTop = function($node){
-    var nodeObject = $node.data(UimConst.NODEOBJECT);
+    var nodeObject = $node.data(UimConst.NODE_OBJECT);
     var top = nodeObject;
     while(top != null && top.parent != null){
         top = top.parent;
@@ -60,18 +75,16 @@ UimAlg.prototype.chooseRoot = function(top){
     return lowest;
 };
 
-UimAlg.prototype.mark = function(tagObject) {
-    var node = tagObject.node;
+UimAlg.prototype.markNode = function(node) {
     var $current = teJQuery(node);
-    var nodeObject = $current.data(UimConst.NODEOBJECT);
+    var nodeObject = $current.data(UimConst.NODE_OBJECT);
     if (nodeObject == null) {
         nodeObject = new NodeObject();
-        nodeObject.domNode = node;
-        nodeObject.refId = tagObject.refId;
-        nodeObject.attributes = tagObject.attributes;
-        nodeObject.id = this.suggestName(tagObject.tag, tagObject.attributes);
-        nodeObject.tag = tagObject.tag;
-        $current.data(UimConst.NODEOBJECT, nodeObject);
+        nodeObject.buildFromDomNode(node);
+        nodeObject.refId = this.refIdSetter.getRefId();
+        nodeObject.newNode = true;
+        nodeObject.id = this.suggestName(nodeObject.tag, nodeObject.attributes);
+        $current.data(UimConst.NODE_OBJECT, nodeObject);
         this.markedNodeArray.push($current);
     }
     var $parent = $current.parent();
@@ -97,9 +110,9 @@ UimAlg.prototype.mark = function(tagObject) {
                     pNodeObject.refId = this.refIdSetter.getRefId();
                     pNodeObject.newNode = true;
                     pNodeObject.id = this.suggestName(pNodeObject.tag, pNodeObject.attributes);
-                    var cNodeObject = $current.data(UimConst.NODEOBJECT);
+                    var cNodeObject = $current.data(UimConst.NODE_OBJECT);
                     pNodeObject.addChild(cNodeObject);
-                    $parent.data(UimConst.NODEOBJECT, pNodeObject);
+                    $parent.data(UimConst.NODE_OBJECT, pNodeObject);
                     $parent.data(UimConst.SID, pNodeObject.refId);
                     cNodeObject.parent = pNodeObject;
                     this.markedNodeArray.push($parent);
@@ -111,15 +124,92 @@ UimAlg.prototype.mark = function(tagObject) {
                         tag = $parent.get(0).tagName.toLowerCase();
                     }
                 } else {
-                    var pNodeObject = $parent.data(UimConst.NODEOBJECT);
+                    var pNodeObject = $parent.data(UimConst.NODE_OBJECT);
                     if (pNodeObject == null) {
                         pNodeObject.buildFromDomNode($parent.get(0));
                         pNodeObject.refId = sid;
                         pNodeObject.id = this.suggestName(pNodeObject.tag, pNodeObject.attributes);
-                        $parent.data(UimConst.NODEOBJECT, pNodeObject);
+                        $parent.data(UimConst.NODE_OBJECT, pNodeObject);
                         this.markedNodeArray.push($parent);
                     }
-                    var cNodeObject = $current.data(UimConst.NODEOBJECT);
+                    var cNodeObject = $current.data(UimConst.NODE_OBJECT);
+                    pNodeObject.addChild(cNodeObject);
+                    cNodeObject.parent = pNodeObject;
+
+                    break;
+                }
+            } else {
+                $parent = $parent.parent();
+                if($parent == undefined || $parent == null || $parent.size() == 0){
+                    break;
+                }else{
+                    tag = $parent.get(0).tagName.toLowerCase();
+                }
+            }
+        }
+    }
+};
+
+UimAlg.prototype.mark = function(tagObject) {
+    var node = tagObject.node;
+    var $current = teJQuery(node);
+    var nodeObject = $current.data(UimConst.NODE_OBJECT);
+    if (nodeObject == null) {
+        nodeObject = new NodeObject();
+        nodeObject.domNode = node;
+        nodeObject.refId = tagObject.refId;
+        nodeObject.attributes = tagObject.attributes;
+        nodeObject.id = this.suggestName(tagObject.tag, tagObject.attributes);
+        nodeObject.tag = tagObject.tag;
+        $current.data(UimConst.NODE_OBJECT, nodeObject);
+        this.markedNodeArray.push($current);
+    }
+    var $parent = $current.parent();
+    if ($parent.size() > 0) {
+        var tag = $parent.get(0).tagName.toLowerCase();
+        while (tag != "html" && tag != "body") {
+            var pNode = $parent.get(0);
+            if (ContainerTagSet.indexOf(tag) != -1
+                || pNode.getAttribute("onclick") != null
+                || pNode.getAttribute("ondblclick") != null
+                || pNode.getAttribute("onchange") != null
+                || pNode.getAttribute("onkeydown") != null
+                || pNode.getAttribute("onkeypress") != null
+                || pNode.getAttribute("onkeyup") != null
+                || pNode.getAttribute("onmousedown") != null
+                || pNode.getAttribute("onmouseout") != null
+                || pNode.getAttribute("onmouseover") != null
+                || pNode.getAttribute("onblur") != null ) {
+                var sid = $parent.data(UimConst.SID);
+                if (sid == null) {
+                    var pNodeObject = new NodeObject();
+                    pNodeObject.buildFromDomNode($parent.get(0));
+                    pNodeObject.refId = this.refIdSetter.getRefId();
+                    pNodeObject.newNode = true;
+                    pNodeObject.id = this.suggestName(pNodeObject.tag, pNodeObject.attributes);
+                    var cNodeObject = $current.data(UimConst.NODE_OBJECT);
+                    pNodeObject.addChild(cNodeObject);
+                    $parent.data(UimConst.NODE_OBJECT, pNodeObject);
+                    $parent.data(UimConst.SID, pNodeObject.refId);
+                    cNodeObject.parent = pNodeObject;
+                    this.markedNodeArray.push($parent);
+                    $current = $parent;
+                    $parent = $parent.parent();
+                    if ($parent == undefined || $parent == null || $parent.size() == 0) {
+                        break;
+                    } else {
+                        tag = $parent.get(0).tagName.toLowerCase();
+                    }
+                } else {
+                    var pNodeObject = $parent.data(UimConst.NODE_OBJECT);
+                    if (pNodeObject == null) {
+                        pNodeObject.buildFromDomNode($parent.get(0));
+                        pNodeObject.refId = sid;
+                        pNodeObject.id = this.suggestName(pNodeObject.tag, pNodeObject.attributes);
+                        $parent.data(UimConst.NODE_OBJECT, pNodeObject);
+                        this.markedNodeArray.push($parent);
+                    }
+                    var cNodeObject = $current.data(UimConst.NODE_OBJECT);
                     pNodeObject.addChild(cNodeObject);
                     cNodeObject.parent = pNodeObject;
 
