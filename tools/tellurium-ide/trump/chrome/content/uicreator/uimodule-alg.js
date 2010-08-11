@@ -1,5 +1,7 @@
 //New UI Module generation Algorithm
 var OptionalTagSet = ["input", "select", "table", "form", "ul", "ol", "button", "a"];
+var ContainerTagSet = ["table", "form", "ul", "ol"];
+
 const UimConst = {
     NODEOBJECT: "nodeObject",
     CHILDREN: "children",
@@ -76,7 +78,18 @@ UimAlg.prototype.mark = function(tagObject) {
     if ($parent.size() > 0) {
         var tag = $parent.get(0).tagName.toLowerCase();
         while (tag != "html" && tag != "body") {
-            if (OptionalTagSet.indexOf(tag) != -1) {
+            var pNode = $parent.get(0);
+            if (ContainerTagSet.indexOf(tag) != -1
+                || pNode.getAttribute("onclick") != null
+                || pNode.getAttribute("ondblclick") != null
+                || pNode.getAttribute("onchange") != null
+                || pNode.getAttribute("onkeydown") != null
+                || pNode.getAttribute("onkeypress") != null
+                || pNode.getAttribute("onkeyup") != null
+                || pNode.getAttribute("onmousedown") != null
+                || pNode.getAttribute("onmouseout") != null
+                || pNode.getAttribute("onmouseover") != null
+                || pNode.getAttribute("onblur") != null ) {
                 var sid = $parent.data(UimConst.SID);
                 if (sid == null) {
                     var pNodeObject = new NodeObject();
