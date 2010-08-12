@@ -597,7 +597,15 @@ Editor.prototype.selectUiCommand = function(){
             }else{
                 document.getElementById("commandReturnResult").value = "";
             }
-
+            if (cmd.returnVariable != undefined) {
+                var value = cmd.returnVariable;
+                if (typeof(value) == "object" && value["toString"] != undefined) {
+                    value = value.toString();
+                }
+                document.getElementById("returnValueVariable").value = value;
+            }else{
+                document.getElementById("returnValueVariable").value = "";
+            }
         }
 
     } catch(error) {
@@ -656,6 +664,8 @@ Editor.prototype.cleanCommandView = function(){
     document.getElementById("updateCommandName").value = "";
     document.getElementById("updateCommandUID").value = "";
     document.getElementById("updateCommandValue").value = "";
+    document.getElementById("commandReturnResult").value = "";
+    document.getElementById("returnValueVariable").value = "";
     Editor.GENERIC_AUTOCOMPLETE.clearCandidates(XulUtils.toXPCOMString(this.autoCompleteSearchParams["updateCommandName"]));
     Editor.GENERIC_AUTOCOMPLETE.clearCandidates(XulUtils.toXPCOMString(this.autoCompleteSearchParams["updateCommandUID"]));
 
