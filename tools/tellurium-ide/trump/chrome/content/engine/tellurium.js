@@ -231,7 +231,7 @@ function getColor(elem, cssName){
 }
 
 function Identifier(sn){
-    if(sn){
+    if(sn != undefined){
         this.sn = sn;
     }else{
         this.sn = 100;
