@@ -48,7 +48,7 @@
 <!ENTITY recordedCommandVariable.label "AssignedTo">
 <!ENTITY recordedCommandResult.label "Status">
 <!ENTITY updateCommandName.label "Name">
-<!ENTITY updateCommandUID.label "UID">
+<!ENTITY updateCommandUID.label "Target">
 <!ENTITY updateCommandValue.label "Value">
 <!ENTITY updateCommand.label "Update">
 <!ENTITY removeCommand.label "Remove">
