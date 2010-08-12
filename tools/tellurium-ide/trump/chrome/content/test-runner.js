@@ -70,6 +70,34 @@ var TestObserverList = TestObserver.extend({
     }
 });
 
+var TestResultObserver = TestObserver.extend({
+    init: function(doc) {
+        this.document = doc;
+    },
+
+    cmdStart: function(cmd) {
+        document.getElementById("commandReturnResult").value = "";
+    },
+
+    cmdSucceed: function(cmd) {
+        if(cmd.returnValue != undefined){
+            var value = cmd.returnValue;
+            if(typeof(value) == "object" && value["toString"] != undefined){
+                value = value.toString();
+            }
+            document.getElementById("commandReturnResult").value = value;
+        }
+    },
+
+    cmdFailed: function(cmd) {
+
+    },
+
+    clear: function(){
+        document.getElementById("commandReturnResult").value = "";
+    }
+});
+
 var TestRunner = Class.extend({
     init: function() {
         this.running = false;
@@ -168,8 +196,10 @@ var TestRunner = Class.extend({
                 this.useUiModule(cmd.uid);
             }
             var result = this.cmdExecutor.run(cmd.name, cmd.uid, cmd.value);
-            if(result)
+            if(result != undefined){
                 logger.debug("Command Result: " + result);
+                cmd.returnValue = result;
+            }
             this.observers.cmdSucceed(cmd);
         } catch(error) {
             this.observers.cmdFailed(cmd);

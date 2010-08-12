@@ -48,8 +48,11 @@ function Editor(window) {
 
     this.registerCommands();
 
+    this.testResultObserver = new TestResultObserver(document);
+
     this.testRunner = new TestRunner();
     this.testRunner.addObserver(this.cmdView);
+    this.testRunner.addObserver(this.testResultObserver);
     
 //    this.options = new Preferences();
 
@@ -110,15 +113,21 @@ Editor.prototype.registerCommands = function(){
     this.commandList.push("isChecked");
     this.commandList.push("isVisible");
     this.commandList.push("getCSS");
+    this.commandList.push("getCSSAsString");
     this.commandList.push("isDisable");
     this.commandList.push("showUI");
     this.commandList.push("cleanUI");
     this.commandList.push("getHTMLSource");
+    this.commandList.push("getHTMLSourceAsString");
     this.commandList.push("getUids");
+    this.commandList.push( "getUidsAsString");
     this.commandList.push("getCssSelectorCount");
     this.commandList.push("getCssSelectorMatch");
+    this.commandList.push("getCssSelectorMatchAsString");
     this.commandList.push("validateUiModule");
+    this.commandList.push("validateUiModuleAsString");
     this.commandList.push("toJSON");
+    this.commandList.push("toJSONString");
     this.commandList.push("waitForPageToLoad");
     this.commandList.sort();
     this.commandMap.put("getHTMLSource", "getHTMLSourceAsString");
@@ -233,9 +242,6 @@ Editor.prototype.endRecord = function(){
             this.testRunner.prepareFor(app);
             var commandList = this.testRunner.commandList;
             this.cmdView.setTestCommands(commandList);
-//            for (var i = 0; i < commandList.length; i++) {
-//                this.cmdView.rowInserted();
-//            }
         }
     } catch(error) {
         logger.error("Error end record processing:\n" + describeErrorStack(error));

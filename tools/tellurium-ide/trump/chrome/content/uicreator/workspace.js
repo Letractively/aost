@@ -18,6 +18,8 @@ function UiCommand(name, ref, value, valueType, uid, seq){
     this.uid = uid;
     this.seq = seq;
     this.valueType = valueType;
+    this.returnValue = null;
+    this.returnVariable = null;
 }
 
 UiCommand.prototype.toString = function(){
@@ -40,6 +42,8 @@ function TeCommand(seq, name, uid, value, valueType, ref){
     this.valueType = valueType;
     this.ref = ref;
     this.result = "";
+    this.returnValue = null;
+    this.returnVariable = null;
 }
 
 function Workspace(uiBuilder, uiChecker, refIdSetter){
