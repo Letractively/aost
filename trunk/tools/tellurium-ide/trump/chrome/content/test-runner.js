@@ -96,7 +96,7 @@ var TestRunner = Class.extend({
     prepareFor: function(app) {
         this.app = app;
         this.commandList = this.app.getCommandList();
-        this.uimMap = this.app.map;
+        this.uimMap = this.app.uimMap;
         this.currentIndex = -1;
         this.running = false;
     },

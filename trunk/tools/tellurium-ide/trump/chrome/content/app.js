@@ -14,11 +14,12 @@ function UiPage(){
 
 function App(){
     this.pages = new Array();
-    this.map = new Hashtable();
+    this.uimMap = new Hashtable();
     this.cmdIndex = new Hashtable();
     this.uiAlg = new UiAlg();
     this.refUidMap = null;
     this.cmdMap = new Hashtable();
+    this.identifier = new Identifier(0);
     this.initCmdMap();
 }
 
@@ -28,7 +29,7 @@ App.prototype.initCmdMap = function(){
 
 App.prototype.clearAll = function(){
     this.pages = new Array();
-    this.map = new Hashtable();
+    this.uimMap = new Hashtable();
     this.cmdIndex = new Hashtable();
     this.refUidMap = null;
 };
@@ -42,7 +43,7 @@ App.prototype.updateCommand = function(cmd){
     }
 };
 
-App.prototype.updateCommandList = function() {
+/*App.prototype.updateCommandList = function() {
     if (this.pages != null && this.pages.length > 0) {
         for (var i = 0; i < this.pages.length; i++) {
             var commandList = this.pages[i].commandList;
@@ -54,6 +55,31 @@ App.prototype.updateCommandList = function() {
                         if (uid != null && cmd.uid != uid) {
                             cmd.uid = uid;
                         }
+                    }
+                }
+            }
+        }
+    }
+};*/
+
+App.prototype.updateCommandList = function() {
+    if (this.pages != null && this.pages.length > 0) {
+        for (var i = 0; i < this.pages.length; i++) {
+            this.updateCommandListForPage(this.pages[i]);
+        }
+    }
+};
+
+App.prototype.updateCommandListForPage = function(page) {
+    if (page != null) {
+        var commandList = page.commandList;
+        if (commandList != null && commandList.length > 0) {
+            for (var i = 0; i < commandList.length; i++) {
+                var cmd = commandList[i];
+                if (this.refUidMap != null && cmd.ref != null) {
+                    var uid = this.refUidMap.get(cmd.ref);
+                    if (uid != null && cmd.uid != uid) {
+                        cmd.uid = uid;
                     }
                 }
             }
@@ -85,7 +111,14 @@ App.prototype.getRefUidMapFor = function(uid){
     uiid.convertToUiid(uid);
 
     var first = uiid.peek();
-    var uim = this.map.get(first);
+    var uim = this.uimMap.get(first);
+//    this.refUidMap = uim.buildRefUidMap();
+
+//    return this.refUidMap;
+    return this.getRefUidMapForUim(uim);
+};
+
+App.prototype.getRefUidMapForUim = function(uim){
     this.refUidMap = uim.buildRefUidMap();
 
     return this.refUidMap;
@@ -98,7 +131,7 @@ App.prototype.getUids = function(uid) {
     uiid.convertToUiid(uid);
 
     var first = uiid.peek();
-    var uim = this.map.get(first);
+    var uim = this.uimMap.get(first);
 //    uid = first;
 //    uiid.convertToUiid(uid);
     if (uim != null) {
@@ -133,16 +166,16 @@ App.prototype.getUiModule = function(uid){
 
     var first = uiid.peek();
 
-    return this.map.get(first);
+    return this.uimMap.get(first);
 };
 
 App.prototype.getUiModules = function(){
-    return this.map.valSet();
+    return this.uimMap.valSet();
 };
 
 App.prototype.updateUiModule = function(oldId, uim){
-    this.map.remove(oldId);
-    this.map.put(uim.id, uim);
+    this.uimMap.remove(oldId);
+    this.uimMap.put(uim.id, uim);
 };
 
 App.prototype.walkToUiObject = function(uid){
@@ -151,7 +184,7 @@ App.prototype.walkToUiObject = function(uid){
 
     var first = uiid.peek();
 
-    var uim = this.map.get(first);
+    var uim = this.uimMap.get(first);
 
     if(uim != null){
         return uim.walkTo(new WorkflowContext(), uiid);
@@ -166,10 +199,25 @@ App.prototype.savePage = function(window, uim, dom, commandList){
     page.uim = uim;
     page.dom = dom;
     page.commandList = commandList;
+    //prevent duplicated uim root name
+    if(uim != null){
+        var um = this.uimMap.get(uim.id);
+        if(um != null){
+            //found duplicated root name
+            var newName = uim.id + this.identifier.next();
+            uim.id = newName;
+            if(uim.root != null){
+                uim.root.uid = newName;
+            }
+            uim.postUidChange();
+            this.getRefUidMapForUim(uim);
+            this.updateCommandListForPage(page);
+        }
+
+        this.uimMap.put(uim.id, uim);
+    }
 
     this.pages.push(page);
-    if(uim != null)
-        this.map.put(uim.id, uim);
 };
 
 App.prototype.toSource = function(){
