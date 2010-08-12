@@ -679,6 +679,14 @@ Editor.prototype.updateUiCommand = function(){
     }
 };
 
+Editor.prototype.assignCommandResultToVariable= function(){
+    if(this.currentSelectedCommand != null){
+        logger.debug("Assigned return value to variable for command " + this.currentSelectedCommand.seq);
+        var variableName = document.getElementById("returnValueVariable").value;
+
+    }
+};
+
 Editor.prototype.removeUiCommand = function(){
 
 };

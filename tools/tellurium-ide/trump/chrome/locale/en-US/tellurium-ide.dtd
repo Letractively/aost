@@ -73,8 +73,9 @@
 <!ENTITY historyCommandParam.label "Param">
 <!ENTITY commandHistory.label "Command History">
 <!ENTITY runCommandBox.label "Run Command">
-<!ENTITY commandResult.label "Result">
+<!ENTITY commandResult.label "Return Value">
 <!ENTITY uiModuleId.label "UI Module">
+<!ENTITY assignCommandResult.label "Assign To">
 
 <!ENTITY options.label "Settings">
 <!ENTITY options.general.label "General">
