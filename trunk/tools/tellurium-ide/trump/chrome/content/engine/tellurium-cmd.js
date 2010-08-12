@@ -304,6 +304,21 @@ TelluriumCommandExecutor.prototype.select = function(uid, optionLocator){
     this.execCommand("select", uid, optionSelector);
 };
 
+TelluriumCommandExecutor.prototype.selectByLabel = function(uid, option){
+    var optionSelector = this.getOptionSelector("label=" + option);
+    this.execCommand("select", uid, optionSelector);
+};
+
+TelluriumCommandExecutor.prototype.selectByIndex = function(uid, option){
+    var optionSelector = this.getOptionSelector("index=" + option);
+    this.execCommand("select", uid, optionSelector);
+};
+
+TelluriumCommandExecutor.prototype.selectByValue = function(uid, option){
+    var optionSelector = this.getOptionSelector("value=" + option);
+    this.execCommand("select", uid, optionSelector);
+};
+
 TelluriumCommandExecutor.prototype.getText = function(uid) {
     return this.execCommand("getText", uid);
 };

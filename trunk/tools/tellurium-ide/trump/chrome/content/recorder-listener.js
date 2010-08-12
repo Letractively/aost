@@ -68,7 +68,23 @@ Recorder.prototype.selectListener = function(event) {
         if (!event.target.multiple) {
             var option = event.target.options[event.target.selectedIndex];
             logger.debug('selected Index=' + event.target.selectedIndex);
-            recorder.recordCommand("select", event.target, recorder.getTextReg(option), ValueType.STRING);
+            var optionLocator = recorder.getTextReg(option);
+            var cmdName;
+            var target;
+            if(optionLocator.startsWith("label=")){
+                cmdName = "selectByLabel";
+                target = optionLocator.substring(6);
+            }else if(optionLocator.startsWith("index=")){
+                cmdName = "selectByIndex";
+                target = optionLocator.substring(6);
+            }else if(optionLocator.startsWith("value=")){
+                cmdName = "selectByValue";
+                target = optionLocator.substring(6);
+            }else{
+                cmdName = "select";
+                target = optionLocator;
+            }
+            recorder.recordCommand(cmdName, event.target, target, ValueType.STRING);
         } else {
             logger.debug('change selection on select-multiple');
             var options = event.target.options;
