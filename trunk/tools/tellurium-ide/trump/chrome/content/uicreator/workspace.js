@@ -127,9 +127,9 @@ Workspace.prototype.convertCommand = function(){
             var uid = null;
             if(cmd.ref != null){
                 uid = this.refUidMap.get(cmd.ref);                
+                if(uid == null)
+                    logger.warn("Cannot find UID for reference ID " + cmd.ref + " for command " + cmd.name);
             }
-//            if(uid == undefined)
-//                logger.warn("Cannot find UID for reference ID " + cmd.ref + " for command " + cmd.name);
             var ccmd = new UiCommand(cmd.name, cmd.ref, cmd.value, cmd.valueType, uid, this.sequence.next());
             this.convertedCommandList.push(ccmd);
         }
@@ -295,7 +295,7 @@ Workspace.prototype.selectExtraNodes = function(root){
     }
 
 
-    var $extras = $top.find(":input, a, select, button, table").filter(":visible");
+    var $extras = $top.find("input, a, select, button, table, form, label").filter(":visible");
     if($extras.length > 10){
         $extras = $extras.filter(":not(a)");
     }
