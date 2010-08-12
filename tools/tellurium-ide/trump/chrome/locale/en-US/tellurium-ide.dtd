@@ -45,6 +45,7 @@
 <!ENTITY recordedCommandName.label "Name">
 <!ENTITY recordedCommandUid.label "Target">
 <!ENTITY recordedCommandValue.label "Value">
+<!ENTITY recordedCommandVariable.label "AssignedTo">
 <!ENTITY recordedCommandResult.label "Status">
 <!ENTITY updateCommandName.label "Name">
 <!ENTITY updateCommandUID.label "UID">

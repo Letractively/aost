@@ -588,6 +588,16 @@ Editor.prototype.selectUiCommand = function(){
             }else{
                 cmdValue.value = "";
             }
+            if (cmd.returnValue != undefined) {
+                var value = cmd.returnValue;
+                if (typeof(value) == "object" && value["toString"] != undefined) {
+                    value = value.toString();
+                }
+                document.getElementById("commandReturnResult").value = value;
+            }else{
+                document.getElementById("commandReturnResult").value = "";
+            }
+
         }
 
     } catch(error) {

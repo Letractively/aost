@@ -121,10 +121,18 @@ var CommandView  = {
         }
 
         if(column == "recordedCommandValue"){
-            if(command.value == null || command.value == undefined){
+            if(command.value == undefined || command.value == null){
                 return "";
             }else{
                 return command.value;
+            }
+        }
+
+        if(column == "recordedCommandVariable"){
+            if(command.returnVariable == undefined || command.returnVariable == null){
+                return "";
+            }else{
+                return command.returnVariable;
             }
         }
 
@@ -133,7 +141,6 @@ var CommandView  = {
         }
 
         throw Error("Invalid pass in value: row= " + row + ", aColumn=" + aColumn + ", column=" + column + ", command=" + command.name);
-//        return "todo.."
     },
 
     setTree: function(treebox){
