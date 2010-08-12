@@ -89,15 +89,25 @@ App.prototype.updateCommandListForPage = function(page) {
 
 App.prototype.getCommandList = function(){
     var list = new Array();
+    var prevCmd = null;
+    var skip = false;
     if(this.pages != null && this.pages.length > 0){
         for(var i=0; i<this.pages.length; i++){
             var commandList = this.pages[i].commandList;
             if(commandList != null && commandList.length > 0){
-                for(var j=0; j<commandList.length; j++){
+                for(var j=0; j<commandList.length; j++) {
                     var uiCmd = commandList[j];
-                    this.cmdIndex.put(uiCmd.seq, uiCmd);
-                    var cmd = new TeCommand(uiCmd.seq, uiCmd.name, uiCmd.uid, uiCmd.value, uiCmd.valueType, uiCmd.ref);
-                    list.push(cmd);
+                    skip = false;
+                    if (prevCmd != null && "waitForPageToLoad" == prevCmd.name && "waitForPageToLoad" == uiCmd.name) {
+                        logger.warn("Duplicated waitForPageToLoad, ignore it");
+                        skip = true;
+                    }
+                    if (!skip) {
+                        this.cmdIndex.put(uiCmd.seq, uiCmd);
+                        var cmd = new TeCommand(uiCmd.seq, uiCmd.name, uiCmd.uid, uiCmd.value, uiCmd.valueType, uiCmd.ref);
+                        list.push(cmd);
+                        prevCmd = uiCmd;
+                    }
                 }
             }
         }
