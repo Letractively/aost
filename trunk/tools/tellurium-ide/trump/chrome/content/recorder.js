@@ -56,9 +56,9 @@ Recorder.prototype.attachActionListeners = function(window){
                 }
             },
      false);
-    teJQuery(window.document).find(":input, a, link, select, textarea, button, table, tr, td, th, div, span, label").live("change", {recorder: this}, this.typeListener);
-    teJQuery(window.document).find(":input, a, link, select, textarea, button, table, tr, td, th, div, span, label").live("click", {recorder: this}, this.clickListener);
-    teJQuery(window.document).find(":input, a, link, textarea, button, table, tr, td, th, div, span, label").live("mousedown", {recorder: this}, this.rememberClickedListener);
+    teJQuery(window.document).find("input, a, p, link, select, textarea, button, table, tr, td, th, div, span, label").live("change", {recorder: this}, this.typeListener);
+    teJQuery(window.document).find("input, a, p, link, select, textarea, button, table, tr, td, th, div, span, label").live("click", {recorder: this}, this.clickListener);
+    teJQuery(window.document).find("input, a, p, link, textarea, button, table, tr, td, th, div, span, label").live("mousedown", {recorder: this}, this.rememberClickedListener);
     teJQuery(window.document).find("select, option").live("focus", {recorder: this}, this.selectFocusListener);
     teJQuery(window.document).find("select, option").live("mousedown", {recorder: this}, this.selectMousedownListener);
     teJQuery(window.document).find("select, option").live("change", {recorder: this}, this.selectListener);
@@ -67,9 +67,9 @@ Recorder.prototype.attachActionListeners = function(window){
 Recorder.prototype.detachActionListeners = function(window){
     logger.debug("Detaching listeners for action...");
 
-    teJQuery(window.document).find(":input, a, link, select, textarea, button, table, tr, td, th, div, span, label").die("change", this.typeListener);
-    teJQuery(window.document).find(":input, a, link, select, textarea, button, table, tr, td, th, div, span, label").die("click", this.clickListener);
-    teJQuery(window.document).find(":input, a, link, textarea, button, table, tr, td, th, div, span, label").die("mousedown", this.rememberClickedListener);
+    teJQuery(window.document).find("input, a, p, link, select, textarea, button, table, tr, td, th, div, span, label").die("change", this.typeListener);
+    teJQuery(window.document).find("input, a, p, link, select, textarea, button, table, tr, td, th, div, span, label").die("click", this.clickListener);
+    teJQuery(window.document).find("input, a, p, link, textarea, button, table, tr, td, th, div, span, label").die("mousedown", this.rememberClickedListener);
     teJQuery(window.document).find("select, option").die("focus", this.selectFocusListener);
     teJQuery(window.document).find("select, option").die("mousedown", this.selectMousedownListener);
     teJQuery(window.document).find("select, option").die("change", this.selectListener);
