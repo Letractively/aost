@@ -228,7 +228,7 @@
                                 <rows>
                                     <row>
                                         <label control="commandResult" value="&commandResult.label;"/>
-                                        <textbox id="commandResult" value=""/>
+                                        <textbox id="commandReturnResult" value=""/>
                                         <button label="&assignCommandResult.label;"
                                                 oncommand="window.editor.assignCommandResultToVariable()"/>
                                         <textbox id="returnValueVariable" value=""/>
