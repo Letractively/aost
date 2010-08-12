@@ -41,7 +41,7 @@ UimAlg.prototype.build = function(){
 };
 
 UimAlg.prototype.addExtra = function(root){
-    var $extras = teJQuery(root.domNode).find(":input, a, form, select, button, table").filter(":visible");
+    var $extras = teJQuery(root.domNode).find("input, a, link, form, select, button, table").filter(":visible");
     if($extras.length > 10){
         $extras = $extras.filter(":not(a)");
     }
