@@ -16,7 +16,7 @@
     xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
     xmlns:html="http://www.w3.org/1999/xhtml"
     width="800"
-    height="580"
+    height="600"
     onload="new Editor(window)"
     onunload="window.editor.unload()"
     onclose="return window.editor.close()">
@@ -209,7 +209,7 @@
                                                      <button label="&updateCommand.label;" oncommand="window.editor.updateUiCommand()" flex="1"/>
                                                      <button label="&removeCommand.label;" oncommand="window.editor.removeUiCommand()" flex="1"/>
                                                      <button label="&insertBeforeCommand.label;" oncommand="window.editor.insertBeforeUiCommand()" flex="1"/>
-                                                     <button label="&insertAfterCommand.label;" oncommand="window.editor.insertAfterUiCommand()" flex="1"/>                                                     
+                                                     <button label="&insertAfterCommand.label;" oncommand="window.editor.insertAfterUiCommand()" flex="1"/>
                                                  </row>
                                              </rows>
                                          </grid>
@@ -217,6 +217,26 @@
                                  </rows>
                              </grid>
                          </vbox>
+                        <vbox>
+                            <grid flex="1">
+                                <columns>
+                                    <column/>
+                                    <column flex="1"/>
+                                    <column/>
+                                    <column/>
+                                </columns>
+                                <rows>
+                                    <row>
+                                        <label control="commandResult" value="&commandResult.label;"/>
+                                        <textbox id="commandResult" value=""/>
+                                        <button label="&assignCommandResult.label;"
+                                                oncommand="window.editor.assignCommandResultToVariable()"/>
+                                        <textbox id="returnValueVariable" value=""/>
+                                    </row>
+                                </rows>
+                            </grid>
+
+                        </vbox>
                      </groupbox>
                     <splitter collapse="after" ><grippy /></splitter>
                     <groupbox flex="1">
