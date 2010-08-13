@@ -823,11 +823,16 @@ printStackTrace.implementation.prototype = {
 };
 
 function describeErrorStack(error){
-    var message = "message: " + error.message + ", name: " + error.name + ", filename: " + error.fileName + ", linenumber: " + error.lineNumber +". \n";
-    var jstack = printStackTrace({e: error});
-    if (jstack != null && typeof(jstack) != 'undefined') {
-        message = message + "JavaScript Error Stack: \n" + jstack.join('\n\n');
+    var message = "message: " + error.message + ", name: " + error.name + ", filename: " + error.fileName + ", linenumber: " + error.lineNumber + ". \n";
+    try {
+        var jstack = printStackTrace({e: error});
+        if (jstack != null && typeof(jstack) != 'undefined') {
+            message = message + "JavaScript Error Stack: \n" + jstack.join('\n\n');
+        }
+    } catch(e) {
+
     }
+
     return message;
 }
 
