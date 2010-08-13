@@ -41,19 +41,20 @@ function Editor(window) {
 
     this.command = new TelluriumCommandExecutor();
 
-    this.commandList = new Array();
+//    this.commandList = new Array();
 
     //Map the command, because some command needs to convert the format for display, for example, array to String
     this.commandMap = new Hashtable();
 
-    this.registerCommands();
+//    this.registerCommands();
 
     this.testResultObserver = new TestResultObserver(document);
 
     this.testRunner = new TestRunner();
     this.testRunner.addObserver(this.cmdView);
     this.testRunner.addObserver(this.testResultObserver);
-    
+    this.commandList = this.testRunner.cmdExecutor.getCommandList();
+
 //    this.options = new Preferences();
 
     //Detect the browser properties

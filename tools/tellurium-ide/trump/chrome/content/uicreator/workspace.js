@@ -11,14 +11,7 @@ const ValueType = {
     OBJECT: 'object'
 };
 
-const CommandType = {
-    ACTION: "action",
-    ACCESSOR: "accessor",
-    ASSERTION: "assertion"
-};
-
 function UiCommand(name, ref, value, valueType, uid, seq){
-    this.cmdType = null;
     this.name = name;
     this.value = value;
     this.ref = ref;

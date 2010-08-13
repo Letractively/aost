@@ -192,8 +192,11 @@ var TestRunner = Class.extend({
         try {
             logger.debug("Running test [name: " + cmd.name + ", uid: " + cmd.uid + ", value: " + cmd.value + "]");
             this.observers.cmdStart(cmd);
-            if(cmd.uid != null){
-                this.useUiModule(cmd.uid);
+            var tcmd = this.cmdExecutor.getCommand(cmd.name);
+            if (tcmd.type != CommandType.ASSERTION) {
+                if (cmd.uid != null) {
+                    this.useUiModule(cmd.uid);
+                }
             }
             var result = this.cmdExecutor.run(cmd.name, cmd.uid, cmd.value);
             if(result != undefined){
