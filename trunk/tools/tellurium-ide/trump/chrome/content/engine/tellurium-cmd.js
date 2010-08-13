@@ -1,3 +1,26 @@
+
+const CommandType = {
+    ACTION: "action",
+    ACCESSOR: "accessor",
+    ASSERTION: "assertion"
+};
+
+const ReturnType = {
+    VOID: "void",
+    BOOLEAN: "boolean",
+    STRING: "string",
+    ARRAY: "Array",
+    NUMBER: "number",
+    OBJECT: "object"
+};
+
+function TelluriumCommand(name, type, returnType, handler){
+    this.name = name;
+    this.type = type;
+    this.returnType = returnType;
+    this.handler = handler;
+}
+
 function TelluriumCommandExecutor(){
 
     this.browserBot = browserBot;
@@ -9,7 +32,79 @@ function TelluriumCommandExecutor(){
     this.uiAlg = new UiAlg(); 
 
     this.cssBuilder = new JQueryBuilder();
+
+    this.cmdMap = new Hashtable();
+
+    this.registerCommands();
 }
+
+TelluriumCommandExecutor.prototype.registerCommand = function(name, type, returnType, handler){
+    var cmd = new TelluriumCommand(name, type, returnType, handler);
+    this.cmdMap.put(name, cmd);
+};
+
+TelluriumCommandExecutor.prototype.registerCommands = function(){
+    this.registerCommand("open", CommandType.ACTION, ReturnType.VOID, this.open);
+    this.registerCommand("blur", CommandType.ACTION, ReturnType.VOID, this.blur);
+    this.registerCommand("click", CommandType.ACTION, ReturnType.VOID, this.click);
+    this.registerCommand("clickAt", CommandType.ACTION, ReturnType.VOID, this.clickAt);
+    this.registerCommand("doubleClick", CommandType.ACTION, ReturnType.VOID, this.doubleClick);
+    this.registerCommand("fireEvent", CommandType.ACTION, ReturnType.VOID, this.fireEvent);
+    this.registerCommand("focus", CommandType.ACTION, ReturnType.VOID, this.focus);
+    this.registerCommand("type", CommandType.ACTION, ReturnType.VOID, this.type);
+    this.registerCommand("typeKey", CommandType.ACTION, ReturnType.VOID, this.typeKey);
+    this.registerCommand("keyDown", CommandType.ACTION, ReturnType.VOID, this.keyDown);
+    this.registerCommand("keyPress", CommandType.ACTION, ReturnType.VOID, this.keyPress);
+    this.registerCommand("keyUp", CommandType.ACTION, ReturnType.VOID, this.keyUp);
+    this.registerCommand("mouseOver", CommandType.ACTION, ReturnType.VOID, this.mouseOver);
+    this.registerCommand("mouseDown", CommandType.ACTION, ReturnType.VOID, this.mouseDown);
+    this.registerCommand("mouseEnter", CommandType.ACTION, ReturnType.VOID, this.mouseEnter);
+    this.registerCommand("mouseLeave", CommandType.ACTION, ReturnType.VOID, this.mouseLeave);
+    this.registerCommand("mouseOut", CommandType.ACTION, ReturnType.VOID, this.mouseOut);
+    this.registerCommand("submit", CommandType.ACTION, ReturnType.VOID, this.submit);
+    this.registerCommand("check", CommandType.ACTION, ReturnType.VOID, this.check);
+    this.registerCommand("uncheck", CommandType.ACTION, ReturnType.VOID, this.uncheck);
+    this.registerCommand("select", CommandType.ACTION, ReturnType.VOID, this.select);
+    this.registerCommand("selectByLabel", CommandType.ACTION, ReturnType.VOID, this.selectByLabel);
+    this.registerCommand("selectByIndex", CommandType.ACTION, ReturnType.VOID, this.selectByIndex);
+    this.registerCommand("selectByValue", CommandType.ACTION, ReturnType.VOID, this.selectByValue);
+    this.registerCommand("getAttribute", CommandType.ACCESSOR, ReturnType.STRING, this.getAttribute);
+    this.registerCommand("getText", CommandType.ACCESSOR, ReturnType.STRING, this.getText);
+    this.registerCommand("getValue", CommandType.ACCESSOR, ReturnType.STRING, this.getValue);
+    this.registerCommand("isChecked", CommandType.ACCESSOR, ReturnType.BOOLEAN, this.isChecked);
+    this.registerCommand("isVisible", CommandType.ACCESSOR, ReturnType.BOOLEAN, this.isVisible);
+    this.registerCommand("getCSS", CommandType.ACCESSOR, ReturnType.ARRAY, this.getCSS);
+    this.registerCommand("getCSSAsString", CommandType.ACCESSOR, ReturnType.STRING, this.getCSSAsString);
+    this.registerCommand("isDisable",  CommandType.ACCESSOR, ReturnType.BOOLEAN, this.isDisabled);
+    this.registerCommand("showUI", CommandType.ACTION, ReturnType.VOID, this.showUI);
+    this.registerCommand("cleanUI", CommandType.ACTION, ReturnType.VOID, this.cleanUI);
+    this.registerCommand("getHTMLSource", CommandType.ACCESSOR, ReturnType.ARRAY, this.getHTMLSource);
+    this.registerCommand("getHTMLSourceAsString", CommandType.ACCESSOR, ReturnType.STRING, this.getHTMLSourceAsString);
+    this.registerCommand("getUids", CommandType.ACCESSOR, ReturnType.ARRAY, this.getUids);
+    this.registerCommand("getUidsAsString", CommandType.ACCESSOR, ReturnType.STRING, this.getUidsAsString);
+    this.registerCommand("getCssSelectorCount", CommandType.ACCESSOR, ReturnType.NUMBER, this.getCssSelectorCount);
+    this.registerCommand("getCssSelectorMatch", CommandType.ACCESSOR, ReturnType.ARRAY, this.getCssSelectorMatch);
+    this.registerCommand("getCssSelectorMatchAsString", CommandType.ACCESSOR, ReturnType.STRING, this.getCssSelectorMatchAsString);
+    this.registerCommand("validateUiModule", CommandType.ACCESSOR, ReturnType.OBJECT, this.validateUiModule);
+    this.registerCommand("validateUiModuleAsString", CommandType.ACCESSOR, ReturnType.STRING, this.validateUiModuleAsString);
+    this.registerCommand("toJSON", CommandType.ACCESSOR, ReturnType.OBJECT, this.toJSON);
+    this.registerCommand("toJSONString", CommandType.ACCESSOR, ReturnType.STRING, this.toJSONString);
+    this.registerCommand("waitForPageToLoad", CommandType.ACTION, ReturnType.VOID, this.waitForPageToLoad);
+    this.registerCommand("assertTrue", CommandType.ASSERTION, ReturnType.VOID, assertTrue);
+    this.registerCommand("assertFalse", CommandType.ASSERTION, ReturnType.VOID, assertFalse);
+    this.registerCommand("assertEquals", CommandType.ASSERTION, ReturnType.VOID, assertEquals);
+    this.registerCommand("assertNotEquals", CommandType.ASSERTION, ReturnType.VOID, assertNotEquals);
+    this.registerCommand("assertNull", CommandType.ASSERTION, ReturnType.VOID, assertNull);
+    this.registerCommand("assertNotNull", CommandType.ASSERTION, ReturnType.VOID, assertNotNull);    
+};
+
+TelluriumCommandExecutor.prototype.getCommandList = function(){
+    return this.cmdMap.keySet().sort();    
+};
+
+TelluriumCommandExecutor.prototype.getCommand = function(name){
+    return this.cmdMap.get(name);   
+};
 
 TelluriumCommandExecutor.prototype.cachedUiModuleNum = function(){
     return this.cache.size();    
@@ -136,17 +231,24 @@ TelluriumCommandExecutor.prototype.createTestCaseCode = function() {
 };
 
 TelluriumCommandExecutor.prototype.run = function(name, uid, param){
-    var api = this[name];
-
-    if (typeof(api) == 'function') {
-        var params = [];
-        params.push(uid);
-        params.push(param);
-        return api.apply(this, params);
+//    var api = this[name];
+    var cmd = this.cmdMap.get(name);
+    if(cmd != null){
+        var api = cmd.handler;
+        if (typeof(api) == 'function') {
+            var params = [];
+            params.push(uid);
+            params.push(param);
+            return api.apply(this, params);
+        }else{
+            logger.error("Invalid Tellurium command " + name);
+            throw new TelluriumError(ErrorCodes.INVALID_TELLURIUM_COMMAND, "Invalid Tellurium command " + name);
+         }
     }else{
-        logger.error("Invalid Tellurium command " + name);
+        logger.error("Cannot find Tellurium command " + name);
         throw new TelluriumError(ErrorCodes.INVALID_TELLURIUM_COMMAND, "Invalid Tellurium command " + name);
-     }
+    }
+
 };
 
 TelluriumCommandExecutor.prototype.locateUI = function(uid){
@@ -299,9 +401,10 @@ TelluriumCommandExecutor.prototype.getOptionSelector = function(optionLocator){
     return sel;
 };
 
-TelluriumCommandExecutor.prototype.select = function(uid, optionLocator){
-    var optionSelector = this.getOptionSelector(optionLocator);
-    this.execCommand("select", uid, optionSelector);
+TelluriumCommandExecutor.prototype.select = function(uid, option){
+    this.selectByLabel(uid, option);
+    //    var optionSelector = this.getOptionSelector(optionLocator);
+//    this.execCommand("select", uid, optionSelector);
 };
 
 TelluriumCommandExecutor.prototype.selectByLabel = function(uid, option){
@@ -507,7 +610,7 @@ TelluriumCommandExecutor.prototype.getUidsAsString = function(uid){
 
 TelluriumCommandExecutor.prototype.getCssSelectorCount = function(uid, sel){
 
-    return teJQuery(this.dom).find(sel).length;
+    return teJQuery(this.dom).find(sel).size();
 };
 
 TelluriumCommandExecutor.prototype.getCssSelectorMatch = function(uid, sel){
