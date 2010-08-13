@@ -8,7 +8,7 @@ var CommandView  = {
     cmdStart: function(cmd) {
         var index = this.getIndex(cmd);
         if(index != -1){
-            this.testCommands[index].result = TestState.RUNNING;
+            this.testCommands[index].status = TestState.RUNNING;
             this.treebox.invalidateRow(index); 
         }
     },
@@ -16,7 +16,7 @@ var CommandView  = {
     cmdSucceed: function(cmd) {
         var index = this.getIndex(cmd);
         if(index != -1){
-            this.testCommands[index].result = TestState.SUCCEED;
+            this.testCommands[index].status = TestState.SUCCEED;
             this.treebox.invalidateRow(index);
         }
     },
@@ -24,7 +24,7 @@ var CommandView  = {
     cmdFailed: function(cmd) {
         var index = this.getIndex(cmd);
         if(index != -1){
-            this.testCommands[index].result = TestState.FAILED;
+            this.testCommands[index].status = TestState.FAILED;
             this.treebox.invalidateRow(index);
         }
     },
@@ -32,7 +32,7 @@ var CommandView  = {
     clear: function(){
         if(this.testCommands != null && this.testCommands.length > 0){
             for(var i=0; i<this.testCommands.length; i++){
-                this.testCommands[i].result = TestState.READY;
+                this.testCommands[i].status = TestState.READY;
             }
 //            this.treebox.invalidateColumn(4);
             this.treebox.invalidate();
@@ -118,10 +118,6 @@ var CommandView  = {
         var column = (aColumn.id) ? aColumn.id : aColumn; //Firefox pre1.5 compatibility
         var command = this.testCommands[row];
 
-/*        if(column == "recordedCommandFlag" ){
-            return command.flag;
-        }*/
-
         if(column == "recordedCommandName" ){
             return command.name;
         }
@@ -147,7 +143,7 @@ var CommandView  = {
         }
 
         if(column == "recordedCommandResult"){
-            return command.result;
+            return command.status;
         }
 
         throw Error("Invalid pass in value: row= " + row + ", aColumn=" + aColumn + ", column=" + column + ", command=" + command.name);
