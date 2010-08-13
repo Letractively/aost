@@ -5,9 +5,10 @@ function NodeRef(dom, frameName, ref){
 }
 
 const TargetType = {
-    UID: "target",
+    UID: "uid",
     DATA: "data",
-    VARIABLE: "var"
+    VARIABLE: "var",
+    NIL: "nil"
 };
 
 const ValueType = {
@@ -15,7 +16,8 @@ const ValueType = {
     STRING: 'string',
     BOOLEAN: 'boolean',
     OBJECT: 'object',
-    VARIABLE: "var"
+    VARIABLE: "var",
+    NIL: "nil"
 };
 
 const CommandType = {
@@ -34,16 +36,17 @@ const ReturnType = {
 };
 
 function UiCommand(name, ref, value, valueType, uid, seq){
+    //command type
     this.type = null;
     this.name = name;
     this.value = value;
-    this.ref = ref;
-    this.target = uid;
-    this.seq = seq;
     this.valueType = valueType;
     this.returnValue = null;
     this.returnVariable = null;
-    this.result = "";
+    this.target = uid;
+    this.ref = ref;
+    this.seq = seq;
+    this.status = "";
 }
 
 UiCommand.prototype.toString = function(){
@@ -56,19 +59,6 @@ UiCommand.prototype.toString = function(){
 UiCommand.prototype.isEqual = function(cmd){
     return this.name == cmd.name && this.target == cmd.target && this.value == cmd.value && this.ref == cmd.ref;
 };
-
-function TeCommand(seq, name, uid, value, valueType, ref){
-    this.flag = true;
-    this.seq = seq;
-    this.name = name;
-    this.target = uid;
-    this.value = value;
-    this.valueType = valueType;
-    this.ref = ref;
-    this.result = "";
-    this.returnValue = null;
-    this.returnVariable = null;
-}
 
 function Workspace(uiBuilder, uiChecker, refIdSetter){
     //ID of the current UI Module
