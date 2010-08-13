@@ -568,7 +568,7 @@ Editor.prototype.refreshCommandList = function(){
 
     } catch(error) {
         logger.error("Error processing selected command:\n" + describeErrorStack(error));
-     }
+    }
 };
 
 Editor.prototype.selectUiCommand = function(){
@@ -693,6 +693,56 @@ Editor.prototype.removeUiCommand = function(){
     }
 };
 
+Editor.prototype.insertBeforeUiCommand = function(){
+    try {
+        var cmd = this.buildUiCommand();
+        var index = this.cmdTree.currentIndex;
+        var commands = this.cmdView.testCommands;
+        commands = commands.splice(index-1, 0, cmd);
+        this.cmdView.setTestCommands(commands);
+        //update commands in the app
+    }catch(error) {
+        logger.error("Error insertBefore command:\n" + describeErrorStack(error));
+    }
+};
+
+Editor.prototype.insertAfterUiCommand = function(){
+    try {
+        var cmd = this.buildUiCommand();
+        var index = this.cmdTree.currentIndex;
+        var commands = this.cmdView.testCommands;
+        commands = commands.splice(index+1, 0, cmd);
+        this.cmdView.setTestCommands(commands);
+        //update commands in the app
+    }catch(error) {
+        logger.error("Error insertBefore command:\n" + describeErrorStack(error));
+    }
+};
+
+Editor.prototype.buildUiCommand = function(){
+    var name = document.getElementById("updateCommandName").value;
+    var target = document.getElementById("updateCommandUID").value;
+    var value = document.getElementById("updateCommandValue").value;
+    var ref = null;
+    var cmd = new UiCommand(name, ref, value, ValueType.STRING, target, this.workspace.sequence.next());
+
+    var cmdDef = this.getCommandDef(name);
+    cmd.type = cmdDef.type;
+    cmd.returnType = cmdDef.returnType;
+    if(cmd.type == CommandType.ACTION || cmd.type == CommandType.ACCESSOR){
+        cmd.ref = this.recorder.app.findRefFromUid(target);
+        cmd.targetType = TargetType.UID;
+    }else{
+        cmd.targetType = TargetType.DATA;
+
+        //overwrite target and value for Assertions
+        cmd.parseTarget(target);
+        cmd.parseValue(value);
+    }
+
+    return cmd;
+};
+
 Editor.prototype.assignCommandResultToVariable= function(){
     if(this.currentSelectedCommand != null){
         logger.debug("Assigned return value to variable for command " + this.currentSelectedCommand.seq);
@@ -701,15 +751,6 @@ Editor.prototype.assignCommandResultToVariable= function(){
             this.currentSelectedCommand.returnVariable = variableName.trim();
         }
     }
-};
-
-
-Editor.prototype.insertBeforeUiCommand = function(){
-
-};
-
-Editor.prototype.insertAfterUiCommand = function(){
-
 };
 
 Editor.prototype.enableVariableAssign = function(){
