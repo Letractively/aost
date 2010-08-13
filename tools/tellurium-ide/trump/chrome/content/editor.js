@@ -704,6 +704,10 @@ Editor.prototype.updateUiCommand = function(){
         }else{
             this.currentSelectedCommand.value = cmdValue;
         }
+        var type = this.getCmdType(cmdName);
+        if(type == CommandType.ASSERTION){
+            this.currentSelectedCommand.valueType = ValueType.STRING;
+        }
         this.recorder.app.updateCommand(this.currentSelectedCommand);
 
         var sourceTextNode = document.getElementById("exportSource");
