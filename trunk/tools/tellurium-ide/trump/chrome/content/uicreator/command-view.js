@@ -89,6 +89,16 @@ var CommandView  = {
         this.recordIndex = this.recordIndex + this.testCommands.length;
         this.treebox.ensureRowIsVisible(this.recordIndex);
     },
+    
+    deleteFromTestCommand : function(cmd) {
+    	var index = this.getIndex(cmd);
+    	if (this.testCommands != null && this.testCommands.length > 0 && index < this.testCommands.length) {
+            this.testCommands.splice(index , 1);
+            this.deleteRow(index);
+    	}
+    	
+    	
+    },
 
     deleteRow : function(index){
         this.treebox.rowCountChanged(index, -1);

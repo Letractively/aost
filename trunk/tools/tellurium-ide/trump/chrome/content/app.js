@@ -87,6 +87,30 @@ App.prototype.updateCommandListForPage = function(page) {
     }
 };
 
+App.prototype.deleteCommand = function(cmd){
+    if(cmd != null){
+    	this.cmdIndex.remove(cmd.seq);
+    	this.uimMap.remove(cmd.uid);
+        for (var i = 0; i < this.pages.length; i++) {
+            this.pages[i] = this.getIndexAndSplice(this.pages[i] , cmd);
+        }
+        this.updateCommandList();
+    }
+};
+
+App.prototype.getIndexAndSplice = function(page , cmd) {
+        if (page.commandList != null && page.commandList.length > 0) {
+            for (var i = 0; i < page.commandList.length; i++) {
+                if (page.commandList[i].seq == cmd.seq) {
+                    page.commandList.splice(i , 1);
+                    return page;
+                }
+            }
+        }
+
+        return null;
+};
+
 App.prototype.getCommandList = function(){
     var list = new Array();
     var prevCmd = null;

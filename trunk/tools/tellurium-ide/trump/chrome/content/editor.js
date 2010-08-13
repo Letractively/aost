@@ -703,6 +703,17 @@ Editor.prototype.updateUiCommand = function(){
     }
 };
 
+Editor.prototype.removeUiCommand = function(){
+	if(this.currentSelectedCommand != null){
+        logger.debug("Remove command " + this.currentSelectedCommand.seq);
+        this.recorder.app.deleteCommand(this.currentSelectedCommand);
+        this.cmdView.deleteFromTestCommand(this.currentSelectedCommand);
+       
+        var sourceTextNode = document.getElementById("exportSource");
+        sourceTextNode.value = this.recorder.app.toSource();
+    }
+};
+
 Editor.prototype.assignCommandResultToVariable= function(){
     if(this.currentSelectedCommand != null){
         logger.debug("Assigned return value to variable for command " + this.currentSelectedCommand.seq);
@@ -713,9 +724,6 @@ Editor.prototype.assignCommandResultToVariable= function(){
     }
 };
 
-Editor.prototype.removeUiCommand = function(){
-
-};
 
 Editor.prototype.insertBeforeUiCommand = function(){
 
