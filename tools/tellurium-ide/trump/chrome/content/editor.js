@@ -698,7 +698,7 @@ Editor.prototype.insertBeforeUiCommand = function(){
         var cmd = this.buildUiCommand();
         var index = this.cmdTree.currentIndex;
         var commands = this.cmdView.testCommands;
-        commands = commands.splice(index-1, 0, cmd);
+        commands.splice(index, 0, cmd);
         this.cmdView.setTestCommands(commands);
         //update commands in the app
     }catch(error) {
@@ -711,7 +711,7 @@ Editor.prototype.insertAfterUiCommand = function(){
         var cmd = this.buildUiCommand();
         var index = this.cmdTree.currentIndex;
         var commands = this.cmdView.testCommands;
-        commands = commands.splice(index+1, 0, cmd);
+        commands.splice(index+1, 0, cmd);
         this.cmdView.setTestCommands(commands);
         //update commands in the app
     }catch(error) {
@@ -723,6 +723,11 @@ Editor.prototype.buildUiCommand = function(){
     var name = document.getElementById("updateCommandName").value;
     var target = document.getElementById("updateCommandUID").value;
     var value = document.getElementById("updateCommandValue").value;
+
+    if(target == undefined || target.trim().length == 0){
+        target = null;
+    }
+
     var ref = null;
     var cmd = new UiCommand(name, ref, value, ValueType.STRING, target, this.workspace.sequence.next());
 
@@ -730,8 +735,11 @@ Editor.prototype.buildUiCommand = function(){
     cmd.type = cmdDef.type;
     cmd.returnType = cmdDef.returnType;
     if(cmd.type == CommandType.ACTION || cmd.type == CommandType.ACCESSOR){
-        cmd.ref = this.recorder.app.findRefFromUid(target);
-        cmd.targetType = TargetType.UID;
+        if(target != null){
+            this.recorder.app.getRefUidMapFor(target);
+            cmd.ref = this.recorder.app.findRefFromUid(target);
+            cmd.targetType = TargetType.UID;
+        }
     }else{
         cmd.targetType = TargetType.DATA;
 
