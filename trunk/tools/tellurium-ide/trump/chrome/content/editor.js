@@ -638,10 +638,8 @@ Editor.prototype.populateUiTypeAutoComplete = function(){
 Editor.prototype.processCustomizeEvent = function(event){
 //    logger.debug('Customize ' + event.target.getAttribute("label"));
     this.currentUid = event.target.getAttribute("uid");
-//    var uiObject = this.workspace.innerTree.uiObjectMap.get(this.currentUid);
     var uiObject = this.recorder.app.walkToUiObject(this.currentUid);
 
-//    logger.debug("uiObject : " + uiObject.descObject());
     if(uiObject != null){
         this.fillUiObjectFields(uiObject);
         this.enableUiObjectFields();
@@ -709,7 +707,9 @@ Editor.prototype.assignCommandResultToVariable= function(){
     if(this.currentSelectedCommand != null){
         logger.debug("Assigned return value to variable for command " + this.currentSelectedCommand.seq);
         var variableName = document.getElementById("returnValueVariable").value;
-
+        if(variableName != undefined && variableName.trim().length > 0){
+            this.currentSelectedCommand.returnVariable = variableName.trim();
+        }
     }
 };
 
