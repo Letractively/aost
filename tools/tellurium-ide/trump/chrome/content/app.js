@@ -66,7 +66,7 @@ App.prototype.updateCommand = function(cmd){
     if(cmd != null){
         var command = this.cmdIndex.get(cmd.seq);
         command.name = cmd.name;
-        command.uid = cmd.uid;
+        command.target = cmd.target;
         command.value = cmd.value;
     }
 };
@@ -87,8 +87,8 @@ App.prototype.updateCommandListForPage = function(page) {
                 var cmd = commandList[i];
                 if (this.refUidMap != null && cmd.ref != null) {
                     var uid = this.refUidMap.get(cmd.ref);
-                    if (uid != null && cmd.uid != uid) {
-                        cmd.uid = uid;
+                    if (uid != null && cmd.target != uid) {
+                        cmd.target = uid;
                     }
                 }
             }
@@ -132,8 +132,6 @@ App.prototype.getCommandList = function(){
                     }
                     if (!skip) {
                         this.cmdIndex.put(uiCmd.seq, uiCmd);
-//                        var cmd = new TeCommand(uiCmd.seq, uiCmd.name, uiCmd.uid, uiCmd.value, uiCmd.valueType, uiCmd.ref);
-//                       list.push(cmd);
                         list.push(uiCmd);
                         prevCmd = uiCmd;
                     }
@@ -475,11 +473,11 @@ App.prototype.describeCommand = function(commandList, mapper){
             sb.append("\t\t");
 
             if(cmd.returnVariable != null && cmd.returnVariable.trim().length > 0){
-                sb.append(this.formatAssignCommand(cmd.returnVariable, cmd.name, cmd.uid, cmd.value,  cmd.valueType));
+                sb.append(this.formatAssignCommand(cmd.returnVariable, cmd.name, cmd.target, cmd.value,  cmd.valueType));
             }else if(cmd.type == CommandType.ASSERTION){
-                sb.append(this.formatAssertionCommand(cmd.name, cmd.uid, cmd.value,  cmd.valueType));
+                sb.append(this.formatAssertionCommand(cmd.name, cmd.target, cmd.value,  cmd.valueType));
             }else{
-                sb.append(this.formatRegularCommand(cmd.name, cmd.uid, cmd.value,  cmd.valueType));
+                sb.append(this.formatRegularCommand(cmd.name, cmd.target, cmd.value,  cmd.valueType));
             }
             
             sb.append("\n");

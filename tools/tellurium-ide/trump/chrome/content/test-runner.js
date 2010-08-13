@@ -203,19 +203,19 @@ var TestRunner = Class.extend({
     //run a single command
     runCommand: function(cmd) {
         try {
-            logger.debug("Running test [name: " + cmd.name + ", uid: " + cmd.uid + ", value: " + cmd.value + "]");
+            logger.debug("Running test [name: " + cmd.name + ", uid: " + cmd.target + ", value: " + cmd.value + "]");
             this.observers.cmdStart(cmd);
             var tcmd = this.cmdExecutor.getCommand(cmd.name);
 
             var target;
             if (tcmd.type == CommandType.ASSERTION) {
                 //replace the variable with its value
-                target = this.getVariableValue(cmd.uid);
+                target = this.getVariableValue(cmd.target);
             }else {
-                if (cmd.uid != null) {
-                    this.useUiModule(cmd.uid);
+                if (cmd.target != null) {
+                    this.useUiModule(cmd.target);
                 }
-                target = cmd.uid;
+                target = cmd.target;
             }
             var result = this.cmdExecutor.run(cmd.name, target, cmd.value);
             if(result != undefined){
@@ -225,7 +225,7 @@ var TestRunner = Class.extend({
             this.observers.cmdSucceed(cmd);
         } catch(error) {
             this.observers.cmdFailed(cmd);
-            logger.error("Failed to run command [name: " + cmd.name + ", uid: " + cmd.uid + ", value: " + cmd.value + "]:\n" + describeErrorStack(error));
+            logger.error("Failed to run command [name: " + cmd.name + ", uid: " + cmd.target + ", value: " + cmd.value + "]:\n" + describeErrorStack(error));
         }
     },
 

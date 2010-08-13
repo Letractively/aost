@@ -75,12 +75,84 @@ TelluriumCommandExecutor.prototype.registerCommands = function(){
     this.registerCommand("toJSON", CommandType.ACCESSOR, ReturnType.OBJECT, this.toJSON);
     this.registerCommand("toJSONString", CommandType.ACCESSOR, ReturnType.STRING, this.toJSONString);
     this.registerCommand("waitForPageToLoad", CommandType.ACTION, ReturnType.VOID, this.waitForPageToLoad);
-    this.registerCommand("assertTrue", CommandType.ASSERTION, ReturnType.VOID, assertTrue);
-    this.registerCommand("assertFalse", CommandType.ASSERTION, ReturnType.VOID, assertFalse);
-    this.registerCommand("assertEquals", CommandType.ASSERTION, ReturnType.VOID, assertEquals);
-    this.registerCommand("assertNotEquals", CommandType.ASSERTION, ReturnType.VOID, assertNotEquals);
-    this.registerCommand("assertNull", CommandType.ASSERTION, ReturnType.VOID, assertNull);
-    this.registerCommand("assertNotNull", CommandType.ASSERTION, ReturnType.VOID, assertNotNull);    
+    this.registerCommand("assertTrue", CommandType.ASSERTION, ReturnType.VOID, this.assertTrue);
+    this.registerCommand("assertFalse", CommandType.ASSERTION, ReturnType.VOID, this.assertFalse);
+    this.registerCommand("assertEquals", CommandType.ASSERTION, ReturnType.VOID, this.assertEquals);
+    this.registerCommand("assertNotEquals", CommandType.ASSERTION, ReturnType.VOID, this.assertNotEquals);
+    this.registerCommand("assertNull", CommandType.ASSERTION, ReturnType.VOID, this.assertNull);
+    this.registerCommand("assertNotNull", CommandType.ASSERTION, ReturnType.VOID, this.assertNotNull);
+};
+
+TelluriumCommandExecutor.prototype.assertTrue = function(variable){
+    try{
+        assertTrue(variable);
+    }catch(error){
+        if(error.isJsUnitFailure){
+            var message = "assertTrue failed: " + error.jsUnitMessage + ", " + (error.comment != null ? error.comment: "");
+            throw new Error(message);
+        }
+        throw error;
+    }
+};
+
+TelluriumCommandExecutor.prototype.assertFalse = function(variable){
+    try{
+        assertFalse(variable);
+    }catch(error){
+        if(error.isJsUnitFailure){
+            var message = "assertFalse failed: " + error.jsUnitMessage + ", " + (error.comment != null ? error.comment: "");
+            throw new Error(message);
+        }
+        throw error;
+    }
+};
+
+TelluriumCommandExecutor.prototype.assertEquals = function(variable1, variable2){
+    try{
+        assertEquals(variable1, variable2);
+    }catch(error){
+        if(error.isJsUnitFailure){
+            var message = "assertEquals failed: " + error.jsUnitMessage + ", " + (error.comment != null ? error.comment: "");
+            throw new Error(message);
+        }
+        throw error;
+    }
+};
+
+TelluriumCommandExecutor.prototype.assertNotEquals = function(variable1, variable2){
+    try{
+        assertNotEquals(variable1, variable2);
+    }catch(error){
+        if(error.isJsUnitFailure){
+            var message = "assertNotEquals failed: " + error.jsUnitMessage + ", " + (error.comment != null ? error.comment: "");
+            throw new Error(message);
+        }
+        throw error;
+    }
+};
+
+TelluriumCommandExecutor.prototype.assertNull = function(variable){
+    try{
+        assertNull(variable);
+    }catch(error){
+        if(error.isJsUnitFailure){
+            var message = "assertNull failed: " + error.jsUnitMessage + ", " + (error.comment != null ? error.comment: "");
+            throw new Error(message);
+        }
+        throw error;
+    }
+};
+
+TelluriumCommandExecutor.prototype.assertNotNull = function(variable){
+    try{
+        assertNotNull(variable);
+    }catch(error){
+        if(error.isJsUnitFailure){
+            var message = "assertNotNull failed: " + error.jsUnitMessage + ", " + (error.comment != null ? error.comment: "");
+            throw new Error(message);
+        }
+        throw error;
+    }
 };
 
 TelluriumCommandExecutor.prototype.getCommandList = function(){

@@ -39,7 +39,7 @@ var CommandList  = {
         }
 
         if(column == "listCommandRef"){
-            return command.uid;
+            return command.target;
         }
 
         if(column == "listCommandValue"){
