@@ -129,6 +129,19 @@ var TestRunner = Class.extend({
         this.running = false;
     },
 
+    getVariableValue: function(variable){
+        if(this.commandList != null && this.commandList.length > 0){
+            for(var i=0; i<this.commandList.length; i++){
+                var cmd = this.commandList[i];
+                if(cmd.returnVariable == variable){
+                    return cmd.returnValue;
+                }
+            }
+        }
+
+        return null;
+    },
+
     addObserver: function(observer) {
         this.observers.addObserver(observer);
     },
@@ -193,12 +206,18 @@ var TestRunner = Class.extend({
             logger.debug("Running test [name: " + cmd.name + ", uid: " + cmd.uid + ", value: " + cmd.value + "]");
             this.observers.cmdStart(cmd);
             var tcmd = this.cmdExecutor.getCommand(cmd.name);
-            if (tcmd.type != CommandType.ASSERTION) {
+
+            var target;
+            if (tcmd.type == CommandType.ASSERTION) {
+                //replace the variable with its value
+                target = this.getVariableValue(cmd.uid);
+            }else {
                 if (cmd.uid != null) {
                     this.useUiModule(cmd.uid);
                 }
+                target = cmd.uid;
             }
-            var result = this.cmdExecutor.run(cmd.name, cmd.uid, cmd.value);
+            var result = this.cmdExecutor.run(cmd.name, target, cmd.value);
             if(result != undefined){
                 logger.debug("Command Result: " + result);
                 cmd.returnValue = result;

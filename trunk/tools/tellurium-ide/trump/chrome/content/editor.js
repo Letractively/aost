@@ -534,7 +534,8 @@ Editor.prototype.refreshCommandList = function(){
             cmdName.value = cmd.name;
             Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("updateCommandName")),
                                                           XulUtils.toXPCOMArray(this.commandList));
-            if(cmd.uid != null && cmd.uid != undefined){
+            var type = this.getCmdType(cmd.name);
+            if(type != CommandType.ASSERTION && cmd.uid != null && cmd.uid != undefined){
                 cmdUid.value = cmd.uid;
                 var uids = this.recorder.app.getUids(cmd.uid);
                 Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("updateCommandUID")),
@@ -555,6 +556,11 @@ Editor.prototype.refreshCommandList = function(){
      }
 };
 
+Editor.prototype.getCmdType = function(name){
+    var cmd = this.testRunner.cmdExecutor.getCommand(name);
+    return cmd.type;
+};
+
 Editor.prototype.selectUiCommand = function(){
     try {
         var index = this.cmdTree.currentIndex;
@@ -570,7 +576,8 @@ Editor.prototype.selectUiCommand = function(){
             cmdName.value = cmd.name;
             Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("updateCommandName")),
                                                           XulUtils.toXPCOMArray(this.commandList));
-            if(cmd.uid != null && cmd.uid != undefined){
+            var type = this.getCmdType(cmd.name);
+            if(type != CommandType.ASSERTION && cmd.uid != null && cmd.uid != undefined){
                 cmdUid.value = cmd.uid;
                 var uids = this.recorder.app.getUids(cmd.uid);
                 Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("updateCommandUID")),
