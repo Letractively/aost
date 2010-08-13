@@ -63,7 +63,7 @@ var CommandView  = {
             if(cmd.ref != null){
                 var uid = refUidMap.get(cmd.ref);
                 if(uid != null){
-                    cmd.uid = uid;
+                    cmd.target = uid;
                     this.treebox.invalidateRow(i); 
                 }
             }
@@ -127,7 +127,7 @@ var CommandView  = {
         }
 
         if(column == "recordedCommandUid"){
-            return command.uid;
+            return command.target;
         }
 
         if(column == "recordedCommandValue"){
