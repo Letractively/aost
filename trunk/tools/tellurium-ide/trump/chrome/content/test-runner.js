@@ -208,16 +208,25 @@ var TestRunner = Class.extend({
             var tcmd = this.cmdExecutor.getCommand(cmd.name);
 
             var target;
+            //only allow assertions to use variables
             if (tcmd.type == CommandType.ASSERTION) {
                 //replace the variable with its value
-                target = this.getVariableValue(cmd.target);
+                if(cmd.targetType == TargetType.VARIABLE){
+                    target = this.getVariableValue(cmd.target);
+                }else{
+                    target = cmd.target;
+                }
             }else {
-                if (cmd.target != null) {
+                if (cmd.target != null && cmd.targetType == TargetType.UID) {
                     this.useUiModule(cmd.target);
                 }
                 target = cmd.target;
             }
-            var result = this.cmdExecutor.run(cmd.name, target, cmd.value);
+            var value = cmd.value;
+            if(cmd.value != null && cmd.valueType == ValueType.VARIABLE){
+                value = this.getVariableValue(cmd.value);    
+            }
+            var result = this.cmdExecutor.run(cmd.name, target, value);
             if(result != undefined){
                 logger.debug("Command Result: " + result);
                 cmd.returnValue = result;

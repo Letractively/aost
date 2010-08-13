@@ -537,17 +537,19 @@ Editor.prototype.refreshCommandList = function(){
             Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("updateCommandName")),
                                                           XulUtils.toXPCOMArray(this.commandList));
             var type = this.getCmdType(cmd.name);
-            if(type != CommandType.ASSERTION && cmd.target != null && cmd.target != undefined){
-                cmdUid.value = cmd.target;
-                var uids = this.recorder.app.getUids(cmd.target);
-                Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("updateCommandUID")),
-                    XulUtils.toXPCOMArray(uids));
+            if(cmd.target != null && cmd.target != undefined){
+                cmdUid.value = cmd.strTarget();
+                if (type != CommandType.ASSERTION) {
+                    var uids = this.recorder.app.getUids(cmd.target);
+                    Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("updateCommandUID")),
+                            XulUtils.toXPCOMArray(uids));
+                }
             }else{
                 cmdUid.value = '';
                 Editor.GENERIC_AUTOCOMPLETE.clearCandidates(XulUtils.toXPCOMString(this.autoCompleteSearchParams["updateCommandUID"]));
             }
             if(cmd.value != null && cmd.value != undefined){
-                cmdValue.value = cmd.value;
+                cmdValue.value = cmd.strValue();
             }else{
                 cmdValue.value = "";
             }
@@ -570,31 +572,37 @@ Editor.prototype.selectUiCommand = function(){
         this.currentSelectedCommand = cmd;
         if(cmd != null){
             var cmdName = document.getElementById("updateCommandName");
-            var cmdUid = document.getElementById("updateCommandUID");
+            var cmdTarget = document.getElementById("updateCommandUID");
             var cmdValue = document.getElementById("updateCommandValue");
             cmdName.disabled = false;
-            cmdUid.disabled = false;
+            cmdTarget.disabled = false;
             cmdValue.disabled = false;
             cmdName.value = cmd.name;
             Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("updateCommandName")),
                                                           XulUtils.toXPCOMArray(this.commandList));
             var type = this.getCmdType(cmd.name);
-            if(type != CommandType.ASSERTION && cmd.target != null && cmd.target != undefined){
-                cmdUid.value = cmd.target;
-                var uids = this.recorder.app.getUids(cmd.target);
-                Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("updateCommandUID")),
-                    XulUtils.toXPCOMArray(uids));
-                var uim = this.recorder.app.getUiModule(cmd.target);
-                var xml = uim.buildXML();
-                this.buildCustomizeTree(xml);                
+            if(cmd.target != null && cmd.target != undefined){
+                cmdTarget.value = cmd.strTarget();
+                if (type != CommandType.ASSERTION) {
+                    var uids = this.recorder.app.getUids(cmd.target);
+                    Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("updateCommandUID")),
+                            XulUtils.toXPCOMArray(uids));
+                    var uim = this.recorder.app.getUiModule(cmd.target);
+                    var xml = uim.buildXML();
+                    this.buildCustomizeTree(xml);
+                } else {
+                    Editor.GENERIC_AUTOCOMPLETE.clearCandidates(XulUtils.toXPCOMString(this.autoCompleteSearchParams["updateCommandUID"]));
+                    this.buildCustomizeTree(DEFAULT_XML);
+                }
+
             }else{
-                cmdUid.value = '';
+                cmdTarget.value = '';
                 Editor.GENERIC_AUTOCOMPLETE.clearCandidates(XulUtils.toXPCOMString(this.autoCompleteSearchParams["updateCommandUID"]));
                 this.buildCustomizeTree(DEFAULT_XML);
             }          
             this.clearCustomizeUiObject();
             if(cmd.value != null && cmd.value != undefined){
-                cmdValue.value = cmd.value;
+                cmdValue.value = cmd.strValue();  //cmd.value;
             }else{
                 cmdValue.value = "";
             }
@@ -608,11 +616,11 @@ Editor.prototype.selectUiCommand = function(){
                 document.getElementById("commandReturnResult").value = "";
             }
             if (cmd.returnVariable != undefined) {
-                var value = cmd.returnVariable;
-                if (typeof(value) == "object" && value["toString"] != undefined) {
-                    value = value.toString();
+                var variable = cmd.returnVariable;
+                if (typeof(variable) == "object" && variable["toString"] != undefined) {
+                    variable = variable.toString();
                 }
-                document.getElementById("returnValueVariable").value = value;
+                document.getElementById("returnValueVariable").value = variable;
             }else{
                 document.getElementById("returnValueVariable").value = "";
             }
@@ -693,24 +701,34 @@ Editor.prototype.updateUiCommand = function(){
     if(this.currentSelectedCommand != null){
         logger.debug("Update command " + this.currentSelectedCommand.seq);
         var cmdName = document.getElementById("updateCommandName").value;
-        var cmdUid = document.getElementById("updateCommandUID").value;
+        var cmdTarget = document.getElementById("updateCommandUID").value;
         var cmdValue = document.getElementById("updateCommandValue").value;
         this.currentSelectedCommand.name = cmdName;
-        if(cmdUid.trim().length == 0){
-            cmdUid = null;
-        }else{
-            this.currentSelectedCommand.target = cmdUid;
+
+        var type = this.getCmdType(cmdName);
+        this.currentSelectedCommand.type = type;
+
+        if(type == CommandType.ASSERTION){
+            //value type could be overwritten
+            this.currentSelectedCommand.valueType = ValueType.STRING;
+            //target type could be overwritten
+            this.currentSelectedCommand.targetType = TargetType.DATA;
+        }else{   
+            this.currentSelectedCommand.targetType = TargetType.UID;
         }
+
+        if(cmdTarget.trim().length == 0){
+            this.currentSelectedCommand.target = null;
+        }else{
+            this.currentSelectedCommand.parseTarget(cmdTarget);
+        }
+
         if(cmdValue.trim().length == 0){
             this.currentSelectedCommand.value = null;
         }else{
-            this.currentSelectedCommand.value = cmdValue;
+            this.currentSelectedCommand.parseValue(cmdValue);
         }
-        var type = this.getCmdType(cmdName);
-        this.currentSelectedCommand.type = type;
-        if(type == CommandType.ASSERTION){
-            this.currentSelectedCommand.valueType = ValueType.STRING;
-        }
+
         this.recorder.app.updateCommand(this.currentSelectedCommand);
 
         var sourceTextNode = document.getElementById("exportSource");

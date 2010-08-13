@@ -39,15 +39,128 @@ function UiCommand(name, ref, value, valueType, uid, seq){
     //command type
     this.type = null;
     this.name = name;
+    this.target = uid;
+    this.targetType = null;
     this.value = value;
     this.valueType = valueType;
     this.returnValue = null;
+    this.returnType = null;
     this.returnVariable = null;
-    this.target = uid;
     this.ref = ref;
     this.seq = seq;
     this.status = "";
 }
+
+UiCommand.prototype.strTarget = function(){
+    if(this.targetType == TargetType.VARIABLE){
+        return TargetType.VARIABLE + " " + this.target;
+    }
+    return this.target;
+};
+
+UiCommand.prototype.strValue = function(){
+    if(this.valueType == TargetType.VARIABLE){
+        return TargetType.VARIABLE + " " + this.value;
+    }
+
+    return this.value;
+};
+
+UiCommand.prototype.formatAssignCommand = function(keyword) {
+    var sb = new StringBuffer();
+    sb.append(keyword).append(" ").append(this.returnVariable).append(" = ").append(this.name).append("(");
+    var hasTarget = false;
+    if (this.target != undefined && this.target != null) {
+        hasTarget = true;
+        sb.append("\"").append(this.target).append("\"");
+    }
+    if (this.value != undefined && this.value != null) {
+        if (hasTarget)
+            sb.append(",");
+        if (this.valueType == ValueType.STRING) {
+            sb.append(" \"").append(this.value).append("\"");
+        } else {
+            sb.append(" ").append(this.value);
+        }
+    }
+    sb.append(")");
+
+    return sb.toString();
+};
+
+UiCommand.prototype.formatRegularCommand = function(){
+    var sb = new StringBuffer();
+    sb.append(this.name);
+     var hasTarget = false;
+    if (this.target != undefined && this.target != null) {
+        hasTarget = true;
+        sb.append(" \"").append(this.target).append("\"");
+    }
+    if (this.value != undefined && this.value != null) {
+        if (hasTarget)
+            sb.append(",");
+        if (this.valueType == ValueType.STRING) {
+            sb.append(" \"").append(this.value).append("\"");
+        } else {
+            sb.append(" ").append(this.value);
+        }
+    }
+
+    return sb.toString();
+};
+
+UiCommand.prototype.strCommand = function(keyword) {
+    if (this.returnVariable != null && this.returnVariable.trim().length > 0) {
+        return this.formatAssignCommand(keyword);
+    } else if (this.type == CommandType.ASSERTION) {
+        return this.formatAssertionCommand();
+    } else {
+        return this.formatRegularCommand();
+    }
+};
+
+UiCommand.prototype.formatAssertionCommand = function(){
+    var sb = new StringBuffer();
+    sb.append(this.name);
+     var hasTarget = false;
+    if (this.target != undefined && this.target != null) {
+        hasTarget = true;
+        if(this.targetType == TargetType.VARIABLE){
+            sb.append(" ").append(this.target);
+        }else{
+            sb.append(" \"").append(this.target).append("\"");
+        }
+    }
+    if (this.value != undefined && this.value != null) {
+        if (hasTarget)
+            sb.append(",");
+        if (this.valueType == ValueType.VARIABLE) {
+            sb.append(" ").append(this.value);
+        } else {
+            sb.append(" \"").append(this.value).append("\"");
+        }
+    }
+
+    return sb.toString();
+};
+
+UiCommand.prototype.parseTarget = function(target){
+    if(target != null && target.startsWith(TargetType.VARIABLE + " ")){
+        this.target = target.substring(4).trim();
+        this.targetType = TargetType.VARIABLE;
+    }else{
+        this.target = target;
+    }
+};
+
+UiCommand.prototype.parseValue = function(value){
+    if(value != null && value.startsWith(ValueType.VARIABLE)){
+        this.value = value.substring(4).trim();
+        this.valueType = ValueType.VARIABLE;
+    }else{
+        this.value = value;
+    }
+};
 
 UiCommand.prototype.toString = function(){
     var sb = new StringBuffer();
@@ -115,8 +228,15 @@ Workspace.prototype.addNode = function(dom, frameName, ref){
 
 Workspace.prototype.addCommand = function(name, ref, value, valueType){
     var command = new UiCommand(name, ref, value, valueType, null, this.sequence.next());
-    var type = this.cmdExecutor.getCommandType(name);
-    command.type = type;
+    if(ref != null){
+        command.targetType = TargetType.UID;
+    }else{
+        command.targetType = TargetType.NIL;
+    }
+    var cmdDef = this.cmdExecutor.getCommand(name);
+    command.type = cmdDef.type;
+    command.returnType = cmdDef.returnType;
+    
     if(this.commandList.length > 0){
         var prevCmd = this.commandList[this.commandList.length-1];
         if(command.isEqual(prevCmd)){
@@ -153,8 +273,6 @@ Workspace.prototype.convertCommand = function(){
                     logger.warn("Cannot find UID for reference ID " + cmd.ref + " for command " + cmd.name);
             }
             cmd.target = uid;
-//            var ccmd = new UiCommand(cmd.name, cmd.ref, cmd.value, cmd.valueType, uid, this.sequence.next());
-//            this.convertedCommandList.push(ccmd);
         }
     }
     this.convertedCommandList = this.commandList;
