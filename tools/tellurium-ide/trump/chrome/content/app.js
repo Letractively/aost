@@ -62,6 +62,20 @@ App.prototype.clearAll = function(){
     this.refUidMap = null;
 };
 
+App.prototype.findRefFromUid = function(uid){
+    if(this.refUidMap != null && this.refUidMap.size() > 0){
+        var keySet = this.refUidMap.keySet();
+        for(var i=0; i<keySet.length; i++){
+            var key = keySet[i];
+            if(this.refUidMap.get(key) == uid){
+                return key;
+            }
+        }
+    }
+
+    return null;
+};
+
 App.prototype.updateCommand = function(cmd){
     if(cmd != null){
         var command = this.cmdIndex.get(cmd.seq);
