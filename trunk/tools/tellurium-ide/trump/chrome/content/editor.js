@@ -54,6 +54,8 @@ function Editor(window) {
     this.testRunner.addObserver(this.cmdView);
     this.testRunner.addObserver(this.testResultObserver);
     this.commandList = this.testRunner.cmdExecutor.getCommandList();
+    this.workspace.cmdExecutor = this.testRunner.cmdExecutor;
+
 
 //    this.options = new Preferences();
 
@@ -705,6 +707,7 @@ Editor.prototype.updateUiCommand = function(){
             this.currentSelectedCommand.value = cmdValue;
         }
         var type = this.getCmdType(cmdName);
+        this.currentSelectedCommand.type = type;
         if(type == CommandType.ASSERTION){
             this.currentSelectedCommand.valueType = ValueType.STRING;
         }

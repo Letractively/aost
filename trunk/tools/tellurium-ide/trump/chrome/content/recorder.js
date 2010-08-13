@@ -266,7 +266,7 @@ Recorder.prototype.recordCommand = function(name, element, value, valueType){
     logger.debug("Recording command (name: " + name + ", element: " + element + ", value: " + value + ", type: " + valueType + ")");
     if (element != null && element != undefined) {
         if (this.first) {
-            this.workspace.addCommand("open", null, element.ownerDocument.location.href, ValueType.STRING);
+            this.workspace.addCommand("open", null, element.ownerDocument.location.href, ValueType.STRING);            
             var ocmd = new TestCmd("open", null, element.ownerDocument.location.href);
             this.recordCommandList.push(ocmd);
             this.first = false;

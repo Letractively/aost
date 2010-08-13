@@ -391,9 +391,17 @@ App.prototype.describeCommand = function(commandList, mapper){
             if(mapper != null){
                 name = this.cmdMap.get(cmd.name) || cmd.name;
             }
-            sb.append("\t\t").append(name);
+            sb.append("\t\t");
+            if(cmd.returnVariable != null){
+                sb.append(cmd.returnVariable).append(" = ");
+            }
+            sb.append(name);
             if(cmd.uid != null && cmd.uid != undefined){
-                sb.append(" \"").append(cmd.uid).append("\"");
+                if(cmd.type == CommandType.ASSERTION){
+                   sb.append(" ").append(cmd.uid); 
+                }else{
+                   sb.append(" \"").append(cmd.uid).append("\"");
+                }
             }
             if(cmd.value != null && cmd.value != undefined){
                 if(cmd.uid != null && cmd.uid != undefined){
