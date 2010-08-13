@@ -4,11 +4,33 @@ function NodeRef(dom, frameName, ref){
     this.ref = ref;
 }
 
+const TargetType = {
+    UID: "uid",
+    DATA: "data",
+    VARIABLE: "var"
+};
+
 const ValueType = {
     NUMBER: "number",
     STRING: 'string',
     BOOLEAN: 'boolean',
-    OBJECT: 'object'
+    OBJECT: 'object',
+    VARIABLE: "var"
+};
+
+const CommandType = {
+    ACTION: "action",
+    ACCESSOR: "accessor",
+    ASSERTION: "assertion"
+};
+
+const ReturnType = {
+    VOID: "void",
+    BOOLEAN: "boolean",
+    STRING: "string",
+    ARRAY: "Array",
+    NUMBER: "number",
+    OBJECT: "object"
 };
 
 function UiCommand(name, ref, value, valueType, uid, seq){

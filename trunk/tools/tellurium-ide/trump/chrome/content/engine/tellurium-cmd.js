@@ -1,19 +1,4 @@
 
-const CommandType = {
-    ACTION: "action",
-    ACCESSOR: "accessor",
-    ASSERTION: "assertion"
-};
-
-const ReturnType = {
-    VOID: "void",
-    BOOLEAN: "boolean",
-    STRING: "string",
-    ARRAY: "Array",
-    NUMBER: "number",
-    OBJECT: "object"
-};
-
 function TelluriumCommand(name, type, returnType, handler){
     this.name = name;
     this.type = type;
