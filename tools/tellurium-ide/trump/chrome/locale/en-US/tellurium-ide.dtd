@@ -76,7 +76,7 @@
 <!ENTITY runCommandBox.label "Run Command">
 <!ENTITY commandResult.label "Return Value">
 <!ENTITY uiModuleId.label "UI Module">
-<!ENTITY assignCommandResult.label "==>">
+<!ENTITY assignCommandResult.label "Variable">
 
 <!ENTITY options.label "Settings">
 <!ENTITY options.general.label "General">
