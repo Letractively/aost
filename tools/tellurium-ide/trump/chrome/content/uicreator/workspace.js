@@ -11,7 +11,14 @@ const ValueType = {
     OBJECT: 'object'
 };
 
+const CommandType = {
+    ACTION: "action",
+    ACCESSOR: "accessor",
+    ASSERTION: "assertion"
+};
+
 function UiCommand(name, ref, value, valueType, uid, seq){
+    this.cmdType = null;
     this.name = name;
     this.value = value;
     this.ref = ref;
@@ -99,7 +106,7 @@ Workspace.prototype.addNode = function(dom, frameName, ref){
 };
 
 Workspace.prototype.addCommand = function(name, ref, value, valueType){
-    var command = new UiCommand(name, ref, value, valueType, null, null);
+    var command = new UiCommand(name, ref, value, valueType, null, this.sequence.next());
     if(this.commandList.length > 0){
         var prevCmd = this.commandList[this.commandList.length-1];
         if(command.isEqual(prevCmd)){
@@ -124,7 +131,7 @@ Workspace.prototype.clear = function(){
 };
 
 Workspace.prototype.convertCommand = function(){
-    this.convertedCommandList = new Array();
+//    this.convertedCommandList = new Array();
     if(this.commandList != null && this.commandList.length > 0){
         for(var i=0; i<this.commandList.length; i++){
             var cmd = this.commandList[i];
@@ -135,10 +142,12 @@ Workspace.prototype.convertCommand = function(){
                 if(uid == null)
                     logger.warn("Cannot find UID for reference ID " + cmd.ref + " for command " + cmd.name);
             }
-            var ccmd = new UiCommand(cmd.name, cmd.ref, cmd.value, cmd.valueType, uid, this.sequence.next());
-            this.convertedCommandList.push(ccmd);
+            cmd.uid = uid;
+//            var ccmd = new UiCommand(cmd.name, cmd.ref, cmd.value, cmd.valueType, uid, this.sequence.next());
+//            this.convertedCommandList.push(ccmd);
         }
     }
+    this.convertedCommandList = this.commandList;
 };
 
 Workspace.prototype.isEmpty = function(){
