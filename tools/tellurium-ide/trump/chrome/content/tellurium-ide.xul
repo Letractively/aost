@@ -230,7 +230,7 @@
                                     <row>
                                         <label control="commandResult" value="&commandResult.label;"/>
                                         <textbox id="commandReturnResult" value=""/>
-                                        <button label="&assignCommandResult.label;"
+                                        <button label="&assignCommandResult.label;" id="assignReturnVariableButton"
                                                 oncommand="window.editor.assignCommandResultToVariable()"/>
                                         <textbox id="returnValueVariable" value=""/>
                                     </row>

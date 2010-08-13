@@ -521,6 +521,14 @@ Editor.prototype.selectedTreeItem = function(event){
     this.recorder.showSelectedNode();
 };
 
+Editor.prototype.getCmdType = function(name){
+    var cmd = this.testRunner.cmdExecutor.getCommand(name);
+    return cmd.type;
+};
+Editor.prototype.getCommandDef = function(name){
+    return this.testRunner.cmdExecutor.getCommand(name);
+};
+
 Editor.prototype.refreshCommandList = function(){
     try {
         var index = this.cmdTree.currentIndex;
@@ -536,7 +544,10 @@ Editor.prototype.refreshCommandList = function(){
             cmdName.value = cmd.name;
             Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("updateCommandName")),
                                                           XulUtils.toXPCOMArray(this.commandList));
-            var type = this.getCmdType(cmd.name);
+            var cmdDef = this.getCommandDef(cmd.name);
+            this.checkVariableAssignButtonFor(cmdDef.returnType);
+
+            var type = cmdDef.type;
             if(cmd.target != null && cmd.target != undefined){
                 cmdUid.value = cmd.strTarget();
                 if (type != CommandType.ASSERTION) {
@@ -560,11 +571,6 @@ Editor.prototype.refreshCommandList = function(){
      }
 };
 
-Editor.prototype.getCmdType = function(name){
-    var cmd = this.testRunner.cmdExecutor.getCommand(name);
-    return cmd.type;
-};
-
 Editor.prototype.selectUiCommand = function(){
     try {
         var index = this.cmdTree.currentIndex;
@@ -580,7 +586,10 @@ Editor.prototype.selectUiCommand = function(){
             cmdName.value = cmd.name;
             Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("updateCommandName")),
                                                           XulUtils.toXPCOMArray(this.commandList));
-            var type = this.getCmdType(cmd.name);
+            var cmdDef = this.getCommandDef(cmd.name);
+            this.checkVariableAssignButtonFor(cmdDef.returnType);
+
+            var type = cmdDef.type;   
             if(cmd.target != null && cmd.target != undefined){
                 cmdTarget.value = cmd.strTarget();
                 if (type != CommandType.ASSERTION) {
@@ -631,6 +640,93 @@ Editor.prototype.selectUiCommand = function(){
      }
 };
 
+Editor.prototype.updateUiCommand = function(){
+    if(this.currentSelectedCommand != null){
+        logger.debug("Update command " + this.currentSelectedCommand.seq);
+        var cmdName = document.getElementById("updateCommandName").value;
+        var cmdTarget = document.getElementById("updateCommandUID").value;
+        var cmdValue = document.getElementById("updateCommandValue").value;
+        this.currentSelectedCommand.name = cmdName;
+        var cmdDef = this.getCommandDef(cmdName);
+        this.checkVariableAssignButtonFor(cmdDef.returnType);
+
+        var type = cmdDef.type;
+//        var type = this.getCmdType(cmdName);
+        this.currentSelectedCommand.type = type;
+
+        if(type == CommandType.ASSERTION){
+            //value type could be overwritten
+            this.currentSelectedCommand.valueType = ValueType.STRING;
+            //target type could be overwritten
+            this.currentSelectedCommand.targetType = TargetType.DATA;
+        }else{
+            this.currentSelectedCommand.targetType = TargetType.UID;
+        }
+
+        if(cmdTarget.trim().length == 0){
+            this.currentSelectedCommand.target = null;
+        }else{
+            this.currentSelectedCommand.parseTarget(cmdTarget);
+        }
+
+        if(cmdValue.trim().length == 0){
+            this.currentSelectedCommand.value = null;
+        }else{
+            this.currentSelectedCommand.parseValue(cmdValue);
+        }
+
+        this.recorder.app.updateCommand(this.currentSelectedCommand);
+
+        var sourceTextNode = document.getElementById("exportSource");
+        sourceTextNode.value = this.recorder.app.toSource();
+    }
+};
+
+Editor.prototype.removeUiCommand = function(){
+	if(this.currentSelectedCommand != null){
+        logger.debug("Remove command " + this.currentSelectedCommand.seq);
+        this.recorder.app.deleteCommand(this.currentSelectedCommand);
+        this.cmdView.deleteFromTestCommand(this.currentSelectedCommand);
+
+        var sourceTextNode = document.getElementById("exportSource");
+        sourceTextNode.value = this.recorder.app.toSource();
+    }
+};
+
+Editor.prototype.assignCommandResultToVariable= function(){
+    if(this.currentSelectedCommand != null){
+        logger.debug("Assigned return value to variable for command " + this.currentSelectedCommand.seq);
+        var variableName = document.getElementById("returnValueVariable").value;
+        if(variableName != undefined && variableName.trim().length > 0){
+            this.currentSelectedCommand.returnVariable = variableName.trim();
+        }
+    }
+};
+
+
+Editor.prototype.insertBeforeUiCommand = function(){
+
+};
+
+Editor.prototype.insertAfterUiCommand = function(){
+
+};
+
+Editor.prototype.enableVariableAssign = function(){
+    document.getElementById("assignReturnVariableButton").disabled = false;
+};
+
+Editor.prototype.disableVariableAssign = function(){
+     document.getElementById("assignReturnVariableButton").disabled = true;
+};
+
+Editor.prototype.checkVariableAssignButtonFor = function(returnType){
+    if(returnType == ReturnType.VOID){
+        this.disableVariableAssign();
+    }else{
+        this.enableVariableAssign();
+    }
+};
 
 Editor.prototype.switchToCustomizeTab = function(){
     document.getElementById("editorTabs").selectedItem = document.getElementById("customizeTab");
@@ -694,75 +790,6 @@ Editor.prototype.updateUiCommandName = function(value){
 };
 
 Editor.prototype.updateUiUID = function(value){
-
-};
-
-Editor.prototype.updateUiCommand = function(){
-    if(this.currentSelectedCommand != null){
-        logger.debug("Update command " + this.currentSelectedCommand.seq);
-        var cmdName = document.getElementById("updateCommandName").value;
-        var cmdTarget = document.getElementById("updateCommandUID").value;
-        var cmdValue = document.getElementById("updateCommandValue").value;
-        this.currentSelectedCommand.name = cmdName;
-
-        var type = this.getCmdType(cmdName);
-        this.currentSelectedCommand.type = type;
-
-        if(type == CommandType.ASSERTION){
-            //value type could be overwritten
-            this.currentSelectedCommand.valueType = ValueType.STRING;
-            //target type could be overwritten
-            this.currentSelectedCommand.targetType = TargetType.DATA;
-        }else{   
-            this.currentSelectedCommand.targetType = TargetType.UID;
-        }
-
-        if(cmdTarget.trim().length == 0){
-            this.currentSelectedCommand.target = null;
-        }else{
-            this.currentSelectedCommand.parseTarget(cmdTarget);
-        }
-
-        if(cmdValue.trim().length == 0){
-            this.currentSelectedCommand.value = null;
-        }else{
-            this.currentSelectedCommand.parseValue(cmdValue);
-        }
-
-        this.recorder.app.updateCommand(this.currentSelectedCommand);
-
-        var sourceTextNode = document.getElementById("exportSource");
-        sourceTextNode.value = this.recorder.app.toSource();        
-    }
-};
-
-Editor.prototype.removeUiCommand = function(){
-	if(this.currentSelectedCommand != null){
-        logger.debug("Remove command " + this.currentSelectedCommand.seq);
-        this.recorder.app.deleteCommand(this.currentSelectedCommand);
-        this.cmdView.deleteFromTestCommand(this.currentSelectedCommand);
-       
-        var sourceTextNode = document.getElementById("exportSource");
-        sourceTextNode.value = this.recorder.app.toSource();
-    }
-};
-
-Editor.prototype.assignCommandResultToVariable= function(){
-    if(this.currentSelectedCommand != null){
-        logger.debug("Assigned return value to variable for command " + this.currentSelectedCommand.seq);
-        var variableName = document.getElementById("returnValueVariable").value;
-        if(variableName != undefined && variableName.trim().length > 0){
-            this.currentSelectedCommand.returnVariable = variableName.trim();
-        }
-    }
-};
-
-
-Editor.prototype.insertBeforeUiCommand = function(){
-
-};
-
-Editor.prototype.insertAfterUiCommand = function(){
 
 };
 
