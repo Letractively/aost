@@ -106,6 +106,11 @@ TelluriumCommandExecutor.prototype.getCommand = function(name){
     return this.cmdMap.get(name);   
 };
 
+TelluriumCommandExecutor.prototype.getCommandType = function(name){
+    var cmd = this.cmdMap.get(name);
+    return cmd.type;
+};
+
 TelluriumCommandExecutor.prototype.cachedUiModuleNum = function(){
     return this.cache.size();    
 };

@@ -12,6 +12,7 @@ const ValueType = {
 };
 
 function UiCommand(name, ref, value, valueType, uid, seq){
+    this.type = null;
     this.name = name;
     this.value = value;
     this.ref = ref;
@@ -89,6 +90,8 @@ function Workspace(uiBuilder, uiChecker, refIdSetter){
     this.refUidMap = null;
 
     this.sequence = new Identifier(0);
+
+    this.cmdExecutor = null;
 }
 
 Workspace.prototype.addNode = function(dom, frameName, ref){
@@ -100,6 +103,8 @@ Workspace.prototype.addNode = function(dom, frameName, ref){
 
 Workspace.prototype.addCommand = function(name, ref, value, valueType){
     var command = new UiCommand(name, ref, value, valueType, null, this.sequence.next());
+    var type = this.cmdExecutor.getCommandType(name);
+    command.type = type;
     if(this.commandList.length > 0){
         var prevCmd = this.commandList[this.commandList.length-1];
         if(command.isEqual(prevCmd)){
