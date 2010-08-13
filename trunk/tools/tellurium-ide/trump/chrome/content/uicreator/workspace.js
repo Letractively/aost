@@ -476,14 +476,6 @@ Workspace.prototype.validateUiModule = function() {
 //        var result = this.validate();
         var result = this.uim.validate(this.uiAlg);
         if (result != null) {
-/*            this.innerTree.clearValidFlag();
-            if (!result.found) {
-                if (result.relaxDetails != null) {
-                    for (var j = 0; j < result.relaxDetails.length; j++) {
-                        this.innerTree.markInvalidUiObject(result.relaxDetails[j].uid);
-                    }
-                }
-            }*/
 
             return result.toString();
 //            var msg = result.toString();
