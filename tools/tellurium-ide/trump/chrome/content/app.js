@@ -397,6 +397,7 @@ App.prototype.describeTestSetup = function(){
     return "\t\tconnectSeleniumServer()\n";
 };
 
+/*
 App.prototype.formatAssignCommand = function(variable, name, target, value, valueType) {
     var sb = new StringBuffer();
     sb.append(this.format.getVarKeyword()).append(" ").append(variable).append(" = ").append(name).append("(");
@@ -440,26 +441,31 @@ App.prototype.formatRegularCommand = function(name, target, value, valueType){
     return sb.toString();
 };
 
-App.prototype.formatAssertionCommand = function(name, target, value, valueType){
+App.prototype.formatAssertionCommand = function(name, target, targetType, value, valueType){
     var sb = new StringBuffer();
     sb.append(name);
      var hasTarget = false;
     if (target != undefined && target != null) {
         hasTarget = true;
-        sb.append(" ").append(target);
+        if(targetType == TargetType.VARIABLE){
+            sb.append(" ").append(target);
+        }else{
+            sb.append(" \"").append(value).append("\"");
+        }
     }
     if (value != undefined && value != null) {
         if (hasTarget)
             sb.append(",");
-        if (valueType == ValueType.STRING) {
-            sb.append(" \"").append(value).append("\"");
-        } else {
+        if (valueType == ValueType.VARIABLE) {
             sb.append(" ").append(value);
+        } else {
+            sb.append(" \"").append(value).append("\"");
         }
     }
 
     return sb.toString();
 };
+*/
 
 App.prototype.describeCommand = function(commandList, mapper){
     var sb = new StringBuffer();
@@ -471,14 +477,15 @@ App.prototype.describeCommand = function(commandList, mapper){
                 name = this.cmdMap.get(cmd.name) || cmd.name;
             }
             sb.append("\t\t");
+            sb.append(cmd.strCommand(this.format.getVarKeyword()));
 
-            if(cmd.returnVariable != null && cmd.returnVariable.trim().length > 0){
-                sb.append(this.formatAssignCommand(cmd.returnVariable, cmd.name, cmd.target, cmd.value,  cmd.valueType));
-            }else if(cmd.type == CommandType.ASSERTION){
-                sb.append(this.formatAssertionCommand(cmd.name, cmd.target, cmd.value,  cmd.valueType));
-            }else{
-                sb.append(this.formatRegularCommand(cmd.name, cmd.target, cmd.value,  cmd.valueType));
-            }
+/*            if (cmd.returnVariable != null && cmd.returnVariable.trim().length > 0) {
+                sb.append(this.formatAssignCommand(cmd.returnVariable, cmd.name, cmd.target, cmd.value, cmd.valueType));
+            } else if (cmd.type == CommandType.ASSERTION) {
+                sb.append(this.formatAssertionCommand(cmd.name, cmd.target, cmd.targetType, cmd.value, cmd.valueType));
+            } else {
+                sb.append(this.formatRegularCommand(cmd.name, cmd.target, cmd.value, cmd.valueType));
+            }*/
             
             sb.append("\n");
         }
