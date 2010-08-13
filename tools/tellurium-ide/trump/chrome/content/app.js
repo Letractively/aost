@@ -104,8 +104,9 @@ App.prototype.getCommandList = function(){
                     }
                     if (!skip) {
                         this.cmdIndex.put(uiCmd.seq, uiCmd);
-                        var cmd = new TeCommand(uiCmd.seq, uiCmd.name, uiCmd.uid, uiCmd.value, uiCmd.valueType, uiCmd.ref);
-                        list.push(cmd);
+//                        var cmd = new TeCommand(uiCmd.seq, uiCmd.name, uiCmd.uid, uiCmd.value, uiCmd.valueType, uiCmd.ref);
+//                       list.push(cmd);
+                        list.push(uiCmd);
                         prevCmd = uiCmd;
                     }
                 }

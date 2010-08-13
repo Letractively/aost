@@ -20,6 +20,7 @@ function UiCommand(name, ref, value, valueType, uid, seq){
     this.valueType = valueType;
     this.returnValue = null;
     this.returnVariable = null;
+    this.result = "";
 }
 
 UiCommand.prototype.toString = function(){
