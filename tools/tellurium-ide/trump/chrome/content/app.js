@@ -30,6 +30,12 @@ UiPage.prototype.getIndex = function(cmd){
     return -1;
 };
 
+UiPage.prototype.removeCommand = function(index){
+    if(this.commandList != null){
+        this.commandList.splice(index, 1);
+    }
+};
+
 UiPage.prototype.insertAt = function(index, cmd){
     if(this.commandList != null){
         this.commandList.splice(index, 0, cmd);
@@ -164,6 +170,7 @@ App.prototype.insertCommand = function(prevCmd, cmd){
                 }
             }
         }
+        this.cmdIndex.put(cmd.seq, cmd);
     }
 };
 
@@ -171,16 +178,11 @@ App.prototype.deleteCommand = function(cmd) {
     if (cmd != null) {
         this.cmdIndex.remove(cmd.seq);
         for (var i = 0; i < this.pages.length; i++) {
-            this.getIndexAndSplice(this.pages[i], cmd);
-        }
-    }
-};
-
-App.prototype.getIndexAndSplice = function(page, cmd) {
-    if (page.commandList != null && page.commandList.length > 0) {
-        for (var i = 0; i < page.commandList.length; i++) {
-            if (page.commandList[i].seq == cmd.seq) {
-                page.commandList.splice(i, 1);
+            var page = this.pages[i];
+            var index = page.getIndex(cmd);
+            if(index != -1){
+                page.removeCommand(index);
+                break;
             }
         }
     }
