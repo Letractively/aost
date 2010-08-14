@@ -4,13 +4,13 @@
 
 = Introduction =
 
-Tellurium IDE is a Firefox plugin to record user actions and automatically generate Groovy DSL script. Tellurium IDE is spawned from Tellurium UI Module Firefox Plugin  [http://code.google.com/p/aost/wiki/UserGuide070TelluriumSubprojects#Tellurium_UI_Module_Plugin_%28TrUMP%29 Trump]. Telurium IDE 0.8.0 RC1 is a feature rich release with the following features:
-
+Tellurium IDE is a Firefox plugin to record user actions and automatically generate Groovy DSL script. Tellurium IDE is spawned from Tellurium UI Module Firefox Plugin  [http://code.google.com/p/aost/wiki/UserGuide070TelluriumSubprojects#Tellurium_UI_Module_Plugin_%28TrUMP%29 Trump]. Telurium IDE 0.8.0 RC1 is a feature rich release:
   * Record user actions
   * Automatically generate UI module and DSL script
   * Test generated DSL script
   * Customize, add, and update DSL script
   * Export DSL Script to Groovy DSL or Java test case
+  * Test runner is based on Tellurium new engine
 
 == Design ==
 
