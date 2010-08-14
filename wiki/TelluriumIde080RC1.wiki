@@ -4,7 +4,11 @@
 
 = Introduction =
 
-Tellurium IDE is a Firefox plugin to record user actions and automatically generate Groovy DSL script. Tellurium IDE is spawned from Tellurium UI Module Firefox Plugin  [http://code.google.com/p/aost/wiki/UserGuide070TelluriumSubprojects#Tellurium_UI_Module_Plugin_%28TrUMP%29 Trump]. Telurium IDE 0.8.0 RC1 is a feature rich release:
+Tellurium IDE is a Firefox plugin to record user actions and automatically generate Groovy DSL script. Tellurium IDE is spawned from Tellurium UI Module Firefox Plugin  [http://code.google.com/p/aost/wiki/UserGuide070TelluriumSubprojects#Tellurium_UI_Module_Plugin_%28TrUMP%29 Trump].
+
+== Feature ==
+
+Telurium IDE 0.8.0 RC1 is a feature rich release:
   * Record user actions
   * Automatically generate UI module and DSL script
   * Test generated DSL script
@@ -28,3 +32,26 @@ The workflow is shown as above:
   # The UI modules are put into the top of output script file
   # The reference ids in the command list are replaced with their UIDs
   # The updated command list is turned into Tellurium DSL script
+
+= Workflow =
+
+== Record ==
+
+http://tellurium-users.googlegroups.com/web/TelluriumIDERecordView.png?gda=9sc9jEwAAADzylifMuGHtadsGrIEvqZX6EQSG-Q9tkGBWlgjEgzAjMx10vtAIWPB37ZH86WX23MSpXuADwlmQ2U0jcQaQQWx_Vpvmo5s1aABVJRO3P3wLQ&gsc=xjJamgsAAAC59Gng8z5Qy5sBxjkZ-0PD
+
+== Replay ==
+
+http://tellurium-users.googlegroups.com/web/TelluriumIDECommandViewAssertion.png?gda=5Degt1YAAADzylifMuGHtadsGrIEvqZXEY5GxZ10VGq9YR1SKTnX691yIRGPql2sUg_wexYEWkQhWUVHr_q0Jl4M23uJko9id64s9EZTLP9aL_4jXQez_BPhGuxsWDLdLep2NLleRSE&gsc=txxv_QsAAAA-vAePfxKkJQy-212UCZNM
+
+== Customize ==
+
+http://tellurium-users.googlegroups.com/web/TelluriumIDECommandViewCustomize.png?gda=BXR8CFYAAADzylifMuGHtadsGrIEvqZX6EQSG-Q9tkGBWlgjEgzAjN1yIRGPql2sUg_wexYEWkShR1S4krmxhj0tTtlNpUN4d64s9EZTLP9aL_4jXQez_BPhGuxsWDLdLep2NLleRSE&gsc=xjJamgsAAAC59Gng8z5Qy5sBxjkZ-0PD
+
+== Source ==
+
+http://tellurium-users.googlegroups.com/web/TelluriumIDESourceView.png?gda=A43yREwAAADzylifMuGHtadsGrIEvqZXEY5GxZ10VGq9YR1SKTnX61YcCTzBHlOy02h_YJwQ91ISpXuADwlmQ2U0jcQaQQWx_Vpvmo5s1aABVJRO3P3wLQ&gsc=txxv_QsAAAA-vAePfxKkJQy-212UCZNM
+
+== Export ==
+
+http://tellurium-users.googlegroups.com/web/TelluriumIDEExportMenu.png?gda=j2qv3UwAAADzylifMuGHtadsGrIEvqZXEY5GxZ10VGq9YR1SKTnX66dt_Hfg7eIfrxPn9L3dV5-047q73-aFuNjPYpy7W7T-_Vpvmo5s1aABVJRO3P3wLQ&gsc=txxv_QsAAAA-vAePfxKkJQy-212UCZNM
+
