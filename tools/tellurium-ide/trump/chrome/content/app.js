@@ -12,6 +12,34 @@ function UiPage(){
 
 }
 
+UiPage.prototype.insertFirst = function(cmd){
+    if(this.commandList != null){
+        this.commandList.splice(0, 0, cmd);
+    }
+};
+
+UiPage.prototype.getIndex = function(cmd){
+    if(this.commandList != null){
+        for(var i=0; i<this.commandList.length; i++){
+            if(this.commandList[i].seq == cmd.seq){
+                return i;
+            }
+        }
+    }
+
+    return -1;
+};
+
+UiPage.prototype.insertAt = function(index, cmd){
+    if(this.commandList != null){
+        this.commandList.splice(index, 0, cmd);
+    }
+};
+
+UiPage.prototype.commandSize = function(){
+    return this.commandList == null ? 0 : this.commandList.length;    
+};
+
 const SourceLanguage = {
     JavaScript: "JavaScript",
     Groovy: "Groovy",
@@ -104,6 +132,35 @@ App.prototype.updateCommandListForPage = function(page) {
                     if (uid != null && cmd.target != uid) {
                         cmd.target = uid;
                     }
+                }
+            }
+        }
+    }
+};
+
+App.prototype.insertCommand = function(prevCmd, cmd){
+    if(this.pages != null && this.pages.length > 0){
+        if(prevCmd == null){
+            //insert as the first command
+            this.pages[0].insertFirst(cmd);
+        }else{
+            for(var i=0; i<this.pages.length; i++){
+                var page = this.pages[i];
+                var index = page.getIndex(prevCmd);
+                if(index != -1){
+                    if(index == page.commandSize()-1){
+                        //It is the last command
+                        if(i == this.pages.length-1){
+                            //It is the last page
+                            page.insertAt(index+1, cmd);
+                        }else{
+                            //put as the first element of the next page
+                            this.pages[i+1].insertFirst(cmd);
+                        }
+                    }else{
+                        page.insertAt(index+1, cmd);
+                    }
+                    break;
                 }
             }
         }

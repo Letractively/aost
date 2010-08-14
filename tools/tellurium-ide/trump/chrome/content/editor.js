@@ -696,9 +696,18 @@ Editor.prototype.removeUiCommand = function(){
 Editor.prototype.insertBeforeUiCommand = function(){
     try {
         var cmd = this.buildUiCommand();
-        this.cmdView.insertCommand(this.cmdTree.currentIndex, cmd);
+        var index = this.cmdTree.currentIndex;
+        var prevCmd = null;
+        if(index != 0){
+            prevCmd = this.cmdView.getRecordByIndex(index-1);
+        }
+
+        this.cmdView.insertCommand(index, cmd);
+        this.recorder.app.insertCommand(prevCmd, cmd);
         
         //update commands in the app
+        var sourceTextNode = document.getElementById("exportSource");
+        sourceTextNode.value = this.recorder.app.toSource();
     }catch(error) {
         logger.error("Error insertBefore command:\n" + describeErrorStack(error));
     }
@@ -707,10 +716,18 @@ Editor.prototype.insertBeforeUiCommand = function(){
 Editor.prototype.insertAfterUiCommand = function(){
     try {
         var cmd = this.buildUiCommand();
+        var index = this.cmdTree.currentIndex;
+        var prevCmd = null;
+        if(index != 0){
+            prevCmd = this.cmdView.getRecordByIndex(index);
+        }
 
-        this.cmdView.insertCommand(this.cmdTree.currentIndex+1, cmd);
+        this.cmdView.insertCommand(index+1, cmd);
+        this.recorder.app.insertCommand(prevCmd, cmd);
 
         //update commands in the app
+        var sourceTextNode = document.getElementById("exportSource");
+        sourceTextNode.value = this.recorder.app.toSource();
     }catch(error) {
         logger.error("Error insertBefore command:\n" + describeErrorStack(error));
     }
@@ -723,6 +740,10 @@ Editor.prototype.buildUiCommand = function(){
 
     if(target == undefined || target.trim().length == 0){
         target = null;
+    }
+
+    if(value == undefined || value.trim().length == 0){
+        value = null;
     }
 
     var ref = null;
