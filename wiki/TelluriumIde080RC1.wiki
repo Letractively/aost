@@ -1,4 +1,30 @@
 #summary Tellurium IDE 0.8.0 RC1.
 #labels Phase-Implementation,Phase-Support
+<wiki:toc max_depth="5" />
 
 = Introduction =
+
+Tellurium IDE is a Firefox plugin to record user actions and automatically generate Groovy DSL script. Tellurium IDE is spawned from Tellurium UI Module Firefox Plugin  [http://code.google.com/p/aost/wiki/UserGuide070TelluriumSubprojects#Tellurium_UI_Module_Plugin_%28TrUMP%29 Trump]. Telurium IDE 0.8.0 RC1 is a feature rich release with the following features:
+
+  * Record user actions
+  * Automatically generate UI module and DSL script
+  * Test generated DSL script
+  * Customize, add, and update DSL script
+  * Export DSL Script to Groovy DSL or Java test case
+
+== Design ==
+
+http://tellurium-developers.googlegroups.com/web/trumpworkflow.png?gda=9farzUMAAAC3f0S777RoMipgwttRc5E0rE3sb7K01jCxhcA7IRHMaYREyMfmzRjWt2IyFXBxC30ytiJ-HdGYYcPi_09pl8N7FWLveOaWjzbYnpnkpmxcWg
+
+The workflow is shown as above:
+  # User acts on the web and Trump records the events
+  # The events are stored as commands with fields such as name, value, and reference id
+  # In the meanwhile, the dom node and its reference id are pushed into a list
+  # User select on the web and Trump also records the events 
+  # The event does not have a command associated with it and is only pushed to the DOM list
+  # An inner tree is built based on the dom list
+  # The UI module is generated from the inner tree
+  # At the same time, a reference id to UID map is created
+  # The UI modules are put into the top of output script file
+  # The reference ids in the command list are replaced with their UIDs
+  # The updated command list is turned into Tellurium DSL script
