@@ -696,10 +696,8 @@ Editor.prototype.removeUiCommand = function(){
 Editor.prototype.insertBeforeUiCommand = function(){
     try {
         var cmd = this.buildUiCommand();
-        var index = this.cmdTree.currentIndex;
-        var commands = this.cmdView.testCommands;
-        commands.splice(index, 0, cmd);
-        this.cmdView.setTestCommands(commands);
+        this.cmdView.insertCommand(this.cmdTree.currentIndex, cmd);
+        
         //update commands in the app
     }catch(error) {
         logger.error("Error insertBefore command:\n" + describeErrorStack(error));
@@ -709,10 +707,9 @@ Editor.prototype.insertBeforeUiCommand = function(){
 Editor.prototype.insertAfterUiCommand = function(){
     try {
         var cmd = this.buildUiCommand();
-        var index = this.cmdTree.currentIndex;
-        var commands = this.cmdView.testCommands;
-        commands.splice(index+1, 0, cmd);
-        this.cmdView.setTestCommands(commands);
+
+        this.cmdView.insertCommand(this.cmdTree.currentIndex+1, cmd);
+
         //update commands in the app
     }catch(error) {
         logger.error("Error insertBefore command:\n" + describeErrorStack(error));

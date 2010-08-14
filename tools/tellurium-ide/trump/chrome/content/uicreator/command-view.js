@@ -57,6 +57,14 @@ var CommandView  = {
         this.recordIndex++;
     },
 
+    insertCommand: function(index, cmd){
+        this.testCommands.splice(index, 0, cmd);
+        this.treebox.rowCountChanged(this.rowCount, 1);
+        this.rowCount++;
+        this.treebox.ensureRowIsVisible(index);
+        this.recordIndex++;        
+    },
+
     updateCommands: function(refUidMap){
         for(var i=0; i<this.testCommands.length; i++){
             var cmd = this.testCommands[i];
