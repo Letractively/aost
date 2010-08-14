@@ -222,3 +222,17 @@ demo/
 `-- rundsl.groovy
 
 }}}
+
+= What's Next =
+
+  * Let user select UI element when customize UI
+  * Improve UI Module generating algorithm
+  * Generalize UI to UI templates such as List and Table
+  * Finish up new engine API
+
+= Resources =
+
+  * [http://code.google.com/p/aost/ Tellurium Project Home]
+  * [http://groups.google.com/group/tellurium-users Tellurium User Group]
+  * [http://twitter.com/TelluriumSource Tellurium on Twitter]
+  * [http://code.google.com/p/aost/wiki/Tellurium070Released Tellurium 0.7.0]
