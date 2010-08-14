@@ -690,6 +690,7 @@ Editor.prototype.removeUiCommand = function(){
 
         var sourceTextNode = document.getElementById("exportSource");
         sourceTextNode.value = this.recorder.app.toSource();
+        this.selectUiCommand();
     }
 };
 

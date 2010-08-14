@@ -103,9 +103,7 @@ var CommandView  = {
     	if (this.testCommands != null && this.testCommands.length > 0 && index < this.testCommands.length) {
             this.testCommands.splice(index , 1);
             this.deleteRow(index);
-    	}
-    	
-    	
+    	}	
     },
 
     deleteRow : function(index){
