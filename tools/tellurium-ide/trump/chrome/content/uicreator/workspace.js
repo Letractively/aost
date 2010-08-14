@@ -51,6 +51,9 @@ function UiCommand(name, ref, value, valueType, uid, seq){
     this.status = "";
 }
 
+UiCommand.cmdMap = new Hashtable();
+UiCommand.isUseCmdMap = false;
+
 UiCommand.prototype.strTarget = function(){
     if(this.targetType == TargetType.VARIABLE){
         return TargetType.VARIABLE + " " + this.target;
@@ -66,9 +69,22 @@ UiCommand.prototype.strValue = function(){
     return this.value;
 };
 
+UiCommand.prototype.getConvertedCommandName = function(){
+    var name = this.name;
+    if (UiCommand.isUseCmdMap) {
+        name = UiCommand.cmdMap.get(this.name);
+        if (name == null) {
+            name = this.name;
+        }
+    }
+
+   return name;
+};
+
 UiCommand.prototype.formatAssignCommand = function(keyword) {
     var sb = new StringBuffer();
-    sb.append(keyword).append(" ").append(this.returnVariable).append(" = ").append(this.name).append("(");
+
+    sb.append(keyword).append(" ").append(this.returnVariable).append(" = ").append(this.getConvertedCommandName()).append("(");
     var hasTarget = false;
     if (this.target != undefined && this.target != null) {
         hasTarget = true;
@@ -90,7 +106,8 @@ UiCommand.prototype.formatAssignCommand = function(keyword) {
 
 UiCommand.prototype.formatRegularCommand = function(){
     var sb = new StringBuffer();
-    sb.append(this.name);
+
+    sb.append(this.getConvertedCommandName());
      var hasTarget = false;
     if (this.target != undefined && this.target != null) {
         hasTarget = true;
@@ -109,19 +126,10 @@ UiCommand.prototype.formatRegularCommand = function(){
     return sb.toString();
 };
 
-UiCommand.prototype.strCommand = function(keyword) {
-    if (this.returnVariable != null && this.returnVariable.trim().length > 0) {
-        return this.formatAssignCommand(keyword);
-    } else if (this.type == CommandType.ASSERTION) {
-        return this.formatAssertionCommand();
-    } else {
-        return this.formatRegularCommand();
-    }
-};
-
 UiCommand.prototype.formatAssertionCommand = function(){
     var sb = new StringBuffer();
-    sb.append(this.name);
+
+    sb.append(this.getConvertedCommandName());
      var hasTarget = false;
     if (this.target != undefined && this.target != null) {
         hasTarget = true;
@@ -142,6 +150,16 @@ UiCommand.prototype.formatAssertionCommand = function(){
     }
 
     return sb.toString();
+};
+
+UiCommand.prototype.strCommand = function(keyword) {
+    if (this.returnVariable != null && this.returnVariable.trim().length > 0) {
+        return this.formatAssignCommand(keyword);
+    } else if (this.type == CommandType.ASSERTION) {
+        return this.formatAssertionCommand();
+    } else {
+        return this.formatRegularCommand();
+    }
 };
 
 UiCommand.prototype.parseTarget = function(target){
