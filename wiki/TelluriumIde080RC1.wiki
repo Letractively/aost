@@ -37,6 +37,7 @@ The workflow is shown as above:
 
 You can download Tellurium IDE 0.8.0 RC1 from [http://aost.googlecode.com/files/TelluriumIDE-0.8.0-RC1.xpi here]. Open it up in Firefox 3 and install it.
 
+http://tellurium-users.googlegroups.com/web/TelluriumIDEInstallation.png?gda=ldGcEk4AAADzylifMuGHtadsGrIEvqZXRDnCyMFlZjoGnHO17f7J5RDLG6iaG_mHBFoyqx_XKKe8rpZNtA1kjyIDQZHzzBlI47Cl1bPl-23V2XOW7kn5sQ&gsc=rwaeIwsAAABq-cxWzGYJFOJfDU--Biod
 
 = Use =
 
