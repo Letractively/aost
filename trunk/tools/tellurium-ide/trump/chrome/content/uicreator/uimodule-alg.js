@@ -1,5 +1,5 @@
 //New UI Module generation Algorithm
-//var OptionalTagSet = ["input", "select", "table", "form", "ul", "ol", "button", "a"];
+
 var ContainerTagSet = ["input", "select", "table", "form", "ul", "ol", "dl", "button", "a", "label"];
 var TableTagSet = ["tr", "th", "td", "tfoot", "tbody"];
 
