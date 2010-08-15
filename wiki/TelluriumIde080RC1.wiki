@@ -110,7 +110,7 @@ The generated DSL script is as follows.
 
 == Java Test Case ==
 
-
+Similarly, Tellurium IDE could export the test script as a Groovy UI module file and a Java test file. For more details, please see [http://code.google.com/p/aost/wiki/UserGuide070TelluriumBasics#Testing_Support Tellurium test support].
 
 = What's Next =
 
