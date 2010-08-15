@@ -41,12 +41,8 @@ function Editor(window) {
 
     this.command = new TelluriumCommandExecutor();
 
-//    this.commandList = new Array();
-
     //Map the command, because some command needs to convert the format for display, for example, array to String
     this.commandMap = new Hashtable();
-
-//    this.registerCommands();
 
     this.testResultObserver = new TestResultObserver(document);
 
@@ -87,58 +83,6 @@ Editor.prototype.onDOMContentLoaded = function(event) {
 Editor.prototype.setWindowURL = function(url){
 //    document.getElementById("windowURL").value = url;
 //    this.recorder.updateListenerForWindow(url);
-};
-
-Editor.prototype.registerCommands = function(){
-    this.commandList.push("blur");
-    this.commandList.push("click");
-    this.commandList.push("clickAt");
-    this.commandList.push("doubleClick");
-    this.commandList.push("fireEvent");
-    this.commandList.push("focus");
-    this.commandList.push("type");
-    this.commandList.push("typeKey");
-    this.commandList.push("keyDown");
-    this.commandList.push("keyPress");
-    this.commandList.push("keyUp");
-    this.commandList.push("mouseOver");
-    this.commandList.push("mouseDown");
-    this.commandList.push("mouseEnter");
-    this.commandList.push("mouseLeave");
-    this.commandList.push("mouseOut");
-    this.commandList.push("submit");
-    this.commandList.push("check");
-    this.commandList.push("uncheck");
-    this.commandList.push("getAttribute");
-    this.commandList.push("select");
-    this.commandList.push("getText");
-    this.commandList.push("getValue");
-    this.commandList.push("isChecked");
-    this.commandList.push("isVisible");
-    this.commandList.push("getCSS");
-    this.commandList.push("getCSSAsString");
-    this.commandList.push("isDisable");
-    this.commandList.push("showUI");
-    this.commandList.push("cleanUI");
-    this.commandList.push("getHTMLSource");
-    this.commandList.push("getHTMLSourceAsString");
-    this.commandList.push("getUids");
-    this.commandList.push( "getUidsAsString");
-    this.commandList.push("getCssSelectorCount");
-    this.commandList.push("getCssSelectorMatch");
-    this.commandList.push("getCssSelectorMatchAsString");
-    this.commandList.push("validateUiModule");
-    this.commandList.push("validateUiModuleAsString");
-    this.commandList.push("toJSON");
-    this.commandList.push("toJSONString");
-    this.commandList.push("waitForPageToLoad");
-    this.commandList.sort();
-    this.commandMap.put("getHTMLSource", "getHTMLSourceAsString");
-    this.commandMap.put("getUids", "getUidsAsString");
-    this.commandMap.put("getCSS", "getCSSAsString");
-    this.commandMap.put("getCssSelectorMatch", "getCssSelectorMatchAsString");
-    this.commandMap.put("validateUiModule", "validateUiModuleAsString");
-    this.commandMap.put("toJSON", "toJSONString");
 };
 
 Editor.prototype.getAutoCompleteSearchParam = function(id) {
