@@ -33,7 +33,12 @@ The workflow is shown as above:
   # The reference ids in the command list are replaced with their UIDs
   # The updated command list is turned into Tellurium DSL script
 
-= Workflow =
+= Installation =
+
+You can download Tellurium IDE 0.8.0 RC1 from [http://aost.googlecode.com/files/TelluriumIDE-0.8.0-RC1.xpi here]. Open it up in Firefox 3 and install it.
+
+
+= Use =
 
 == Record ==
 
@@ -55,124 +60,13 @@ http://tellurium-users.googlegroups.com/web/TelluriumIDESourceView.png?gda=A43yR
 
 http://tellurium-users.googlegroups.com/web/TelluriumIDEExportMenu.png?gda=j2qv3UwAAADzylifMuGHtadsGrIEvqZXEY5GxZ10VGq9YR1SKTnX66dt_Hfg7eIfrxPn9L3dV5-047q73-aFuNjPYpy7W7T-_Vpvmo5s1aABVJRO3P3wLQ&gsc=txxv_QsAAAA-vAePfxKkJQy-212UCZNM
 
-= Test =
+= Run Test =
 
-== Run DSL Script ==
+== DSL Script ==
 
-Tellurium 0.7.0 provides a rundsl.groovy script for users to run DSL test script. The rundsl.groovy uses [http://groovy.codehaus.org/Grape Groovy Grape] to automatically download all dependencies and then run DSL script.
+Tellurium 0.7.0 provides a rundsl.groovy script for users to run DSL test script. The rundsl.groovy uses [http://groovy.codehaus.org/Grape Groovy Grape] to automatically download all dependencies and then run DSL script. Here is the detailed guide on [http://code.google.com/p/aost/wiki/UserGuide070TelluriumBasics#Run_DSL_Script how to run DSL script].
 
-First, you need to configure Grape. Put the following grapeConfig.xml file into your home/.groovy/.
-
-{{{
-<ivysettings>
-  <settings defaultResolver="downloadGrapes"/>
-  <property
-    name="local-maven2-pattern"
-    value="${user.home}/.m2/repository/[organisation]/[module]/[revision]/[module]-[revision](-[classifier]).[ext]"
-    override="false" />
-  <resolvers>
-    <chain name="downloadGrapes">
-      <filesystem name="cachedGrapes">
-        <ivy pattern="${user.home}/.groovy/grapes/[organisation]/[module]/ivy-[revision].xml"/>
-        <artifact pattern="${user.home}/.groovy/grapes/[organisation]/[module]/[type]s/[artifact]-[revision].[ext]"/>
-      </filesystem>
-      <filesystem name="local-maven-2" m2compatible="true" local="true">
-        <ivy pattern="${local-maven2-pattern}"/>
-        <artifact pattern="${local-maven2-pattern}"/>
-      </filesystem>
-      <!-- todo add 'endorsed groovy extensions' resolver here -->
-      <ibiblio name="kungfuters.3rdparty" root="http://maven.kungfuters.org/content/repositories/thirdparty/" m2compatible="true"/>
-      <ibiblio name="codehaus" root="http://repository.codehaus.org/" m2compatible="true"/>
-      <ibiblio name="ibiblio" m2compatible="true"/>
-      <ibiblio name="java.net2" root="http://download.java.net/maven/2/" m2compatible="true"/>
-      <ibiblio name="openqa" root="http://archiva.openqa.org/repository/releases/" m2compatible="true"/>
-      <ibiblio name="kungfuters.snapshot" root="http://maven.kungfuters.org/content/repositories/snapshots/" m2compatible="true"/>
-      <ibiblio name="kungfuters.release" root="http://maven.kungfuters.org/content/repositories/releases/" m2compatible="true"/>
-    </chain>
-  </resolvers>
-</ivysettings>
-}}}
-
-Then run 
-
-{{{
-groovy rundsl.groovy -f DSL_script_name
-}}}
-
-If you are behind a firewall
-{{{
-groovy -Dhttp.proxyHost=proxy_host -Dhttp.proxyPort=proxy_port rundsl.groovy -f DSL_script_name
-}}}
- 
-If you defined custom UI objects in your project, you should first build the jar artifact, and install it to your local Maven repo. Then update the rundsl.groovy file to add the new dependency. For example, in the tellurium-website reference project, we defined custom UI objects, we added the following two lines into the rundsl.groovy script.
-
-{{{
-Grape.grab(group:'org.telluriumsource', module:'tellurium-website', version:'0.7.0-SNAPSHOT', classLoader:this.class.classLoader.rootLoader)
-
-...
-
-   @Grab(group='org.telluriumsource', module='tellurium-website', version='0.7.0-SNAPSHOT')
-}}}
- 
-An example rundsl.groovy script is as follows:
-
-{{{
-import groovy.grape.Grape;
-
-Grape.grab(group:'org.telluriumsource', module:'tellurium-core', version:'0.8.0-SNAPSHOT', classLoader:this.class.classLoader.rootLoader)
-Grape.grab(group:'org.stringtree', module:'stringtree-json', version:'2.0.10', classLoader:this.class.classLoader.rootLoader)
-Grape.grab(group:'caja', module:'json_simple', version:'r1', classLoader:this.class.classLoader.rootLoader)
-Grape.grab(group:'org.seleniumhq.selenium.server', module:'selenium-server', version:'1.0.1-te4-SNAPSHOT', classLoader:this.class.classLoader.rootLoader)
-Grape.grab(group:'org.seleniumhq.selenium.client-drivers', module:'selenium-java-client-driver', version:'1.0.1', classLoader:this.class.classLoader.rootLoader)
-Grape.grab(group:'org.apache.poi', module:'poi', version:'3.0.1-FINAL', classLoader:this.class.classLoader.rootLoader)
-Grape.grab(group:'junit', module:'junit', version:'4.7', classLoader:this.class.classLoader.rootLoader)
-
-import org.telluriumsource.dsl.DslScriptExecutor
-
-@Grapes([
-   @Grab(group='org.codehaus.groovy', module='groovy-all', version='1.7.0'),
-   @Grab(group='org.seleniumhq.selenium.server', module='selenium-server', version='1.0.1-te4-SNAPSHOT', transitive=false),
-   @Grab(group='org.seleniumhq.selenium.client-drivers', module='selenium-java-client-driver', version='1.0.1'),
-   @Grab(group='junit', module='junit', version='4.7'),
-   @Grab(group='caja', module='json_simple', version='r1'),
-   @Grab(group='org.apache.poi', module='poi', version='3.0.1-FINAL'),
-   @Grab(group='org.stringtree', module='stringtree-json', version='2.0.10'),
-   @Grab(group='org.telluriumsource', module='tellurium-core', version='0.8.0-SNAPSHOT'),
-])
-
-def runDsl(String[] args) {
-  def cli = new CliBuilder(usage: 'rundsl.groovy -[hf] [scriptname]')
-  cli.with {
-    h longOpt: 'help', 'Show usage information'
-    f longOpt: 'scriptname',   'DSL script name'
-  }
-  def options = cli.parse(args)
-  if (!options) {
-    return
-  }
-  if (options.h) {
-    cli.usage()
-    return
-  }
-  if (options.f) {
-    def extraArguments = options.arguments()
-    if (extraArguments) {
-      extraArguments.each {String name ->
-        def input = [name].toArray(new String[0])
-        DslScriptExecutor.main(input)
-      }
-    }
-  }
-
-}
-
-println "Running DSL test script, press Ctrl+C to stop."
-
-runDsl(args)
-
-}}}
-
-== Generated DSL Script ==
+The generated DSL script is as follows.
 
 {{{
 /**
@@ -214,14 +108,9 @@ runDsl(args)
 }}}
 
 
-{{{
-[jfang@Mars workspace]$ tree demo/
-demo/
-|-- TelluriumConfig.groovy
-|-- TelluriumDemo.groovy
-`-- rundsl.groovy
+== Java Test Case ==
 
-}}}
+
 
 = What's Next =
 
