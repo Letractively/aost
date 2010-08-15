@@ -39,6 +39,8 @@ You can download Tellurium IDE 0.8.0 RC1 from [http://aost.googlecode.com/files/
 
 http://tellurium-users.googlegroups.com/web/TelluriumIDEInstallation.png?gda=ldGcEk4AAADzylifMuGHtadsGrIEvqZXRDnCyMFlZjoGnHO17f7J5RDLG6iaG_mHBFoyqx_XKKe8rpZNtA1kjyIDQZHzzBlI47Cl1bPl-23V2XOW7kn5sQ&gsc=rwaeIwsAAABq-cxWzGYJFOJfDU--Biod
 
+This plugin is also available at [https://addons.mozilla.org/en-US/firefox/addon/217284/ Firefox addon site].
+
 = Usage =
 
 == Record ==
