@@ -48,7 +48,7 @@ http://tellurium-users.googlegroups.com/web/TelluriumIDERecordView.png?gda=9sc9j
 
 == Replay ==
 
-Press the record button to stop recording. UI modules and test commands are generated automatically. Use Run or Step button to run the whole commands or a single command. The slider on the top right screen determines the delay between two commands. You can assign the return value to a variable and then use assertions to compare the result. To differentiate a variable from a String, you need to use {{{var name}}} syntax for a variable.
+Press the record button to stop recording. UI modules and test commands are generated automatically. Use Run or Step button to run the whole commands or a single command. The slider on the top right screen determines the delay between two commands. You can assign the return value to a variable and then use assertions to compare the result. To differentiate a variable from a String, you need to use "{{{var name}}}" syntax for a variable.
 
 http://tellurium-users.googlegroups.com/web/TelluriumIDECommandViewAssertion.png?gda=5Degt1YAAADzylifMuGHtadsGrIEvqZXEY5GxZ10VGq9YR1SKTnX691yIRGPql2sUg_wexYEWkQhWUVHr_q0Jl4M23uJko9id64s9EZTLP9aL_4jXQez_BPhGuxsWDLdLep2NLleRSE&gsc=txxv_QsAAAA-vAePfxKkJQy-212UCZNM
 
