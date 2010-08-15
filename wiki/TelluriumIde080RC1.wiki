@@ -11,7 +11,7 @@ Tellurium IDE is a Firefox plugin to record user actions and automatically gener
 Telurium IDE 0.8.0 RC1 is a feature rich release:
   * Record user actions
   * Automatically generate UI module and DSL script
-  * Test generated DSL script
+  * Replay generated DSL script
   * Customize, add, and update DSL script
   * Export DSL Script to Groovy DSL or Java test case
   * Test runner is based on Tellurium new engine
@@ -42,21 +42,31 @@ You can download Tellurium IDE 0.8.0 RC1 from [http://aost.googlecode.com/files/
 
 == Record ==
 
+The record button is on by default. First, record user actions and the DOM nodes. A reference ID is generated for each recorded DOM node.
+ 
 http://tellurium-users.googlegroups.com/web/TelluriumIDERecordView.png?gda=9sc9jEwAAADzylifMuGHtadsGrIEvqZX6EQSG-Q9tkGBWlgjEgzAjMx10vtAIWPB37ZH86WX23MSpXuADwlmQ2U0jcQaQQWx_Vpvmo5s1aABVJRO3P3wLQ&gsc=xjJamgsAAAC59Gng8z5Qy5sBxjkZ-0PD
 
 == Replay ==
+
+Press the record button to stop recording. UI modules and test commands are generated automatically. Use Run or Step button to run the whole commands or a single command. The slider on the top right screen determines the delay between two commands. You can assign the return value to a variable and then use assertions to compare the result.
 
 http://tellurium-users.googlegroups.com/web/TelluriumIDECommandViewAssertion.png?gda=5Degt1YAAADzylifMuGHtadsGrIEvqZXEY5GxZ10VGq9YR1SKTnX691yIRGPql2sUg_wexYEWkQhWUVHr_q0Jl4M23uJko9id64s9EZTLP9aL_4jXQez_BPhGuxsWDLdLep2NLleRSE&gsc=txxv_QsAAAA-vAePfxKkJQy-212UCZNM
 
 == Customize ==
 
+During the run, you can pause the test and customize the UI module. You can also update or insert a command.
+
 http://tellurium-users.googlegroups.com/web/TelluriumIDECommandViewCustomize.png?gda=BXR8CFYAAADzylifMuGHtadsGrIEvqZX6EQSG-Q9tkGBWlgjEgzAjN1yIRGPql2sUg_wexYEWkShR1S4krmxhj0tTtlNpUN4d64s9EZTLP9aL_4jXQez_BPhGuxsWDLdLep2NLleRSE&gsc=xjJamgsAAAC59Gng8z5Qy5sBxjkZ-0PD
 
 == Source ==
 
+The source is shown on the source view.
+
 http://tellurium-users.googlegroups.com/web/TelluriumIDESourceView.png?gda=A43yREwAAADzylifMuGHtadsGrIEvqZXEY5GxZ10VGq9YR1SKTnX61YcCTzBHlOy02h_YJwQ91ISpXuADwlmQ2U0jcQaQQWx_Vpvmo5s1aABVJRO3P3wLQ&gsc=txxv_QsAAAA-vAePfxKkJQy-212UCZNM
 
 == Export ==
+
+You can export the generated test script to either Groovy DSL script or a UI module class and a Java test case. In the meanwhile, you can paste the code to clipboard.
 
 http://tellurium-users.googlegroups.com/web/TelluriumIDEExportMenu.png?gda=j2qv3UwAAADzylifMuGHtadsGrIEvqZXEY5GxZ10VGq9YR1SKTnX66dt_Hfg7eIfrxPn9L3dV5-047q73-aFuNjPYpy7W7T-_Vpvmo5s1aABVJRO3P3wLQ&gsc=txxv_QsAAAA-vAePfxKkJQy-212UCZNM
 
