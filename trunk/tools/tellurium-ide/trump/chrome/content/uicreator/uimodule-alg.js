@@ -40,11 +40,35 @@ UimAlg.prototype.build = function(){
     return null;
 };
 
+function ExtraContainerNodeVisitor(){
+    this.nodes = new Array();
+    this.limit = 10;
+    this.contd = true;
+}
+
+ExtraContainerNodeVisitor.prototype.visit = function(node){
+    var $extras = teJQuery(node.domNode).find("input, a, link, form, select, button, table").filter(":visible");
+    var total = this.nodes.length + $extras.size();
+    //TODO: check nodes, make sure to exclude the child elements that has been selected
+};
+
+function ExtraTextNodeVisitor(){
+    this.nodes = new Array();
+    this.limit = 10;
+    this.contd = true;
+}
+
+ExtraTextNodeVisitor.prototype.visit = function(node){
+
+};
+
 UimAlg.prototype.addExtra = function(root){
-    var $extras = teJQuery(root.domNode).find("input, a, link, form, select, button, table").filter(":visible");
-    if($extras.length > 10){
-        $extras = $extras.filter(":not(a)");
-    }
+//    var $extras = teJQuery(root.domNode).find("input, a, link, form, select, button, table").filter(":visible");
+//    if($extras.length > 15){
+//        $extras = $extras.filter(":not(a)");
+//    }
+    
+    var $extras = teJQuery(root.domNode).find("input, link, form, select, button, table").filter(":visible");
 
     for (var i = 0; i < $extras.length; i++) {
         var $extra = $extras.eq(i);
@@ -52,7 +76,22 @@ UimAlg.prototype.addExtra = function(root){
             this.markNode($extra.get(0));
         }
     }
+//    var $textNodes = teJQuery(root.domNode).find("div, span").filter(function(){return /[^\s]+/.test(teJQuery(this).text());});
+/*    
+    var $textNodes = teJQuery(root.domNode).find("div, span").filter(":visible").filter(TestText);
+    for(var j=0; j<$textNodes.length; j++){
+        var $textNode = $textNodes.eq(j);
+        if(!$textNode.data("sid")){
+            var node = $textNode.get(0);
+            this.markNode($textNode.get(0));
+        }
+    }
+    */
 };
+
+function TestText(){
+    return /[^\s]+/.test(teJQuery(this).text());
+}
 
 UimAlg.prototype.reachTop = function($node){
     var nodeObject = $node.data(UimConst.NODE_OBJECT);

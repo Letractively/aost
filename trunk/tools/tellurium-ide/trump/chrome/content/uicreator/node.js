@@ -133,6 +133,15 @@ NodeObject.prototype.visitMe = function(visitor){
     }
 };
 
+NodeObject.prototype.visitAfter = function(visitor){
+    if(this.children != null && this.children.length > 0){
+        for(var i=0; i<this.children.length; i++){
+            this.children[i].visitAfter(visitor);
+        }
+    }
+    visitor.visit(this);
+};
+
 NodeObject.prototype.walkUp = function(){
     var rxp = this.uiobject.buildXPath();
 

@@ -54,6 +54,10 @@ Recorder.prototype.clickListener = function(event){
             recorder.recordCommand("click", event.target, null, null);
         } else {
             var target = event.target;
+            var tag = target.tagName.toLowerCase();
+            if(tag == "div" || tag == "span"){
+               recorder.recordDomNode(target);
+            }
             recorder.callIfMeaningfulEvent(function() {
                 recorder.recordCommand("click", target, null);
             });

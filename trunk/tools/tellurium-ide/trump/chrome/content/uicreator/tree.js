@@ -354,6 +354,16 @@ Tree.prototype.visit = function(visitor){
     }
 };
 
+Tree.prototype.visitAfter = function(visitor){
+    if(this.root != null){
+        try {
+            this.root.visitAfter(visitor);
+        } catch(error) {
+            logger.error("Visit tree failed:\n" + describeErrorStack(error));
+        }
+    }
+};
+
 Tree.prototype.buildUiObject = function(builder, checker){
     this.visit(builder);
     this.visit(checker);

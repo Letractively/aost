@@ -371,8 +371,9 @@ Recorder.prototype.generateSource = function(){
         this.savePage();
         this.reloadRecorder();
         var src = this.app.toSource();
-        var sourceTextNode = document.getElementById("exportSource");
-        sourceTextNode.value = src;
+        teJQuery(document).find("#exportSource").val(src);
+//        var sourceTextNode = document.getElementById("exportSource");
+//        sourceTextNode.value = src;
         logger.info("UI Module and commands are generated, please see them on the UI module source view.");
     } catch(error) {
         logger.error("Error generating UI module and commands:\n" + describeErrorStack(error));
