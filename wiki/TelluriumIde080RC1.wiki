@@ -77,7 +77,7 @@ http://tellurium-users.googlegroups.com/web/TelluriumIDEExportMenu.png?gda=j2qv3
 
 Tellurium 0.7.0 provides a rundsl.groovy script for users to run DSL test script. The rundsl.groovy uses [http://groovy.codehaus.org/Grape Groovy Grape] to automatically download all dependencies and then run DSL script. Here is the detailed guide on [http://code.google.com/p/aost/wiki/UserGuide070TelluriumBasics#Run_DSL_Script how to run DSL script].
 
-The generated DSL script is as follows.
+The generated DSL script is as follows and can be downloaded from [http://aost.googlecode.com/files/TelluriumIDEDemo.tar.gz here].
 
 {{{
 /**
