@@ -1,12 +1,10 @@
                         README
 
-----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------
 
              Tellurium Team (TelluriumSource@Gmail.com)
 
-                   (http://code.google.com/p/aost)
-
-----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 The Tellurium Automated Testing Framework (Tellurium) is a UI module-based automated testing framework for web
 applications. The UI module is a collection of UI elements you group together. Usually, the UI module represents
@@ -49,7 +47,7 @@ automatically binds the input data to variables defined in your test script and 
 input file. The test results will be recorded by a test listener and output in different formats, for example,
 an XML file.
 
-Tellurium UI Model Plugin (TrUMP) is a Firefox plugin to automatically create UI modules for users. In addition,
+Tellurium UI Model Plugin (Trump) is a Firefox plugin to automatically create UI modules for users. In addition,
 Tellurium provides you the capability to composite UI objects into a Tellurium widget object. You can pack Tellurium
 widgets as a jar file and then use a Tellurium widget just like a single tellurium UI object once you include the
 jar file. As a result, Tellurium is robust, expressive, flexible, and reusable.
@@ -83,14 +81,6 @@ http://telluriumsource.org
 
 NEWS
 
-    * 2010-05-07, Tellurium 0.7.0 is released
-    * 2010-05-06, Tellurum 0.7.0 Reference Document is available now
-    * 2010-05-04, Build Tellurium Reference Document with Docbkx Maven Plugin
-    * 2010-04-16, Welcome Rajan to the team.
-    * 2010-04-16, Tellurium Calls for Open Source Contributors
-    * 2010-04-14, Tellurium is on GitHub now
-    * 2010-04-13, Tellurium 0.7.0 RC2 is Available Now
-    * 2010-04-05, Tellurium UID Description Language prototype is done
     * 2010-03-10, TelluriumSource.org is up and running
     * 2010-03-04, Run Tellurium Integration Tests with Maven Cargo Plugin
     * 2010-02-15, Disclose UI Module APIs in Tellurium 0.7.0.
@@ -127,10 +117,10 @@ NEWS
     * 2009-04-14, Tellurium starts to support jQuery selector.
     * 2009-03-15, tutorial 10 Minutes to Tellurium is created and it includes a wiki page, presentation slides, and a screencast video.
     * 2009-03-13, two Tellurium Maven archetypes are available, i.e., tellurium-junit-archetype and tellurium-testng-archetype for Tellurium JUnit and TestNG project, respectively.
-    * 2009-03-04, Tellurium UI Module Firefox Plugin (TrUMP) 0.1.0 is released
-    * 2009-02-18, Tellurium UI Module Firefox Plugin (TrUMP) 0.1.0 Release Candidate is available
+    * 2009-03-04, Tellurium UI Module Firefox Plugin (Trump) 0.1.0 is released
+    * 2009-02-18, Tellurium UI Module Firefox Plugin (Trump) 0.1.0 Release Candidate is available
     * 2009-02-17, Tellurium Demo Videos are uploaded, you can use VLC media player to watch them
-    * 2009-01-29, Tellurium UI Module Firefox Plugin (TrUMP) 0.1.0 preview version is available
+    * 2009-01-29, Tellurium UI Module Firefox Plugin (Trump) 0.1.0 preview version is available
     * 2008-12-03, Tellurium core 0.5.0 and reference projects are released
     * 2008-12-02, Welcome Mikhail Koryak to our team.
     * 2008-11-15, Tellurium 0.5.0 Release Candidate RC01 is out
