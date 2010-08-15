@@ -11,7 +11,7 @@ function UiType() {
     };
 
     this.map = new HashMap();
-    this.map.set("divN", "Div");
+    this.map.set("divN", "TextBox");
     this.map.set("divY", "Container");
     this.map.set("aN", "UrlLink");
     this.map.set("aY", "Container");
@@ -26,7 +26,7 @@ function UiType() {
     this.map.set("selectN", "Selector");
     this.map.set("buttonN", "Button");
     this.map.set("buttonY", "Button");
-    this.map.set("spanN", "Span");
+    this.map.set("spanN", "TextBox");
     this.map.set("spanY", "Container");
     this.map.set("formN", "Form");
     this.map.set("formY", "Form");
