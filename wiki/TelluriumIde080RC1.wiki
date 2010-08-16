@@ -4,7 +4,9 @@
 
 = Introduction =
 
-Tellurium IDE is a Firefox plugin to record user actions and automatically generate Groovy DSL script. Tellurium IDE is spawned from Tellurium UI Module Firefox Plugin  [http://code.google.com/p/aost/wiki/UserGuide070TelluriumSubprojects#Tellurium_UI_Module_Plugin_%28TrUMP%29 Trump].
+Tellurium is an expressive testing framework and it uses UI modules to define the web UIs under testing. UIDs are used to reference UI elements instead of hardcoded locators. About two months ago, it was still a dream to automatically generate Tellurium DSL script like Selenium IDE does, but now, the dream came true.
+
+Tellurium IDE is a Firefox plugin to record user actions and automatically generate Groovy DSL script. Tellurium IDE is developed from the codebase of Tellurium UI Module Firefox Plugin  [http://code.google.com/p/aost/wiki/UserGuide070TelluriumSubprojects#Tellurium_UI_Module_Plugin_%28TrUMP%29 Trump], which is used to record your selection of UIs and automatically generate UI modules. Tellurium IDE is a step further to automatically generate Tellurium commands and UI modules. The exported Groovy DSL script could be run directly with Tellurium rundsl.groovy script.
 
 == Feature ==
 
@@ -12,9 +14,10 @@ Telurium IDE 0.8.0 RC1 is a feature rich release:
   * Record user actions
   * Automatically generate UI module and DSL script
   * Replay generated DSL script
-  * Customize, add, and update DSL script
+  * Customize, add, and update Tellurium commands
+  * assertion support
   * Export DSL Script to Groovy DSL or Java test case
-  * Test runner is based on Tellurium new engine
+  * Test runner is powered by Tellurium new engine
 
 == Design ==
 
@@ -28,6 +31,7 @@ The workflow is shown as above:
   # The event does not have a command associated with it and is only pushed to the DOM list
   # An inner tree is built based on the dom list
   # The UI module is generated from the inner tree
+  # Additional UI elements are picked up by an algorithm
   # At the same time, a reference id to UID map is created
   # The UI modules are put into the top of output script file
   # The reference ids in the command list are replaced with their UIDs
