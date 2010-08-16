@@ -130,6 +130,9 @@ Similarly, Tellurium IDE could export the test script as a Groovy UI module file
 
 = What's Next =
 
+Be aware that Tellurium IDE 0.8.0 RC1 is work in process, please report any problems back to [http://groups.google.com/group/tellurium-users Tellurium user group].
+
+The next step includes:
   * Let user select UI element when customize UI
   * Improve UI Module generating algorithm
   * Generalize UI to UI templates such as List and Table
