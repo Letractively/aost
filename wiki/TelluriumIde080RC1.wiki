@@ -142,7 +142,7 @@ The next step includes:
   * Generalize UI to UI templates such as List and Table
   * Finish up new engine API
 
-Also, we are looking for JavaScript exports to join our team to help with the Tellurium IDE and Tellurium Engine development. If you are interested, please send emails to telluriumsource at gmail dot com. 
+Also, we are looking for JavaScript experts to join our team to help with the Tellurium IDE and Tellurium Engine development. If you are interested, please send emails to telluriumsource at gmail dot com. 
 
 Thanks in advance.
 
