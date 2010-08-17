@@ -7,6 +7,7 @@ var ErrorCodes = {
     DOM_NOT_SPECIFIED: "DOM is not specified",
     ELEMENT_HAS_NO_VALUE: "No value attribute in element",
     TIME_OUT: "Command Timeouts",
+    ASSERTION_ERROR: "Assertion Error",
     UNKNOWN: "Unknown"
 };
 

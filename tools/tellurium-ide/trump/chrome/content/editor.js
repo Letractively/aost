@@ -754,7 +754,6 @@ Editor.prototype.buildCustomizeTree = function(xml) {
 };
 
 Editor.prototype.populateUiTypeAutoComplete = function(){
-//    var uitypes = tellurium.getRegisteredUiTypes();
     var uitypes = this.builder.getAvailableUiTypes();
     logger.debug("Get registered UI types: " + uitypes.join(", "));
     Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.editor.getAutoCompleteSearchParam("uiType")),
@@ -762,7 +761,6 @@ Editor.prototype.populateUiTypeAutoComplete = function(){
 };
 
 Editor.prototype.processCustomizeEvent = function(event){
-//    logger.debug('Customize ' + event.target.getAttribute("label"));
     this.currentUid = event.target.getAttribute("uid");
     var uiObject = this.recorder.app.walkToUiObject(this.currentUid);
 
@@ -793,7 +791,6 @@ Editor.prototype.cleanCommandView = function(){
     Editor.GENERIC_AUTOCOMPLETE.clearCandidates(XulUtils.toXPCOMString(this.autoCompleteSearchParams["updateCommandName"]));
     Editor.GENERIC_AUTOCOMPLETE.clearCandidates(XulUtils.toXPCOMString(this.autoCompleteSearchParams["updateCommandUID"]));
 
-//    this.cmdHistory = new Array();
     this.cmdView.clearAll();
 };
 
@@ -806,7 +803,7 @@ Editor.prototype.updateUiUID = function(value){
 };
 
 Editor.prototype.processCheckEvent = function(event){
-//    alert("You selected " + event.target.getAttribute("cid"));
+
 };
 
 Editor.prototype.fillUiObjectFields = function(uiObject){
@@ -860,12 +857,9 @@ Editor.prototype.getElementsByTagValue = function(tag, attr, val){
 };
 
 Editor.prototype.showNodeOnWeb = function(){
-//    var uiObject = this.workspace.getUiObject(this.currentUid);
     var uiObject = this.recorder.app.walkToUiObject(this.currentUid);
     if(uiObject != null){
-//        if(uiObject.node != null && uiObject.node.domNode != null){
         if(uiObject.domRef != null){
-//            this.decorator.showNode(uiObject.node.domNode);
             this.decorator.showNode(uiObject.domRef);
         }else{
             logger.error("UI Object " + this.currentUid + " does not point to a Dom Node");
@@ -876,7 +870,6 @@ Editor.prototype.showNodeOnWeb = function(){
 };
 
 Editor.prototype.updateUiObject = function(){
-//    var uiObject = this.workspace.getUiObject(this.currentUid);
     var uiObject = this.recorder.app.walkToUiObject(this.currentUid);
     if(uiObject != null){
         var uim = uiObject.uim;
@@ -1115,27 +1108,6 @@ Editor.prototype.pasteFromClipboard = function() {
     return pastetext;
 };
 
-Editor.prototype.exportToWindow = function(){
-    if(this.workspace.innerTree != null){
-        var txt = this.workspace.innerTree.createUiModule();
-        //switch to the exportToWindows tab
-        document.getElementById("editorTabs").selectedItem = document.getElementById("exportToWindowTab");
-        var sourceTextNode = document.getElementById("exportSource");
-        sourceTextNode.value  = txt;
-
-        logger.debug("UI Module is exported to window ");
-    }
-};
-
-Editor.prototype.exportToWindowInBackground = function() {
-    if (this.command.cachedUiModuleNum() > 0) {
-        var sourceTextNode = document.getElementById("exportSource");
-        sourceTextNode.value = this.command.generateCode();
-
-        logger.debug("UI Module is exported to window ");
-    }
-};
-
 Editor.prototype.updateOptions = function(){
     window.openDialog("chrome://trump/content/preferences.xul", "options", "chrome,modal,resizable", this.os);
     var jslog = Preferences.getPref("extensions.trump.jslog");
@@ -1166,6 +1138,21 @@ function TestCmd(name, target, param){
     this.result = null;
 }
 
+/*
+Editor.prototype.exportToWindow = function(){
+    if(this.workspace.innerTree != null){
+        var txt = this.workspace.innerTree.createUiModule();
+        //switch to the exportToWindows tab
+        document.getElementById("editorTabs").selectedItem = document.getElementById("exportToWindowTab");
+        var sourceTextNode = document.getElementById("exportSource");
+        sourceTextNode.value  = txt;
+
+        logger.debug("UI Module is exported to window ");
+    }
+};
+*/
+
+/*
 Editor.prototype.customizeButton = function(){
     this.switchToCustomizeTab();
     var xml = DEFAULT_XML;
@@ -1184,3 +1171,4 @@ Editor.prototype.customizeButton = function(){
         }
      }
 };
+*/
