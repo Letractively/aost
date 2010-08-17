@@ -60,7 +60,6 @@ UiType.prototype.getTypeWithExtra = function(tag, extra, hasChildren) {
     }
 
     if (this.constants.INPUT == tag && extra != null) {
-        //            alert("extra : " + extra);
         var type = extra.get(this.constants.TYPE);
         if (type != null) {
             if (this.constants.CHECKBOX == type) {

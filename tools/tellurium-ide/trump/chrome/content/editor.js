@@ -1137,38 +1137,3 @@ function TestCmd(name, target, param){
     this.param = param;
     this.result = null;
 }
-
-/*
-Editor.prototype.exportToWindow = function(){
-    if(this.workspace.innerTree != null){
-        var txt = this.workspace.innerTree.createUiModule();
-        //switch to the exportToWindows tab
-        document.getElementById("editorTabs").selectedItem = document.getElementById("exportToWindowTab");
-        var sourceTextNode = document.getElementById("exportSource");
-        sourceTextNode.value  = txt;
-
-        logger.debug("UI Module is exported to window ");
-    }
-};
-*/
-
-/*
-Editor.prototype.customizeButton = function(){
-    this.switchToCustomizeTab();
-    var xml = DEFAULT_XML;
-
-    this.buildCustomizeTree(xml);
-    var uiTypes = this.builder.getAvailableUiTypes();
-    Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("uiType")),
-                                                      XulUtils.toXPCOMArray(uiTypes));
-    var app = this.recorder.app;
-    if(app != null){
-        this.cmdView.clearAll();
-        var commandList = app.getCommandList();
-        this.cmdView.setTestCommands(commandList);
-        for(var i=0; i<commandList.length; i++){
-            this.cmdView.rowInserted();
-        }
-     }
-};
-*/
