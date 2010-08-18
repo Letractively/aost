@@ -25,7 +25,7 @@ class UnicodeTypeHandler implements TypeHandler {
       sb.append(str.substring(0, i));
       Integer unicode = Integer.parseInt(str.substring(i+3, i+6), 16);
 //      sb.append(unicode.toString().getBytes("ISO-8859-1"));
-      sb.append(new String(unicode.byteValue(), "utf-8"));
+      sb.append(new String(unicode.toString().getBytes("ISO-8859-1"), "utf-8"));
       str = str.substring(i+6);
       i = str.indexOf("\\u");
     }
