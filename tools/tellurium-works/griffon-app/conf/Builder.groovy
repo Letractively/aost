@@ -7,3 +7,8 @@ root {
         view = '*'
     }
 }
+jx {
+    'groovy.swing.SwingXBuilder' {
+        view = '*'
+    }
+}
