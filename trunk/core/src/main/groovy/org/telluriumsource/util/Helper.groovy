@@ -64,4 +64,42 @@ class Helper{
     ObjectInputStream ois = new ObjectInputStream(bin)
     return ois.readObject()
   }
+
+  public static String parseUnicode(String input)
+  {
+      StringTokenizer st = new StringTokenizer(input, "\\", true);
+
+      StringBuffer sb = new StringBuffer();
+
+      while(st.hasMoreTokens())
+      {
+          String token = st.nextToken();
+          if (token.charAt(0) == '\\' && token.length() == 1)
+          {
+              if(st.hasMoreTokens())
+              {
+                  token = st.nextToken();
+              }
+              if(token.charAt(0) == 'u')
+              {
+                  String hexnum;
+                  if (token.length() > 5)
+                  {
+                      hexnum = token.substring(1,5);
+                      token = token.substring(5);
+                  }
+                  else
+                  {
+                      hexnum = token.substring(1);
+                      token = "";
+                  }
+                  sb.append((char)Integer.parseInt(hexnum, 16));
+              }
+          }
+          sb.append(token);
+      }
+      return sb.toString();
+  }
+
+
 }

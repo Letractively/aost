@@ -7,6 +7,7 @@ import java.nio.charset.CharsetEncoder
 import java.nio.ByteBuffer
 import java.nio.CharBuffer
 import java.nio.charset.CharacterCodingException
+import static org.telluriumsource.util.Helper.parseUnicode
 
 /**
  * 
@@ -18,33 +19,23 @@ import java.nio.charset.CharacterCodingException
 class UnicodeTypeHandler implements TypeHandler {
 
   public String valueOf(String s) {
-    StringBuffer sb = new StringBuffer();
+    if(s == null || s.trim().length() == 0){
+      return s;
+    }
+    return parseUnicode(s);
+    
+/*    StringBuffer sb = new StringBuffer();
     String str = s;
     int i = str.indexOf("\\u");
     while(i != -1){
       sb.append(str.substring(0, i));
-      Integer unicode = Integer.parseInt(str.substring(i+3, i+6), 16);
+      char unicode = (char)Integer.parseInt(str.substring(i+3, i+6), 16);
 //      sb.append(unicode.toString().getBytes("ISO-8859-1"));
-      sb.append(new String(unicode.toString().getBytes("ISO-8859-1"), "utf-8"));
+      sb.append(unicode);
       str = str.substring(i+6);
       i = str.indexOf("\\u");
     }
 
-    s = sb.toString();
-
-    Charset charset = Charset.forName("ISO-8859-1");
-    Charset charsetutf8 = Charset.forName("UTF-8");
-    CharsetDecoder decoder = charset.newDecoder();
-    CharsetEncoder encoder = charsetutf8.newEncoder();
-    String value = new String(s.getBytes(), "ISO-8859-1");
-    value = new String(s.getBytes("ISO-8859-1"), "utf-8");
-
-    try {
-      ByteBuffer bbuf = encoder.encode(CharBuffer.wrap(s));
-      CharBuffer cbuf = decoder.decode(bbuf);
-      String val = cbuf.toString();
-      val;
-    } catch (CharacterCodingException e) { }
-
+    return sb.toString();*/
   }
 }
