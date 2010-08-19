@@ -57,5 +57,3 @@ fileViewerWindow = application(title: 'TelluriumWorks',
         }
     } */
 }
-
-fileChooserWindow = fileChooser()
