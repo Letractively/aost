@@ -15,5 +15,10 @@ mvcGroups {
         controller = 'telluriumworks.TelluriumworksController'
         view = 'telluriumworks.TelluriumworksView'
     }
-
+  
+    'FilePanel' {
+        model = 'telluriumworks.FilePanelModel'
+        controller = 'telluriumworks.FilePanelController'
+        view = 'telluriumworks.FilePanelView'
+    }
 }
