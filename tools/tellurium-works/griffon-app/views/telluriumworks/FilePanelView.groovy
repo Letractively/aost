@@ -1,6 +1,11 @@
 package telluriumworks
 
 actions {
+   action(id: 'runAction',
+      name: 'Run',
+      mnemonic: 'R',
+      accelerator: shortcut('R'),
+      closure: controller.runFile)
    action(id: 'saveAction',
       enabled: bind {model.dirty},
       name: 'Save',
@@ -21,6 +26,7 @@ tabbedPane(tabGroup, selectedIndex: tabGroup.tabCount) {
          textArea(id: 'editor', text: bind {model.fileText})
       }
       hbox(constraints: SOUTH) {
+         button runAction
          button saveAction
          button closeAction
       }
