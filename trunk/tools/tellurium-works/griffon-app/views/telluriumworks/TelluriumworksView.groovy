@@ -53,10 +53,10 @@ fileViewerWindow = application(title: 'TelluriumWorks',
 
       hbox(constraints: "south") {
 
-         tabbedPane(id: 'tabGroup', constraints: "grow 100 1, wrap")        //grow 100 1,
+         tabbedPane(id: 'tabGroup', constraints: "grow 75 1, wrap")        
 
         vbox{
-          panel(layout: new MigLayout('fill'), border: titledBorder('Tellurium Server'), constraints: 'right, width 25%' ) {
+          panel(layout: new MigLayout('fill'), border: titledBorder('Tellurium Server'), constraints: 'right, width 200:260:25%)' ) {
               gridLayout(cols: 1, rows: 4)
               hbox(){
                 comboBox(id: 'serverType',
@@ -91,7 +91,7 @@ fileViewerWindow = application(title: 'TelluriumWorks',
 
               checkBox(id: "multipleWindow", selected: false, text: "Multiple Windows", constraints:'wrap')
 
-              hbox(){
+              hbox(constraints:'center'){
                 button ( id: 'runBtn',
                     label: "Run",
                     actionPerformed: {controller.runSeleniumServer()},
@@ -106,7 +106,7 @@ fileViewerWindow = application(title: 'TelluriumWorks',
               }
           }
 
-          panel(layout: new MigLayout('fill'), border: titledBorder('Tellurium Configuration'), constraints: 'right, width 25%' ) {
+          panel(layout: new MigLayout('fill'), border: titledBorder('Tellurium Configuration'), constraints: 'right, width 200:260:25%' ) {
               gridLayout(cols: 1, rows: 7)
 
               comboBox(id: 'browserType',
