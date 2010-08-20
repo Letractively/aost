@@ -53,7 +53,7 @@ fileViewerWindow = application(title: 'TelluriumWorks',
 
       hbox(constraints: "south") {
 
-         tabbedPane(id: 'tabGroup', constraints: "grow 75 1, wrap")        
+         tabbedPane(id: 'tabGroup', constraints: "fill grow 75 1, wrap")        
 
         vbox{
           panel(layout: new MigLayout('fill'), border: titledBorder('Tellurium Server'), constraints: 'right, width 200:260:25%)' ) {

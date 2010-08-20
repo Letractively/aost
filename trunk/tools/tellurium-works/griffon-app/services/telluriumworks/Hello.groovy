@@ -1,3 +1,5 @@
+package telluriumworks;
+
 import org.slf4j.LoggerFactory
 
 class Hello {
@@ -8,5 +10,3 @@ class Hello {
     }
     def static logger =  LoggerFactory.getLogger(Hello);
 }
-
-
