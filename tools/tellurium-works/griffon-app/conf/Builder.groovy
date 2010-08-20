@@ -12,3 +12,5 @@ jx {
         view = '*'
     }
 }
+
+root.'MiglayoutGriffonAddon'.addon=true

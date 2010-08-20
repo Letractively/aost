@@ -26,6 +26,18 @@ class TelluriumworksController {
       app.shutdown()
    }
 
+   def runSeleniumServer = {
+
+   }
+
+   def stopSeleniumServer = {
+
+   }
+
+   def setTelluriumConfig = {
+
+   }
+
     /*
     def action = { evt = null ->
     }
