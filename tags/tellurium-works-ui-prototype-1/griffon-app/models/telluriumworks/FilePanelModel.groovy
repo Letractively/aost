@@ -1,0 +1,11 @@
+package telluriumworks
+
+import groovy.beans.Bindable
+
+class FilePanelModel {
+   File loadedFile
+   @Bindable String fileText
+   @Bindable boolean dirty
+   @Bindable boolean enabled
+   String mvcId
+}
