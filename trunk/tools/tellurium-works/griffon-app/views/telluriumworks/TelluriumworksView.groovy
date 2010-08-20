@@ -58,26 +58,31 @@ fileViewerWindow = application(title: 'TelluriumWorks',
 
          }*/
         vbox{
-          panel(layout: new MigLayout('fill'), border: titledBorder('Tellurium Server'), constraints: 'grow, width 25%' ) {
+          panel(layout: new MigLayout('fill'), border: titledBorder('Tellurium Server'), constraints: 'right, width 25%' ) {
+              gridLayout(cols: 1, rows: 3)
+              hbox(){
+                comboBox(id: 'serverType',
+                    items: ["Local", "Remote"],
+                    selectedIndex: 0,
+                    constraints: "growx,width 20px"
+                )
 
-              comboBox(id: 'serverType',
-                  items: ["Local", "Remote"],
-                  selectedIndex: 0,
-                  constraints: "growx,width 20px"
-              )
+                hbox(){
+                  label( id:'portlbl',
+                      text: "Port:",
+                      constraints: "shrinkx,height 25px,width 20px"
+                  )
 
-              label( id:'portlbl',
-                  text: "Port:",
-                  constraints: "shrinkx,height 25px,width 20px"
-              )
+                  textField( id:'portValue',
+                      constraints: "shrink,height 25px,width 50px"
+                  )
 
-              textField( id:'portValue',
-                  constraints: "shrink,height 25px,width 50px"
-              )
+                }
+              }
 
               checkBox(id: "multipleWindow", selected: false, text: "Multiple Windows", constraints:'wrap')
 
-              hbox(constraints:'center'){
+              hbox(){
                 button ( id: 'runBtn',
                     label: "Run",
                     actionPerformed: {controller.runSeleniumServer()},
@@ -92,31 +97,39 @@ fileViewerWindow = application(title: 'TelluriumWorks',
               }
           }
 
-          panel(layout: new MigLayout('fill'), border: titledBorder('Tellurium Configuration'), constraints: 'grow, width 25%' ) {
+          panel(layout: new MigLayout('fill'), border: titledBorder('Tellurium Configuration'), constraints: 'right, width 25%' ) {
+              gridLayout(cols: 1, rows: 4)
 
               comboBox(id: 'browserType',
                   items: ["*chrome", "*firefox", "*iexplore", "*iehta"],
                   selectedIndex: 0,
                   constraints: "growx,width 20px"
               )                  
+              hbox(){
+                hbox(){
+                  label( id:'selServerlbl',
+                      text: "Server Host:",
+                      constraints: "shrinkx,height 25px,width 20px"
+                  )
 
-              label( id:'selServerlbl',
-                  text: "Server Host:",
-                  constraints: "shrinkx,height 25px,width 20px"
-              )
+                  textField( id:'selServerValue',
+                      constraints: "shrink,height 25px,width 50px"
+                  )
 
-              textField( id:'selServerValue',
-                  constraints: "shrink,height 25px,width 50px"
-              )
+                }
 
-              label( id:'selPortlbl',
-                  text: "Server Port:",
-                  constraints: "shrinkx,height 25px,width 20px"
-              )
+                hbox(){
+                  label( id:'selPortlbl',
+                      text: "Server Port:",
+                      constraints: "shrinkx,height 25px,width 20px"
+                  )
 
-              textField( id:'selPortValue',
-                  constraints: "shrink,height 25px,width 50px"
-              )
+                  textField( id:'selPortValue',
+                      constraints: "shrink,height 25px,width 50px"
+                  )
+                }
+                
+              }
 
               button ( id: 'applyBtn',
                   label: "Apply",
