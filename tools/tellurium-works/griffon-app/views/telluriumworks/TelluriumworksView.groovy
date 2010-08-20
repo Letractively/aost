@@ -40,7 +40,6 @@ fileViewerWindow = application(title: 'TelluriumWorks',
    }
 
   borderLayout()
-  //tabbedPane(id: 'tabGroup', selectedIndex: bind(value:model.tabSelected), constraints: CENTER)    //selectedIndex:bind{model.tabSelected},
 
   panel(layout: new MigLayout('fill')) {
     panel(layout: new MigLayout('fill'), border: titledBorder('Tellurium'), constraints: 'grow 100 1, wrap, height 70%') {
@@ -48,15 +47,6 @@ fileViewerWindow = application(title: 'TelluriumWorks',
 
          tabbedPane(id: 'tabGroup', constraints: "grow 100 1, wrap")        //grow 100 1,
 
-/*         panel(layout: new MigLayout('fill'), constraints: 'grow 50 , wrap' ) {
-                label('Tellurium Script:', constraints: 'left')
-                button ( id: 'runScript',
-                  label: "Run",
-                  actionPerformed: {this.scriptTxt.text=""},
-                  constraints: "right,width 10px ,shrinkx,shrinky"
-                )
-
-         }*/
         vbox{
           panel(layout: new MigLayout('fill'), border: titledBorder('Tellurium Server'), constraints: 'right, width 25%' ) {
               gridLayout(cols: 1, rows: 3)
@@ -139,13 +129,6 @@ fileViewerWindow = application(title: 'TelluriumWorks',
 
           }
         }
-
-/*        scrollPane(constraints: 'grow, width 50%, height 70%') {
-            textArea(id: "scriptTxt",
-                editable: true,
-                lineWrap: true,
-                wrapStyleWord: true)
-        }*/
 
       }
     }
