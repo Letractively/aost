@@ -15,6 +15,18 @@ class FilePanelController {
       }
    }
 
+   def runFile = {
+      def filename = view.editor.text;
+      logger.info("Start to run Tellurium Test ${filename}");
+      doOutside {
+/*         // write text to file, outside the EDT
+         model.loadedFile.text = view.editor.text
+         // update model.text, inside EDT
+         doLater { model.fileText = view.editor.text }
+*/
+      }
+   }
+  
    def saveFile = {
       doOutside {
          // write text to file, outside the EDT
