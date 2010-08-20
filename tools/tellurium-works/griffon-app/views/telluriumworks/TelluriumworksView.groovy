@@ -42,11 +42,11 @@ fileViewerWindow = application(title: 'TelluriumWorks',
   borderLayout()
 
   panel(layout: new MigLayout('fill')) {
-    panel(layout: new MigLayout('fill'), border: titledBorder('Tellurium'), constraints: 'grow 100 1, wrap, height 70%') {
+    panel(layout: new MigLayout('fill'), border: titledBorder('Tellurium Script Runner'), constraints: 'grow 100 1, wrap, height 70%') {
     jxheader(
-        title: "Tellurium Works",
+        title: "TelluriumWorks",
         description: "Tellurium IDE to run Tellurium DSL script",
-        titleForeground: Color.WHITE,
+        titleForeground: Color.YELLOW, 
         descriptionForeground: Color.WHITE,
         backgroundPainter: compound
     )
