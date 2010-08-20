@@ -43,13 +43,21 @@ fileViewerWindow = application(title: 'TelluriumWorks',
 
   panel(layout: new MigLayout('fill')) {
     panel(layout: new MigLayout('fill'), border: titledBorder('Tellurium'), constraints: 'grow 100 1, wrap, height 70%') {
+    jxheader(
+        title: "Tellurium Works",
+        description: "Tellurium IDE to run Tellurium DSL script",
+        titleForeground: Color.WHITE,
+        descriptionForeground: Color.WHITE,
+        backgroundPainter: compound
+    )
+
       hbox(constraints: "south") {
 
          tabbedPane(id: 'tabGroup', constraints: "grow 100 1, wrap")        //grow 100 1,
 
         vbox{
           panel(layout: new MigLayout('fill'), border: titledBorder('Tellurium Server'), constraints: 'right, width 25%' ) {
-              gridLayout(cols: 1, rows: 3)
+              gridLayout(cols: 1, rows: 4)
               hbox(){
                 comboBox(id: 'serverType',
                     items: ["Local", "Remote"],
@@ -70,6 +78,17 @@ fileViewerWindow = application(title: 'TelluriumWorks',
                 }
               }
 
+              hbox(){
+                   label( id:'profilelbl',
+                      text: "Profile:",
+                      constraints: "shrinkx,height 25px,width 20px"
+                  )
+
+                  textField( id:'profileValue',
+                      constraints: "shrink,height 25px,width 50px"
+                  )
+              }
+
               checkBox(id: "multipleWindow", selected: false, text: "Multiple Windows", constraints:'wrap')
 
               hbox(){
@@ -83,18 +102,19 @@ fileViewerWindow = application(title: 'TelluriumWorks',
                     label: "Stop",
                     actionPerformed: {controller.stopSeleniumServer()},
                     constraints: "width 20px,shrinkx,wrap"
-                )                
+                )
               }
           }
 
           panel(layout: new MigLayout('fill'), border: titledBorder('Tellurium Configuration'), constraints: 'right, width 25%' ) {
-              gridLayout(cols: 1, rows: 4)
+              gridLayout(cols: 1, rows: 7)
 
               comboBox(id: 'browserType',
                   items: ["*chrome", "*firefox", "*iexplore", "*iehta"],
                   selectedIndex: 0,
                   constraints: "growx,width 20px"
-              )                  
+              )
+
               hbox(){
                 hbox(){
                   label( id:'selServerlbl',
@@ -118,8 +138,34 @@ fileViewerWindow = application(title: 'TelluriumWorks',
                       constraints: "shrink,height 25px,width 50px"
                   )
                 }
-                
+
               }
+
+              hbox(){
+                   label( id:'maxMacroCmdbl',
+                      text: "Macro Command:",
+                      constraints: "shrinkx,height 25px,width 20px"
+                  )
+
+                  textField( id:'macCmdValue',
+                      constraints: "shrink,height 25px,width 50px"
+                  )
+              }
+
+              hbox(){
+                   label( id:'optiondbl',
+                      text: "option:",
+                      constraints: "shrinkx,height 25px,width 20px"
+                  )
+
+                  textField( id:'optionValue',
+                      constraints: "shrink,height 25px,width 50px"
+                  )
+              }
+            
+              checkBox(id: "useTrace", selected: false, text: "Trace", constraints:'wrap')
+
+              checkBox(id: "useScreenShot", selected: false, text: "ScreenShot", constraints:'wrap')
 
               button ( id: 'applyBtn',
                   label: "Apply",
