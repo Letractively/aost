@@ -9,7 +9,11 @@ class TelluriumworksModel {
   @Bindable String fileText
   @Bindable boolean dirty
   @Bindable String mode
-  @Bindable String serverPort
+  @Bindable String port
   @Bindable String profile
-
+  @Bindable String serverPort
+  @Bindable String serverHost
+  @Bindable String macroCmd
+  @Bindable String option
+ 
 }
