@@ -14,3 +14,5 @@ jx {
 }
 
 root.'MiglayoutGriffonAddon'.addon=true
+
+root.'CrystaliconsGriffonAddon'.addon=true

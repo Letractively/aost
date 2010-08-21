@@ -23,6 +23,18 @@ class TelluriumworksController {
       }
    }
 
+   def goMainPage = {
+
+   }
+
+   def goServerPage = {
+
+   }
+
+   def goConfigPage = {
+     
+   }
+
    def quit = {
       app.shutdown()
    }
