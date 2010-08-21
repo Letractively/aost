@@ -4,6 +4,7 @@ import java.awt.Color
 import org.jdesktop.swingx.painter.GlossPainter
 import net.miginfocom.swing.MigLayout
 import javax.swing.JTabbedPane
+import javax.swing.SwingConstants
 
 gloss = glossPainter(paint: new Color(1f, 1f, 1f, 0.2f),
         position: GlossPainter.GlossPosition.TOP)
@@ -22,6 +23,22 @@ actions {
           mnemonic: 'Q',
           accelerator: shortcut('Q'),
           closure: controller.quit)
+  action(id: 'goMainPage',
+      shortDescription: "Go to main page",
+      smallIcon: crystalIcon(size: 32, category: "apps", icon: "kcmdf"),
+      closure: controller.goMainPage)
+  action(id: 'goServerPage',
+      shortDescription: "Go to Selenium server page",
+      smallIcon: crystalIcon(size: 32, category: "apps", icon: "tutorials"),
+      closure: controller.goServerPage)
+  action(id: 'goConfigPage',
+      shortDescription: "Go to Configuration page",
+      smallIcon: crystalIcon(size: 32, category: "apps", icon: "kdmconfig"),
+      closure: controller.goConfigPage)
+  action(id: 'exitAction',
+      shortDescription: "Exit the IDE",
+      smallIcon: crystalIcon(size: 32, category: "actions", icon: "exit"),
+      closure: controller.quit)
 }
 
 fileChooserWindow = fileChooser()
@@ -37,6 +54,11 @@ fileViewerWindow = application(title: 'TelluriumWorks',
       separator()
       menuItem quitAction
     }
+  }
+  toolBar(id:'toolbar', rollover:true) {
+    button(openAction, text: "Open")
+    separator(orientation:SwingConstants.VERTICAL)
+    button(quitAction, text: "Quit")
   }
 
   borderLayout()
@@ -199,6 +221,13 @@ fileViewerWindow = application(title: 'TelluriumWorks',
                 wrapStyleWord: true)
       }
     }
+    toolBar(constraints: 'left', floatable: false, opaque: false) {
+        button(goMainPage, constraints: 'left')
+        button(goServerPage, constraints: 'left')
+        button(goConfigPage, constraints: 'left')
+        button(exitAction, constraints: 'left')
+    }
+
   }
 /*    jxheader(constraints: NORTH,
         title: "Tellurium Works",
