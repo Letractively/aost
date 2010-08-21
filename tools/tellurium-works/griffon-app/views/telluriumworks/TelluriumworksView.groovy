@@ -60,7 +60,33 @@ fileViewerWindow = application(title: 'TelluriumWorks',
 
   tabbedPane(constraints: CENTER, tabPlacement: JTabbedPane.LEFT) {
 
-    panel(title: "Script", id: 'tabGroup', layout: new MigLayout('fill'), border: titledBorder('Tellurium Script'), constraints: "grow 100 1, wrap") {
+    panel(title: "Script", id: 'tabGroup'){
+      migLayout(layoutConstraints: 'fill')
+      scrollPane(preferredSize: [400, 250], constraints: "grow 75 1, wrap" ) {
+         textArea(id: "editor",
+                 editable: false,
+                 lineWrap: true,
+                 text: bind { model.fileText },
+                 caretPosition: bind(source: model, sourceProperty: "text")
+         )
+       }
+      panel(border: titledBorder('Console'), constraints: "grow 25 1, wrap") {
+
+        button(id: 'clearConsole',
+                label: "Clear",
+                actionPerformed: {this.consoleTxt.text = ""},
+                constraints: "span 2,wrap"
+        )
+        scrollPane(constraints: "grow 80 1, wrap") {
+          textArea(id: "consoleTxt",
+                  editable: false,
+                  lineWrap: true,
+                  wrapStyleWord: true)
+        }
+      }
+    }
+
+/*    panel(title: "Script", id: 'tabGroup', layout: new MigLayout('fill'), border: titledBorder('Tellurium Script'), constraints: "grow 100 1, wrap") {
       vbox() {
         panel(constraints: CENTER) {
           gridLayout(cols: 1, rows: 1)
@@ -93,7 +119,7 @@ fileViewerWindow = application(title: 'TelluriumWorks',
         }
       }
 
-    }
+    }*/
 
     panel(title: "Server", id: 'box') {
       migLayout(layoutConstraints: 'fill')
