@@ -42,7 +42,7 @@ actions {
 }
 
 fileChooserWindow = fileChooser()
-fileViewerWindow = application(title: 'TelluriumWorks',
+mainWindow = application(title: 'TelluriumWorks',
         size: [480, 400], locationByPlatform: true,
         iconImage: imageIcon('/tellurium.png').image,
         iconImages: [imageIcon('/tellurium.png').image]) {
@@ -62,7 +62,7 @@ fileViewerWindow = application(title: 'TelluriumWorks',
 
     panel(title: "Script", id: 'tabGroup'){
       migLayout(layoutConstraints: 'fill')
-      scrollPane(preferredSize: [400, 250], constraints: "grow 75 1, wrap" ) {
+      scrollPane(preferredSize: [400, 350], constraints: "grow 85 1, wrap" ) {
          textArea(id: "editor",
                  editable: false,
                  lineWrap: true,
@@ -70,14 +70,15 @@ fileViewerWindow = application(title: 'TelluriumWorks',
                  caretPosition: bind(source: model, sourceProperty: "text")
          )
        }
-      panel(border: titledBorder('Console'), constraints: "grow 25 1, wrap") {
-
+      panel(border: titledBorder('Console'), constraints: "grow 15 1, wrap") {
+        migLayout(layoutConstraints: 'fill')
+       
         button(id: 'clearConsole',
                 label: "Clear",
                 actionPerformed: {this.consoleTxt.text = ""},
-                constraints: "span 2,wrap"
+                constraints: "span 2,wrap, right"
         )
-        scrollPane(constraints: "grow 80 1, wrap") {
+        scrollPane(preferredSize: [400, 100], constraints: "grow 100 1, wrap") {
           textArea(id: "consoleTxt",
                   editable: false,
                   lineWrap: true,
