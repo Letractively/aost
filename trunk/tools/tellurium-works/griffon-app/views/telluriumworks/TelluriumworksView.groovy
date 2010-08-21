@@ -95,55 +95,38 @@ fileViewerWindow = application(title: 'TelluriumWorks',
 
     }
 
-    panel(title: "Server", layout: new MigLayout('fill'), border: titledBorder('Tellurium Server'), constraints: 'grow, wrap') {
-      gridLayout(cols: 1, rows: 4)
-      hbox() {
+    panel(title: "Server", id: 'box') {
+        migLayout(layoutConstraints: 'fill')
 
-        comboBox(id: 'serverType',
-                items: ["Local", "Remote"],
-                selectedIndex: 0,
-                constraints: "growx,width 20px"
-        )
+      label('Server')
+      buttonGroup(id: 'mode')
+      radioButton('local', buttonGroup: mode, selected: true, actionPerformed: {model.mode = 'local'})
+      radioButton('remote', buttonGroup: mode, constraints: 'wrap', actionPerformed: {model.mode = 'remote'})
 
-        hbox() {
-          label(id: 'portlbl',
-                  text: "Port:",
-                  constraints: "shrinkx,height 25px,width 20px"
-          )
+        label('Port:')
+        textField(columns: 20, constraints: 'span 2, wrap',
+            text: bind('serverPort', target: model, mutual: true))
 
-          textField(id: 'portValue',
-                  constraints: "shrink,height 25px,width 50px"
-          )
+        label('Profile:')
+        textField(columns: 20, constraints: 'span 2, wrap',
+            text: bind('profile', target: model, mutual: true))
 
-        }
-      }
+        checkBox(id: "multipleWindow", selected: false, text: "Multiple Windows", constraints: 'span 2,wrap')
 
-      hbox() {
-        label(id: 'profilelbl',
-                text: "Profile:",
-                constraints: "shrinkx,height 25px,width 20px"
-        )
+        separator(constraints: 'grow, span 3, wrap')
 
-        textField(id: 'profileValue',
-                constraints: "shrink,height 25px,width 50px"
-        )
-      }
+      button(id: 'runBtn',
+              label: "Run",
+              actionPerformed: {controller.runSeleniumServer()},
+              constraints: "span 2, left"
+      )
 
-      checkBox(id: "multipleWindow", selected: false, text: "Multiple Windows", constraints: 'wrap')
+      button(id: 'stopBtn',
+              label: "Stop",
+              actionPerformed: {controller.stopSeleniumServer()},
+              constraints: "span 2, right"
+      )
 
-      hbox(constraints: 'center') {
-        button(id: 'runBtn',
-                label: "Run",
-                actionPerformed: {controller.runSeleniumServer()},
-                constraints: "width 20px,shrinkx,wrap"
-        )
-
-        button(id: 'stopBtn',
-                label: "Stop",
-                actionPerformed: {controller.stopSeleniumServer()},
-                constraints: "width 20px,shrinkx,wrap"
-        )
-      }
     }
 
     panel(title: "Config", layout: new MigLayout('fill'), border: titledBorder('Tellurium Configuration'), constraints: 'grow') {
