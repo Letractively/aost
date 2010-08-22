@@ -63,6 +63,14 @@ class TelluriumworksController {
 
    }
 
+   def help = {
+
+   }
+
+   def about = {
+     
+   }
+
     /*
     def action = { evt = null ->
     }

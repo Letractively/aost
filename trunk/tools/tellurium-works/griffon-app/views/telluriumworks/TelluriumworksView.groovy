@@ -38,25 +38,35 @@ actions {
           mnemonic: 'Q',
           accelerator: shortcut('Q'),
           closure: controller.quit)
+  action(id: 'helpAction',
+          name: 'Help',
+          mnemonic: 'H',
+          accelerator: shortcut('H'),
+          closure: controller.help)
+  action(id: 'aboutAction',
+          name: 'About',
+          mnemonic: 'A',
+          accelerator: shortcut('A'),
+          closure: controller.about)
   action(id: 'openFile',
           shortDescription: "Open Tellurium DSL script",
-          smallIcon: crystalIcon(size: 32, category: "actions", icon: "fileopen"),
+          smallIcon: crystalIcon(size: 24, category: "actions", icon: "fileopen"),
           closure: controller.openFile)
   action(id: 'runFile',
           shortDescription: "Run Tellurium DSL script",
-          smallIcon: crystalIcon(size: 32, category: "actions", icon: "player_end1"),
+          smallIcon: crystalIcon(size: 24, category: "actions", icon: "player_end1"),
           closure: controller.runFile)
   action(id: 'saveFile',
           shortDescription: "Save Tellurium DSL script",
-          smallIcon: crystalIcon(size: 32, category: "actions", icon: "filesave"),
+          smallIcon: crystalIcon(size: 24, category: "actions", icon: "filesave"),
           closure: controller.saveFile)
   action(id: 'closeFile',
           shortDescription: "Close Tellurium DSL script",
-          smallIcon: crystalIcon(size: 32, category: "actions", icon: "fileclose"),
+          smallIcon: crystalIcon(size: 24, category: "actions", icon: "fileclose"),
           closure: controller.closeFile)
   action(id: 'exitAction',
           shortDescription: "Exit the IDE",
-          smallIcon: crystalIcon(size: 32, category: "actions", icon: "exit"),
+          smallIcon: crystalIcon(size: 24, category: "actions", icon: "exit"),
           closure: controller.quit)
 }
 
@@ -77,13 +87,18 @@ mainWindow = application(title: 'TelluriumWorks',
       separator()
       menuItem quitAction
     }
+    menu('Help'){
+      menuItem helpAction
+      separator()
+      menuItem aboutAction
+    }
   }
 
   borderLayout()
 
-  tabbedPane(constraints: CENTER, tabPlacement: JTabbedPane.LEFT, selectedIndex: 1) {
+  tabbedPane(constraints: CENTER, tabPlacement: JTabbedPane.LEFT, selectedIndex: 0) {
 
-    panel(title: "Script", id: 'tabGroup', tabIcon: crystalIcon(size: 32, category: "apps", icon: "kcmdf"),
+    panel(title: "Script", id: 'tabGroup', tabIcon: crystalIcon(size: 32, category: "apps", icon: "kmenuedit"),
       tabToolTip: "Tellurium DSL Script"){
       migLayout(layoutConstraints: 'fill')
       scrollPane(preferredSize: [400, 350], constraints: "grow 85 1, wrap" ) {
