@@ -18,23 +18,42 @@ actions {
           mnemonic: 'O',
           accelerator: shortcut('O'),
           closure: controller.openFile)
+  action(id: 'runAction',
+          name: 'Run',
+          mnemonic: 'R',
+          accelerator: shortcut('R'),
+          closure: controller.runFile)
+  action(id: 'saveAction',
+          name: 'Save',
+          mnemonic: 'S',
+          accelerator: shortcut('S'),
+          closure: controller.saveFile)
+  action(id: 'closeAction',
+          name: 'Close',
+          mnemonic: 'C',
+          accelerator: shortcut('C'),
+          closure: controller.closeFile)
   action(id: 'quitAction',
           name: 'Quit',
           mnemonic: 'Q',
           accelerator: shortcut('Q'),
           closure: controller.quit)
-  action(id: 'goMainPage',
-          shortDescription: "Go to main page",
-          smallIcon: crystalIcon(size: 32, category: "apps", icon: "kcmdf"),
-          closure: controller.goMainPage)
-  action(id: 'goServerPage',
-          shortDescription: "Go to Selenium server page",
-          smallIcon: crystalIcon(size: 32, category: "apps", icon: "tutorials"),
-          closure: controller.goServerPage)
-  action(id: 'goConfigPage',
-          shortDescription: "Go to Configuration page",
-          smallIcon: crystalIcon(size: 32, category: "apps", icon: "kdmconfig"),
-          closure: controller.goConfigPage)
+  action(id: 'openFile',
+          shortDescription: "Open Tellurium DSL script",
+          smallIcon: crystalIcon(size: 32, category: "actions", icon: "fileopen"),
+          closure: controller.openFile)
+  action(id: 'runFile',
+          shortDescription: "Run Tellurium DSL script",
+          smallIcon: crystalIcon(size: 32, category: "actions", icon: "player_end1"),
+          closure: controller.runFile)
+  action(id: 'saveFile',
+          shortDescription: "Save Tellurium DSL script",
+          smallIcon: crystalIcon(size: 32, category: "actions", icon: "filesave"),
+          closure: controller.saveFile)
+  action(id: 'closeFile',
+          shortDescription: "Close Tellurium DSL script",
+          smallIcon: crystalIcon(size: 32, category: "actions", icon: "fileclose"),
+          closure: controller.closeFile)
   action(id: 'exitAction',
           shortDescription: "Exit the IDE",
           smallIcon: crystalIcon(size: 32, category: "actions", icon: "exit"),
@@ -51,6 +70,10 @@ mainWindow = application(title: 'TelluriumWorks',
   menuBar {
     menu('File') {
       menuItem openAction
+      menuItem saveAction
+      menuItem closeAction
+      separator()
+      menuItem runAction
       separator()
       menuItem quitAction
     }
@@ -58,9 +81,10 @@ mainWindow = application(title: 'TelluriumWorks',
 
   borderLayout()
 
-  tabbedPane(constraints: CENTER, tabPlacement: JTabbedPane.LEFT) {
+  tabbedPane(constraints: CENTER, tabPlacement: JTabbedPane.LEFT, selectedIndex: 1) {
 
-    panel(title: "Script", id: 'tabGroup'){
+    panel(title: "Script", id: 'tabGroup', tabIcon: crystalIcon(size: 32, category: "apps", icon: "kcmdf"),
+      tabToolTip: "Tellurium DSL Script"){
       migLayout(layoutConstraints: 'fill')
       scrollPane(preferredSize: [400, 350], constraints: "grow 85 1, wrap" ) {
          textArea(id: "editor",
@@ -87,7 +111,8 @@ mainWindow = application(title: 'TelluriumWorks',
       }
     }
 
-    panel(title: "Server", id: 'box') {
+    panel(title: "Server", id: 'box', tabIcon: crystalIcon(size: 32, category: "apps", icon: "multiple_monitors"),
+      tabToolTip: "Selenium Server") {
       migLayout(layoutConstraints: 'fill')
 
       label('Server')
@@ -121,7 +146,8 @@ mainWindow = application(title: 'TelluriumWorks',
 
     }
 
-    panel(title: "Config") {
+    panel(title: "Config", tabIcon: crystalIcon(size: 32, category: "apps", icon: "kdmconfig"),
+      tabToolTip: "Tellurium Configuration") {
       migLayout(layoutConstraints: 'fill')
       label("Browser:")
       comboBox(id: 'browserType',
@@ -182,9 +208,10 @@ mainWindow = application(title: 'TelluriumWorks',
   }
 
   toolBar(constraints: 'left', floatable: false, opaque: false) {
-    button(goMainPage, constraints: 'left')
-    button(goServerPage, constraints: 'left')
-    button(goConfigPage, constraints: 'left')
+    button(openFile, constraints: 'left')
+    button(runFile, constraints: 'left')
+    button(saveFile, constraints: 'left')
+    button(closeFile, constraints: 'left')
     button(exitAction, constraints: 'left')
   }
 }
