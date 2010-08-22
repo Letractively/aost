@@ -1,8 +1,5 @@
 package telluriumworks
 
-import java.awt.Color
-import org.jdesktop.swingx.painter.GlossPainter
-import net.miginfocom.swing.MigLayout
 import javax.swing.JTabbedPane
 import static javax.swing.SwingConstants.*
 
@@ -81,7 +78,7 @@ mainWindow = application(title: 'TelluriumWorks',
       separator()
       menuItem quitAction
     }
-    menu('Help'){
+    menu('Help') {
       menuItem helpAction
       separator()
       menuItem aboutAction
@@ -89,131 +86,127 @@ mainWindow = application(title: 'TelluriumWorks',
   }
 
   borderLayout()
+  splitPane(id: "splitPane1", orientation: HORIZONTAL, resizeWeight: 0.8f) {
 
-  tabbedPane(constraints: CENTER, tabPlacement: JTabbedPane.LEFT, selectedIndex: 0) {
+    tabbedPane(constraints: CENTER, tabPlacement: JTabbedPane.LEFT, selectedIndex: 0) {
 
-    panel(title: "Script", tabIcon: crystalIcon(size: 32, category: "apps", icon: "kmenuedit"),
-      tabToolTip: "Tellurium DSL Script"){
-      migLayout(layoutConstraints: 'fill')
-      tabbedPane(id: 'tabGroup', preferredSize: [400, 350], constraints: "grow 85 1, wrap")
-/*      scrollPane(preferredSize: [400, 350], constraints: "grow 85 1, wrap" ) {
-         textArea(id: "editor",
-                 editable: false,
-                 lineWrap: true,
-                 text: bind { model.fileText },
-                 caretPosition: bind(source: model, sourceProperty: "text")
-         )
-       }*/
-      panel(border: titledBorder('Console'), constraints: "grow 15 1, wrap") {
+      panel(title: "Script", tabIcon: crystalIcon(size: 32, category: "apps", icon: "kmenuedit"),
+              tabToolTip: "Tellurium DSL Script") {
         migLayout(layoutConstraints: 'fill')
-       
-        button(id: 'clearConsole',
-                label: "Clear",
-                actionPerformed: {this.consoleTxt.text = ""},
-                constraints: "span 2,wrap, right"
+        tabbedPane(id: 'tabGroup', preferredSize: [600, 480], constraints: "grow 100 1, wrap")
+      }
+
+      panel(title: "Server", id: 'box', tabIcon: crystalIcon(size: 32, category: "apps", icon: "multiple_monitors"),
+              tabToolTip: "Selenium Server") {
+        migLayout(layoutConstraints: 'fill')
+
+        label('Server')
+        buttonGroup(id: 'mode')
+        radioButton('local', buttonGroup: mode, selected: true, actionPerformed: {model.mode = 'local'})
+        radioButton('remote', buttonGroup: mode, constraints: 'wrap', actionPerformed: {model.mode = 'remote'})
+
+        label('Port:')
+        textField(columns: 20, constraints: 'span 2, wrap',
+                text: bind('port', target: model, mutual: true))
+
+        label('Profile:')
+        textField(columns: 20, constraints: 'span 2, wrap',
+                text: bind('profile', target: model, mutual: true))
+
+        checkBox(id: "multipleWindow", selected: false, text: "Multiple Windows", constraints: 'span 2,wrap')
+
+        separator(constraints: 'grow, span 3, wrap')
+
+        button(id: 'runBtn',
+                label: "Run",
+                actionPerformed: {controller.runSeleniumServer()},
+                constraints: "span 2, left"
         )
-        scrollPane(preferredSize: [400, 100], constraints: "grow 100 1, wrap") {
-          textArea(id: "consoleTxt",
-                  editable: false,
-                  lineWrap: true,
-                  wrapStyleWord: true)
-        }
+
+        button(id: 'stopBtn',
+                label: "Stop",
+                actionPerformed: {controller.stopSeleniumServer()},
+                constraints: "span 2, right"
+        )
+
+      }
+
+      panel(title: "Config", tabIcon: crystalIcon(size: 32, category: "apps", icon: "kdmconfig"),
+              tabToolTip: "Tellurium Configuration") {
+        migLayout(layoutConstraints: 'fill')
+        label("Browser:")
+        comboBox(id: 'browserType',
+                items: ["*chrome", "*firefox", "*iexplore", "*iehta"],
+                selectedIndex: 0,
+                constraints: "span 2, wrap"
+        )
+
+        label("Server Host:")
+
+        textField(id: 'selServerHost',
+                columns: 20,
+                constraints: "span 2, wrap",
+                text: bind('serverHost', target: model, mutual: true)
+        )
+
+        label("Server Port:")
+
+        textField(id: 'selServerPort',
+                columns: 20,
+                constraints: "span 2, wrap",
+                text: bind('serverPort', target: model, mutual: true)
+        )
+
+        label("Macro Command:")
+
+        textField(id: 'macroCmdValue',
+                columns: 20,
+                constraints: "span 2, wrap",
+                text: bind('macroCmd', target: model, mutual: true)
+        )
+
+        label("Option:")
+
+        textField(id: 'optionValue',
+                columns: 20,
+                constraints: "span 2, wrap",
+                text: bind('option', target: model, mutual: true)
+        )
+
+        checkBox(id: "useTrace", selected: false, text: "Trace", constraints: 'wrap')
+
+        checkBox(id: "useScreenShot", selected: false, text: "ScreenShot", constraints: 'wrap')
+
+        label("locale:")
+        comboBox(id: 'localeType',
+                items: ["en_US", "fr_FR", "zh_CN"],
+                selectedIndex: 0,
+                constraints: "span 2, wrap"
+        )
+        button(id: 'applyBtn',
+                label: "Apply",
+                actionPerformed: {controller.setTelluriumConfig()},
+                constraints: "span 2, center")
+
+      }
+
+    }
+    panel(border: titledBorder('Console'), constraints: "grow 15 1, wrap") {
+      migLayout(layoutConstraints: 'fill')
+
+      button(id: 'clearConsole',
+              label: "Clear",
+              actionPerformed: {this.consoleTxt.text = ""},
+              constraints: "span 2,wrap, right"
+      )
+      scrollPane(preferredSize: [400, 100], constraints: "grow 100 1, wrap") {
+        textArea(id: "consoleTxt",
+                editable: false,
+                lineWrap: true,
+                wrapStyleWord: true)
       }
     }
 
-    panel(title: "Server", id: 'box', tabIcon: crystalIcon(size: 32, category: "apps", icon: "multiple_monitors"),
-      tabToolTip: "Selenium Server") {
-      migLayout(layoutConstraints: 'fill')
-
-      label('Server')
-      buttonGroup(id: 'mode')
-      radioButton('local', buttonGroup: mode, selected: true, actionPerformed: {model.mode = 'local'})
-      radioButton('remote', buttonGroup: mode, constraints: 'wrap', actionPerformed: {model.mode = 'remote'})
-
-      label('Port:')
-      textField(columns: 20, constraints: 'span 2, wrap',
-              text: bind('port', target: model, mutual: true))
-
-      label('Profile:')
-      textField(columns: 20, constraints: 'span 2, wrap',
-              text: bind('profile', target: model, mutual: true))
-
-      checkBox(id: "multipleWindow", selected: false, text: "Multiple Windows", constraints: 'span 2,wrap')
-
-      separator(constraints: 'grow, span 3, wrap')
-
-      button(id: 'runBtn',
-              label: "Run",
-              actionPerformed: {controller.runSeleniumServer()},
-              constraints: "span 2, left"
-      )
-
-      button(id: 'stopBtn',
-              label: "Stop",
-              actionPerformed: {controller.stopSeleniumServer()},
-              constraints: "span 2, right"
-      )
-
-    }
-
-    panel(title: "Config", tabIcon: crystalIcon(size: 32, category: "apps", icon: "kdmconfig"),
-      tabToolTip: "Tellurium Configuration") {
-      migLayout(layoutConstraints: 'fill')
-      label("Browser:")
-      comboBox(id: 'browserType',
-              items: ["*chrome", "*firefox", "*iexplore", "*iehta"],
-              selectedIndex: 0,
-              constraints: "span 2, wrap"
-      )
-
-      label("Server Host:")
-
-      textField(id: 'selServerHost',
-              columns: 20,
-              constraints: "span 2, wrap",
-              text: bind('serverHost', target: model, mutual: true)
-      )
-
-      label("Server Port:")
-
-      textField(id: 'selServerPort',
-              columns: 20,
-              constraints: "span 2, wrap",
-              text: bind('serverPort', target: model, mutual: true)
-      )
-
-      label("Macro Command:")
-
-      textField(id: 'macroCmdValue',
-              columns: 20,
-              constraints: "span 2, wrap",
-              text: bind('macroCmd', target: model, mutual: true)
-      )
-
-      label("Option:")
-
-      textField(id: 'optionValue',
-              columns: 20,
-              constraints: "span 2, wrap",
-              text: bind('option', target: model, mutual: true)
-      )
-
-      checkBox(id: "useTrace", selected: false, text: "Trace", constraints: 'wrap')
-
-      checkBox(id: "useScreenShot", selected: false, text: "ScreenShot", constraints: 'wrap')
-
-      label("locale:")
-      comboBox(id: 'localeType',
-              items: ["en_US", "fr_FR", "zh_CN"],
-              selectedIndex: 0,
-              constraints: "span 2, wrap"
-      )
-      button(id: 'applyBtn',
-              label: "Apply",
-              actionPerformed: {controller.setTelluriumConfig()},
-              constraints: "span 2, center")
-
-    }
 
   }
 
@@ -226,35 +219,4 @@ mainWindow = application(title: 'TelluriumWorks',
   }
 }
 
-/*    jxheader(constraints: NORTH,
-   title: "Tellurium Works",
-   description: "Tellurium IDE to run Tellurium DSL script",
-   titleForeground: Color.WHITE,
-   descriptionForeground: Color.WHITE,
-   icon: imageIcon("/tellurium.png"),
-   preferredSize: [480,80],
-   backgroundPainter: compound
-)
-jxtaskPaneContainer(constraints: CENTER) {
-   jxtaskPane(title: "Task group 1") {
-       jxlabel("Action 1")
-   }
-   jxtaskPane(title: "Task group 2", expanded: false) {
-       label("Action 2")
-   }
-} */
 
-/*tabbedPane(tabPlacement: JTabbedPane.LEFT) {
-  label('One', title:'One', tabToolTip:'Uno!')
-  label('Green', title:'Green', tabBackground:java.awt.Color.GREEN)
-//  label('Stop Operation', title:'Stop Operation', tabMnemonic:'O')
-//  label('Stop Operation', title:'Stop Operation', tabDisplayedMnemonicIndex:5)
-  panel(name:'One') {
-        label('One')
-  }
-  panel(name:'Two') {
-        label('Two')
-  }
-
-}*/
-//}
