@@ -13,9 +13,9 @@ class TelluriumworksController {
     }
 
    def openFile = {
-      def openResult = view.mainWindow.showOpenDialog(view.mainWindow)
+      def openResult = view.fileChooserWindow.showOpenDialog(view.mainWindow)
       if( JFileChooser.APPROVE_OPTION == openResult ) {
-         File file = new File(view.mainWindow.selectedFile.toString())
+         File file = new File(view.fileChooserWindow.selectedFile.toString())
          // let's calculate an unique id for the next mvc group
          String mvcId = file.path + System.currentTimeMillis()
          createMVCGroup("FilePanel", mvcId,
