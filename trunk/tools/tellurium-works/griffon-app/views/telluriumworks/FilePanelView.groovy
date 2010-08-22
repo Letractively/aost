@@ -25,11 +25,11 @@ tabbedPane(tabGroup, selectedIndex: tabGroup.tabCount) {
       scrollPane(constraints: CENTER) {
          textArea(id: 'editor', text: bind {model.fileText})
       }
-      hbox(constraints: SOUTH) {
+/*      hbox(constraints: SOUTH) {
          button runAction
          button saveAction
          button closeAction
-      }
+      }*/
    }
 }
 

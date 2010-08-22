@@ -6,12 +6,6 @@ import net.miginfocom.swing.MigLayout
 import javax.swing.JTabbedPane
 import static javax.swing.SwingConstants.*
 
-gloss = glossPainter(paint: new Color(1f, 1f, 1f, 0.2f),
-        position: GlossPainter.GlossPosition.TOP)
-stripes = pinstripePainter(paint: new Color(1f, 1f, 1f, 0.17f),
-        spacing: 5f)
-matte = mattePainter(fillPaint: new Color(51, 51, 51))
-compound = compoundPainter(painters: [matte, stripes, gloss])
 actions {
   action(id: 'openAction',
           name: 'Open',
@@ -98,17 +92,18 @@ mainWindow = application(title: 'TelluriumWorks',
 
   tabbedPane(constraints: CENTER, tabPlacement: JTabbedPane.LEFT, selectedIndex: 0) {
 
-    panel(title: "Script", id: 'tabGroup', tabIcon: crystalIcon(size: 32, category: "apps", icon: "kmenuedit"),
+    panel(title: "Script", tabIcon: crystalIcon(size: 32, category: "apps", icon: "kmenuedit"),
       tabToolTip: "Tellurium DSL Script"){
       migLayout(layoutConstraints: 'fill')
-      scrollPane(preferredSize: [400, 350], constraints: "grow 85 1, wrap" ) {
+      tabbedPane(id: 'tabGroup', preferredSize: [400, 350], constraints: "grow 85 1, wrap")
+/*      scrollPane(preferredSize: [400, 350], constraints: "grow 85 1, wrap" ) {
          textArea(id: "editor",
                  editable: false,
                  lineWrap: true,
                  text: bind { model.fileText },
                  caretPosition: bind(source: model, sourceProperty: "text")
          )
-       }
+       }*/
       panel(border: titledBorder('Console'), constraints: "grow 15 1, wrap") {
         migLayout(layoutConstraints: 'fill')
        
