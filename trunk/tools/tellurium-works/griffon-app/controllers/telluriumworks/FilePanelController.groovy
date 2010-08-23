@@ -7,6 +7,7 @@ class FilePanelController {
    void mvcGroupInit(Map args) {
       model.loadedFile = args.file
       model.mvcId = args.mvcId
+     
       doOutside {
          // load the file's text, outside the EDT
          String text = model.loadedFile.text
@@ -33,6 +34,7 @@ class FilePanelController {
    }
   
    def saveFile = {
+      println "model: " + model + ", view: " + view
       doOutside {
          // write text to file, outside the EDT
          model.loadedFile.text = view.editor.text
@@ -42,6 +44,8 @@ class FilePanelController {
    }
 
    def closeFile = {
+     println "model: " + model + ", view: " + view
+     println "view.tabGroup: " + view.tabGroup + ", view.tab: " + view.tab
       // remove tab
       view.tabGroup.remove view.tab
       // cleanup
