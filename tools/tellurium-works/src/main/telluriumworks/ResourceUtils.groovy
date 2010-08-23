@@ -1,3 +1,5 @@
+package telluriumworks
+
 import javax.swing.ImageIcon
 /**
  * 
