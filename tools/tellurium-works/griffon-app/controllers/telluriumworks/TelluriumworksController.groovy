@@ -10,6 +10,8 @@ class TelluriumworksController {
     def model
     def view
     JXTipOfTheDay totd
+    //keep track of the opened file tabs
+    def filePanels = []
 
     void mvcGroupInit(Map args) {
         // this method is called after model and view are injected
@@ -22,6 +24,7 @@ class TelluriumworksController {
          File file = new File(view.fileChooserWindow.selectedFile.toString())
          // let's calculate an unique id for the next mvc group
          String mvcId = file.path + System.currentTimeMillis()
+         filePanels.add(mvcId)
          createMVCGroup("FilePanel", mvcId,
             [file: file, tabGroup: view.tabGroup, tabName: file.name, mvcId: mvcId])
       }
@@ -32,11 +35,26 @@ class TelluriumworksController {
    }
 
    def saveFile = {
-
+/*      def views = app.views;
+      app.views.each{ v ->
+        println v  
+      }
+      println "tabCount = " + view.tabGroup.tabCount
+      println "selectedIndex = " + view.tabGroup.selectedIndex
+      println "selectedComponent = " + view.tabGroup.selectedComponent
+      println "view.tabGroup = " + view.tabGroup
+      println "view.tab = " + view.tab
+*/
    }
 
    def closeFile = {
-     
+     if (filePanels.size() > 0) {
+       def mvcId = filePanels[view.tabGroup.selectedIndex]
+       view.tabGroup.remove view.tabGroup.selectedComponent
+       filePanels.remove(mvcId)
+       logger.debug("Removing File tab: " + mvcId)
+       destroyMVCGroup mvcId
+     }
    }
 
    def goMainPage = {

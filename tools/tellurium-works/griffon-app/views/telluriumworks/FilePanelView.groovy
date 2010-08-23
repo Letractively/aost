@@ -19,17 +19,17 @@ actions {
       closure: controller.closeFile)
 }
 
-tabbedPane(tabGroup, selectedIndex: tabGroup.tabCount) {
+filePanes = tabbedPane(tabGroup, selectedIndex: tabGroup.tabCount) {
    panel(title: tabName, id: 'tab') {
       borderLayout()
       scrollPane(constraints: CENTER) {
          textArea(id: 'editor', text: bind {model.fileText})
       }
-/*      hbox(constraints: SOUTH) {
+      hbox(constraints: SOUTH) {
          button runAction
          button saveAction
          button closeAction
-      }*/
+      }
    }
 }
 
