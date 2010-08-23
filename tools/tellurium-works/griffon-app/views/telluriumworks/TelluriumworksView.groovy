@@ -212,7 +212,10 @@ mainWindow = application(title: 'TelluriumWorks',
 
       }
 
-    }
+    }          
+
+    hstrut(5)
+
     panel(border: titledBorder('Console'), constraints: "grow 15 1, wrap") {
       migLayout(layoutConstraints: 'fill')
 
@@ -221,6 +224,7 @@ mainWindow = application(title: 'TelluriumWorks',
               actionPerformed: {this.consoleTxt.text = ""},
               constraints: "span 2,wrap, right"
       )
+
       scrollPane(preferredSize: [400, 100], constraints: "grow 100 1, wrap") {
         textArea(id: "consoleTxt",
                 editable: false,
