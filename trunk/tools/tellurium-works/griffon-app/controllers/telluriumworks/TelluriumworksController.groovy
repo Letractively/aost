@@ -112,7 +112,13 @@ class TelluriumworksController {
   }
 
    def about = {
-     
+     def dialog = view."aboutDialog"
+     if( dialog.visible ) return
+     dialog.pack()
+     int x = app.appFrames[0].x + (app.appFrames[0].width - dialog.width) / 2
+     int y = app.appFrames[0].y + (app.appFrames[0].height - dialog.height) / 2
+     dialog.setLocation(x, y)
+     dialog.show()     
    }
 
     /*
