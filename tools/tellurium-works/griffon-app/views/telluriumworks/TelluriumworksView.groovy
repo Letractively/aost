@@ -277,7 +277,7 @@ JPanel buildSystemPropertiesPanel() {
 JScrollPane addTab(final String tabTitle, final String resource) {
 //	URL url = getClass().getResource(resource)
     URL url = this.getClass().getClassLoader().getResource(resource)
-    logger.info("resouce: " + resource + ", url: " + url)
+//    logger.info("resouce: " + resource + ", url: " + url)
 	scrollPane(title: tabTitle) {
 		editorPane(page: url, preferredSize: new Dimension(500,300),
 			background: UIManager.getColor("control"), editable: false)
