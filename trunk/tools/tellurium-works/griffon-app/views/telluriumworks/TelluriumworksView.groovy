@@ -34,6 +34,11 @@ actions {
           mnemonic: 'H',
           accelerator: shortcut('H'),
           closure: controller.help)
+  action(id: 'tipsAction',
+          name: 'Tips',
+          mnemonic: 'T',
+          accelerator: shortcut('T'),
+          closure: controller.showTips)
   action(id: 'aboutAction',
           name: 'About',
           mnemonic: 'A',
@@ -80,13 +85,14 @@ mainWindow = application(title: 'TelluriumWorks',
     }
     menu('Help') {
       menuItem helpAction
+      menuItem tipsAction
       separator()
       menuItem aboutAction
     }
   }
 
   borderLayout()
-  splitPane(id: "splitPane1", orientation: HORIZONTAL, resizeWeight: 0.8f) {
+  splitPane(id: "splitPane1", orientation: HORIZONTAL, resizeWeight: 0.85f) {
 
     tabbedPane(constraints: CENTER, tabPlacement: JTabbedPane.LEFT, selectedIndex: 0) {
 
