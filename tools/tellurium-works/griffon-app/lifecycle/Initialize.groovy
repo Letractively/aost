@@ -18,3 +18,4 @@ import static griffon.util.GriffonApplicationUtils.*
 
 GriffonPlatformHelper.tweakForNativePlatform(app)
 SwingBuilder.lookAndFeel((isMacOSX ? 'system' : 'nimbus'), 'gtk', ['metal', [boldFonts: false]])
+ResourceUtils.setBundlePath("Resource.properties")
