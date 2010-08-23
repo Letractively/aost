@@ -275,7 +275,9 @@ JPanel buildSystemPropertiesPanel() {
 }
 
 JScrollPane addTab(final String tabTitle, final String resource) {
-	URL url = getClass().getResource(resource)
+//	URL url = getClass().getResource(resource)
+    URL url = this.getClass().getClassLoader().getResource(resource)
+    logger.info("resouce: " + resource + ", url: " + url)
 	scrollPane(title: tabTitle) {
 		editorPane(page: url, preferredSize: new Dimension(500,300),
 			background: UIManager.getColor("control"), editable: false)
@@ -320,8 +322,8 @@ dialog(title: ResourceUtils.getString("about.title"), id: "aboutDialog", modal: 
 		tabbedPane(constraints: "cell 0 2") {
 			buildTitlePanel()
 			buildSystemPropertiesPanel()
-			addTab("Release Notes", "/docs/release.html")
-			addTab("Libraries", "/docs/libraries.html")
+			addTab("Release Notes", "docs/release.html")
+			addTab("Resources", "docs/resources.html")
 		}
 		panel(constraints: "cell 0 4" ) {
 			button("Close", actionPerformed: {event ->

@@ -21,7 +21,32 @@ class ResourceUtils {
 
   public static void setBundlePath(String path)
   {
-      INSTANCE.bundle = new PropertyResourceBundle(ResourceUtils.class.getResourceAsStream(path));
+/*
+      java.net.URL url = ClassLoader.getResource(path);
+      System.out.println("PATH: resolved name = " + url);
+      def input = Thread.currentThread().getContextClassLoader().getResourceAsStream(path)
+      System.out.println("Resolved input = " + input);
+*/
+
+//      INSTANCE.bundle = new PropertyResourceBundle(ResourceUtils.class.getResourceAsStream(path));
+     INSTANCE.bundle = new PropertyResourceBundle(Thread.currentThread().getContextClassLoader().getResourceAsStream(path));
+  }
+
+  public static Properties loadProperties(name) throws Exception {
+      Properties properties = new Properties();
+      java.util.Properties p = System.getProperties();
+//      String serverBase = p.getProperty(SERVER_BASE);
+//      if(serverBase != null && serverBase.trim().length() > 0){
+//          name = serverBase + "/resources/sacct.properties";
+//      }
+      FileInputStream fin = new FileInputStream(name);
+      BufferedReader br = new BufferedReader(new InputStreamReader(fin));
+      properties.load(br);
+
+      br.close();
+      fin.close();
+
+      return properties;
   }
 
   public static String getString(String key)
