@@ -74,9 +74,9 @@ class TelluriumworksController {
    def showTips = {
      if (!totd) {
          Properties tipsInput = new Properties()
-         def data = this.getClass().getResourceAsStream("tips.properties")
+//         def data = this.getClass().getResourceAsStream("tips.properties")
 //         def data = ClassLoader.getResourceAsStream("tips.properties")
-//         def data = this.getClass().getResourceAsStream( "logback.xml" )
+         def data = Thread.currentThread().getContextClassLoader().getResourceAsStream("tips.properties")
          println "data: " + data
          tipsInput.load(data);
          totd = new JXTipOfTheDay(TipLoader.load(tipsInput));
