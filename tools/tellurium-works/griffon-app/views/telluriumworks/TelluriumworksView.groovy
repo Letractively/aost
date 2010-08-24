@@ -104,7 +104,7 @@ mainWindow = application(title: 'TelluriumWorks',
       }
     }
     menu('Help') {
-      menuItem helpAction
+ //     menuItem helpAction
       menuItem tipsAction
       separator()
       menuItem aboutAction
