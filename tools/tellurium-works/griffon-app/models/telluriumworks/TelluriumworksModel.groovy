@@ -1,15 +1,21 @@
 package telluriumworks
 
 import groovy.beans.Bindable
+import javax.swing.event.ChangeListener
+import griffon.beans.Listener
+import javax.swing.event.ChangeEvent
 
-@groovy.beans.Bindable
-class TelluriumworksModel {
+class TelluriumworksModel implements ChangeListener {
   @Bindable int tabSelected = 1
 
-  File loadedFile
-  String fileText
-  boolean dirty
-  boolean enabled
+//  File loadedFile
+//  String fileText
+//  boolean dirty
+//  boolean enabled
+  // binding proxy
+  final DocumentProxy documentProxy = new DocumentProxy()
+
+  @Bindable @Listener(mvcUpdater)
   String mvcId
 
   @Bindable String mode
@@ -19,18 +25,27 @@ class TelluriumworksModel {
   @Bindable String serverHost
   @Bindable String macroCmd
   @Bindable String option
-  
-//  @griffon.beans.Listener(documentUpdater) 
-//  FilePanelModel filePanelModel
 
-/*  private documentListener = { e ->
-    this[(e.propertyName)] = e.newValue
-    logger.debug("Event propertyName: " + e.propertyName + ", newValue: " + e.newValue)
-  } as java.beans.PropertyChangeListener
+  // listens to changes on the mvcId property
+  private mvcUpdater = { e ->
+    Document document = null
+    if (e.newValue) {
+      document = app.models[e.newValue].document
+    } else {
+      document = new Document()
+    }
+    documentProxy.document = document
+  }
 
-  private documentUpdater = { e ->
-    e.oldValue?.removePropertyChangeListener(documentListener)
-    e.newValue?.addPropertyChangeListener(documentListener)
-    ['loadedFile', 'fileText', 'dirty', 'enabled', 'mvcId'].each { prop -> this[prop] = e.newValue?.getAt(prop) }
-  }*/
+  // listens to tab selection; updates the mvcId property
+
+  void stateChanged(ChangeEvent e) {
+    int selectedIndex = e.source.selectedIndex
+    if (selectedIndex < 0) {
+      setMvcId(null)
+    } else {
+      def tab = e.source[selectedIndex]
+      setMvcId(tab.getClientProperty('mvcId'))
+    }
+  }
 }

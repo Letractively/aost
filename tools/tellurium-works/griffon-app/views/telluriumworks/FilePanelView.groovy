@@ -20,17 +20,19 @@ actions {
 }
 
 filePanes = tabbedPane(tabGroup, selectedIndex: tabGroup.tabCount) {
-   panel(title: tabName, id: 'tab') {
+   panel(title: tabName, id: 'tab', clientProperties: [mvcId: mvcId]) {
       borderLayout()
       scrollPane(constraints: CENTER) {
-         textArea(id: 'editor', text: bind {model.fileText})
+         textArea(id: 'editor', text:  bind {model.document.contents})
       }
+/*
       hbox(constraints: SOUTH) {
          button runAction
          button saveAction
          button closeAction
       }
+*/
    }
 }
 
-bean(model, dirty: bind {editor.text != model.fileText})
+bean(model.document, dirty: bind {editor.text != model.document.contents})

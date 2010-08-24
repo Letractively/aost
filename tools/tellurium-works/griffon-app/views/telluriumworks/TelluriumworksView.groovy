@@ -18,6 +18,8 @@ import javax.swing.table.DefaultTableModel
 import javax.swing.UIManager
 
 import org.jdesktop.swingx.JXPanel
+import java.awt.GridBagConstraints
+import static griffon.util.GriffonApplicationUtils.isMacOSX
 
 actions {
   action(id: 'openAction',
@@ -84,7 +86,7 @@ actions {
 
 fileChooserWindow = fileChooser()
 mainWindow = application(title: 'TelluriumWorks',
-        size: [480, 400], locationByPlatform: true,
+        size: [600, 480], locationByPlatform: true,
         iconImage: imageIcon('/tellurium.png').image,
         iconImages: [imageIcon('/tellurium.png').image]) {
   lookAndFeel('system')
@@ -96,8 +98,10 @@ mainWindow = application(title: 'TelluriumWorks',
       menuItem closeAction
       separator()
       menuItem runAction
-      separator()
-      menuItem quitAction
+      if (!isMacOSX) {
+        separator()
+        menuItem quitAction
+      }
     }
     menu('Help') {
       menuItem helpAction
@@ -116,6 +120,9 @@ mainWindow = application(title: 'TelluriumWorks',
               tabToolTip: "Tellurium DSL Script") {
         migLayout(layoutConstraints: 'fill')
         tabbedPane(id: 'tabGroup', preferredSize: [600, 480], constraints: "grow 100 1, wrap")
+        noparent {
+          tabGroup.addChangeListener(model)
+        }
       }
 
       panel(title: "Server", id: 'box', tabIcon: crystalIcon(size: 32, category: "apps", icon: "multiple_monitors"),
