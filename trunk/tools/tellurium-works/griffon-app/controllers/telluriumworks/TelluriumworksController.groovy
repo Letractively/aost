@@ -9,9 +9,8 @@ class TelluriumworksController {
     // these will be injected by Griffon
     def model
     def view
+  
     JXTipOfTheDay totd
-    //keep track of the opened file tabs
-//    def filePanels = []
 
     void mvcGroupInit(Map args) {
         // this method is called after model and view are injected
@@ -24,15 +23,12 @@ class TelluriumworksController {
         File file = new File(view.fileChooserWindow.selectedFile.toString())
         // let's calculate an unique id for the next mvc group
         String mvcId = file.path + System.currentTimeMillis()
-//        filePanels.add(mvcId)
 
         createMVCGroup('FilePanel', mvcId, [
                 document: new Document(file: file, title: file.name),
                 tabGroup: view.tabGroup,
                 tabName: file.name,
              mvcId: mvcId])
-//         createMVCGroup("FilePanel", mvcId,
-//            [file: file, tabGroup: view.tabGroup, tabName: file.name, mvcId: mvcId])
       }
    }
 
@@ -42,29 +38,10 @@ class TelluriumworksController {
 
    def saveFile = {
       app.controllers[model.mvcId].saveFile(it)
-
-/*      println "tabCount = " + view.tabGroup.tabCount
-      println "selectedIndex = " + view.tabGroup.selectedIndex
-      println "selectedComponent = " + view.tabGroup.selectedComponent
-      println "view.tabGroup = " + view.tabGroup
-      println "model.fileText = " + model.fileText
-      println "model.dirty = " + model.dirty
-      println view.tabGroup.selectedComponent.editor.text
-      */
-
-
    }
 
    def closeFile = {
       app.controllers[model.mvcId].closeFile(it)
-
-/*     if (filePanels.size() > 0) {
-       def mvcId = filePanels[view.tabGroup.selectedIndex]
-       view.tabGroup.remove view.tabGroup.selectedComponent
-       filePanels.remove(mvcId)
-       logger.debug("Removing File tab: " + mvcId)
-       destroyMVCGroup mvcId
-     }*/
    }
 
    def quit = {
@@ -103,7 +80,6 @@ class TelluriumworksController {
      if (!totd) {
          Properties tipsInput = new Properties()
 //         def data = this.getClass().getResourceAsStream("tips.properties")
-//         def data = ClassLoader.getResourceAsStream("tips.properties")
          def data = Thread.currentThread().getContextClassLoader().getResourceAsStream("tips.properties")
          tipsInput.load(data);
          totd = new JXTipOfTheDay(TipLoader.load(tipsInput));

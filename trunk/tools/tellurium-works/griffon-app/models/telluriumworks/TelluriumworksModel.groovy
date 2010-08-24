@@ -6,17 +6,12 @@ import griffon.beans.Listener
 import javax.swing.event.ChangeEvent
 
 class TelluriumworksModel implements ChangeListener {
-  @Bindable int tabSelected = 1
-
-//  File loadedFile
-//  String fileText
-//  boolean dirty
-//  boolean enabled
-  // binding proxy
-  final DocumentProxy documentProxy = new DocumentProxy()
 
   @Bindable @Listener(mvcUpdater)
   String mvcId
+
+  // binding proxy
+  final DocumentProxy documentProxy = new DocumentProxy()
 
   @Bindable String mode
   @Bindable String port
@@ -38,7 +33,6 @@ class TelluriumworksModel implements ChangeListener {
   }
 
   // listens to tab selection; updates the mvcId property
-
   void stateChanged(ChangeEvent e) {
     int selectedIndex = e.source.selectedIndex
     if (selectedIndex < 0) {

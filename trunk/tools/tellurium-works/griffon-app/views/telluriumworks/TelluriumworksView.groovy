@@ -119,7 +119,7 @@ mainWindow = application(title: 'TelluriumWorks',
       panel(title: "Script", tabIcon: crystalIcon(size: 32, category: "apps", icon: "kmenuedit"),
               tabToolTip: "Tellurium DSL Script") {
         migLayout(layoutConstraints: 'fill')
-        tabbedPane(id: 'tabGroup', preferredSize: [600, 480], constraints: "grow 100 1, wrap")
+        tabbedPane(id: 'tabGroup', preferredSize: [800, 640], constraints: "grow 100 1, wrap")
         noparent {
           tabGroup.addChangeListener(model)
         }
@@ -288,7 +288,6 @@ JPanel buildSystemPropertiesPanel() {
 JScrollPane addTab(final String tabTitle, final String resource) {
 //	URL url = getClass().getResource(resource)
     URL url = this.getClass().getClassLoader().getResource(resource)
-//    logger.info("resouce: " + resource + ", url: " + url)
 	scrollPane(title: tabTitle) {
 		editorPane(page: url, preferredSize: new Dimension(500,300),
 			background: UIManager.getColor("control"), editable: false)

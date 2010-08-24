@@ -8,11 +8,7 @@ import griffon.beans.Listener
 
 class FilePanelModel{
 
-   @Bindable Document document
-
-/*   File loadedFile
-   @Bindable String fileText
-   @Bindable boolean dirty
-   @Bindable boolean enabled*/
    String mvcId
+
+   @Bindable Document document
 }
