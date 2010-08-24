@@ -82,6 +82,7 @@ class TelluriumworksController {
 //         def data = this.getClass().getResourceAsStream("tips.properties")
          def data = Thread.currentThread().getContextClassLoader().getResourceAsStream("tips.properties")
          tipsInput.load(data);
+         logger.debug("Loaded tips: " + tipsInput);
          totd = new JXTipOfTheDay(TipLoader.load(tipsInput));
      }
      totd.showDialog(null);
@@ -91,10 +92,8 @@ class TelluriumworksController {
     def dialog = view."$dialogName"
     if (dialog.visible) return
     dialog.pack()
-//    int x = app.appFrames[0].x + (app.appFrames[0].width - dialog.width) / 2
-//    int y = app.appFrames[0].y + (app.appFrames[0].height - dialog.height) / 2
-    int x = app.mainWindow.x + (app.mainWindow.width - dialog.width) / 2
-    int y = app.mainWindow.y + (app.mainWindow.height - dialog.height) / 2
+    int x = app.windowManager.windows[0].x + (app.windowManager.windows[0].width - dialog.width) / 2
+    int y = app.windowManager.windows[0].y + (app.windowManager.windows[0].height - dialog.height) / 2
     dialog.setLocation(x, y)
     dialog.show()
   }
@@ -110,10 +109,8 @@ class TelluriumworksController {
       def dialog = view."aboutDialog"
       if( dialog.visible ) return
       dialog.pack()
-//      int x = app.appFrames[0].x + (app.appFrames[0].width - dialog.width) / 2
-//      int y = app.appFrames[0].y + (app.appFrames[0].height - dialog.height) / 2
-      int x = app.mainWindow.x + (app.mainWindow.width - dialog.width) / 2
-      int y = app.mainWindow.y + (app.mainWindow.height - dialog.height) / 2
+      int x = app.windowManager.windows[0].x + (app.windowManager.windows[0].width - dialog.width) / 2
+      int y = app.windowManager.windows[0].y + (app.windowManager.windows[0].height - dialog.height) / 2
       dialog.setLocation(x, y)
       dialog.show()
   }
@@ -122,16 +119,10 @@ class TelluriumworksController {
      def dialog = view."aboutDialog"
      if( dialog.visible ) return
      dialog.pack()
-//     int x = app.appFrames[0].x + (app.appFrames[0].width - dialog.width) / 2
-//     int y = app.appFrames[0].y + (app.appFrames[0].height - dialog.height) / 2
-     int x = app.mainWindow.x + (app.mainWindow.width - dialog.width) / 2
-     int y = app.mainWindow.y + (app.mainWindow.height - dialog.height) / 2
+     int x = app.windowManager.windows[0].x + (app.windowManager.windows[0].width - dialog.width) / 2
+     int y = app.windowManager.windows[0].y + (app.windowManager.windows[0].height - dialog.height) / 2
      dialog.setLocation(x, y)
      dialog.show()     
    }
 
-    /*
-    def action = { evt = null ->
-    }
-    */
 }
