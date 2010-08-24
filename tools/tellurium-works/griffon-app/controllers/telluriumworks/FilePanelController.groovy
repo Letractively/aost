@@ -43,6 +43,19 @@ class FilePanelController {
       }
    }
 
+   def updateFile = { evt ->
+      println "model: " + model + ", view: " + view
+      doOutside {
+         // update model.text, inside EDT
+         doLater {
+           model.fileText = view.editor.text
+           app.models.telluriumworks.fileText =model.fileText
+           app.models.telluriumworks.dirty = model.dirty
+           
+         }
+      }
+   }
+
    def closeFile = {
      println "model: " + model + ", view: " + view
      println "view.tabGroup: " + view.tabGroup + ", view.tab: " + view.tab
