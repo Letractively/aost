@@ -35,16 +35,23 @@ class TelluriumworksController {
    }
 
    def saveFile = {
-/*      def views = app.views;
-      app.views.each{ v ->
-        println v  
-      }
+     
+//      def views = app.views;
+//      app.views.each{ v ->
+//        println v
+//      }
       println "tabCount = " + view.tabGroup.tabCount
       println "selectedIndex = " + view.tabGroup.selectedIndex
       println "selectedComponent = " + view.tabGroup.selectedComponent
       println "view.tabGroup = " + view.tabGroup
-      println "view.tab = " + view.tab
-*/
+      println "model.fileText = " + model.fileText
+      println "model.dirty = " + model.dirty
+      println view.tabGroup.selectedComponent.editor.text
+//      println "model.filePanelModel.fileText = " + model.filePanelModel.fileText
+//      println "model.filePanelModel.dirty = " + model.filePanelModel.dirty
+
+//      println "view.tab = " + view.tab
+
    }
 
    def closeFile = {
@@ -100,21 +107,23 @@ class TelluriumworksController {
      }
      totd.showDialog(null);
    }
-  
-     private void showDialog( dialogName ) {
-        def dialog = view."$dialogName"
-        if( dialog.visible ) return
-        dialog.pack()
-        int x = app.appFrames[0].x + (app.appFrames[0].width - dialog.width) / 2
-        int y = app.appFrames[0].y + (app.appFrames[0].height - dialog.height) / 2
-        dialog.setLocation(x, y)
-        dialog.show()
-     }
 
-     private void hideDialog( dialogName ) {
-        def dialog = view."$dialogName"
-        dialog.hide()
-     }
+  private void showDialog(dialogName) {
+    def dialog = view."$dialogName"
+    if (dialog.visible) return
+    dialog.pack()
+//    int x = app.appFrames[0].x + (app.appFrames[0].width - dialog.width) / 2
+//    int y = app.appFrames[0].y + (app.appFrames[0].height - dialog.height) / 2
+    int x = app.mainWindow.x + (app.mainWindow.width - dialog.width) / 2
+    int y = app.mainWindow.y + (app.mainWindow.height - dialog.height) / 2
+    dialog.setLocation(x, y)
+    dialog.show()
+  }
+
+  private void hideDialog(dialogName) {
+    def dialog = view."$dialogName"
+    dialog.hide()
+  }
 
   // About
   void showAbout(event) {
@@ -122,8 +131,10 @@ class TelluriumworksController {
       def dialog = view."aboutDialog"
       if( dialog.visible ) return
       dialog.pack()
-      int x = app.appFrames[0].x + (app.appFrames[0].width - dialog.width) / 2
-      int y = app.appFrames[0].y + (app.appFrames[0].height - dialog.height) / 2
+//      int x = app.appFrames[0].x + (app.appFrames[0].width - dialog.width) / 2
+//      int y = app.appFrames[0].y + (app.appFrames[0].height - dialog.height) / 2
+      int x = app.mainWindow.x + (app.mainWindow.width - dialog.width) / 2
+      int y = app.mainWindow.y + (app.mainWindow.height - dialog.height) / 2
       dialog.setLocation(x, y)
       dialog.show()
   }
@@ -132,8 +143,10 @@ class TelluriumworksController {
      def dialog = view."aboutDialog"
      if( dialog.visible ) return
      dialog.pack()
-     int x = app.appFrames[0].x + (app.appFrames[0].width - dialog.width) / 2
-     int y = app.appFrames[0].y + (app.appFrames[0].height - dialog.height) / 2
+//     int x = app.appFrames[0].x + (app.appFrames[0].width - dialog.width) / 2
+//     int y = app.appFrames[0].y + (app.appFrames[0].height - dialog.height) / 2
+     int x = app.mainWindow.x + (app.mainWindow.width - dialog.width) / 2
+     int y = app.mainWindow.y + (app.mainWindow.height - dialog.height) / 2
      dialog.setLocation(x, y)
      dialog.show()     
    }
