@@ -18,6 +18,30 @@ class TelluriumworksController {
     ConsoleLogger.instance.view = view
     // this method is called after model and view are injected
 //    new Hello().sayHello()
+     //Populate default values because of Griffon bug for mutual: true
+  }
+
+  def onReadyEnd = {app ->
+//     execOutside {
+/*
+       view.localServerPort.text = model.port
+       view.selServerHost.text = model.serverHost
+       view.selServerPort.text = model.serverPort
+       view.macroCmdValue.text = model.macroCmd
+
+       app.views["telluriumworks"].serverStatus.text = "Not Running"
+       app.views["telluriumworks"].localServerPort.text = "4444"
+       app.views["telluriumworks"].selServerHost.text = "localhost"
+       app.views["telluriumworks"].selServerPort.text = "4444"
+       app.views["telluriumworks"].macroCmdValue.text = "5"
+       app.views["telluriumworks"].serverStatus.text = "Not Running"  
+*/
+
+       view.serverStatus.text = "Not Running"
+       view.localServerPort.text = "4444"
+       view.selServerHost.text = "localhost"
+       view.selServerPort.text = "4444"
+       view.macroCmdValue.text = "5"
   }
 
   def openFile = {
