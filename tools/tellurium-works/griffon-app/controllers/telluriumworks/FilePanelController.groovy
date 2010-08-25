@@ -16,13 +16,12 @@ class FilePanelController {
    }
 
    def runFile = {
-      logger.info("Start to run Tellurium Test ${model.document.title}");
-
-      doOutside {
- 	    doLater{
-
-        }
-      }
+//      logger.info("Start to run Tellurium Test ${model.document.title}");
+//      execOutside {
+// 	    doLater{
+//
+//        }
+//      }
    }
 
    def saveFile = {
@@ -35,7 +34,7 @@ class FilePanelController {
    }
 
    def closeFile = {
-      // remove tab
+       // remove tab
       view.tabGroup.remove view.tab
       // cleanup
       destroyMVCGroup model.mvcId

@@ -1,1 +1,1 @@
-mvn deploy:deploy-file -Dfile=./dist/jar/telluriumworks.jar  Durl=http://maven.kungfuters.org/content/repositories/snapshots -DgroupId=org.telluriumsource -DartifactId=tellurium-works -Dversion=0.8.0-SNAPSHOT -Dpackaging=jar -DrepositoryId=kungfuters-public-snapshots-repo
+mvn deploy:deploy-file -Dfile=./dist/jar/telluriumworks.jar  -Durl=http://maven.kungfuters.org/content/repositories/snapshots -DgroupId=org.telluriumsource -DartifactId=tellurium-works -Dversion=0.8.0-SNAPSHOT -Dpackaging=jar -DrepositoryId=kungfuters-public-snapshots-repo
