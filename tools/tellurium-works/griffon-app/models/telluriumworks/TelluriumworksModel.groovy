@@ -15,6 +15,7 @@ class TelluriumworksModel implements ChangeListener {
 
   @Bindable String consoleText
 
+  @Bindable String serverStatus = "Not Running"
   @Bindable ServerConfig serverConfig
   
   @Bindable boolean local = true

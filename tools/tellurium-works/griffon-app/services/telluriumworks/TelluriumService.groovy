@@ -20,7 +20,7 @@ class TelluriumService {
       this.runner.run(script)
     }
   
-    public void runSeleniumServer(ServerConfig config){
+    public boolean runSeleniumServer(ServerConfig config){
       server.runSeleniumServerInternally = config.local
       server.useMultiWindows = config.multipleWindow
       if(config.profile != null && config.profile.trim().length() > 0)
@@ -37,9 +37,11 @@ class TelluriumService {
         }
 
       }
+
+      return isServerRunning
     }
 
-    public void stopSeleniumServer(){
+    public boolean stopSeleniumServer(){
       if(isServerRunning){
         logger.info("Stopping Selenium Server...")
         server.stopSeleniumServer()
@@ -47,9 +49,7 @@ class TelluriumService {
       }else{
         logger.warn("Selenium Server is not running")
       }
-    }
 
-    def serviceMethod() {
-
+      return isServerRunning
     }
 }
