@@ -32,6 +32,7 @@ class TelluriumService {
       if(isServerRunning){
         logger.info("Stopping Selenium Server...")
         server.stopSeleniumServer()
+        isServerRunning = false
       }else{
         logger.warn("Selenium Server is not running")
       }

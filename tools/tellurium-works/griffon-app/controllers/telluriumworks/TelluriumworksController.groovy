@@ -67,7 +67,13 @@ class TelluriumworksController {
   }
 
   def runSeleniumServer = {
-    def conf = model.serverConfig
+//    def conf = model.serverConfig
+    def conf = new ServerConfig()
+    conf.local = model.local
+    conf.profile = model.profile
+    conf.port = model.port
+    conf.multipleWindow = model.multipleWindow
+    
     clogger.log("Run Selenium server with configuration: " + conf.toString())
     telluriumService.runSeleniumServer(conf)
   }

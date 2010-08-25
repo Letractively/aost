@@ -11,10 +11,10 @@ import groovy.beans.Bindable
  */
 @Bindable
 class ServerConfig {
-  @Bindable boolean local
-  @Bindable String port
-  @Bindable String profile
-  @Bindable boolean multipleWindow
+  boolean local
+  String port
+  String profile
+  boolean multipleWindow
 
   public String toString(){
     return "[local: ${local}, port: ${port}, profile: ${profile}, multipleWindow: ${multipleWindow}]"
