@@ -14,6 +14,8 @@ class TelluriumworksModel implements ChangeListener {
   final DocumentProxy documentProxy = new DocumentProxy()
 
   @Bindable String consoleText
+
+  @Bindable ServerConfig serverConfig
   
   @Bindable String mode
   @Bindable String port

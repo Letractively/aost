@@ -9,6 +9,7 @@ class TelluriumworksController {
   // these will be injected by Griffon
   def model
   def view
+  def telluriumService
 
   JXTipOfTheDay totd
   def clogger = ConsoleLogger.instance
@@ -66,11 +67,14 @@ class TelluriumworksController {
   }
 
   def runSeleniumServer = {
-
+    def conf = model.serverConfig
+    clogger.log("Run Selenium server with configuration: " + conf.toString())
+    telluriumService.runSeleniumServer(conf)
   }
 
   def stopSeleniumServer = {
-
+    clogger.log("Stop Selenium server")
+    telluriumService.stopSeleniumServer()
   }
 
   def setTelluriumConfig = {
