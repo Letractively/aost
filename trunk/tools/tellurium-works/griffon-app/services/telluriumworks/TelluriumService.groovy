@@ -9,6 +9,12 @@ class TelluriumService {
     EmbeddedSeleniumServer server = new EmbeddedSeleniumServer()
     boolean isServerRunning = false
 
+    TelluriumConfig telluriumConfig = new TelluriumConfig()
+
+    public void updateTelluriumConfig(TelluriumConfig config){
+      this.telluriumConfig.updateFrom(config)
+    }
+  
     public void runSeleniumServer(ServerConfig config){
       server.runSeleniumServerInternally = config.local
       server.useMultiWindows = config.multipleWindow

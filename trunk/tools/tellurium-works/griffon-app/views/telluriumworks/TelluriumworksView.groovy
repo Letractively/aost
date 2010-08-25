@@ -87,7 +87,7 @@ actions {
 
 fileChooserWindow = fileChooser()
 mainWindow = application(title: 'TelluriumWorks',
-        size: [600, 480], locationByPlatform: true,
+        size: [640, 600], locationByPlatform: true,
         iconImage: imageIcon('/tellurium.png').image,
         iconImages: [imageIcon('/tellurium.png').image]) {
   lookAndFeel('system')
@@ -211,19 +211,24 @@ mainWindow = application(title: 'TelluriumWorks',
                 text: bind('option', target: model, mutual: true)
         )
 
-        checkBox(id: "useTrace", selected: false, text: "Trace", constraints: 'wrap')
+//        checkBox(id: "useTrace", selected: false, text: "Trace", constraints: 'wrap')
+        checkBox(id: "useTrace", selected: bind {model.useTrace}, text: "Trace", constraints: 'wrap')
 
-        checkBox(id: "useScreenShot", selected: false, text: "ScreenShot", constraints: 'wrap')
+//        checkBox(id: "useScreenShot", selected: false, text: "ScreenShot", constraints: 'wrap')
 
+        checkBox(id: "useScreenShot", selected: bind {model.useScreenShot}, text: "ScreenShot", constraints: 'wrap')
+        
         label("locale:")
         comboBox(id: 'localeType',
                 items: ["en_US", "fr_FR", "zh_CN"],
                 selectedIndex: 0,
                 constraints: "span 2, wrap"
         )
+        separator(constraints: 'grow, span 3, wrap')
+        
         button(id: 'applyBtn',
                 label: "Apply",
-                actionPerformed: {controller.setTelluriumConfig()},
+                actionPerformed: {controller.updateTelluriumConfig()},
                 constraints: "span 2, center")
 
       }
@@ -260,6 +265,9 @@ mainWindow = application(title: 'TelluriumWorks',
     button(exitAction, constraints: 'left')
   }
 }
+
+bean(model, browser: bind {browserType.selectedItem})
+bean(model, locale: bind {localeType.selectedItem})
 
 JPanel buildTitlePanel() {
 	def mess = """ ${ResourceUtils.getString('about.message1')}
