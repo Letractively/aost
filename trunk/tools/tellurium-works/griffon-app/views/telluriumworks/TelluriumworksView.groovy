@@ -4,7 +4,7 @@ import javax.swing.JTabbedPane
 import static javax.swing.SwingConstants.*
 import net.miginfocom.swing.MigLayout
 import java.awt.Color
-import java.awt.Component;
+
 import java.awt.Dimension
 import java.awt.GradientPaint
 import java.awt.Graphics
@@ -12,13 +12,14 @@ import java.awt.Graphics2D
 
 import javax.swing.JPanel
 import javax.swing.JLabel;
-import javax.swing.JComponent
+
+
 import javax.swing.JScrollPane
 import javax.swing.table.DefaultTableModel
 import javax.swing.UIManager
 
 import org.jdesktop.swingx.JXPanel
-import java.awt.GridBagConstraints
+
 import static griffon.util.GriffonApplicationUtils.isMacOSX
 
 actions {
@@ -131,18 +132,21 @@ mainWindow = application(title: 'TelluriumWorks',
 
         label('Server')
         buttonGroup(id: 'mode')
-        radioButton('local', buttonGroup: mode, selected: true, actionPerformed: {model.mode = 'local'})
-        radioButton('remote', buttonGroup: mode, constraints: 'wrap', actionPerformed: {model.mode = 'remote'})
+        radioButton('local', buttonGroup: mode, selected: true, actionPerformed: {model.serverConfig.local = true})
+        radioButton('remote', buttonGroup: mode, constraints: 'wrap', actionPerformed: {model.serverConfig.local = false})
 
         label('Port:')
         textField(columns: 20, constraints: 'span 2, wrap',
-                text: bind('port', target: model, mutual: true))
+//                text: bind {model.serverConfig.port})
+                text: bind('port', target: model.serverConfig, mutual: true))
 
         label('Profile:')
         textField(columns: 20, constraints: 'span 2, wrap',
-                text: bind('profile', target: model, mutual: true))
+//                text: bind {model.serverConfig.profile})
+                text: bind('profile', target: model.serverConfig, mutual: true))
 
-        checkBox(id: "multipleWindow", selected: false, text: "Multiple Windows", constraints: 'span 2,wrap')
+        checkBox(id: "multipleWindow", selected: bind('multipleWindow', target:model.serverConfig, mutual: true), text: "Multiple Windows", constraints: 'span 2,wrap')
+//        checkBox(id: "multipleWindow", selected: bind {model.serverConfig.multipleWindow}, text: "Multiple Windows", constraints: 'span 2,wrap')
 
         separator(constraints: 'grow, span 3, wrap')
 
