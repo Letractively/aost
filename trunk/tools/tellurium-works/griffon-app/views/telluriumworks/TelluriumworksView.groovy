@@ -130,6 +130,12 @@ mainWindow = application(title: 'TelluriumWorks',
               tabToolTip: "Selenium Server") {
         migLayout(layoutConstraints: 'fill')
 
+        label('Status')
+        textField(id: "serverStatus", columns: 10, constraints: 'span 2, wrap',
+                text: bind('serverStatus', target: model, mutual: true))
+
+        separator(constraints: 'grow, span 3, wrap')
+
         label('Server')
         buttonGroup(id: 'mode')
         radioButton('local', buttonGroup: mode, selected: true, actionPerformed: {model.local = true})

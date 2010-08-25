@@ -76,14 +76,16 @@ class TelluriumworksController {
 
       clogger.log("Run Selenium server with configuration: " + conf.toString())
 
-      telluriumService.runSeleniumServer(conf)
+      boolean status = telluriumService.runSeleniumServer(conf)
+      view.serverStatus.text = (status ? "Running": "Not Running")
     }
   }
 
   def stopSeleniumServer = {
     execOutside {
       clogger.log("Stop Selenium server")
-      telluriumService.stopSeleniumServer()
+      boolean status = telluriumService.stopSeleniumServer()
+      view.serverStatus.text = (status ? "Running": "Not Running")
     }
   }
 
