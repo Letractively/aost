@@ -25,7 +25,7 @@ class DslScriptRunner {
                 
                 class DslTest extends DslScriptEngine{
                     def test(){
-                        this.aost.customConfig = new CustomConfig(false, ${config.serverPort}, '${config.browser}', false, null,  '${config.serverPort}', null)
+                        this.aost.customConfig = new CustomConfig(false, ${config.serverPort}, '${config.browser}', false, null,  '${config.serverHost}', null)
                         init()
                         this.aost.useTrace(${config.useTrace})
                         this.aost.setMaxMacroCmd(${config.macroCmd})
