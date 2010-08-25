@@ -17,9 +17,11 @@ class TelluriumworksModel implements ChangeListener {
 
   @Bindable ServerConfig serverConfig
   
-  @Bindable String mode
+  @Bindable boolean local
   @Bindable String port
   @Bindable String profile
+  @Bindable boolean multipleWindow
+  
   @Bindable String serverPort
   @Bindable String serverHost
   @Bindable String macroCmd
