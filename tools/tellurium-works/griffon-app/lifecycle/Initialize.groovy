@@ -20,3 +20,6 @@ import telluriumworks.ResourceUtils
 GriffonPlatformHelper.tweakForNativePlatform(app)
 SwingBuilder.lookAndFeel((isMacOSX ? 'system' : 'nimbus'), 'gtk', ['metal', [boldFonts: false]])
 ResourceUtils.setBundlePath("Resource.properties")
+//System.properties['http.proxySet'] = true
+//System.properties['http.proxyHost']='localhost'
+//System.properties['http.proxyPort']='5865'
