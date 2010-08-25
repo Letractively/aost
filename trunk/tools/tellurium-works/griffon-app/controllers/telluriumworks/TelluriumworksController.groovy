@@ -36,7 +36,15 @@ class TelluriumworksController {
   }
 
   def runFile = {
-
+    execOutside {
+      String script = model.documentProxy.document.contents
+      if(script != null && (!script.isEmpty())){
+        clogger.log("Running file " + model.documentProxy.document.title)
+        telluriumService.runScript(script)
+      }else{
+        clogger.log("No file to run")
+      }
+    }
   }
 
   def saveFile = {
@@ -54,18 +62,6 @@ class TelluriumworksController {
     app.shutdown()
   }
 
-  def goMainPage = {
-
-  }
-
-  def goServerPage = {
-
-  }
-
-  def goConfigPage = {
-
-  }
-
   def runSeleniumServer = {
     execOutside {
 //    def conf = model.serverConfig
@@ -79,7 +75,6 @@ class TelluriumworksController {
 
       telluriumService.runSeleniumServer(conf)
     }
-
   }
 
   def stopSeleniumServer = {

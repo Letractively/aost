@@ -24,7 +24,7 @@ class FilePanelController {
         }
       }
    }
-  
+
    def saveFile = {
        execOutside {
          // write text to file, outside the EDT
