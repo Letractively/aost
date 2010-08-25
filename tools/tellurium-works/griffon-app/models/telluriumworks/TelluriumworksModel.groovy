@@ -13,6 +13,8 @@ class TelluriumworksModel implements ChangeListener {
   // binding proxy
   final DocumentProxy documentProxy = new DocumentProxy()
 
+  @Bindable String consoleText
+  
   @Bindable String mode
   @Bindable String port
   @Bindable String profile
@@ -20,6 +22,7 @@ class TelluriumworksModel implements ChangeListener {
   @Bindable String serverHost
   @Bindable String macroCmd
   @Bindable String option
+
 
   // listens to changes on the mvcId property
   private mvcUpdater = { e ->
