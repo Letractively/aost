@@ -144,7 +144,7 @@ mainWindow = application(title: 'TelluriumWorks',
 //        radioButton('remote', buttonGroup: mode, constraints: 'wrap', actionPerformed: {model.serverConfig.local = false})
 
         label('Port:')
-        textField(columns: 20, constraints: 'span 2, wrap',
+        textField(id: "localServerPort", columns: 20, constraints: 'span 2, wrap',
 //                text: bind {model.serverConfig.port})
 //                text: bind('port', target: model.serverConfig, mutual: true))
                 text: bind('port', target: model, mutual: true))
