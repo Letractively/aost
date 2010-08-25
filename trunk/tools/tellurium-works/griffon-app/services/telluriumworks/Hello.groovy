@@ -8,5 +8,6 @@ class Hello {
      println "Hello"
      logger.info("<== sayHello")
     }
+  
     def static logger =  LoggerFactory.getLogger(Hello);
 }
