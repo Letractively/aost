@@ -115,7 +115,7 @@ mainWindow = application(title: 'TelluriumWorks',
   borderLayout()
   splitPane(id: "splitPane1", orientation: HORIZONTAL, resizeWeight: 0.85f) {
 
-    tabbedPane(constraints: CENTER, tabPlacement: JTabbedPane.LEFT, selectedIndex: 0) {
+    tabbedPane(id: "mainPane", constraints: CENTER, tabPlacement: JTabbedPane.LEFT, selectedIndex: 0) {
 
       panel(title: "Script", tabIcon: crystalIcon(size: 32, category: "apps", icon: "kmenuedit"),
               tabToolTip: "Tellurium DSL Script") {

@@ -36,6 +36,7 @@ class TelluriumworksController {
   }
 
   def runFile = {
+    view.mainPane.selectedIndex = 0
     execOutside {
       String script = model.documentProxy.document.contents
       if(script != null && (!script.isEmpty())){
@@ -48,11 +49,13 @@ class TelluriumworksController {
   }
 
   def saveFile = {
+    view.mainPane.selectedIndex = 0
     clogger.log("Saving file " + model.documentProxy.document.title)
     app.controllers[model.mvcId].saveFile(it)
   }
 
   def closeFile = {
+    view.mainPane.selectedIndex = 0
     clogger.log("Closing file " + model.documentProxy.document.title)
     app.controllers[model.mvcId].closeFile(it)
   }
