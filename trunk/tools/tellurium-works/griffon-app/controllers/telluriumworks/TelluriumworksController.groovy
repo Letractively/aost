@@ -11,8 +11,10 @@ class TelluriumworksController {
   def view
 
   JXTipOfTheDay totd
+  def clogger = ConsoleLogger.instance
 
   void mvcGroupInit(Map args) {
+    ConsoleLogger.instance.view = view
     // this method is called after model and view are injected
 //    new Hello().sayHello()
   }
@@ -37,14 +39,17 @@ class TelluriumworksController {
   }
 
   def saveFile = {
+    clogger.log("Saving file " + model.documentProxy.document.title)
     app.controllers[model.mvcId].saveFile(it)
   }
 
   def closeFile = {
+    clogger.log("Closing file " + model.documentProxy.document.title)
     app.controllers[model.mvcId].closeFile(it)
   }
 
   def quit = {
+    clogger.log("Quitting...")
     app.shutdown()
   }
 
@@ -122,6 +127,13 @@ class TelluriumworksController {
     int y = app.windowManager.windows[0].y + (app.windowManager.windows[0].height - dialog.height) / 2
     dialog.setLocation(x, y)
     dialog.show()
+  }
+
+  def clearConsole = {
+    execOutside {
+      view.consoleTxt.text = ""
+      ConsoleLogger.instance.clear()
+    }
   }
 
 }

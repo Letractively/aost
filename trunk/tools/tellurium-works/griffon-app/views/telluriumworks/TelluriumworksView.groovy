@@ -228,7 +228,8 @@ mainWindow = application(title: 'TelluriumWorks',
 
       button(id: 'clearConsole',
               label: "Clear",
-              actionPerformed: {this.consoleTxt.text = ""},
+//              actionPerformed: {this.consoleTxt.text = ""},
+              actionPerformed: {controller.clearConsole()},
               constraints: "span 2,wrap, right"
       )
 
@@ -236,11 +237,10 @@ mainWindow = application(title: 'TelluriumWorks',
         textArea(id: "consoleTxt",
                 editable: false,
                 lineWrap: true,
-                wrapStyleWord: true)
+                wrapStyleWord: true,
+                text: bind('consoleText', target: model))
       }
     }
-
-
   }
 
   toolBar(constraints: 'left', floatable: false, opaque: false) {
