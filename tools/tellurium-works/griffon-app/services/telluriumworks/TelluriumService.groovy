@@ -9,10 +9,15 @@ class TelluriumService {
     EmbeddedSeleniumServer server = new EmbeddedSeleniumServer()
     boolean isServerRunning = false
 
-    TelluriumConfig telluriumConfig = new TelluriumConfig()
+//    TelluriumConfig telluriumConfig = new TelluriumConfig()
+    DslScriptRunner runner = new DslScriptRunner()
 
     public void updateTelluriumConfig(TelluriumConfig config){
-      this.telluriumConfig.updateFrom(config)
+      this.runner.updateConfig(config)
+    }
+
+    public void runScript(String script){
+      this.runner.run(script)
     }
   
     public void runSeleniumServer(ServerConfig config){
