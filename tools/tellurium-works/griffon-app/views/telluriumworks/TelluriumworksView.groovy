@@ -232,7 +232,7 @@ mainWindow = application(title: 'TelluriumWorks',
               constraints: "span 2,wrap, right"
       )
 
-      scrollPane(preferredSize: [400, 100], constraints: "grow 100 1, wrap") {
+      scrollPane(preferredSize: [800, 100], constraints: "grow 100 1, wrap") {
         textArea(id: "consoleTxt",
                 editable: false,
                 lineWrap: true,
