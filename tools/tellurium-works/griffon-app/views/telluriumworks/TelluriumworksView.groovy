@@ -132,7 +132,7 @@ mainWindow = application(title: 'TelluriumWorks',
 
         label('Status')
         textField(id: "serverStatus", columns: 10, constraints: 'span 2, wrap',
-                text: bind('serverStatus', target: model, mutual: true))
+                text: bind('serverStatus', source: model, mutual: true))
 
         separator(constraints: 'grow, span 3, wrap')
 
@@ -147,17 +147,17 @@ mainWindow = application(title: 'TelluriumWorks',
         textField(id: "localServerPort", columns: 20, constraints: 'span 2, wrap',
 //                text: bind {model.serverConfig.port})
 //                text: bind('port', target: model.serverConfig, mutual: true))
-                text: bind('port', target: model, mutual: true))
+                text: bind('port', source: model, mutual: true))
 
         label('Profile:')
         textField(columns: 20, constraints: 'span 2, wrap',
 //                text: bind {model.serverConfig.profile})
 //                text: bind('profile', target: model.serverConfig, mutual: true))
-                text: bind('profile', target: model, mutual: true))
+                text: bind('profile', source: model, mutual: true))
 
 //        checkBox(id: "multipleWindow", selected: bind('multipleWindow', target:model.serverConfig, mutual: true), text: "Multiple Windows", constraints: 'span 2,wrap')
 //        checkBox(id: "multipleWindow", selected: bind {model.serverConfig.multipleWindow}, text: "Multiple Windows", constraints: 'span 2,wrap')
-        checkBox(id: "multipleWindow", selected: bind('multipleWindow', target:model, mutual: true), text: "Multiple Windows", constraints: 'span 2,wrap')
+        checkBox(id: "multipleWindow", selected: bind('multipleWindow', source:model, mutual: true), text: "Multiple Windows", constraints: 'span 2,wrap')
 
         separator(constraints: 'grow, span 3, wrap')
 
@@ -190,7 +190,7 @@ mainWindow = application(title: 'TelluriumWorks',
         textField(id: 'selServerHost',
                 columns: 20,
                 constraints: "span 2, wrap",
-                text: bind('serverHost', target: model, mutual: true)
+                text: bind('serverHost', source: model, mutual: true)
         )
 
         label("Server Port:")
@@ -198,7 +198,7 @@ mainWindow = application(title: 'TelluriumWorks',
         textField(id: 'selServerPort',
                 columns: 20,
                 constraints: "span 2, wrap",
-                text: bind('serverPort', target: model, mutual: true)
+                text: bind('serverPort', source: model, mutual: true)
         )
 
         label("Macro Command:")
@@ -206,7 +206,7 @@ mainWindow = application(title: 'TelluriumWorks',
         textField(id: 'macroCmdValue',
                 columns: 20,
                 constraints: "span 2, wrap",
-                text: bind('macroCmd', target: model, mutual: true)
+                text: bind('macroCmd', source: model, mutual: true)
         )
 
         label("Option:")
@@ -214,17 +214,17 @@ mainWindow = application(title: 'TelluriumWorks',
         textField(id: 'optionValue',
                 columns: 20,
                 constraints: "span 2, wrap",
-                text: bind('option', target: model, mutual: true)
+                text: bind('option', source: model, mutual: true)
         )
 
 //        checkBox(id: "useTrace", selected: false, text: "Trace", constraints: 'wrap')
-        checkBox(id: "useTrace", selected: bind {model.useTrace}, text: "Trace", constraints: 'wrap')
+        checkBox(id: "useTrace", selected: bind ('useTrace', source: model, mutual: true), text: "Trace", constraints: 'wrap')
 
 //        checkBox(id: "useScreenShot", selected: false, text: "ScreenShot", constraints: 'wrap')
 
-        checkBox(id: "useScreenShot", selected: bind {model.useScreenShot}, text: "ScreenShot", constraints: 'wrap')
+        checkBox(id: "useScreenShot", selected: bind ('useScreenShot', source: model, mutual: true), text: "ScreenShot", constraints: 'wrap')
 
-        checkBox(id: "useTelluriumEngine", selected: bind {model.useTelluriumEngine}, text: "New Engine", constraints: 'wrap')
+        checkBox(id: "useTelluriumEngine", selected: bind('useTelluriumEngin', source: model, mutual: true), text: "New Engine", constraints: 'wrap')
 
         label("locale:")
         comboBox(id: 'localeType',
