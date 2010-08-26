@@ -16,14 +16,14 @@ class TelluriumworksModel implements ChangeListener {
   @Bindable String consoleText
 
   @Bindable String serverStatus = "Not Running"
-  @Bindable ServerConfig serverConfig
+//  @Bindable ServerConfig serverConfig
   
   @Bindable boolean local = true
   @Bindable String port = "4444"
   @Bindable String profile = ""
   @Bindable boolean multipleWindow = false
 
-  @Bindable TelluriumConfig telluriumConfig
+//  @Bindable TelluriumConfig telluriumConfig
 
   @Bindable String browser = "*chrome"
   @Bindable String serverHost = "localhost"
