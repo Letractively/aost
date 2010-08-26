@@ -18,10 +18,11 @@ class TelluriumConfig {
   String option = ""
   boolean useTrace = false
   boolean useScreenShot = false
+  boolean useTelluriumEngine = false
   String locale = "en_US"
 
   public String toString(){
-    return "[browser: ${browser}, serverHost: ${serverHost}, serverPort: ${serverPort}, macroCmd: ${macroCmd}, option: ${option}, useTrace: ${useTrace}, useScreenShot: ${useScreenShot}, locale: ${locale}]"
+    return "[browser: ${browser}, serverHost: ${serverHost}, serverPort: ${serverPort}, macroCmd: ${macroCmd}, option: ${option}, useTrace: ${useTrace}, useScreenShot: ${useScreenShot}, useTelluriumEngine: ${useTelluriumEngine}, locale: ${locale}]"
   }
 
   public void updateFrom(TelluriumConfig conf){
@@ -41,6 +42,7 @@ class TelluriumConfig {
       this.option = conf.option
       this.useTrace = conf.useTrace
       this.useScreenShot = conf.useScreenShot
+      this.useTelluriumEngine = conf.useTelluriumEngine
       if(conf.locale != null && conf.locale.trim().length() > 0){
         this.locale = conf.locale
       }
