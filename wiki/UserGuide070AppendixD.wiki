@@ -41,6 +41,7 @@ Here is the list of experiences provided by Tellurium developers and users
 
 == Presentations and Videos ==
 
+  * [http://www.youtube.com/watch?v=yVIBY8QzWzE/ Tellurium IDE 0.8.0 RC1 tutorial video]<wiki:video url="http://www.youtube.com/watch?v=yVIBY8QzWzE/>
   * [http://www.slideshare.net/John.Jian.Fang/tellurium-070-presentation-4142197 Tellurium 0.7.0 Presentation]
   * [http://www.slideshare.net/John.Jian.Fang/tellurium-reference070 Tellurium 0.7.0 Reference Documentation]
   * [http://vimeo.com/9305675 the Tellurium UI Module Visual Demo at Vimeo] <wiki:video url="http://www.youtube.com/watch?v=J1-NN9VK2WE/>
