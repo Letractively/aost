@@ -11,6 +11,7 @@ import groovy.beans.Bindable
  */
 @Bindable
 class ServerConfig {
+  String serverStatus = "Not Running"
   boolean local = true
   String port = "4444"
   String profile = ""

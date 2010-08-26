@@ -132,14 +132,14 @@ mainWindow = application(title: 'TelluriumWorks',
 
         label('Status')
         textField(id: "serverStatus", columns: 10, constraints: 'span 2, wrap',
-                text: bind('serverStatus', source: model, mutual: true))
+                text: bind('serverStatus', source: model.serverConfig, mutual: true))
 
         separator(constraints: 'grow, span 3, wrap')
 
         label('Server')
         buttonGroup(id: 'mode')
-        radioButton('local', buttonGroup: mode, selected: true, actionPerformed: {model.local = true})
-        radioButton('remote', buttonGroup: mode, constraints: 'wrap', actionPerformed: {model.local = false})
+        radioButton('local', buttonGroup: mode, selected: true, actionPerformed: {model.serverConfig.local = true})
+        radioButton('remote', buttonGroup: mode, constraints: 'wrap', actionPerformed: {model.serverConfig.local = false})
 //        radioButton('local', buttonGroup: mode, selected: true, actionPerformed: {model.serverConfig.local = true})
 //        radioButton('remote', buttonGroup: mode, constraints: 'wrap', actionPerformed: {model.serverConfig.local = false})
 
@@ -147,17 +147,17 @@ mainWindow = application(title: 'TelluriumWorks',
         textField(id: "localServerPort", columns: 20, constraints: 'span 2, wrap',
 //                text: bind {model.serverConfig.port})
 //                text: bind('port', target: model.serverConfig, mutual: true))
-                text: bind('port', source: model, mutual: true))
+                text: bind('port', source: model.serverConfig, mutual: true))
 
         label('Profile:')
         textField(columns: 20, constraints: 'span 2, wrap',
 //                text: bind {model.serverConfig.profile})
 //                text: bind('profile', target: model.serverConfig, mutual: true))
-                text: bind('profile', source: model, mutual: true))
+                text: bind('profile', source: model.serverConfig, mutual: true))
 
 //        checkBox(id: "multipleWindow", selected: bind('multipleWindow', target:model.serverConfig, mutual: true), text: "Multiple Windows", constraints: 'span 2,wrap')
 //        checkBox(id: "multipleWindow", selected: bind {model.serverConfig.multipleWindow}, text: "Multiple Windows", constraints: 'span 2,wrap')
-        checkBox(id: "multipleWindow", selected: bind('multipleWindow', source:model, mutual: true), text: "Multiple Windows", constraints: 'span 2,wrap')
+        checkBox(id: "multipleWindow", selected: bind('multipleWindow', source:model.serverConfig, mutual: true), text: "Multiple Windows", constraints: 'span 2,wrap')
 
         separator(constraints: 'grow, span 3, wrap')
 
@@ -190,7 +190,7 @@ mainWindow = application(title: 'TelluriumWorks',
         textField(id: 'selServerHost',
                 columns: 20,
                 constraints: "span 2, wrap",
-                text: bind('serverHost', source: model, mutual: true)
+                text: bind('serverHost', source: model.telluriumConfig, mutual: true)
         )
 
         label("Server Port:")
@@ -198,7 +198,7 @@ mainWindow = application(title: 'TelluriumWorks',
         textField(id: 'selServerPort',
                 columns: 20,
                 constraints: "span 2, wrap",
-                text: bind('serverPort', source: model, mutual: true)
+                text: bind('serverPort', source: model.telluriumConfig, mutual: true)
         )
 
         label("Macro Command:")
@@ -206,7 +206,7 @@ mainWindow = application(title: 'TelluriumWorks',
         textField(id: 'macroCmdValue',
                 columns: 20,
                 constraints: "span 2, wrap",
-                text: bind('macroCmd', source: model, mutual: true)
+                text: bind('macroCmd', source: model.telluriumConfig, mutual: true)
         )
 
         label("Option:")
@@ -214,17 +214,17 @@ mainWindow = application(title: 'TelluriumWorks',
         textField(id: 'optionValue',
                 columns: 20,
                 constraints: "span 2, wrap",
-                text: bind('option', source: model, mutual: true)
+                text: bind('option', source: model.telluriumConfig, mutual: true)
         )
 
 //        checkBox(id: "useTrace", selected: false, text: "Trace", constraints: 'wrap')
-        checkBox(id: "useTrace", selected: bind ('useTrace', source: model, mutual: true), text: "Trace", constraints: 'wrap')
+        checkBox(id: "useTrace", selected: bind ('useTrace', source: model.telluriumConfig, mutual: true), text: "Trace", constraints: 'wrap')
 
 //        checkBox(id: "useScreenShot", selected: false, text: "ScreenShot", constraints: 'wrap')
 
-        checkBox(id: "useScreenShot", selected: bind ('useScreenShot', source: model, mutual: true), text: "ScreenShot", constraints: 'wrap')
+        checkBox(id: "useScreenShot", selected: bind ('useScreenShot', source: model.telluriumConfig, mutual: true), text: "ScreenShot", constraints: 'wrap')
 
-        checkBox(id: "useTelluriumEngine", selected: bind('useTelluriumEngin', source: model, mutual: true), text: "New Engine", constraints: 'wrap')
+        checkBox(id: "useTelluriumEngine", selected: bind('useTelluriumEngine', source: model.telluriumConfig, mutual: true), text: "New Engine", constraints: 'wrap')
 
         label("locale:")
         comboBox(id: 'localeType',
@@ -274,8 +274,8 @@ mainWindow = application(title: 'TelluriumWorks',
   }
 }
 
-bean(model, browser: bind {browserType.selectedItem})
-bean(model, locale: bind {localeType.selectedItem})
+bean(model.telluriumConfig, browser: bind {browserType.selectedItem})
+bean(model.telluriumConfig, locale: bind {localeType.selectedItem})
 
 JPanel buildTitlePanel() {
 	def mess = """ ${ResourceUtils.getString('about.message1')}
