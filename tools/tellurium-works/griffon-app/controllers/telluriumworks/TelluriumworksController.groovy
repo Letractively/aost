@@ -45,6 +45,7 @@ class TelluriumworksController {
   }
 
   def openFile = {
+
     def openResult = view.fileChooserWindow.showOpenDialog(view.mainWindow)
     if (JFileChooser.APPROVE_OPTION == openResult) {
       File file = new File(view.fileChooserWindow.selectedFile.toString())
@@ -57,6 +58,8 @@ class TelluriumworksController {
               tabName: file.name,
               mvcId: mvcId])
     }
+    
+    view.mainPane.selectedIndex = 0
   }
 
   def runFile = {
