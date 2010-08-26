@@ -18,11 +18,9 @@ class TelluriumworksController {
     ConsoleLogger.instance.view = view
     // this method is called after model and view are injected
 //    new Hello().sayHello()
-     //Populate default values because of Griffon bug for mutual: true
   }
 
   def onReadyEnd = {app ->
-//     execOutside {
 /*
        view.localServerPort.text = model.port
        view.selServerHost.text = model.serverHost
@@ -36,7 +34,9 @@ class TelluriumworksController {
        app.views["telluriumworks"].macroCmdValue.text = "5"
        app.views["telluriumworks"].serverStatus.text = "Not Running"  
 */
+//       println "model values: [" + model.port + ", " + model.serverHost + ", " + model.serverPort + ", " + model.macroCmd +"]"
 
+    //Populate default values because of Griffon bug for mutual: true    
        view.serverStatus.text = "Not Running"
        view.localServerPort.text = "4444"
        view.selServerHost.text = "localhost"
@@ -74,14 +74,22 @@ class TelluriumworksController {
 
   def saveFile = {
     view.mainPane.selectedIndex = 0
-    clogger.log("Saving file " + model.documentProxy.document.title)
-    app.controllers[model.mvcId].saveFile(it)
+    if(model.mvcId != null){
+      clogger.log("Saving file " + model.documentProxy.document.title)
+      app.controllers[model.mvcId].saveFile(it)
+    }else{
+      clogger.log("No file to save")
+    }
   }
 
   def closeFile = {
     view.mainPane.selectedIndex = 0
-    clogger.log("Closing file " + model.documentProxy.document.title)
-    app.controllers[model.mvcId].closeFile(it)
+    if(model.mvcId != null){
+      clogger.log("Closing file " + model.documentProxy.document.title)
+      app.controllers[model.mvcId].closeFile(it)
+    }else{
+      clogger.log("No file to close")
+    }
   }
 
   def quit = {
