@@ -32,6 +32,7 @@ class TelluriumworksModel implements ChangeListener {
   @Bindable String option = ""
   @Bindable boolean useTrace = false
   @Bindable boolean useScreenShot = false
+  @Bindable boolean useTelluriumEngine = false
   @Bindable String locale = "en_US"
 
 

@@ -29,6 +29,7 @@ class DslScriptRunner {
                         init()
                         this.aost.useTrace(${config.useTrace})
                         this.aost.setMaxMacroCmd(${config.macroCmd})
+                        this.aost.useTelluriumApi(${config.useTelluriumEngine})
                         ${dsl}
                         shutDown()
                         IResourceBundle i18nBundle = Environment.instance.myResourceBundle()

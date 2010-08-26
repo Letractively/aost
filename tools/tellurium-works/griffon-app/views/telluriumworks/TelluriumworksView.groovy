@@ -223,7 +223,9 @@ mainWindow = application(title: 'TelluriumWorks',
 //        checkBox(id: "useScreenShot", selected: false, text: "ScreenShot", constraints: 'wrap')
 
         checkBox(id: "useScreenShot", selected: bind {model.useScreenShot}, text: "ScreenShot", constraints: 'wrap')
-        
+
+        checkBox(id: "useTelluriumEngine", selected: bind {model.useTelluriumEngine}, text: "New Engine", constraints: 'wrap')
+
         label("locale:")
         comboBox(id: 'localeType',
                 items: ["en_US", "fr_FR", "zh_CN"],
