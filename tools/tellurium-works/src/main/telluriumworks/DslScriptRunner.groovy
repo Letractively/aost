@@ -32,7 +32,6 @@ class DslScriptRunner {
                         ${dsl}
                         shutDown()
                         IResourceBundle i18nBundle = Environment.instance.myResourceBundle()
-
                         println i18nBundle.getMessage("DslScriptExecutor.DslTestDone")
                     }
                 }
@@ -41,7 +40,7 @@ class DslScriptRunner {
                 instance.test()
      """
      
-    println "Script: \n" + script
+//    println "Script: \n" + script
 
     new GroovyShell().evaluate(script)
   }

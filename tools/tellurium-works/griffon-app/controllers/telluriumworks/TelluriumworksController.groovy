@@ -65,7 +65,12 @@ class TelluriumworksController {
       String script = model.documentProxy.document.contents
       if(script != null && (!script.isEmpty())){
         clogger.log("Running file " + model.documentProxy.document.title)
-        telluriumService.runScript(script)
+        try{
+          telluriumService.runScript(script)
+          clogger.log("Test done!")
+        }catch(Exception e){
+          clogger.log("Test failed because of Error " + e.getMessage())
+        }
       }else{
         clogger.log("No file to run")
       }
