@@ -20,7 +20,9 @@ class TelluriumworksController {
 //    new Hello().sayHello()
   }
 
+/*
   def onReadyEnd = {app ->
+*/
 /*
        view.localServerPort.text = model.port
        view.selServerHost.text = model.serverHost
@@ -32,8 +34,10 @@ class TelluriumworksController {
        app.views["telluriumworks"].selServerHost.text = "localhost"
        app.views["telluriumworks"].selServerPort.text = "4444"
        app.views["telluriumworks"].macroCmdValue.text = "5"
-       app.views["telluriumworks"].serverStatus.text = "Not Running"  
-*/
+       app.views["telluriumworks"].serverStatus.text = "Not Running"
+    }
+*//*
+
 //       println "model values: [" + model.port + ", " + model.serverHost + ", " + model.serverPort + ", " + model.macroCmd +"]"
 
     //Populate default values because of Griffon bug for mutual: true    
@@ -43,6 +47,7 @@ class TelluriumworksController {
        view.selServerPort.text = "4444"
        view.macroCmdValue.text = "5"
   }
+*/
 
   def openFile = {
 
