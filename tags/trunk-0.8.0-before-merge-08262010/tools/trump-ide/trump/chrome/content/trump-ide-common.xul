@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<!--
+Copyright 2008 Vivek Mongolu
+
+-->
+
+<!DOCTYPE window [
+<!ENTITY % trumpIdeDTD SYSTEM "chrome://trump/locale/trump-ide.dtd">
+%trumpIdeDTD;
+]>
+<overlay id="trump-ide-common"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script type="application/x-javascript" src="chrome://trump/content/extlib/log4js.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/extlib/json2.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/extlib/jquery-1.4.2.js "/>
+    <script type="application/x-javascript" src="chrome://trump/content/extlib/jquery-simpletip-1.3.1.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/extlib/syn.js"/>
+<!--    <script type="application/x-javascript" src="chrome://trump/content/extlib/jquery.ui.core.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/extlib/jquery.ui.widget.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/extlib/jquery.ui.position.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/extlib/jquery.ui.autocomplete.js"/>-->
+
+    <script type="application/x-javascript" src="chrome://trump/content/util.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/editor.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/recorder.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/builder.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/tagObject.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/xpather.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/decorator.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/treeView.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/logView.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/trumpLogger.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/jslogger.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/preferences.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/options.js"/>
+
+    <script type="application/x-javascript" src="chrome://trump/content/uicreator/element.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/uicreator/node.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/uicreator/workspace.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/uicreator/tree.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/uicreator/uitype.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/uicreator/uid.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/uicreator/xpath.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/uicreator/xpathComparator.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/uicreator/xpathMatcher.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/uicreator/tagState.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/uicreator/xpathProcessor.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/uicreator/filter.js"/>
+<!--<script type="application/x-javascript" src="chrome://trump/content/uicreator/uiobject.js"/>-->
+<!--<script type="application/x-javascript" src="chrome://trump/content/uicreator/locator.js"/>-->
+    <script type="application/x-javascript" src="chrome://trump/content/uicreator/locatorStrategy.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/uicreator/xpathBuilder.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/uicreator/xpathDom.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/uicreator/uimodule-alg.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/uicreator/command-view.js"/>
+
+    <script type="application/x-javascript" src="chrome://trump/content/utils/xmlUtil.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/utils/fileUtil.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/utils/browserDetect.js"/>
+
+    <script type="application/x-javascript" src="chrome://trump/content/engine/constants.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/engine/tellurium-utils.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/engine/selenium-mock.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/engine/tellurium.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/engine/tellurium-cache.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/engine/tellurium-api.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/engine/tellurium-logging.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/engine/tellurium-selector.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/engine/tellurium-udl.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/engine/tellurium-uialg.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/engine/tellurium-uibasic.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/engine/tellurium-uiextra.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/engine/tellurium-uimodule.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/engine/tellurium-uiobj.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/engine/tellurium-uisnapshot.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/engine/tellurium-cmd.js"/>
+    <script type="application/x-javascript" src="chrome://trump/content/engine/tellurium-uicache.js"/>
+</overlay>

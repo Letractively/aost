@@ -1,0 +1,1086 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter version="5.0" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns5="http://www.w3.org/2000/svg"
+         xmlns:ns4="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns3="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+
+    <title>What's New in Tellurium 0.7.0</title>
+    <section id="whatsnewIntroduction">
+        <title>Introduction</title>
+        <para>
+            We have closed over 200 issues and have included several interesting new features. There have been a lot of
+            fundamental changes in Tellurium 0.7.0 as compared to 0.6.0 such as the group locating algorithm, module
+            caching, macro command, jquery based APIs and i18n support.
+        </para>
+    </section>
+    <section>
+        <title>New features</title>
+        <para>
+        <itemizedlist>
+            <listitem>
+                <para><emphasis role="bold">Package Name change</emphasis></para>
+                <para>
+                    Tellurium Core used the package name "org.tellurium", but we do not actually own
+                    the domain "tellurium.org". Our Tellurium team came out with a domain name "telluriumsource.org"
+                    and have registered this domain name. As a result, we changed the package name from
+                    "org.tellurium" to "org.telluriumsource". 
+                </para>
+                <para>
+                    In your code, if you have the following import statement, 
+                </para>
+                <para>
+                    <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+import org.tellurium.dsl.DslContext
+]]>
+                    </programlisting>
+                </para>
+                <para>
+                    please change it to
+                </para>
+                <para>
+                    <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+import org.telluriumsource.dsl.DslContext
+]]>
+                    </programlisting>
+                </para>
+                <para>
+                    Accordingly, the Maven dependency should be changed as follows, 
+                </para>
+                <para>
+                    <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+<groupId>org.telluriumsource</groupId>
+<artifactId>tellurium-core</artifactId>
+<version>0.7.0-SNAPSHOT</version>
+]]>
+                    </programlisting>
+                </para>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">Package Structure</emphasis></para>
+                <para>The original core package structure was a flat one and it has been changed as follows, 
+                </para>
+                 <para>
+                    <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+`-- org
+    `-- telluriumsource
+        |-- component
+        |   |-- bundle
+        |   |-- client
+        |   |-- connector
+        |   |-- custom
+        |   |-- data
+        |   |-- dispatch
+        |   `-- event
+        |-- crosscut
+        |   |-- i18n
+        |   |-- log
+        |   `-- trace
+        |-- dsl
+        |-- entity
+        |-- exception
+        |-- framework
+        |   |-- bootstrap
+        |   `-- config
+        |-- server
+        |-- test
+        |   |-- ddt
+        |   |   `-- mapping
+        |   |       |-- bind
+        |   |       |-- builder
+        |   |       |-- io
+        |   |       |-- mapping
+        |   |       |-- type
+        |   |       `-- validator
+        |   |-- groovy
+        |   |-- java
+        |   |-- mock
+        |   `-- report
+        |-- ui
+        |   |-- builder
+        |   |-- locator
+        |   |-- object
+        |   |   `-- routing
+        |   `-- widget
+        `-- util
+            `-- grid
+]]>
+                    </programlisting>
+                </para>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">CSS Selector</emphasis></para>
+                <para>One feedback we got from <link
+                    xlink:href="http://code.google.com/p/aost/wiki/TelluriumAtRichWebExperience2009">the Rich Web Experience 2009 </link>
+                    is that we should use the name "CSS selector" instead of "jQuery selector" because jQuery
+                    implements a subset of CSS selectors. As a result, we changed the following two methods
+                    in DslContext.
+                </para>
+                <para>
+                        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+public void enableJQuerySelector();
+public void disableJQuerySelector();
+]]>
+                        </programlisting>
+                </para>
+                <para>to </para>
+                <para>
+                        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+public void enableCssSelector();
+public void disableCssSelector(); 
+]]>
+                        </programlisting>
+                </para>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">Group Locating (Santa Algorithm)</emphasis></para>
+                <para>
+                    Up to Tellurium 0.6.0, Tellurium still generates runtime locators such as XPath and CSS
+                    selector on the Tellurium Core side, then pass them to Selenium Core, which is basically
+                    still to locate one element in the UI module at a time. With the new Engine in Tellurium 0.7.0,
+                    the UI module will be located as a whole first, the subsequent calls will reuse the already
+                    located UI element in the DOM. 
+
+                    This, called the Santa algorithm, is the missing half of the Tellurium UI module concept.
+                    The algorithm can locate the whole UI module at the runtime DOM. After that, you can just pass
+                    in UI element's UID to find it in the cached UI module on Tellurium Engine. That is to say,
+                    you don't need Tellurium Core to generate the runtime locators any more.
+                </para>
+                <para>
+                   The magic is that the new Tellurium Engine will locate the UI module as a whole.
+                    It may have trouble to find the individual UI element,
+                    but it has no trouble to find the whole UI module structure in the DOM. Apart from that, Tellurium 0.7.0
+                    also provides a handy method for you to validate your UI module. For example, if you call  
+                </para>
+                <para>
+                        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+validate("ProblematicForm");
+]]>
+                        </programlisting>
+                </para>
+                <para>
+                   You will get the detailed validation results including the closest matches. 
+                </para>
+                
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">Macro command</emphasis></para>
+                <para>Macro Command is a set of Selenium
+                    commands that are bundled together and sent to Selenium Core in one call. This will
+                    reduce the round trip latency from Tellurium Core to Engine and thus, improve the
+                    speed performance. Another advantage for Macro Command is that Tellurium Engine can
+                    reuse the locator because many times the commands in the same bundle act on the same
+                    UI element or same sub-tree in the DOM.
+                </para>
+                <para>
+                    To implement Macro Command, we added one more tier, bundler processor, to Tellurium Core to automatically
+                    handle the Macro Command bundling.
+                </para>
+                
+
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">UI Module Caching</emphasis></para>
+                <para>
+                    From Tellurium 0.6.0, Tellurium
+                    provides the cache capability for CSS selectors so that Tellurium can reuse them without
+                    doing re-locating. In 0.7.0, Tellurium moves a step further to cache the whole UI module
+                    on the Engine side. Each UI module cache holds a snapshot of the DOM references for the
+                    UI elements in the UI module. The exceptions are dynamic web elements defined by Tellurium
+                    UI templates. For these dynamic web elements, the Engine will try to get the DOM reference
+                    of its parent and then do locating inside this subtree with its parent node as the root,
+                    which will improve the locating speed a lot. 
+                </para>
+                
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">Tellurium UID Description Language</emphasis></para>
+                <para>
+                    The Tellurium UID Description Language (UDL) is designed to
+                    <orderedlist>
+                        <listitem>
+                            address the dynamic factors in Tellurium UI templates 
+                        </listitem>
+                        <listitem>
+                            increase the flexibility of Tellurium UI templates. 
+                        </listitem>
+                    </orderedlist>
+                </para>
+                <para>
+                    UDL is implemented with
+                    <link
+                    xlink:href="http://www.antlr.org/">the Antlr 3 parser generator.</link>
+                    The implementation details can be found
+                    <link linkend="udlImplementation">here.</link>
+                    The grammars and technical details are recovered in
+                    <link linkend="udlSpecification">Tellurium UID Description Language. </link>
+                </para>
+                <para>
+                    To migrate your UI templates from 0.6.0 to 0.7.0, please make the following changes:
+                    <orderedlist>
+                        <listitem>
+                           Put "{}" around 0.6.0 UI template uids 
+                        </listitem>
+                        <listitem>
+                            Replace "*" with "all"
+                        </listitem>
+                         <listitem>
+                            Replace "all" in table with "row: all, column: all" 
+                        </listitem>
+                         <listitem>
+                            You can add an ID for each UI template object, where the ID starts with a
+                             letter and is followed by digits, letters, and "_". 
+                        </listitem>
+                         <listitem>
+                            The implicit tokens defined in UDL such as "header", "footer", "row", "column", 
+                             and "tbody" are all reserved and they cannot be used as IDs. But UDL is
+                             case-sensitive, you can still use "Header", "Footer", "Row", "Column", and "TBody" as IDs.
+                        </listitem>
+                         
+                    </orderedlist>
+                </para>
+                <para>
+                    For example the following TableExampleModule UI module in the ui-examples reference project. 
+                </para>
+                <para>
+                        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+class TableExampleModule extends DslContext {
+
+  public void defineUi() {
+    ui.StandardTable(uid: "GT", clocator: [id: "xyz"], ht: "tbody"){
+      TextBox(uid: "header: all", clocator: [:])
+      TextBox(uid: "row: 1, column: 1", clocator: [tag: "div", class: "abc"])
+      Container(uid: "row: 1, column: 2"){
+        InputBox(uid: "Input", clocator: [tag: "input", class: "123"])
+        Container(uid: "Some", clocator: [tag: "div", class: "someclass"]){
+          Span(uid: "Span", clocator: [tag: "span", class: "x"])
+          UrlLink(uid: "Link", clocator: [:])
+        }
+      }
+    }
+  }
+
+  public void work(String input){
+    keyType "GT[1][2].Input", input
+    click "GT[1][2].Some.Link"
+    waitForPageToLoad 30000
+  }
+}
+]]>
+                        </programlisting>
+                </para>
+                <para>
+                    Now, this UI module can be re-defined in a more flexible way with UDL as follows. 
+                </para>
+                <para>
+                        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+class TableExampleModule extends DslContext {
+
+  public void defineUi() {
+    ui.StandardTable(uid: "GT", clocator: [id: "xyz"], ht: "tbody"){
+      TextBox(uid: "{header: first} as One", clocator: [tag: "th", text: "one"], self: true)
+      TextBox(uid: "{header: 2} as Two", clocator: [tag: "th", text: "two"], self: true)
+      TextBox(uid: "{header: last} as Three", clocator: [tag: "th", text: "three"], self: true)
+      TextBox(uid: "{row: 1, column -> One} as A", clocator: [tag: "div", class: "abc"])
+      Container(uid: "{row: 1, column -> Two} as B"){
+        InputBox(uid: "Input", clocator: [tag: "input", class: "123"])
+        Container(uid: "Some", clocator: [tag: "div", class: "someclass"]){
+          Span(uid: "Span", clocator: [tag: "span", class: "x"])
+          UrlLink(uid: "Link", clocator: [:])
+        }
+      }
+      TextBox(uid: "{row: 1, column -> Three} as Hello", clocator: [tag: "td"], self: true)
+    }
+  }
+
+  public void work(String input){
+    getText "GT.A"
+    keyType "GT.B.Input", input
+    click "GT.B.Some.Link"
+    waitForPageToLoad 30000
+  }
+}
+]]>
+                        </programlisting>
+                </para>
+                <para>
+                    Apart from that, you need to add the UDL dependency to you project. 
+                </para>
+                <para>
+                        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+ <dependency>
+    <groupId>org.telluriumsource</groupId>
+    <artifactId>tellurium-udl</artifactId>
+    <version>0.7.0</version>
+    <scope>compile</scope>
+</dependency>
+]]>
+                        </programlisting>
+                </para>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">Tellurium New APIs</emphasis></para>
+                <para>Tellurium Engine in 0.7.0 re-implemented a set of Selenium APIs
+                    by exploiting jQuery, plus many more new APIs. For example, 
+                </para>
+                <para>
+                        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+ TelluriumApi.prototype.getCSS = function(locator, cssName) {
+    var element = this.cacheAwareLocate(locator);
+    var out = [];
+    var $e = teJQuery(element);
+    $e.each(function() {
+        out.push(teJQuery(this).css(cssName));
+    });
+    return JSON.stringify(out);
+};
+]]>
+                        </programlisting>
+                </para>
+                <para>
+                    To switch between Tellurium new API and Selenium Core API,
+                    you can call the following method. 
+                </para>
+                <para>
+                        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+     public void useTelluriumApi(boolean isUse);
+]]>
+                        </programlisting>
+                </para>
+                <para>
+                    Or use the following DSL methods from DslContext. 
+                </para>
+                <para>
+                        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+public void enableTelluriumApi();
+public void disableTelluriumApi()
+]]>
+                        </programlisting>
+                </para>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">Trace</emphasis></para>
+                <para>Tellurium 0.7.0 provides built-in support for the
+                    command execution time including execution time for each command, total run time,
+                    and aggregated times for each command.
+                </para>
+                <para>
+                    We added the following settings to TelluriumConfig.groovy 
+                </para>
+                <para>
+                        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+test{
+        execution{
+            //whether to trace the execution timing
+            trace = false
+}  
+]]>
+                        </programlisting>
+                </para>
+                <para>
+                    You can use the follow methods in DslContext to turn on or off the trace, and get the trace data. 
+                </para>
+                <para>
+                        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+public void enableTrace();
+
+public void disableTrace();
+
+public void showTrace();
+]]>
+                        </programlisting>
+                </para>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">Methods Accessible in Test Cases</emphasis></para>
+                <para>
+                    There are many Tellurium APIs that used to be available only in DslContext.
+                    That is to say, you have to extend DslContext to use them. For example, you
+                    often see code in a test case likes this, 
+                </para>
+                <para>
+                        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+GoogleSearchModule gsm = new GoogleSearchModule();
+gsm.defineUi();
+gsm.usejQuerySelector();
+gsm.registerNamespace("te", te_ns);
+]]>
+                        </programlisting>
+                </para>
+                <para>
+                    Now, many of them, which are not really tied to a specific UI module,
+                    are made available in Tellurium test cases. For example, the above code
+                    can be changed as follows, 
+                </para>
+                <para>
+                        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+GoogleSearchModule gsm = new GoogleSearchModule();
+gsm.defineUi();
+useCssSelector();
+registerNamespace("te", te_ns);
+]]>
+                        </programlisting>
+                </para>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">Environment</emphasis></para>
+                <para>We added an Environment class to Tellurium Core so that you can change the runtime environment.</para>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">Get UIs by Tag Name</emphasis></para>
+                <para>As requested by users, Tellurium 0.7.0 added the following two methods.</para>
+                <para>
+                        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+UiByTagResponse getUiByTag(String tag, Map filters);
+void removeMarkedUids(String tag);
+]]>                    </programlisting>
+                </para>
+                <para>The first method passes in the tag name and the attributes as filters and get back the UI elements
+                    associated with the tag. The second method cleans up all the temporally assigned IDs by the Tellurium Engine. 
+                </para>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">DIV object change</emphasis></para>
+                <para>The Div object has been changed to be a Container type object. For example, you can define the following UI module.</para>
+                <para>
+                        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+ui.Div(uid: "div1", clocator: [id: "div1"]) {
+      Div(uid: "div2", clocator: [id: "div2"]) {
+        List(uid: "list1", clocator: [tag: "ul"], separator: "li"){
+          UrlLink(uid: "{all}", clocator: [:])
+        }
+      }
+   }
+]]>                    </programlisting>
+                </para>
+
+            </listitem>
+             <listitem>
+                <para><emphasis role="bold">Selector changes</emphasis></para>
+                <para>For the Selector UI object, the following DSL methods have been implemented in the Tellurium new Engine: </para>
+                <para>
+                        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+* select(String uid, String target): Equals to selectByLabel.
+* selectByLabel(String uid, String target): Select based on the text attribute.
+* selectByValue(String uid, String target): Select based on the value attribute.
+* selectByIndex(String uid, int target): Select based on index (starting from 1).
+* selectById(String uid, String target): Select based on the ID attribute.
+* String[] getSelectOptions(String uid): Get all option texts.
+* String[] getSelectValues(String uid): Get all option values.
+* String[] getSelectedLabels(String uid): Get selected texts.
+* String getSelectedLabel(String uid): Get selected text, for multiple selections,
+    return the first one.
+* String[] getSelectedValues(String uid): Get selected values.
+* String getSelectedValue(String uid): Get selected value, for multiple selections,
+    return the first one.
+* addSelectionByLabel(String uid, String target): Add selection based on text.
+* addSelectionByValue(String uid, String target): Add selection based on value.
+* removeSelectionByLabel(String uid, String target): Remove selection based on text.
+* removeSelectionByValue(String uid, String target): Remove selection based on value.
+* removeAllSelections(String uid): Remove all selections.
+]]>                    </programlisting>
+                </para>
+
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">Toggle</emphasis></para>
+                <para>Tellurium 0.7.0 provides a toggle method to animate the UI element on the web page.
+                    For example, you can the following commands to show the UI element under testing. </para>
+                <para>
+                        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+    toggle "Form.Username.Input"
+    pause 500
+    toggle "Form.Username.Input"
+]]>                    </programlisting>
+                </para>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">UI Module Live Show</emphasis></para>
+                <para>The show command is used to show the UI module that you defined on the actual web page.</para>
+                <para>
+                        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+    public show(String uid, int delay);
+]]>                    </programlisting>
+                </para>
+                 <para>
+                    where delay is in milliseconds. Be aware that show is available in Tellurium API. Example: 
+                </para>
+                <para>
+                        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+   useCache(true);
+   useTelluriumApi(true);
+   JettyLogonModule jlm = new JettyLogonModule();
+   jlm.show("Form", 5000);
+]]>                    </programlisting>
+                </para>
+                <para>
+                    The UI module on the web page is outlined and if a user hives over the UI module, the UIDs of the selected UI element's
+                    and its ancestors' are shown as a tooltip. 
+                </para>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">getHTMLSource</emphasis></para>
+                <para>Use getHTMLSource, users can get back the runtime html source for a UI module.
+                    Tellurium provided two methods for this purpose. .</para>
+                <para>
+                        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+public Map getHTMLSourceResponse(String uid);
+public void getHTMLSource(String uid);
+]]>                    </programlisting>
+                </para>
+                 <para>
+                   The first method get back the html source as a uid-to-html map and the second one simply
+                     print out the html source on the console. Be aware, getHTMLSource is only available in Tellurium new APIs. 
+                </para>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">type and keyType</emphasis></para>
+                <para>type and keyType now accept different types of objects and convert them to a String automatically by
+                    calling the toString() method. For example, you can use the following commands: </para>
+                <para>
+                        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+type "Google.Input", "Tellurium"
+type "Google.Input", 12.15
+type "Google.Input", true
+]]>                    </programlisting>
+                </para>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">i18n Support</emphasis></para>
+                <para>Tellurium now provides support for
+                    internationalization of strings and exception messages. Internationalized strings for each
+                    locale is provided through a MessageBundle for a specific locale which is of the
+                    format
+                    <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+<MessageBundleName>_<language-code>_<country code>.properties.
+]]>
+                    </programlisting>
+                </para>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">Excel File Reader in Data Driven Test</emphasis></para>
+                <para>Excel file reader has been added to Tellurium Data Driven Test. If you have excel
+                    input files, you can specify the reader in the configuration file TelluriumConfig.groovy as follows,  </para>
+                <para>
+                        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+datadriven{
+        dataprovider{
+            //specify which data reader you like the data provider to use
+            //the valid options include "PipeFileReader", "CVSFileReader", and "ExcelFileReader" at this point
+            reader = "ExcelFileReader"
+        }
+    }
+]]>                    </programlisting>
+                </para>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">Engine State Offline Update</emphasis></para>
+                <para>For some reason, you may need to make Engine state calls before you actually connect to
+                    the Engine.
+                    We added an Engine State tracer in the bundle tier to record all the requests if
+                    the Engine is not connected and aggregate them. Once the Engine is connected,
+                    Tellurium will automatically send out the Engine state update request.
+                </para>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">Repeat Object</emphasis></para>
+                <para>Very often, we need to use the same UI elements for multiple times on the web page
+                    We can use the Repeat object for this purpose. The Repeat object inherits the Container
+                    object and You can use it just like a Container.
+                    The difference is that you should use index to refer to a Repeat object.
+                </para>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">All Purpose Object</emphasis></para>
+                <para>Tellurium 0.7.0 added an all purpose object for internal usage only.
+                    This object includes all methods for non-Container type objects.
+                 </para>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">Groovy and GMaven</emphasis></para>
+                <para>Groovy has been upgraded to the latest version 1.7.0. For GMaven,
+                    we use the latest version 1.2 and removed the Maven Antrun plugin.    </para>
+                <para>
+                        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+<dependency>
+      <groupId>org.codehaus.groovy</groupId>
+      <artifactId>groovy-all</artifactId>
+      <version>1.7.0</version>
+</dependency>
+]]>                    </programlisting>
+                </para>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">JUnit</emphasis></para>
+                <para>JUnit is upgraded to 4.7 since it provides more features.
+                    One such a good feature is the Rule annotation.  To be consistent with TestNG test case,
+                    the class TelluriumJavaTestCase is deprecated and you should use TelluriumJUnitTestCase instead. </para>
+                
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">TestNG</emphasis></para>
+                <para>TelluriumTestNGTestCase was changed to allow the setup and teardown procedures
+                    only work once for all the tests. The magic are the @BeforeTest and @AfterTest
+                    annotations. See the following code for more details,     </para>
+                <para>
+                        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+public abstract class TelluriumTestNGTestCase extends BaseTelluriumJavaTestCase {
+
+    @BeforeTest(alwaysRun = true)
+    public static void setUpForTest() {
+        tellurium = TelluriumSupport.addSupport();
+        tellurium.start(customConfig);
+        connector = (SeleniumConnector) tellurium.getConnector();
+    }
+
+    @AfterTest(alwaysRun = true)
+    public static void tearDownForTest() {
+        if(tellurium != null)
+            tellurium.stop();
+    }
+}
+]]>                    </programlisting>
+                </para>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">TelluriumMockJUnitTestCase and TelluriumMockTestNGTestCase</emphasis></para>
+                <para>TelluriumMockJUnitTestCase and TelluriumMockTestNGTestCase incorporated the Mock Http Server
+                    so that you can load up a html web page and test against it with minimal configuration.     </para>
+
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">Tellurium Configuration</emphasis></para>
+                <para>The configuration parser has been refactored.
+                    The configuration file name is stored in the Environment class as follows.      </para>
+                <para>
+                        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+@Singleton
+public class Environment implements Configurable{
+
+  protected String configFileName = "TelluriumConfig.groovy";
+
+  protected String configString = "";
+
+  public static Environment getEnvironment(){
+    return Environment.instance;
+  }
+
+  public void useConfigString(String json){
+    this.configString = json;
+  }
+  ...
+]]>                    </programlisting>
+                </para>
+                <para>
+                    That is to say, you can get the Environment singleton instance and change the
+                    file name before Tellurium core is loaded up if you have a good reason to do that.
+                    In the meanwhile, we add support to load the configuration from a JSON string,
+                    which will be stored in the configString} variable in the Environment. 
+                </para>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">Run DSL Script</emphasis></para>
+                <para>Tellurium 0.7.0 provides a rundsl.groovy script for users to
+                    run DSL test script. The rundsl.groovy uses Groovy Grape to
+                    automatically download all dependencies and then run DSL script.
+                </para>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">useTelluriumEngine</emphasis></para>
+                <para>To make it convenient for users, Tellurium provides a useTelluriumEngine command as follows,       </para>
+                <para>
+                        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+void useTelluriumEngine(boolean isUse){
+        useCache(isUse);
+        useMacroCmd(isUse);
+        useTelluriumApi(isUse);
+}  
+]]>                    </programlisting>
+                </para>
+                <para>
+                    As you can see, this command actually consists of three commands.
+                    In DslContext, Tellurium also provides two handy DSL style methods.
+                </para>
+                <para>
+                        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+void enableTelluriumEngine();
+void disableTelluriumEngine();
+]]>                    </programlisting>
+                </para>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">Selenium RC</emphasis></para>
+                <para>Selenium RC is 1.0.1 in Tellurium 0.7.0. Please use the following Maven dependencies.
+                </para>
+                <para>
+                        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+<dependency>
+            <groupId>org.seleniumhq.selenium.server</groupId>
+            <artifactId>selenium-server</artifactId>
+            <version>${selenium-server-version}</version>
+            <!--classifier>standalone</classifier-->
+            <exclusions>
+                <exclusion>
+                    <groupId>ant</groupId>
+                    <artifactId>ant</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium.client-drivers</groupId>
+            <artifactId>selenium-java-client-driver</artifactId>
+            <version>${selenium-version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.codehaus.gmaven.runtime</groupId>
+                    <artifactId>gmaven-runtime-default</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.seleniumhq.selenium.core</groupId>
+                    <artifactId>selenium-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.seleniumhq.selenium.server</groupId>
+                    <artifactId>selenium-server</artifactId>
+                </exclusion>
+            </exclusions>
+</dependency>
+]]>                    </programlisting>
+                </para>
+                <para>
+                    where the properties are defined as 
+                </para>
+                <para>
+                        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+<properties>
+        ...
+        <selenium-version>1.0.1</selenium-version>
+        <selenium-server-version>1.0.1-te3</selenium-server-version>
+</properties>
+]]>                    </programlisting>
+                </para>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">Miscellaneous Changes</emphasis></para>
+                <para>The default locator in Tellurium Engine is CSS selector by default.
+                    That is to say, we set
+                </para>
+                <para>
+                        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+exploitCssSelector = true
+]]>                    </programlisting>
+                </para>
+                <para>
+                    in the <classname>Environment</classname> class and you can use
+                </para>
+                <para>
+                 <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+disableCssSelector()
+
+]]>             </programlisting>
+                    <para>or</para>
+                 <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+useCssSelector(false)
+]]>             </programlisting>
+                </para>
+                <para>
+                    to switch back to xpath if you like to.
+                </para>
+                <para>
+                    Exposed the following Selenium APIs to DslContext.
+                </para>
+                <para>
+                        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+    * void addScript(String scriptContent, String scriptTagId)
+    * void removeScript(String scriptTagId)
+    * void captureEntirePageScreenshot(String filename, String kwargs)
+    * String captureScreenshotToString()
+    * String captureEntirePageScreenshotToString(String kwargs)
+    * String retrieveLastRemoteControlLogs() 
+]]>                    </programlisting>
+                </para>
+                <para>
+                    The following methods in DslContext have been renamed
+                </para>
+                <para>
+                        <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+    * String jsonify(String uid) is renamed to String toString(String uid)
+    * String generateHtml(String uid) is renamed to String toHTML(String uid) )
+]]>                    </programlisting>
+                </para>
+
+            </listitem>
+        </itemizedlist>
+        </para>
+    </section>
+     <section>
+        <title>Changes in Engine</title>
+        <para>
+            Tellurium 0.7.0 include a new Engine embedded in Selenium Core.
+            The main functionalities of the Tellurium Engine include
+            <itemizedlist>
+            <listitem>CSS Selector support based on jQuery</listitem>
+            <listitem>New APIs based on jQuery</listitem>
+            <listitem>UI  module group locating</listitem>
+            <listitem>UI module Caching</listitem>
+            </itemizedlist>
+        </para>
+         <para>
+             Other changes include:
+             <itemizedlist>
+
+                 <listitem>
+                     <para>
+                         <emphasis role="bold">jQuery</emphasis>
+                     </para>
+                     <para>
+                         The jQuery in Engine has been upgraded from 1.3.2 to 1.4.2.
+                     </para>
+                 </listitem>
+                 <listitem>
+                     <para>
+                         <emphasis role="bold">Engine Logging</emphasis>
+                     </para>
+                     <para>
+                         Tellurium Engine uses Firebug Lite to add debug information
+                         to the console. By default the Firebug Lite is off.
+                     </para>
+                 </listitem>
+                 <listitem>
+                     <para>
+                         <emphasis role="bold">Add JavaScript Error Stack to Selenium Errors</emphasis>
+                     </para>
+                     <para>
+                         We utilized the JavaScript Stack Trace project to refactor Selenium Errors in Selenium
+                         Core so that the JavaScript Error Stack will be passed back Tellurium Core.
+                     </para>
+                 </listitem>
+
+             </itemizedlist>
+         </para>
+    </section>
+    <section>
+        <title>Changes in Maven Build</title>
+        <para>
+        Our Maven repository is moved and the Maven Repositories are changed as well. 
+        </para>
+        <para>
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+<repository>
+    <id>kungfuters-public-releases-repo</id>
+    <name>Kungfuters.org Public Releases Repository</name>
+    <url>http://maven.kungfuters.org/content/repositories/releases</url>
+</repository>
+<snapshotRepository>
+    <id>kungfuters-public-snapshots-repo</id>
+    <name>Kungfuters.org Public Snapshot Repository</name>
+    <url>http://maven.kungfuters.org/content/repositories/snapshots</url>
+</snapshotRepository>
+]]>
+            </programlisting>
+        </para>
+        <para>
+            telluriumsource.org becomes our official domain name and the web site is under construction. 
+           <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+<site>
+    <id>tellurium-site</id>
+    <name>Tellurium Site</name>
+    <url>scp://telluriumsource.org/var/www/telluriumsource.org/public/maven</url>
+</site>
+]]>
+            </programlisting>
+        </para>
+        <para>
+            After the domain name change, you need to use the following Tellurium
+            dependencies for your project 
+        </para>
+        <para>
+           <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+<dependency>
+            <groupId>org.telluriumsource</groupId>
+            <artifactId>tellurium-core</artifactId>
+            <version>0.7.0</version>
+</dependency>
+<dependency>
+            <groupId>org.seleniumhq.selenium.server</groupId>
+            <artifactId>selenium-server</artifactId>
+            <version>1.0.1-te3</version>
+</dependency>
+]]>
+            </programlisting>
+        </para>
+        <para>
+            For Maven archetypes, tellurium-junit-archetype becomes the following,
+        </para>
+         <para>
+           <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+<groupId>org.telluriumsource</groupId>
+<artifactId>tellurium-junit-archetype</artifactId>
+<version>0.7.0</version>
+]]>
+            </programlisting>
+        </para>
+        <para>
+            Similarly, the tellurium-testng-archetype has been changed to
+        </para>
+        <para>
+           <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+<groupId>org.telluriumsource</groupId>
+<artifactId>tellurium-testng-archetype</artifactId>
+<version>0.7.0</version>
+]]>
+            </programlisting>
+        </para>
+
+        <para>
+            To create a Tellurium project based on Tellurium 0.7.0,
+            you should use the Maven archetype 0.7.0. To create a JUnit project,
+            use the following Maven command:
+        </para>
+        <para>
+           <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id
+-DarchetypeArtifactId=tellurium-junit-archetype -DarchetypeGroupId=org.telluriumsource
+-DarchetypeVersion=0.7.0
+-DarchetypeRepository=http://maven.kungfuters.org/content/repositories/snapshots
+]]>
+            </programlisting>
+        </para>
+        <para>
+            Similarly, to create a TestNG project, use the following command: 
+        </para>
+        <para>
+           <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id
+-DarchetypeArtifactId=tellurium-testng-archetype -DarchetypeGroupId=org.telluriumsource
+-DarchetypeVersion=0.7.0
+-DarchetypeRepository=http://maven.kungfuters.org/content/repositories/snapshots
+]]>
+            </programlisting>
+        </para>
+        <para>
+            To create a Tellurium UI widget project, we can use Tellurium Widget archetype as follows. 
+        </para>
+        <para>
+           <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id
+-DarchetypeArtifactId=tellurium-widget-archetype -DarchetypeGroupId=org.telluriumsource
+-DarchetypeVersion=0.7.0
+-DarchetypeRepository=http://maven.kungfuters.org/content/repositories/snapshots
+]]>
+            </programlisting>
+        </para>
+    </section>
+    <section>
+        <title>Reference Project</title>
+        <para>
+        The old two reference projects, i.e., tellurium-junit-java and tellurium-testng-java
+            reference projects have been updated and merged into one reference project,
+            tellurium-website. In addition, we add a new ui-examples reference project to show
+            how to define different types of UI objects based on html snippets.
+        </para>
+
+    </section>
+
+    <section>
+        <title>How to Obtain Tellurium 0.7.0</title>
+        <para>
+            Tellurium 0.7.0 bundle can be downloaded from
+            <itemizedlist>
+                <listitem>
+                    <quote><link xlink:href="http://code.google.com/p/aost/downloads/list">Tellurium download site</link></quote>
+                </listitem>
+            </itemizedlist>
+        </para>
+        <para>
+            Tellurium 0.8.0-SNAPSHOT can be obtained from
+            <itemizedlist>
+                <listitem>
+                    <quote><link xlink:href="http://maven.kungfuters.org/content/repositories/snapshots/org/telluriumsource/tellurium-core/0.8.0-SNAPSHOT/">Tellurium Core SNAPSHOT</link></quote>
+                </listitem>
+                <listitem>
+                    <quote><link xlink:href="http://maven.kungfuters.org/content/repositories/snapshots/org/seleniumhq/selenium/server/selenium-server/1.0.1-te4-SNAPSHOT/">Custom Selenium Server with Tellurium Engine</link></quote>
+                </listitem>
+            </itemizedlist>
+        </para>
+        <para>
+            If you use Maven, you need the following dependencies
+        </para>
+        <para>
+           <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+<dependency>
+    <groupId>org.telluriumsource</groupId>
+    <artifactId>tellurium-udl</artifactId>
+    <version>0.7.0</version>
+    <scope>compile</scope>
+</dependency>
+<dependency>
+    <groupId>org.telluriumsource</groupId>
+    <artifactId>tellurium-core</artifactId>
+    <version>0.7.0</version>
+    <scope>compile</scope>
+</dependency>
+<dependency>
+    <groupId>org.seleniumhq.selenium.server</groupId>
+    <artifactId>selenium-server</artifactId>
+    <version>1.0.1-te3</version>
+</dependency>        
+]]>
+            </programlisting>
+        </para>
+        <para>
+           A sample POM file can be found in <link linkend='samplepom'>this appendix</link>.
+        </para>
+
+    </section>
+</chapter>

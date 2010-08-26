@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter version="5.0" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns5="http://www.w3.org/2000/svg"
+         xmlns:ns4="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns3="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+
+    <title>Tellurium Reference</title>
+
+    <para>Tellurium 0.7.0 starts to use
+        <link xlink:href="http://docbook.sourceforge.net/">docbook</link>
+        to build the reference document. What is docbook? We quote from <link
+                xlink:href="http://docbook.sourceforge.net/">http://docbook.sourceforge.net/</link>,
+        &quot;DocBook is an XML vocabulary that lets you create documents in a
+        presentation-neutral form that captures the logical structure of your content. Using
+        free tools along with the DocBook XSL stylesheets, you can publish your content as HTML
+        pages and PDF files, and in many other formats.&quot;
+    </para>
+
+    <section>
+        <title>Maven</title>
+        <para>
+            <link xlink:href="http://code.google.com/p/docbkx-tools/">docbkx tools</link>
+            provides a number of tools supporting DocBook in a Maven environment including the<link
+                xlink:href="http://docs.codehaus.org/display/MAVENUSER/Docbkx+Maven+Plugin">Docbkx
+            Maven Plugin</link>. The good news is that the Docbkx Maven plugin supports<link
+                xlink:href="http://www.docbook.org/tdg5/en/html/docbook.html">DocBook version
+            5.0</link>.
+        </para>
+
+        <para>The Maven pom is as follows.</para>
+
+        <programlisting language="html"><?db-font-size 75% ?>
+<![CDATA[
+<build>
+    <plugins>
+        <plugin>
+            <groupId>com.agilejava.docbkx</groupId>
+            <artifactId>docbkx-maven-plugin</artifactId>
+            <version>2.0.10-SNAPSHOT</version>
+            <executions>
+                <execution>
+                    <id>documentation identifier</id>
+                    <phase>pre-site</phase>
+                    <goals>
+                        <goal>generate-pdf</goal>
+                    </goals>
+                    <configuration>
+                        <!-- per execution configuration -->
+                        <includes>tellurium-reference.xml</includes>
+                        <!--<draftMode>yes</draftMode>-->
+                    </configuration>
+                </execution>
+            </executions>
+            <configuration>
+                <!-- shared configuration -->
+                <generatedSourceDirectory>${project.build.directory}
+                    /docbkx/generated</generatedSourceDirectory>
+                <xincludeSupported>true</xincludeSupported>
+                <paperType>A4</paperType>
+                <fop1Extensions>1</fop1Extensions>
+
+                <foCustomization>src/docbkx-stylesheet/fo/docbook.xsl</foCustomization>
+
+                <customizationParameters>
+                    <!-- additional XSLT parameters-->
+                    <parameter>
+                        <name>key</name>
+                        <value>value</value>
+                    </parameter>
+                </customizationParameters>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+
+<pluginRepositories>
+    <pluginRepository>
+        <id>docbkx.snapshots</id>
+        <name>Maven Plugin Snapshots</name>
+        <url>http://docbkx-tools.sourceforge.net/snapshots/</url>
+        <releases>
+            <enabled>false</enabled>
+        </releases>
+        <snapshots>
+            <enabled>true</enabled>
+        </snapshots>
+    </pluginRepository>
+</pluginRepositories>
+]]>
+        </programlisting>
+
+        <para>The project structure is listed as follows. </para>
+
+        <programlisting language="sh"><?db-font-size 75% ?>
+<![CDATA[
+[jfang@Mars tellurium-reference]$ tree .
+.
+|-- pom.xml
+`-- src
+    |-- docbkx
+    |   |-- media
+    |   |   |-- EngineGroupLocatingFlow.png
+    |   |   |-- ExportToGroovySmall.png
+    |   |   |-- FireFoxUserProfile.png
+    |   |-- overview.xml
+    |   |-- quickstart.xml
+    |   |-- referenceprojects.xml
+    |   |-- resources.xml
+    |   |-- tellurium-reference.xml
+    |   |-- trace.xml
+    |   |-- trump.xml
+    |   |-- udl.xml
+    |   |-- uiobjects.xml
+    |   |-- whatsnew.xml
+    |   `-- widgets.xml
+    `-- docbkx-stylesheet
+        `-- fo
+            `-- docbook.xsl
+]]>
+        </programlisting>
+    </section>
+
+    <section>
+        <title>DocBook</title>
+        <section>
+            <title>Book</title>
+            <para>
+                DocBook has two types, i.e., article and book. Tellurium reference uses the book format, which includes the following sections.
+            </para>
+            
+            <programlisting language="java"><?db-font-size 75% ?>
+<![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<book version="5.0" xmlns="http://docbook.org/ns/docbook"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:db="http://docbook.org/ns/docbook" xml:lang="en">
+    <info>
+        <title>Tellurium Automated Testing Framework</title>
+        <subtitle>Reference Documentation</subtitle>
+        <pubdate>May 15, 2010</pubdate>
+        <releaseinfo>v0.7.0</releaseinfo>
+
+        <authorgroup>
+            <author>
+                <firstname>Jian</firstname>
+                <surname>Fang</surname>
+            </author>
+            ...
+        </authorgroup>
+
+        <copyright>
+            <year>2010</year>
+            <holder>TelluriumSource</holder>
+        </copyright>
+
+        <legalnotice>
+            <para>
+              Licensed under the Apache License, Version 2.0 (the "License"); you may not use this
+              file except in compliance with the License. You may obtain a copy of the License at:
+            </para>
+            <para>
+                http://www.apache.org/licenses/LICENSE-2.0
+            </para>
+            <para>
+                Unless required by applicable law or agreed to in writing, software distributed under
+                the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+                CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
+                language governing permissions and limitations under the License.
+            </para>
+        </legalnotice>
+
+     </info>
+     ...
+<book>
+]]>
+            </programlisting>
+        </section>
+
+        <section>
+            <title>Chapter</title>
+            <para>
+                Each chapter has the following XML format. For example, the overview.xml is as follows.
+            </para>
+
+            <programlisting language="xml"><?db-font-size 75% ?>
+<![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter version="5.0" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns5="http://www.w3.org/2000/svg"
+         xmlns:ns4="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns3="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+
+    <title>Overview of Tellurium</title>
+
+    <section>
+        <title>What is Tellurium</title>
+    ...
+
+<chapter>
+]]>
+            </programlisting>
+
+            <para>
+                Then in the main XML file tellurium-reference.xml, we can include the xml file in the following way.
+            </para>
+            
+            <programlisting language="xml"><?db-font-size 75% ?>
+<![CDATA[
+    <xi:include href="overview.xml"/>
+
+    <xi:include href="whatsnew.xml"/>
+
+    <xi:include href="quickstart.xml"/>
+]]>
+            </programlisting>
+
+            <para>
+                Similarly, the appendix is defined as:
+            </para>
+            <programlisting language="xml"><?db-font-size 75% ?>
+<![CDATA[
+<appendix version="5.0" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns5="http://www.w3.org/2000/svg"
+         xmlns:ns4="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns3="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+
+     <title>FAQs</title>
+     ...
+
+</appendix>
+]]>
+            </programlisting>              
+        </section>
+
+        <section>
+            <title>section</title>
+            <para>section can be nested in docbook, for example. </para>
+            <programlisting language="xml"><?db-font-size 75% ?>
+<![CDATA[
+<section>
+    <title>Setup Tellurium Project in IDEs</title>
+    <para>A Tellurium Project can be run in IntelliJ, NetBeans, Eclipse, or other
+        IDEs that have Groovy support.
+    </para>
+
+    <para>If using Maven, open the POM file to let the IDE automatically build the
+        project files.
+    </para>
+
+    <section>
+        <title>IntelliJ IDEA</title>
+        <para>
+            IntelliJ IDEA Community edition is free and can be downloaded from
+        </para>
+
+    </section>
+   ...
+<section>
+]]>
+            </programlisting>              
+
+        </section>
+
+        <section>
+            <title>Link</title>
+            <para>External links can be defined with xlink:href. </para>
+            <programlisting language="xml"><?db-font-size 75% ?>
+<![CDATA[
+<para>
+  IntelliJ IDEA Community edition is free and can be downloaded from
+  <link xlink:href="http://www.jetbrains.com/idea/download/">
+  http://www.jetbrains.com/idea/download/</link>. A detailed guide
+  is found on <link
+  xlink:href="http://code.google.com/p/aost/wiki/CustomTelluriumIntelliJProject">
+  How to create your own Tellurium testing project with IntelliJ 9.0 Community
+  Edition</link>.
+</para>
+]]>
+            </programlisting>
+            <para>For internal links, i.e., section references, we can use <literal>linkend</literal>.
+                For example, we first define an id for a section, </para>
+            <programlisting language="xml"><?db-font-size 75% ?>
+<![CDATA[
+<section id="samplepom">
+    <title>settings.xml</title>
+    ...
+</section>
+]]>
+            </programlisting>
+            <para>then reference that section with link.</para>
+<programlisting language="xml"><?db-font-size 75% ?>
+<![CDATA[
+<para>
+   A sample POM file can be found in
+   <link linkend='samplepom'>this appendix</link>.
+</para>
+
+]]>
+            </programlisting>
+        </section>
+    
+        <section>
+            <title>Image</title>
+            <programlisting language="xml"><?db-font-size 75% ?>
+<![CDATA[
+<mediaobject>
+   <imageobject>
+      <imagedata fileref="./media/tellurium3.png" scalefit="1" width="100%">
+      </imagedata>
+   </imageobject>
+</mediaobject>
+]]>
+            </programlisting>
+
+            <para>where scalefit is an option to fit to the width. Another option is scale to change the image size. </para>
+        </section>
+
+        <section>
+            <title>screen</title>
+            <para>screen is used to show console output. </para>
+            <programlisting language="xml"><?db-font-size 75% ?>
+<![CDATA[
+<screen>
+   java -jar selenium-server.jar -singlewindow
+</screen>
+]]>
+            </programlisting>              
+        </section>
+
+        <section>
+            <title>programlist</title>
+            <programlisting language="xml"><?db-font-size 75% ?>
+<![CDATA[
+<programlisting language="xml"><?db-font-size 75% ?>
+<![CDATA[
+ui.Form(uid: "Form", clocator: [tag: "form"]){
+   Div(uid: "User", clocator: [:]){
+      Selector(uid: "Sex", clocator: [:])
+      InputBox(uid: "Input", clocator: [tag: "input", type: "text",
+                name: "j_username"])
+   }
+   Container(uid: "Finish", clocator: [tag: "tr"]){
+      SubmitButton(uid: "Submit", clocator: [tag: "input", type: "submit",
+                value: "Login", name: "submit"])
+   }
+}
+]]&gt;
+&lt;/programlisting&gt;
+]]>
+            </programlisting>
+
+            <para>where  <literal>&lt;?db-font-size 75% ?&gt;</literal> is used to scale the code font size. In the meanwhile, the xsl style sheet
+                must use the following transformation to change font size.
+            </para>
+            
+            <programlisting language="xml"><?db-font-size 75% ?>
+<![CDATA[
+<xsl:attribute-set name="monospace.verbatim.properties">
+  <xsl:attribute name="font-size">
+    <xsl:choose>
+      <xsl:when test="processing-instruction('db-font-size')"><xsl:value-of
+           select="processing-instruction('db-font-size')"/></xsl:when>
+      <xsl:otherwise>inherit</xsl:otherwise>
+    </xsl:choose>
+  </xsl:attribute>
+</xsl:attribute-set>
+]]>
+            </programlisting>
+            
+        </section>
+
+        <section>
+            <title>list</title>
+            <para><literal>itemlist</literal> is used to represent a list, for example. </para>
+            <programlisting language="xml"><?db-font-size 75% ?>
+<![CDATA[
+<itemizedlist>
+   <listitem>
+      <para>tellurium-junit-archetype</para>
+   </listitem>
+   <listitem>
+      <para>tellurium-testng-archetype</para>
+   </listitem>
+</itemizedlist>
+]]>
+            </programlisting>
+
+            <para>If we need an ordered list with number index, we can use <literal>orderedlist</literal> instead. </para>
+            <programlisting language="xml"><?db-font-size 75% ?>
+<![CDATA[
+<orderedlist>
+   <listitem>
+      <para>address the dynamic factors in Tellurium UI templates</para>
+   </listitem>
+   <listitem>
+       <para>increase the flexibility of Tellurium UI templates.</para>
+   </listitem>
+</orderedlist>
+]]>
+            </programlisting>   
+        </section>
+
+        <section>
+            <title>table</title>
+            <para>The table tag is used to represent a table in docbook. For example. </para>
+            <programlisting language="xml"><?db-font-size 75% ?>
+<![CDATA[
+<table id="uiobjectattributes">
+  <title>UI Object Attributes</title>
+  <tgroup cols="2">
+    <colspec colname="c1" colwidth="1*" />
+    <colspec colname="c2" colwidth="1*" />
+    <thead>
+      <row>
+        <entry>ATTRIBUTE</entry>
+        <entry>DESCRIPTION</entry>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+        <entry>UI Object</entry>
+        <entry>Basic Tellurium component</entry>
+      </row>
+      <row>
+        <entry>UiID</entry>
+        <entry>UI object's identifier</entry>
+      </row>
+      <row>
+        <entry>Namespace</entry>
+        <entry>Used for XHTML</entry>
+      </row>
+   </tbody>
+  </tgroup>
+</table>
+]]>
+            </programlisting>  
+            
+        </section>
+    </section>
+
+    <section>
+        <title>Tools</title>
+        <para>There are couple
+            <link xlink:href="http://wiki.docbook.org/topic/ConvertOtherFormatsToDocBook">tools</link>
+            to convert docBook to and from different formats. For example, we can use the following
+            command
+            <link xlink:href="http://www.michael-a-fuchs.de/">herold</link>
+            to convert html to docbook.
+        </para>
+        <screen>herold --in=udl.html --out=udl.xml -r book -T</screen>
+        <para>But the converted docbook version is 1.0 and we still need manually change some
+            docbook formats in the converted file.
+        </para>
+    </section>
+</chapter>
