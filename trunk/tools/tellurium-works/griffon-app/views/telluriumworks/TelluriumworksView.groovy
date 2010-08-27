@@ -91,7 +91,7 @@ actions {
 }
 
 fileChooserWindow = fileChooser()
-mainWindow = application(title: 'TelluriumWorks',
+mainWindow = application(title: 'TelluriumWorks - A Tellurium DSL Script Runner',
         size: [640, 600], locationByPlatform: true,
         iconImage: imageIcon('/tellurium.png').image,
         iconImages: [imageIcon('/tellurium.png').image]) {

@@ -1,5 +1,5 @@
 application {
-    title = 'Telluriumworks'
+    title = 'Telluriumworks - A Tellurium DSL Script Runner'
     startupGroups = ['telluriumworks']
 
     // Should Griffon exit when no Griffon created frames are showing?
