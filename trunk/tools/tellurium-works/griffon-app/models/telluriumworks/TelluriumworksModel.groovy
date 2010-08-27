@@ -17,24 +17,7 @@ class TelluriumworksModel implements ChangeListener {
 
   @Bindable ServerConfig serverConfig = new ServerConfig()
 
-//  @Bindable String serverStatus = "Not Running"
-//  @Bindable boolean local = true
-//  @Bindable String port = "4444"
-//  @Bindable String profile = ""
-//  @Bindable boolean multipleWindow = false
-
   @Bindable TelluriumConfig telluriumConfig = new TelluriumConfig()
-
-//  @Bindable String browser = "*chrome"
-//  @Bindable String serverHost = "localhost"
-//  @Bindable String serverPort = "4444"
-//  @Bindable String macroCmd = "5"
-//  @Bindable String option = ""
-//  @Bindable boolean useTrace = false
-//  @Bindable boolean useScreenShot = false
-//  @Bindable boolean useTelluriumEngine = false
-//  @Bindable String locale = "en_US"
-
 
   // listens to changes on the mvcId property
   private mvcUpdater = { e ->
