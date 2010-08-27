@@ -20,6 +20,7 @@ import javax.swing.UIManager
 
 import org.jdesktop.swingx.JXPanel
 import org.apache.commons.lang.NumberUtils
+import net.sourceforge.gvalidation.swing.ErrorMessagePanel
 
 import static griffon.util.GriffonApplicationUtils.isMacOSX
 
@@ -92,6 +93,7 @@ actions {
 }
 
 def stringToIntConverter = {v ->
+  println "Converting string to integer: ${v}"
   if (NumberUtils.isDigits(v)){
     try {
       return Integer.parseInt(v)
@@ -151,6 +153,9 @@ mainWindow = application(title: 'TelluriumWorks - A Tellurium DSL Script Runner'
               tabIcon: tangoIcon(size: 32, category: "status", icon: "network-idle"),
               tabToolTip: "Selenium Server") {
         migLayout(layoutConstraints: 'fill')
+        container(new ErrorMessagePanel(messageSource),
+                id: 'errorMessagePanelTab1', constraints: CENTER,
+                errors: bind(source: model.serverConfig, 'errors'))
 
         label('Status')
         textField(id: "serverStatus", columns: 10, constraints: 'span 2, wrap',
@@ -194,6 +199,10 @@ mainWindow = application(title: 'TelluriumWorks - A Tellurium DSL Script Runner'
               tabIcon: tangoIcon(size: 32, category: "categories", icon: "preferences-system"),
               tabToolTip: "Tellurium Configuration") {
         migLayout(layoutConstraints: 'fill')
+        container(new ErrorMessagePanel(messageSource),
+                id: 'errorMessagePanelTab2', constraints: CENTER,
+                errors: bind(source: model.telluriumConfig, 'errors'))
+        
         label("Browser:")
         comboBox(id: 'browserType',
                 items: ["*chrome", "*firefox", "*iexplore", "*iehta"],
