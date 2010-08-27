@@ -17,3 +17,6 @@ log4j {
     }
     additivity.StackTrace=false
 }
+
+syntaxpane.props.'LineNumbers.Foreground' = '0xFF0000'
+syntaxpane.props.'LineNumbers.Background' = '0x000000'

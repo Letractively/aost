@@ -16,3 +16,5 @@ jx {
 root.'MiglayoutGriffonAddon'.addon=true
 
 root.'CrystaliconsGriffonAddon'.addon=true
+
+root.'JsyntaxpaneGriffonAddon'.addon=true

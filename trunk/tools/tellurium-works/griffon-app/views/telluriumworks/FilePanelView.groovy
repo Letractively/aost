@@ -1,5 +1,9 @@
 package telluriumworks
 
+import java.awt.Color
+import javax.swing.JScrollPane
+import java.awt.BorderLayout
+
 actions {
    action(id: 'runAction',
       name: 'Run',
@@ -22,16 +26,14 @@ actions {
 filePanes = tabbedPane(tabGroup, selectedIndex: tabGroup.tabCount) {
    panel(title: tabName, id: 'tab', clientProperties: [mvcId: mvcId]) {
       borderLayout()
-      scrollPane(constraints: CENTER) {
-         textArea(id: 'editor', text:  bind {model.document.contents})
+      scrollPane(constraints: BorderLayout.CENTER) {
+        editorPane(id: 'editor', contentType:'text/groovy', text: bind {model.document.contents},
+            opaque: false, editable: true,
+            font: new java.awt.Font("Ariel", 0, 12),
+            background: new Color(0,0,0,0))
+ //           gridwidth: REMAINDER, weightx: 1.0, fill: BOTH, insets: [3, 3, 3, 6])
+//         textArea(id: 'editor', text:  bind {model.document.contents})
       }
-/*
-      hbox(constraints: SOUTH) {
-         button runAction
-         button saveAction
-         button closeAction
-      }
-*/
    }
 }
 
