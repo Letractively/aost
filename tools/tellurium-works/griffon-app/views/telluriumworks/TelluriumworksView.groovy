@@ -65,23 +65,28 @@ actions {
           closure: controller.about)
   action(id: 'openFile',
           shortDescription: "Open Tellurium DSL script",
-          smallIcon: crystalIcon(size: 24, category: "actions", icon: "fileopen"),
+//          smallIcon: crystalIcon(size: 24, category: "actions", icon: "fileopen"),
+          smallIcon: tangoIcon(size: 22, category: "actions", icon: "document-open"),
           closure: controller.openFile)
   action(id: 'runFile',
           shortDescription: "Run Tellurium DSL script",
-          smallIcon: crystalIcon(size: 24, category: "actions", icon: "player_end1"),
+//          smallIcon: crystalIcon(size: 24, category: "actions", icon: "player_end1"),
+          smallIcon: tangoIcon(size: 22, category: "actions", icon: "go-last"),
           closure: controller.runFile)
   action(id: 'saveFile',
           shortDescription: "Save Tellurium DSL script",
-          smallIcon: crystalIcon(size: 24, category: "actions", icon: "filesave"),
+//          smallIcon: crystalIcon(size: 24, category: "actions", icon: "filesave"),
+          smallIcon: tangoIcon(size: 22, category: "actions", icon: "document-save"),
           closure: controller.saveFile)
   action(id: 'closeFile',
           shortDescription: "Close Tellurium DSL script",
-          smallIcon: crystalIcon(size: 24, category: "actions", icon: "fileclose"),
+//          smallIcon: crystalIcon(size: 24, category: "actions", icon: "fileclose"),
+          smallIcon: tangoIcon(size: 22, category: "actions", icon: "process-stop"),
           closure: controller.closeFile)
   action(id: 'exitAction',
           shortDescription: "Exit the IDE",
-          smallIcon: crystalIcon(size: 24, category: "actions", icon: "exit"),
+//          smallIcon: crystalIcon(size: 24, category: "actions", icon: "exit"),      t
+          smallIcon: tangoIcon(size: 22, category: "actions", icon: "system-log-out"),
           closure: controller.quit)
 }
 
@@ -117,7 +122,9 @@ mainWindow = application(title: 'TelluriumWorks',
 
     tabbedPane(id: "mainPane", constraints: CENTER, tabPlacement: JTabbedPane.LEFT, selectedIndex: 0) {
 
-      panel(title: "Script", tabIcon: crystalIcon(size: 32, category: "apps", icon: "kmenuedit"),
+      panel(title: "Script",
+//              tabIcon: crystalIcon(size: 32, category: "apps", icon: "kmenuedit"),
+              tabIcon: tangoIcon(size: 32, category: "apps", icon: "accessories-text-editor"),
               tabToolTip: "Tellurium DSL Script") {
         migLayout(layoutConstraints: 'fill')
         tabbedPane(id: 'tabGroup', preferredSize: [800, 640], constraints: "grow 100 1, wrap")
@@ -126,7 +133,9 @@ mainWindow = application(title: 'TelluriumWorks',
         }
       }
 
-      panel(title: "Server", id: 'box', tabIcon: crystalIcon(size: 32, category: "apps", icon: "multiple_monitors"),
+      panel(title: "Server", id: 'box',
+//              tabIcon: crystalIcon(size: 32, category: "apps", icon: "multiple_monitors"),
+              tabIcon: tangoIcon(size: 32, category: "status", icon: "network-idle"),
               tabToolTip: "Selenium Server") {
         migLayout(layoutConstraints: 'fill')
 
@@ -167,7 +176,9 @@ mainWindow = application(title: 'TelluriumWorks',
 
       }
 
-      panel(title: "Config", tabIcon: crystalIcon(size: 32, category: "apps", icon: "kdmconfig"),
+      panel(title: "Config",
+//              tabIcon: crystalIcon(size: 32, category: "apps", icon: "kdmconfig"),
+              tabIcon: tangoIcon(size: 32, category: "categories", icon: "preferences-system"),
               tabToolTip: "Tellurium Configuration") {
         migLayout(layoutConstraints: 'fill')
         label("Browser:")
@@ -239,7 +250,6 @@ mainWindow = application(title: 'TelluriumWorks',
 
     panel(border: titledBorder('Console'), constraints: "grow 15 1, wrap") {
       migLayout(layoutConstraints: 'fill')
-
       button(id: 'clearConsole',
               label: "Clear",
 //              actionPerformed: {this.consoleTxt.text = ""},
@@ -247,7 +257,7 @@ mainWindow = application(title: 'TelluriumWorks',
               constraints: "span 2,wrap, right"
       )
 
-      scrollPane(preferredSize: [800, 100], constraints: "grow 100 1, wrap") {
+      scrollPane(preferredSize: [800, 640], constraints: "grow 100 1, wrap") {
         textArea(id: "consoleTxt",
                 editable: false,
                 lineWrap: true,
