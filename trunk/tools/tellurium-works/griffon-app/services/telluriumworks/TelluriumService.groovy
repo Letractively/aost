@@ -25,8 +25,9 @@ class TelluriumService {
       server.useMultiWindows = config.multipleWindow
       if(config.profile != null && config.profile.trim().length() > 0)
         server.profileLocation = config.profile
-      if(config.port != null && config.port.trim().length() > 0)
-        server.port = Integer.parseInt(config.port)
+//      if(config.port != null && config.port.trim().length() > 0)
+//        server.port = Integer.parseInt(config.port)
+      server.port = config.port
       if(server.runSeleniumServerInternally){
         if(!isServerRunning){
           logger.info("Running internal Selenium Server...")

@@ -82,13 +82,19 @@ class TelluriumworksController {
   }
 
   def runSeleniumServer = {
-    execOutside {
-      def conf = model.serverConfig
+    if(!model.serverConfig.validate()){
+      doLater {
+        clogger.log("Invalid Configuration: " + model.serverConfig.toString())
+      }      
+    }else{
+      execOutside {
+        def conf = model.serverConfig
 
-      clogger.log("Run Selenium server with configuration: " + conf.toString())
+        clogger.log("Run Selenium server with configuration: " + conf.toString())
 
-      boolean status = telluriumService.runSeleniumServer(conf)
-      view.serverStatus.text = (status ? "Running": "Not Running")
+        boolean status = telluriumService.runSeleniumServer(conf)
+        view.serverStatus.text = (status ? "Running": "Not Running")
+      }
     }
   }
 
@@ -101,14 +107,19 @@ class TelluriumworksController {
   }
 
   def updateTelluriumConfig = {
-    execOutside {
-      TelluriumConfig conf = model.telluriumConfig
+    if (!model.telluriumConfig.validate()) {
+      doLater {
+        clogger.log("Invalid Configuration: " + model.telluriumConfig.toString())
+      }
+    } else {
+      execOutside {
+        TelluriumConfig conf = model.telluriumConfig
 
-      clogger.log("Update Tellurium Configuration to " + conf.toString())
+        clogger.log("Update Tellurium Configuration to " + conf.toString())
 
-      telluriumService.updateTelluriumConfig(conf)
+        telluriumService.updateTelluriumConfig(conf)
+      }
     }
-
   }
 
   def help = {

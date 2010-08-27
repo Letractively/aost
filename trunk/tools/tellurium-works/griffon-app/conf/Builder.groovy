@@ -20,3 +20,7 @@ root.'JsyntaxpaneGriffonAddon'.addon=true
 
 root.'TangoiconsGriffonAddon'.addon=true
 
+
+root.'I18nGriffonAddon'.addon=true
+
+root.'ValidationGriffonAddon'.addon=true
