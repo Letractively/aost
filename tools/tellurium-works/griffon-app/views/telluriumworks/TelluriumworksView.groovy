@@ -140,23 +140,15 @@ mainWindow = application(title: 'TelluriumWorks',
         buttonGroup(id: 'mode')
         radioButton('local', buttonGroup: mode, selected: true, actionPerformed: {model.serverConfig.local = true})
         radioButton('remote', buttonGroup: mode, constraints: 'wrap', actionPerformed: {model.serverConfig.local = false})
-//        radioButton('local', buttonGroup: mode, selected: true, actionPerformed: {model.serverConfig.local = true})
-//        radioButton('remote', buttonGroup: mode, constraints: 'wrap', actionPerformed: {model.serverConfig.local = false})
 
         label('Port:')
         textField(id: "localServerPort", columns: 20, constraints: 'span 2, wrap',
-//                text: bind {model.serverConfig.port})
-//                text: bind('port', target: model.serverConfig, mutual: true))
                 text: bind('port', source: model.serverConfig, mutual: true))
 
         label('Profile:')
         textField(columns: 20, constraints: 'span 2, wrap',
-//                text: bind {model.serverConfig.profile})
-//                text: bind('profile', target: model.serverConfig, mutual: true))
                 text: bind('profile', source: model.serverConfig, mutual: true))
 
-//        checkBox(id: "multipleWindow", selected: bind('multipleWindow', target:model.serverConfig, mutual: true), text: "Multiple Windows", constraints: 'span 2,wrap')
-//        checkBox(id: "multipleWindow", selected: bind {model.serverConfig.multipleWindow}, text: "Multiple Windows", constraints: 'span 2,wrap')
         checkBox(id: "multipleWindow", selected: bind('multipleWindow', source:model.serverConfig, mutual: true), text: "Multiple Windows", constraints: 'span 2,wrap')
 
         separator(constraints: 'grow, span 3, wrap')
