@@ -99,6 +99,12 @@ var UiSNode = Class.extend({
         return this;
     },
 
+    toJSON: function(){
+        if(this.objRef != null){
+            return this.objRef.toJSON();
+        }
+    },
+
     traverse: function(context, visitor){
         visitor.visit(context, this);
     },
@@ -411,6 +417,7 @@ var STreeChainVisitor = Class.extend({
     }
 });
 
+
 var UiHTMLSourceVisitor = STreeVisitor.extend({
     init: function(){
 //        this.htmlsource = new Hashtable();
@@ -426,6 +433,28 @@ var UiHTMLSourceVisitor = STreeVisitor.extend({
         pair.val = html;
         this.htmlsource.push(pair);
         !tellurium.logManager.isUseLog || fbLog("HTML Source for " + frid, html);
+    }
+});
+
+var UiUIDVisitor = STreeVisitor.extend({
+    init: function(){
+        this.uids = new Array();
+    },
+
+    visit: function(context, snode){
+        var frid = snode.getFullRid();
+        this.uids.push(frid);
+    }
+});
+
+var UiJSONVisitor = STreeVisitor.extend({
+    init: function(){
+        this.jsonArray = new Array();
+    },
+
+    visit: function(context, snode){
+        var jso = snode.toJSON();
+        this.jsonArray.push(jso);
     }
 });
 
@@ -516,5 +545,63 @@ var UiSimpleTipCleaner = STreeVisitor.extend({
         $elem.find("~ div.teengine.tooltip").remove();
 
         !tellurium.logManager.isUseLog || fbLog("Clean simple tip for " + frid, elem);
+    }
+});
+
+var MarkInvalidVisitor = STreeVisitor.extend({
+    init: function(){
+        this.invalid = null;
+    },
+
+    visit: function(context, node){
+        var uid = node.fullUid();
+        node.isLocatorValid = !(this.invalid != null && teJQuery.inArray(uid, this.invalid));
+    }
+});
+
+var UiIndexVisitor = STreeVisitor.extend({
+    init: function(){
+        this.indices = new Hashtable();
+    },
+
+    visit: function(context, node){
+        var uid = node.fullUid();
+        this.indices.put(uid, node);
+    }
+});
+
+var UiIdTrieVisitor = STreeVisitor.extend({
+    init: function(){
+        this.idTrie = new Trie();
+    },
+
+    visit: function(context, node){
+        var id = node.getIdAttribute();
+        if (id != null && id.trim().length > 0) {
+            var uid = node.fullUid();
+
+            this.idTrie.insert(uid, id);
+        }
+    }
+});
+
+var ChildrenUidChecker = STreeVisitor.extend({
+    init: function(){
+
+    },
+
+    visit: function(context, node){
+        node.postChildrenUidChange();
+    }
+});
+
+var RefUidVisitor = STreeVisitor.extend({
+    init: function(){
+        this.refUidMap = new Hashtable();
+    },
+
+    visit: function(context, node){
+        var uid = node.fullUid();
+        this.refUidMap.put(node.refId, uid);
     }
 });

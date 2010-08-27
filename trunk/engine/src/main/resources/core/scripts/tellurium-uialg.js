@@ -334,15 +334,6 @@ Trie.prototype.dumpMe = function() {
     }
 };
 
-function RelaxDetail(){
-    //which UID got relaxed, i.e., closest Match
-    this.uid = null;
-    //the clocator defintion for the UI object corresponding to the UID
-    this.locator = null;
-    //The actual html source of the closest match element
-    this.html = null;
-}
-
 
 //algorithms to handle UI modules and UI Objects
 function UiAlg(){
@@ -403,6 +394,32 @@ UiAlg.prototype.nextColor = function(){
     }
 };
 
+UiAlg.prototype.processNullLocator = function(uiobj, snapshot){
+    var uid = uiobj.fullUid();
+
+    //the next color to label the snapshot
+    var ncolor = this.nextColor();
+    //first find its parent uid
+    var vp = this.getValidParentFor(uiobj);
+    var puid = null;
+    if(vp != null)
+        puid = vp.fullUid();
+
+    var pref = null;
+    if(puid != null){
+        pref = snapshot.getUi(puid);
+    }else{
+        pref = this.dom;
+    }
+
+    snapshot.addUi(uid, pref);
+    //store all the elements with data("uid")
+    snapshot.setColor(ncolor);
+    snapshot.score += 100;
+    snapshot.nelem++;
+    this.squeue.push(snapshot);
+};
+
 UiAlg.prototype.locateInAllSnapshots = function(uiobj){
     var finished = false;
     !tellurium.logManager.isUseLog || fbLog("Initial snapshot queue in LocateInAllSnapshots", this.squeue);
@@ -414,9 +431,10 @@ UiAlg.prototype.locateInAllSnapshots = function(uiobj){
             if(uiobj.locator != null){
                 this.locate(uiobj, first);
             }else{
-                var ncolor = this.nextColor();
-                first.setColor(ncolor);
-                this.squeue.push(first);
+//                var ncolor = this.nextColor();
+//                first.setColor(ncolor);
+//                this.squeue.push(first);
+                this.processNullLocator(uiobj, first);
             }
         }else{
             //exit when the snapshot color is marked for the next round
@@ -435,6 +453,7 @@ UiAlg.prototype.lookId = function(uiobj, $found){
     if(ids != null && ids.length > 0){
          var gsel = new Array();
          for(var c=0; c < ids.length; c++){
+             logger.debug("ids " + c + " is " + ids[c]);
              gsel.push(this.buildIdSelector(ids[c]));
          }
          var result = new Array();
@@ -530,8 +549,14 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
     }
 
     //build the CSS selector from the current element's composite locator
-    var csel = this.buildSelector(clocator);
-    var $found = teJQuery(pref).find(csel);
+    var $found;
+    if(uiobj.self){
+        $found = teJQuery(pref);
+    }else{
+        var csel = this.buildSelector(clocator);
+        $found = teJQuery(pref).find(csel);
+    }
+
     var foundWithoutLookAhead = false;
     if($found.size() > 0){
         foundWithoutLookAhead = true;
@@ -594,7 +619,7 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
             var result = this.relax(clocator, pref);
             var $relaxed = result.closest;
 
-            if ($relaxed == null) {
+            if($relaxed == null){
                 !tellurium.logManager.isUseLog || fbWarn("Cannot find a relaxed match for UI object " + uid, uiobj);
 
                 var rdz = new RelaxDetail();
@@ -607,7 +632,7 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
                 snapshot.score += 0;
                 snapshot.nelem++;
                 this.squeue.push(snapshot);
-            } else {
+            }else{
                 if ($relaxed.size() > 1) {
                     $relaxed = this.lookAheadClosestMatchChildren(uiobj, $relaxed, result);
                 }
@@ -623,6 +648,7 @@ UiAlg.prototype.locate = function(uiobj, snapshot){
                         var rdz = new RelaxDetail();
                         rdz.uid = uid;
                         rdz.locator = clocator;
+                        logger.debug("$relaxed size: " + $relaxed.size());
                         rdz.html = $relaxed.eq(0).outerHTML();
                         snapshot.relaxed = true;
                         snapshot.relaxDetails.push(rdz);
@@ -711,14 +737,16 @@ UiAlg.prototype.relax = function(clocator, pref) {
     }
 
     var id = null;
-    if (clocator.attributes != undefined) {
-        for (var key in clocator.attributes) {
+    if (clocator.attributes != null && clocator.attributes != undefined) {
+        var keyset = clocator.attributes.keySet();
+        for(var i=0; i<keyset.length; i++){
+            var key = keyset[i];
             if (!this.cssbuilder.inBlackList(key)) {
-                attrs.put(key, clocator.attributes[key]);
+                attrs.put(key, clocator.attributes.get(key));
             }
         }
 
-        id = clocator.attributes["id"];
+        id = clocator.attributes.get("id");
     }
     var jqs = "";
     var tag = clocator.tag;
@@ -813,7 +841,7 @@ UiAlg.prototype.lookAheadClosestMatchChildren = function(uiobj, $found, matchres
             var score = this.hasClosestMatchChildren($found.get(i), clocators);
             if(score > 0){
                 if(max < score){
-                    //try to find the higest matches, for tied condition, i.e., multiple highest matches, select the first one
+                    //try to find the highest matches, for tied condition, i.e., multiple highest matches, select the first one
                     max = score;
                     closest = $found.get(i);
                 }
@@ -1000,6 +1028,7 @@ UiAlg.prototype.santa = function(uimodule, rootdom){
         uimodule.matches = 1;
     }
 
+    uimodule.valid = true;
     return true;
 };
 

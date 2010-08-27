@@ -1,3 +1,4 @@
+
 function getUiid(uid){
     var uiid = new Uiid();
     uiid.convertToUiid(uid);
@@ -213,7 +214,7 @@ function BaseLocator(){
 }
 
 //composite locator
-function CompositeLocator(){
+function CompositeLocator(){    
     this.tag = null;
     this.text = null;
     this.position = null;
@@ -222,3 +223,267 @@ function CompositeLocator(){
     this.trailer = null;
     this.attributes = new Hashtable();
 }
+
+CompositeLocator.prototype.updateLocator = function(attributes){
+     this.attributes = new HashMap();
+
+     if(attributes != null && attributes.size() > 0){
+        //neend to unescape attributes for attributes getting from xml
+        var esAttributes = new HashMap();
+        var keys = attributes.keySet();
+        for(var i=0; i<keys.length; i++){
+            var key = keys[i];
+            var val = escapedCharacterProof(attributes.get(key));
+            esAttributes.set(key, val);
+        }
+
+        this.text = esAttributes.get(CONSTANTS.TEXT);
+        this.position = esAttributes.get(CONSTANTS.POSITION);
+        this.header =  esAttributes.get(CONSTANTS.HEADER);
+        this.trailer = esAttributes.get(CONSTANTS.TRAILER);
+
+        this.buildLocatorFromAttributes(esAttributes);
+    }
+
+    return this;
+};
+
+CompositeLocator.prototype.isAttributeIncluded = function(attribute){
+
+    if(attribute == CONSTANTS.TEXT && this.text != null && trimString(this.text).length > 0){
+        return true;
+    }
+    if(attribute == CONSTANTS.TRAILER && this.trailer != null && trimString(this.trailer).length > 0){
+        return true;
+    }
+    if(attribute == CONSTANTS.HEADER && this.header != null && trimString(this.header).length > 0){
+        return true;
+    }
+
+    return (this.attributes.get(attribute) != null);
+};
+
+CompositeLocator.prototype.addAttribute = function(key, value) {
+    this.attributes.set(key, value);
+};
+
+CompositeLocator.prototype.removeAttribute = function(key) {
+    this.attributes.remove(key);
+};
+
+CompositeLocator.prototype.attributesToString = function(){
+    var sb = new StringBuffer();
+
+    if(this.attributes.size() >0 ){
+        var keys = this.attributes.keySet();
+        for(var i=0; i< keys.length; i++){
+            if(keys[i] != CONSTANTS.TEXT && keys[i] != CONSTANTS.POSITION && keys[i] != CONSTANTS.HEADER && keys[i] != CONSTANTS.TRAILER){
+                sb.append(", ").append(keys[i]).append(": ").append("\"").append(this.attributes.get(keys[i])).append("\"");
+            }
+        }
+    }
+
+    return sb.toString();
+};
+
+CompositeLocator.prototype.descLocator = function(){
+    var sb = new StringBuffer();
+
+    sb.append("clocator: [");
+    if(this.header == null && this.tag == null && this.text == null && this.trailer == null && this.position == null && this.attributes.size() ==0){
+        //if empty locator
+        sb.append(":");
+    }else{
+        var count = 0;
+        if(this.tag != null && this.tag.length > 0){
+            sb.append(CONSTANTS.TAG).append(": '").append(this.tag).append("'");
+            ++count;
+        }
+        if(this.text != null && this.text.length > 0){
+            if(count > 0){
+                sb.append(", ");
+            }
+            sb.append(CONSTANTS.TEXT).append(": '").append(specialCharacterProof(this.text)).append("'");
+            ++count;
+        }
+        if(this.position != null){
+            if(count > 0){
+                sb.append(", ");
+            }
+            sb.append(CONSTANTS.POSITION).append(": '").append(this.position).append("'");
+            ++count;
+        }
+        if(this.header != null && trimString(this.header).length > 0){
+            if(count > 0){
+                sb.append(", ");
+            }
+            sb.append(CONSTANTS.HEADER).append(": '").append(this.header).append("'");
+            ++count;
+        }
+        if(this.trailer != null && trimString(this.trailer).length > 0){
+            if(count > 0){
+                sb.append(", ");
+            }
+            sb.append(CONSTANTS.TRAILER).append(": '").append(this.trailer).append("'");
+            ++count;
+        }
+        if (this.direct) {
+            if(count > 0){
+                sb.append(", ");
+            }
+            sb.append("direct: 'true'");
+            ++count;
+        }
+
+        if(this.attributes != null && this.attributes.size() > 0){
+            sb.append(this.descAttributes())
+        }
+    }
+    sb.append("]");
+
+    return sb.toString();
+};
+
+CompositeLocator.prototype.strLocator = function(){
+    var sb = new StringBuffer();
+
+    sb.append("clocator: [");
+    if(this.header == null && this.tag == null && this.text == null && this.trailer == null && this.position == null && this.attributes.size() ==0){
+        //if empty locator
+        sb.append(":");
+    }else{
+        var count = 0;
+        if(this.tag != null && this.tag.length > 0){
+            sb.append(CONSTANTS.TAG).append(": ").append("\"").append(this.tag).append("\"");
+            ++count;
+        }
+        if(this.text != null && this.text.length > 0){
+            if(count > 0){
+                sb.append(", ");
+            }
+            sb.append(CONSTANTS.TEXT).append(": ").append("\"").append(this.text).append("\"");
+            ++count;
+        }
+        if(this.position != null){
+            if(count > 0){
+                sb.append(", ");
+            }
+            sb.append(CONSTANTS.POSITION).append(": ").append("\"").append(this.position).append("\"");
+            ++count;
+        }
+        if(this.header != null && trimString(this.header).length > 0){
+            if(count > 0){
+                sb.append(", ");
+            }
+            sb.append(CONSTANTS.HEADER).append(": ").append("\"").append(this.header).append("\"");
+            ++count;
+        }
+        if(this.trailer != null && trimString(this.trailer).length > 0){
+            if(count > 0){
+                sb.append(", ");
+            }
+            sb.append(CONSTANTS.TRAILER).append(": ").append("\"").append(this.trailer).append("\"");
+            ++count;
+        }
+        if (this.direct) {
+            if(count > 0){
+                sb.append(", ");
+            }
+            sb.append("direct: \"true\"");
+            ++count;
+        }
+        if(this.attributes != null && this.attributes.size() > 0){
+            sb.append(this.attributesToString())
+        }
+
+    }
+    sb.append("]");
+
+    return sb.toString();
+};
+
+CompositeLocator.prototype.descAttributes = function(){
+    var sb = new StringBuffer();
+
+    if(this.attributes.size() >0 ){
+        var keys = this.attributes.keySet();
+        for(var i=0; i< keys.length; i++){
+            if(keys[i] != CONSTANTS.TEXT && keys[i] != CONSTANTS.POSITION && keys[i] != CONSTANTS.HEADER && keys[i] != CONSTANTS.TRAILER){
+                sb.append(", ").append(keys[i]).append(": '").append(specialCharacterProof(this.attributes.get(keys[i]))).append("'");
+            }
+        }
+
+    }
+
+    return sb.toString();
+};
+
+CompositeLocator.prototype.buildLocator = function(attributes){
+    if(attributes != null && attributes.size() > 0){
+        this.tag = attributes.get(CONSTANTS.TAG);
+        this.text = attributes.get(CONSTANTS.TEXT);
+        this.position = attributes.get(CONSTANTS.POSITION);
+        var header = attributes.get(CONSTANTS.HEADER);
+        if (header != null){
+            this.header = header;
+        }
+        var trailer = attributes.get(CONSTANTS.TRAILER);
+        if(trailer != null){
+            this.trailer = trailer;
+        }
+
+        this.buildLocatorFromAttributes(attributes);
+    }
+
+    return this;
+};
+
+
+CompositeLocator.prototype.buildLocatorFromAttributes = function(attributes) {
+    if (attributes != null && attributes.size() > 0) {
+        var keys = attributes.keySet();
+        for (var i = 0; i < keys.length; i++) {
+            var key = keys[i];
+//            if(key != CONSTANTS.TAG && key != CONSTANTS.TEXT && key != CONSTANTS.POSITION && key != CONSTANTS.HEADER && key != CONSTANTS.TRAILER){
+            if (key != CONSTANTS.TAG && key != CONSTANTS.HEADER && key != CONSTANTS.TRAILER && key != CONSTANTS.TEXT) {
+                var value = attributes.get(key);
+                if (value != null && trimString(value).length > 0) {
+                    this.attributes.set(key, value);
+                }
+            }
+        }
+    }
+};
+
+CompositeLocator.prototype.toJSON = function(){
+    var jso = {};
+    if(this.header != null){
+        jso[CONSTANTS.HEADER] = this.header;
+    }
+    if(this.trailer != null){
+       jso[CONSTANTS.TRAILER] = this.trailer;
+    }
+    if(this.tag != null){
+        jso[CONSTANTS.TAG] = this.tag;
+    }
+    if(this.text != null){
+        jso[CONSTANTS.TEXT] = this.text;
+    }
+    if(this.position != null){
+       jso[CONSTANTS.POSITION] = this.position;
+    }
+    if(this.direct){
+        jso[CONSTANTS.DIRECT] = this.direct;
+    }
+    if(this.attributes != null && this.attributes.size() > 0){
+        var attrs = {};
+        var keys = this.attributes.keySet();
+        for(var i=0; i<keys.length; i++){
+            var key = keys[i];
+            attrs[key] = this.attributes.get(key);
+        }
+        jso[CONSTANTS.ATTRIBUTES] = attrs;
+    }
+
+    return jso;
+};

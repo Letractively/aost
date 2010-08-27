@@ -1,3 +1,37 @@
+var ErrorCodes = {
+    UI_OBJ_NOT_FOUND: "UI object not found",
+    INVALID_TELLURIUM_COMMAND : "Invalid Tellurium command",
+    INVALID_CALL_ON_UI_OBJ : "Invalid call on UI object",
+    UI_OBJ_CANNOT_BE_LOCATED: "UI object cannot be located",
+    UI_MODULE_IS_NULL: "UI module is null",
+    DOM_NOT_SPECIFIED: "DOM is not specified",
+    ELEMENT_HAS_NO_VALUE: "No value attribute in element",
+    TIME_OUT: "Command Timeouts",
+    ASSERTION_ERROR: "Assertion Error",
+    UNKNOWN: "Unknown"
+};
+
+
+function TelluriumError(type, message) {
+    var error = new Error(message);
+    if (typeof(arguments.caller) != 'undefined') { // IE, not ECMA
+        var result = '';
+        for (var a = arguments.caller; a != null; a = a.caller) {
+            result += '> ' + a.callee.toString() + '\n';
+            if (a.caller == a) {
+                result += '*';
+                break;
+            }
+        }
+        error.stack = result;
+    }
+
+    error.isTelluriumError = true;
+    error.type = type;
+    
+    return error;
+}
+
 var getEvent = function(name, key , objRef){
     var e = teJQuery.Event(name);
     e.which = key.charCodeAt(0);
@@ -39,9 +73,13 @@ Outlines.prototype.getOutline = function(index){
     return this.outlines[i];
 };
 
-var tellurium = null;
+teJQuery(document).ready(function() {
+    tellurium = new Tellurium();
+    tellurium.initialize();
+    !tellurium.logManager.isUseLog || fbLog("Tellurium initialized after document ready", tellurium);
+});
 
-
+/*
 teJQuery(document).ready(function() {
     tellurium = new Tellurium();
     tellurium.initialize();
@@ -57,12 +95,17 @@ teJQuery(document).ready(function() {
     if(typeof (firebug) != "undefined")
         void(firebug);
 });
+*/
 
 //add custom jQuery Selector :te_text()
 //
 
 teJQuery.extend(teJQuery.expr[':'], {
     te_text: function(a, i, m) {
+        if(m[3] != null && m[3].startsWith("regexp:")){
+            var pattern = m[3].substring(7);
+            return teJQuery(a).text().match(pattern);
+        }
         return teJQuery.trim(teJQuery(a).text()) === teJQuery.trim(m[3]);
     }
 });
@@ -144,12 +187,29 @@ teJQuery.expr[':'].regex = function(elem, index, match) {
     return regex.test(teJQuery(elem)[attr.method](attr.property));
 };
 
+teJQuery.expr[':'].data = function(elem, index, m) {
+
+    m[0] = m[0].replace(/:data\(|\)$/g, '');
+
+    var regex = new RegExp('([\'"]?)((?:\\\\\\1|.)+?)\\1(,|$)', 'g'),
+        key = regex.exec( m[0] )[2],
+        val = regex.exec( m[0] )[2];
+
+    return val ? teJQuery(elem).data(key) == val : !!teJQuery(elem).data(key);
+};
+
 teJQuery.fn.outerHTML = function() {
-    var doc = this[0] ? this[0].ownerDocument : document;
-    
-    return teJQuery('<div>', doc).append( this.eq(0).clone() ).html();
+//    var $me = teJQuery("<div/>").append( teJQuery(this[0]).clone() );
 
 //    return teJQuery("<div/>").append( teJQuery(this[0]).clone() ).html();
+    try{
+        var doc = this[0] ? this[0].ownerDocument : document;
+        return teJQuery('<div/>', doc).append( this.eq(0).clone() ).html();
+    }catch(error){
+        fbWarn("Error getting outHTML: " + error.message, error);
+        return "";
+    }
+
 };
 
 function getColor(elem, cssName){
@@ -171,8 +231,12 @@ function getColor(elem, cssName){
    return color;
 }
 
-function Identifier(){
-    this.sn = 100;
+function Identifier(sn){
+    if(sn != undefined){
+        this.sn = sn;
+    }else{
+        this.sn = 100;
+    }
 }
 
 Identifier.prototype.next = function(){
@@ -285,7 +349,6 @@ function EngineState(){
 }
 
 function Tellurium (){
-
     this.cache = new TelluriumCache();
 
     this.currentWindow = null;
@@ -348,6 +411,7 @@ Tellurium.prototype.registerDefaultUiBuilders = function(){
     this.uiBuilderMap.put("UrlLink", new UiUrlLinkBuilder());
     this.uiBuilderMap.put("Container", new UiContainerBuilder());
     this.uiBuilderMap.put("Frame", new UiFrameBuilder());
+    this.uiBuilderMap.put("Form", new UiFormBuilder());
     this.uiBuilderMap.put("List", new UiListBuilder());
     this.uiBuilderMap.put("Table", new UiTableBuilder());
     this.uiBuilderMap.put("StandardTable", new UiStandardTableBuilder());
@@ -359,6 +423,10 @@ Tellurium.prototype.registerDefaultUiBuilders = function(){
 //expose this so that users can hook in their own custom UI objects or even overwrite the default UI objects
 Tellurium.prototype.registerUiBuilder = function(name, builder){
     this.uiBuilderMap.put(name, builder);
+};
+
+Tellurium.prototype.getRegisteredUiTypes = function(){
+    return this.uiBuilderMap.keySet();
 };
 
 Tellurium.prototype.registerTeApis = function(){
@@ -459,7 +527,6 @@ Tellurium.prototype.registerTeApis = function(){
     this.registerApi("getUiByTag", false, "ARRAY");
     this.registerApi("removeMarkedUids", false, "ARRAY");
     this.registerApi("getIndex", true, "NUMBER");
-    this.registerApi("reset", true, "VOID");
 };
 
 Tellurium.prototype.flipLog = function(){
@@ -997,3 +1064,6 @@ Tellurium.prototype.updateArgumentList = function(cmd){
     }
 };
 
+//var tellurium = null;
+var tellurium = new Tellurium();
+tellurium.initialize();

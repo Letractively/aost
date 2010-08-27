@@ -1,7 +1,18 @@
 
 //base UI object
 var UiObject = Class.extend({
+    constants: {
+        TAG : "tag",
+        NAME: "name",
+        ID: "id",
+        RESPOND : "respond",
+        GROUP : "group"
+    },
+    
     init: function() {
+        //reference ID during UI module recording and generating process
+        this.refId = null;
+
         //UI object identification
         this.uid = null;
 
@@ -15,6 +26,9 @@ var UiObject = Class.extend({
         this.namespace = null;
 
         this.locator = null;
+        
+        //optional attributes
+        this.optionalAttributes = null;
 
         //event this object should be respond to
         this.events = null;
@@ -36,6 +50,151 @@ var UiObject = Class.extend({
 
         //UI Module reference, which UI module this UI object belongs to
         this.uim = null;
+
+        //the node associated with this UiObject
+        this.node = null;
+        
+        this.ctrl = false;
+        this.shift = false;
+        this.alt = false;
+        this.meta = false;
+
+        this.isContainer = false;
+        this.isLocatorValid = false;
+    },
+
+    postChildrenUidChange: function(){
+        //Does nothing for non-container UI objects
+    },
+
+    buildAttributeXml: function() {
+        if (this.optionalAttributes) {
+            var keySet = this.optionalAttributes.keySet();
+            var locator = this.locator;
+            var xmlArray = new Array();
+            var xmlBuffer = new StringBuffer();
+
+            for (var i = 0; i < keySet.length; i++) {
+                //should not change tag, thus, remove tag from the list
+                var key = keySet[i];
+                if (key != "tag") {
+                    var included = false;
+
+                    if (locator.isAttributeIncluded(key)) {
+                        included = true;
+                    }
+
+                    xmlArray.push("<attribute name=\"" + key + "\"" + " value=\"" + specialCharacterProof(this.optionalAttributes.get(key)) + "\"" + " sel=\"" + included + "\"" + "/>\n");
+                }
+            }
+
+            var xml = "<?xml version=\"1.0\"?>\n<attributes id=\"attributes_tree_xml\" xmlns=\"\">\n";
+
+            if (xmlArray != null) {
+                for (var j = 0; j < xmlArray.length; j++) {
+                    xmlBuffer.append(xmlArray[j]);
+                }
+            }
+
+
+            xml += xmlBuffer.toString();
+            xml += "</attributes>\n";
+
+            return xml;
+        }
+
+        return "";
+    },
+
+    updateAttributes: function(attributes){
+        this.locator.updateLocator(attributes);
+    },
+
+    strUiObject: function(level){
+        var sb = new StringBuffer();
+        for (var i = 0; i < level; i++) {
+            sb.append("\t");
+        }
+        sb.append(this.uiType).append("(uid: \"").append(this.uid);
+        if(this.locator != null)
+            sb.append("\", ").append(this.locator.strLocator());
+
+        if(this.respond != null && this.respond.length > 0){
+            sb.append(", respond: [");
+            for(var j=0; j<this.respond.length; j++){
+                if(j>0){
+                    sb.append(", ");
+                }
+                sb.append("\"").append(this.respond[j]).append("\"");
+            }
+            sb.append("]");
+        }
+        if(this.group){
+            sb.append(", group: \"true\"");
+        }
+        if(this.self){
+            sb.append(", self: \"true\"");
+        }
+
+        sb.append(")");
+
+        if (this.isContainer) {
+            sb.append("{");
+        }
+        sb.append("\n");
+
+        return sb.toString();
+    },
+
+    descObject: function() {
+        var sb = new StringBuffer();
+        sb.append(this.uiType).append("(uid: '").append(this.uid);
+        if(this.locator != null)
+            sb.append("', ").append(this.locator.descLocator());
+
+        if (this.respond != null && this.respond.length > 0) {
+            sb.append(", respond: [");
+            for (var j = 0; j < this.respond.length; j++) {
+                if (j > 0) {
+                    sb.append(", ");
+                }
+                sb.append("'").append(this.respond[j]).append("'");
+            }
+            sb.append("]");
+        }
+        if (this.group) {
+            sb.append(", group: 'true'");
+        }
+        if (this.self) {
+            sb.append(", self: 'true'");
+        }
+
+        sb.append(")");
+
+        return sb.toString();
+    },
+
+    strUiObjectFooter: function(level) {
+        var sb = new StringBuffer();
+
+        if (this.isContainer) {
+            for (var l = 0; l < level; l++) {
+                sb.append("\t");
+            }
+            sb.append("}\n");
+        }
+
+        return sb.toString();
+    },
+
+    paddingByLevel: function(level) {
+        var sb = new StringBuffer();
+
+        for (var l = 0; l < level; l++) {
+            sb.append("\t");
+        }
+
+        return sb.toString();
     },
 
     checkLevel: function(){
@@ -44,6 +203,45 @@ var UiObject = Class.extend({
         }
 
         return 1;
+    },
+
+    extraJSON: function(jso){
+        jso[CONSTANTS.UI_TYPE] = this.uiType;
+    },
+
+    buildJSON: function(){
+        var jso = {};
+        jso[CONSTANTS.UID] = this.uid;
+        if(this.metaData){
+            var jmd = {};
+            jmd[CONSTANTS.ID] = this.metaData.id;
+            jmd[CONSTANTS.TYPE] = CONSTANTS.UIOBJECT;
+            jso[CONSTANTS.META_DATA] = jmd;
+        }
+        if(this.lazy){
+            jso[CONSTANTS.LAZY] = this.lazy;
+        }
+        if(this.locator != null){
+            jso[CONSTANTS.LOCATOR] = this.locator.toJSON();
+        }
+        if(this.namespace != null){
+            jso[CONSTANTS.NAMESPACE] = this.namespace;
+        }
+        if(this.events != null){
+            jso[CONSTANTS.EVENTS] = this.events;
+        }
+        //add extra attributes to json object
+        this.extraJSON(jso);
+
+        return jso;
+    },
+
+    toJSON: function(){
+        var jso = {};
+        jso[CONSTANTS.KEY] = this.fullUid();
+        jso[CONSTANTS.OBJECT] = this.buildJSON();
+
+        return jso;
     },
 
     getIdAttribute: function(){
@@ -55,10 +253,14 @@ var UiObject = Class.extend({
             else
                 ida = this.locator.attributes["id"];
             if(ida == undefined)
-                ida = null;            
+                ida = null;
         }
 
         return ida;
+    },
+
+    hasChildren: function(){
+        return false;
     },
 
     getChildrenIds: function(){
@@ -115,12 +317,6 @@ var UiObject = Class.extend({
         node.objRef = this;
         node.rid = rid;
         node.pid = pid;
-//        node.uid = this.uid;
-/*        if(this.domRef != null){
-            node.domRef = this.domRef;
-        }else{
-            node.domRef = this.locateSelf(context, domref);
-        }*/
         node.domRef = domref;
 
         return node;
@@ -150,6 +346,10 @@ var UiObject = Class.extend({
     prelocate: function() {
         if (this.amICacheable())
             this.snapshot();
+    },
+
+    insertChild: function(uiid, obj){
+        fbError("Cannot insert object " + obj.uid + " to " + this.uid,  uiid);
     },
 
     walkTo: function(context, uiid) {
@@ -192,6 +392,11 @@ var UiObject = Class.extend({
         visitor.visit(context, this);
     },
 
+    around: function(context, visitor){
+        visitor.before(context, this);
+        visitor.after(context, this);
+    },
+
     amICacheable: function() {
         //check its parent and do not cache if its parent is not cacheable
         //If an object is cacheable, the path from the root to itself should
@@ -223,7 +428,160 @@ var UiObject = Class.extend({
             fbError("UI Object " + fid + " does not have the method " + methodName, this);
             throw new SeleniumError("UI Object " + fid + " does not have the method " + methodName);
         }
+    },
+
+    //Add UI event handlers here
+
+    fireEvent: function(context, event){
+        var element = context.domRef;
+        teJQuery(element).trigger(event);
+    },
+
+    blur: function(context){
+        var element = context.domRef;
+        teJQuery(element).blur();
+    },
+
+    focus: function(context){
+        var element = context.domRef;
+        teJQuery(element).focus();
+    },
+
+    click: function(context){
+        var element = context.domRef;
+        Syn.click(element);
+/*        var element = context.domRef;
+        var elementWithHref = getAncestorOrSelfWithJavascriptHref(element);
+        if(elementWithHref == null)
+            elementWithHref = element;
+        teJQuery(elementWithHref).focus();
+        if (elementWithHref.href || elementWithHref.url) {
+            if (teJQuery.browser.msie) {
+                elementWithHref.fireEvent("onclick");
+            } else {
+//                var evObj = document.createEvent('HTMLEvents');
+                var evObj = document.createEvent('MouseEvents');
+                evObj.initEvent('click', true, true);
+                elementWithHref.dispatchEvent(evObj);
+            }
+        } else {
+            teJQuery(elementWithHref).click();
+        }*/
+    },
+
+    clickAt: function(context, coordString){
+        var element = context.domRef;
+        var clientXY = getTargetXY(element, coordString);
+        //TODO: how to do click at using jQuery
+        var elementWithHref = getAncestorOrSelfWithJavascriptHref(element);
+        if (elementWithHref.href || elementWithHref.url) {
+            if (teJQuery.browser.msie) {
+                elementWithHref.fireEvent("onclick");
+            } else {
+                var evObj = document.createEvent('HTMLEvents');
+                evObj.initEvent('click', true, true);
+                elementWithHref.dispatchEvent(evObj);
+            }
+        } else {
+            teJQuery(elementWithHref).click();
+        }
+    },
+
+    doubleClick: function(context){
+        var element = context.domRef;
+//        teJQuery(element).dblclick();
+//        Syn.dblclick(element);
+        Syn.click(element);
+        Syn.trigger("dblclick", {}, element);
+    },
+
+    mouseOver: function(context){
+        var element = context.domRef;
+        teJQuery(element).trigger('mouseover');
+    },
+
+    mouseDown: function(context){
+        var element = context.domRef;
+        teJQuery(element).trigger('mousedown');
+    },
+
+    mouseEnter: function(context){
+        var element = context.domRef;
+        teJQuery(element).trigger('mouseenter');
+    },
+
+    mouseLeave: function(context){
+        var element = context.domRef;
+        teJQuery(element).trigger('mouseleave');
+    },
+
+    mouseOut: function(context){
+        var element = context.domRef;
+        teJQuery(element).trigger('mouseout');
+    },
+
+    getValue: function(context) {
+        var element = context.domRef;
+        if (element.type) {
+            if (element.type.toUpperCase() == 'CHECKBOX' || element.type.toUpperCase() == 'RADIO')
+            {
+                return (element.checked ? 'on' : 'off');
+            }
+        }
+        if (element.value == null) {
+            throw new TelluriumError(ErrorCodes.ELEMENT_HAS_NO_VALUE, "This element has no value; is it really a form field?");
+        }
+        
+        return element.value;
+    },
+
+    getAttribute: function(context, attribute){
+        var element = context.domRef;
+        return teJQuery(element).attr(attribute);
+    },
+
+    getText: function(context){
+        var element = context.domRef;
+        return teJQuery(element).text();
+    },
+
+    isVisible: function(context){
+        var element = context.domRef;
+        var isHiddenCSS = element.css("visibility") == "hidden" ? true : false;
+        var isHidden = element.is(":hidden");
+
+        if (isHidden) {
+            return false;
+        } else if (isHiddenCSS) {
+            return false;
+        } else {
+            return true;
+        }
+    },
+
+    getCSS: function(context, cssName){
+        var element = context.domRef;
+        var out = [];
+        var $e = teJQuery(element);
+        for (var i = 0; i < $e.length; i++) {
+            var elem = $e.get(i);
+            var val = teJQuery(elem).css(cssName);
+            //need to walk up the tree if the color is transparent
+            if (val == "transparent" && (cssName == "background-color" || cssName == "backgroundColor" || cssName == "color")) {
+                val = getColor(elem, cssName);
+            }
+            out.push(val);
+        }
+
+        return out;
+    },
+
+    isDisabled: function(context){
+        var element = context.domRef;
+        var $e = teJQuery(element);
+        return $e.attr('disabled');        
     }
+
 });
 
 var UiAllPurposeObject = UiObject.extend({
@@ -247,6 +605,25 @@ var UiCheckBox = UiObject.extend({
         this.uiType = 'CheckBox';
         this.tag = "input";
         this.type = "checkbox";
+    },
+
+    check: function(context){
+        var element = context.domRef;
+        element.checked = true;
+    },
+
+    uncheck: function(context){
+        var element = context.domRef;
+        element.checked = false;
+    },
+
+    isChecked: function(context){
+        var element = context.domRef;
+        if (element.checked == null) {
+            logger.warn("Element is not a toggle-button.");
+            return false;
+        }
+        return element.checked;
     }
 });
 
@@ -271,6 +648,35 @@ var UiInputBox = UiObject.extend({
         this._super();
         this.uiType = 'InputBox';
         this.tag = "input";
+    },
+
+    type: function(context, val){
+        var element = context.domRef;
+        teJQuery(element).val(val);
+    },
+
+    typeKey: function(context, key){
+        var element = context.domRef;
+        var $elem = teJQuery(element);
+        $elem.val($elem.val()+key).trigger(getEvent("keydown", key ,this)).trigger(getEvent("keypress", key, this)).trigger(getEvent("keyup", key, this));
+    },
+
+    keyDown: function(context, key){
+        var element = context.domRef;
+        var $elem = teJQuery(element);
+        $elem.val($elem.val()).trigger(getEvent("keydown", key, this));
+    },
+
+    keyPres: function(context, key){
+        var element = context.domRef;
+        var $elem = teJQuery(element);
+        $elem.val($elem.val() + key).trigger(getEvent("keypress", key, this));
+    },
+
+    keyUp: function(context, key){
+        var element = context.domRef;
+        var $elem = teJQuery(element);
+        $elem.val($elem.val()).trigger(getEvent("keyup", key , this));
     }
 });
 
@@ -280,6 +686,25 @@ var UiRadioButton = UiObject.extend({
         this.uiType = 'RadioButton';
         this.tag = "input";
         this.type = "radio";
+    },
+
+    check: function(context){
+        var element = context.domRef;
+        element.checked = true;
+    },
+
+    uncheck: function(context){
+        var element = context.domRef;
+        element.checked = false;
+    },
+
+    isChecked: function(context){
+        var element = context.domRef;
+        if (element.checked == null) {
+            logger.warn("Element is not a toggle-button.");
+            return false;
+        }
+        return element.checked;
     }
 });
 
@@ -288,6 +713,24 @@ var UiSelector = UiObject.extend({
         this._super();
         this.uiType = 'Selector';
         this.tag = "select";
+    },
+
+    select: function(context, optionSelector){
+        var element = context.domRef;
+        var $sel = teJQuery(element);
+        //first, remove all selected element
+        $sel.find("option").removeAttr("selected");
+        //construct the select option
+        var opt = "option" + optionSelector;
+        //select the appropriate option
+        $sel.find(opt).attr("selected", "selected");
+        if (teJQuery.browser.msie) {
+            element.fireEvent("onchange");
+        } else {
+            var evObj = document.createEvent('HTMLEvents');
+            evObj.initEvent('change', true, true);
+            element.dispatchEvent(evObj);
+        }
     }
 });
 
@@ -304,6 +747,11 @@ var UiSubmitButton = UiButton.extend({
         this._super();
         this.uiType = 'SubmitButton';
         this.type = "submit";
+    },
+
+    submit: function(context){
+        var element = context.domRef;
+        teJQuery(element).submit();        
     }
 });
 
@@ -319,16 +767,43 @@ var UiUrlLink = UiObject.extend({
         this._super();
         this.uiType = 'UrlLink';
         this.tag = "a";
-    }    
+    }
 });
 
 var UiContainer = UiObject.extend({
     init: function(){
         this._super();
         this.uiType = 'Container';
+        this.isContainer = true;
         this.group = false;
         this.noCacheForChildren = false;
         this.components = new Hashtable();
+    },
+
+    extraJSON: function(jso){
+        this._super(jso);
+        jso[CONSTANTS.NO_CACHE_FOR_CHILDREN] = this.noCacheForChildren;
+    },
+
+    postChildrenUidChange: function(){
+        if(this.components.size() > 0){
+            var keys = this.components.keySet();
+            for(var i=0; i<keys.length; i++){
+                var key = keys[i];
+                var child = this.components.get(key);
+                if(child.refId != null){
+                    //child UID has been changed
+                    if(child.uid != key){
+                        this.components.remove(key);
+                        this.components.put(child.uid, child);
+                    }
+                }
+            }
+        }
+    },
+
+    hasChildren: function(){
+        return this.components.size() > 0;
     },
 
     getChildrenIds: function(){
@@ -340,6 +815,17 @@ var UiContainer = UiObject.extend({
         }
 
         return ids;
+    },
+
+    insertChild: function(uiid, obj){
+        var key = uiid.pop();
+        if(uiid.size() == 0){
+            obj.parent = this;
+            this.components.put(key, obj);
+        }else{
+            var child = this.components.get(key);
+            child.insertChild(uiid, obj);
+        }
     },
 
     goToPlace:  function(uiid, uiobj) {
@@ -468,7 +954,19 @@ var UiContainer = UiObject.extend({
             }
         }
     },
-    
+
+    around: function(context, visitor){
+        visitor.before(context, this);
+        if(this.components != null && this.components.length > 0){
+            var keys = this.components.keySet();
+            for(var i=0; i<keys.length; i++){
+                var child = this.components.get(keys[i]);
+                child.around(context, visitor);
+            }
+        }
+        visitor.after(context, this);
+    },
+
     buildSNode: function(context, pid, rid, domref){
 
         var node = new UiCNode();
@@ -824,6 +1322,11 @@ var UiForm = UiContainer.extend({
         this._super();
         this.uiType = 'Form';
         this.tag = "form";
+    },
+
+    submit: function(context){
+        var element = context.domRef;
+        teJQuery(element).submit();
     }
 });
 
@@ -834,7 +1337,103 @@ var UiFrame = UiContainer.extend({
         this.id = null;
         this.name = null;
         this.title = null;
+        this.tag = "iframe";
+    },
+
+    extraJSON: function(jso){
+        this._super(jso);
+        if(this.id != null)
+            jso[CONSTANTS.ID] = this.id;
+        if(this.name != null)
+            jso[CONSTANTS.NAME] = this.name;
+        if(this.title != null)
+            jso[CONSTANTS.TITLE] = this.name;
+    },
+
+    strUiObject: function(level){
+        var sb = new StringBuffer();
+        for (var i = 0; i < level; i++) {
+            sb.append("\t");
+        }
+        sb.append(this.uiType).append("(uid: \"").append(this.uid);
+
+        if(this.id != null && this.id.trim().length > 0){
+           sb.append(", id: \"").append(this.id).append("\"");
+        }
+
+        if(this.name != null && this.name.trim().length > 0){
+           sb.append(", name: \"").append(this.name).append("\"");  
+        }
+
+/*
+        if(this.locator != null)
+            sb.append("\", ").append(this.locator.strLocator());
+*/
+
+        if(this.respond != null && this.respond.length > 0){
+            sb.append(", respond: [");
+            for(var j=0; j<this.respond.length; j++){
+                if(j>0){
+                    sb.append(", ");
+                }
+                sb.append("\"").append(this.respond[j]).append("\"");
+            }
+            sb.append("]");
+        }
+        if(this.group){
+            sb.append(", group: \"true\"");
+        }
+        if(this.self){
+            sb.append(", self: \"true\"");
+        }
+
+        sb.append(")");
+
+        if (this.isContainer) {
+            sb.append("{");
+        }
+        sb.append("\n");
+
+        return sb.toString();
+    },
+
+    descObject: function() {
+        var sb = new StringBuffer();
+        sb.append(this.uiType).append("(uid: '").append(this.uid);
+
+        if(this.id != null){
+           sb.append(", id: '").append(this.id).append("'");
+        }
+
+        if(this.name != null){
+           sb.append(", name: '").append(this.name).append("'");
+        }
+       
+        if(this.locator != null)
+            sb.append("', ").append(this.locator.descLocator());
+
+        if (this.respond != null && this.respond.length > 0) {
+            sb.append(", respond: [");
+            for (var j = 0; j < this.respond.length; j++) {
+                if (j > 0) {
+                    sb.append(", ");
+                }
+                sb.append("'").append(this.respond[j]).append("'");
+            }
+            sb.append("]");
+        }
+        if (this.group) {
+            sb.append(", group: 'true'");
+        }
+        if (this.self) {
+            sb.append(", self: 'true'");
+        }
+
+        sb.append(")");
+
+        return sb.toString();
     }
+
 });
 
 var UiList = UiContainer.extend({
@@ -847,6 +1446,30 @@ var UiList = UiContainer.extend({
         this.rTree= new RTree();
         this.rTree.indices = this.components;
         this.rTree.preBuild();
+    },
+
+    postChildrenUidChange: function(){
+        //TODO: Should overwrite this method
+        if(this.components.size() > 0){
+            var keys = this.components.keySet();
+            for(var i=0; i<keys.length; i++){
+                var key = keys[i];
+                var child = this.components.get(key);
+                if(child.refId != null){
+                    //child UID has been changed
+                    if(child.uid != key){
+                        this.components.remove(key);
+                        this.components.put(child.uid, child);
+                    }
+                }
+            }
+        }
+    },
+
+    extraJSON: function(jso){
+        this._super(jso);
+        if(this.separator != null)
+            jso[CONSTANTS.SEPARATOR] = this.separator;
     },
 
     goToPlace:  function(uiid, uiobj) {
@@ -1253,6 +1876,28 @@ var UiTable = UiContainer.extend({
         this.rGraph.indices = this.components;
         this.rGraph.preBuild();
         this.multiSet = ["all", "odd", "even"];
+    },
+
+    postChildrenUidChange: function(){
+        //TODO: Should overwrite this method
+        if(this.components.size() > 0){
+            var keys = this.components.keySet();
+            for(var i=0; i<keys.length; i++){
+                var key = keys[i];
+                var child = this.components.get(key);
+                if(child.refId != null){
+                    //child UID has been changed
+                    if(child.uid != key){
+                        this.components.remove(key);
+                        this.components.put(child.uid, child);
+                    }
+                }
+            }
+        }
+    },
+
+    hasChildren: function(){
+        return this.components.size() > 0 || this.headers.size() > 0;
     },
 
     goToPlace:  function(uiid, uiobj) {
@@ -2124,6 +2769,26 @@ var UiTable = UiContainer.extend({
         }
     },
 
+    around: function(context, visitor){
+        visitor.before(context, this);
+        if(this.headers != null && this.headers.length > 0){
+            var hkeys = this.headers.keySet();
+            for(var i=0; i<this.headers.length; i++){
+                var header = this.headers.get(hkeys[i]);
+                header.around(context, visitor);
+            }
+        }
+
+        if(this.components != null && this.components.length > 0){
+            var keys = this.components.keySet();
+            for(var j=0; j<keys.length; j++){
+                var child = this.components.get(keys[j]);
+                child.around(context, visitor);
+            }
+        }
+        visitor.after(context, this);
+    },
+
     walkTo: function(context, uiid){
         !tellurium.logManager.isUseLog || fbLog("Walk to " + this.uiType + " " + this.uid, this);
         if (!context.skipNext) {
@@ -2212,6 +2877,41 @@ var UiStandardTable = UiContainer.extend({
         this.fct = "td";
         
         this.multiSet = ["all", "odd", "even"];
+    },
+
+    postChildrenUidChange: function(){
+        //TODO: Should overwrite this method
+        if(this.components.size() > 0){
+            var keys = this.components.keySet();
+            for(var i=0; i<keys.length; i++){
+                var key = keys[i];
+                var child = this.components.get(key);
+                if(child.refId != null){
+                    //child UID has been changed
+                    if(child.uid != key){
+                        this.components.remove(key);
+                        this.components.put(child.uid, child);
+                    }
+                }
+            }
+        }
+    },
+    
+    hasChildren: function(){
+        return this.components.size() > 0 || this.headers.size() > 0 || this.footers.size() > 0;
+    },
+
+    extraJSON: function(jso){
+      this._super(jso);
+      jso[CONSTANTS.HEAD_TAG] = this.ht;
+      jso[CONSTANTS.HEAD_ROW_TAG] = this.hrt;
+      jso[CONSTANTS.HEAD_COLUMN_TAG] = this.hct;
+      jso[CONSTANTS.BODY_TAG] = this.bt;
+      jso[CONSTANTS.BODY_ROW_TAG] = this.brt;
+      jso[CONSTANTS.BODY_COLUMN_TAG] = this.bct;
+      jso[CONSTANTS.FOOT_TAG] = this.ft;
+      jso[CONSTANTS.FOOT_ROW_TAG] = this.frt;
+      jso[CONSTANTS.FOOT_COLUMN_TAG] = this.fct;
     },
 
     goToPlace:  function(uiid, uiobj) {
@@ -3219,6 +3919,35 @@ var UiStandardTable = UiContainer.extend({
         }
     },
 
+    around: function(context, visitor){
+        visitor.before(context, this);
+        if(this.headers != null && this.headers.length > 0){
+            var hkeys = this.headers.keySet();
+            for(var i=0; i<this.headers.length; i++){
+                var header = this.headers.get(hkeys[i]);
+                header.around(context, visitor);
+            }
+        }
+
+        if(this.components != null && this.components.length > 0){
+            var keys = this.components.keySet();
+            for(var j=0; j<keys.length; j++){
+                var child = this.components.get(keys[j]);
+                child.around(context, visitor);
+            }
+        }
+
+        if(this.footers != null && this.footers.length > 0){
+            var fkeys = this.footers.keySet();
+            for(var k=0; k<this.footers.length; k++){
+                var footer = this.footers.get(fkeys[k]);
+                footer.around(context, visitor);
+            }
+        }
+
+        visitor.after(context, this);
+    },
+
     buildHeaderSData: function(context, npid, domref, key, child){
         var alg = context.alg;
         var sel = this.getHeaderSelector(key, child);
@@ -3680,174 +4409,262 @@ var UiWindow = UiContainer.extend({
         this.id = null;
         this.name = null;
         this.title = null;
+    },
+
+    extraJSON: function(jso){
+        this._super(jso);
+        if(this.id != null)
+            jso[CONSTANTS.ID] = this.id;
+        if(this.name != null)
+            jso[CONSTANTS.NAME] = this.name;
+        if(this.title != null)
+            jso[CONSTANTS.TITLE] = this.name;
+    },
+    
+    strUiObject: function(level){
+        var sb = new StringBuffer();
+        for (var i = 0; i < level; i++) {
+            sb.append("\t");
+        }
+        sb.append(this.uiType).append("(uid: \"").append(this.uid);
+
+        if(this.id != null && this.id.trim().length > 0){
+           sb.append(", id: \"").append(this.id).append("\"");
+        }
+
+        if(this.name != null && this.name.trim().length > 0){
+           sb.append(", name: \"").append(this.name).append("\"");
+        }
+
+/*
+        if(this.locator != null)
+            sb.append("\", ").append(this.locator.strLocator());
+*/
+
+        if(this.respond != null && this.respond.length > 0){
+            sb.append(", respond: [");
+            for(var j=0; j<this.respond.length; j++){
+                if(j>0){
+                    sb.append(", ");
+                }
+                sb.append("\"").append(this.respond[j]).append("\"");
+            }
+            sb.append("]");
+        }
+        if(this.group){
+            sb.append(", group: \"true\"");
+        }
+        if(this.self){
+            sb.append(", self: \"true\"");
+        }
+
+        sb.append(")");
+
+        if (this.isContainer) {
+            sb.append("{");
+        }
+        sb.append("\n");
+
+        return sb.toString();
+    },
+
+    descObject: function() {
+        var sb = new StringBuffer();
+        sb.append(this.uiType).append("(uid: '").append(this.uid);
+
+        if(this.id != null){
+           sb.append(", id: '").append(this.id).append("'");
+        }
+
+        if(this.name != null){
+           sb.append(", name: '").append(this.name).append("'");
+        }
+
+        if(this.locator != null)
+            sb.append("', ").append(this.locator.descLocator());
+
+        if (this.respond != null && this.respond.length > 0) {
+            sb.append(", respond: [");
+            for (var j = 0; j < this.respond.length; j++) {
+                if (j > 0) {
+                    sb.append(", ");
+                }
+                sb.append("'").append(this.respond[j]).append("'");
+            }
+            sb.append("]");
+        }
+        if (this.group) {
+            sb.append(", group: 'true'");
+        }
+        if (this.self) {
+            sb.append(", self: 'true'");
+        }
+
+        sb.append(")");
+
+        return sb.toString();
+    }
+
+});
+
+var UiObjectBuilder = Class.extend({
+    build: function(){
+        return new UiObject();
+    },
+
+    buildFrom: function(attributes, respond){
+        var obj = this.build();
+        obj.tag = attributes.get(CONSTANTS.TAG);
+        obj.respond = respond;
+        obj.locator = new CompositeLocator();
+        obj.locator.buildLocator(attributes);
+
+        return obj;
     }
 });
 
+var UiAllPurposeObjectBuilder = UiObjectBuilder.extend({
+   build: function(){
+        return new UiAllPurposeObject();
+   }
+});
 
-function UiAllPurposeObjectBuilder(){
+var UiButtonBuilder = UiObjectBuilder.extend({
+    build : function() {
+        return new UiButton();
+    }
+});
 
-}
+var UiCheckBoxBuilder = UiObjectBuilder.extend({
+    build : function(){
+        return new UiCheckBox();
+    }
+});
 
-UiAllPurposeObjectBuilder.prototype.build = function(){
-   return new UiAllPurposeObject();
-};
+var UiIconBuilder = UiObjectBuilder.extend({
+    build : function(){
+        return new UiIcon();
+    }
+});
 
-function UiButtonBuilder(){
+var UiImageBuilder = UiObjectBuilder.extend({
+    build : function(){
+        return new UiImage();
+    }
+});
 
-}
+var UiInputBoxBuilder = UiObjectBuilder.extend({
+    build : function(){
+        return new UiInputBox();
+    }
+});
 
-UiButtonBuilder.prototype.build = function(){
-   return new UiButton();
-};
+var UiRadioButtonBuilder = UiObjectBuilder.extend({
+    build : function(){
+        return new UiRadioButton();
+    }
+});
 
-function UiCheckBoxBuilder(){
+var UiSelectorBuilder = UiObjectBuilder.extend({
+    build : function(){
+        return new UiSelector();
+    }
+});
 
-}
+var UiSpanBuilder = UiObjectBuilder.extend({
+    build : function(){
+        return new UiSpan();
+    }
+});
 
-UiCheckBoxBuilder.prototype.build = function(){
-   return new UiCheckBox();
-};
+var UiSubmitButtonBuilder = UiObjectBuilder.extend({
+    build : function(){
+        return new UiSubmitButton();
+    }
+});
 
-function UiDivBuilder(){
+var UiTextBoxBuilder = UiObjectBuilder.extend({
+    build : function(){
+        return new UiTextBox();
+    }
+});
 
-}
+var UiUrlLinkBuilder = UiObjectBuilder.extend({
+    build : function(){
+        return new UiUrlLink();
+    }
+});
 
-UiDivBuilder.prototype.build = function(){
-    return new UiDiv();
-};
+var UiContainerBuilder = UiObjectBuilder.extend({
+    build : function(){
+        return new UiContainer();
+    }
+});
 
-function UiIconBuilder(){
+var UiDivBuilder = UiContainerBuilder.extend({
+    build : function(){
+        return new UiDiv();
+    }
+});
 
-}
+var UiRepeatBuilder = UiContainerBuilder.extend({
+    build : function(){
+        return new UiRepeat();
+    }
+});
 
-UiIconBuilder.prototype.build = function(){
-    return new UiIcon();
-};
+var UiFormBuilder = UiContainerBuilder.extend({
+    build : function(){
+        return new UiForm();
+    }
+});
 
-function UiImageBuilder(){
+var UiFrameBuilder = UiContainerBuilder.extend({
+    build : function(){
+        return new UiFrame();
+    },
 
-}
+    buildFrom: function(attributes, respond){
+        var obj = this.build();
+        obj.tag = attributes.get(CONSTANTS.TAG);
+        obj.respond = respond;
+        obj.name = attributes.get(CONSTANTS.NAME);
+        obj.id = attributes.get(CONSTANTS.ID);
 
-UiImageBuilder.prototype.build = function(){
-    return new UiImage();
-};
+        return obj;
+    }
+});
 
-function UiInputBoxBuilder(){
+var UiListBuilder = UiContainerBuilder.extend({
+    build : function(){
+        return new UiList();
+    }
+});
 
-}
+var UiTableBuilder = UiContainerBuilder.extend({
+    build : function(){
+        return new UiTable();
+    }
+});
 
-UiInputBoxBuilder.prototype.build = function(){
-    return new UiInputBox();
-};
+var UiStandardTableBuilder = UiContainerBuilder.extend({
+    build : function(){
+        return new UiStandardTable();
+    }
+});
 
-function UiRadioButtonBuilder(){
+var UiWindowBuilder = UiContainerBuilder.extend({
+    build : function(){
+        return new UiWindow();
+    },
 
-}
+    buildFrom: function(attributes, respond){
+        var obj = this.build();
+        obj.tag = attributes.get(CONSTANTS.TAG);
+        obj.respond = respond;
+        obj.name = attributes.get(CONSTANTS.NAME);
+        obj.id = attributes.get(CONSTANTS.ID);
 
-UiRadioButtonBuilder.prototype.build = function(){
-    return new UiRadioButton();
-};
-
-function UiSelectorBuilder(){
-
-}
-
-UiSelectorBuilder.prototype.build = function(){
-    return new UiSelector();
-};
-
-function UiSpanBuilder(){
-
-}
-
-UiSpanBuilder.prototype.build = function(){
-    return new UiSpan();
-};
-
-function UiSubmitButtonBuilder(){
-
-}
-
-UiSubmitButtonBuilder.prototype.build = function(){
-    return new UiSubmitButton();
-};
-
-function UiTextBoxBuilder(){
-
-}
-
-UiTextBoxBuilder.prototype.build = function(){
-     return new UiTextBox();
-};
-
-function UiUrlLinkBuilder(){
-
-}
-
-UiUrlLinkBuilder.prototype.build = function(){
-    return new UiUrlLink();
-};
-
-function UiContainerBuilder(){
-
-}
-
-UiContainerBuilder.prototype.build = function(){
-    return new UiContainer();
-};
-
-function UiRepeatBuilder(){
-
-}
-
-UiRepeatBuilder.prototype.build = function(){
-    return new UiRepeat();
-};
-
-function UiFormBuilder(){
-
-}
-
-UiFormBuilder.prototype.build = function(){
-    return new UiForm();
-};
-
-function UiFrameBuilder(){
-
-}
-
-UiFrameBuilder.prototype.build = function(){
-    return new UiFrame();
-};
-
-function UiListBuilder(){
-
-}
-
-UiListBuilder.prototype.build = function(){
-    return new UiList();
-};
-
-function UiTableBuilder(){
-
-}
-
-UiTableBuilder.prototype.build = function(){
-    return new UiTable();
-};
-
-function UiStandardTableBuilder(){
-
-}
-
-UiStandardTableBuilder.prototype.build = function(){
-    return new UiStandardTable();
-};
-
-function UiWindowBuilder(){
-
-}
-
-UiWindowBuilder.prototype.build = function(){
-    return new UiWindow();
-};
+        return obj;
+    }
+});
