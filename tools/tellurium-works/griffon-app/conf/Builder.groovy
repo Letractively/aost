@@ -19,3 +19,4 @@ root.'MiglayoutGriffonAddon'.addon=true
 root.'JsyntaxpaneGriffonAddon'.addon=true
 
 root.'TangoiconsGriffonAddon'.addon=true
+

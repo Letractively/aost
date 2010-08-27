@@ -110,7 +110,7 @@ mainWindow = application(title: 'TelluriumWorks',
       }
     }
     menu('Help') {
- //     menuItem helpAction
+      //     menuItem helpAction
       menuItem tipsAction
       separator()
       menuItem aboutAction
@@ -158,7 +158,7 @@ mainWindow = application(title: 'TelluriumWorks',
         textField(columns: 20, constraints: 'span 2, wrap',
                 text: bind('profile', source: model.serverConfig, mutual: true))
 
-        checkBox(id: "multipleWindow", selected: bind('multipleWindow', source:model.serverConfig, mutual: true), text: "Multiple Windows", constraints: 'span 2,wrap')
+        checkBox(id: "multipleWindow", selected: bind('multipleWindow', source: model.serverConfig, mutual: true), text: "Multiple Windows", constraints: 'span 2,wrap')
 
         separator(constraints: 'grow, span 3, wrap')
 
@@ -221,11 +221,11 @@ mainWindow = application(title: 'TelluriumWorks',
         )
 
 //        checkBox(id: "useTrace", selected: false, text: "Trace", constraints: 'wrap')
-        checkBox(id: "useTrace", selected: bind ('useTrace', source: model.telluriumConfig, mutual: true), text: "Trace", constraints: 'wrap')
+        checkBox(id: "useTrace", selected: bind('useTrace', source: model.telluriumConfig, mutual: true), text: "Trace", constraints: 'wrap')
 
 //        checkBox(id: "useScreenShot", selected: false, text: "ScreenShot", constraints: 'wrap')
 
-        checkBox(id: "useScreenShot", selected: bind ('useScreenShot', source: model.telluriumConfig, mutual: true), text: "ScreenShot", constraints: 'wrap')
+        checkBox(id: "useScreenShot", selected: bind('useScreenShot', source: model.telluriumConfig, mutual: true), text: "ScreenShot", constraints: 'wrap')
 
         checkBox(id: "useTelluriumEngine", selected: bind('useTelluriumEngine', source: model.telluriumConfig, mutual: true), text: "New Engine", constraints: 'wrap')
 
@@ -236,7 +236,7 @@ mainWindow = application(title: 'TelluriumWorks',
                 constraints: "span 2, wrap"
         )
         separator(constraints: 'grow, span 3, wrap')
-        
+
         button(id: 'applyBtn',
                 label: "Apply",
                 actionPerformed: {controller.updateTelluriumConfig()},
@@ -244,7 +244,7 @@ mainWindow = application(title: 'TelluriumWorks',
 
       }
 
-    }          
+    }
 
     hstrut(5)
 
