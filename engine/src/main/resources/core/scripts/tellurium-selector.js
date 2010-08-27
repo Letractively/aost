@@ -6,7 +6,7 @@ function XPathProcessor(){
     //the separator for xpath prefix such as
     //  /default:html/default:body[@class='homepage']/default:div[@id='container']/default:div[@id='header']/default:ul/default:li[@id='menu_projects']/default:a
     this.PREFIX = ":";
-};
+}
 
 XPathProcessor.prototype.splitXPath = function(xpath){
     var result = new Array();
@@ -352,8 +352,10 @@ JQueryBuilder.prototype.guardQuote = function(val) {
 };
 
 JQueryBuilder.prototype.includeSingleQuote = function(val) {
-
-    return val != null && val.indexOf(this.SINGLE_QUOTE) > 0;
+    if(val == null)
+        return false;
+    val = val + "";
+    return val.indexOf(this.SINGLE_QUOTE) > 0;
 };
 
 JQueryBuilder.prototype.buildIdSelector = function(id) {
@@ -402,6 +404,7 @@ JQueryBuilder.prototype.buildCssSelector = function(tag, text, position, direct,
             }
         }
     }
+
 
     if (attributes != null && attributes.size() > 0) {
         var id = attributes.get(this.ID);

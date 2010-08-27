@@ -270,13 +270,16 @@ function setText(element, text) {
 
 // Get the value of an <input> element
 function getInputValue(inputElement) {
+    
     if (inputElement.type) {
-        if (inputElement.type.toUpperCase() == 'CHECKBOX' ||
+         if (inputElement.type.toUpperCase() == 'CHECKBOX' ||
             inputElement.type.toUpperCase() == 'RADIO')
         {
             return (inputElement.checked ? 'on' : 'off');
         }
     }
+//    alert("element value " + inputElement.value);
+    
     if (inputElement.value == null) {
         throw new SeleniumError("This element has no value; is it really a form field?");
     }
