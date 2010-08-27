@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel
 import javax.swing.UIManager
 
 import org.jdesktop.swingx.JXPanel
+import org.apache.commons.lang.NumberUtils
 
 import static griffon.util.GriffonApplicationUtils.isMacOSX
 
@@ -90,6 +91,18 @@ actions {
           closure: controller.quit)
 }
 
+def stringToIntConverter = {v ->
+  if (NumberUtils.isDigits(v)){
+    try {
+      return Integer.parseInt(v)
+    } catch (java.lang.NumberFormatException ex) {
+      return -1
+    }
+  }else{
+    return -1
+  }
+ }
+
 fileChooserWindow = fileChooser()
 mainWindow = application(title: 'TelluriumWorks - A Tellurium DSL Script Runner',
         size: [640, 600], locationByPlatform: true,
@@ -152,7 +165,7 @@ mainWindow = application(title: 'TelluriumWorks - A Tellurium DSL Script Runner'
 
         label('Port:')
         textField(id: "localServerPort", columns: 20, constraints: 'span 2, wrap',
-                text: bind('port', source: model.serverConfig, mutual: true))
+                text: bind('port', source: model.serverConfig, mutual: true, converter: stringToIntConverter))
 
         label('Profile:')
         textField(columns: 20, constraints: 'span 2, wrap',
@@ -201,8 +214,7 @@ mainWindow = application(title: 'TelluriumWorks - A Tellurium DSL Script Runner'
         textField(id: 'selServerPort',
                 columns: 20,
                 constraints: "span 2, wrap",
-                text: bind('serverPort', source: model.telluriumConfig, mutual: true)
-        )
+                text: bind('serverPort', source: model.telluriumConfig, mutual: true, converter: stringToIntConverter))       
 
         label("Macro Command:")
 

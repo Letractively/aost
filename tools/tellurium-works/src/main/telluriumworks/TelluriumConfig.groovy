@@ -1,6 +1,7 @@
 package telluriumworks
 
 import groovy.beans.Bindable
+import net.sourceforge.gvalidation.annotation.Validatable
 
 /**
  * 
@@ -9,17 +10,23 @@ import groovy.beans.Bindable
  * Date: Aug 25, 2010
  * 
  */
+@Validatable
 @Bindable
 class TelluriumConfig {
   String browser = "*chrome"
   String serverHost = "localhost"
-  String serverPort = "4444"
+  int serverPort = 4444
   String macroCmd = "5"
   String option = ""
   boolean useTrace = false
   boolean useScreenShot = false
   boolean useTelluriumEngine = false
   String locale = "en_US"
+
+  static constraints = {
+      serverHost(nullable: false, blank: false)
+      serverPort(range: 0..65535)
+  }
 
   public String toString(){
     return "[browser: ${browser}, serverHost: ${serverHost}, serverPort: ${serverPort}, macroCmd: ${macroCmd}, option: ${option}, useTrace: ${useTrace}, useScreenShot: ${useScreenShot}, useTelluriumEngine: ${useTelluriumEngine}, locale: ${locale}]"
@@ -33,9 +40,8 @@ class TelluriumConfig {
       if(conf.serverHost != null && conf.serverHost.trim().length() > 0){
         this.serverHost = conf.serverHost
       }
-      if(conf.serverPort != null && conf.serverPort.trim().length() > 0){
-        this.serverPort = conf.serverPort
-      }
+      this.serverPort = conf.serverPort
+      
       if(conf.macroCmd != null && conf.macroCmd.trim().length() > 0){
         this.macroCmd = conf.macroCmd
       }
