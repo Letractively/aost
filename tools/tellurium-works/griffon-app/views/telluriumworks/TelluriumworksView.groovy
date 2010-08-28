@@ -93,7 +93,7 @@ actions {
 }
 
 def stringToIntConverter = {v ->
-  println "Converting string to integer: ${v}"
+//  println "Converting String to Integer: ${v}"
   if (NumberUtils.isDigits(v)){
     try {
       return Integer.parseInt(v)
@@ -104,6 +104,11 @@ def stringToIntConverter = {v ->
     return -1
   }
  }
+
+def intToStringConverter = {v ->
+//  println "Converting Integer to String: ${v}"
+  return (new Integer(v)).toString()
+}
 
 fileChooserWindow = fileChooser()
 mainWindow = application(title: 'TelluriumWorks - A Tellurium DSL Script Runner',
@@ -167,7 +172,8 @@ mainWindow = application(title: 'TelluriumWorks - A Tellurium DSL Script Runner'
 
         label('Port:')
         textField(id: "localServerPort", columns: 20, constraints: 'span 2, wrap',
-                text: bind('port', source: model.serverConfig, mutual: true, converter: stringToIntConverter))
+                text: bind('port', source: model.serverConfig, mutual: true,
+                      converter: intToStringConverter, reverseConverter: stringToIntConverter))
 
         label('Profile:')
         textField(columns: 20, constraints: 'span 2, wrap',
@@ -217,7 +223,8 @@ mainWindow = application(title: 'TelluriumWorks - A Tellurium DSL Script Runner'
         textField(id: 'selServerPort',
                 columns: 20,
                 constraints: "span 2, wrap",
-                text: bind('serverPort', source: model.telluriumConfig, mutual: true, converter: stringToIntConverter))       
+                text: bind('serverPort', source: model.telluriumConfig, mutual: true,
+                      converter: intToStringConverter, reverseConverter: stringToIntConverter))
 
         label("Macro Command:")
 
