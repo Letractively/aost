@@ -67,27 +67,22 @@ actions {
           closure: controller.about)
   action(id: 'openFile',
           shortDescription: "Open Tellurium DSL script",
-//          smallIcon: crystalIcon(size: 24, category: "actions", icon: "fileopen"),
           smallIcon: tangoIcon(size: 22, category: "actions", icon: "document-open"),
           closure: controller.openFile)
   action(id: 'runFile',
           shortDescription: "Run Tellurium DSL script",
-//          smallIcon: crystalIcon(size: 24, category: "actions", icon: "player_end1"),
           smallIcon: tangoIcon(size: 22, category: "actions", icon: "go-last"),
           closure: controller.runFile)
   action(id: 'saveFile',
           shortDescription: "Save Tellurium DSL script",
-//          smallIcon: crystalIcon(size: 24, category: "actions", icon: "filesave"),
           smallIcon: tangoIcon(size: 22, category: "actions", icon: "document-save"),
           closure: controller.saveFile)
   action(id: 'closeFile',
           shortDescription: "Close Tellurium DSL script",
-//          smallIcon: crystalIcon(size: 24, category: "actions", icon: "fileclose"),
           smallIcon: tangoIcon(size: 22, category: "actions", icon: "process-stop"),
           closure: controller.closeFile)
   action(id: 'exitAction',
           shortDescription: "Exit the IDE",
-//          smallIcon: crystalIcon(size: 24, category: "actions", icon: "exit"),      t
           smallIcon: tangoIcon(size: 22, category: "actions", icon: "system-log-out"),
           closure: controller.quit)
 }
@@ -143,7 +138,6 @@ mainWindow = application(title: 'TelluriumWorks - A Tellurium DSL Script Runner'
     tabbedPane(id: "mainPane", constraints: CENTER, tabPlacement: JTabbedPane.LEFT, selectedIndex: 0) {
 
       panel(title: "Script",
-//              tabIcon: crystalIcon(size: 32, category: "apps", icon: "kmenuedit"),
               tabIcon: tangoIcon(size: 32, category: "apps", icon: "accessories-text-editor"),
               tabToolTip: "Tellurium DSL Script") {
         migLayout(layoutConstraints: 'fill')
@@ -154,7 +148,6 @@ mainWindow = application(title: 'TelluriumWorks - A Tellurium DSL Script Runner'
       }
 
       panel(title: "Server", id: 'box',
-//              tabIcon: crystalIcon(size: 32, category: "apps", icon: "multiple_monitors"),
               tabIcon: tangoIcon(size: 32, category: "status", icon: "network-idle"),
               tabToolTip: "Selenium Server") {
         migLayout(layoutConstraints: 'fill')
@@ -198,7 +191,6 @@ mainWindow = application(title: 'TelluriumWorks - A Tellurium DSL Script Runner'
       }
 
       panel(title: "Config",
-//              tabIcon: crystalIcon(size: 32, category: "apps", icon: "kdmconfig"),
               tabIcon: tangoIcon(size: 32, category: "categories", icon: "preferences-system"),
               tabToolTip: "Tellurium Configuration") {
         migLayout(layoutConstraints: 'fill')
@@ -242,10 +234,7 @@ mainWindow = application(title: 'TelluriumWorks - A Tellurium DSL Script Runner'
                 text: bind('option', source: model.telluriumConfig, mutual: true)
         )
 
-//        checkBox(id: "useTrace", selected: false, text: "Trace", constraints: 'wrap')
         checkBox(id: "useTrace", selected: bind('useTrace', source: model.telluriumConfig, mutual: true), text: "Trace", constraints: 'wrap')
-
-//        checkBox(id: "useScreenShot", selected: false, text: "ScreenShot", constraints: 'wrap')
 
         checkBox(id: "useScreenShot", selected: bind('useScreenShot', source: model.telluriumConfig, mutual: true), text: "ScreenShot", constraints: 'wrap')
 
@@ -281,7 +270,6 @@ mainWindow = application(title: 'TelluriumWorks - A Tellurium DSL Script Runner'
 
       button(id: 'clearConsole',
               label: "Clear",
-//              actionPerformed: {this.consoleTxt.text = ""},
               actionPerformed: {controller.clearConsole()},
               constraints: "span 2,wrap, right"
       )
