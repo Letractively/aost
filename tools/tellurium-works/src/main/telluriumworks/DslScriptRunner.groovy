@@ -30,8 +30,13 @@ class DslScriptRunner {
                         this.aost.useTrace(${config.useTrace})
                         this.aost.setMaxMacroCmd(${config.macroCmd})
                         this.aost.useTelluriumApi(${config.useTelluriumEngine})
-                        ${dsl}
-                        shutDown()
+                        try{
+                          ${dsl}
+                        }catch(Exception e){
+                          println "Error running the script: " + e.getMessage()
+                        }finally{
+                          shutDown()
+                        }
                         IResourceBundle i18nBundle = Environment.instance.myResourceBundle()
                         println i18nBundle.getMessage("DslScriptExecutor.DslTestDone")
                     }
