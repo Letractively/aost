@@ -153,9 +153,6 @@ mainWindow = application(title: 'TelluriumWorks - A Tellurium DSL Script Runner'
               tabIcon: tangoIcon(size: 32, category: "status", icon: "network-idle"),
               tabToolTip: "Selenium Server") {
         migLayout(layoutConstraints: 'fill')
-        container(new ErrorMessagePanel(messageSource),
-                id: 'errorMessagePanelTab1', constraints: CENTER,
-                errors: bind(source: model.serverConfig, 'errors'))
 
         label('Status')
         textField(id: "serverStatus", columns: 10, constraints: 'span 2, wrap',
@@ -199,10 +196,7 @@ mainWindow = application(title: 'TelluriumWorks - A Tellurium DSL Script Runner'
               tabIcon: tangoIcon(size: 32, category: "categories", icon: "preferences-system"),
               tabToolTip: "Tellurium Configuration") {
         migLayout(layoutConstraints: 'fill')
-        container(new ErrorMessagePanel(messageSource),
-                id: 'errorMessagePanelTab2', constraints: CENTER,
-                errors: bind(source: model.telluriumConfig, 'errors'))
-        
+
         label("Browser:")
         comboBox(id: 'browserType',
                 items: ["*chrome", "*firefox", "*iexplore", "*iehta"],
@@ -271,6 +265,13 @@ mainWindow = application(title: 'TelluriumWorks - A Tellurium DSL Script Runner'
 
     panel(border: titledBorder('Console'), constraints: "grow 15 1, wrap") {
       migLayout(layoutConstraints: 'fill')
+
+/*
+      container(new ErrorMessagePanel(messageSource),
+              id: 'errorMessagePanelTab2', constraints: TOP,
+              errors: bind(source: model.telluriumConfig, 'errors'))
+*/
+
       button(id: 'clearConsole',
               label: "Clear",
 //              actionPerformed: {this.consoleTxt.text = ""},

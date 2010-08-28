@@ -7,6 +7,7 @@ import org.jdesktop.swingx.tips.TipLoader
 
 class TelluriumworksController {
   // these will be injected by Griffon
+
   def model
   def view
   def telluriumService
@@ -81,11 +82,24 @@ class TelluriumworksController {
     app.shutdown()
   }
 
+  def logValidationErrors(errors){
+    if(errors != null){
+       def msg = "Error message: "
+       errors?.each { error ->
+         def errorMessage = app.messageSource.getMessage(error.errorCode, error.arguments)
+         msg += errorMessage
+       }
+       clogger.log(msg)
+       logger.error(msg)
+     }
+  }
+
   def runSeleniumServer = {
     if(!model.serverConfig.validate()){
       doLater {
         clogger.log("Invalid Configuration: " + model.serverConfig.toString())
-      }      
+        logValidationErrors(model.serverConfig.errors)
+       }
     }else{
       execOutside {
         def conf = model.serverConfig
@@ -110,6 +124,7 @@ class TelluriumworksController {
     if (!model.telluriumConfig.validate()) {
       doLater {
         clogger.log("Invalid Configuration: " + model.telluriumConfig.toString())
+        logValidationErrors(model.telluriumConfig.errors)
       }
     } else {
       execOutside {
