@@ -5,6 +5,7 @@ import org.telluriumsource.dsl.UiID
 import org.telluriumsource.ui.locator.LocatorProcessor
 import org.telluriumsource.ui.locator.GroupLocateStrategy
 import org.json.simple.JSONObject
+import org.json.simple.JSONArray
 
 /**
  *  container
@@ -57,8 +58,16 @@ class Container extends UiObject {
       
       if (namespace != null && namespace.trim().length() > 0)
         jso.put(NAMESPACE, namespace)
-      if (respondToEvents != null && respondToEvents.length > 0)
-        jso.put(EVENTS, respondToEvents)
+
+       if(respondToEvents != null && respondToEvents.length > 0){
+        JSONArray jae = new JSONArray();
+        for(String event: respondToEvents){
+          jae.add(event);
+        }
+        jso.put(EVENTS, jae);
+      }
+//      if (respondToEvents != null && respondToEvents.length > 0)
+//        jso.put(EVENTS, respondToEvents)
 //      if (this.useGroupInfo)
 //        jso.put(GROUP, this.useGroupInfo)
       if (this.noCacheForChildren)
