@@ -364,7 +364,8 @@ function Tellurium (){
     //cache to hold the element corresponding to a UID in command bundle
 //    this.cbCache = new Hashtable();
 
-    this.teApi = new TelluriumApi(this.cache);
+//    this.teApi = new TelluriumApi(this.cache);
+    this.teApi = new TelluriumApi();
 
     //api name to method mapping for command bundle processing
     this.apiMap = new Hashtable();
@@ -582,6 +583,24 @@ Tellurium.prototype.prepareArgumentList = function(handler, args, element){
     return params;
 };
 
+Tellurium.prototype.prepareParamList = function(handler, cmd){
+    var args = cmd.args;
+
+    var params = [];
+
+    if (handler.requireElement) {
+        params.push(cmd.uid);
+        for (var i = 1; i < args.length; i++) {
+            params.push(args[i]);
+        }
+    } else {
+        params = args;
+    }
+
+    return params;
+};
+
+
 function validateDomRef(domref){
     try{
         return teJQuery(domref).is(':visible');
@@ -632,6 +651,36 @@ Tellurium.prototype.dispatchCommand = function(response, cmd, element){
     }
 };
 
+Tellurium.prototype.dispatchTelluriumCommand = function(response, cmd){
+    var result = null;
+
+    var handler = this.apiMap.get(cmd.name);
+
+    if(handler != null){
+        var api = handler.api;
+        //prepare the argument list
+        var params = this.prepareParamList(handler, cmd);
+        if(params != null && params.length > 0){
+            if(handler.returnType == "VOID"){
+                api.apply(this, params);
+            }else{
+                result = api.apply(this, params);
+                response.addResponse(cmd.sequ, cmd.name, handler.returnType, result);
+            }
+        }else{
+            if(handler.returnType == "VOID"){
+                api.apply(this, params);
+            }else{
+                result = api.apply(this, params);
+                response.addResponse(cmd.sequ, cmd.name, handler.returnType, result);
+            }
+        }
+
+    }else{
+        throw SeleniumError("Unknown command " + cmd.name + " in Command Bundle.");
+    }
+};
+
 Tellurium.prototype.locate = function(locator){
 
     return selenium.browserbot.findElementOrNull(locator);
@@ -661,6 +710,8 @@ Tellurium.prototype.processMacroCmd = function(){
         if ((!this.isUseTeApi) || this.isApiMissing(cmd.name)) {
             this.delegateToSelenium(response, cmd);
         } else {
+            this.dispatchTelluriumCommand(response, cmd);
+/*
             var element = null;
             !tellurium.logManager.isUseLog || fbLog("Process Macro Command: ", cmd);
             var locator = cmd.args[0];
@@ -705,6 +756,7 @@ Tellurium.prototype.processMacroCmd = function(){
             }
 
             this.dispatchCommand(response, cmd, element);
+*/
         }
     }
 
