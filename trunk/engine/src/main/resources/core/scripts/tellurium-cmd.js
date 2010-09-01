@@ -175,7 +175,7 @@ TelluriumCommandExecutor.prototype.useUiModuleInJSON = function(jsonarray){
     return response;
 };
 
-TelluriumCache.prototype.validateUiModuleInJSON = function(jsonarray){
+TelluriumCommandExecutor.prototype.validateUiModuleInJSON = function(jsonarray){
     var uim = new UiModule();
     !tellurium.logManager.isUseLog || fbLog("Input JSON for UI Module: ", jsonarray);
     uim.parseUiModule(jsonarray);
