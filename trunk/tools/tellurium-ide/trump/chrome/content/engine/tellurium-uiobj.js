@@ -667,7 +667,7 @@ var UiInputBox = UiObject.extend({
         $elem.val($elem.val()).trigger(getEvent("keydown", key, this));
     },
 
-    keyPres: function(context, key){
+    keyPress: function(context, key){
         var element = context.domRef;
         var $elem = teJQuery(element);
         $elem.val($elem.val() + key).trigger(getEvent("keypress", key, this));
