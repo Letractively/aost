@@ -53,6 +53,8 @@ TelluriumCommandExecutor.prototype.registerCommand = function(name, type, return
 };
 
 TelluriumCommandExecutor.prototype.registerCommands = function(){
+    this.registerCommand("useUiModuleInJSON", CommandType.ACCESSOR, ReturnType.OBJECT, this.useUiModuleInJSON)
+//    this.registerCommand("useUiModule", CommandType.ACCESSOR, ReturnType.VOID, this.useUiModule)
     this.registerCommand("open", CommandType.ACTION, ReturnType.VOID, this.open);
     this.registerCommand("blur", CommandType.ACTION, ReturnType.VOID, this.blur);
     this.registerCommand("click", CommandType.ACTION, ReturnType.VOID, this.click);
@@ -94,11 +96,12 @@ TelluriumCommandExecutor.prototype.registerCommands = function(){
     this.registerCommand("getCssSelectorCount", CommandType.ACCESSOR, ReturnType.NUMBER, this.getCssSelectorCount);
     this.registerCommand("getCssSelectorMatch", CommandType.ACCESSOR, ReturnType.ARRAY, this.getCssSelectorMatch);
     this.registerCommand("getCssSelectorMatchAsString", CommandType.ACCESSOR, ReturnType.STRING, this.getCssSelectorMatchAsString);
+    this.registerCommand("validateUiModuleInJSON", CommandType.ACCESSOR, ReturnType.OBJECT, this.validateUiModuleInJSON);
     this.registerCommand("validateUiModule", CommandType.ACCESSOR, ReturnType.OBJECT, this.validateUiModule);
     this.registerCommand("validateUiModuleAsString", CommandType.ACCESSOR, ReturnType.STRING, this.validateUiModuleAsString);
     this.registerCommand("toJSON", CommandType.ACCESSOR, ReturnType.OBJECT, this.toJSON);
     this.registerCommand("toJSONString", CommandType.ACCESSOR, ReturnType.STRING, this.toJSONString);
-    this.registerCommand("waitForPageToLoad", CommandType.ACTION, ReturnType.VOID, this.waitForPageToLoad);
+//    this.registerCommand("waitForPageToLoad", CommandType.ACTION, ReturnType.VOID, this.waitForPageToLoad);
     this.registerCommand("assertTrue", CommandType.ASSERTION, ReturnType.VOID, this.assertTrue);
     this.registerCommand("assertFalse", CommandType.ASSERTION, ReturnType.VOID, this.assertFalse);
     this.registerCommand("assertEquals", CommandType.ASSERTION, ReturnType.VOID, this.assertEquals);
@@ -145,6 +148,56 @@ TelluriumCommandExecutor.prototype.clearCache = function(){
     return this.cache.clear();
 };
 
+TelluriumCommandExecutor.prototype.useUiModuleInJSON = function(jsonarray){
+    var uim = new UiModule();
+    !tellurium.logManager.isUseLog || fbLog("Input JSON Array for UI Module: ", jsonarray);
+    uim.parseUiModule(jsonarray);
+    var response = new UiModuleLocatingResponse();
+    var result = this.uiAlg.santa(uim, null);
+    if(result){
+        //set the UI Module to be valid after it is located
+        uim.valid = true;
+        !tellurium.logManager.isUseLog || fbLog("Ui Module after Group Locating: ", uim);
+        var id = uim.getId();
+        this.cacheUiModule(uim);
+
+        response.id = id;
+        response.relaxed = uim.relaxed;
+        if (!response.relaxed)
+            response.found = true;
+        response.relaxDetails = uim.relaxDetails;
+        response.matches = uim.matches;
+        response.score = uim.score;
+        !tellurium.logManager.isUseLog || fbLog("UseUiModule Response for " + id, response);
+    }
+
+    return response;
+};
+
+TelluriumCache.prototype.validateUiModuleInJSON = function(jsonarray){
+    var uim = new UiModule();
+    !tellurium.logManager.isUseLog || fbLog("Input JSON for UI Module: ", jsonarray);
+    uim.parseUiModule(jsonarray);
+    this.uiAlg.validate(uim, null);
+    //set the UI Module to be valid after it is located
+    uim.valid = true;
+    !tellurium.logManager.isUseLog || fbLog("Ui Module after Group Locating: ", uim);
+    var id = uim.getId();
+
+    var response = new UiModuleLocatingResponse();
+    response.id = id;
+    response.relaxed = uim.relaxed;
+//    if(!response.relaxed)
+    if(uim.score == 100)
+        response.found = true;
+    response.relaxDetails = uim.relaxDetails;
+    response.matches = uim.matches;
+    response.score = uim.score;
+    !tellurium.logManager.isUseLog || fbLog("UseUiModule Response for " + id, response);
+
+    return response;
+};
+
 TelluriumCommandExecutor.prototype.describeUiModuleList = function(){
     if(this.cache.size() > 0){
         var keySet = this.getCachedUiModuleList();
@@ -176,6 +229,17 @@ TelluriumCommandExecutor.prototype.describeUiModule = function(uiModelArray) {
     }
 
     return "";
+};
+
+TelluriumCommandExecutor.prototype.useClosestMatch = function(isUse){
+    !tellurium.logManager.isUseLog || fbLog("call useClosestMatch", isUse);
+    if (typeof(isUse) == "boolean") {
+        this.uiAlg.allowRelax = isUse;
+    } else {
+        this.uiAlg.allowRelax = ("true" == isUse || "TRUE" == isUse);
+    }
+
+    !tellurium.logManager.isUseLog || fbLog("Call useClosestMatch(" + isUse + ") to set allowRelax to ", this.uiAlg.allowRelax);
 };
 
 TelluriumCommandExecutor.prototype.run = function(name, uid, param){
