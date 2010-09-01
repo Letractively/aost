@@ -335,13 +335,18 @@ Tellurium.prototype.delegateToTellurium = function(response, cmd) {
 
         }
         var result;
-        if(command.type == CommandType.DIRECT){
+        if(command.type == CommandType.ASSERTION){
+            result = this.cmdExecutor[cmd.name].apply(this.cmdExecutor, cmd.args);
+        }else{
+            result = this.cmdExecutor[cmd.name].apply(this.cmdExecutor, [cmd.uid, param]);
+        }
+/*        if(command.type == CommandType.DIRECT){
             result = this.cmdExecutor[cmd.name].apply(this.cmdExecutor, cmd.uid, param);
         }else if(command.type == CommandType.ASSERTION){
             result = this.cmdExecutor[cmd.name].apply(this.cmdExecutor, cmd.args[0], cmd.args[1]);
         }else{
             result = this.cmdExecutor.execCommand(cmd.name, cmd.uid, param);
-        }
+        }*/
 
         if(command.returnType == "VOID"){
             response.addResponse(cmd.sequ, cmd.name, command.returnType, result);
