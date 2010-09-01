@@ -28,50 +28,10 @@ function TelluriumError(type, message) {
 
     error.isTelluriumError = true;
     error.type = type;
-    
+
     return error;
 }
 
-var getEvent = function(name, key , objRef){
-    var e = teJQuery.Event(name);
-    e.which = key.charCodeAt(0);
-    e.ctrlKey = objRef.ctrl;
-    e.shiftKey = objRef.shift;
-    e.altKey = objRef.alt;
-    e.metaKey = objRef.metaKey;
-    return e;
-};
-
-function Outlines(){
-    this.defaultOutline = null;
-    this.outlines = new Array();
-}
-
-Outlines.prototype.init = function(){
-//    this.defaultOutLine = "2px solid #0000FF";
-    //Green
-    this.defaultOutLine = "2px solid #00FF00";
-    //Red
-    this.outlines.push("2px solid #FF0000");
-    //Yellow
-    this.outlines.push("2px solid #FFFF00");
-    //Blue
-    this.outlines.push("2px solid #0000FF");
-    //Pink
-    this.outlines.push("2px solid #FF00FF");
-    //Brown
-    this.outlines.push("2px solid #804000");
-};
-
-Outlines.prototype.getDefaultOutline = function(){
-    return this.defaultOutLine;
-};
-
-Outlines.prototype.getOutline = function(index){
-    var i = index % this.outlines.length;
-
-    return this.outlines[i];
-};
 
 /*teJQuery(document).ready(function() {
     tellurium = new Tellurium();
@@ -98,139 +58,6 @@ teJQuery(document).ready(function() {
         void(firebug);
 });
 
-//add custom jQuery Selector :te_text()
-//
-
-teJQuery.extend(teJQuery.expr[':'], {
-    te_text: function(a, i, m) {
-        if(m[3] != null && m[3].startsWith("regexp:")){
-            var pattern = m[3].substring(7);
-            return teJQuery(a).text().match(pattern);
-        }
-        return teJQuery.trim(teJQuery(a).text()) === teJQuery.trim(m[3]);
-    }
-});
-
-teJQuery.expr[':'].group = function(obj, index, m){
-      var $this = teJQuery(obj);
-
-      var splitted = m[3].split(",");
-      var result = true;
-
-      for(var i=0; i<splitted.length; i++){
-         result = result && ($this.find(splitted[i]).length > 0);
-      }
-
-      return result;
-};
-
-teJQuery.expr[':'].styles = function(obj, index, m){
-      var $this = teJQuery(obj);
-
-      var splitted = new Array();
-
-      var fs = m[3].split(/:|;/);
-      for(var i=0; i<fs.length; i++){
-          var trimed = teJQuery.trim(fs[i]);
-          if(trimed.length > 0){
-              splitted.push(trimed);
-          }
-      }
-
-      var result = true;
-
-      var l=0;
-      while(l < splitted.length){
-         result = result && (teJQuery.trim($this.css(splitted[l])) == splitted[l+1]);
-         l=l+2;
-      }
-
-      return result;
-};
-
-/*
-teJQuery.expr[':'].nextToLast = function(obj, index, m){
-    var $this = teJQuery(obj);
-
-    //      return $this.find(m[3]).last().prev();
-//    return $this.find(m[3]).slice(-2, -1);
-    if ($this.index() == $this.siblings().length - 1) {
-        return true;
-    } else {
-        return false;
-    }
-};
-*/
-
-// this is a selector called nextToLast. its sole purpose is to return the next to last
-// element of the array of elements supplied to it.
-// the parameters in the function below are as follows;
-// obj => the current node being checked
-// ind => the index of obj in the array of objects being checked
-// prop => the properties passed in with the expression
-// node => the array of nodes being checked
-teJQuery.expr[':'].nextToLast = function(obj, ind, prop, node){
-
-     // if ind is 2 less than the length of the array of nodes, keep it
-     return ind == node.length - 2;
-};
-
-teJQuery.expr[':'].regex = function(elem, index, match) {
-    var matchParams = match[3].split(','),
-        validLabels = /^(data|css):/,
-        attr = {
-            method: matchParams[0].match(validLabels) ?
-                        matchParams[0].split(':')[0] : 'attr',
-            property: matchParams.shift().replace(validLabels,'')
-        },
-        regexFlags = 'ig',
-        regex = new RegExp(matchParams.join('').replace(/^\s+|\s+$/g,''), regexFlags);
-    return regex.test(teJQuery(elem)[attr.method](attr.property));
-};
-
-teJQuery.expr[':'].data = function(elem, index, m) {
-
-    m[0] = m[0].replace(/:data\(|\)$/g, '');
-
-    var regex = new RegExp('([\'"]?)((?:\\\\\\1|.)+?)\\1(,|$)', 'g'),
-        key = regex.exec( m[0] )[2],
-        val = regex.exec( m[0] )[2];
-
-    return val ? teJQuery(elem).data(key) == val : !!teJQuery(elem).data(key);
-};
-
-teJQuery.fn.outerHTML = function() {
-//    var $me = teJQuery("<div/>").append( teJQuery(this[0]).clone() );
-
-//    return teJQuery("<div/>").append( teJQuery(this[0]).clone() ).html();
-    try{
-        var doc = this[0] ? this[0].ownerDocument : document;
-        return teJQuery('<div/>', doc).append( this.eq(0).clone() ).html();
-    }catch(error){
-        fbWarn("Error getting outHTML: " + error.message, error);
-        return "";
-    }
-
-};
-
-function getColor(elem, cssName){
-   var color = null;
-
-   if (elem != null) {
-        var parent = elem.parentNode;
-
-        while (parent != null) {
-//            color = teJQuery(parent).css(cssName);
-            color = teJQuery.curCSS(parent, cssName);
-            !tellurium.logManager.isUseLog || fbLog(cssName + " is " + color + " for ", parent);
-            if (color != '' && color != 'transparent' || teJQuery.nodeName(parent, "body"))
-                break;
-            parent = parent.parentNode;
-        }
-    }
-
-   return color;
-}
 
 function Identifier(sn){
     if(sn != undefined){
@@ -349,6 +176,236 @@ function EngineState(){
     this.relax = null;
 }
 
+function Tellurium(){
+
+    this.currentWindow = null;
+
+    this.currentDocument = null;
+
+    //whether to use Tellurium new jQuery selector based APIs
+    this.isUseTeApi = false;
+
+    //Macro command for Tellurium
+    this.macroCmd = new MacroCmd();
+
+    this.cmdExecutor = new TelluriumCommandExecutor();
+
+    this.cache = this.cmdExecutor.cache;
+
+    //UI object name to Javascript object builder mapping
+    this.uiBuilderMap = new Hashtable();
+
+    //identifier generator
+    this.idGen = new Identifier();
+
+    //log manager for Tellurium
+    this.logManager = new LogManager();
+
+    //outlines
+    this.outlines = new Outlines();
+}
+
+Tellurium.prototype.initialize = function(){
+    this.outlines.init();
+    this.registerDefaultUiBuilders();
+};
+
+Tellurium.prototype.registerDefaultUiBuilders = function(){
+    this.uiBuilderMap.put("Button", new UiButtonBuilder());
+    this.uiBuilderMap.put("CheckBox", new UiCheckBoxBuilder());
+    this.uiBuilderMap.put("Div", new UiDivBuilder());
+    this.uiBuilderMap.put("Icon", new UiIconBuilder());
+    this.uiBuilderMap.put("Image", new UiImageBuilder());
+    this.uiBuilderMap.put("InputBox", new UiInputBoxBuilder());
+    this.uiBuilderMap.put("RadioButton", new UiRadioButtonBuilder());
+    this.uiBuilderMap.put("Selector", new UiSelectorBuilder());
+    this.uiBuilderMap.put("Span", new UiSpanBuilder());
+    this.uiBuilderMap.put("SubmitButton", new UiSubmitButtonBuilder());
+    this.uiBuilderMap.put("TextBox", new UiTextBoxBuilder());
+    this.uiBuilderMap.put("UrlLink", new UiUrlLinkBuilder());
+    this.uiBuilderMap.put("Container", new UiContainerBuilder());
+    this.uiBuilderMap.put("Frame", new UiFrameBuilder());
+    this.uiBuilderMap.put("Form", new UiFormBuilder());
+    this.uiBuilderMap.put("List", new UiListBuilder());
+    this.uiBuilderMap.put("Table", new UiTableBuilder());
+    this.uiBuilderMap.put("StandardTable", new UiStandardTableBuilder());
+    this.uiBuilderMap.put("Window", new UiWindowBuilder());
+    this.uiBuilderMap.put("Repeat", new UiRepeatBuilder());
+    this.uiBuilderMap.put("UiAllPurposeObject", new UiAllPurposeObjectBuilder());
+};
+
+//expose this so that users can hook in their own custom UI objects or even overwrite the default UI objects
+Tellurium.prototype.registerUiBuilder = function(name, builder){
+    this.uiBuilderMap.put(name, builder);
+};
+
+Tellurium.prototype.getRegisteredUiTypes = function(){
+    return this.uiBuilderMap.keySet();
+};
+
+Tellurium.prototype.flipLog = function(){
+    this.logManager.isUseLog = !this.logManager.isUseLog;
+    if(firebug != undefined)
+        firebug.env.debug = this.logManager.isUseLog;
+};
+
+Tellurium.prototype.isUseLog = function(){
+    return this.logManager.isUseLog;
+};
+
+Tellurium.prototype.useTeApi = function(isUse){
+    if (typeof(isUse) == "boolean") {
+        tellurium.isUseTeApi = isUse;
+    } else {
+        tellurium.isUseTeApi = ("true" == isUse || "TRUE" == isUse);
+    }
+};
+
+Tellurium.prototype.isApiMissing =function(apiName){
+
+    return this.cmdExecutor.getCommand(apiName) == null;
+};
+
+Tellurium.prototype.parseMacroCmd = function(json){
+    this.macroCmd.parse(json);
+};
+
+Tellurium.prototype.camelizeApiName = function(apiName){
+    return "do" + apiName.charAt(0).toUpperCase() + apiName.substring(1);
+};
+
+Tellurium.prototype.delegateToSelenium = function(response, cmd) {
+    // need to use selenium api name conversion to find the api
+    var apiName = cmd.name;
+    var result = null;
+    !tellurium.logManager.isUseLog || fbLog("Delegate Call " + cmd.name + " to Selenium", cmd);
+
+    var returnType = null;
+
+    //Try to get back the return type by looking at Tellurium API counterpart
+//    var handler = this.apiMap.get(cmd.name);
+    var handler = this.cmdExecutor.getCommand(cmd.name);
+    if(handler != null){
+        returnType = handler.returnType;
+    }
+
+    if (apiName.startsWith("is")) {
+        result = selenium[apiName].apply(selenium, cmd.args);
+        if(returnType == null)
+            returnType = "BOOLEAN";
+        response.addResponse(cmd.sequ, apiName, returnType, result);
+    } else if (apiName.startsWith("get")) {
+        result = selenium[apiName].apply(selenium, cmd.args);
+        if(apiName.indexOf("All") != -1){
+            //api Name includes "All" should return an array
+            if(returnType == null)
+                returnType = "ARRAY";
+            response.addResponse(cmd.sequ, apiName, returnType, result);
+        }else{
+            //assume the rest return "String"
+            if(returnType == null)
+                returnType = "STRING";
+            response.addResponse(cmd.sequ, apiName, returnType, result);
+        }
+    } else {
+        apiName = this.camelizeApiName(apiName);
+        !tellurium.logManager.isUseLog || fbLog("Call Selenium method " + apiName, selenium);
+        selenium[apiName].apply(selenium, cmd.args);
+    }
+};
+
+Tellurium.prototype.delegateToTellurium = function(response, cmd) {
+
+    var command = this.cmdExecutor.getCommand(cmd.name);
+
+    if(command != null){
+        var result = this.cmdExecutor.execCommand(cmd.name, cmd.uid, cmd.args);
+        if(command.returnType == "VOID"){
+            response.addResponse(cmd.sequ, cmd.name, command.returnType, result);
+        }else {
+                response.addResponse(cmd.sequ, cmd.name, command.returnType, result);
+            }
+    } else {
+        throw TelluriumError(ErrorCodes.INVALID_TELLURIUM_COMMAND, "Invalid Tellurium command " + cmd.name + " in Command Bundle.");
+    }
+};
+
+Tellurium.prototype.dispatchMacroCmd = function(){
+    var response = new BundleResponse();
+
+    while (this.macroCmd.size() > 0) {
+        var cmd = this.macroCmd.first();
+        if(cmd.name == "getUseUiModule"){
+            //do UI module locating
+            var result = this.cmdExecutor.useUiModuleInJSON(cmd.args[0]);
+            response.addResponse(cmd.sequ, cmd.name, ReturnType.OBJECT, result);
+        }else{
+            //for other commands
+            !tellurium.logManager.isUseLog || fbLog("Dispatching command: ", cmd);
+//            this.updateArgumentList(cmd);
+//            !tellurium.logManager.isUseLog || fbLog("Command after updating argument list: ", cmd);
+            if ((!this.isUseTeApi) || this.isApiMissing(cmd.name)) {
+                !tellurium.logManager.isUseLog || fbLog("delegate command to Selenium", cmd);
+                this.delegateToSelenium(response, cmd);
+            }else{
+                !tellurium.logManager.isUseLog || fbLog("delegate command to Tellurium", cmd);
+                this.delegateToTellurium(response, cmd);
+            }
+        }
+    }
+
+    return response.toJSon();
+};
+
+Tellurium.prototype.isUseCache = function(){
+    return this.cmdExecutor.cache.cacheOption;
+};
+
+Tellurium.prototype.useUiModule = function(jsonarray){
+    return this.cmdExecutor.useUiModuleInJSON(jsonarray);
+};
+
+Tellurium.prototype.validateUiModule = function(jsonarray){
+    return this.cmdExecutor.validateUiModuleInJSON(jsonarray);
+};
+
+Tellurium.prototype.isUiModuleCached = function(id){
+    return this.cmdExecutor.isUiModuleCached(id);
+};
+
+Tellurium.prototype.useClosestMatch = function(isUse){
+    this.cmdExecutor.useClosestMatch(isUse);
+};
+
+Tellurium.prototype.locateElementByCSSSelector = function(locator, inDocument, inWindow){
+    var loc = locator;
+    var attr = null;
+    var isattr = false;
+    var inx = locator.lastIndexOf('@');
+    if (inx != -1) {
+        loc = locator.substring(0, inx);
+        attr = locator.substring(inx + 1);
+        isattr = true;
+    }
+    var found = teJQuery(inDocument).find(loc);
+    if (found.length == 1) {
+        if (isattr) {
+            return found[0].getAttributeNode(attr);
+        } else {
+            return found[0];
+        }
+    } else if (found.length > 1) {
+        if (isattr) {
+            return found.get().getAttributeNode(attr);
+        } else {
+            return found.get();
+        }
+    } else {
+        return null;
+    }
+};
+
+/*
 function Tellurium (){
     this.cache = new TelluriumCache();
 
@@ -367,6 +424,11 @@ function Tellurium (){
 
 //    this.teApi = new TelluriumApi(this.cache);
     this.teApi = new TelluriumApi();
+
+    //Tellurium command executor
+//    this.teCmd = new TelluriumCommandExecutor();
+
+//    this.cache = this.teCmd.cache;
 
     //api name to method mapping for command bundle processing
     this.apiMap = new Hashtable();
@@ -394,7 +456,7 @@ Tellurium.prototype.isUseCache = function(){
 //TODO: Refactor --> use Javascript itself to do automatically discovery like selenium does instead of manually registering them
 Tellurium.prototype.initialize = function(){
     this.outlines.init();
-    this.registerTeApis();
+//    this.registerTeApis();
     this.registerDefaultUiBuilders();
 };
 
@@ -712,6 +774,7 @@ Tellurium.prototype.processMacroCmd = function(){
             this.delegateToSelenium(response, cmd);
         } else {
             this.dispatchTelluriumCommand(response, cmd);
+*/
 /*
             var element = null;
             !tellurium.logManager.isUseLog || fbLog("Process Macro Command: ", cmd);
@@ -757,7 +820,8 @@ Tellurium.prototype.processMacroCmd = function(){
             }
 
             this.dispatchCommand(response, cmd, element);
-*/
+*//*
+
         }
     }
 
@@ -868,6 +932,7 @@ Tellurium.prototype.validateResult = function($result, unique, selector){
     }
 };
 
+*/
 /*
 Tellurium.prototype.locateElementByCacheAwareCSSSelector = function(locator, inDocument, inWindow){
     var input = this.parseLocator(locator);
@@ -944,7 +1009,8 @@ Tellurium.prototype.locateElementByCacheAwareCSSSelector = function(locator, inD
         }
     }   
 };
-*/
+*//*
+
 
 function CacheAwareLocator(){
     //runtime id
@@ -1116,7 +1182,5 @@ Tellurium.prototype.updateArgumentList = function(cmd){
         //otherwise, no modification, use the original argument list
     }
 };
+*/
 
-//var tellurium = null;
-/*var tellurium = new Tellurium();
-tellurium.initialize();*/

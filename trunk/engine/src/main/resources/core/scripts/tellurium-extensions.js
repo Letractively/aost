@@ -334,20 +334,20 @@ Selenium.prototype.getDiagnosisResponse = function(locator, dreq){
 Selenium.prototype.getBundleResponse = function(bundle){
     !tellurium.logManager.isUseLog || !tellurium.logManager.isUseLog || fbLog("Issue Bundle Command ", bundle);
     tellurium.parseMacroCmd(bundle);
-    return tellurium.processMacroCmd();
-//    return tellurium.dispatchMacroCmd();
+//    return tellurium.processMacroCmd();
+    return tellurium.dispatchMacroCmd();
 };
 
 Selenium.prototype.getUseUiModule = function(jsonarray){
-    return tellurium.cache.useUiModule(jsonarray);
+    return tellurium.useUiModule(jsonarray);
 };
 
 Selenium.prototype.getValidateUiModule = function(jsonarray){
-    return tellurium.cache.validateUiModule(jsonarray);
+    return tellurium.validateUiModule(jsonarray);
 };
 
 Selenium.prototype.isUiModuleCached = function(id){
-    return tellurium.cache.isUiModuleCached(id);
+    return tellurium.isUiModuleCached(id);
 };
 
 Selenium.prototype.doUseTeApi = function(isUse){
@@ -355,7 +355,7 @@ Selenium.prototype.doUseTeApi = function(isUse){
 };
 
 Selenium.prototype.doUseClosestMatch = function(isUse){
-     tellurium.cache.useClosestMatch(isUse);
+     tellurium.useClosestMatch(isUse);
 };
 
 Selenium.prototype.doToggle = function(locator){
@@ -385,12 +385,12 @@ Selenium.prototype.getCookieByJQuery = function(cookieName){
 };
 
 Selenium.prototype.doUseClosestMatch = function(isUse){
-    tellurium.cache.useClosestMatch(isUse);
+    tellurium.useClosestMatch(isUse);
 };
 
 Selenium.prototype.doUpdateEngineState = function(state){
 //    var state = JSON.parse(json, null);
-    tellurium.cache.useClosestMatch(state.relax);
+    tellurium.useClosestMatch(state.relax);
     tellurium.useTeApi(state.teApi);
     tellurium.cache.cacheOption = state.cache;
 };
