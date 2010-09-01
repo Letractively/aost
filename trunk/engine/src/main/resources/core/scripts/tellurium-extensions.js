@@ -95,7 +95,7 @@ Selenium.prototype.doDisableCache = function(){
 };
 
 Selenium.prototype.doCleanCache = function(){
-    tellurium.cache.cleanCache();
+    tellurium.cache.clear();
 };
 
 Selenium.prototype.doSetCacheMaxSize = function(size){
@@ -397,7 +397,7 @@ Selenium.prototype.doUpdateEngineState = function(state){
 
 Selenium.prototype.getEngineState = function(){
     var state = new EngineState();
-    state.relax = tellurium.cache.uiAlg.allowRelax;
+    state.relax = tellurium.cmdExecutor.uiAlg.allowRelax;
     state.teApi = tellurium.isUseTeApi;
     state.cache = tellurium.cache.cacheOption;
 

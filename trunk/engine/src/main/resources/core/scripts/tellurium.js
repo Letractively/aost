@@ -2,6 +2,7 @@ var ErrorCodes = {
     UI_OBJ_NOT_FOUND: "UI object not found",
     INVALID_TELLURIUM_COMMAND : "Invalid Tellurium command",
     INVALID_CALL_ON_UI_OBJ : "Invalid call on UI object",
+    INVALID_NUMBER_OF_PARAMETERS: "Invalid number of parameters",
     UI_OBJ_CANNOT_BE_LOCATED: "UI object cannot be located",
     UI_MODULE_IS_NULL: "UI module is null",
     DOM_NOT_SPECIFIED: "DOM is not specified",
@@ -319,7 +320,29 @@ Tellurium.prototype.delegateToTellurium = function(response, cmd) {
     var command = this.cmdExecutor.getCommand(cmd.name);
 
     if(command != null){
-        var result = this.cmdExecutor.execCommand(cmd.name, cmd.uid, cmd.args);
+        var param = null;
+        if(cmd.args != null && cmd.args.length > 0){
+            if(cmd.args.length > 1){
+                //locator
+                if(this.isLocator(cmd.args[0])){
+                    param = cmd.args[1];
+                }else if(command.type != CommandType.ASSERTION){
+                    throw new TelluriumError(ErrorCodes.INVALID_NUMBER_OF_PARAMETERS, "Tellurium command " + cmd.name + " expects 1 parameter, but is " + cmd.args.length);
+                }
+            }else{
+                param = cmd.args[0]
+            }
+
+        }
+        var result;
+        if(command.type == CommandType.DIRECT){
+            result = this.cmdExecutor[cmd.name].apply(this.cmdExecutor, cmd.uid, param);
+        }else if(command.type == CommandType.ASSERTION){
+            result = this.cmdExecutor[cmd.name].apply(this.cmdExecutor, cmd.args[0], cmd.args[1]);
+        }else{
+            result = this.cmdExecutor.execCommand(cmd.name, cmd.uid, param);
+        }
+
         if(command.returnType == "VOID"){
             response.addResponse(cmd.sequ, cmd.name, command.returnType, result);
         }else {
@@ -403,6 +426,13 @@ Tellurium.prototype.locateElementByCSSSelector = function(locator, inDocument, i
     } else {
         return null;
     }
+};
+
+Tellurium.prototype.isLocator = function(locator){
+    if(typeof(locator) != "string")
+        return false;
+
+    return locator.startsWith('//') || locator.startsWith('jquery=') || locator.startsWith('jquerycache=') || locator.startsWith('document.');
 };
 
 /*
