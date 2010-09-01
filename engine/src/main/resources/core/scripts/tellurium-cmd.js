@@ -11,6 +11,7 @@ const ValueType = {
 const CommandType = {
     ACTION: "action",
     ACCESSOR: "accessor",
+    DIRECT: "direct",
     ASSERTION: "assertion"
 };
 
@@ -89,18 +90,18 @@ TelluriumCommandExecutor.prototype.registerCommands = function(){
     this.registerCommand("isDisable",  CommandType.ACCESSOR, ReturnType.BOOLEAN, this.isDisabled);
     this.registerCommand("showUI", CommandType.ACTION, ReturnType.VOID, this.showUI);
     this.registerCommand("cleanUI", CommandType.ACTION, ReturnType.VOID, this.cleanUI);
-    this.registerCommand("getHTMLSource", CommandType.ACCESSOR, ReturnType.ARRAY, this.getHTMLSource);
-    this.registerCommand("getHTMLSourceAsString", CommandType.ACCESSOR, ReturnType.STRING, this.getHTMLSourceAsString);
-    this.registerCommand("getUids", CommandType.ACCESSOR, ReturnType.ARRAY, this.getUids);
-    this.registerCommand("getUidsAsString", CommandType.ACCESSOR, ReturnType.STRING, this.getUidsAsString);
-    this.registerCommand("getCssSelectorCount", CommandType.ACCESSOR, ReturnType.NUMBER, this.getCssSelectorCount);
-    this.registerCommand("getCssSelectorMatch", CommandType.ACCESSOR, ReturnType.ARRAY, this.getCssSelectorMatch);
-    this.registerCommand("getCssSelectorMatchAsString", CommandType.ACCESSOR, ReturnType.STRING, this.getCssSelectorMatchAsString);
-    this.registerCommand("validateUiModuleInJSON", CommandType.ACCESSOR, ReturnType.OBJECT, this.validateUiModuleInJSON);
-    this.registerCommand("validateUiModule", CommandType.ACCESSOR, ReturnType.OBJECT, this.validateUiModule);
-    this.registerCommand("validateUiModuleAsString", CommandType.ACCESSOR, ReturnType.STRING, this.validateUiModuleAsString);
-    this.registerCommand("toJSON", CommandType.ACCESSOR, ReturnType.OBJECT, this.toJSON);
-    this.registerCommand("toJSONString", CommandType.ACCESSOR, ReturnType.STRING, this.toJSONString);
+    this.registerCommand("getHTMLSource", CommandType.DIRECT, ReturnType.ARRAY, this.getHTMLSource);
+    this.registerCommand("getHTMLSourceAsString", CommandType.DIRECT, ReturnType.STRING, this.getHTMLSourceAsString);
+    this.registerCommand("getUids", CommandType.DIRECT, ReturnType.ARRAY, this.getUids);
+    this.registerCommand("getUidsAsString", CommandType.DIRECT, ReturnType.STRING, this.getUidsAsString);
+    this.registerCommand("getCssSelectorCount", CommandType.DIRECT, ReturnType.NUMBER, this.getCssSelectorCount);
+    this.registerCommand("getCssSelectorMatch", CommandType.DIRECT, ReturnType.ARRAY, this.getCssSelectorMatch);
+    this.registerCommand("getCssSelectorMatchAsString", CommandType.DIRECT, ReturnType.STRING, this.getCssSelectorMatchAsString);
+    this.registerCommand("validateUiModuleInJSON", CommandType.DIRECT, ReturnType.OBJECT, this.validateUiModuleInJSON);
+    this.registerCommand("validateUiModule", CommandType.DIRECT, ReturnType.OBJECT, this.validateUiModule);
+    this.registerCommand("validateUiModuleAsString", CommandType.DIRECT, ReturnType.STRING, this.validateUiModuleAsString);
+    this.registerCommand("toJSON", CommandType.DIRECT, ReturnType.OBJECT, this.toJSON);
+    this.registerCommand("toJSONString", CommandType.DIRECT, ReturnType.STRING, this.toJSONString);
 //    this.registerCommand("waitForPageToLoad", CommandType.ACTION, ReturnType.VOID, this.waitForPageToLoad);
     this.registerCommand("assertTrue", CommandType.ASSERTION, ReturnType.VOID, this.assertTrue);
     this.registerCommand("assertFalse", CommandType.ASSERTION, ReturnType.VOID, this.assertFalse);
