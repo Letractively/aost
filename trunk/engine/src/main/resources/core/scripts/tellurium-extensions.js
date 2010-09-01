@@ -334,8 +334,8 @@ Selenium.prototype.getDiagnosisResponse = function(locator, dreq){
 Selenium.prototype.getBundleResponse = function(bundle){
     !tellurium.logManager.isUseLog || !tellurium.logManager.isUseLog || fbLog("Issue Bundle Command ", bundle);
     tellurium.parseMacroCmd(bundle);
-//    return tellurium.processMacroCmd();
-    return tellurium.dispatchMacroCmd();
+    return tellurium.processMacroCmd();
+//    return tellurium.dispatchMacroCmd();
 };
 
 Selenium.prototype.getUseUiModule = function(jsonarray){

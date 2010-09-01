@@ -13,7 +13,7 @@ var ErrorCodes = {
 
 
 function TelluriumError(type, message) {
-    var error = new Error(message);
+    var error = new SeleniumError(message);
     if (typeof(arguments.caller) != 'undefined') { // IE, not ECMA
         var result = '';
         for (var a = arguments.caller; a != null; a = a.caller) {
@@ -73,15 +73,17 @@ Outlines.prototype.getOutline = function(index){
     return this.outlines[i];
 };
 
-teJQuery(document).ready(function() {
+/*teJQuery(document).ready(function() {
     tellurium = new Tellurium();
     tellurium.initialize();
     !tellurium.logManager.isUseLog || fbLog("Tellurium initialized after document ready", tellurium);
-});
+});*/
 
-/*
+var tellurium = null;
+
 teJQuery(document).ready(function() {
     tellurium = new Tellurium();
+    fbLog("Start tellurium instance", tellurium);
     tellurium.initialize();
     !tellurium.logManager.isUseLog || fbLog("Tellurium initialized after document ready", tellurium);
 //    document.body.appendChild(firebug);
@@ -95,7 +97,6 @@ teJQuery(document).ready(function() {
     if(typeof (firebug) != "undefined")
         void(firebug);
 });
-*/
 
 //add custom jQuery Selector :te_text()
 //
@@ -433,7 +434,7 @@ Tellurium.prototype.getRegisteredUiTypes = function(){
 Tellurium.prototype.registerTeApis = function(){
     this.registerApi("isElementPresent", true, "BOOLEAN");
     this.registerApi("blur", true, "VOID");
-//    this.registerApi("click", true, "VOID");
+    this.registerApi("click", true, "VOID");
     this.registerApi("doubleClick", true, "VOID");
     this.registerApi("fireEvent", true, "VOID");
     this.registerApi("focus", true, "VOID");
@@ -1117,5 +1118,5 @@ Tellurium.prototype.updateArgumentList = function(cmd){
 };
 
 //var tellurium = null;
-var tellurium = new Tellurium();
-tellurium.initialize();
+/*var tellurium = new Tellurium();
+tellurium.initialize();*/
