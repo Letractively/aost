@@ -89,8 +89,8 @@ TelluriumCommandExecutor.prototype.registerCommands = function(){
     this.registerCommand("getCSSAsString", CommandType.ACCESSOR, ReturnType.STRING, this.getCSSAsString);
     this.registerCommand("isDisable",  CommandType.ACCESSOR, ReturnType.BOOLEAN, this.isDisabled);
     this.registerCommand("reset", CommandType.ACCESSOR, ReturnType.VOID, this.reset);
-    this.registerCommand("showUi", CommandType.ACTION, ReturnType.VOID, this.showUI);
-    this.registerCommand("cleanUi", CommandType.ACTION, ReturnType.VOID, this.cleanUI);
+    this.registerCommand("showUi", CommandType.ACTION, ReturnType.VOID, this.showUi);
+    this.registerCommand("cleanUi", CommandType.ACTION, ReturnType.VOID, this.cleanUi);
     this.registerCommand("getHTMLSource", CommandType.DIRECT, ReturnType.ARRAY, this.getHTMLSource);
     this.registerCommand("getHTMLSourceAsString", CommandType.DIRECT, ReturnType.STRING, this.getHTMLSourceAsString);
     this.registerCommand("getUids", CommandType.DIRECT, ReturnType.ARRAY, this.getUids);
@@ -600,7 +600,7 @@ TelluriumCommandExecutor.prototype.isDisabled = function(uid) {
     return this.execCommand("isDisabled", uid);
 };
 
-TelluriumCommandExecutor.prototype.showUI = function(uid) {
+TelluriumCommandExecutor.prototype.showUi = function(uid) {
     var context = new WorkflowContext();
     context.alg = this.uiAlg;
     var uiid = new Uiid();
@@ -636,7 +636,7 @@ TelluriumCommandExecutor.prototype.showUI = function(uid) {
     }
 };
 
-TelluriumCommandExecutor.prototype.cleanUI = function(uid) {
+TelluriumCommandExecutor.prototype.cleanUi = function(uid) {
     var context = new WorkflowContext();
     context.alg = this.uiAlg;
     var uiid = new Uiid();
