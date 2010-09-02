@@ -824,7 +824,7 @@ function SeleniumError(message) {
         error.stack = result;
     }
     error.isSeleniumError = true;
-    var jstk = error.message;
+    var jstk = error.message + " \n";
     if(tellurium.logManager.isUseLog){
         jstk = jstk + describeErrorStack(error);
         error.message = jstk;
