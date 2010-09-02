@@ -544,6 +544,7 @@ var UiObject = Class.extend({
 
     getAttribute: function(context, attribute){
         var element = context.domRef;
+//        alert("attribute: " + attribute + ", value: " + teJQuery(element).attr(attribute));
         return teJQuery(element).attr(attribute);
     },
 

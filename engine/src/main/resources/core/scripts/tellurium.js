@@ -330,6 +330,16 @@ Tellurium.prototype.delegateToSelenium = function(response, cmd) {
     }
 };
 
+Tellurium.prototype.parseAttributeFromLocator = function(locator){
+    var attribute = null;
+    var inx = locator.lastIndexOf('@');
+    if (inx != -1) {
+       attribute = locator.substring(inx + 1);
+    }
+
+    return attribute;
+};
+
 Tellurium.prototype.prepareArgumentList = function(args){
     if(args == null)
         return [];
@@ -370,24 +380,23 @@ Tellurium.prototype.delegateToTellurium = function(response, cmd) {
         if(command.type == CommandType.ASSERTION){
             result = this.cmdExecutor[cmd.name].apply(this.cmdExecutor, cmd.args);
         }else{
-            var params = this.prepareArgumentList(cmd.args);
-            params.splice(0, 0, cmd.uid);
-            result = this.cmdExecutor[cmd.name].apply(this.cmdExecutor, params);
+            if(cmd.name == "getAttribute"){
+                var attr = this.parseAttributeFromLocator(cmd.args[0]);
+                result = this.cmdExecutor[cmd.name].apply(this.cmdExecutor, [cmd.uid, attr]);
+            } else {
+                var params = this.prepareArgumentList(cmd.args);
+                params.splice(0, 0, cmd.uid);
+                result = this.cmdExecutor[cmd.name].apply(this.cmdExecutor, params);
+            }
+
         }
-        
-/*        if(command.type == CommandType.DIRECT){
-            result = this.cmdExecutor[cmd.name].apply(this.cmdExecutor, cmd.uid, param);
-        }else if(command.type == CommandType.ASSERTION){
-            result = this.cmdExecutor[cmd.name].apply(this.cmdExecutor, cmd.args[0], cmd.args[1]);
-        }else{
-            result = this.cmdExecutor.execCommand(cmd.name, cmd.uid, param);
-        }*/
 
         if(command.returnType == "VOID"){
             response.addResponse(cmd.sequ, cmd.name, command.returnType, result);
         }else {
-                response.addResponse(cmd.sequ, cmd.name, command.returnType, result);
-            }
+//            alert("Add response " + cmd.sequ + ", " + cmd.name + ", " + command.returnType + ", " + result);
+            response.addResponse(cmd.sequ, cmd.name, command.returnType, result);
+        }
     } else {
         throw TelluriumError(ErrorCodes.INVALID_TELLURIUM_COMMAND, "Invalid Tellurium command " + cmd.name + " in Command Bundle.");
     }
