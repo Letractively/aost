@@ -88,8 +88,9 @@ TelluriumCommandExecutor.prototype.registerCommands = function(){
     this.registerCommand("getCSS", CommandType.ACCESSOR, ReturnType.ARRAY, this.getCSS);
     this.registerCommand("getCSSAsString", CommandType.ACCESSOR, ReturnType.STRING, this.getCSSAsString);
     this.registerCommand("isDisable",  CommandType.ACCESSOR, ReturnType.BOOLEAN, this.isDisabled);
-    this.registerCommand("showUI", CommandType.ACTION, ReturnType.VOID, this.showUI);
-    this.registerCommand("cleanUI", CommandType.ACTION, ReturnType.VOID, this.cleanUI);
+    this.registerCommand("reset", CommandType.ACCESSOR, ReturnType.VOID, this.reset);
+    this.registerCommand("showUi", CommandType.ACTION, ReturnType.VOID, this.showUI);
+    this.registerCommand("cleanUi", CommandType.ACTION, ReturnType.VOID, this.cleanUI);
     this.registerCommand("getHTMLSource", CommandType.DIRECT, ReturnType.ARRAY, this.getHTMLSource);
     this.registerCommand("getHTMLSourceAsString", CommandType.DIRECT, ReturnType.STRING, this.getHTMLSourceAsString);
     this.registerCommand("getUids", CommandType.DIRECT, ReturnType.ARRAY, this.getUids);
@@ -926,6 +927,11 @@ TelluriumCommandExecutor.prototype.open = function(uid, url){
     setTimeout(WaitPageLoad, 1000, self);
     this.clearCache();
 };
+
+TelluriumCommandExecutor.prototype.reset = function(uid){
+    this.execCommand("reset", uid);
+};
+
 
 function arrayToString(array){
     if(array != null && array.length > 0){

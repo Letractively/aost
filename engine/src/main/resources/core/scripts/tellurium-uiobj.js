@@ -432,6 +432,13 @@ var UiObject = Class.extend({
 
     //Add UI event handlers here
 
+    reset: function(context) {
+        var element = context.domRef;
+        if (element.reset != undefined) {
+            element.reset();
+        }
+    },
+
     fireEvent: function(context, event){
         var element = context.domRef;
         teJQuery(element).trigger(event);

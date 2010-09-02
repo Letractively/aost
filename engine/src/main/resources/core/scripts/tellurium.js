@@ -333,7 +333,7 @@ Tellurium.prototype.delegateToSelenium = function(response, cmd) {
 Tellurium.prototype.prepareArgumentList = function(args){
     if(args == null)
         return [];
-    var params;
+    var params = [];
     if(this.isLocator(args[0])){
         for(var i=1; i< args.length; i++){
             params.push(args[i]);
