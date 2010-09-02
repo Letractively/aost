@@ -1,6 +1,7 @@
 var ErrorCodes = {
     UI_OBJ_NOT_FOUND: "UI object not found",
     INVALID_TELLURIUM_COMMAND : "Invalid Tellurium command",
+    INVALID_SELENIUM_COMMAND: "Invalid Selenium command",
     INVALID_CALL_ON_UI_OBJ : "Invalid call on UI object",
     INVALID_NUMBER_OF_PARAMETERS: "Invalid number of parameters",
     UI_OBJ_CANNOT_BE_LOCATED: "UI object cannot be located",
@@ -291,11 +292,20 @@ Tellurium.prototype.delegateToSelenium = function(response, cmd) {
     }
 
     if (apiName.startsWith("is")) {
+
+        if(selenium[apiName] == undefined){
+            throw new TelluriumError(ErrorCodes.INVALID_SELENIUM_COMMAND, "Invalid selenium command " + apiName);
+        }
+
         result = selenium[apiName].apply(selenium, cmd.args);
         if(returnType == null)
             returnType = "BOOLEAN";
         response.addResponse(cmd.sequ, apiName, returnType, result);
     } else if (apiName.startsWith("get")) {
+
+        if(selenium[apiName] == undefined){
+            throw new TelluriumError(ErrorCodes.INVALID_SELENIUM_COMMAND, "Invalid selenium command " + apiName);
+        }
         result = selenium[apiName].apply(selenium, cmd.args);
         if(apiName.indexOf("All") != -1){
             //api Name includes "All" should return an array
@@ -310,9 +320,29 @@ Tellurium.prototype.delegateToSelenium = function(response, cmd) {
         }
     } else {
         apiName = this.camelizeApiName(apiName);
+
+        if(selenium[apiName] == undefined){
+            throw new TelluriumError(ErrorCodes.INVALID_SELENIUM_COMMAND, "Invalid selenium command " + apiName);
+        }
+        
         !tellurium.logManager.isUseLog || fbLog("Call Selenium method " + apiName, selenium);
         selenium[apiName].apply(selenium, cmd.args);
     }
+};
+
+Tellurium.prototype.prepareArgumentList = function(args){
+    if(args == null)
+        return [];
+    var params;
+    if(this.isLocator(args[0])){
+        for(var i=1; i< args.length; i++){
+            params.push(args[i]);
+        }
+    }else{
+        params = args;
+    }
+
+    return params;
 };
 
 Tellurium.prototype.delegateToTellurium = function(response, cmd) {
@@ -320,6 +350,7 @@ Tellurium.prototype.delegateToTellurium = function(response, cmd) {
     var command = this.cmdExecutor.getCommand(cmd.name);
 
     if(command != null){
+/*
         var param = null;
         if(cmd.args != null && cmd.args.length > 0){
             if(cmd.args.length > 1){
@@ -334,12 +365,16 @@ Tellurium.prototype.delegateToTellurium = function(response, cmd) {
             }
 
         }
+*/
         var result;
         if(command.type == CommandType.ASSERTION){
             result = this.cmdExecutor[cmd.name].apply(this.cmdExecutor, cmd.args);
         }else{
-            result = this.cmdExecutor[cmd.name].apply(this.cmdExecutor, [cmd.uid, param]);
+            var params = this.prepareArgumentList(cmd.args);
+            params.splice(0, 0, cmd.uid);
+            result = this.cmdExecutor[cmd.name].apply(this.cmdExecutor, params);
         }
+        
 /*        if(command.type == CommandType.DIRECT){
             result = this.cmdExecutor[cmd.name].apply(this.cmdExecutor, cmd.uid, param);
         }else if(command.type == CommandType.ASSERTION){

@@ -103,6 +103,11 @@ TelluriumCommandExecutor.prototype.registerCommands = function(){
     this.registerCommand("toJSON", CommandType.DIRECT, ReturnType.OBJECT, this.toJSON);
     this.registerCommand("toJSONString", CommandType.DIRECT, ReturnType.STRING, this.toJSONString);
 //    this.registerCommand("waitForPageToLoad", CommandType.ACTION, ReturnType.VOID, this.waitForPageToLoad);
+    this.registerCommand("getUiByTag", CommandType.DIRECT, ReturnType.OBJECT, this.getUiByTag);
+    this.registerCommand("removeMarkedUids", CommandType.DIRECT, ReturnType.VOID, this.removeMarkedUids)
+    this.registerCommand("getCacheState", CommandType.ACCESSOR, ReturnType.BOOLEAN, this.getCacheState);
+    this.registerCommand("enableCache", CommandType.ACCESSOR, ReturnType.VOID, this.enableCache);
+    this.registerCommand("disableCache", CommandType.ACCESSOR, ReturnType.VOID, this.disableCache);
     this.registerCommand("assertTrue", CommandType.ASSERTION, ReturnType.VOID, this.assertTrue);
     this.registerCommand("assertFalse", CommandType.ASSERTION, ReturnType.VOID, this.assertFalse);
     this.registerCommand("assertEquals", CommandType.ASSERTION, ReturnType.VOID, this.assertEquals);
@@ -148,6 +153,20 @@ TelluriumCommandExecutor.prototype.removeCachedUiModule = function(id){
 TelluriumCommandExecutor.prototype.clearCache = function(){
     return this.cache.clear();
 };
+
+TelluriumCommandExecutor.prototype.getCacheState = function(){
+
+    return this.cache.cacheOption;
+};
+
+TelluriumCommandExecutor.prototype.enableCache = function(){
+    this.cache.cacheOption = true;
+};
+
+TelluriumCommandExecutor.prototype.disableCache = function(){
+    this.cache.cacheOption = false;
+};
+
 
 TelluriumCommandExecutor.prototype.useUiModuleInJSON = function(jsonarray){
     var uim = new UiModule();
@@ -309,6 +328,49 @@ TelluriumCommandExecutor.prototype.execCommand = function(cmd, uid, param){
     }else{
         logger.error("Cannot find UI Module " + uid);
         throw new TelluriumError(ErrorCodes.UI_MODULE_IS_NULL, "Cannot find UI Module " + uid);
+    }
+};
+
+TelluriumCommandExecutor.prototype.getUiByTag = function(tag, attributes){
+//    var attrs = new Hashtable();
+    var attrs = {};
+    var position = null;
+    var text = null;
+    var i;
+    if(attributes != null && attributes.length > 0){
+        for(i=0; i<attributes.length; i++){
+            var key = attributes[i]["key"];
+            var val = attributes[i]["val"];
+            fbLog("Key " + key + ", val " + val, attributes);
+            if(key == "text"){
+                text = val;
+            }else if(key == "position"){
+                position = val;
+            }else{
+                attrs[key] = val;
+            }
+        }
+    }
+
+    var sel = this.uiAlg.cssbuilder.buildCssSelector(tag, text, position, false, attrs);
+//    var $found = teJQuery(selenium.browserbot.currentWindow).find(sel);
+    var $found = teJQuery(selenium.browserbot.findElementOrNull("jquery=" + sel));
+    var teuids = new Array();
+    for(i=0; i<$found.size(); i++){
+        var $e = $found.eq(i);
+        !tellurium.logManager.isUseLog || fbLog("Found element for getUiByTag " + tag, $e.get());
+        var teuid = "te-" + tellurium.idGen.next();
+        $e.attr("teuid", teuid);
+        teuids.push(teuid);
+    }
+
+    return teuids;
+};
+
+TelluriumCommandExecutor.prototype.removeMarkedUids = function(tag){
+    var $found = teJQuery(selenium.browserbot.currentWindow).find(tag + "[teuid]");
+    if($found.size() > 0){
+        $found.removeAttr("teuid");
     }
 };
 

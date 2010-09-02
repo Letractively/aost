@@ -1,5 +1,7 @@
 function TelluriumApi(){
+//    alert("Before initiate cmdExecutor");
     this.cmdExecutor = new TelluriumCommandExecutor();
+//    alert("After initiate cmdExecutor " + this.cmdExecutor);
 }
 
 
@@ -32,6 +34,7 @@ TelluriumApi.prototype.blur = function(uid) {
 };
 
 TelluriumApi.prototype.click = function(uid) {
+    alert("this.cmdExecutor " + this.cmdExecutor);
     this.cmdExecutor.run("click", uid, null);
 };
 
@@ -60,6 +63,7 @@ TelluriumApi.prototype.typeKey = function(uid, key){
 };
 
 TelluriumApi.prototype.keyDown = function(uid, key){
+    alert("this.cmdExecutor " + this.cmdExecutor);
     this.cmdExecutor.run("keyDown", uid, key);
 };
 
