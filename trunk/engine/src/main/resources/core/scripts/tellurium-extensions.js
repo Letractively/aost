@@ -98,6 +98,18 @@ Selenium.prototype.doCleanCache = function(){
     tellurium.cache.clear();
 };
 
+Selenium.prototype.enableCache = function(){
+    tellurium.cache.cacheOption = true;
+};
+
+Selenium.prototype.disableCache = function(){
+    tellurium.cache.cacheOption = false;
+};
+
+Selenium.prototype.cleanCache = function(){
+    tellurium.cache.clear();
+};
+
 Selenium.prototype.doSetCacheMaxSize = function(size){
     tellurium.cache.maxCacheSize = size;
 };
@@ -351,6 +363,10 @@ Selenium.prototype.isUiModuleCached = function(id){
 };
 
 Selenium.prototype.doUseTeApi = function(isUse){
+    tellurium.useTeApi(isUse);
+};
+
+Selenium.prototype.useTeApi = function(isUse){
     tellurium.useTeApi(isUse);
 };
 
