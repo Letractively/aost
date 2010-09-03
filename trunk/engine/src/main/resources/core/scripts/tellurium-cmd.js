@@ -597,22 +597,26 @@ TelluriumCommandExecutor.prototype.getOptionSelector = function(optionLocator){
 
 TelluriumCommandExecutor.prototype.select = function(uid, option){
     this.selectByLabel(uid, option);
-    //    var optionSelector = this.getOptionSelector(optionLocator);
+//    var optionSelector = this.getOptionSelector(optionLocator);
 //    this.execCommand("select", uid, optionSelector);
 };
 
 TelluriumCommandExecutor.prototype.selectByLabel = function(uid, option){
-    var optionSelector = this.getOptionSelector("label=" + option);
+//    var optionSelector = this.getOptionSelector("label=" + option);
+    var optionSelector = this.getOptionSelector(option);
+//    alert("selectByLabel option: " + optionSelector);
     this.execCommand("select", uid, optionSelector);
 };
 
 TelluriumCommandExecutor.prototype.selectByIndex = function(uid, option){
-    var optionSelector = this.getOptionSelector("index=" + option);
+//    var optionSelector = this.getOptionSelector("index=" + option);
+    var optionSelector = this.getOptionSelector(option);
     this.execCommand("select", uid, optionSelector);
 };
 
 TelluriumCommandExecutor.prototype.selectByValue = function(uid, option){
-    var optionSelector = this.getOptionSelector("value=" + option);
+//    var optionSelector = this.getOptionSelector("value=" + option);
+    var optionSelector = this.getOptionSelector(option);
     this.execCommand("select", uid, optionSelector);
 };
 
