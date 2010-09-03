@@ -39,7 +39,9 @@ function TelluriumCommandExecutor(){
 
     this.cache = new TelluriumUiCache();
 
-    this.uiAlg = new UiAlg(); 
+    this.uiAlg = new UiAlg();
+    
+    this.textWorker = new TextUiWorker();
 
     this.cssBuilder = new JQueryBuilder();
 
@@ -83,8 +85,10 @@ TelluriumCommandExecutor.prototype.registerCommands = function(){
     this.registerCommand("getAttribute", CommandType.ACCESSOR, ReturnType.STRING, this.getAttribute);
     this.registerCommand("getText", CommandType.ACCESSOR, ReturnType.STRING, this.getText);
     this.registerCommand("getValue", CommandType.ACCESSOR, ReturnType.STRING, this.getValue);
+    this.registerCommand("isElementPresent", CommandType.ACCESSOR, ReturnType.BOOLEAN, this.isElementPresent);
     this.registerCommand("isChecked", CommandType.ACCESSOR, ReturnType.BOOLEAN, this.isChecked);
     this.registerCommand("isVisible", CommandType.ACCESSOR, ReturnType.BOOLEAN, this.isVisible);
+    this.registerCommand("isEditable", CommandType.ACCESSOR, ReturnType.BOOLEAN, this.isEditable);
     this.registerCommand("getCSS", CommandType.ACCESSOR, ReturnType.ARRAY, this.getCSS);
     this.registerCommand("getCSSAsString", CommandType.ACCESSOR, ReturnType.STRING, this.getCSSAsString);
     this.registerCommand("isDisable",  CommandType.ACCESSOR, ReturnType.BOOLEAN, this.isDisabled);
@@ -131,6 +135,7 @@ TelluriumCommandExecutor.prototype.registerCommands = function(){
     this.registerCommand("getTeTableColumnNumForTbody", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTeTableColumnNumForTbody);
     this.registerCommand("getTableTbodyNum", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTableTbodyNum);
     this.registerCommand("getTeTableTbodyNum", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTeTableTbodyNum);
+    this.registerCommand("getAllTableBodyText", CommandType.ACCESSOR, ReturnType.STRING, this.getAllTableBodyText);
     this.registerCommand("getRepeatNum", CommandType.ASSERTION, ReturnType.NUMBER, this.getRepeatNum);
 };
 
@@ -597,6 +602,10 @@ TelluriumCommandExecutor.prototype.getTeListSize = function(uid) {
     return this.execCommand("getListSize", uid);
 };
 
+TelluriumCommandExecutor.prototype.getAllTableBodyText = function(uid){
+    return this.execCommand("getAllBodyCell", uid, this.textWorker);
+};
+
 TelluriumCommandExecutor.prototype.getTableHeaderColumnNum = function(uid) {
     return this.execCommand("getHeaderColumnNum", uid);
 };
@@ -665,12 +674,32 @@ TelluriumCommandExecutor.prototype.getValue = function(uid) {
     return this.execCommand("getValue", uid);
 };
 
+TelluriumCommandExecutor.prototype.isElementPresent = function(uid){
+    var context = new WorkflowContext();
+    context.alg = this.uiAlg;
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+
+    var first = uiid.peek();
+    var uim = this.cache.get(first);
+    if(uim != null){
+        var obj = uim.walkTo(context, uiid);
+        return obj != null;
+    }
+
+    return false;
+};
+
 TelluriumCommandExecutor.prototype.isChecked = function(uid) {
     return this.execCommand("isChecked", uid);
 };
 
 TelluriumCommandExecutor.prototype.isVisible = function(uid) {
     return this.execCommand("isVisible", uid);
+};
+
+TelluriumCommandExecutor.prototype.isEditable = function(uid) {
+    return this.execCommand("isEditable", uid);
 };
 
 TelluriumCommandExecutor.prototype.getCSS = function(uid, cssName) {
