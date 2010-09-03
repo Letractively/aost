@@ -289,9 +289,9 @@ Tellurium.prototype.delegateToSelenium = function(response, cmd) {
 
     //Try to get back the return type by looking at Tellurium API counterpart
 //    var handler = this.apiMap.get(cmd.name);
-    var handler = this.cmdExecutor.getCommand(cmd.name);
-    if(handler != null){
-        returnType = handler.returnType;
+    var command = this.cmdExecutor.getCommand(cmd.name);
+    if(command != null){
+        returnType = command.returnType;
     }
 
     if (apiName.startsWith("is")) {
@@ -385,13 +385,14 @@ Tellurium.prototype.delegateToTellurium = function(response, cmd) {
         }else{
             if(cmd.name == "getAttribute"){
                 var attr = this.parseAttributeFromLocator(cmd.args[0]);
-                result = this.cmdExecutor[cmd.name].apply(this.cmdExecutor, [cmd.uid, attr]);
+//                result = this.cmdExecutor[cmd.name].apply(this.cmdExecutor, [cmd.uid, attr]);
+                result = command.handler.apply(this.cmdExecutor, [cmd.uid, attr]);
             } else {
                 var params = this.prepareArgumentList(cmd.args);
                 params.splice(0, 0, cmd.uid);
-                result = this.cmdExecutor[cmd.name].apply(this.cmdExecutor, params);
+//                result = this.cmdExecutor[cmd.name].apply(this.cmdExecutor, params);
+                result = command.handler.apply(this.cmdExecutor, params);
             }
-
         }
 
         if(command.returnType == "VOID"){
