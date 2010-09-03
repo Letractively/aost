@@ -566,6 +566,31 @@ var UiObject = Class.extend({
             return true;
         }
     },
+    
+    isEditable: function(context) {
+        var element = context.domRef;
+        if (element.value == undefined) {
+            Assert.fail("Element " + this.uid + " is not an input.");
+        }
+        if (element.disabled) {
+            return false;
+        }
+
+        var readOnlyNode = element.getAttributeNode('readonly');
+        if (readOnlyNode) {
+            // DGF on IE, every input element has a readOnly node, but it may be false
+            if (typeof(readOnlyNode.nodeValue) == "boolean") {
+                var readOnly = readOnlyNode.nodeValue;
+                if (readOnly) {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+        return true;
+
+    },
 
     getCSS: function(context, cssName){
         var element = context.domRef;
