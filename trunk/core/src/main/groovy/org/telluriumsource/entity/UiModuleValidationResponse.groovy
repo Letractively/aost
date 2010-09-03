@@ -110,7 +110,8 @@ public class UiModuleValidationResponse {
           cl = locator.toHTML(true);
         }
         println i18nBundle.getMessage("UiModuleValidationResponse.CompositeLocator" , cl);
-        println i18nBundle.getMessage("UiModuleValidationResponse.Html" , rd.html);
+        if(rd.html != null)
+          println i18nBundle.getMessage("UiModuleValidationResponse.Html" , rd.html);
         println("\n");
       }
     }
