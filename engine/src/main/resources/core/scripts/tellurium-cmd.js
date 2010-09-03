@@ -82,8 +82,24 @@ TelluriumCommandExecutor.prototype.registerCommands = function(){
     this.registerCommand("selectByLabel", CommandType.ACTION, ReturnType.VOID, this.selectByLabel);
     this.registerCommand("selectByIndex", CommandType.ACTION, ReturnType.VOID, this.selectByIndex);
     this.registerCommand("selectByValue", CommandType.ACTION, ReturnType.VOID, this.selectByValue);
+
+    this.registerCommand("getSelectOptions", CommandType.ACCESSOR, ReturnType.ARRAY, this.getSelectOptions);
+    this.registerCommand("getSelectValues", CommandType.ACCESSOR, ReturnType.ARRAY, this.getSelectValues);
+    this.registerCommand("getSelectedLabel", CommandType.ACCESSOR, ReturnType.STRING, this.getSelectedLabel);
+    this.registerCommand("getSelectedLabels", CommandType.ACCESSOR, ReturnType.ARRAY, this.getSelectedLabels);
+    this.registerCommand("getSelectedValue", CommandType.ACCESSOR, ReturnType.STRING, this.getSelectedValue);
+    this.registerCommand("getSelectedValues", CommandType.ACCESSOR, ReturnType.ARRAY, this.getSelectedValues);
+    this.registerCommand("getSelectedIndex", CommandType.ACCESSOR, ReturnType.NUMBER, this.getSelectedIndex);
+    this.registerCommand("getSelectedIndexes", CommandType.ACCESSOR, ReturnType.ARRAY, this.getSelectedIndexes);
+    this.registerCommand("addSelection", CommandType.ACCESSOR, ReturnType.VOID, this.addSelection);
+    this.registerCommand("removeSelection", CommandType.ACCESSOR, ReturnType.VOID, this.removeSelection)
+    this.registerCommand("removeAllSelections", CommandType.ACCESSOR, ReturnType.VOID, this.removeAllSelections);
+
     this.registerCommand("getAttribute", CommandType.ACCESSOR, ReturnType.STRING, this.getAttribute);
     this.registerCommand("getText", CommandType.ACCESSOR, ReturnType.STRING, this.getText);
+    
+    this.registerCommand("getAllText", CommandType.ACCESSOR, ReturnType.ARRAY, this.getAllText);
+    
     this.registerCommand("getValue", CommandType.ACCESSOR, ReturnType.STRING, this.getValue);
     this.registerCommand("isElementPresent", CommandType.ACCESSOR, ReturnType.BOOLEAN, this.isElementPresent);
     this.registerCommand("isChecked", CommandType.ACCESSOR, ReturnType.BOOLEAN, this.isChecked);
@@ -109,8 +125,9 @@ TelluriumCommandExecutor.prototype.registerCommands = function(){
     this.registerCommand("toJSONString", CommandType.DIRECT, ReturnType.STRING, this.toJSONString);
 //    this.registerCommand("waitForPageToLoad", CommandType.ACTION, ReturnType.VOID, this.waitForPageToLoad);
     this.registerCommand("getUiByTag", CommandType.DIRECT, ReturnType.OBJECT, this.getUiByTag);
-    this.registerCommand("removeMarkedUids", CommandType.DIRECT, ReturnType.VOID, this.removeMarkedUids)
+    this.registerCommand("removeMarkedUids", CommandType.DIRECT, ReturnType.VOID, this.removeMarkedUids);
     this.registerCommand("getCacheState", CommandType.ACCESSOR, ReturnType.BOOLEAN, this.getCacheState);
+    this.registerCommand("getCacheSize", CommandType.ACCESSOR, ReturnType.NUMBER, this.getCacheSize);
     this.registerCommand("enableCache", CommandType.ACCESSOR, ReturnType.VOID, this.enableCache);
     this.registerCommand("disableCache", CommandType.ACCESSOR, ReturnType.VOID, this.disableCache);
     this.registerCommand("assertTrue", CommandType.ASSERTION, ReturnType.VOID, this.assertTrue);
@@ -180,6 +197,11 @@ TelluriumCommandExecutor.prototype.clearCache = function(){
 TelluriumCommandExecutor.prototype.getCacheState = function(){
 
     return this.cache.cacheOption;
+};
+
+TelluriumCommandExecutor.prototype.getCacheSize = function(){
+
+    return this.cache.size();
 };
 
 TelluriumCommandExecutor.prototype.enableCache = function(){
@@ -592,6 +614,63 @@ TelluriumCommandExecutor.prototype.selectByIndex = function(uid, option){
 TelluriumCommandExecutor.prototype.selectByValue = function(uid, option){
     var optionSelector = this.getOptionSelector("value=" + option);
     this.execCommand("select", uid, optionSelector);
+};
+
+TelluriumCommandExecutor.prototype.getSelectOptions = function(uid) {
+    return this.execCommand("getSelectOptions", uid);
+};
+
+TelluriumCommandExecutor.prototype.getSelectValues = function(uid) {
+    return this.execCommand("getSelectValues", uid);
+};
+
+TelluriumCommandExecutor.prototype.getSelectedLabel = function(uid) {
+    return this.execCommand("getSelectedLabel", uid);
+};
+
+TelluriumCommandExecutor.prototype.getSelectedLabels = function(uid) {
+    return this.execCommand("getSelectedLabels", uid);
+};
+
+TelluriumCommandExecutor.prototype.getSelectedValue = function(uid) {
+    return this.execCommand("getSelectedValue", uid);
+};
+
+TelluriumCommandExecutor.prototype.getSelectedValues = function(uid) {
+    return this.execCommand("getSelectedValues", uid);
+};
+
+TelluriumCommandExecutor.prototype.getSelectedIndex = function(uid) {
+    return this.execCommand("getSelectedIndex", uid);
+};
+
+TelluriumCommandExecutor.prototype.getSelectedIndexes = function(uid) {
+    return this.execCommand("getSelectedIndexes", uid);
+};
+
+TelluriumCommandExecutor.prototype.addSelection = function(uid, optionLocator) {
+    var opt = this.getOptionSelector(optionLocator);
+    this.execCommand("getSelectedIndexes", uid, opt);
+};
+
+TelluriumCommandExecutor.prototype.removeSelection = function(uid, optionLocator) {
+    var opt = this.getOptionSelector(optionLocator);
+    this.execCommand("removeSelection", uid, opt);
+};
+
+TelluriumCommandExecutor.prototype.removeAllSelections = function(uid) {
+    this.execCommand("removeAllSelections", uid);
+};
+
+TelluriumCommandExecutor.prototype.getAllText = function(locator){
+    var element = selenium.browserbot.findElement(locator);
+    var out = [];
+    var $e = teJQuery(element);
+    $e.each(function() {
+        out.push(teJQuery(this).text());
+    });
+
+    return out;
 };
 
 TelluriumCommandExecutor.prototype.getListSize = function(uid) {

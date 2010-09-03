@@ -765,6 +765,100 @@ var UiSelector = UiObject.extend({
             evObj.initEvent('change', true, true);
             element.dispatchEvent(evObj);
         }
+    },
+
+    getSelectOptions: function(context) {
+        var element = context.domRef;
+        var selectOptions = [];
+
+        for (var i = 0; i < element.options.length; i++) {
+            var option = element.options[i].text;
+            selectOptions.push(option);
+        }
+
+        return selectOptions;
+    },
+
+    getSelectValues: function(context) {
+        var element = context.domRef;
+        var selectValues = [];
+
+        for (var i = 0; i < element.options.length; i++) {
+            var option = element.options[i].value;
+            selectValues.push(option);
+        }
+
+        return selectValues;
+    },
+
+    findSelectedOptionProperties: function(context, property) {
+        var element = context.domRef;
+        if (!("options" in element)) {
+            throw new SeleniumError("Specified element is not a Select (has no options)");
+        }
+
+        var $selected = teJQuery(element).find("option:selected");
+        var selectedOptions = [];
+        for(var i=0; i<$selected.size(); i++){
+            selectedOptions.push($selected.get(i)[property]);
+//            alert("Selected property " + property + " is " + $selected.get(i)[property]);
+        }
+
+        return selectedOptions;
+    },
+
+    getSelectedLabels: function(context) {
+        return this.findSelectedOptionProperties(context, "text");
+    },
+
+    getSelectedLabel: function(context) {
+        var options = this.findSelectedOptionProperties(context, "text");
+        if (options.length > 1) {
+            fbWarn("Multiple Selected options ", options);
+        }
+
+        return options[0];
+    },
+
+    getSelectedValues: function(context) {
+        return this.findSelectedOptionProperties(context, "value");
+    },
+
+    getSelectedValue: function(context) {
+        var options = this.findSelectedOptionProperties(context, "value");
+        if (options.length > 1) {
+            fbWarn("Multiple Selected options ", options);
+        }
+
+        return options[0];
+    },
+
+    getSelectedIndexes: function(context) {
+        return this.findSelectedOptionProperties(context, "index");
+    },
+
+    getSelectedIndex: function(context) {
+        var options = this.findSelectedOptionProperties(context, "index");
+        if (options.length > 1) {
+            fbWarn("Multiple Selected options ", options);
+        }
+
+        return options[0];
+    },
+
+    addSelection: function(context, option){
+       var element = context.domRef;
+       teJQuery(element).find(option).attr("selected","selected");
+    },
+
+    removeSelection: function(context, option) {
+        var element = context.domRef;
+        teJQuery(element).find(option).removeAttr("selected");
+    },
+
+    removeAllSelections: function(context){
+        var element = context.domRef;
+        teJQuery(element).find("option").removeAttr("selected");
     }
 });
 
