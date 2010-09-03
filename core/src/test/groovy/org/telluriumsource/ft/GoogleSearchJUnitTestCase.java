@@ -45,6 +45,12 @@ public class GoogleSearchJUnitTestCase extends TelluriumJUnitTestCase {
     public void testDump(){
         gsm.dump("Google");
     }
+
+    @Test
+    public void testValidate(){
+        gsm.validate("Google");
+    }
+    
     @Test
     public void testJsonfyUiModule(){
         String json = gsm.toString("Google");
@@ -200,6 +206,8 @@ public class GoogleSearchJUnitTestCase extends TelluriumJUnitTestCase {
 
     @AfterClass
     public static void tearDown(){
+
+
         showTrace();
      }
 }

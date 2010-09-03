@@ -24,13 +24,14 @@ public class EditPageJUnitTestCase extends TelluriumMockJUnitTestCase {
 
         epm = new EditPageModule();
         epm.defineUi();
-        useCssSelector(true);
-        useTelluriumApi(false);
+        useTelluriumEngine(true);
+//        useCssSelector(true);
+//        useTelluriumApi(false);
         //enableLogging(LogLevels.ALL);
 
         useTrace(true);
-        useCache(true);
-        useMacroCmd(true);
+//        useCache(true);
+//        useMacroCmd(true);
     }
 
     @Before
