@@ -115,6 +115,23 @@ TelluriumCommandExecutor.prototype.registerCommands = function(){
     this.registerCommand("assertNotEquals", CommandType.ASSERTION, ReturnType.VOID, this.assertNotEquals);
     this.registerCommand("assertNull", CommandType.ASSERTION, ReturnType.VOID, this.assertNull);
     this.registerCommand("assertNotNull", CommandType.ASSERTION, ReturnType.VOID, this.assertNotNull);
+    this.registerCommand("getListSize", CommandType.ACCESSOR, ReturnType.NUMBER, this.getListSize);
+    this.registerCommand("getTeListSize", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTeListSize);
+    this.registerCommand("getTableHeaderColumnNum", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTableHeaderColumnNum);
+    this.registerCommand("getTeTableHeaderColumnNum", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTeTableHeaderColumnNum);
+    this.registerCommand("getTableFootColumnNum", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTableFootColumnNum);
+    this.registerCommand("getTeTableFootColumnNum", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTeTableFootColumnNum);
+    this.registerCommand("getTableRowNum", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTableRowNum);
+    this.registerCommand("getTeTableRowNum", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTeTableRowNum);
+    this.registerCommand("getTableColumnNum", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTableColumnNum);
+    this.registerCommand("getTeTableColumnNum", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTeTableColumnNum);
+    this.registerCommand("getTableRowNumForTbody", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTableRowNumForTbody);
+    this.registerCommand("getTeTableRowNumForTbody", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTeTableRowNumForTbody);
+    this.registerCommand("getTableColumnNumForTbody", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTableColumnNumForTbody);
+    this.registerCommand("getTeTableColumnNumForTbody", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTeTableColumnNumForTbody);
+    this.registerCommand("getTableTbodyNum", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTableTbodyNum);
+    this.registerCommand("getTeTableTbodyNum", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTeTableTbodyNum);
+    this.registerCommand("getRepeatNum", CommandType.ASSERTION, ReturnType.NUMBER, this.getRepeatNum);
 };
 
 TelluriumCommandExecutor.prototype.getCommandList = function(){
@@ -570,6 +587,74 @@ TelluriumCommandExecutor.prototype.selectByIndex = function(uid, option){
 TelluriumCommandExecutor.prototype.selectByValue = function(uid, option){
     var optionSelector = this.getOptionSelector("value=" + option);
     this.execCommand("select", uid, optionSelector);
+};
+
+TelluriumCommandExecutor.prototype.getListSize = function(uid) {
+    return this.execCommand("getListSize", uid);
+};
+
+TelluriumCommandExecutor.prototype.getTeListSize = function(uid) {
+    return this.execCommand("getListSize", uid);
+};
+
+TelluriumCommandExecutor.prototype.getTableHeaderColumnNum = function(uid) {
+    return this.execCommand("getHeaderColumnNum", uid);
+};
+
+TelluriumCommandExecutor.prototype.getTeTableHeaderColumnNum = function(uid) {
+    return this.execCommand("getHeaderColumnNum", uid);
+};
+
+TelluriumCommandExecutor.prototype.getTableFootColumnNum = function(uid) {
+    return this.execCommand("getFooterColumnNum", uid);
+};
+
+TelluriumCommandExecutor.prototype.getTeTableFootColumnNum = function(uid) {
+    return this.execCommand("getFooterColumnNum", uid);
+};
+
+TelluriumCommandExecutor.prototype.getTableRowNum = function(uid) {
+    return this.execCommand("getTableRowNum", uid);
+};
+
+TelluriumCommandExecutor.prototype.getTeTableRowNum = function(uid) {
+    return this.execCommand("getTableRowNum", uid);
+};
+
+TelluriumCommandExecutor.prototype.getTableColumnNum = function(uid) {
+    return this.execCommand("getTableColumnNum", uid);
+};
+
+TelluriumCommandExecutor.prototype.getTeTableColumnNum = function(uid) {
+    return this.execCommand("getTableColumnNum", uid);
+};
+
+TelluriumCommandExecutor.prototype.getTableRowNumForTbody = function(uid) {
+    return this.execCommand("getTableRowNumForTbody", uid);
+};
+
+TelluriumCommandExecutor.prototype.getTeTableRowNumForTbody = function(uid) {
+    return this.execCommand("getTableRowNumForTbody", uid);
+};
+
+TelluriumCommandExecutor.prototype.getTableColumnNumForTbody = function(uid) {
+    return this.execCommand("getTableColumnNumForTbody", uid);
+};
+
+TelluriumCommandExecutor.prototype.getTeTableColumnNumForTbody = function(uid) {
+    return this.execCommand("getTableColumnNumForTbody", uid);
+};
+
+TelluriumCommandExecutor.prototype.getTableTbodyNum = function(uid) {
+    return this.execCommand("getTableTbodyNum", uid);
+};
+
+TelluriumCommandExecutor.prototype.getTeTableTbodyNum = function(uid) {
+    return this.execCommand("getTableTbodyNum", uid);
+};
+
+TelluriumCommandExecutor.prototype.getRepeatNum = function(uid) {
+    return this.execCommand("getRepeatNum", uid);
 };
 
 TelluriumCommandExecutor.prototype.getText = function(uid) {
