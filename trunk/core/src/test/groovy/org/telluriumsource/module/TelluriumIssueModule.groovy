@@ -140,6 +140,12 @@ public class TelluriumIssueModule extends DslContext {
 
   public void selectIssueType(String type) {
     selectByLabel "issueSearch.issueType", type
+    getSelectedIndexes("issueSearch.issueType")
+    getSelectedValues("issueSearch.issueType")
+    getSelectedLabels("issueSearch.issueType")
+    getSelectedIndex("issueSearch.issueType")
+    getSelectedValue("issueSearch.issueType")
+    getSelectedLabel("issueSearch.issueType")
   }
 
   public void searchIssue(String issue) {
