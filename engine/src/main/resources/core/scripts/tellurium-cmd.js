@@ -319,8 +319,10 @@ TelluriumCommandExecutor.prototype.execCommand = function(cmd, uid, param){
                 }
                 return obj[cmd].apply(obj, params);
             }else{
-                logger.error("UI Object " + uid + " does not have method " + cmd);
-                throw new TelluriumError(ErrorCodes.INVALID_CALL_ON_UI_OBJ, "UI Object " + uid + " does not have method " + cmd);
+                logger.error("UI Object " + uid + " of type " + obj.uiType + " and tag " + obj.tag
+                        + " does not have method " + cmd);
+                throw new TelluriumError(ErrorCodes.INVALID_CALL_ON_UI_OBJ, "UI Object " + uid  + " of type "
+                        + obj.uiType + " and tag " + obj.tag + " does not have method " + cmd);
             }
         }else{
             logger.error("Cannot find UI object " + uid);
@@ -328,7 +330,7 @@ TelluriumCommandExecutor.prototype.execCommand = function(cmd, uid, param){
         }  
     }else{
         logger.error("Cannot find UI Module " + uid);
-        throw new TelluriumError(ErrorCodes.UI_MODULE_IS_NULL, "Cannot find UI Module " + uid);
+        throw new TelluriumError(ErrorCodes.UI_MODULE_IS_NULL, "Cannot find UI Module " + first);
     }
 };
 
