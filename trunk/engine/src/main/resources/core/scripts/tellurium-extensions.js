@@ -115,7 +115,7 @@ Selenium.prototype.doSetCacheMaxSize = function(size){
 };
 
 Selenium.prototype.getCacheSize = function(){
-    return tellurium.cache.getCacheSize();
+    return tellurium.cache.size();
 };
 
 Selenium.prototype.getCacheMaxSize = function(){
