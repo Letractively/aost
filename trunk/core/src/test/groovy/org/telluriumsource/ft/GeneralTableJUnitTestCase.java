@@ -28,10 +28,11 @@ public class GeneralTableJUnitTestCase extends TelluriumMockJUnitTestCase {
         useEngineLog(true);
         //enableLogging(LogLevels.ALL);
 
-        useCssSelector(true);
-        useTelluriumApi(true);
+//        useCssSelector(true);
+//        useTelluriumApi(true);
+//        useCache(true);
+        useTelluriumEngine(true);
         useTrace(true);
-        useCache(true);
     }
 
     @Before
@@ -59,7 +60,7 @@ public class GeneralTableJUnitTestCase extends TelluriumMockJUnitTestCase {
 
     @Test
     public void testWork(){
-        useCache(false);
+//        useCache(false);
         System.out.println(gtm.getText("GT.header[2]"));
         System.out.println(gtm.getText("GT[1][1]"));
         gtm.work("Tellurium jQuery");
@@ -67,7 +68,7 @@ public class GeneralTableJUnitTestCase extends TelluriumMockJUnitTestCase {
 
     @Test
     public void testGwork(){
-        useCache(false);
+//        useCache(false);
         System.out.println(gtm.getText("GT.header[2]"));
         System.out.println(gtm.getText("GT.Label"));
         gtm.gwork("Tellurium jQuery");
