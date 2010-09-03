@@ -197,6 +197,9 @@ function Tellurium(){
     //UI object name to Javascript object builder mapping
     this.uiBuilderMap = new Hashtable();
 
+    //JQuery Builder
+    this.jqbuilder = new JQueryBuilder();
+
     //identifier generator
     this.idGen = new Identifier();
 

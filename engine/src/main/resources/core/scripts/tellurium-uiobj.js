@@ -554,7 +554,7 @@ var UiObject = Class.extend({
     },
 
     isVisible: function(context){
-        var element = context.domRef;
+        var element = teJQuery(context.domRef);
         var isHiddenCSS = element.css("visibility") == "hidden" ? true : false;
         var isHidden = element.is(":hidden");
 
