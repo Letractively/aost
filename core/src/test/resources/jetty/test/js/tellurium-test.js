@@ -255,7 +255,8 @@ TelluriumTestCase.prototype.testGeneralTableModule = function(){
     alg.validate(uim, dom);
     alg.santa(uim, dom);
     tellurium.cache.cacheOption = true;
-    tellurium.cache.addToCache("GT", uim);    
+//    tellurium.cache.addToCache("GT", uim);
+    tellurium.cache.put("GT", uim);
     var context = new WorkflowContext();
     context.alg = alg;
     var uiid = new Uiid();
@@ -266,8 +267,9 @@ TelluriumTestCase.prototype.testGeneralTableModule = function(){
     var uinput = uim.walkTo(context, uiid.convertToUiid("GT[1][1]"));
     var pinput = uim.walkTo(context, uiid.convertToUiid("GT[1][2].Input"));
     var smt = uim.walkTo(context, uiid.convertToUiid("GT[1][2].Some.Link"));
-    var stree = tellurium.cache.takeSnapshot("GT");
-    tellurium.teApi.getHTMLSource("GT");
+//    var stree = tellurium.cache.takeSnapshot("GT");
+//    tellurium.teApi.getHTMLSource("GT");
+    tellurium.cmdExecutor.getHTMLSource("GT");
 };
 
 TelluriumTestCase.prototype.testTelluriumDownloadResult = function(){
