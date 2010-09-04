@@ -52,6 +52,11 @@ public class GeneralTableJUnitTestCase extends TelluriumMockJUnitTestCase {
     }
 
     @Test
+    public void testDiagnose(){
+        gtm.diagnose("GT[1][2].Input");
+    }
+
+    @Test
     public void testIsElementPresent(){
         useCache(true);
         assertTrue(gtm.isElementPresent("GT.header[2]"));
