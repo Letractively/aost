@@ -150,10 +150,10 @@ var RNode = Class.extend({
     walkTo: function(key, path){
         var i;
         if(path.size() > 0){
-            path.pop();
+            var next = path.pop();
             if(this.children != null && this.children.length > 0){
                 for(i=0; i<this.children.length; i++){
-                    if(key == this.children[i].key){
+                    if(next == this.children[i].key){
                         var result = this.children[i].walkTo(key, path);
                         if(result != null)
                             return result;
