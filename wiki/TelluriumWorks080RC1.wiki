@@ -18,9 +18,12 @@ The application UI is pretty simple and it includes menus, toolbars, console, a 
 http://tellurium-users.googlegroups.com/web/TelluriumWorksUI080RC1.png?gda=2DrbZEwAAADzylifMuGHtadsGrIEvqZXxdavSNxiadMejw8AIN1_MilHcMvXSB-FjclRRl16RF9Yx1GvphqFRkQ_5Sgt0NOW_Vpvmo5s1aABVJRO3P3wLQ&gsc=XJgtsAsAAAAD24IDpoezeaEKFE_40n8P
 
 The toolbars include the following actions:
-  * [http://tellurium-users.googlegroups.com/web/document-open.png?gda=RuNKL0MAAADzylifMuGHtadsGrIEvqZXMiWrRJUv8HeDYLaQj8xgXbKwrSj4nBSgCZnwQd0JrnQytiJ-HdGYYcPi_09pl8N7FWLveOaWjzbYnpnkpmxcWg&gsc=-0kr_QsAAAA60_o5qoFtr_1VLUalqJax]: Open File.
-
-http://tellurium-users.googlegroups.com/web/TelluriumWorksScript080RC1.png?gda=EjlIn1AAAADzylifMuGHtadsGrIEvqZX2_q4eRSMZPMl5A_3Xl-bjNcv4Ld-gr-dzubR7gP_9yCPecGeBJK1JDBDyM2zqwJIbcVT3VtYGKLco-_l-8AzjQ&gsc=XJgtsAsAAAAD24IDpoezeaEKFE_40n8P
+  * http://tellurium-users.googlegroups.com/web/document-open.png?gda=RuNKL0MAAADzylifMuGHtadsGrIEvqZXMiWrRJUv8HeDYLaQj8xgXbKwrSj4nBSgCZnwQd0JrnQytiJ-HdGYYcPi_09pl8N7FWLveOaWjzbYnpnkpmxcWg&gsc=-0kr_QsAAAA60_o5qoFtr_1VLUalqJax : Open File
+  * http://tellurium-users.googlegroups.com/web/go-last.png?gda=tnLAAT0AAADzylifMuGHtadsGrIEvqZXwHwv0jrCParqZfwLWSMAACRhGZXSGFTWOvYWIovKNyPlNv--OykrTYJH3lVGu2Z5&gsc=-0kr_QsAAAA60_o5qoFtr_1VLUalqJax : Run Script
+  * http://tellurium-users.googlegroups.com/web/document-save.png?gda=nLDAtUMAAADzylifMuGHtadsGrIEvqZXMiWrRJUv8HeDYLaQj8xgXQqSA37JIIgnrYXCE3bMaVkytiJ-HdGYYcPi_09pl8N7FWLveOaWjzbYnpnkpmxcWg&gsc=-0kr_QsAAAA60_o5qoFtr_1VLUalqJax : Save File
+  * http://tellurium-users.googlegroups.com/web/process-stop.png?gda=CrLq_0IAAADzylifMuGHtadsGrIEvqZX35FMJ4Nr2ErVVs142Rbm0-4RYpS1re4E9-TWnaJpQjhV4u3aa4iAIyYQIqbG9naPgh6o8ccLBvP6Chud5KMzIQ&gsc=-0kr_QsAAAA60_o5qoFtr_1VLUalqJax
+http://tellurium-users.googlegroups.com/web/TelluriumWorksScript080RC1.png?gda=EjlIn1AAAADzylifMuGHtadsGrIEvqZX2_q4eRSMZPMl5A_3Xl-bjNcv4Ld-gr-dzubR7gP_9yCPecGeBJK1JDBDyM2zqwJIbcVT3VtYGKLco-_l-8AzjQ&gsc=XJgtsAsAAAAD24IDpoezeaEKFE_40n8P : Close File
+  * http://tellurium-users.googlegroups.com/web/system-log-out.png?gda=x1vFkEQAAADzylifMuGHtadsGrIEvqZXSIqO9xnHtWVJMJ6YPcKKeYEFXxyxUQ2XXa2Rr71u8QtV6u9SiETdg0Q2ffAyHU-dzc4BZkLnSFWX59nr5BxGqA&gsc=-0kr_QsAAAA60_o5qoFtr_1VLUalqJax : Quit the IDE
 
 http://tellurium-users.googlegroups.com/web/TelluriumWorksServer080RC1.png?gda=tBV321AAAADzylifMuGHtadsGrIEvqZX2_q4eRSMZPMl5A_3Xl-bjIBH5jmuvt8dCa21Z2H6jWc91sQCTPvwW9RNCnVoNjXjbcVT3VtYGKLco-_l-8AzjQ&gsc=XJgtsAsAAAAD24IDpoezeaEKFE_40n8P
 
