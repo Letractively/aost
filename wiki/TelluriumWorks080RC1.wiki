@@ -13,9 +13,12 @@ First, download TelluriumWorks from [http://aost.googlecode.com/files/TelluriumW
 java -jar telluriumworks.jar
 }}}
 
-The application UI is pretty simple:
+The application UI is pretty simple and it includes menus, toolbars, console, a tabbed panel for DSL script editing, Server control, and Tellurium Configuration. :
 
 http://tellurium-users.googlegroups.com/web/TelluriumWorksUI080RC1.png?gda=2DrbZEwAAADzylifMuGHtadsGrIEvqZXxdavSNxiadMejw8AIN1_MilHcMvXSB-FjclRRl16RF9Yx1GvphqFRkQ_5Sgt0NOW_Vpvmo5s1aABVJRO3P3wLQ&gsc=XJgtsAsAAAAD24IDpoezeaEKFE_40n8P
+
+The toolbars include the following actions:
+  * [http://tellurium-users.googlegroups.com/web/document-open.png?gda=RuNKL0MAAADzylifMuGHtadsGrIEvqZXMiWrRJUv8HeDYLaQj8xgXbKwrSj4nBSgCZnwQd0JrnQytiJ-HdGYYcPi_09pl8N7FWLveOaWjzbYnpnkpmxcWg&gsc=-0kr_QsAAAA60_o5qoFtr_1VLUalqJax]: Open File.
 
 http://tellurium-users.googlegroups.com/web/TelluriumWorksScript080RC1.png?gda=EjlIn1AAAADzylifMuGHtadsGrIEvqZX2_q4eRSMZPMl5A_3Xl-bjNcv4Ld-gr-dzubR7gP_9yCPecGeBJK1JDBDyM2zqwJIbcVT3VtYGKLco-_l-8AzjQ&gsc=XJgtsAsAAAAD24IDpoezeaEKFE_40n8P
 
