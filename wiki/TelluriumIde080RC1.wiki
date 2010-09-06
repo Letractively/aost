@@ -46,7 +46,7 @@ http://tellurium-users.googlegroups.com/web/TelluriumIDEInstallation.png?gda=ldG
 This plugin is also available at [https://addons.mozilla.org/en-US/firefox/addon/217284/ Firefox addon site].
 
 Tellurium IDE 0.8.0 RC1 tutorial is available online at: 
-<wiki:video url="http://www.youtube.com/watch?v=yVIBY8QzWzE/>
+<wiki:video url="http://www.youtube.com/watch?v=yVIBY8QzWzE"/>
 
 = Usage =
 
