@@ -1,13 +1,14 @@
 
 //base UI object
 var UiObject = Class.extend({
-    constants: {
+/*    constants: {
         TAG : "tag",
         NAME: "name",
         ID: "id",
         RESPOND : "respond",
         GROUP : "group"
     },
+    */
     
     init: function() {
         //reference ID during UI module recording and generating process
