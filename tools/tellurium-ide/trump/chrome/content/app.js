@@ -360,6 +360,8 @@ App.prototype.toGroovyDsl = function() {
         sb.append(" *\tThe detailed guide is available at:\n");
         sb.append(" *\t\thttp://code.google.com/p/aost/wiki/UserGuide070TelluriumBasics#Run_DSL_Script\n");
         sb.append(" *\n");
+        sb.append(" *\tOr you can use TelluriumWorks, a Tellurium DSL script Runner, to run the test.");
+        sb.append(" *\t\thttp://code.google.com/p/aost/wiki/TelluriumWorks080RC1");
         sb.append(" *\tFor any problems, please report to Tellurium User Group at: \n");
         sb.append(" *\t\thttp://groups.google.com/group/tellurium-users\n");
         sb.append(" *\n");
