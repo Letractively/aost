@@ -249,7 +249,7 @@ function Tellurium(){
     this.jqbuilder = new JQueryBuilder();
 
     //identifier generator
-    this.idGen = new Identifier();
+    this.idGen = new Identifier(100);
 
     //log manager for Tellurium
     this.logManager = new LogManager();
@@ -338,7 +338,7 @@ Tellurium.prototype.registerCommands = function(){
     this.registerCommand("getSelectedIndex", CommandType.ACCESSOR, ReturnType.NUMBER, this.getSelectedIndex);
     this.registerCommand("getSelectedIndexes", CommandType.ACCESSOR, ReturnType.ARRAY, this.getSelectedIndexes);
     this.registerCommand("addSelection", CommandType.ACCESSOR, ReturnType.VOID, this.addSelection);
-    this.registerCommand("removeSelection", CommandType.ACCESSOR, ReturnType.VOID, this.removeSelection)
+    this.registerCommand("removeSelection", CommandType.ACCESSOR, ReturnType.VOID, this.removeSelection);
     this.registerCommand("removeAllSelections", CommandType.ACCESSOR, ReturnType.VOID, this.removeAllSelections);
 
     this.registerCommand("getAttribute", CommandType.ACCESSOR, ReturnType.STRING, this.getAttribute);
@@ -389,6 +389,7 @@ Tellurium.prototype.registerCommands = function(){
     this.registerCommand("assertNotEquals", CommandType.ASSERTION, ReturnType.VOID, this.assertNotEquals);
     this.registerCommand("assertNull", CommandType.ASSERTION, ReturnType.VOID, this.assertNull);
     this.registerCommand("assertNotNull", CommandType.ASSERTION, ReturnType.VOID, this.assertNotNull);
+
     this.registerCommand("getListSize", CommandType.ACCESSOR, ReturnType.NUMBER, this.getListSize);
     this.registerCommand("getTeListSize", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTeListSize);
     this.registerCommand("getTableHeaderColumnNum", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTableHeaderColumnNum);
