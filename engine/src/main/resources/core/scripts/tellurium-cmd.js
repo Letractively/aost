@@ -1,35 +1,4 @@
 
-const ValueType = {
-    NUMBER: "number",
-    STRING: 'string',
-    BOOLEAN: 'boolean',
-    OBJECT: 'object',
-    VARIABLE: "var",
-    NIL: "nil"
-};
-
-const CommandType = {
-    ACTION: "action",
-    ACCESSOR: "accessor",
-    DIRECT: "direct",
-    ASSERTION: "assertion"
-};
-
-const ReturnType = {
-    VOID: "void",
-    BOOLEAN: "boolean",
-    STRING: "string",
-    ARRAY: "Array",
-    NUMBER: "number",
-    OBJECT: "object"
-};
-
-function TelluriumCommand(name, type, returnType, handler){
-    this.name = name;
-    this.type = type;
-    this.returnType = returnType;
-    this.handler = handler;
-}
 
 function TelluriumCommandExecutor(){
 
@@ -130,6 +99,7 @@ TelluriumCommandExecutor.prototype.registerCommands = function(){
     this.registerCommand("getCacheSize", CommandType.ACCESSOR, ReturnType.NUMBER, this.getCacheSize);
     this.registerCommand("enableCache", CommandType.ACCESSOR, ReturnType.VOID, this.enableCache);
     this.registerCommand("disableCache", CommandType.ACCESSOR, ReturnType.VOID, this.disableCache);
+
     this.registerCommand("assertTrue", CommandType.ASSERTION, ReturnType.VOID, this.assertTrue);
     this.registerCommand("assertFalse", CommandType.ASSERTION, ReturnType.VOID, this.assertFalse);
     this.registerCommand("assertEquals", CommandType.ASSERTION, ReturnType.VOID, this.assertEquals);
