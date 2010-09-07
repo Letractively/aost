@@ -9,3 +9,8 @@ Selenium.prototype.doTypeRepeated = function(locator, text) {
     this.page().replaceText(element, valueToType);
 };
 
+/*
+Tellurium.prototype.customize = function(){
+    this.registerUiBuilder("Button", new UiButtonBuilder());
+    this.registerCommand("openUrl", CommandType.ACTION, ReturnType.VOID, this.open);
+};*/
