@@ -163,6 +163,7 @@ MacroCmd.prototype.parse = function(json){
     }
 };
 
+/*
 function TelluriumCommandHandler(api, requireElement, returnType) {
     //api method
     this.api = api;
@@ -171,11 +172,44 @@ function TelluriumCommandHandler(api, requireElement, returnType) {
     //return type
     this.returnType = returnType;
 }
+*/
 
 function EngineState(){
     this.cache = null;
     this.teApi = null;
     this.relax = null;
+}
+
+const ValueType = {
+    NUMBER: "number",
+    STRING: 'string',
+    BOOLEAN: 'boolean',
+    OBJECT: 'object',
+    VARIABLE: "var",
+    NIL: "nil"
+};
+
+const CommandType = {
+    ACTION: "action",
+    ACCESSOR: "accessor",
+    DIRECT: "direct",
+    ASSERTION: "assertion"
+};
+
+const ReturnType = {
+    VOID: "void",
+    BOOLEAN: "boolean",
+    STRING: "string",
+    ARRAY: "Array",
+    NUMBER: "number",
+    OBJECT: "object"
+};
+
+function TelluriumCommand(name, type, returnType, handler){
+    this.name = name;
+    this.type = type;
+    this.returnType = returnType;
+    this.handler = handler;
 }
 
 function Tellurium(){
@@ -190,9 +224,23 @@ function Tellurium(){
     //Macro command for Tellurium
     this.macroCmd = new MacroCmd();
 
-    this.cmdExecutor = new TelluriumCommandExecutor();
+    this.browserBot = new TelluriumBrowserBot();
 
-    this.cache = this.cmdExecutor.cache;
+    this.dom = null;
+
+    this.cache = new TelluriumUiCache();
+
+    this.uiAlg = new UiAlg();
+
+    this.textWorker = new TextUiWorker();
+
+    this.cssBuilder = new JQueryBuilder();
+
+    this.cmdMap = new Hashtable();
+ 
+//    this.cmdExecutor = new TelluriumCommandExecutor();
+//
+//    this.cache = this.cmdExecutor.cache;
 
     //UI object name to Javascript object builder mapping
     this.uiBuilderMap = new Hashtable();
@@ -213,6 +261,10 @@ function Tellurium(){
 Tellurium.prototype.initialize = function(){
     this.outlines.init();
     this.registerDefaultUiBuilders();
+    this.registerCommands();
+    if(typeof(this["customize"]) != "undefined"){
+        this["customize"].apply(this, []);
+    }
 };
 
 Tellurium.prototype.registerDefaultUiBuilders = function(){
@@ -244,6 +296,149 @@ Tellurium.prototype.registerUiBuilder = function(name, builder){
     this.uiBuilderMap.put(name, builder);
 };
 
+Tellurium.prototype.registerCommand = function(name, type, returnType, handler){
+    var cmd = new TelluriumCommand(name, type, returnType, handler);
+    this.cmdMap.put(name, cmd);
+};
+
+Tellurium.prototype.registerCommands = function(){
+    this.registerCommand("useTeApi", CommandType.ACCESSOR, ReturnType.VOID, this.useTeApi);
+    this.registerCommand("isUseLog", CommandType.ACCESSOR, ReturnType.BOOLEAN, this.isUseLog);
+    this.registerCommand("open", CommandType.ACTION, ReturnType.VOID, this.open);
+    this.registerCommand("blur", CommandType.ACTION, ReturnType.VOID, this.blur);
+    this.registerCommand("click", CommandType.ACTION, ReturnType.VOID, this.click);
+    this.registerCommand("clickAt", CommandType.ACTION, ReturnType.VOID, this.clickAt);
+    this.registerCommand("doubleClick", CommandType.ACTION, ReturnType.VOID, this.doubleClick);
+    this.registerCommand("fireEvent", CommandType.ACTION, ReturnType.VOID, this.fireEvent);
+    this.registerCommand("focus", CommandType.ACTION, ReturnType.VOID, this.focus);
+    this.registerCommand("type", CommandType.ACTION, ReturnType.VOID, this.type);
+    this.registerCommand("typeKey", CommandType.ACTION, ReturnType.VOID, this.typeKey);
+    this.registerCommand("keyDown", CommandType.ACTION, ReturnType.VOID, this.keyDown);
+    this.registerCommand("keyPress", CommandType.ACTION, ReturnType.VOID, this.keyPress);
+    this.registerCommand("keyUp", CommandType.ACTION, ReturnType.VOID, this.keyUp);
+    this.registerCommand("mouseOver", CommandType.ACTION, ReturnType.VOID, this.mouseOver);
+    this.registerCommand("mouseDown", CommandType.ACTION, ReturnType.VOID, this.mouseDown);
+    this.registerCommand("mouseEnter", CommandType.ACTION, ReturnType.VOID, this.mouseEnter);
+    this.registerCommand("mouseLeave", CommandType.ACTION, ReturnType.VOID, this.mouseLeave);
+    this.registerCommand("mouseOut", CommandType.ACTION, ReturnType.VOID, this.mouseOut);
+    this.registerCommand("submit", CommandType.ACTION, ReturnType.VOID, this.submit);
+    this.registerCommand("check", CommandType.ACTION, ReturnType.VOID, this.check);
+    this.registerCommand("uncheck", CommandType.ACTION, ReturnType.VOID, this.uncheck);
+    this.registerCommand("select", CommandType.ACTION, ReturnType.VOID, this.select);
+    this.registerCommand("selectByLabel", CommandType.ACTION, ReturnType.VOID, this.selectByLabel);
+    this.registerCommand("selectByIndex", CommandType.ACTION, ReturnType.VOID, this.selectByIndex);
+    this.registerCommand("selectByValue", CommandType.ACTION, ReturnType.VOID, this.selectByValue);
+
+    this.registerCommand("getSelectOptions", CommandType.ACCESSOR, ReturnType.ARRAY, this.getSelectOptions);
+    this.registerCommand("getSelectValues", CommandType.ACCESSOR, ReturnType.ARRAY, this.getSelectValues);
+    this.registerCommand("getSelectedLabel", CommandType.ACCESSOR, ReturnType.STRING, this.getSelectedLabel);
+    this.registerCommand("getSelectedLabels", CommandType.ACCESSOR, ReturnType.ARRAY, this.getSelectedLabels);
+    this.registerCommand("getSelectedValue", CommandType.ACCESSOR, ReturnType.STRING, this.getSelectedValue);
+    this.registerCommand("getSelectedValues", CommandType.ACCESSOR, ReturnType.ARRAY, this.getSelectedValues);
+    this.registerCommand("getSelectedIndex", CommandType.ACCESSOR, ReturnType.NUMBER, this.getSelectedIndex);
+    this.registerCommand("getSelectedIndexes", CommandType.ACCESSOR, ReturnType.ARRAY, this.getSelectedIndexes);
+    this.registerCommand("addSelection", CommandType.ACCESSOR, ReturnType.VOID, this.addSelection);
+    this.registerCommand("removeSelection", CommandType.ACCESSOR, ReturnType.VOID, this.removeSelection)
+    this.registerCommand("removeAllSelections", CommandType.ACCESSOR, ReturnType.VOID, this.removeAllSelections);
+
+    this.registerCommand("getAttribute", CommandType.ACCESSOR, ReturnType.STRING, this.getAttribute);
+    this.registerCommand("getText", CommandType.ACCESSOR, ReturnType.STRING, this.getText);
+
+    this.registerCommand("getAllText", CommandType.ACCESSOR, ReturnType.ARRAY, this.getAllText);
+
+    this.registerCommand("getValue", CommandType.ACCESSOR, ReturnType.STRING, this.getValue);
+    this.registerCommand("isElementPresent", CommandType.ACCESSOR, ReturnType.BOOLEAN, this.isElementPresent);
+    this.registerCommand("isChecked", CommandType.ACCESSOR, ReturnType.BOOLEAN, this.isChecked);
+    this.registerCommand("isVisible", CommandType.ACCESSOR, ReturnType.BOOLEAN, this.isVisible);
+    this.registerCommand("isEditable", CommandType.ACCESSOR, ReturnType.BOOLEAN, this.isEditable);
+    this.registerCommand("getCSS", CommandType.ACCESSOR, ReturnType.ARRAY, this.getCSS);
+    this.registerCommand("getCSSAsString", CommandType.ACCESSOR, ReturnType.STRING, this.getCSSAsString);
+    this.registerCommand("isDisable",  CommandType.ACCESSOR, ReturnType.BOOLEAN, this.isDisabled);
+    this.registerCommand("reset", CommandType.ACCESSOR, ReturnType.VOID, this.reset);
+    this.registerCommand("showUi", CommandType.ACTION, ReturnType.VOID, this.showUi);
+    this.registerCommand("cleanUi", CommandType.ACTION, ReturnType.VOID, this.cleanUi);
+    this.registerCommand("getHTMLSource", CommandType.DIRECT, ReturnType.ARRAY, this.getHTMLSource);
+    this.registerCommand("getHTMLSourceAsString", CommandType.DIRECT, ReturnType.STRING, this.getHTMLSourceAsString);
+    this.registerCommand("getUids", CommandType.DIRECT, ReturnType.ARRAY, this.getUids);
+    this.registerCommand("getUidsAsString", CommandType.DIRECT, ReturnType.STRING, this.getUidsAsString);
+    this.registerCommand("getCssSelectorCount", CommandType.DIRECT, ReturnType.NUMBER, this.getCssSelectorCount);
+    this.registerCommand("getCssSelectorMatch", CommandType.DIRECT, ReturnType.ARRAY, this.getCssSelectorMatch);
+    this.registerCommand("getCssSelectorMatchAsString", CommandType.DIRECT, ReturnType.STRING, this.getCssSelectorMatchAsString);
+    this.registerCommand("useUiModule", CommandType.ACCESSOR, ReturnType.OBJECT, this.useUiModule);
+    this.registerCommand("useDirectUiModule", CommandType.ACCESSOR, ReturnType.VOID, this.useDirectUiModule);
+    this.registerCommand("validateUiModule", CommandType.DIRECT, ReturnType.OBJECT, this.validateUiModule);
+    this.registerCommand("validateDirectUiModule", CommandType.DIRECT, ReturnType.OBJECT, this.validateDirectUiModule);
+    this.registerCommand("validateUiModuleAsString", CommandType.DIRECT, ReturnType.STRING, this.validateUiModuleAsString);
+    this.registerCommand("toJSON", CommandType.DIRECT, ReturnType.OBJECT, this.toJSON);
+    this.registerCommand("toJSONString", CommandType.DIRECT, ReturnType.STRING, this.toJSONString);
+//    this.registerCommand("waitForPageToLoad", CommandType.ACTION, ReturnType.VOID, this.waitForPageToLoad);
+    this.registerCommand("getUiByTag", CommandType.DIRECT, ReturnType.OBJECT, this.getUiByTag);
+    this.registerCommand("removeMarkedUids", CommandType.DIRECT, ReturnType.VOID, this.removeMarkedUids);
+    this.registerCommand("isUseCache", CommandType.ACCESSOR, ReturnType.BOOLEAN, this.isUseCache);
+
+    this.registerCommand("getCacheState", CommandType.ACCESSOR, ReturnType.BOOLEAN, this.getCacheState);
+    this.registerCommand("getCacheSize", CommandType.ACCESSOR, ReturnType.NUMBER, this.getCacheSize);
+    this.registerCommand("enableCache", CommandType.ACCESSOR, ReturnType.VOID, this.enableCache);
+    this.registerCommand("disableCache", CommandType.ACCESSOR, ReturnType.VOID, this.disableCache);
+    this.registerCommand("isUiModuleCached", CommandType.ACCESSOR, ReturnType.BOOLEAN, this.isUiModuleCached);
+    this.registerCommand("useClosestMatch", CommandType.ACCESSOR, ReturnType.VOID, this.useClosestMatch);
+    
+    this.registerCommand("assertTrue", CommandType.ASSERTION, ReturnType.VOID, this.assertTrue);
+    this.registerCommand("assertFalse", CommandType.ASSERTION, ReturnType.VOID, this.assertFalse);
+    this.registerCommand("assertEquals", CommandType.ASSERTION, ReturnType.VOID, this.assertEquals);
+    this.registerCommand("assertNotEquals", CommandType.ASSERTION, ReturnType.VOID, this.assertNotEquals);
+    this.registerCommand("assertNull", CommandType.ASSERTION, ReturnType.VOID, this.assertNull);
+    this.registerCommand("assertNotNull", CommandType.ASSERTION, ReturnType.VOID, this.assertNotNull);
+    this.registerCommand("getListSize", CommandType.ACCESSOR, ReturnType.NUMBER, this.getListSize);
+    this.registerCommand("getTeListSize", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTeListSize);
+    this.registerCommand("getTableHeaderColumnNum", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTableHeaderColumnNum);
+    this.registerCommand("getTeTableHeaderColumnNum", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTeTableHeaderColumnNum);
+    this.registerCommand("getTableFootColumnNum", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTableFootColumnNum);
+    this.registerCommand("getTeTableFootColumnNum", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTeTableFootColumnNum);
+    this.registerCommand("getTableRowNum", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTableRowNum);
+    this.registerCommand("getTeTableRowNum", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTeTableRowNum);
+    this.registerCommand("getTableColumnNum", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTableColumnNum);
+    this.registerCommand("getTeTableColumnNum", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTeTableColumnNum);
+    this.registerCommand("getTableRowNumForTbody", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTableRowNumForTbody);
+    this.registerCommand("getTeTableRowNumForTbody", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTeTableRowNumForTbody);
+    this.registerCommand("getTableColumnNumForTbody", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTableColumnNumForTbody);
+    this.registerCommand("getTeTableColumnNumForTbody", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTeTableColumnNumForTbody);
+    this.registerCommand("getTableTbodyNum", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTableTbodyNum);
+    this.registerCommand("getTeTableTbodyNum", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTeTableTbodyNum);
+    this.registerCommand("getAllTableBodyText", CommandType.ACCESSOR, ReturnType.STRING, this.getAllTableBodyText);
+    this.registerCommand("getRepeatNum", CommandType.ASSERTION, ReturnType.NUMBER, this.getRepeatNum);
+};
+
+Tellurium.prototype.getCommandList = function(){
+    return this.cmdMap.keySet().sort();
+};
+
+Tellurium.prototype.getCommand = function(name){
+    return this.cmdMap.get(name);
+};
+
+Tellurium.prototype.getCommandType = function(name){
+    var cmd = this.cmdMap.get(name);
+    return cmd.type;
+};
+
+Tellurium.prototype.cachedUiModuleNum = function(){
+    return this.cache.size();
+};
+
+Tellurium.prototype.cacheUiModule = function(uim){
+    if(uim != null)
+        this.cache.put(uim.id, uim);
+};
+
+Tellurium.prototype.getCachedUiModuleList = function(){
+    return this.cache.keySet();
+};
+
+Tellurium.prototype.getCachedUiModule = function(id){
+    return this.cache.get(id);
+};
+
 Tellurium.prototype.getRegisteredUiTypes = function(){
     return this.uiBuilderMap.keySet();
 };
@@ -254,21 +449,9 @@ Tellurium.prototype.flipLog = function(){
         firebug.env.debug = this.logManager.isUseLog;
 };
 
-Tellurium.prototype.isUseLog = function(){
-    return this.logManager.isUseLog;
-};
-
-Tellurium.prototype.useTeApi = function(isUse){
-    if (typeof(isUse) == "boolean") {
-        tellurium.isUseTeApi = isUse;
-    } else {
-        tellurium.isUseTeApi = ("true" == isUse || "TRUE" == isUse);
-    }
-};
-
 Tellurium.prototype.isApiMissing =function(apiName){
 
-    return this.cmdExecutor.getCommand(apiName) == null;
+    return this.getCommand(apiName) == null;
 };
 
 Tellurium.prototype.parseMacroCmd = function(json){
@@ -289,7 +472,7 @@ Tellurium.prototype.delegateToSelenium = function(response, cmd) {
 
     //Try to get back the return type by looking at Tellurium API counterpart
 //    var handler = this.apiMap.get(cmd.name);
-    var command = this.cmdExecutor.getCommand(cmd.name);
+    var command = this.getCommand(cmd.name);
     if(command != null){
         returnType = command.returnType;
     }
@@ -360,7 +543,7 @@ Tellurium.prototype.prepareArgumentList = function(args){
 
 Tellurium.prototype.delegateToTellurium = function(response, cmd) {
 
-    var command = this.cmdExecutor.getCommand(cmd.name);
+    var command = this.getCommand(cmd.name);
 
     if(command != null){
 /*
@@ -381,17 +564,17 @@ Tellurium.prototype.delegateToTellurium = function(response, cmd) {
 */
         var result;
         if(command.type == CommandType.ASSERTION){
-            result = this.cmdExecutor[cmd.name].apply(this.cmdExecutor, cmd.args);
+            result = this[cmd.name].apply(this, cmd.args);
         }else{
             if(cmd.name == "getAttribute"){
                 var attr = this.parseAttributeFromLocator(cmd.args[0]);
-//                result = this.cmdExecutor[cmd.name].apply(this.cmdExecutor, [cmd.uid, attr]);
-                result = command.handler.apply(this.cmdExecutor, [cmd.uid, attr]);
+//                result = this[cmd.name].apply(this, [cmd.uid, attr]);
+                result = command.handler.apply(this, [cmd.uid, attr]);
             } else {
                 var params = this.prepareArgumentList(cmd.args);
                 params.splice(0, 0, cmd.uid);
-//                result = this.cmdExecutor[cmd.name].apply(this.cmdExecutor, params);
-                result = command.handler.apply(this.cmdExecutor, params);
+//                result = this[cmd.name].apply(this, params);
+                result = command.handler.apply(this, params);
             }
         }
 
@@ -413,7 +596,7 @@ Tellurium.prototype.dispatchMacroCmd = function(){
         var cmd = this.macroCmd.first();
         if(cmd.name == "getUseUiModule"){
             //do UI module locating
-            var result = this.cmdExecutor.useUiModuleInJSON(cmd.args[0]);
+            var result = this.useUiModule(cmd.args[0]);
             response.addResponse(cmd.sequ, cmd.name, ReturnType.OBJECT, result);
         }else{
             //for other commands
@@ -431,26 +614,6 @@ Tellurium.prototype.dispatchMacroCmd = function(){
     }
 
     return response.toJSon();
-};
-
-Tellurium.prototype.isUseCache = function(){
-    return this.cmdExecutor.cache.cacheOption;
-};
-
-Tellurium.prototype.useUiModule = function(jsonarray){
-    return this.cmdExecutor.useUiModuleInJSON(jsonarray);
-};
-
-Tellurium.prototype.validateUiModule = function(jsonarray){
-    return this.cmdExecutor.validateUiModuleInJSON(jsonarray);
-};
-
-Tellurium.prototype.isUiModuleCached = function(id){
-    return this.cmdExecutor.isUiModuleCached(id);
-};
-
-Tellurium.prototype.useClosestMatch = function(isUse){
-    this.cmdExecutor.useClosestMatch(isUse);
 };
 
 Tellurium.prototype.locateElementByCSSSelector = function(locator, inDocument, inWindow){

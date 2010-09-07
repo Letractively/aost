@@ -413,7 +413,7 @@ Selenium.prototype.doUpdateEngineState = function(state){
 
 Selenium.prototype.getEngineState = function(){
     var state = new EngineState();
-    state.relax = tellurium.cmdExecutor.uiAlg.allowRelax;
+    state.relax = tellurium.uiAlg.allowRelax;
     state.teApi = tellurium.isUseTeApi;
     state.cache = tellurium.cache.cacheOption;
 
