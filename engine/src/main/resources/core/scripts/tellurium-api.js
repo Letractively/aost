@@ -332,6 +332,10 @@ Tellurium.prototype.assertNotNull = function(variable){
     }
 };
 
+Tellurium.prototype.toggle = function(uid) {
+    this.execCommand("toggle", uid);
+};
+
 Tellurium.prototype.blur = function(uid) {
     this.execCommand("blur", uid);
 };
@@ -520,10 +524,6 @@ Tellurium.prototype.getListSize = function(uid) {
     return this.execCommand("getListSize", uid);
 };
 
-Tellurium.prototype.getTeListSize = function(uid) {
-    return this.execCommand("getListSize", uid);
-};
-
 Tellurium.prototype.getAllTableBodyText = function(uid){
     return this.execCommand("getAllBodyCell", uid, this.textWorker);
 };
@@ -532,15 +532,7 @@ Tellurium.prototype.getTableHeaderColumnNum = function(uid) {
     return this.execCommand("getHeaderColumnNum", uid);
 };
 
-Tellurium.prototype.getTeTableHeaderColumnNum = function(uid) {
-    return this.execCommand("getHeaderColumnNum", uid);
-};
-
 Tellurium.prototype.getTableFootColumnNum = function(uid) {
-    return this.execCommand("getFooterColumnNum", uid);
-};
-
-Tellurium.prototype.getTeTableFootColumnNum = function(uid) {
     return this.execCommand("getFooterColumnNum", uid);
 };
 
@@ -548,15 +540,7 @@ Tellurium.prototype.getTableRowNum = function(uid) {
     return this.execCommand("getTableRowNum", uid);
 };
 
-Tellurium.prototype.getTeTableRowNum = function(uid) {
-    return this.execCommand("getTableRowNum", uid);
-};
-
 Tellurium.prototype.getTableColumnNum = function(uid) {
-    return this.execCommand("getTableColumnNum", uid);
-};
-
-Tellurium.prototype.getTeTableColumnNum = function(uid) {
     return this.execCommand("getTableColumnNum", uid);
 };
 
@@ -564,15 +548,7 @@ Tellurium.prototype.getTableRowNumForTbody = function(uid) {
     return this.execCommand("getTableRowNumForTbody", uid);
 };
 
-Tellurium.prototype.getTeTableRowNumForTbody = function(uid) {
-    return this.execCommand("getTableRowNumForTbody", uid);
-};
-
 Tellurium.prototype.getTableColumnNumForTbody = function(uid) {
-    return this.execCommand("getTableColumnNumForTbody", uid);
-};
-
-Tellurium.prototype.getTeTableColumnNumForTbody = function(uid) {
     return this.execCommand("getTableColumnNumForTbody", uid);
 };
 
@@ -580,9 +556,44 @@ Tellurium.prototype.getTableTbodyNum = function(uid) {
     return this.execCommand("getTableTbodyNum", uid);
 };
 
+/*
+
+Tellurium.prototype.getTeListSize = function(uid) {
+    return this.execCommand("getListSize", uid);
+};
+
+
+Tellurium.prototype.getTeTableHeaderColumnNum = function(uid) {
+    return this.execCommand("getHeaderColumnNum", uid);
+};
+
+
+Tellurium.prototype.getTeTableFootColumnNum = function(uid) {
+    return this.execCommand("getFooterColumnNum", uid);
+};
+
+Tellurium.prototype.getTeTableRowNum = function(uid) {
+    return this.execCommand("getTableRowNum", uid);
+};
+
+
+Tellurium.prototype.getTeTableColumnNum = function(uid) {
+    return this.execCommand("getTableColumnNum", uid);
+};
+
+
+Tellurium.prototype.getTeTableRowNumForTbody = function(uid) {
+    return this.execCommand("getTableRowNumForTbody", uid);
+};
+
+Tellurium.prototype.getTeTableColumnNumForTbody = function(uid) {
+    return this.execCommand("getTableColumnNumForTbody", uid);
+};
+
 Tellurium.prototype.getTeTableTbodyNum = function(uid) {
     return this.execCommand("getTableTbodyNum", uid);
 };
+*/
 
 Tellurium.prototype.getRepeatNum = function(uid) {
     return this.execCommand("getRepeatNum", uid);
