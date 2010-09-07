@@ -239,10 +239,6 @@ function Tellurium(){
     this.cssBuilder = new JQueryBuilder();
 
     this.cmdMap = new Hashtable();
- 
-//    this.cmdExecutor = new TelluriumCommandExecutor();
-//
-//    this.cache = this.cmdExecutor.cache;
 
     //UI object name to Javascript object builder mapping
     this.uiBuilderMap = new Hashtable();
@@ -307,6 +303,7 @@ Tellurium.prototype.registerCommands = function(){
     this.registerCommand("useTeApi", CommandType.NoUid, ReturnType.VOID, this.useTeApi);
     this.registerCommand("isUseLog", CommandType.NoUid, ReturnType.BOOLEAN, this.isUseLog);
     this.registerCommand("open", CommandType.NoUid, ReturnType.VOID, this.open);
+    this.registerCommand("toggle", CommandType.HasUid, ReturnType.VOID, this.toggle);
     this.registerCommand("blur", CommandType.HasUid, ReturnType.VOID, this.blur);
     this.registerCommand("click", CommandType.HasUid, ReturnType.VOID, this.click);
     this.registerCommand("clickAt", CommandType.HasUid, ReturnType.VOID, this.clickAt);
@@ -393,23 +390,24 @@ Tellurium.prototype.registerCommands = function(){
     this.registerCommand("assertNotNull", CommandType.NoUid, ReturnType.VOID, this.assertNotNull);
 
     this.registerCommand("getListSize", CommandType.HasUid, ReturnType.NUMBER, this.getListSize);
-    this.registerCommand("getTeListSize", CommandType.HasUid, ReturnType.NUMBER, this.getTeListSize);
     this.registerCommand("getTableHeaderColumnNum", CommandType.HasUid, ReturnType.NUMBER, this.getTableHeaderColumnNum);
-    this.registerCommand("getTeTableHeaderColumnNum", CommandType.HasUid, ReturnType.NUMBER, this.getTeTableHeaderColumnNum);
     this.registerCommand("getTableFootColumnNum", CommandType.HasUid, ReturnType.NUMBER, this.getTableFootColumnNum);
-    this.registerCommand("getTeTableFootColumnNum", CommandType.HasUid, ReturnType.NUMBER, this.getTeTableFootColumnNum);
     this.registerCommand("getTableRowNum", CommandType.HasUid, ReturnType.NUMBER, this.getTableRowNum);
-    this.registerCommand("getTeTableRowNum", CommandType.HasUid, ReturnType.NUMBER, this.getTeTableRowNum);
     this.registerCommand("getTableColumnNum", CommandType.HasUid, ReturnType.NUMBER, this.getTableColumnNum);
-    this.registerCommand("getTeTableColumnNum", CommandType.HasUid, ReturnType.NUMBER, this.getTeTableColumnNum);
     this.registerCommand("getTableRowNumForTbody", CommandType.HasUid, ReturnType.NUMBER, this.getTableRowNumForTbody);
-    this.registerCommand("getTeTableRowNumForTbody", CommandType.HasUid, ReturnType.NUMBER, this.getTeTableRowNumForTbody);
     this.registerCommand("getTableColumnNumForTbody", CommandType.HasUid, ReturnType.NUMBER, this.getTableColumnNumForTbody);
-    this.registerCommand("getTeTableColumnNumForTbody", CommandType.HasUid, ReturnType.NUMBER, this.getTeTableColumnNumForTbody);
     this.registerCommand("getTableTbodyNum", CommandType.HasUid, ReturnType.NUMBER, this.getTableTbodyNum);
-    this.registerCommand("getTeTableTbodyNum", CommandType.HasUid, ReturnType.NUMBER, this.getTeTableTbodyNum);
     this.registerCommand("getAllTableBodyText", CommandType.HasUid, ReturnType.STRING, this.getAllTableBodyText);
     this.registerCommand("getRepeatNum", CommandType.HasUid, ReturnType.NUMBER, this.getRepeatNum);
+    
+    this.registerCommand("getTeListSize", CommandType.HasUid, ReturnType.NUMBER, this.getListSize);
+    this.registerCommand("getTeTableHeaderColumnNum", CommandType.HasUid, ReturnType.NUMBER, this.getTableHeaderColumnNum);
+    this.registerCommand("getTeTableFootColumnNum", CommandType.HasUid, ReturnType.NUMBER, this.getTableFootColumnNum);
+    this.registerCommand("getTeTableRowNum", CommandType.HasUid, ReturnType.NUMBER, this.getTableRowNum);
+    this.registerCommand("getTeTableColumnNum", CommandType.HasUid, ReturnType.NUMBER, this.getTableColumnNum);
+    this.registerCommand("getTeTableRowNumForTbody", CommandType.HasUid, ReturnType.NUMBER, this.getTableRowNumForTbody);
+    this.registerCommand("getTeTableColumnNumForTbody", CommandType.HasUid, ReturnType.NUMBER, this.getTableColumnNumForTbody);
+    this.registerCommand("getTeTableTbodyNum", CommandType.HasUid, ReturnType.NUMBER, this.getTableTbodyNum);
 };
 
 Tellurium.prototype.getCommandList = function(){

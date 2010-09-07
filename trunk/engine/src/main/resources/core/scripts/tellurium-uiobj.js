@@ -520,6 +520,11 @@ var UiObject = Class.extend({
         teJQuery(element).trigger('mouseout');
     },
 
+    toggle: function(context){
+        var element = context.domRef;
+        teJQuery(element).toggle();
+    },
+
     getValue: function(context) {
         var element = context.domRef;
         if (element.type) {
