@@ -190,6 +190,8 @@ const ValueType = {
 };
 
 const CommandType = {
+    HasUid: "hasUid",
+    NoUid: "noUid",
     ACTION: "action",
     ACCESSOR: "accessor",
     DIRECT: "direct",
@@ -302,112 +304,112 @@ Tellurium.prototype.registerCommand = function(name, type, returnType, handler){
 };
 
 Tellurium.prototype.registerCommands = function(){
-    this.registerCommand("useTeApi", CommandType.ACCESSOR, ReturnType.VOID, this.useTeApi);
-    this.registerCommand("isUseLog", CommandType.ACCESSOR, ReturnType.BOOLEAN, this.isUseLog);
-    this.registerCommand("open", CommandType.ACTION, ReturnType.VOID, this.open);
-    this.registerCommand("blur", CommandType.ACTION, ReturnType.VOID, this.blur);
-    this.registerCommand("click", CommandType.ACTION, ReturnType.VOID, this.click);
-    this.registerCommand("clickAt", CommandType.ACTION, ReturnType.VOID, this.clickAt);
-    this.registerCommand("doubleClick", CommandType.ACTION, ReturnType.VOID, this.doubleClick);
-    this.registerCommand("fireEvent", CommandType.ACTION, ReturnType.VOID, this.fireEvent);
-    this.registerCommand("focus", CommandType.ACTION, ReturnType.VOID, this.focus);
-    this.registerCommand("type", CommandType.ACTION, ReturnType.VOID, this.type);
-    this.registerCommand("typeKey", CommandType.ACTION, ReturnType.VOID, this.typeKey);
-    this.registerCommand("keyDown", CommandType.ACTION, ReturnType.VOID, this.keyDown);
-    this.registerCommand("keyPress", CommandType.ACTION, ReturnType.VOID, this.keyPress);
-    this.registerCommand("keyUp", CommandType.ACTION, ReturnType.VOID, this.keyUp);
-    this.registerCommand("mouseOver", CommandType.ACTION, ReturnType.VOID, this.mouseOver);
-    this.registerCommand("mouseDown", CommandType.ACTION, ReturnType.VOID, this.mouseDown);
-    this.registerCommand("mouseEnter", CommandType.ACTION, ReturnType.VOID, this.mouseEnter);
-    this.registerCommand("mouseLeave", CommandType.ACTION, ReturnType.VOID, this.mouseLeave);
-    this.registerCommand("mouseOut", CommandType.ACTION, ReturnType.VOID, this.mouseOut);
-    this.registerCommand("submit", CommandType.ACTION, ReturnType.VOID, this.submit);
-    this.registerCommand("check", CommandType.ACTION, ReturnType.VOID, this.check);
-    this.registerCommand("uncheck", CommandType.ACTION, ReturnType.VOID, this.uncheck);
-    this.registerCommand("select", CommandType.ACTION, ReturnType.VOID, this.select);
-    this.registerCommand("selectByLabel", CommandType.ACTION, ReturnType.VOID, this.selectByLabel);
-    this.registerCommand("selectByIndex", CommandType.ACTION, ReturnType.VOID, this.selectByIndex);
-    this.registerCommand("selectByValue", CommandType.ACTION, ReturnType.VOID, this.selectByValue);
+    this.registerCommand("useTeApi", CommandType.NoUid, ReturnType.VOID, this.useTeApi);
+    this.registerCommand("isUseLog", CommandType.NoUid, ReturnType.BOOLEAN, this.isUseLog);
+    this.registerCommand("open", CommandType.NoUid, ReturnType.VOID, this.open);
+    this.registerCommand("blur", CommandType.HasUid, ReturnType.VOID, this.blur);
+    this.registerCommand("click", CommandType.HasUid, ReturnType.VOID, this.click);
+    this.registerCommand("clickAt", CommandType.HasUid, ReturnType.VOID, this.clickAt);
+    this.registerCommand("doubleClick", CommandType.HasUid, ReturnType.VOID, this.doubleClick);
+    this.registerCommand("fireEvent", CommandType.HasUid, ReturnType.VOID, this.fireEvent);
+    this.registerCommand("focus", CommandType.HasUid, ReturnType.VOID, this.focus);
+    this.registerCommand("type", CommandType.HasUid, ReturnType.VOID, this.type);
+    this.registerCommand("typeKey", CommandType.HasUid, ReturnType.VOID, this.typeKey);
+    this.registerCommand("keyDown", CommandType.HasUid, ReturnType.VOID, this.keyDown);
+    this.registerCommand("keyPress", CommandType.HasUid, ReturnType.VOID, this.keyPress);
+    this.registerCommand("keyUp", CommandType.HasUid, ReturnType.VOID, this.keyUp);
+    this.registerCommand("mouseOver", CommandType.HasUid, ReturnType.VOID, this.mouseOver);
+    this.registerCommand("mouseDown", CommandType.HasUid, ReturnType.VOID, this.mouseDown);
+    this.registerCommand("mouseEnter", CommandType.HasUid, ReturnType.VOID, this.mouseEnter);
+    this.registerCommand("mouseLeave", CommandType.HasUid, ReturnType.VOID, this.mouseLeave);
+    this.registerCommand("mouseOut", CommandType.HasUid, ReturnType.VOID, this.mouseOut);
+    this.registerCommand("submit", CommandType.HasUid, ReturnType.VOID, this.submit);
+    this.registerCommand("check", CommandType.HasUid, ReturnType.VOID, this.check);
+    this.registerCommand("uncheck", CommandType.HasUid, ReturnType.VOID, this.uncheck);
+    this.registerCommand("select", CommandType.HasUid, ReturnType.VOID, this.select);
+    this.registerCommand("selectByLabel", CommandType.HasUid, ReturnType.VOID, this.selectByLabel);
+    this.registerCommand("selectByIndex", CommandType.HasUid, ReturnType.VOID, this.selectByIndex);
+    this.registerCommand("selectByValue", CommandType.HasUid, ReturnType.VOID, this.selectByValue);
 
-    this.registerCommand("getSelectOptions", CommandType.ACCESSOR, ReturnType.ARRAY, this.getSelectOptions);
-    this.registerCommand("getSelectValues", CommandType.ACCESSOR, ReturnType.ARRAY, this.getSelectValues);
-    this.registerCommand("getSelectedLabel", CommandType.ACCESSOR, ReturnType.STRING, this.getSelectedLabel);
-    this.registerCommand("getSelectedLabels", CommandType.ACCESSOR, ReturnType.ARRAY, this.getSelectedLabels);
-    this.registerCommand("getSelectedValue", CommandType.ACCESSOR, ReturnType.STRING, this.getSelectedValue);
-    this.registerCommand("getSelectedValues", CommandType.ACCESSOR, ReturnType.ARRAY, this.getSelectedValues);
-    this.registerCommand("getSelectedIndex", CommandType.ACCESSOR, ReturnType.NUMBER, this.getSelectedIndex);
-    this.registerCommand("getSelectedIndexes", CommandType.ACCESSOR, ReturnType.ARRAY, this.getSelectedIndexes);
-    this.registerCommand("addSelection", CommandType.ACCESSOR, ReturnType.VOID, this.addSelection);
-    this.registerCommand("removeSelection", CommandType.ACCESSOR, ReturnType.VOID, this.removeSelection);
-    this.registerCommand("removeAllSelections", CommandType.ACCESSOR, ReturnType.VOID, this.removeAllSelections);
+    this.registerCommand("getSelectOptions", CommandType.HasUid, ReturnType.ARRAY, this.getSelectOptions);
+    this.registerCommand("getSelectValues", CommandType.HasUid, ReturnType.ARRAY, this.getSelectValues);
+    this.registerCommand("getSelectedLabel", CommandType.HasUid, ReturnType.STRING, this.getSelectedLabel);
+    this.registerCommand("getSelectedLabels", CommandType.HasUid, ReturnType.ARRAY, this.getSelectedLabels);
+    this.registerCommand("getSelectedValue", CommandType.HasUid, ReturnType.STRING, this.getSelectedValue);
+    this.registerCommand("getSelectedValues", CommandType.HasUid, ReturnType.ARRAY, this.getSelectedValues);
+    this.registerCommand("getSelectedIndex", CommandType.HasUid, ReturnType.NUMBER, this.getSelectedIndex);
+    this.registerCommand("getSelectedIndexes", CommandType.HasUid, ReturnType.ARRAY, this.getSelectedIndexes);
+    this.registerCommand("addSelection", CommandType.HasUid, ReturnType.VOID, this.addSelection);
+    this.registerCommand("removeSelection", CommandType.HasUid, ReturnType.VOID, this.removeSelection);
+    this.registerCommand("removeAllSelections", CommandType.HasUid, ReturnType.VOID, this.removeAllSelections);
 
-    this.registerCommand("getAttribute", CommandType.ACCESSOR, ReturnType.STRING, this.getAttribute);
-    this.registerCommand("getText", CommandType.ACCESSOR, ReturnType.STRING, this.getText);
+    this.registerCommand("getAttribute", CommandType.HasUid, ReturnType.STRING, this.getAttribute);
+    this.registerCommand("getText", CommandType.HasUid, ReturnType.STRING, this.getText);
 
-    this.registerCommand("getAllText", CommandType.ACCESSOR, ReturnType.ARRAY, this.getAllText);
+    this.registerCommand("getAllText", CommandType.NoUid, ReturnType.ARRAY, this.getAllText);
 
-    this.registerCommand("getValue", CommandType.ACCESSOR, ReturnType.STRING, this.getValue);
-    this.registerCommand("isElementPresent", CommandType.ACCESSOR, ReturnType.BOOLEAN, this.isElementPresent);
-    this.registerCommand("isChecked", CommandType.ACCESSOR, ReturnType.BOOLEAN, this.isChecked);
-    this.registerCommand("isVisible", CommandType.ACCESSOR, ReturnType.BOOLEAN, this.isVisible);
-    this.registerCommand("isEditable", CommandType.ACCESSOR, ReturnType.BOOLEAN, this.isEditable);
-    this.registerCommand("getCSS", CommandType.ACCESSOR, ReturnType.ARRAY, this.getCSS);
-    this.registerCommand("getCSSAsString", CommandType.ACCESSOR, ReturnType.STRING, this.getCSSAsString);
-    this.registerCommand("isDisable",  CommandType.ACCESSOR, ReturnType.BOOLEAN, this.isDisabled);
-    this.registerCommand("reset", CommandType.ACCESSOR, ReturnType.VOID, this.reset);
-    this.registerCommand("showUi", CommandType.ACTION, ReturnType.VOID, this.showUi);
-    this.registerCommand("cleanUi", CommandType.ACTION, ReturnType.VOID, this.cleanUi);
-    this.registerCommand("getHTMLSource", CommandType.DIRECT, ReturnType.ARRAY, this.getHTMLSource);
-    this.registerCommand("getHTMLSourceAsString", CommandType.DIRECT, ReturnType.STRING, this.getHTMLSourceAsString);
-    this.registerCommand("getUids", CommandType.DIRECT, ReturnType.ARRAY, this.getUids);
-    this.registerCommand("getUidsAsString", CommandType.DIRECT, ReturnType.STRING, this.getUidsAsString);
-    this.registerCommand("getCssSelectorCount", CommandType.DIRECT, ReturnType.NUMBER, this.getCssSelectorCount);
-    this.registerCommand("getCssSelectorMatch", CommandType.DIRECT, ReturnType.ARRAY, this.getCssSelectorMatch);
-    this.registerCommand("getCssSelectorMatchAsString", CommandType.DIRECT, ReturnType.STRING, this.getCssSelectorMatchAsString);
-    this.registerCommand("useUiModule", CommandType.ACCESSOR, ReturnType.OBJECT, this.useUiModule);
-    this.registerCommand("useDirectUiModule", CommandType.ACCESSOR, ReturnType.VOID, this.useDirectUiModule);
-    this.registerCommand("validateUiModule", CommandType.DIRECT, ReturnType.OBJECT, this.validateUiModule);
-    this.registerCommand("validateDirectUiModule", CommandType.DIRECT, ReturnType.OBJECT, this.validateDirectUiModule);
-    this.registerCommand("validateUiModuleAsString", CommandType.DIRECT, ReturnType.STRING, this.validateUiModuleAsString);
-    this.registerCommand("toJSON", CommandType.DIRECT, ReturnType.OBJECT, this.toJSON);
-    this.registerCommand("toJSONString", CommandType.DIRECT, ReturnType.STRING, this.toJSONString);
+    this.registerCommand("getValue", CommandType.HasUid, ReturnType.STRING, this.getValue);
+    this.registerCommand("isElementPresent", CommandType.HasUid, ReturnType.BOOLEAN, this.isElementPresent);
+    this.registerCommand("isChecked", CommandType.HasUid, ReturnType.BOOLEAN, this.isChecked);
+    this.registerCommand("isVisible", CommandType.HasUid, ReturnType.BOOLEAN, this.isVisible);
+    this.registerCommand("isEditable", CommandType.HasUid, ReturnType.BOOLEAN, this.isEditable);
+    this.registerCommand("getCSS", CommandType.HasUid, ReturnType.ARRAY, this.getCSS);
+    this.registerCommand("getCSSAsString", CommandType.HasUid, ReturnType.STRING, this.getCSSAsString);
+    this.registerCommand("isDisable",  CommandType.HasUid, ReturnType.BOOLEAN, this.isDisabled);
+    this.registerCommand("reset", CommandType.HasUid, ReturnType.VOID, this.reset);
+    this.registerCommand("showUi", CommandType.HasUid, ReturnType.VOID, this.showUi);
+    this.registerCommand("cleanUi", CommandType.HasUid, ReturnType.VOID, this.cleanUi);
+    this.registerCommand("getHTMLSource", CommandType.HasUid, ReturnType.ARRAY, this.getHTMLSource);
+    this.registerCommand("getHTMLSourceAsString", CommandType.HasUid, ReturnType.STRING, this.getHTMLSourceAsString);
+    this.registerCommand("getUids", CommandType.HasUid, ReturnType.ARRAY, this.getUids);
+    this.registerCommand("getUidsAsString", CommandType.HasUid, ReturnType.STRING, this.getUidsAsString);
+    this.registerCommand("getCssSelectorCount", CommandType.NoUid, ReturnType.NUMBER, this.getCssSelectorCount);
+    this.registerCommand("getCssSelectorMatch", CommandType.NoUid, ReturnType.ARRAY, this.getCssSelectorMatch);
+    this.registerCommand("getCssSelectorMatchAsString", CommandType.NoUid, ReturnType.STRING, this.getCssSelectorMatchAsString);
+    this.registerCommand("useUiModule", CommandType.NoUid, ReturnType.OBJECT, this.useUiModule);
+    this.registerCommand("useDirectUiModule", CommandType.NoUid, ReturnType.VOID, this.useDirectUiModule);
+    this.registerCommand("validateUiModule", CommandType.NoUid, ReturnType.OBJECT, this.validateUiModule);
+    this.registerCommand("validateDirectUiModule", CommandType.NoUid, ReturnType.OBJECT, this.validateDirectUiModule);
+    this.registerCommand("validateUiModuleAsString", CommandType.NoUid, ReturnType.STRING, this.validateUiModuleAsString);
+    this.registerCommand("toJSON", CommandType.HasUid, ReturnType.OBJECT, this.toJSON);
+    this.registerCommand("toJSONString", CommandType.HasUid, ReturnType.STRING, this.toJSONString);
 //    this.registerCommand("waitForPageToLoad", CommandType.ACTION, ReturnType.VOID, this.waitForPageToLoad);
-    this.registerCommand("getUiByTag", CommandType.DIRECT, ReturnType.OBJECT, this.getUiByTag);
-    this.registerCommand("removeMarkedUids", CommandType.DIRECT, ReturnType.VOID, this.removeMarkedUids);
-    this.registerCommand("isUseCache", CommandType.ACCESSOR, ReturnType.BOOLEAN, this.isUseCache);
+    this.registerCommand("getUiByTag", CommandType.NoUid, ReturnType.OBJECT, this.getUiByTag);
+    this.registerCommand("removeMarkedUids", CommandType.NoUid, ReturnType.VOID, this.removeMarkedUids);
+    this.registerCommand("isUseCache", CommandType.NoUid, ReturnType.BOOLEAN, this.isUseCache);
 
-    this.registerCommand("getCacheState", CommandType.ACCESSOR, ReturnType.BOOLEAN, this.getCacheState);
-    this.registerCommand("getCacheSize", CommandType.ACCESSOR, ReturnType.NUMBER, this.getCacheSize);
-    this.registerCommand("enableCache", CommandType.ACCESSOR, ReturnType.VOID, this.enableCache);
-    this.registerCommand("disableCache", CommandType.ACCESSOR, ReturnType.VOID, this.disableCache);
-    this.registerCommand("isUiModuleCached", CommandType.ACCESSOR, ReturnType.BOOLEAN, this.isUiModuleCached);
-    this.registerCommand("useClosestMatch", CommandType.ACCESSOR, ReturnType.VOID, this.useClosestMatch);
+    this.registerCommand("getCacheState", CommandType.NoUid, ReturnType.BOOLEAN, this.getCacheState);
+    this.registerCommand("getCacheSize", CommandType.NoUid, ReturnType.NUMBER, this.getCacheSize);
+    this.registerCommand("enableCache", CommandType.NoUid, ReturnType.VOID, this.enableCache);
+    this.registerCommand("disableCache", CommandType.NoUid, ReturnType.VOID, this.disableCache);
+    this.registerCommand("isUiModuleCached", CommandType.HasUid, ReturnType.BOOLEAN, this.isUiModuleCached);
+    this.registerCommand("useClosestMatch", CommandType.NoUid, ReturnType.VOID, this.useClosestMatch);
     
-    this.registerCommand("assertTrue", CommandType.ASSERTION, ReturnType.VOID, this.assertTrue);
-    this.registerCommand("assertFalse", CommandType.ASSERTION, ReturnType.VOID, this.assertFalse);
-    this.registerCommand("assertEquals", CommandType.ASSERTION, ReturnType.VOID, this.assertEquals);
-    this.registerCommand("assertNotEquals", CommandType.ASSERTION, ReturnType.VOID, this.assertNotEquals);
-    this.registerCommand("assertNull", CommandType.ASSERTION, ReturnType.VOID, this.assertNull);
-    this.registerCommand("assertNotNull", CommandType.ASSERTION, ReturnType.VOID, this.assertNotNull);
+    this.registerCommand("assertTrue", CommandType.NoUid, ReturnType.VOID, this.assertTrue);
+    this.registerCommand("assertFalse", CommandType.NoUid, ReturnType.VOID, this.assertFalse);
+    this.registerCommand("assertEquals", CommandType.NoUid, ReturnType.VOID, this.assertEquals);
+    this.registerCommand("assertNotEquals", CommandType.NoUid, ReturnType.VOID, this.assertNotEquals);
+    this.registerCommand("assertNull", CommandType.NoUid, ReturnType.VOID, this.assertNull);
+    this.registerCommand("assertNotNull", CommandType.NoUid, ReturnType.VOID, this.assertNotNull);
 
-    this.registerCommand("getListSize", CommandType.ACCESSOR, ReturnType.NUMBER, this.getListSize);
-    this.registerCommand("getTeListSize", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTeListSize);
-    this.registerCommand("getTableHeaderColumnNum", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTableHeaderColumnNum);
-    this.registerCommand("getTeTableHeaderColumnNum", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTeTableHeaderColumnNum);
-    this.registerCommand("getTableFootColumnNum", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTableFootColumnNum);
-    this.registerCommand("getTeTableFootColumnNum", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTeTableFootColumnNum);
-    this.registerCommand("getTableRowNum", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTableRowNum);
-    this.registerCommand("getTeTableRowNum", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTeTableRowNum);
-    this.registerCommand("getTableColumnNum", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTableColumnNum);
-    this.registerCommand("getTeTableColumnNum", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTeTableColumnNum);
-    this.registerCommand("getTableRowNumForTbody", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTableRowNumForTbody);
-    this.registerCommand("getTeTableRowNumForTbody", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTeTableRowNumForTbody);
-    this.registerCommand("getTableColumnNumForTbody", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTableColumnNumForTbody);
-    this.registerCommand("getTeTableColumnNumForTbody", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTeTableColumnNumForTbody);
-    this.registerCommand("getTableTbodyNum", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTableTbodyNum);
-    this.registerCommand("getTeTableTbodyNum", CommandType.ACCESSOR, ReturnType.NUMBER, this.getTeTableTbodyNum);
-    this.registerCommand("getAllTableBodyText", CommandType.ACCESSOR, ReturnType.STRING, this.getAllTableBodyText);
-    this.registerCommand("getRepeatNum", CommandType.ASSERTION, ReturnType.NUMBER, this.getRepeatNum);
+    this.registerCommand("getListSize", CommandType.HasUid, ReturnType.NUMBER, this.getListSize);
+    this.registerCommand("getTeListSize", CommandType.HasUid, ReturnType.NUMBER, this.getTeListSize);
+    this.registerCommand("getTableHeaderColumnNum", CommandType.HasUid, ReturnType.NUMBER, this.getTableHeaderColumnNum);
+    this.registerCommand("getTeTableHeaderColumnNum", CommandType.HasUid, ReturnType.NUMBER, this.getTeTableHeaderColumnNum);
+    this.registerCommand("getTableFootColumnNum", CommandType.HasUid, ReturnType.NUMBER, this.getTableFootColumnNum);
+    this.registerCommand("getTeTableFootColumnNum", CommandType.HasUid, ReturnType.NUMBER, this.getTeTableFootColumnNum);
+    this.registerCommand("getTableRowNum", CommandType.HasUid, ReturnType.NUMBER, this.getTableRowNum);
+    this.registerCommand("getTeTableRowNum", CommandType.HasUid, ReturnType.NUMBER, this.getTeTableRowNum);
+    this.registerCommand("getTableColumnNum", CommandType.HasUid, ReturnType.NUMBER, this.getTableColumnNum);
+    this.registerCommand("getTeTableColumnNum", CommandType.HasUid, ReturnType.NUMBER, this.getTeTableColumnNum);
+    this.registerCommand("getTableRowNumForTbody", CommandType.HasUid, ReturnType.NUMBER, this.getTableRowNumForTbody);
+    this.registerCommand("getTeTableRowNumForTbody", CommandType.HasUid, ReturnType.NUMBER, this.getTeTableRowNumForTbody);
+    this.registerCommand("getTableColumnNumForTbody", CommandType.HasUid, ReturnType.NUMBER, this.getTableColumnNumForTbody);
+    this.registerCommand("getTeTableColumnNumForTbody", CommandType.HasUid, ReturnType.NUMBER, this.getTeTableColumnNumForTbody);
+    this.registerCommand("getTableTbodyNum", CommandType.HasUid, ReturnType.NUMBER, this.getTableTbodyNum);
+    this.registerCommand("getTeTableTbodyNum", CommandType.HasUid, ReturnType.NUMBER, this.getTeTableTbodyNum);
+    this.registerCommand("getAllTableBodyText", CommandType.HasUid, ReturnType.STRING, this.getAllTableBodyText);
+    this.registerCommand("getRepeatNum", CommandType.HasUid, ReturnType.NUMBER, this.getRepeatNum);
 };
 
 Tellurium.prototype.getCommandList = function(){
@@ -450,7 +452,7 @@ Tellurium.prototype.flipLog = function(){
         firebug.env.debug = this.logManager.isUseLog;
 };
 
-Tellurium.prototype.isApiMissing =function(apiName){
+Tellurium.prototype.isApiMissing = function(apiName){
 
     return this.getCommand(apiName) == null;
 };
@@ -547,24 +549,21 @@ Tellurium.prototype.delegateToTellurium = function(response, cmd) {
     var command = this.getCommand(cmd.name);
 
     if(command != null){
-/*
-        var param = null;
-        if(cmd.args != null && cmd.args.length > 0){
-            if(cmd.args.length > 1){
-                //locator
-                if(this.isLocator(cmd.args[0])){
-                    param = cmd.args[1];
-                }else if(command.type != CommandType.ASSERTION){
-                    throw new TelluriumError(ErrorCodes.INVALID_NUMBER_OF_PARAMETERS, "Tellurium command " + cmd.name + " expects 1 parameter, but is " + cmd.args.length);
-                }
-            }else{
-                param = cmd.args[0]
-            }
-
-        }
-*/
         var result;
-        if(command.type == CommandType.ASSERTION){
+        if(command.type == CommandType.HasUid){
+            if(cmd.name == "getAttribute"){
+                var attr = this.parseAttributeFromLocator(cmd.args[0]);
+                result = command.handler.apply(this, [cmd.uid, attr]);
+            }else{
+                var params = this.prepareArgumentList(cmd.args);
+                params.splice(0, 0, cmd.uid);
+                result = command.handler.apply(this, params);
+            }
+        }else{
+            result = this[cmd.name].apply(this, cmd.args);
+        }
+
+/*        if(command.type == CommandType.ASSERTION){
             result = this[cmd.name].apply(this, cmd.args);
         }else{
             if(cmd.name == "getAttribute"){
@@ -577,7 +576,7 @@ Tellurium.prototype.delegateToTellurium = function(response, cmd) {
 //                result = this[cmd.name].apply(this, params);
                 result = command.handler.apply(this, params);
             }
-        }
+        }*/
 
         if(command.returnType == "VOID"){
             response.addResponse(cmd.sequ, cmd.name, command.returnType, result);
@@ -602,6 +601,8 @@ Tellurium.prototype.dispatchMacroCmd = function(){
         }else{
             //for other commands
             !tellurium.logManager.isUseLog || fbLog("Dispatching command: ", cmd);
+            fbLog("isUseTeApi", this);
+            fbLog("isApiMissing(" + cmd.name + ")" + this.isApiMissing(cmd.name), this);
 //            this.updateArgumentList(cmd);
 //            !tellurium.logManager.isUseLog || fbLog("Command after updating argument list: ", cmd);
             if ((!this.isUseTeApi) || this.isApiMissing(cmd.name)) {
@@ -650,4 +651,19 @@ Tellurium.prototype.isLocator = function(locator){
         return false;
 
     return locator.startsWith('//') || locator.startsWith('jquery=') || locator.startsWith('jquerycache=') || locator.startsWith('document.');
+};
+
+Tellurium.prototype.decorateFunctionWithTimeout = function(f, timeout) {
+    if (f == null) {
+        return null;
+    }
+
+    var now = new Date().getTime();
+    var timeoutTime = now + timeout;
+    return function() {
+        if (new Date().getTime() > timeoutTime) {
+            throw new TelluriumError(ErrorCodes.TIME_OUT, "Timed out after " + timeout + "ms");
+        }
+        return f();
+    };
 };

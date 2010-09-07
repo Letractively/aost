@@ -31,11 +31,13 @@ Tellurium.prototype.isUseLog = function(){
 };
 
 Tellurium.prototype.useTeApi = function(isUse){
+    fbLog("before call useTeApi(" + isUse + ")" + this.isUseTeApi, this);
     if (typeof(isUse) == "boolean") {
         this.isUseTeApi = isUse;
     } else {
         this.isUseTeApi = ("true" == isUse || "TRUE" == isUse);
     }
+    fbLog("After call useTeApi(" + isUse + ")" + this.isUseTeApi, this);
 };
 
 Tellurium.prototype.isUseCache = function(){
@@ -792,12 +794,12 @@ Tellurium.prototype.getUidsAsString = function(uid){
     return arrayToString(uids);
 };
 
-Tellurium.prototype.getCssSelectorCount = function(uid, sel){
+Tellurium.prototype.getCssSelectorCount = function(sel){
 
     return teJQuery(this.dom).find(sel).size();
 };
 
-Tellurium.prototype.getCssSelectorMatch = function(uid, sel){
+Tellurium.prototype.getCssSelectorMatch = function(sel){
     var out = [];
     var $e = teJQuery(this.dom).find(sel);
     if($e.size() > 0){
@@ -810,12 +812,12 @@ Tellurium.prototype.getCssSelectorMatch = function(uid, sel){
     return out;
 };
 
-Tellurium.prototype.getCssSelectorMatchAsString = function(uid, sel){
-    var out = this.getCssSelectorMatch(uid, sel);
+Tellurium.prototype.getCssSelectorMatchAsString = function(sel){
+    var out = this.getCssSelectorMatch(sel);
     return arrayToString(out);
 };
 
-Tellurium.prototype.validateDirectUiModule = function(uid, jsonString){
+Tellurium.prototype.validateDirectUiModule = function(jsonString){
     var newuim = new UiModule();
     newuim.dom = this.dom;
     var jsonArray = JSON.parse(jsonString, null);
@@ -837,8 +839,8 @@ Tellurium.prototype.validateDirectUiModule = function(uid, jsonString){
     return response;
 };
 
-Tellurium.prototype.validateUiModuleAsString = function(uid,jsonString){
-    var response = this.validateUiModule(uid, jsonString);
+Tellurium.prototype.validateUiModuleAsString = function(jsonString){
+    var response = this.validateUiModule(jsonString);
     if(response != null){
         return response.toString();
     }else{
@@ -846,7 +848,7 @@ Tellurium.prototype.validateUiModuleAsString = function(uid,jsonString){
     }
 };
 
-Tellurium.prototype.useDirectUiModule = function(uid, jsonString){
+Tellurium.prototype.useDirectUiModule = function(jsonString){
     var newuim = new UiModule();
     newuim.dom = this.dom;
     var jsonArray = JSON.parse(jsonString, null);
@@ -890,21 +892,6 @@ Tellurium.prototype.toJSONString = function(uid){
     var json = this.toJSON(uid);
 
     return JSON.stringify(json);
-};
-
-Tellurium.prototype.decorateFunctionWithTimeout = function(f, timeout) {
-    if (f == null) {
-        return null;
-    }
-
-    var now = new Date().getTime();
-    var timeoutTime = now + timeout;
-    return function() {
-        if (new Date().getTime() > timeoutTime) {
-            throw new TelluriumError(ErrorCodes.TIME_OUT, "Timed out after " + timeout + "ms");
-        }
-        return f();
-    };
 };
 
 Tellurium.prototype.waitForPageToLoad = function(uid, timeout){
@@ -953,7 +940,7 @@ function WaitPageLoad(scope){
     scope.onPageLoad();
 }
 
-Tellurium.prototype.open = function(uid, url){
+Tellurium.prototype.open = function(url){
     this.browserBot.showInBrowser(url);
     var self = this;
     this.browserBot.newPageLoaded = false;
