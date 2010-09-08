@@ -212,8 +212,23 @@ Tellurium.prototype.execCommand = function(cmd, uid, param){
             throw new TelluriumError(ErrorCodes.UI_OBJ_NOT_FOUND, "Cannot find UI object " + uid);
         }
     }else{
-        logger.error("Cannot find UI Module " + uid);
-        throw new TelluriumError(ErrorCodes.UI_MODULE_IS_NULL, "Cannot find UI Module " + first);
+        var proxyObject = this.proxyObject.walkTo(context, uid);
+        if(proxyObject != null){
+            if(proxyObject.respondsTo(cmd)){
+                var params = [context];
+                if(param != null && param != undefined){
+                    params.push(param);
+                }
+
+                return proxyObject[cmd].apply(proxyObject, params);
+            }else{
+                logger.error("Proxy UI Object " + uid + " does not have method " + cmd);
+                throw new TelluriumError(ErrorCodes.INVALID_CALL_ON_UI_OBJ, "Proxy UI Object " + uid + " does not have method " + cmd);
+            }    
+        }else{
+            logger.error("Cannot find UI Module " + uid);
+            throw new TelluriumError(ErrorCodes.UI_MODULE_IS_NULL, "Cannot find UI Module " + first);
+        }
     }
 };
 
@@ -247,6 +262,7 @@ Tellurium.prototype.getUiByTag = function(tag, attributes){
         !tellurium.logManager.isUseLog || fbLog("Found element for getUiByTag " + tag, $e.get());
         var teuid = "te-" + tellurium.idGen.next();
         $e.attr("teuid", teuid);
+        this.proxyObject.addUiObject(teuid, $e.get(0));
         teuids.push(teuid);
     }
 
