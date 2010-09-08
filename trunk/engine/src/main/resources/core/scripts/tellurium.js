@@ -262,6 +262,7 @@ function Tellurium(){
     this.selExecutor = new SeleniumCmdExecutor();
     
     this.cmdExecutor = this.synExecutor;
+//    this.cmdExecutor = this.selExecutor;
 }
 
 Tellurium.prototype.setCurrentDom = function(dom){
