@@ -254,7 +254,23 @@ function Tellurium(){
 
     //outlines
     this.outlines = new Outlines();
+
+    this.currentDom = null;
+
+    this.jqExecutor = new JQueryCmdExecutor();
+    this.synExecutor = new SynCmdExecutor();
+    this.selExecutor = new SeleniumCmdExecutor();
+    
+    this.cmdExecutor = this.synExecutor;
 }
+
+Tellurium.prototype.setCurrentDom = function(dom){
+    this.currentDom = dom;
+};
+
+Tellurium.prototype.getCurrentDom = function(){
+    return this.currentDom;
+};
 
 Tellurium.prototype.initialize = function(){
     this.outlines.init();
