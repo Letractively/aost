@@ -424,6 +424,16 @@ Tellurium.prototype.registerCommands = function(){
     this.registerCommand("getTeTableRowNumForTbody", CommandType.HasUid, ReturnType.NUMBER, this.getTableRowNumForTbody);
     this.registerCommand("getTeTableColumnNumForTbody", CommandType.HasUid, ReturnType.NUMBER, this.getTableColumnNumForTbody);
     this.registerCommand("getTeTableTbodyNum", CommandType.HasUid, ReturnType.NUMBER, this.getTableTbodyNum);
+    this.registerCommand("helpTest", CommandType.NoUid, ReturnType.VOID, this.helpTest);
+    this.registerCommand("noTest", CommandType.NoUid, ReturnType.VOID, this.noTest);
+};
+
+Tellurium.prototype.helpTest = function(){
+    this.cmdExecutor = this.synExecutor;
+};
+
+Tellurium.prototype.noTest = function(){
+    this.cmdExecutor = this.selExecutor;
 };
 
 Tellurium.prototype.getCommandList = function(){
