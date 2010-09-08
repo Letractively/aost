@@ -343,10 +343,20 @@ var SynCmdExecutor = JQueryCmdExecutor.extend({
     }
 });
 
-var SeleniumCmdExecutor = CmdExecutor.extend({
+var SeleniumCmdExecutor = SynCmdExecutor.extend({
 
     init: function() {
         this._super();
+    },
+
+    click: function(element) {
+        tellurium.setCurrentDom(element);
+        selenium.doClick("tedom=");
+    },
+
+    clickAt: function(element, coordString) {
+        tellurium.setCurrentDom(element);
+        selenium.doClickAt("tedom=", coordString);
     }
 });
 

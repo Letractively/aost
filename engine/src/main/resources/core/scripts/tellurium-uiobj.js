@@ -435,7 +435,7 @@ var UiObject = Class.extend({
 
     fireEvent: function(context, event){
         var element = context.domRef;
-        tellurium.cmdExecutor.fireEvent(element);
+        tellurium.cmdExecutor.fireEvent(element, event);
 //        teJQuery(element).trigger(event);
     },
 
@@ -559,14 +559,14 @@ var UiObject = Class.extend({
 
     getAttribute: function(context, attribute){
         var element = context.domRef;
-        tellurium.cmdExecutor.getAttribute(element, attribute);
+        return tellurium.cmdExecutor.getAttribute(element, attribute);
 //        alert("attribute: " + attribute + ", value: " + teJQuery(element).attr(attribute));
 //        return teJQuery(element).attr(attribute);
     },
 
     getText: function(context){
         var element = context.domRef;
-        tellurium.cmdExecutor.getText(element);
+        return tellurium.cmdExecutor.getText(element);
 //        return teJQuery(element).text();
     },
 
@@ -588,7 +588,7 @@ var UiObject = Class.extend({
     
     isEditable: function(context) {
         var element = context.domRef;
-        tellurium.cmdExecutor.isEditable(element);
+        return tellurium.cmdExecutor.isEditable(element);
 
  /*       if (element.value == undefined) {
             Assert.fail("Element " + this.uid + " is not an input.");
@@ -615,7 +615,7 @@ var UiObject = Class.extend({
 
     getCSS: function(context, cssName){
         var element = context.domRef;
-        tellurium.cmdExecutor.getCSS(element, cssName);
+        return tellurium.cmdExecutor.getCSS(element, cssName);
 
 /*        var out = [];
         var $e = teJQuery(element);
@@ -634,7 +634,7 @@ var UiObject = Class.extend({
 
     isDisabled: function(context){
         var element = context.domRef;
-        tellurium.cmdExecutor.isDisabled(element);
+        return tellurium.cmdExecutor.isDisabled(element);
 
 //        var $e = teJQuery(element);
 //        return $e.attr('disabled');
