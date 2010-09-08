@@ -263,6 +263,9 @@ function Tellurium(){
     
 //    this.cmdExecutor = this.synExecutor;
     this.cmdExecutor = this.selExecutor;
+
+    //Proxy object
+    this.proxyObject = new UiProxyObject();
 }
 
 Tellurium.prototype.setCurrentDom = function(dom){
