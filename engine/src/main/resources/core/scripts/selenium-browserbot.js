@@ -1182,6 +1182,10 @@ BrowserBot.prototype._registerAllLocatorFunctions = function() {
     this.locationStrategies['uimcal'] = function(locator, inDocument, inWindow) {
         return tellurium.locateElementWithCacheAware(locator, inDocument, inWindow);
     };
+
+    this.locationStrategies['tedom'] = function(locator, inDocument, inWindow) {
+        return tellurium.getCurrentDom();
+    };   
 }
 
 BrowserBot.prototype.getDocument = function() {

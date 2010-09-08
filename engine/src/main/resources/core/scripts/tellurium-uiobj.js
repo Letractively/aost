@@ -427,29 +427,34 @@ var UiObject = Class.extend({
 
     reset: function(context) {
         var element = context.domRef;
-        if (element.reset != undefined) {
+        tellurium.cmdExecutor.reset(element);
+/*        if (element.reset != undefined) {
             element.reset();
-        }
+        }*/
     },
 
     fireEvent: function(context, event){
         var element = context.domRef;
-        teJQuery(element).trigger(event);
+        tellurium.cmdExecutor.fireEvent(element);
+//        teJQuery(element).trigger(event);
     },
 
     blur: function(context){
         var element = context.domRef;
-        teJQuery(element).blur();
+        tellurium.cmdExecutor.blur(element);
+//        teJQuery(element).blur();
     },
 
     focus: function(context){
         var element = context.domRef;
-        teJQuery(element).focus();
+        tellurium.cmdExecutor.focus(element);
+//        teJQuery(element).focus();
     },
 
     click: function(context){
         var element = context.domRef;
-        Syn.click(element);
+        tellurium.cmdExecutor.click(element);
+//        Syn.click(element);
 /*        var element = context.domRef;
         var elementWithHref = getAncestorOrSelfWithJavascriptHref(element);
         if(elementWithHref == null)
@@ -471,6 +476,8 @@ var UiObject = Class.extend({
 
     clickAt: function(context, coordString){
         var element = context.domRef;
+        tellurium.cmdExecutor.clickAt(element, coordString);
+/*
         var clientXY = getTargetXY(element, coordString);
         //TODO: how to do click at using jQuery
         var elementWithHref = getAncestorOrSelfWithJavascriptHref(element);
@@ -485,49 +492,59 @@ var UiObject = Class.extend({
         } else {
             teJQuery(elementWithHref).click();
         }
+*/
     },
 
     doubleClick: function(context){
         var element = context.domRef;
+        tellurium.cmdExecutor.doubleClick(element);
 //        teJQuery(element).dblclick();
 //        Syn.dblclick(element);
-        Syn.click(element);
-        Syn.trigger("dblclick", {}, element);
+/*        Syn.click(element);
+        Syn.trigger("dblclick", {}, element);*/
     },
 
     mouseOver: function(context){
         var element = context.domRef;
-        teJQuery(element).trigger('mouseover');
+        tellurium.cmdExecutor.mouseOver(element);
+//        teJQuery(element).trigger('mouseover');
     },
 
     mouseDown: function(context){
         var element = context.domRef;
-        teJQuery(element).trigger('mousedown');
+        tellurium.cmdExecutor.mouseDown(element);
+//        teJQuery(element).trigger('mousedown');
     },
 
     mouseEnter: function(context){
         var element = context.domRef;
-        teJQuery(element).trigger('mouseenter');
+        tellurium.cmdExecutor.mouseEnter(element);
+//        teJQuery(element).trigger('mouseenter');
     },
 
     mouseLeave: function(context){
         var element = context.domRef;
-        teJQuery(element).trigger('mouseleave');
+        tellurium.cmdExecutor.mouseLeave(element);
+//        teJQuery(element).trigger('mouseleave');
     },
 
     mouseOut: function(context){
         var element = context.domRef;
-        teJQuery(element).trigger('mouseout');
+        tellurium.cmdExecutor.mouseOut(element);
+//        teJQuery(element).trigger('mouseout');
     },
 
     toggle: function(context){
         var element = context.domRef;
-        teJQuery(element).toggle();
+        tellurium.cmdExecutor.toggle(element);
+//        teJQuery(element).toggle();
     },
 
     getValue: function(context) {
         var element = context.domRef;
-        if (element.type) {
+        return tellurium.cmdExecutor.getValue(element);
+
+/*        if (element.type) {
             if (element.type.toUpperCase() == 'CHECKBOX' || element.type.toUpperCase() == 'RADIO')
             {
                 return (element.checked ? 'on' : 'off');
@@ -537,23 +554,27 @@ var UiObject = Class.extend({
             throw new TelluriumError(ErrorCodes.ELEMENT_HAS_NO_VALUE, "This element has no value; is it really a form field?");
         }
         
-        return element.value;
+        return element.value;*/
     },
 
     getAttribute: function(context, attribute){
         var element = context.domRef;
+        tellurium.cmdExecutor.getAttribute(element, attribute);
 //        alert("attribute: " + attribute + ", value: " + teJQuery(element).attr(attribute));
-        return teJQuery(element).attr(attribute);
+//        return teJQuery(element).attr(attribute);
     },
 
     getText: function(context){
         var element = context.domRef;
-        return teJQuery(element).text();
+        tellurium.cmdExecutor.getText(element);
+//        return teJQuery(element).text();
     },
 
     isVisible: function(context){
         var element = teJQuery(context.domRef);
-        var isHiddenCSS = element.css("visibility") == "hidden" ? true : false;
+        return tellurium.cmdExecutor.isVisible(element);
+
+/*        var isHiddenCSS = element.css("visibility") == "hidden" ? true : false;
         var isHidden = element.is(":hidden");
 
         if (isHidden) {
@@ -562,12 +583,14 @@ var UiObject = Class.extend({
             return false;
         } else {
             return true;
-        }
+        }*/
     },
     
     isEditable: function(context) {
         var element = context.domRef;
-        if (element.value == undefined) {
+        tellurium.cmdExecutor.isEditable(element);
+
+ /*       if (element.value == undefined) {
             Assert.fail("Element " + this.uid + " is not an input.");
         }
         if (element.disabled) {
@@ -587,12 +610,14 @@ var UiObject = Class.extend({
             }
         }
         return true;
-
+*/
     },
 
     getCSS: function(context, cssName){
         var element = context.domRef;
-        var out = [];
+        tellurium.cmdExecutor.getCSS(element, cssName);
+
+/*        var out = [];
         var $e = teJQuery(element);
         for (var i = 0; i < $e.length; i++) {
             var elem = $e.get(i);
@@ -604,13 +629,15 @@ var UiObject = Class.extend({
             out.push(val);
         }
 
-        return out;
+        return out;*/
     },
 
     isDisabled: function(context){
         var element = context.domRef;
-        var $e = teJQuery(element);
-        return $e.attr('disabled');        
+        tellurium.cmdExecutor.isDisabled(element);
+
+//        var $e = teJQuery(element);
+//        return $e.attr('disabled');
     }
 
 });
@@ -640,21 +667,26 @@ var UiCheckBox = UiObject.extend({
 
     check: function(context){
         var element = context.domRef;
-        element.checked = true;
+        tellurium.cmdExecutor.check(element);
+//        element.checked = true;
     },
 
     uncheck: function(context){
         var element = context.domRef;
-        element.checked = false;
+        tellurium.cmdExecutor.uncheck(element);
+//        element.checked = false;
     },
 
     isChecked: function(context){
         var element = context.domRef;
-        if (element.checked == null) {
+
+        return  tellurium.cmdExecutor.isChecked(element);
+
+/*        if (element.checked == null) {
             logger.warn("Element is not a toggle-button.");
             return false;
         }
-        return element.checked;
+        return element.checked;*/
     }
 });
 
@@ -683,32 +715,38 @@ var UiInputBox = UiObject.extend({
 
     type: function(context, val){
         var element = context.domRef;
-        teJQuery(element).val(val);
+        tellurium.cmdExecutor.type(element, val);
+
+//        teJQuery(element).val(val);
     },
 
     typeKey: function(context, key){
         var element = context.domRef;
-        var $elem = teJQuery(element);
-        $elem.val($elem.val()+key).trigger(getEvent("keydown", key ,this)).trigger(getEvent("keypress", key, this)).trigger(getEvent("keyup", key, this));
+        tellurium.cmdExecutor.typeKey(element, key);
+//        var $elem = teJQuery(element);
+//        $elem.val($elem.val()+key).trigger(getEvent("keydown", key ,this)).trigger(getEvent("keypress", key, this)).trigger(getEvent("keyup", key, this));
     },
 
     keyDown: function(context, key){
         var element = context.domRef;
-        var $elem = teJQuery(element);
-        $elem.val($elem.val()).trigger(getEvent("keydown", key, this));
+        tellurium.cmdExecutor.keyDown(element, key);
+//        var $elem = teJQuery(element);
+//        $elem.val($elem.val()).trigger(getEvent("keydown", key, this));
     },
 
     keyPress: function(context, key){
         var element = context.domRef;
-        var $elem = teJQuery(element);
-        $elem.val($elem.val() + key).trigger(getEvent("keypress", key, this));
+        tellurium.cmdExecutor.keyPress(element, key);
+//        var $elem = teJQuery(element);
+//        $elem.val($elem.val() + key).trigger(getEvent("keypress", key, this));
     },
 
     keyUp: function(context, key){
         var element = context.domRef;
-        var $elem = teJQuery(element);
+        tellurium.cmdExecutor.keyUp(element, key);
+//        var $elem = teJQuery(element);
 //        alert("key " + key);
-        $elem.val($elem.val()).trigger(getEvent("keyup", key , this));
+//        $elem.val($elem.val()).trigger(getEvent("keyup", key , this));
     }
 });
 
@@ -722,21 +760,26 @@ var UiRadioButton = UiObject.extend({
 
     check: function(context){
         var element = context.domRef;
-        element.checked = true;
+        tellurium.cmdExecutor.check(element);
+
+//        element.checked = true;
     },
 
     uncheck: function(context){
         var element = context.domRef;
-        element.checked = false;
+        tellurium.cmdExecutor.uncheck(element);
+//        element.checked = false;
     },
 
     isChecked: function(context){
         var element = context.domRef;
-        if (element.checked == null) {
+        return tellurium.cmdExecutor.isChecked(element);
+
+/*        if (element.checked == null) {
             logger.warn("Element is not a toggle-button.");
             return false;
         }
-        return element.checked;
+        return element.checked;*/
     }
 });
 
@@ -749,6 +792,8 @@ var UiSelector = UiObject.extend({
 
     select: function(context, optionSelector){
         var element = context.domRef;
+       tellurium.cmdExecutor.select(element, optionSelector);
+/*
         var $sel = teJQuery(element);
         //first, remove all selected element
         $sel.find("option").removeAttr("selected");
@@ -764,10 +809,13 @@ var UiSelector = UiObject.extend({
             evObj.initEvent('change', true, true);
             element.dispatchEvent(evObj);
         }
+*/
     },
 
     getSelectOptions: function(context) {
         var element = context.domRef;
+        return tellurium.cmdExecutor.getSelectOptions(element);
+/*
         var selectOptions = [];
 
         for (var i = 0; i < element.options.length; i++) {
@@ -776,10 +824,14 @@ var UiSelector = UiObject.extend({
         }
 
         return selectOptions;
+*/
     },
 
     getSelectValues: function(context) {
         var element = context.domRef;
+        return tellurium.cmdExecutor.getSelectValues(element);
+
+/*
         var selectValues = [];
 
         for (var i = 0; i < element.options.length; i++) {
@@ -788,11 +840,14 @@ var UiSelector = UiObject.extend({
         }
 
         return selectValues;
+*/
     },
 
     findSelectedOptionProperties: function(context, property) {
         var element = context.domRef;
-        if (!("options" in element)) {
+        return tellurium.cmdExecutor.findSelectedOptionProperties(element, property);
+
+/*        if (!("options" in element)) {
             throw new SeleniumError("Specified element is not a Select (has no options)");
         }
 
@@ -803,61 +858,89 @@ var UiSelector = UiObject.extend({
 //            alert("Selected property " + property + " is " + $selected.get(i)[property]);
         }
 
-        return selectedOptions;
+        return selectedOptions;*/
     },
 
     getSelectedLabels: function(context) {
-        return this.findSelectedOptionProperties(context, "text");
+        var element = context.domRef;
+
+        return tellurium.cmdExecutor.getSelectedLabels(element);
+//        return this.findSelectedOptionProperties(context, "text");
     },
 
     getSelectedLabel: function(context) {
-        var options = this.findSelectedOptionProperties(context, "text");
+        var element = context.domRef;
+
+        return tellurium.cmdExecutor.getSelectedLabel(element);
+
+/*        var options = this.findSelectedOptionProperties(context, "text");
         if (options.length > 1) {
             fbWarn("Multiple Selected options ", options);
         }
 
-        return options[0];
+        return options[0];*/
     },
 
     getSelectedValues: function(context) {
-        return this.findSelectedOptionProperties(context, "value");
+        var element = context.domRef;
+
+        return tellurium.cmdExecutor.getSelectedValues(element);
+
+ //       return this.findSelectedOptionProperties(context, "value");
     },
 
     getSelectedValue: function(context) {
-        var options = this.findSelectedOptionProperties(context, "value");
+        var element = context.domRef;
+
+        return tellurium.cmdExecutor.getSelectedValue(element);
+/*        var options = this.findSelectedOptionProperties(context, "value");
         if (options.length > 1) {
             fbWarn("Multiple Selected options ", options);
         }
 
-        return options[0];
+        return options[0];*/
     },
 
     getSelectedIndexes: function(context) {
-        return this.findSelectedOptionProperties(context, "index");
+        var element = context.domRef;
+
+        return tellurium.cmdExecutor.getSelectedIndexes(element);
+
+//        return this.findSelectedOptionProperties(context, "index");
     },
 
     getSelectedIndex: function(context) {
-        var options = this.findSelectedOptionProperties(context, "index");
+        var element = context.domRef;
+
+        return tellurium.cmdExecutor.getSelectedIndex(element);
+
+/*        var options = this.findSelectedOptionProperties(context, "index");
         if (options.length > 1) {
             fbWarn("Multiple Selected options ", options);
         }
 
-        return options[0];
+        return options[0];*/
     },
 
     addSelection: function(context, option){
        var element = context.domRef;
-       teJQuery(element).find(option).attr("selected","selected");
+
+       tellurium.cmdExecutor.addSelection(element, option);
+
+//       teJQuery(element).find(option).attr("selected","selected");
     },
 
     removeSelection: function(context, option) {
         var element = context.domRef;
-        teJQuery(element).find(option).removeAttr("selected");
+        tellurium.cmdExecutor.removeSelection(element, option);
+//        teJQuery(element).find(option).removeAttr("selected");
     },
 
     removeAllSelections: function(context){
         var element = context.domRef;
-        teJQuery(element).find("option").removeAttr("selected");
+        tellurium.cmdExecutor.removeAllSelections(element);
+
+//        teJQuery(element).find("option").removeAttr("selected");
     }
 });
 
@@ -878,7 +961,8 @@ var UiSubmitButton = UiButton.extend({
 
     submit: function(context){
         var element = context.domRef;
-        teJQuery(element).submit();        
+        tellurium.cmdExecutor.submit(element);
+//        teJQuery(element).submit();
     }
 });
 
@@ -1453,7 +1537,8 @@ var UiForm = UiContainer.extend({
 
     submit: function(context){
         var element = context.domRef;
-        teJQuery(element).submit();
+        tellurium.cmdExecutor.submit(element);
+//        teJQuery(element).submit();
     }
 });
 
