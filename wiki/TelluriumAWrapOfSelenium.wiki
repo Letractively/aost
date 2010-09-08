@@ -1,4 +1,4 @@
-#summary Tellurium: A Wrap of Selenium?
+#summary Tellurium: A Wrapper of Selenium?
 #labels Phase-Support
 
 = Introduction =
