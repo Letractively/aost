@@ -74,6 +74,18 @@ public class GlobalDslContext {
     return Environment.instance.isUseCache()
   }
 
+  public void helpTest() {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+
+    extension.helpTest(context);
+  }
+
+  public void noTest() {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+
+    extension.noTest(context);
+  }
+
   public void enableClosestMatch(){
     Environment.instance.useClosestMatch(true);
     WorkflowContext context = WorkflowContext.getDefaultContext();
