@@ -213,12 +213,14 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
     public void testGetUiByTag(){
         useEngineLog(true);
         useTelluriumEngine(true);
+        helpTest();
         String[] teuids = jlm.getInputBox();
         assertNotNull(teuids);
         for(String teuid: teuids){
             jlm.keyType(teuid, "Tellurium Source");
         }
         jlm.removeMarkedUids("input");
+        noTest();
     }
 
     @Test

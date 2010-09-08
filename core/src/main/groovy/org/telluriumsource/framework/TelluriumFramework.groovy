@@ -234,6 +234,14 @@ class TelluriumFramework {
     this.global.useTelluriumApi(isUse);
   }
 
+  public void helpTest(){
+    this.global.helpTest();
+  }
+
+  public void noTest(){
+    this.global.noTest();
+  }
+  
   /*public void enableLogging(LogLevels loggingLevel) {
     env.enableLogging(loggingLevel);
     this.global.enableLogging(loggingLevel);

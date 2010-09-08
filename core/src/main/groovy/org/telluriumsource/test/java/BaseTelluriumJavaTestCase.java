@@ -80,6 +80,14 @@ public abstract class BaseTelluriumJavaTestCase {
         customConfig = new CustomConfig(runInternally, port, browser, useMultiWindows, profileLocation, serverHost, browserOptions);
     }
 
+    public static void helpTest(){
+      tellurium.helpTest();
+    }
+
+    public static void noTest(){
+      tellurium.noTest();
+    }
+
     public static boolean isUseLocatorWithCache(){
         return tellurium.isUseLocatorWithCache();
     }
