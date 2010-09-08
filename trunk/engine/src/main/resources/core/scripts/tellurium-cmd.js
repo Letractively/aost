@@ -351,7 +351,7 @@ var SeleniumCmdExecutor = SynCmdExecutor.extend({
 
     click: function(element) {
         tellurium.setCurrentDom(element);
-        selenium.doClick("tedom=");
+        selenium.doClick("tedom=current");
     },
 
     clickAt: function(element, coordString) {

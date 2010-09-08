@@ -261,16 +261,12 @@ function Tellurium(){
     this.synExecutor = new SynCmdExecutor();
     this.selExecutor = new SeleniumCmdExecutor();
     
-    this.cmdExecutor = this.synExecutor;
-//    this.cmdExecutor = this.selExecutor;
+//    this.cmdExecutor = this.synExecutor;
+    this.cmdExecutor = this.selExecutor;
 }
 
 Tellurium.prototype.setCurrentDom = function(dom){
     this.currentDom = dom;
-};
-
-Tellurium.prototype.getCurrentDom = function(){
-    return this.currentDom;
 };
 
 Tellurium.prototype.initialize = function(){
@@ -631,6 +627,10 @@ Tellurium.prototype.dispatchMacroCmd = function(){
     }
 
     return response.toJSon();
+};
+
+Tellurium.prototype.locateElementByCurrentDom = function(locator, inDocument, inWindow){
+    return this.currentDom;
 };
 
 Tellurium.prototype.locateElementByCSSSelector = function(locator, inDocument, inWindow){

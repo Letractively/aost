@@ -1184,7 +1184,7 @@ BrowserBot.prototype._registerAllLocatorFunctions = function() {
     };
 
     this.locationStrategies['tedom'] = function(locator, inDocument, inWindow) {
-        return tellurium.getCurrentDom();
+        return tellurium.locateElementByCurrentDom(locator, inDocument, inWindow);
     };   
 }
 
