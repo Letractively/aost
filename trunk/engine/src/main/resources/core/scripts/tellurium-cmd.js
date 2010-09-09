@@ -356,7 +356,42 @@ var SeleniumCmdExecutor = SynCmdExecutor.extend({
 
     clickAt: function(element, coordString) {
         tellurium.setCurrentDom(element);
-        selenium.doClickAt("tedom=", coordString);
+        selenium.doClickAt("tedom=current", coordString);
+    },
+
+    mouseOver: function(element){
+        tellurium.setCurrentDom(element);
+        selenium.doMouseOver("tedom=current");
+    },
+
+    mouseDown: function(element){
+        tellurium.setCurrentDom(element);
+        selenium.doMouseDown("tedom=current");
+    },
+
+    mouseOut: function(element){
+        tellurium.setCurrentDom(element);
+        selenium.doMouseOut("tedom=current");
+    },
+
+    type: function(element, val){
+        tellurium.setCurrentDom(element);
+        selenium.doType("tedom=current", val);
+    },
+
+    keyDown: function(element, key){
+        tellurium.setCurrentDom(element);
+        selenium.doKeyDown("tedom=current", key);
+    },
+
+    keyPress: function(element, key){
+        tellurium.setCurrentDom(element);
+        selenium.doKeyPress("tedom=current", key);
+    },
+
+    keyUp: function(element, key){
+        tellurium.setCurrentDom(element);
+        selenium.doKeyUp("tedom=current", key);
     }
 });
 
