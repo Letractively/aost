@@ -3,7 +3,7 @@ package org.telluriumsource.component.connector
 import org.telluriumsource.component.client.SeleniumClient
 import org.telluriumsource.framework.config.Configurable
 
-import com.thoughtworks.selenium.CommandProcessor
+//import com.thoughtworks.selenium.CommandProcessor
 import org.telluriumsource.component.bundle.BundleProcessor
 
 /**

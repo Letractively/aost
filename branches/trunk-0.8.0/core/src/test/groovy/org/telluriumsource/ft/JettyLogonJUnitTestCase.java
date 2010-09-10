@@ -1,6 +1,7 @@
 package org.telluriumsource.ft;
 
 import com.thoughtworks.selenium.SeleniumException;
+import org.telluriumsource.exception.AssertionFailureException;
 import org.telluriumsource.framework.Environment;
 import org.telluriumsource.test.java.TelluriumMockJUnitTestCase;
 import org.telluriumsource.module.JettyLogonModule;
@@ -142,7 +143,8 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
         assertEquals("Logo", alt);
     }
 
-    @Test(expected= SeleniumException.class)
+//    @Test(expected= SeleniumException.class)
+    @Test(expected= AssertionFailureException.class)
     public void testGetValue(){
         String value = jlm.getValue("Form.Username.Label");
         assertEquals("", value);
