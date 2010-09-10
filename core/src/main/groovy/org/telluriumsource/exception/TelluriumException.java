@@ -9,18 +9,25 @@ package org.telluriumsource.exception;
  *
  */
 
-public class TelluriumException extends RuntimeException{
+public class TelluriumException extends RuntimeException {
 //  protected static final String SEPARATOR = " ";
 
-  protected String errorCode;
+    protected String errorCode;
 
-  public TelluriumException(String message) {
-    super(message);
-  }
+    public TelluriumException(String message) {
+        super(message);
+    }
 
-  public String getErrorCode(){
+    public TelluriumException(Exception e) {
+        super(e);
+    }
 
-    return this.errorCode;
-  }
-    
+    public TelluriumException(String message, Exception e) {
+        super(message, e);
+    }
+
+    public String getErrorCode() {
+
+        return this.errorCode;
+    }
 }

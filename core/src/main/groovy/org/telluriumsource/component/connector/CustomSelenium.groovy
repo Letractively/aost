@@ -1,7 +1,5 @@
 package org.telluriumsource.component.connector
 
-import com.thoughtworks.selenium.DefaultSelenium
-import com.thoughtworks.selenium.CommandProcessor
 import org.telluriumsource.exception.*
 import org.telluriumsource.framework.Environment;
 import org.telluriumsource.util.grid.GridSupport
