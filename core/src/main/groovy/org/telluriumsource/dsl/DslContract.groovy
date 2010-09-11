@@ -15,7 +15,7 @@ import org.telluriumsource.entity.UiByTagResponse
  * Date: Sep 10, 2010
  *
  */
-public interface IDslContext {
+public interface DslContract {
 
   EngineState getEngineState();
 
