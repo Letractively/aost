@@ -15,7 +15,7 @@ import org.telluriumsource.entity.UiByTagResponse
  * Date: Sep 10, 2010
  * 
  */
-class SeleniumWrapper implements IDslContext{
+class SeleniumWrapper implements DslContract{
   def EngineState getEngineState() {
     return null;  //To change body of implemented methods use File | Settings | File Templates.
   }
