@@ -9,6 +9,8 @@ import java.util.List;
  */
 public interface Lookup {
 
+    void register(String id, Object obj);
+
     Object lookById(String id);
 
     List lookByClass(String className);
