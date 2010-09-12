@@ -29,6 +29,7 @@ import org.telluriumsource.entity.CachePolicy
 import org.telluriumsource.component.bundle.BundleProcessor
 import org.telluriumsource.entity.EngineState;
 import org.telluriumsource.util.LogLevels
+import org.telluriumsource.util.BaseUtil
 
 /**
  * Put all initialization and cleanup jobs for the Tellurium framework here
@@ -37,25 +38,44 @@ import org.telluriumsource.util.LogLevels
  *
  * Date: Jun 2, 2008
  */
-class TelluriumFramework {
+
+@Singleton
+public class TelluriumFramework {
+
+  private TelluriumConfigurator telluriumConfigurator;
+
+  private boolean runEmbeddedSeleniumServer = true;
 
   private EmbeddedSeleniumServer server;
+
+  private SessionFactory factory = new SessionFactory();
+
+  public Session createNewSession(String id, RuntimeEnvironment env){
+    String name = (id == null ? "" : id);
+    name = name + BaseUtil.toBase62(System.currentTimeMillis());
+
+    return null;
+  }
+
+  public Session createNewSession(String id){
+    return createNewSession(id, env);
+  }
+  
+  public Session createDefaultSession(){
+    return createNewSession("default", env)
+  }
 
   private SeleniumConnector connector;
 
   private SeleniumClient client;
 
-  private boolean runEmbeddedSeleniumServer = true;
-
-  private TelluriumConfigurator telluriumConfigurator;
-
-  private Environment env;
+  private RuntimeEnvironment env;
 
   private GlobalDslContext global;
 
   TelluriumFramework() {
 
-    env = Environment.instance;
+//    env = Environment.instance;
 
 //    By default ExpandoMetaClass doesn't do inheritance. To enable this you must call ExpandoMetaClass.enableGlobally()
 //    before your app starts such as in the main method or servlet bootstrap

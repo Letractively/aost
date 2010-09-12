@@ -15,7 +15,7 @@ import org.telluriumsource.entity.UiByTagResponse
  * Date: Sep 10, 2010
  * 
  */
-class TelluriumWay implements DslContract{
+class TelluriumApi extends BaseDslContext {
 
   def EngineState getEngineState() {
     return null;  //To change body of implemented methods use File | Settings | File Templates.
