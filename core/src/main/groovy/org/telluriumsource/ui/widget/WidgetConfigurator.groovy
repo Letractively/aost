@@ -19,6 +19,7 @@ import org.telluriumsource.crosscut.i18n.IResourceBundle;
 class WidgetConfigurator implements Configurable{
 
 	protected IResourceBundle i18nBundle
+    private UiObjectBuilderRegistry registry
 
     protected final static String PACKAGE_DELIMITER = "."
     protected final static String WIDGET_MODULE_SEPARATOR = ","
@@ -31,7 +32,7 @@ class WidgetConfigurator implements Configurable{
         if(widgetModules != null && (widgetModules.trim().length() > 0)){
             String[] modules = widgetModules.trim().split(WIDGET_MODULE_SEPARATOR)
 
-            UiObjectBuilderRegistry registry = new UiObjectBuilderRegistry()
+//            UiObjectBuilderRegistry registry = new UiObjectBuilderRegistry()
             for(String module : modules){
                 String fullname = getWidgetBootstrapClassFullName(module)
                 if(fullname != null){

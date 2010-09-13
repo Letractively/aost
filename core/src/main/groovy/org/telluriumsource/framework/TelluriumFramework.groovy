@@ -55,7 +55,7 @@ public class TelluriumFramework {
     String name = (id == null ? "" : id);
     name = name + BaseUtil.toBase62(System.currentTimeMillis());
     Lookup lookup = new DefaultLookup();
-    Assembler assembler = new Assembler(lookup, env);
+    Assembler assembler = new Assembler(lookup, env, telluriumConfigurator);
     assembler.assemble();
     Session session = new Session();
     session.sessionId = name;
@@ -154,15 +154,15 @@ public class TelluriumFramework {
     registry.setMetaClass(SeleniumConnector, new SeleniumConnectorMetaClass())
     registry.setMetaClass(TelluriumConfigurator, new TelluriumConfiguratorMetaClass())
 */
-    Session session = createNewSession();
-    SessionManager.setSession(session);
 
-    IResourceBundle i18nBundle = session.i18nBundle;
 
+//    IResourceBundle i18nBundle = session.i18nBundle;
+    IResourceBundle i18nBundle =  new org.telluriumsource.crosscut.i18n.ResourceBundle();
     telluriumConfigurator = new TelluriumConfigurator();
 
 //    String fileName = "TelluriumConfig.groovy"
     //Honor the JSON String configuration over the file
+/*
     String jsonConf = env.configString;
     if (jsonConf != null && jsonConf.trim().length() > 0) {
       println i18nBundle.getMessage("TelluriumFramework.ParseFromJSONString", jsonConf)
@@ -187,8 +187,26 @@ public class TelluriumFramework {
         }
       }
     }
+*/
+    String fileName = System.properties.getProperty("telluriumConfigFile");
+    if (fileName == null)
+      fileName = "TelluriumConfig.groovy"
+    File file = new File(fileName)
+    if (file != null && file.exists()) {
+      println i18nBundle.getMessage("TelluriumFramework.ParseFromRootDirectory", fileName)
+      telluriumConfigurator.parse(file)
+    } else {
+      URL url = ClassLoader.getSystemResource(fileName)
+      if (url != null) {
+        println i18nBundle.getMessage("TelluriumFramework.ParseFromClassPath", fileName)
+        telluriumConfigurator.parse(url)
+      } else {
+        println i18nBundle.getMessage("TelluriumFramework.CannotFindConfigFile", fileName)
+      }
+    }
 
-    //configure custom UI ojects
+
+/*    //configure custom UI ojects
     telluriumConfigurator.config(new UiObjectBuilderRegistry())
 
     //configure widgets
@@ -206,8 +224,14 @@ public class TelluriumFramework {
     //configure runtime environment
     telluriumConfigurator.config(env)
 
+
     //global methods
     this.global = new GlobalDslContext();
+*/
+    env = telluriumConfigurator.createRuntimeEnvironment();
+    
+    Session session = createNewSession();
+    SessionManager.setSession(session);   
   }
 
   public void disableEmbeddedSeleniumServer() {
@@ -221,8 +245,8 @@ public class TelluriumFramework {
 
     server.runSeleniumServer()
 
-    connector = new SeleniumConnector()
-    telluriumConfigurator.config(connector)
+//    connector = new SeleniumConnector()
+//    telluriumConfigurator.config(connector)
   }
 
   public void start(CustomConfig customConfig) {
@@ -240,12 +264,12 @@ public class TelluriumFramework {
       server.setProperty("port", customConfig.getPort())
       server.setProperty("useMultiWindows", customConfig.isUseMultiWindows())
       server.setProperty("profileLocation", customConfig.getProfileLocation())
-      IResourceBundle i18nBundle = env.myResourceBundle()
+      IResourceBundle i18nBundle = env.getResourceBundle()
       println i18nBundle.getMessage("TelluriumFramework.OverwriteSeleniumServerSettings")
 
       server.runSeleniumServer()
 
-      connector = new SeleniumConnector()
+/*      connector = new SeleniumConnector()
       telluriumConfigurator.config(connector)
 
       //overwrite the selenium connector settings with these provided by custom configuration
@@ -256,6 +280,7 @@ public class TelluriumFramework {
         connector.setProperty("seleniumServerHost", customConfig.getServerHost())
       }
       println i18nBundle.getMessage("TelluriumFramework.OverwriteSeleniumConnectorSettings")
+*/
 
     }
   }
