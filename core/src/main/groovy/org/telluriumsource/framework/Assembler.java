@@ -25,6 +25,11 @@ public class Assembler {
 
     private RuntimeEnvironment env;
 
+    public Assembler(Lookup lookup, RuntimeEnvironment env) {
+        this.lookup = lookup;
+        this.env = env;
+    }
+
     public Lookup getLookup() {
         return lookup;
     }

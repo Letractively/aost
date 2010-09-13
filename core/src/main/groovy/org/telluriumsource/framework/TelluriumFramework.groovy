@@ -30,6 +30,7 @@ import org.telluriumsource.component.bundle.BundleProcessor
 import org.telluriumsource.entity.EngineState;
 import org.telluriumsource.util.LogLevels
 import org.telluriumsource.util.BaseUtil
+import java.lang.reflect.Field
 
 /**
  * Put all initialization and cleanup jobs for the Tellurium framework here
@@ -53,16 +54,68 @@ public class TelluriumFramework {
   public Session createNewSession(String id, RuntimeEnvironment env){
     String name = (id == null ? "" : id);
     name = name + BaseUtil.toBase62(System.currentTimeMillis());
+    Lookup lookup = new DefaultLookup();
+    Assembler assembler = new Assembler(lookup, env);
+    assembler.assemble();
+    Session session = new Session();
+    session.sessionId = name;
+    session.env = env;
+    session.lookup = lookup;
+    session.api = lookup.lookById("api");
+    session.wrapper = lookup.lookById("wrapper");
+    session.i18nBundle = lookup.lookById("i18nBundle");
 
-    return null;
+    return session;
+  }
+  
+  public Session createNewSession(RuntimeEnvironment env){
+    return createNewSession(Thread.currentThread().getName(), env)
   }
 
   public Session createNewSession(String id){
     return createNewSession(id, env);
   }
-  
-  public Session createDefaultSession(){
-    return createNewSession("default", env)
+
+  public Session createNewSession(String id, Map<String, Object> map){
+
+    return createNewSession(Thread.currentThread().getName(), createNewEnvironment(map))
+  }
+
+  public Session createNewSession(Map<String, Object> map){
+
+    return createNewSession(Thread.currentThread().getName(), createNewEnvironment(map))
+  }
+
+  public Session createNewSession(){
+    return createNewSession(Thread.currentThread().getName(), env)
+  }
+
+  private createNewEnvironment(Map<String, Object> map){
+    RuntimeEnvironment newEnv = env.clone();
+    if(map != null && (!map.isEmpty())){
+      Set<String> keySet = map.keySet();
+      for(String key: keySet){
+        Field field = RuntimeEnvironment.class.getField(key);
+        Object val = map.get(key);
+        if(field != null){
+          String fieldTypeName = field.getType().getName();
+          if("boolean".equals(fieldTypeName)){
+            field.setBoolean(newEnv, val);
+          }else if("int".equals(fieldTypeName)){
+            field.setInt(newEnv, val);
+          }else if(String.class.isAssignableFrom(field.getType())){
+            field.set(newEnv, val);
+          }else{
+            throw new RuntimeException("Unsupported type " + fieldTypeName);
+          }
+        }else{
+          newEnv.setCustomEnvironment(key, val);
+        }
+      }
+
+    }
+
+    return newEnv;
   }
 
   private SeleniumConnector connector;
@@ -73,7 +126,7 @@ public class TelluriumFramework {
 
   private GlobalDslContext global;
 
-  TelluriumFramework() {
+  public void load() {
 
 //    env = Environment.instance;
 
@@ -81,6 +134,7 @@ public class TelluriumFramework {
 //    before your app starts such as in the main method or servlet bootstrap
 //        ExpandoMetaClass.enableGlobally()
 
+/*
     def registry = GroovySystem.metaClassRegistry
 
     registry.setMetaClass(UiObjectBuilderRegistry, new UiObjectBuilderRegistryMetaClass())
@@ -99,10 +153,13 @@ public class TelluriumFramework {
 
     registry.setMetaClass(SeleniumConnector, new SeleniumConnectorMetaClass())
     registry.setMetaClass(TelluriumConfigurator, new TelluriumConfiguratorMetaClass())
+*/
+    Session session = createNewSession();
+    SessionManager.setSession(session);
 
-    IResourceBundle i18nBundle = env.myResourceBundle()
+    IResourceBundle i18nBundle = session.i18nBundle;
 
-    telluriumConfigurator = new TelluriumConfigurator()
+    telluriumConfigurator = new TelluriumConfigurator();
 
 //    String fileName = "TelluriumConfig.groovy"
     //Honor the JSON String configuration over the file
