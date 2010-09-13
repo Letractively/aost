@@ -2,13 +2,14 @@ package org.telluriumsource.framework;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  *         Date: Sep 11, 2010
  */
-public class RuntimeEnvironment {
+public class RuntimeEnvironment implements Cloneable {
     
     private Map<String, Object> map = new HashMap<String, Object>();
 
@@ -118,5 +119,27 @@ public class RuntimeEnvironment {
 
     public void setLastUiModule(String lastUiModule) {
         this.lastUiModule = lastUiModule;
+    }
+
+    public RuntimeEnvironment clone(){
+
+        RuntimeEnvironment newEnv = new RuntimeEnvironment();
+        newEnv.setUseCssSelector(useCssSelector);
+        newEnv.setUseNewEngine(useNewEngine);
+        newEnv.setUseTrace(useTrace);
+        newEnv.setUseBundle(useBundle);
+        newEnv.setUseScreenshot(useScreenshot);
+        newEnv.setMaxMacroCmd(maxMacroCmd);
+        newEnv.setUseClosestMatch(useClosestMatch);
+        newEnv.setUseEngineLog(useEngineLog);
+        newEnv.setLastUiModule(lastUiModule);
+        newEnv.setLocale(locale);
+
+        Set<String> keySet = map.keySet();
+        for(String key: keySet){
+            newEnv.setCustomEnvironment(key, map.get(key));
+        }
+
+        return newEnv;
     }
 }
