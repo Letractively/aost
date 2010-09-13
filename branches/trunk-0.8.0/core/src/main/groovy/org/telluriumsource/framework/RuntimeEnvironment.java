@@ -1,6 +1,9 @@
 package org.telluriumsource.framework;
 
+import org.telluriumsource.crosscut.i18n.IResourceBundle;
+
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -12,6 +15,12 @@ import java.util.Set;
 public class RuntimeEnvironment implements Cloneable {
     
     private Map<String, Object> map = new HashMap<String, Object>();
+
+    private String serverHost = "localhost";
+
+    private int serverPort = 4444;
+
+    private String browser = null;
 
     private boolean useCssSelector = true;
 
@@ -31,7 +40,50 @@ public class RuntimeEnvironment implements Cloneable {
 
     private boolean useEngineLog = false;
 
+    protected boolean useBugReport = false;
+
     private String lastUiModule = null;
+
+    private IResourceBundle resourceBundle = null;
+
+    public IResourceBundle getResourceBundle() {
+        return resourceBundle;
+    }
+
+    public void setResourceBundle(IResourceBundle resourceBundle) {
+        this.resourceBundle = resourceBundle;
+    }
+
+    public void useLocale(String locale) {
+        this.locale = locale;
+        String[] split = locale.split("_");
+        Locale loc = new Locale(split[0], split[1]);
+        this.resourceBundle.updateDefaultLocale(loc);
+    }
+
+    public int getServerPort() {
+        return serverPort;
+    }
+
+    public void setServerPort(int serverPort) {
+        this.serverPort = serverPort;
+    }
+
+    public String getServerHost() {
+        return serverHost;
+    }
+
+    public void setServerHost(String serverHost) {
+        this.serverHost = serverHost;
+    }
+
+    public String getBrowser() {
+        return browser;
+    }
+
+    public void setBrowser(String browser) {
+        this.browser = browser;
+    }
 
     public void setCustomEnvironment(String name, Object value) {
         map.put(name, value);
@@ -113,6 +165,14 @@ public class RuntimeEnvironment implements Cloneable {
         this.useEngineLog = useEngineLog;
     }
 
+    public boolean isUseBugReport() {
+        return useBugReport;
+    }
+
+    public void setUseBugReport(boolean useBugReport) {
+        this.useBugReport = useBugReport;
+    }
+
     public String getLastUiModule() {
         return lastUiModule;
     }
@@ -124,6 +184,9 @@ public class RuntimeEnvironment implements Cloneable {
     public RuntimeEnvironment clone(){
 
         RuntimeEnvironment newEnv = new RuntimeEnvironment();
+        newEnv.setServerHost(serverHost);
+        newEnv.setServerPort(serverPort);
+        newEnv.setBrowser(browser);
         newEnv.setUseCssSelector(useCssSelector);
         newEnv.setUseNewEngine(useNewEngine);
         newEnv.setUseTrace(useTrace);
@@ -133,6 +196,7 @@ public class RuntimeEnvironment implements Cloneable {
         newEnv.setUseClosestMatch(useClosestMatch);
         newEnv.setUseEngineLog(useEngineLog);
         newEnv.setLastUiModule(lastUiModule);
+        newEnv.setUseBugReport(useBugReport);
         newEnv.setLocale(locale);
 
         Set<String> keySet = map.keySet();

@@ -11,8 +11,13 @@ import org.telluriumsource.crosscut.i18n.ResourceBundle;
 import org.telluriumsource.dsl.SeleniumWrapper;
 import org.telluriumsource.dsl.TelluriumApi;
 import org.telluriumsource.dsl.UiDslParser;
+import org.telluriumsource.framework.config.TelluriumConfigurator;
+import org.telluriumsource.ui.builder.UiObjectBuilderRegistry;
 import org.telluriumsource.ui.locator.JQueryOptimizer;
 import org.telluriumsource.ui.locator.LocatorProcessor;
+import org.telluriumsource.ui.widget.WidgetConfigurator;
+
+import java.util.Locale;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -25,9 +30,12 @@ public class Assembler {
 
     private RuntimeEnvironment env;
 
-    public Assembler(Lookup lookup, RuntimeEnvironment env) {
+    private TelluriumConfigurator configurator;
+
+    public Assembler(Lookup lookup, RuntimeEnvironment env, TelluriumConfigurator telluriumConfigurator) {
         this.lookup = lookup;
         this.env = env;
+        this.configurator = telluriumConfigurator;
     }
 
     public Lookup getLookup() {
@@ -71,6 +79,23 @@ public class Assembler {
         lookup.register("locatorProcessor", locatorProcessor);
         IResourceBundle resourceBundle = new ResourceBundle();
         lookup.register("resourceBundle", resourceBundle);
+        UiObjectBuilderRegistry uiObjectBuilderRegistry = new UiObjectBuilderRegistry();
+        lookup.register("uiObjectBuilderRegistry", uiObjectBuilderRegistry);
+
+        WidgetConfigurator widgetConfigurator = new WidgetConfigurator();
+        lookup.register("widgetConfigurator", widgetConfigurator);
+        IResourceBundle i18nBundle =  new org.telluriumsource.crosscut.i18n.ResourceBundle();
+
+        String[] split = env.getLocale().split("_");
+        Locale loc = new Locale(split[0], split[1]);
+        i18nBundle.updateDefaultLocale(loc);
+
+        env.setResourceBundle(i18nBundle);
+        
+        lookup.register("i18nBundle", i18nBundle);
+
+        widgetConfigurator.setProperty("i18nBundle", i18nBundle);
+        widgetConfigurator.setProperty("registry", uiObjectBuilderRegistry);
 
         wrapper.setProperty("optimizer", optimizer);
         wrapper.setProperty("locatorProcessor", locatorProcessor);
@@ -82,7 +107,30 @@ public class Assembler {
         wrapper.setProperty("i18nBundle", resourceBundle);
         
         api.setProperty("uiParser", parser);
-        api.setProperty("i18nBundle", resourceBundle);
+        api.setProperty("i18nBundle", i18nBundle);
 
+        //configure components from Tellurium configuration
+        //configure custom UI ojects
+        configurator.config(uiObjectBuilderRegistry);
+
+        //configure widgets
+        configurator.config(widgetConfigurator);
+
+        //configure Event Handler
+        configurator.config(eventHandler);
+
+        //configure Data Accessor
+        configurator.config(accessor);
+
+        //configure Dispatcher
+        configurator.config(dispatcher);
+
+        //configure connector
+        configurator.config(connector);
+
+        //customize configuration with Environment variables
+        connector.setProperty("seleniumServerHost", env.getServerHost());
+        connector.setProperty("port", env.getServerPort());
+        connector.setProperty("browser", env.getBrowser());
     }
 }

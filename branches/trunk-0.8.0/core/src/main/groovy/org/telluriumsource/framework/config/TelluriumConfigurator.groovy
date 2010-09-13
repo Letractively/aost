@@ -18,6 +18,7 @@ import org.telluriumsource.test.report.*
 import org.telluriumsource.component.bundle.BundleProcessor
 import org.telluriumsource.framework.Environment
 import org.telluriumsource.exception.ConfigNotFoundException
+import org.telluriumsource.framework.RuntimeEnvironment
 
 /**
  * Tellurium Configurator
@@ -246,13 +247,13 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
     checkConfig("conf.tellurium.test.exception.bugReport")
     checkConfig("conf.tellurium.i18n.locale")
     
-//    env.setProperty("maxMacroCmd", conf.tellurium.bundle.maxMacroCmd);
-    env.useMaxMacroCmd(conf.tellurium.bundle.maxMacroCmd);
+    env.setProperty("maxMacroCmd", conf.tellurium.bundle.maxMacroCmd);
     env.setProperty("exploitBundle", conf.tellurium.bundle.useMacroCommand);
     env.setProperty("trace", conf.tellurium.test.execution.trace);
     env.setProperty("captureScreenshot", conf.tellurium.test.exception.captureScreenshot);
     env.setProperty("bugReport", conf.tellurium.test.exception.bugReport);
-    env.useLocale(conf.tellurium.i18n.locale);
+//    env.useLocale(conf.tellurium.i18n.locale);
+    env.setProperty("locale", conf.tellurium.i18n.locale);
   }
 
   protected void configEnvironmentDefaultValues(Environment env) {
@@ -350,6 +351,20 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
 
     }
 
+  }
+
+  public RuntimeEnvironment createRuntimeEnvironment(){
+    RuntimeEnvironment env = new RuntimeEnvironment();
+    env.setProperty("serverHost", conf.tellurium.connector.serverHost);
+    env.setProperty("serverPort", Integer.parseInt(conf.tellurium.connector.port));
+    env.setProperty("browser", conf.tellurium.connector.browser);
+    env.setProperty("useTrace", conf.tellurium.test.execution.trace);
+    env.setProperty("useBundle", conf.tellurium.bundle.useMacroCommand);
+    env.setProperty("useScreenshot", conf.tellurium.test.exception.captureScreenshot);
+    env.setProperty("maxMacroCmd", conf.tellurium.bundle.maxMacroCmd);
+    env.useLocale(conf.tellurium.i18n.locale);
+    
+    return env;
   }
 
 }
