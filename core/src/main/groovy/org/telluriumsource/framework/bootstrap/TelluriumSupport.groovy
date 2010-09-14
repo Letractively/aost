@@ -12,23 +12,31 @@ class TelluriumSupport {
 
     public static TelluriumFramework addSupport(){
         
-       def registry = GroovySystem.metaClassRegistry
+/*       def registry = GroovySystem.metaClassRegistry
 
        registry.setMetaClass(TelluriumFramework, new TelluriumFrameworkMetaClass())
 
-       return new TelluriumFramework()
+       return new TelluriumFramework()*/
+      TelluriumFramework instance = TelluriumFramework.instance;
+      instance.load();
+      return instance;
     }
 
     //Disable embedded selenium server
     public static TelluriumFramework addSupportWithoutEmbeddedSeleniumServer(){
 
-       def registry = GroovySystem.metaClassRegistry
+/*       def registry = GroovySystem.metaClassRegistry
 
        registry.setMetaClass(TelluriumFramework, new TelluriumFrameworkMetaClass())
 
        TelluriumFramework framework = new TelluriumFramework()
        framework.disableEmbeddedSeleniumServer()
 
-       return framework
+       return framework*/
+      TelluriumFramework instance = TelluriumFramework.instance;
+      instance.load();
+      instance.runEmbeddedSeleniumServer = false;
+      
+      return instance;
     }
 }
