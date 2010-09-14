@@ -109,6 +109,19 @@ public class Assembler {
         api.setProperty("uiParser", parser);
         api.setProperty("i18nBundle", i18nBundle);
 
+        bundleProcessor.setProperty("i18nBundle", i18nBundle);
+        bundleProcessor.setProperty("dispatcher", dispatcher);
+        bundleProcessor.setProperty("env", env);
+
+        accessor.setProperty("cbp", bundleProcessor);
+
+        eventHandler.setProperty("cbp", bundleProcessor);
+        eventHandler.setProperty("i18nBundle", i18nBundle);
+
+        extension.setProperty("cbp", bundleProcessor);
+
+        dispatcher.setProperty("i18nBundle", i18nBundle);
+        
         //configure components from Tellurium configuration
         //configure custom UI ojects
         configurator.config(uiObjectBuilderRegistry);

@@ -17,6 +17,7 @@ import org.telluriumsource.crosscut.i18n.IResourceBundle
 import org.json.simple.JSONArray
 import org.telluriumsource.entity.ReturnType
 import org.telluriumsource.dsl.BaseDslContext
+import org.telluriumsource.framework.RuntimeEnvironment
 
 /**
  * Command Bundle Processor
@@ -27,7 +28,7 @@ import org.telluriumsource.dsl.BaseDslContext
  * 
  */
 
-@Singleton
+//@Singleton
 public class BundleProcessor implements Configurable {
 
   public static final String OK = "ok";
@@ -40,7 +41,8 @@ public class BundleProcessor implements Configurable {
   //sequence number for each command
   private int sequence = 1;
 
-  private Dispatcher dispatcher = new Dispatcher();
+  private Dispatcher dispatcher
+  //= new Dispatcher();
 
   private MacroCmd bundle = new MacroCmd();
 
@@ -50,17 +52,22 @@ public class BundleProcessor implements Configurable {
 
   private EngineStateTracer tracer = new EngineStateTracer();
 
-  protected IResourceBundle i18nBundle = Environment.instance.myResourceBundle();
+  protected IResourceBundle i18nBundle
+  //= Environment.instance.myResourceBundle();
+
+  private RuntimeEnvironment env
 
   //maximum number of commands in a bundle
   private int maxMacroCmd(){
-    return Environment.instance.myMaxMacroCmd();
+//    return Environment.instance.myMaxMacroCmd();
+    return env.getMaxMacroCmd();
   }
 
   //whether to use the bundle feature
 //  private boolean exploitBundle = Environment.instance.&useBundle;
   private boolean exploitBundle(){
-    return Environment.instance.isUseBundle();
+//    return Environment.instance.isUseBundle();
+    return env.isUseBundle();
   }
 
   public void cleanAllCache(){
