@@ -11,7 +11,26 @@ public class DefaultSelenium implements Selenium {
 	// This file has been automatically generated using XSL
 	// This part of the file is hard-coded in the XSL
 	protected CommandProcessor commandProcessor;
-	/** Uses a CommandBridgeClient, specifying a server host/port, a command to launch the browser, and a starting URL for the browser.
+
+    private boolean isConnected = false;
+
+    public boolean isConnected() {
+        return isConnected;
+    }
+
+    public void setConnected(boolean connected) {
+        isConnected = connected;
+    }
+
+    public CommandProcessor getCommandProcessor() {
+        return commandProcessor;
+    }
+
+    public void setCommandProcessor(CommandProcessor commandProcessor) {
+        this.commandProcessor = commandProcessor;
+    }
+
+    /** Uses a CommandBridgeClient, specifying a server host/port, a command to launch the browser, and a starting URL for the browser.
      *
      * <p><i>browserStartCommand</i> may be any one of the following:
      * <ul>
@@ -66,6 +85,7 @@ public class DefaultSelenium implements Selenium {
     public void start() {
 		try {
             commandProcessor.start();
+            isConnected = true;
         }
         catch (Exception e) {
             final String message = e.getMessage();
@@ -80,6 +100,7 @@ public class DefaultSelenium implements Selenium {
     public void start(String optionsString) {
     	try {
             commandProcessor.start(optionsString);
+            isConnected = true;
         }
         //TODO: EB Add exception catching for bad BrowserConfigurationOptions (i.e. Extension Not Found)
         catch (Exception e) {
@@ -97,6 +118,7 @@ public class DefaultSelenium implements Selenium {
 
     public void stop() {
         commandProcessor.stop();
+        isConnected = false;
     }
 
     public void showContextualBanner() {

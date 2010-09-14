@@ -19,19 +19,19 @@ import org.telluriumsource.util.LogLevels
  */
 class CustomSelenium extends DefaultSelenium {
 
-  protected IResourceBundle i18nBundle;
+    protected IResourceBundle i18nBundle;
 
     protected CustomCommand customClass = null
     protected String userExtension = null
 
     CustomSelenium(String host, int port, String browser, String url){
       super(host, port, browser, url)
-      i18nBundle = Environment.instance.myResourceBundle()
+//      i18nBundle = Environment.instance.myResourceBundle()
     }
 
     CustomSelenium(CommandProcessor commandProcessor) {
       super (commandProcessor)
-      i18nBundle = Environment.instance.myResourceBundle()
+//      i18nBundle = Environment.instance.myResourceBundle()
     }
 
     public void setUserExt(String userExt){
