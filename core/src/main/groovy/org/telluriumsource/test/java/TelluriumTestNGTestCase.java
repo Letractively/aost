@@ -21,16 +21,19 @@ public abstract class TelluriumTestNGTestCase extends BaseTelluriumJavaTestCase 
     public static void setUpForTest() {
         if(tellurium == null){
             tellurium = TelluriumSupport.addSupport();
-            tellurium.start(customConfig);
-//        connector = (SeleniumConnector) tellurium.getProperty("connector");
-            connector = (SeleniumConnector) tellurium.getConnector();
+            tellurium.startServer(customConfig);
+//            tellurium.connectServer();
+            connector = (SeleniumConnector) tellurium.getCurrentConnector();
         }
     }
 
 //    @AfterClass
     @AfterTest(alwaysRun = true)
     public static void tearDownForTest() {
-        if(tellurium != null)
-            tellurium.stop();
+        if(tellurium != null){
+            tellurium.disconnectServer();
+            tellurium.stopServer();
+        }
+
     }
 }

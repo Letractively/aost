@@ -249,7 +249,7 @@ public class TelluriumFramework {
 //    telluriumConfigurator.config(connector)
   }
 
-  public void startSeleniumServer(CustomConfig customConfig) {
+  public void startServer(CustomConfig customConfig) {
     if (customConfig == null) {
       //if no custom configuration, still start using the default one
       startSeleniumServer()
@@ -285,7 +285,7 @@ public class TelluriumFramework {
     }
   }
 
-  public void stopSeleniumServer(){
+  public void stopServer(){
     if (runEmbeddedSeleniumServer && (server != null)) {
       server.stopSeleniumServer()
     }
@@ -298,7 +298,11 @@ public class TelluriumFramework {
 
   public void disconnectServer(){
      SeleniumConnector connector = SessionManager.getSession().getLookup().lookById("connector");
-      connector.disconnectSeleniumServer()
+     connector.disconnectSeleniumServer()
+  }
+
+  public SeleniumConnector getCurrentConnector(){
+     return SessionManager.getSession().getLookup().lookById("connector");
   }
 
 /*
@@ -308,7 +312,7 @@ public class TelluriumFramework {
     }
 
     if (runEmbeddedSeleniumServer && (server != null)) {
-      server.stopSeleniumServer()
+      server.stopServer()
     }
   }
 */
