@@ -9,14 +9,16 @@ import org.telluriumsource.dsl.WorkflowContext;
 
 class Accessor implements Configurable {
 
-
   protected static final int ACCESS_WAIT_TIME = 50
 
   private static final String DISABLED_ATTRIBUTE = "@disabled"
 
   protected static final String ELEMENT_NOT_PRESENT_ERROR_MESSAGE = "Element is not present"
 
-  private BundleProcessor cbp = BundleProcessor.instance
+//  private BundleProcessor cbp = BundleProcessor.instance
+
+
+  private BundleProcessor cbp
 
   private boolean checkElement = true
 

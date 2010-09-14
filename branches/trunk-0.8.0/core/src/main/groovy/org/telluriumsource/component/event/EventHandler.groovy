@@ -21,17 +21,18 @@ class EventHandler implements Configurable{
     public static final String RETURN_KEY= "BSBS13"
 	public static final int ACTION_WAIT_TIME = 50
 
-    BundleProcessor cbp  = BundleProcessor.instance
+    BundleProcessor cbp
+  //= BundleProcessor.instance
 
     private EventSorter alg = new EventSorter()
 
     private boolean checkElement = false
     private boolean extraEvent = false
 
-    EventHandler(){
+/*    EventHandler(){
 	  i18nBundle = Environment.instance.myResourceBundle()
 
-	}
+	}*/
     public void mustCheckElement(){
         this.checkElement = true
     }

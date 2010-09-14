@@ -18,9 +18,9 @@ class Dispatcher implements Configurable {
     private SeleniumClient sc = new SeleniumClient();
     private ExecutionTracer tracer = new DefaultExecutionTracer();
 
-    public Dispatcher(){
+/*    public Dispatcher(){
     	i18nBundle = Environment.instance.myResourceBundle()
-    }
+    }*/
   
     public boolean isConnected(){
       //TODO: sometimes, the selenium client is not singleton ??  Fix it
