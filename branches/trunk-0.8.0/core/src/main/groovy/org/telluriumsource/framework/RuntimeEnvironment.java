@@ -22,6 +22,8 @@ public class RuntimeEnvironment implements Cloneable {
 
     private String browser = null;
 
+    private String baseUrl = "https://localhost:8080";
+
     private boolean useCssSelector = true;
 
     private boolean useNewEngine = false;
@@ -52,6 +54,14 @@ public class RuntimeEnvironment implements Cloneable {
 
     public void setResourceBundle(IResourceBundle resourceBundle) {
         this.resourceBundle = resourceBundle;
+    }
+
+    public String getBaseUrl() {
+        return baseUrl;
+    }
+
+    public void setBaseUrl(String baseUrl) {
+        this.baseUrl = baseUrl;
     }
 
     public void useLocale(String locale) {
@@ -181,11 +191,38 @@ public class RuntimeEnvironment implements Cloneable {
         this.lastUiModule = lastUiModule;
     }
 
+    public String toString(){
+        StringBuffer sb = new StringBuffer(64);
+        sb.append("RuntimeEnvironment: [").append("serverHost: ").append(serverHost).append(",")
+            .append("serverPort: ").append(serverPort).append(",")
+            .append("baseUrl: ").append(baseUrl).append(",")
+            .append("browser: ").append(browser).append(",")
+            .append("useCssSelector: ").append(useCssSelector).append(",")
+            .append("useTrace: ").append(useTrace).append(",")
+            .append("useBundle: ").append(useBundle).append(",")
+            .append("maxMacroCmd: ").append(maxMacroCmd).append(",")
+            .append("useScreenshot: ").append(useScreenshot).append(",")
+            .append("useNewEngine: ").append(useNewEngine).append(",")
+            .append("useClosestMatch: ").append(useClosestMatch).append(",")
+            .append("useEngineLog: ").append(useEngineLog).append(",")
+            .append("useBugReport: ").append(useBugReport).append(",")
+            .append("locale").append(locale);
+        if(!map.isEmpty()){
+            Set<String> keySet = map.keySet();
+            for(String key: keySet){
+                sb.append(",").append(key).append(": ").append(map.get(key));
+            }
+        }
+
+        return sb.toString();
+    }
+
     public RuntimeEnvironment clone(){
 
         RuntimeEnvironment newEnv = new RuntimeEnvironment();
         newEnv.setServerHost(serverHost);
         newEnv.setServerPort(serverPort);
+        newEnv.setBaseUrl(baseUrl);
         newEnv.setBrowser(browser);
         newEnv.setUseCssSelector(useCssSelector);
         newEnv.setUseNewEngine(useNewEngine);

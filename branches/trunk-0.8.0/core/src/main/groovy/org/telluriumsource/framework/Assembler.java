@@ -1,6 +1,8 @@
 package org.telluriumsource.framework;
 
 import org.telluriumsource.component.bundle.BundleProcessor;
+import org.telluriumsource.component.connector.CustomSelenium;
+import org.telluriumsource.component.connector.DefaultSelenium;
 import org.telluriumsource.component.connector.SeleniumConnector;
 import org.telluriumsource.component.custom.Extension;
 import org.telluriumsource.component.data.Accessor;
@@ -86,6 +88,9 @@ public class Assembler {
         lookup.register("widgetConfigurator", widgetConfigurator);
         IResourceBundle i18nBundle =  new org.telluriumsource.crosscut.i18n.ResourceBundle();
 
+        CustomSelenium customSelenium = new CustomSelenium(env.getServerHost(), env.getServerPort(), env.getBrowser(), env.getBaseUrl());
+        lookup.register("customSelenium", customSelenium);
+
         String[] split = env.getLocale().split("_");
         Locale loc = new Locale(split[0], split[1]);
         i18nBundle.updateDefaultLocale(loc);
@@ -120,7 +125,15 @@ public class Assembler {
 
         extension.setProperty("cbp", bundleProcessor);
 
+        customSelenium.setProperty("i18nBundle", i18nBundle);
+
         dispatcher.setProperty("i18nBundle", i18nBundle);
+        dispatcher.setProperty("sel", customSelenium);
+        dispatcher.setProperty("env", env);
+
+        connector.setProperty("sel", customSelenium);
+
+        connector.setProperty("commandProcessor",  customSelenium.getCommandProcessor());
         
         //configure components from Tellurium configuration
         //configure custom UI ojects

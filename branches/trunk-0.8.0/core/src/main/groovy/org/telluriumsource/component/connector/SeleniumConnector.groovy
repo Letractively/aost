@@ -22,7 +22,7 @@ class SeleniumConnector implements Configurable {
 
   protected CustomSelenium sel
 
-  protected CustomSelenium customSelenium
+//  protected CustomSelenium customSelenium
 
   protected CommandProcessor commandProcessor
 
@@ -71,8 +71,25 @@ class SeleniumConnector implements Configurable {
     if (browserOptions != null)
       this.options = browserOptions;
   }
+  
+   public void connectSeleniumServer() {
 
-  public synchronized void connectSeleniumServer() {
+//        sel = new CustomSelenium(seleniumServerHost, port, browser, baseURL)
+
+        sel.start()
+
+        SeleniumClient sc = new SeleniumClient()
+        sc.client = sel
+
+    }
+
+	public void disconnectSeleniumServer() {
+
+		if(sel != null)
+			sel.stop();
+	}
+
+ /* public synchronized void connectSeleniumServer() {
 
     //The selenium server startup logic is moved to EmbeddedSeleniumServer so that we can
     //decouple the selenium client and the selenium server.
@@ -118,5 +135,5 @@ class SeleniumConnector implements Configurable {
     SeleniumClient sc = new SeleniumClient()
     sc.client = customSelenium;
   }
-
+*/
 }
