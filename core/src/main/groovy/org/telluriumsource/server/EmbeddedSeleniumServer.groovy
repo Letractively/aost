@@ -39,6 +39,8 @@ class EmbeddedSeleniumServer implements Configurable{
 
 	protected boolean runSeleniumServerInternally = true;
 
+    protected boolean isRunning = false;
+
     protected String profileLocation = null;
 
     protected String userExtension = null;
@@ -61,16 +63,17 @@ class EmbeddedSeleniumServer implements Configurable{
                     this.avoidProxy, this.browserSessionReuse, this.ensureCleanSession, this.debugMode, this.interactive,
                     this.timeoutInSeconds, this.profileLocation, this.userExtension);
 			daemon.run();
+            isRunning = true;
             Helper.pause(serverDelayInSeconds*1000)
 		} catch (Exception e) {
-
+            isRunning = false;
 			e.printStackTrace();
 		}
     }
 
     public void runSeleniumServer() {
 
-		if(runSeleniumServerInternally)
+		if(runSeleniumServerInternally && (!isRunning))
 			setUpSeleniumServer();
     }
 
@@ -79,8 +82,9 @@ class EmbeddedSeleniumServer implements Configurable{
 	}
 
     public void stopSeleniumServer(){
-        if(runSeleniumServerInternally && daemon != null){
+        if(runSeleniumServerInternally && daemon != null && isRunning){
               daemon.stop()
+              isRunning = false;
         }
     }
 }
