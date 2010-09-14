@@ -18,15 +18,19 @@ public abstract class TelluriumJUnitTestCase extends BaseTelluriumJavaTestCase {
     public static void setUpForClass() {
         if (tellurium == null) {
             tellurium = TelluriumSupport.addSupport();
-            tellurium.start(customConfig);
+            tellurium.startServer(customConfig);
 //        connector = (SeleniumConnector) tellurium.getProperty("connector");
-            connector = (SeleniumConnector) tellurium.getConnector();
+//            tellurium.connectServer();
+            connector = (SeleniumConnector) tellurium.getCurrentConnector();
         }
     }
 
     @AfterClass
     public static void tearDownForClass() {
-        if(tellurium != null)
-            tellurium.stop();
+        if(tellurium != null){
+            tellurium.disconnectServer();
+            tellurium.stopServer();
+        }
+
     }
 }

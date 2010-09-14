@@ -1,5 +1,6 @@
 package org.telluriumsource.test.java;
 
+import org.telluriumsource.framework.SessionManager;
 import org.telluriumsource.framework.config.CustomConfig;
 import org.telluriumsource.component.connector.SeleniumConnector;
 import org.telluriumsource.crosscut.i18n.IResourceBundle;
@@ -21,14 +22,14 @@ import java.util.Map;
 public abstract class BaseTelluriumJavaTestCase {
     //custom configuration
     protected static CustomConfig customConfig = null;
-    protected IResourceBundle i18nBundle;
+//    protected IResourceBundle i18nBundle;
 
     protected static SeleniumConnector connector;
 
     protected static TelluriumFramework tellurium;
 
     public BaseTelluriumJavaTestCase() {
-        i18nBundle = new ResourceBundle();
+//        i18nBundle = new ResourceBundle();
     }
 
     public static void openUrl(String url) {
@@ -37,7 +38,7 @@ public abstract class BaseTelluriumJavaTestCase {
     }
 
     public IResourceBundle geti18nBundle() {
-        return this.i18nBundle;
+        return SessionManager.getSession().getI18nBundle();
     }
 
     public static void openUrlWithBrowserParameters(String url, String serverHost, int serverPort, String baseUrl, String browser, String browserOptions) {
@@ -88,14 +89,6 @@ public abstract class BaseTelluriumJavaTestCase {
       tellurium.noTest();
     }
 
-    public static boolean isUseLocatorWithCache(){
-        return tellurium.isUseLocatorWithCache();
-    }
-
-    public static void useLocatorWithCache(boolean isUse){
-        tellurium.useLocatorWithCache(isUse);
-    }
-
     public static void useClosestMatch(boolean isUse) {
         tellurium.useClosestMatch(isUse);
     }
@@ -104,16 +97,8 @@ public abstract class BaseTelluriumJavaTestCase {
         tellurium.useCssSelector(isUse);
     }
 
-    public static void useCache(boolean isUse) {
-        tellurium.useCache(isUse);
-    }
-
     public static void cleanCache() {
         tellurium.cleanCache();
-    }
-
-    public static boolean isUsingCache() {
-        return tellurium.isUsingCache();
     }
 
     public static void setCacheMaxSize(int size) {
@@ -177,19 +162,6 @@ public abstract class BaseTelluriumJavaTestCase {
         return tellurium.getMaxMacroCmd();
     }
 
-    public static boolean isUseTelluriumApi() {
-        return tellurium.isUseTelluriumApi();
-    }
-
-    public static void useTelluriumApi(boolean isUse) {
-        tellurium.useTelluriumApi(isUse);
-    }
-
-    /*public static void enableLogging(LogLevels loggingLevel){
-      tellurium.enableLogging(loggingLevel) ;
-    }
-    */
-
     public static void useTrace(boolean isUse){
       tellurium.useTrace(isUse);
     }
@@ -231,9 +203,10 @@ public abstract class BaseTelluriumJavaTestCase {
     }
 
     public static void useTelluriumEngine(boolean isUse){
-        useCache(isUse);
+        //TODO: use a single call to implement this
+/*        useCache(isUse);
         useMacroCmd(isUse);
-        useTelluriumApi(isUse);
+        useTelluriumApi(isUse);*/
     }
 
     public static void dumpEnvironment(){

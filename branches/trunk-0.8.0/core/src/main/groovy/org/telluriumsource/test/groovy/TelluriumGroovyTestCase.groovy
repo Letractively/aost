@@ -25,15 +25,15 @@ abstract class TelluriumGroovyTestCase extends BaseTelluriumGroovyTestCase{
 //    @BeforeClass
     protected void setUpForClass() {
         tellurium = TelluriumSupport.addSupport()
-        tellurium.start(customConfig)
-        conn = tellurium.connector
+        tellurium.startServer(customConfig)
+        conn = tellurium.getCurrentConnector()
         initUi()
     }
 
 //    @AfterClass
     protected void tearDownForClass() {
         if(tellurium != null)
-            tellurium.stop()
+            tellurium.stopServer()
     }
 
 

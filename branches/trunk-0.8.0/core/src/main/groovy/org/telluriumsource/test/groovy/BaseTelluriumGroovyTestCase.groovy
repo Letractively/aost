@@ -9,25 +9,27 @@ import org.telluriumsource.entity.CachePolicy
 import org.telluriumsource.util.Helper
 import org.telluriumsource.util.LogLevels
 import org.telluriumsource.entity.EngineState
+import org.telluriumsource.framework.SessionManager
 
 abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
 
   //custom configuration
-	protected IResourceBundle i18nBundle
+//	protected IResourceBundle i18nBundle
     protected CustomConfig customConfig = null
 
     protected SeleniumConnector conn;
     protected TelluriumFramework tellurium
 
     public BaseTelluriumGroovyTestCase(){
-		  i18nBundle = Environment.instance.myResourceBundle()
+//		  i18nBundle = Environment.instance.myResourceBundle()
 	}
 
     public abstract SeleniumConnector getConnector()
 
 	public IResourceBundle geti18nBundle()
 	{
-		return this.i18nBundle;
+//		return this.i18nBundle;
+       return SessionManager.getSession().getI18nBundle();
 	}
     public void openUrl(String url){
         getConnector().connectSeleniumServer()
@@ -61,14 +63,6 @@ abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
         customConfig = new CustomConfig(runInternally, port, browser, useMultiWindows, profileLocation, serverHost, browserOptions)
     }
 
-    public boolean isUseLocatorWithCache(){
-        return tellurium.isUseLocatorWithCache();
-    }
-
-    public void useLocatorWithCache(boolean isUse){
-        tellurium.useLocatorWithCache(isUse);
-    }
-
     public void useClosestMatch(boolean isUse){
       tellurium.useClosestMatch(isUse);
     }
@@ -77,16 +71,8 @@ abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
       tellurium.useCssSelector(isUse);
     }
 
-    public void useCache(boolean isUse){
-      tellurium.useCache(isUse);
-    }
-
     public void cleanCache(){
       tellurium.cleanCache();
-    }
-
-    public boolean isUsingCache(){
-      return tellurium.isUsingCache();
     }
 
     public void setCacheMaxSize(int size){
@@ -158,14 +144,6 @@ abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
       return tellurium.getMaxMacroCmd();
     }
 
-    public boolean isUseTelluriumApi(){
-      return tellurium.isUseTelluriumApi();
-    }
-
-    public void useTelluriumApi(boolean isUse){
-      tellurium.useTelluriumApi(isUse) ;
-    }
-
    /*public void enableLogging(LogLevels loggingLevel){
       tellurium.enableLogging(loggingLevel) ;
     }
@@ -212,9 +190,9 @@ abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
     }
   
     public void useTelluriumEngine(boolean isUse){
-        this.useCache(isUse);
+/*        this.useCache(isUse);
         this.useMacroCmd(isUse);
-        this.useTelluriumApi(isUse);
+        this.useTelluriumApi(isUse);*/
     }
 
     public void dumpEnvironment(){

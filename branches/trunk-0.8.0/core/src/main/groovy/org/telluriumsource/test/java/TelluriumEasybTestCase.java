@@ -17,14 +17,18 @@ public class TelluriumEasybTestCase extends BaseTelluriumJavaTestCase {
     public void start() {
         if(tellurium == null){
             tellurium = TelluriumSupport.addSupport();
-            tellurium.start(customConfig);
+            tellurium.startServer(customConfig);
+            tellurium.connectServer();
             connector = (SeleniumConnector) tellurium.getConnector();
         }
     }
 
     public void stop() {
-        if(tellurium != null)
-            tellurium.stop();
+        if(tellurium != null){
+            tellurium.disconnectServer();
+            tellurium.stopServer();
+        }
+
     }
    
 }
