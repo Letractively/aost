@@ -7,6 +7,8 @@ import org.telluriumsource.entity.UiModuleValidationResponse
 import org.telluriumsource.entity.DiagnosisResponse
 import org.telluriumsource.entity.DiagnosisOption
 import org.telluriumsource.entity.UiByTagResponse
+import org.telluriumsource.exception.UiObjectNotFoundException
+import org.telluriumsource.ui.object.UiObject
 
 /**
  * 
@@ -17,76 +19,103 @@ import org.telluriumsource.entity.UiByTagResponse
  */
 class TelluriumApi extends BaseDslContext {
 
-  def EngineState getEngineState() {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  UiObject walkToWithException(WorkflowContext context, String uid) {
+//      env.lastDslContext = this;
+    UiObject obj = ui.walkTo(context, uid);
+    if (obj != null) {
+//        context.attachMetaCmd(uid, obj.amICacheable(), true);
+//        context.putContext(WorkflowContext.DSLCONTEXT, this);
+      env.lastUiModule = getUiModuleId(uid);
+
+      return obj;
+    }
+
+    throw new UiObjectNotFoundException(i18nBundle.getMessage("BaseDslContext.CannotFindUIObject", uid));
   }
 
-  def void helpTest() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void enableClosestMatch() {
+      env.setUseClosestMatch(true);
+      WorkflowContext context = WorkflowContext.getDefaultContext();
+
+      extension.useClosestMatch(context, true);
   }
 
-  def void noTest() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void disableClosestMatch() {
+      env.setUseClosestMatch(false);
+      WorkflowContext context = WorkflowContext.getDefaultContext();
+
+      extension.useClosestMatch(context, false)
   }
 
-  def void enableClosestMatch() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void enableCssSelector() {
+      env.setUseCssSelector(true);
   }
 
-  def void disableClosestMatch() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void disableCssSelector() {
+      env.setUseCssSelector(false);
   }
 
-  def void enableCssSelector() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void cleanCache() {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
+
+      extension.cleanCache(context)
   }
 
-  def void disableCssSelector() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void setCacheMaxSize(int size) {
+     WorkflowContext context = WorkflowContext.getDefaultContext();
+     extension.cleanCache(context)
   }
 
-  def void cleanCache() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public int getCacheSize() {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
+      return extension.getCacheSize(context).intValue();
   }
 
-  def void setCacheMaxSize(int size) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public int getCacheMaxSize() {
+     WorkflowContext context = WorkflowContext.getDefaultContext();
+     return extension.getCacheMaxSize(context).intValue()
   }
 
-  def int getCacheSize() {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public String getCacheUsage() {
+     CacheUsageResponse resp = this.getCacheUsageResponse();
+
+     return resp.toString();
   }
 
-  def int getCacheMaxSize() {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public CacheUsageResponse getCacheUsageResponse() {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+
+    List out = extension.getCacheUsage(context);
+    CacheUsageResponse resp = new CacheUsageResponse();
+    resp.parseJSON(out);
+
+    return resp;
+
   }
 
-  def String getCacheUsage() {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public void useDiscardNewCachePolicy() {
+     WorkflowContext context = WorkflowContext.getDefaultContext();
+     extension.useDiscardNewCachePolicy(context)
   }
 
-  def CacheUsageResponse getCacheUsageResponse() {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public void useDiscardOldCachePolicy() {
+     WorkflowContext context = WorkflowContext.getDefaultContext();
+     extension.useDiscardOldCachePolicy(context)
   }
 
-  def void useDiscardNewCachePolicy() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void useDiscardLeastUsedCachePolicy() {
+     WorkflowContext context = WorkflowContext.getDefaultContext();
+     extension.useDiscardLeastUsedCachePolicy(context)
   }
 
-  def void useDiscardOldCachePolicy() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void useDiscardInvalidCachePolicy() {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    extension.useDiscardInvalidCachePolicy(context)
   }
 
-  def void useDiscardLeastUsedCachePolicy() {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def void useDiscardInvalidCachePolicy() {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def String getCurrentCachePolicy() {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String getCurrentCachePolicy() {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    return extension.getCachePolicyName(context)
   }
 
   def void useDefaultXPathLibrary() {
