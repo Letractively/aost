@@ -129,7 +129,7 @@ class SeleniumWrapper extends BaseDslContext {
       return uiid.pop();
     }
 
-    def UiObject walkToWithException(WorkflowContext context, String uid) {
+    UiObject walkToWithException(WorkflowContext context, String uid) {
       env.lastDslContext = this;
       UiObject obj = ui.walkTo(context, uid);
       if (obj != null) {
@@ -149,7 +149,7 @@ class SeleniumWrapper extends BaseDslContext {
       }
     }
 
-    def click(String uid) {
+    void click(String uid) {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
       walkToWithException(context, uid)?.click() {loc, String[] events ->
         String locator = locatorMapping(context, loc)
@@ -157,7 +157,7 @@ class SeleniumWrapper extends BaseDslContext {
       }
     }
 
-    def doubleClick(String uid) {
+    void doubleClick(String uid) {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
       walkToWithException(context, uid)?.doubleClick() {loc, String[] events ->
         String locator = locatorMapping(context, loc)
@@ -165,7 +165,7 @@ class SeleniumWrapper extends BaseDslContext {
       }
     }
 
-    def clickAt(String uid, String coordination) {
+    void clickAt(String uid, String coordination) {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
       walkToWithException(context, uid)?.clickAt(coordination) {loc, String[] events ->
         String locator = locatorMapping(context, loc)
@@ -173,7 +173,7 @@ class SeleniumWrapper extends BaseDslContext {
       }
     }
 
-    def check(String uid) {
+    void check(String uid) {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
       walkToWithException(context, uid)?.check() {loc, String[] events ->
         String locator = locatorMapping(context, loc)
@@ -181,7 +181,7 @@ class SeleniumWrapper extends BaseDslContext {
       }
     }
 
-    def uncheck(String uid) {
+    void uncheck(String uid) {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
       walkToWithException(context, uid)?.uncheck() {loc, String[] events ->
         String locator = locatorMapping(context, loc)
@@ -189,7 +189,7 @@ class SeleniumWrapper extends BaseDslContext {
       }
     }
 
-    def type(String uid, def input) {
+    void type(String uid, def input) {
       String str = (input==null) ? "" : input.toString();
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
       walkToWithException(context, uid)?.type(str) {loc, String[] events ->
@@ -198,7 +198,7 @@ class SeleniumWrapper extends BaseDslContext {
       }
     }
 
-    def keyPress(String uid, String key) {
+    void keyPress(String uid, String key) {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
       walkToWithException(context, uid)?.keyPress(key) {loc ->
         String locator = locatorMapping(context, loc)
@@ -206,7 +206,7 @@ class SeleniumWrapper extends BaseDslContext {
       }
     }
 
-    def keyDown(String uid, String key) {
+    void keyDown(String uid, String key) {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
       walkToWithException(context, uid)?.keyDown(key) {loc ->
         String locator = locatorMapping(context, loc)
@@ -214,7 +214,7 @@ class SeleniumWrapper extends BaseDslContext {
       }
     }
 
-    def keyUp(String uid, String key) {
+    void keyUp(String uid, String key) {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
       walkToWithException(context, uid)?.keyUp(key) {loc ->
         String locator = locatorMapping(context, loc)
@@ -222,7 +222,7 @@ class SeleniumWrapper extends BaseDslContext {
       }
     }
 
-    def focus(String uid) {
+    void focus(String uid) {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
       walkToWithException(context, uid)?.focus() {loc ->
         String locator = locatorMapping(context, loc)
@@ -230,7 +230,7 @@ class SeleniumWrapper extends BaseDslContext {
       }
     }
 
-    def fireEvent(String uid, String eventName){
+    void fireEvent(String uid, String eventName){
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
       walkToWithException(context, uid)?.fireEvent(eventName) {loc ->
         String locator = locatorMapping(context, loc)
@@ -238,7 +238,7 @@ class SeleniumWrapper extends BaseDslContext {
       }
     }
 
-    def keyType(String uid, def input) {
+    void keyType(String uid, def input) {
       String str = (input==null) ? "" : input.toString();
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
       walkToWithException(context, uid)?.keyType(str) {loc, String[] events ->
@@ -247,8 +247,7 @@ class SeleniumWrapper extends BaseDslContext {
       }
     }
 
-
-    def typeAndReturn(String uid, def input) {
+    void typeAndReturn(String uid, def input) {
       String str = (input==null) ? "" : input.toString();
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
       walkToWithException(context, uid)?.typeAndReturn(str) {loc, String[] events ->
@@ -257,40 +256,47 @@ class SeleniumWrapper extends BaseDslContext {
       }
     }
 
-    def altKeyUp() {
+    void altKeyUp() {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         eventHandler.altKeyUp(context)
     }
-    def altKeyDown() {
+
+    void altKeyDown() {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         eventHandler.altKeyDown(context)
     }
-    def ctrlKeyUp() {
+
+    void ctrlKeyUp() {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         eventHandler.ctrlKeyUp(context)
     }
-    def ctrlKeyDown() {
+
+    void ctrlKeyDown() {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         eventHandler.ctrlKeyDown(context)
     }
-    def shiftKeyUp() {
+
+    void shiftKeyUp() {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         eventHandler.shiftKeyUp(context)
     }
-    def shiftKeyDown() {
+
+    void shiftKeyDown() {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         eventHandler.shiftKeyDown(context)
     }
-    def metaKeyUp() {
+
+    void metaKeyUp() {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         eventHandler.metaKeyUp(context)
     }
-    def metaKeyDown() {
+
+    void metaKeyDown() {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         eventHandler.metaKeyDown(context)
     }
 
-    def clearText(String uid) {
+    void clearText(String uid) {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
       walkToWithException(context, uid)?.clearText() {loc, String[] events ->
         String locator = locatorMapping(context, loc)
@@ -298,11 +304,11 @@ class SeleniumWrapper extends BaseDslContext {
       }
     }
 
-    def select(String uid, String target) {
+    void select(String uid, String target) {
       selectByLabel(uid, target)
     }
 
-    def selectByLabel(String uid, String target) {
+    void selectByLabel(String uid, String target) {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
       walkToWithException(context, uid)?.selectByLabel(target) {loc, optloc, String[] events ->
         String locator = locatorMapping(context, loc)
@@ -310,7 +316,7 @@ class SeleniumWrapper extends BaseDslContext {
       }
     }
 
-    def selectByValue(String uid, String target) {
+    void selectByValue(String uid, String target) {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
       walkToWithException(context, uid)?.selectByValue(target) {loc, optloc, String[] events ->
         String locator = locatorMapping(context, loc)
@@ -318,7 +324,7 @@ class SeleniumWrapper extends BaseDslContext {
       }
     }
 
-    def selectByIndex(String uid, int target) {
+    void selectByIndex(String uid, int target) {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
       walkToWithException(context, uid)?.selectByIndex(target) {loc, optloc, String[] events ->
         String locator = locatorMapping(context, loc)
@@ -326,7 +332,7 @@ class SeleniumWrapper extends BaseDslContext {
       }
     }
 
-    def selectById(String uid, String target) {
+    void selectById(String uid, String target) {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
       walkToWithException(context, uid)?.selectById(target) {loc, optloc, String[] events ->
         String locator = locatorMapping(context, loc)
@@ -334,7 +340,7 @@ class SeleniumWrapper extends BaseDslContext {
       }
     }
 
-    def addSelectionByLabel(String uid, String target) {
+    void addSelectionByLabel(String uid, String target) {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
       walkToWithException(context, uid)?.addSelectionByLabel(target) {loc, optloc ->
         String locator = locatorMapping(context, loc)
@@ -342,7 +348,7 @@ class SeleniumWrapper extends BaseDslContext {
       }
     }
 
-    def addSelectionByValue(String uid, String target) {
+    void addSelectionByValue(String uid, String target) {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
       walkToWithException(context, uid)?.addSelectionByValue(target) {loc, optloc ->
         String locator = locatorMapping(context, loc)
@@ -350,7 +356,7 @@ class SeleniumWrapper extends BaseDslContext {
       }
     }
 
-    def removeSelectionByLabel(String uid, String target) {
+    void removeSelectionByLabel(String uid, String target) {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
       walkToWithException(context, uid)?.removeSelectionByLabel(target) {loc, optloc ->
         String locator = locatorMapping(context, loc)
@@ -358,7 +364,7 @@ class SeleniumWrapper extends BaseDslContext {
       }
     }
 
-    def removeSelectionByValue(String uid, String target) {
+    void removeSelectionByValue(String uid, String target) {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
       walkToWithException(context, uid)?.removeSelectionByValue(target) {loc, optloc ->
         String locator = locatorMapping(context, loc)
@@ -366,7 +372,7 @@ class SeleniumWrapper extends BaseDslContext {
       }
     }
 
-    def removeAllSelections(String uid) {
+    void removeAllSelections(String uid) {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
       walkToWithException(context, uid)?.removeAllSelections() {loc ->
         String locator = locatorMapping(context, loc)
@@ -525,7 +531,7 @@ class SeleniumWrapper extends BaseDslContext {
       }
     }
 
-    def boolean isEnabled(String uid) {
+    boolean isEnabled(String uid) {
       return !isDisabled(uid);
     }
 
@@ -601,7 +607,7 @@ class SeleniumWrapper extends BaseDslContext {
       }
     }
 
-    def submit(String uid) {
+    void submit(String uid) {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
       walkToWithException(context, uid)?.submit() {loc ->
         String locator = locatorMapping(context, loc)
@@ -624,7 +630,7 @@ class SeleniumWrapper extends BaseDslContext {
       return accessor.getEval(context, script)
     }
 
-    def mouseOver(String uid) {
+    void mouseOver(String uid) {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
 
       walkToWithException(context, uid)?.mouseOver() {loc ->
@@ -633,7 +639,7 @@ class SeleniumWrapper extends BaseDslContext {
       }
     }
 
-    def mouseOut(String uid) {
+    void mouseOut(String uid) {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
 
       walkToWithException(context, uid)?.mouseOut() {loc ->
@@ -642,7 +648,7 @@ class SeleniumWrapper extends BaseDslContext {
       }
     }
 
-    def dragAndDrop(String uid, String movementsString) {
+    void dragAndDrop(String uid, String movementsString) {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
 
       walkToWithException(context, uid)?.dragAndDrop(movementsString) {loc ->
@@ -651,7 +657,7 @@ class SeleniumWrapper extends BaseDslContext {
       }
     }
 
-    def dragAndDropTo(String sourceUid, String targetUid) {
+    void dragAndDropTo(String sourceUid, String targetUid) {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
       def src = walkToWithException(context, sourceUid)
 
@@ -665,7 +671,7 @@ class SeleniumWrapper extends BaseDslContext {
       }
     }
 
-    def mouseDown(String uid) {
+    void mouseDown(String uid) {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
 
       walkToWithException(context, uid)?.mouseDown() {loc ->
@@ -674,7 +680,7 @@ class SeleniumWrapper extends BaseDslContext {
       }
     }
 
-    def mouseDownRight(String uid) {
+    void mouseDownRight(String uid) {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
 
       walkToWithException(context, uid)?.mouseDownRight() {loc ->
@@ -683,7 +689,7 @@ class SeleniumWrapper extends BaseDslContext {
       }
     }
 
-    def mouseDownAt(String uid, String coordinate) {
+    void mouseDownAt(String uid, String coordinate) {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
 
       walkToWithException(context, uid)?.mouseDownAt() {loc ->
@@ -692,7 +698,7 @@ class SeleniumWrapper extends BaseDslContext {
       }
     }
 
-    def mouseDownRightAt(String uid, String coordinate) {
+    void mouseDownRightAt(String uid, String coordinate) {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
 
       walkToWithException(context, uid)?.mouseDownRightAt() {loc ->
@@ -701,7 +707,7 @@ class SeleniumWrapper extends BaseDslContext {
       }
     }
 
-    def mouseUp(String uid) {
+    void mouseUp(String uid) {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
 
       walkToWithException(context, uid)?.mouseUp() {loc ->
@@ -710,7 +716,7 @@ class SeleniumWrapper extends BaseDslContext {
       }
     }
 
-    def mouseUpRight(String uid) {
+    void mouseUpRight(String uid) {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
 
       walkToWithException(context, uid)?.mouseUpRight() {loc ->
@@ -719,7 +725,7 @@ class SeleniumWrapper extends BaseDslContext {
       }
     }
 
-    def mouseUpRightAt(String uid, String coordinate) {
+    void mouseUpRightAt(String uid, String coordinate) {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
 
       walkToWithException(context, uid)?.mouseUpRightAt() {loc ->
@@ -728,7 +734,7 @@ class SeleniumWrapper extends BaseDslContext {
       }
     }
 
-    def mouseMove(String uid) {
+    void mouseMove(String uid) {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
 
       walkToWithException(context, uid)?.mouseMove() {loc ->
@@ -737,7 +743,7 @@ class SeleniumWrapper extends BaseDslContext {
       }
     }
 
-    def mouseMoveAt(String uid, String coordinate) {
+    void mouseMoveAt(String uid, String coordinate) {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
 
       walkToWithException(context, uid)?.mouseMoveAt() {loc ->
@@ -1258,7 +1264,7 @@ class SeleniumWrapper extends BaseDslContext {
       }
     }
 
-    def boolean isDisabled(String uid) {
+    boolean isDisabled(String uid) {
        WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
 
       return walkToWithException(context, uid).isDisabled() {loc ->
@@ -1294,7 +1300,7 @@ class SeleniumWrapper extends BaseDslContext {
       }
     }
 
-    def hasCssClass(String uid, String cssClass) {
+    boolean hasCssClass(String uid, String cssClass) {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
       String[] strings = walkToWithException(context, uid)?.hasCssClass() {loc, classAttr ->
         String locator = locatorMapping(context, loc)
@@ -1307,7 +1313,7 @@ class SeleniumWrapper extends BaseDslContext {
         if (clazz != null && clazz.trim().length() > 0) {
           return clazz.split(" ")
         }
-        return null
+        return false
       }
       if (strings?.length) {
         for (i in 0..<strings?.length) {
@@ -1780,27 +1786,27 @@ class SeleniumWrapper extends BaseDslContext {
       return locator
     }
 
-    def selectFrame(String uid) {
+    void selectFrame(String uid) {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         walkToWithException(context, uid)?.selectFrame() {String loc ->
             eventHandler.selectFrame(context, loc)
         }
     }
 
-    def selectFrameByIndex(int index) {
+    void selectFrameByIndex(int index) {
         WorkflowContext context = WorkflowContext.getDefaultContext()
 
         eventHandler.selectFrame(context, "index=${index}")
     }
 
-    def selectParentFrameFrom(String uid) {
+    void selectParentFrameFrom(String uid) {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         walkToWithException(context, uid)?.selectParentFrame() {String loc ->
             eventHandler.selectFrame(context, loc)
         }
     }
 
-    def selectTopFrameFrom(String uid) {
+    void selectTopFrameFrom(String uid) {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         walkToWithException(context, uid)?.selectTopFrame() {String loc ->
             eventHandler.selectFrame(context, loc)
@@ -1821,38 +1827,38 @@ class SeleniumWrapper extends BaseDslContext {
         }
     }
 
-    def openWindow(String uid, String url) {
+    void openWindow(String uid, String url) {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         walkToWithException(context, uid)?.openWindow(url) {String loc, String aurl ->
             eventHandler.openWindow(context, aurl, loc)
         }
     }
 
-    def selectWindow(String uid) {
+    void selectWindow(String uid) {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         walkToWithException(context, uid)?.selectWindow() {String loc ->
             eventHandler.selectWindow(context, loc)
         }
     }
 
-    def closeWindow(String uid) {
+    void closeWindow(String uid) {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         walkToWithException(context, uid)?.closeWindow() {String loc ->
             eventHandler.closeWindow(context, loc)
         }
     }
 
-    def selectMainWindow() {
+    void selectMainWindow() {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         eventHandler.selectWindow(context, null)
     }
 
-    def selectParentWindow() {
+    void selectParentWindow() {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         eventHandler.selectWindow(context, ".")
     }
 
-    def waitForPopUp(String uid, int timeout) {
+    void waitForPopUp(String uid, int timeout) {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         walkToWithException(context, uid)?.waitForPopUp(timeout) {String loc ->
             accessor.waitForPopUp(context, loc, Integer.toString(timeout))
@@ -1866,12 +1872,12 @@ class SeleniumWrapper extends BaseDslContext {
         }
     }
 
-    def windowFocus() {
+    void windowFocus() {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         eventHandler.windowFocus(context)
     }
 
-    def windowMaximize() {
+    void windowMaximize() {
         WorkflowContext context = WorkflowContext.getDefaultContext()
         eventHandler.windowMaximize(context)
     }
@@ -2247,7 +2253,7 @@ class SeleniumWrapper extends BaseDslContext {
       return env.getCustomEnvironment(name);
     }
 
-    public useMaxMacroCmd(int max){
+    public void setMaxMacroCmd(int max){
       env.setMaxMacroCmd(max);
     }
 

@@ -93,7 +93,7 @@ public class TelluriumIssueTestCase extends TelluriumJUnitTestCase {
 
     @Test
     public void testCSS(){
-        useCache(false);
+//        useCache(false);
         String[] css = tim.getTableCSS("font-size");
         assertNotNull(css);
     }
@@ -117,8 +117,8 @@ public class TelluriumIssueTestCase extends TelluriumJUnitTestCase {
 
    @Test
     public void testDumpRowNoCache(){
-        useCache(false);
-        useTelluriumApi(true);
+//        useCache(false);
+//        useTelluriumApi(true);
         int num = tim.getRowNum();
         if(num > 10)
             num = 10;

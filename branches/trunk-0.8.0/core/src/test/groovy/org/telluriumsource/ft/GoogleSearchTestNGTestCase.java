@@ -68,11 +68,11 @@ public class GoogleSearchTestNGTestCase extends TelluriumTestNGTestCase {
 
     @Test
     public void testUseCache(){
-        useCache(true);
+ //       useCache(true);
         boolean result = gsm.getCacheState();
         assertTrue(result);
 
-        useCache(false);
+//        useCache(false);
         result = gsm.getCacheState();
         assertFalse(result);
     }
@@ -99,7 +99,7 @@ public class GoogleSearchTestNGTestCase extends TelluriumTestNGTestCase {
     @Test
     public void testCachePolicy(){
         useCssSelector(true);
-        useCache(true);
+//        useCache(true);
         String policy = getCurrentCachePolicy();
         assertEquals("DiscardOldPolicy", policy);
         useCachePolicy(CachePolicy.DISCARD_LEAST_USED);
