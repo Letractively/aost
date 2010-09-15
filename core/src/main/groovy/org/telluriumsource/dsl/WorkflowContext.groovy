@@ -199,6 +199,7 @@ class WorkflowContext implements Serializable {
     return context
   }
 
+
   public static WorkflowContext getContextByEnvironment(boolean useCssSelector, boolean useUiModuleCache){
     WorkflowContext context = new WorkflowContext()
 

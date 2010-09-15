@@ -33,7 +33,7 @@ public interface DslContract {
 
   void cleanCache();
 
-  boolean getCacheState();
+//  boolean getCacheState();
 
   void setCacheMaxSize(int size);
 
