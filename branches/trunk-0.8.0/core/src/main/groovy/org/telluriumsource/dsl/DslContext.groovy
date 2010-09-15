@@ -53,987 +53,987 @@ class DslContext implements DslContract {
      getDelegate().helpTest();
   }
 
-  def void noTest() {
+  public void noTest() {
     getDelegate().noTest();
   }
 
-  def void enableClosestMatch() {
-
+  public void enableClosestMatch() {
+    getDelegate().enableClosestMatch();
   }
 
-  def void disableClosestMatch() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void disableClosestMatch() {
+    getDelegate().disableClosestMatch();
   }
 
-  def void enableCssSelector() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void enableCssSelector() {
+    getDelegate().enableCssSelector();
   }
 
-  def void disableCssSelector() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void disableCssSelector() {
+     getDelegate().disableCssSelector();
   }
 
-  def void cleanCache() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void cleanCache() {
+    getDelegate().cleanCache();
   }
 
-  def boolean getCacheState() {
-    return false;  //To change body of implemented methods use File | Settings | File Templates.
-  }
+/*  public boolean getCacheState() {
+    return false; 
+  }*/
 
-  def void setCacheMaxSize(int size) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void setCacheMaxSize(int size) {
+     getDelegate().setCacheMaxSize(size);
   }
 
-  def int getCacheSize() {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public int getCacheSize() {
+    return getDelegate().getCacheSize();
   }
 
-  def int getCacheMaxSize() {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public int getCacheMaxSize() {
+    return getDelegate().getCacheMaxSize();
   }
 
-  def String getCacheUsage() {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String getCacheUsage() {
+    return getDelegate().getCacheUsage();
   }
 
-  def CacheUsageResponse getCacheUsageResponse() {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public CacheUsageResponse getCacheUsageResponse() {
+    return getDelegate().getCacheUsageResponse();
   }
 
-  def void useDiscardNewCachePolicy() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void useDiscardNewCachePolicy() {
+    getDelegate().useDiscardNewCachePolicy();
   }
 
-  def void useDiscardOldCachePolicy() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void useDiscardOldCachePolicy() {
+    getDelegate().useDiscardOldCachePolicy();
   }
 
-  def void useDiscardLeastUsedCachePolicy() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void useDiscardLeastUsedCachePolicy() {
+    getDelegate().useDiscardLeastUsedCachePolicy();
   }
 
-  def void useDiscardInvalidCachePolicy() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void useDiscardInvalidCachePolicy() {
+    getDelegate().useDiscardInvalidCachePolicy();
   }
 
-  def String getCurrentCachePolicy() {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String getCurrentCachePolicy() {
+    return getDelegate().getCurrentCachePolicy();
   }
 
-  def void useDefaultXPathLibrary() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void useDefaultXPathLibrary() {
+      getDelegate().useDefaultXPathLibrary();
   }
 
-  def void useJavascriptXPathLibrary() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void useJavascriptXPathLibrary() {
+      getDelegate().useJavascriptXPathLibrary();
   }
 
-  def void useAjaxsltXPathLibrary() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void useAjaxsltXPathLibrary() {
+      getDelegate().useAjaxsltXPathLibrary();
   }
 
-  def void registerNamespace(String prefix, String namespace) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void registerNamespace(String prefix, String namespace) {
+      getDelegate().registerNamespace(prefix, namespace);
   }
 
-  def String getNamespace(String prefix) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String getNamespace(String prefix) {
+    return getDelegate().getNamespace(prefix);
   }
 
-  def void pause(int milliseconds) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void pause(int milliseconds) {
+      getDelegate().pause(milliseconds);
   }
 
-  def void enableTrace() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void enableTrace() {
+     getDelegate().enableTrace();
   }
 
-  def void disableTrace() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void disableTrace() {
+      getDelegate().disableTrace();
   }
 
-  def void showTrace() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void showTrace() {
+      getDelegate().showTrace();
   }
 
-  def void setEnvironment(String name, Object value) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void setEnvironment(String name, Object value) {
+     getDelegate().setEnvironment(name, value);
   }
 
-  def Object getEnvironment(String name) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public Object getEnvironment(String name) {
+    return getDelegate().getEnvironment(name);
   }
 
-  def void enableMacroCmd() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void enableMacroCmd() {
+     getDelegate().enableMacroCmd();
   }
 
-  def void disableMacroCmd() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void disableMacroCmd() {
+    getDelegate().disableMacroCmd();
   }
 
-  def int getMaxMacroCmd() {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public int getMaxMacroCmd() {
+    return getDelegate().getMaxMacroCmd();
   }
 
-  def void allowNativeXpath(boolean allow) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void allowNativeXpath(boolean allow) {
+     getDelegate().allowNativeXpath(allow);
   }
 
-  def void addScript(String scriptContent, String scriptTagId) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void addScript(String scriptContent, String scriptTagId) {
+     getDelegate().addScript(scriptContent, scriptTagId);
   }
 
-  def void removeScript(String scriptTagId) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void removeScript(String scriptTagId) {
+     getDelegate().removeScript(scriptTagId);
   }
 
-  def void enableEngineLog() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void enableEngineLog() {
+     getDelegate().enableEngineLog();
   }
 
-  def void disableEngineLog() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void disableEngineLog() {
+     getDelegate().disableEngineLog();
   }
 
-  def void useEngineLog(boolean isUse) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void useEngineLog(boolean isUse) {
+     getDelegate().useEngineLog(isUse);
   }
 
-  def void enableTelluriumEngine() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void enableTelluriumEngine() {
+     getDelegate().enableTelluriumEngine();
   }
 
-  def void disableTelluriumEngine() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void disableTelluriumEngine() {
+     getDelegate().disableTelluriumEngine();
   }
 
-  def Object customUiCall(String uid, String method, Object[] args) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public Object customUiCall(String uid, String method, Object[] args) {
+    return getDelegate().customUiCall(uid, method, args);  
   }
 
-  def Object customDirectCall(String method, Object[] args) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public Object customDirectCall(String method, Object[] args) {
+    return getDelegate().customDirectCall(method, args);
   }
 
-  def void triggerEventOn(String uid, String event) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void triggerEventOn(String uid, String event) {
+     getDelegate().triggerEventOn(uid, event);
   }
 
-  def Object getUiElement(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public Object getUiElement(String uid) {
+    return getDelegate().getUiElement(uid);  
   }
 
-  def void click(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void click(String uid) {
+     getDelegate().click(uid);
   }
 
-  def void doubleClick(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void doubleClick(String uid) {
+     getDelegate().doubleClick(uid);
   }
 
-  def void clickAt(String uid, String coordination) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void clickAt(String uid, String coordination) {
+     getDelegate().clickAt(uid, coordination);
   }
 
-  def void check(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void check(String uid) {
+    getDelegate().check(uid);
   }
 
-  def void uncheck(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void uncheck(String uid) {
+    getDelegate().uncheck(uid);
   }
 
-  def void type(String uid, Object input) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void type(String uid, Object input) {
+    getDelegate().type(uid, input);
   }
 
-  def void keyPress(String uid, String key) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void keyPress(String uid, String key) {
+     getDelegate().keyPress(uid, key);
   }
 
-  def void keyDown(String uid, String key) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void keyDown(String uid, String key) {
+     getDelegate().keyDown(uid, key);
   }
 
-  def void keyUp(String uid, String key) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void keyUp(String uid, String key) {
+     getDelegate().keyUp(uid, key);
   }
 
-  def void focus(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void focus(String uid) {
+     getDelegate().focus(uid);
   }
 
-  def void fireEvent(String uid, String eventName) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void fireEvent(String uid, String eventName) {
+    getDelegate().fireEvent(uid, eventName);
   }
 
-  def void keyType(String uid, Object input) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void keyType(String uid, Object input) {
+    getDelegate().keyType(uid, input);
   }
 
-  def void typeAndReturn(String uid, Object input) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void typeAndReturn(String uid, Object input) {
+    getDelegate().typeAndReturn(uid, input);
   }
 
-  def void altKeyUp() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void altKeyUp() {
+    getDelegate().altKeyUp();
   }
 
-  def void altKeyDown() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void altKeyDown() {
+    getDelegate().altKeyDown();
   }
 
-  def void ctrlKeyUp() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void ctrlKeyUp() {
+    getDelegate().ctrlKeyUp();
   }
 
-  def void ctrlKeyDown() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void ctrlKeyDown() {
+    getDelegate().ctrlKeyDown();
   }
 
-  def void shiftKeyUp() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void shiftKeyUp() {
+    getDelegate().shiftKeyUp();
   }
 
-  def void shiftKeyDown() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void shiftKeyDown() {
+    getDelegate().shiftKeyDown();
   }
 
-  def void metaKeyUp() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void metaKeyUp() {
+    getDelegate().metaKeyUp();
   }
 
-  def void metaKeyDown() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void metaKeyDown() {
+    getDelegate().metaKeyDown();
   }
 
-  def void clearText(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void clearText(String uid) {
+    getDelegate().clearText(uid);
   }
 
-  def void select(String uid, String target) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void select(String uid, String target) {
+    getDelegate().select(uid, target);
   }
 
-  def void selectByLabel(String uid, String target) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void selectByLabel(String uid, String target) {
+    getDelegate().selectByLabel(uid, target);
   }
 
-  def void selectByValue(String uid, String target) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void selectByValue(String uid, String target) {
+    getDelegate().selectByValue(uid, target);
   }
 
-  def void selectByIndex(String uid, int target) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void selectByIndex(String uid, int target) {
+    getDelegate().selectByIndex(uid, target);
   }
 
-  def void selectById(String uid, String target) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void selectById(String uid, String target) {
+    getDelegate().selectById(uid, target);
   }
 
-  def void addSelectionByLabel(String uid, String target) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void addSelectionByLabel(String uid, String target) {
+    getDelegate().addSelectionByLabel(uid, target);
   }
 
-  def void addSelectionByValue(String uid, String target) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void addSelectionByValue(String uid, String target) {
+    getDelegate().addSelectionByValue(uid, target);
   }
 
-  def void removeSelectionByLabel(String uid, String target) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void removeSelectionByLabel(String uid, String target) {
+    getDelegate().removeSelectionByLabel(uid, target);
   }
 
-  def void removeSelectionByValue(String uid, String target) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void removeSelectionByValue(String uid, String target) {
+    getDelegate().removeSelectionByValue(uid, target);
   }
 
-  def void removeAllSelections(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void removeAllSelections(String uid) {
+    getDelegate().removeAllSelections(uid);
   }
 
-  def String[] getSelectOptions(String uid) {
-    return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
+  public String[] getSelectOptions(String uid) {
+    return getDelegate().getSelectOptions(uid);
   }
 
-  def String[] getSelectValues(String uid) {
-    return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
+  public String[] getSelectValues(String uid) {
+    return getDelegate().getSelectValues(uid);
   }
 
-  def String[] getSelectedLabels(String uid) {
-    return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
+  public String[] getSelectedLabels(String uid) {
+    return getDelegate().getSelectedLabels(uid);
   }
 
-  def String getSelectedLabel(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String getSelectedLabel(String uid) {
+    return  getDelegate().getSelectedLabel(uid);
   }
 
-  def String[] getSelectedValues(String uid) {
-    return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
+  public String[] getSelectedValues(String uid) {
+    return getDelegate().getSelectedValues(uid);
   }
 
-  def String getSelectedValue(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String getSelectedValue(String uid) {
+    return getDelegate().getSelectedValue(uid);
   }
 
-  def String[] getSelectedIndexes(String uid) {
-    return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
+  public String[] getSelectedIndexes(String uid) {
+    return getDelegate().getSelectedIndexes(uid);
   }
 
-  def String getSelectedIndex(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String getSelectedIndex(String uid) {
+    return getDelegate().getSelectedIndex(uid);
   }
 
-  def String[] getSelectedIds(String uid) {
-    return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
+  public String[] getSelectedIds(String uid) {
+    return getDelegate().getSelectedIds(uid);
   }
 
-  def String getSelectedId(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String getSelectedId(String uid) {
+    return getDelegate().getSelectedId(uid);
   }
 
-  def boolean isSomethingSelected(String uid) {
-    return false;  //To change body of implemented methods use File | Settings | File Templates.
+  public boolean isSomethingSelected(String uid) {
+    return getDelegate().isSomethingSelected(uid);
   }
 
-  def String waitForText(String uid, int timeout) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String waitForText(String uid, int timeout) {
+    return getDelegate(). waitForText(uid, timeout);
   }
 
-  def boolean isElementPresent(String uid) {
-    return false;  //To change body of implemented methods use File | Settings | File Templates.
+  public boolean isElementPresent(String uid) {
+    return getDelegate().isElementPresent(uid);
   }
 
-  def boolean isVisible(String uid) {
-    return false;  //To change body of implemented methods use File | Settings | File Templates.
+  public boolean isVisible(String uid) {
+    return getDelegate().isVisible(uid);
   }
 
-  def boolean isChecked(String uid) {
-    return false;  //To change body of implemented methods use File | Settings | File Templates.
+  public boolean isChecked(String uid) {
+    return  getDelegate().isChecked(uid);
   }
 
-  def boolean isEnabled(String uid) {
-    return false;  //To change body of implemented methods use File | Settings | File Templates.
+  public boolean isEnabled(String uid) {
+    return getDelegate().isEnabled(uid);
   }
 
-  def boolean waitForElementPresent(String uid, int timeout) {
-    return false;  //To change body of implemented methods use File | Settings | File Templates.
+  public boolean waitForElementPresent(String uid, int timeout) {
+    return getDelegate().waitForElementPresent(uid, timeout);
   }
 
-  def boolean waitForElementPresent(String uid, int timeout, int step) {
-    return false;  //To change body of implemented methods use File | Settings | File Templates.
+  public boolean waitForElementPresent(String uid, int timeout, int step) {
+    return getDelegate().waitForElementPresent(uid, timeout, step);
   }
 
-  def boolean waitForCondition(String script, int timeoutInMilliSecond) {
-    return false;  //To change body of implemented methods use File | Settings | File Templates.
+  public boolean waitForCondition(String script, int timeoutInMilliSecond) {
+    return getDelegate().waitForCondition(script, timeoutInMilliSecond);
   }
 
-  def String getText(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String getText(String uid) {
+    return getDelegate().getText(uid);
   }
 
-  def String getValue(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String getValue(String uid) {
+    return getDelegate().getValue(uid);
   }
 
-  def String getLink(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String getLink(String uid) {
+    return getDelegate().getLink(uid);
   }
 
-  def String getImageSource(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String getImageSource(String uid) {
+    return getDelegate().getImageSource(uid);
   }
 
-  def String getImageAlt(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String getImageAlt(String uid) {
+    return  getDelegate().getImageAlt(uid);
   }
 
-  def String getImageTitle(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String getImageTitle(String uid) {
+    return getDelegate().getImageTitle(uid);
   }
 
-  def void submit(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void submit(String uid) {
+    getDelegate().submit(uid);
   }
 
-  def boolean isEditable(String uid) {
-    return false;  //To change body of implemented methods use File | Settings | File Templates.
+  public boolean isEditable(String uid) {
+    return getDelegate().isEditable(uid);
   }
 
-  def String getEval(String script) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String getEval(String script) {
+    return getDelegate().getEval(script);
   }
 
-  def void mouseOver(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void mouseOver(String uid) {
+    getDelegate().mouseOver(uid);
   }
 
-  def void mouseOut(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void mouseOut(String uid) {
+    getDelegate().mouseOut(uid)
   }
 
-  def void dragAndDrop(String uid, String movementsString) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void dragAndDrop(String uid, String movementsString) {
+    getDelegate().dragAndDrop(uid, movementsString);
   }
 
-  def void dragAndDropTo(String sourceUid, String targetUid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void dragAndDropTo(String sourceUid, String targetUid) {
+    getDelegate().dragAndDropTo(sourceUid, targetUid);
   }
 
-  def void mouseDown(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void mouseDown(String uid) {
+    getDelegate().mouseDown(uid);
   }
 
-  def void mouseDownRight(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void mouseDownRight(String uid) {
+    getDelegate().mouseDownRight(uid);
   }
 
-  def void mouseDownAt(String uid, String coordinate) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void mouseDownAt(String uid, String coordinate) {
+    getDelegate().mouseDownAt(uid, coordinate);
   }
 
-  def void mouseDownRightAt(String uid, String coordinate) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void mouseDownRightAt(String uid, String coordinate) {
+    getDelegate().mouseDownRightAt(uid, coordinate);
   }
 
-  def void mouseUp(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void mouseUp(String uid) {
+    getDelegate().mouseUp(uid);
   }
 
-  def void mouseUpRight(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void mouseUpRight(String uid) {
+    getDelegate().mouseUpRight(uid);
   }
 
-  def void mouseUpRightAt(String uid, String coordinate) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void mouseUpRightAt(String uid, String coordinate) {
+    getDelegate().mouseUpRightAt(uid, coordinate);
   }
 
-  def void mouseMove(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void mouseMove(String uid) {
+    getDelegate().mouseMove(uid);
   }
 
-  def void mouseMoveAt(String uid, String coordinate) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void mouseMoveAt(String uid, String coordinate) {
+    getDelegate().mouseMoveAt(uid, coordinate);
   }
 
-  def Number getXpathCount(String xpath) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public Number getXpathCount(String xpath) {
+    return getDelegate().getXpathCount(xpath);
   }
 
-  def String captureNetworkTraffic(String type) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String captureNetworkTraffic(String type) {
+    return getDelegate().captureNetworkTraffic(type);
   }
 
-  def void addCustomRequestHeader(String key, String value) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void addCustomRequestHeader(String key, String value) {
+    getDelegate().addCustomRequestHeader(key, value);
   }
 
-  def Number getCssSelectorCount(String cssSelector) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public Number getCssSelectorCount(String cssSelector) {
+    return getDelegate().getCssSelectorCount(cssSelector);
   }
 
-  def Number getLocatorCount(String locator) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public Number getLocatorCount(String locator) {
+    return getDelegate().getLocatorCount(locator);
   }
 
-  def String getXPath(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String getXPath(String uid) {
+    return getDelegate().getXPath(uid);
   }
 
-  def String getSelector(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String getSelector(String uid) {
+    return getDelegate().getSelector(uid);
   }
 
-  def String getLocator(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String getLocator(String uid) {
+    return getDelegate().getLocator(uid);
   }
 
-  def String[] getCSS(String uid, String cssName) {
-    return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
+  public String[] getCSS(String uid, String cssName) {
+    return getDelegate().getCSS(uid, cssName);
   }
 
-  def String[] getAllTableCellText(String uid) {
-    return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
+  public String[] getAllTableCellText(String uid) {
+    return getDelegate().getAllTableCellText(uid);
   }
 
-  def String[] getAllTableCellTextForTbody(String uid, int index) {
-    return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
+  public String[] getAllTableCellTextForTbody(String uid, int index) {
+    return getDelegate().getAllTableCellTextForTbody(uid, index);
   }
 
-  def int getTableHeaderColumnNumByXPath(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public int getTableHeaderColumnNumByXPath(String uid) {
+    return  getDelegate().getTableHeaderColumnNumByXPath(uid);
   }
 
-  def int getTableFootColumnNumByXPath(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public int getTableFootColumnNumByXPath(String uid) {
+    return getDelegate().getTableFootColumnNumByXPath(uid);
   }
 
-  def int getTableMaxRowNumByXPath(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public int getTableMaxRowNumByXPath(String uid) {
+    return getDelegate().getTableMaxRowNumByXPath(uid);
   }
 
-  def int getTableMaxColumnNumByXPath(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public int getTableMaxColumnNumByXPath(String uid) {
+    return getDelegate().getTableMaxColumnNumByXPath(uid);
   }
 
-  def int getTableMaxRowNumForTbodyByXPath(String uid, int ntbody) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public int getTableMaxRowNumForTbodyByXPath(String uid, int ntbody) {
+    return getDelegate().getTableMaxRowNumForTbodyByXPath(uid, ntbody);
   }
 
-  def int getTableMaxColumnNumForTbodyByXPath(String uid, int ntbody) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public int getTableMaxColumnNumForTbodyByXPath(String uid, int ntbody) {
+    return getDelegate().getTableMaxColumnNumForTbodyByXPath(uid, ntbody);
   }
 
-  def int getTableMaxTbodyNumByXPath(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public int getTableMaxTbodyNumByXPath(String uid) {
+    return getDelegate().getTableMaxTbodyNumByXPath(uid);
   }
 
-  def int getTableHeaderColumnNumBySelector(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public int getTableHeaderColumnNumBySelector(String uid) {
+    return getDelegate().getTableHeaderColumnNumBySelector(uid);
   }
 
-  def int getTableFootColumnNumBySelector(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public int getTableFootColumnNumBySelector(String uid) {
+    return getDelegate().getTableFootColumnNumBySelector(uid);
   }
 
-  def int getTableMaxRowNumBySelector(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public int getTableMaxRowNumBySelector(String uid) {
+    return getDelegate().getTableMaxRowNumBySelector(uid);
   }
 
-  def int getTableMaxColumnNumBySelector(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public int getTableMaxColumnNumBySelector(String uid) {
+    return getDelegate().getTableMaxColumnNumBySelector(uid);
   }
 
-  def int getTableMaxRowNumForTbodyBySelector(String uid, int ntbody) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public int getTableMaxRowNumForTbodyBySelector(String uid, int ntbody) {
+    return  getDelegate().getTableMaxRowNumForTbodyBySelector(uid, ntbody);
   }
 
-  def int getTableMaxColumnNumForTbodyBySelector(String uid, int ntbody) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public int getTableMaxColumnNumForTbodyBySelector(String uid, int ntbody) {
+    return  getDelegate().getTableMaxColumnNumForTbodyBySelector(uid, ntbody);
   }
 
-  def int getTableMaxTbodyNumBySelector(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public int getTableMaxTbodyNumBySelector(String uid) {
+    return getDelegate().getTableMaxTbodyNumBySelector(uid);
   }
 
-  def int getTeTableHeaderColumnNum(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public int getTeTableHeaderColumnNum(String uid) {
+    return getDelegate().getTeTableHeaderColumnNum(uid);
   }
 
-  def int getTableHeaderColumnNum(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public int getTableHeaderColumnNum(String uid) {
+    return getDelegate().getTableHeaderColumnNum(uid);
   }
 
-  def int getTeTableFootColumnNum(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public int getTeTableFootColumnNum(String uid) {
+    return getDelegate().getTeTableFootColumnNum(uid);
   }
 
-  def int getTableFootColumnNum(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public int getTableFootColumnNum(String uid) {
+    return  getDelegate().getTableFootColumnNum(uid);
   }
 
-  def int getTeTableRowNum(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public int getTeTableRowNum(String uid) {
+    return getDelegate().getTeTableRowNum(uid);
   }
 
-  def int getTableMaxRowNum(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public int getTableMaxRowNum(String uid) {
+    return getDelegate().getTableMaxRowNum(uid);  
   }
 
-  def int getTeTableColumnNum(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public int getTeTableColumnNum(String uid) {
+    return getDelegate().getTeTableColumnNum(uid);
   }
 
-  def int getTableMaxColumnNum(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public int getTableMaxColumnNum(String uid) {
+    return getDelegate().getTableMaxColumnNum(uid);
   }
 
-  def int getTeTableRowNumForTbody(String uid, int ntbody) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public int getTeTableRowNumForTbody(String uid, int ntbody) {
+    return getDelegate().getTeTableRowNumForTbody(uid, ntbody);
   }
 
-  def int getTableMaxRowNumForTbody(String uid, int ntbody) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public int getTableMaxRowNumForTbody(String uid, int ntbody) {
+    return getDelegate().getTableMaxRowNumForTbody(uid, ntbody);
   }
 
-  def int getTeTableColumnNumForTbody(String uid, int ntbody) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public int getTeTableColumnNumForTbody(String uid, int ntbody) {
+    return getDelegate().getTeTableColumnNumForTbody(uid, ntbody);
   }
 
-  def int getTableMaxColumnNumForTbody(String uid, int ntbody) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public int getTableMaxColumnNumForTbody(String uid, int ntbody) {
+    return getDelegate().getTableMaxColumnNumForTbody(uid, ntbody);
   }
 
-  def int getTeTableTbodyNum(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public int getTeTableTbodyNum(String uid) {
+    return getDelegate().getTeTableTbodyNum(uid);
   }
 
-  def int getTableMaxTbodyNum(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public int getTableMaxTbodyNum(String uid) {
+    return getDelegate().getTableMaxTbodyNum(uid);
   }
 
-  def int getRepeatNumByXPath(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public int getRepeatNumByXPath(String uid) {
+    return getDelegate().getRepeatNumByXPath(uid);
   }
 
-  def int getRepeatNumByCssSelector(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public int getRepeatNumByCssSelector(String uid) {
+    return getDelegate().getRepeatNumByCssSelector(uid);
   }
 
-  def int getTeRepeatNum(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public int getTeRepeatNum(String uid) {
+    return  getDelegate().getTeRepeatNum(uid);
   }
 
-  def int getRepeatNum(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public int getRepeatNum(String uid) {
+    return getDelegate().getRepeatNum(uid);
   }
 
-  def int getListSizeByXPath(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public int getListSizeByXPath(String uid) {
+    return getDelegate().getListSizeByXPath(uid);
   }
 
-  def int getListSizeBySelector(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public int getListSizeBySelector(String uid) {
+    return getDelegate().getListSizeBySelector(uid);
   }
 
-  def int getTeListSize(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public int getTeListSize(String uid) {
+    return  getDelegate().getTeListSize(uid);
   }
 
-  def int getListSize(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public int getListSize(String uid) {
+    return getDelegate().getListSize(uid);
   }
 
-  def boolean isDisabled(String uid) {
-    return false;  //To change body of implemented methods use File | Settings | File Templates.
+  public boolean isDisabled(String uid) {
+    return getDelegate().isDisabled(uid);
   }
 
-  def Object getParentAttribute(String uid, String attribute) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public Object getParentAttribute(String uid, String attribute) {
+    return getDelegate().getParentAttribute(uid, attribute);
   }
 
-  def Object getAttribute(String uid, String attribute) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public Object getAttribute(String uid, String attribute) {
+    return getDelegate().getAttribute(uid, attribute);
   }
 
-  def boolean hasCssClass(String uid, String cssClass) {
-    return false;  //To change body of implemented methods use File | Settings | File Templates.
+  public boolean hasCssClass(String uid, String cssClass) {
+    return getDelegate().hasCssClass(uid, cssClass);
   }
 
-  def void toggle(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void toggle(String uid) {
+    getDelegate().toggle(uid);
   }
 
-  def void show(String uid, int delay) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void show(String uid, int delay) {
+    getDelegate().show(uid, delay);
   }
 
-  def void startShow(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void startShow(String uid) {
+    getDelegate().startShow(uid);
   }
 
-  def void endShow(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void endShow(String uid) {
+    getDelegate().endShow(uid);
   }
 
-  def void dump(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void dump(String uid) {
+    getDelegate().dump(uid);
   }
 
-  def String toString(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String toString(String uid) {
+    return getDelegate().toString(uid);
   }
 
-  def JSONArray toJSONArray(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public JSONArray toJSONArray(String uid) {
+    return getDelegate().toJSONArray(uid);
   }
 
-  def void validate(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void validate(String uid) {
+    getDelegate().validate(uid);
   }
 
-  def UiModuleValidationResponse getUiModuleValidationResult(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public UiModuleValidationResponse getUiModuleValidationResult(String uid) {
+    return getDelegate().getUiModuleValidationResult(uid);
   }
 
-  def DiagnosisResponse getDiagnosisResult(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public DiagnosisResponse getDiagnosisResult(String uid) {
+    return getDelegate().getDiagnosisResult(uid);
   }
 
-  def DiagnosisResponse getDiagnosisResult(String uid, DiagnosisOption options) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public DiagnosisResponse getDiagnosisResult(String uid, DiagnosisOption options) {
+    return getDelegate().getDiagnosisResult(uid, options);
   }
 
-  def void diagnose(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void diagnose(String uid) {
+    getDelegate().diagnose(uid);
   }
 
-  def void diagnose(String uid, DiagnosisOption options) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void diagnose(String uid, DiagnosisOption options) {
+    getDelegate().diagnose(uid, options);
   }
 
-  def String toHTML(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String toHTML(String uid) {
+    return getDelegate().toHTML(uid);
   }
 
-  def String toHTML() {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String toHTML() {
+    return getDelegate().toHTML();
   }
 
-  def List getHTMLSourceResponse(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public List getHTMLSourceResponse(String uid) {
+    return getDelegate().getHTMLSourceResponse(uid);
   }
 
-  def void getHTMLSource(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void getHTMLSource(String uid) {
+    getDelegate().getHTMLSource(uid);
   }
 
-  def String getHtmlSource() {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String getHtmlSource() {
+    return getDelegate().getHtmlSource();
   }
 
-  def String retrieveLastRemoteControlLogs() {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String retrieveLastRemoteControlLogs() {
+    return getDelegate().retrieveLastRemoteControlLogs();
   }
 
-  def void setTimeout(long timeoutInMilliseconds) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void setTimeout(long timeoutInMilliseconds) {
+    getDelegate().setTimeout(timeoutInMilliseconds);
   }
 
-  def boolean isCookiePresent(String name) {
-    return false;  //To change body of implemented methods use File | Settings | File Templates.
+  public boolean isCookiePresent(String name) {
+    return getDelegate().isCookiePresent(name);
   }
 
-  def String getCookie() {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String getCookie() {
+    return getDelegate().getCookie();
   }
 
-  def String getCookieByName(String name) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String getCookieByName(String name) {
+    return getDelegate().getCookieByName(name);
   }
 
-  def void createCookie(String nameValuePair, String optionsString) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void createCookie(String nameValuePair, String optionsString) {
+    getDelegate().createCookie(nameValuePair, optionsString)
   }
 
-  def void deleteCookie(String name, String optionsString) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void deleteCookie(String name, String optionsString) {
+    getDelegate().deleteCookie(name, optionsString)
   }
 
-  def void deleteAllVisibleCookies() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void deleteAllVisibleCookies() {
+    getDelegate().deleteAllVisibleCookies();
   }
 
-  def void setCookie(String cookieName, String value, Object options) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void setCookie(String cookieName, String value, Object options) {
+    getDelegate().setCookie(cookieName, value, options);
   }
 
-  def void setCookie(String cookieName, String value) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void setCookie(String cookieName, String value) {
+    getDelegate().setCookie(cookieName, value);
   }
 
-  def UiByTagResponse getUiByTag(String tag, Map filters) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public UiByTagResponse getUiByTag(String tag, Map filters) {
+    return getDelegate().getUiByTag(tag, filters);
   }
 
-  def void removeMarkedUids(String tag) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void removeMarkedUids(String tag) {
+    getDelegate().removeMarkedUids(tag);
   }
 
-  def void reset(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void reset(String uid) {
+    getDelegate().reset(uid);
   }
 
-  def void bugReport() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void bugReport() {
+    getDelegate().bugReport();
   }
 
-  def Object getWidget(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public Object getWidget(String uid) {
+    return getDelegate().getWidget(uid);
   }
 
-  def Object onWidget(String uid, String method, Object[] args) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public Object onWidget(String uid, String method, Object[] args) {
+    return getDelegate().onWidget(uid, method, args);
   }
 
-  def void selectFrame(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void selectFrame(String uid) {
+    getDelegate().selectFrame(uid);
   }
 
-  def void selectFrameByIndex(int index) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void selectFrameByIndex(int index) {
+    getDelegate().selectFrameByIndex(index);
   }
 
-  def void selectParentFrameFrom(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void selectParentFrameFrom(String uid) {
+    getDelegate().selectParentFrameFrom(uid);
   }
 
-  def void selectTopFrameFrom(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void selectTopFrameFrom(String uid) {
+    getDelegate().selectTopFrameFrom(uid);
   }
 
-  def boolean getWhetherThisFrameMatchFrameExpression(String uid, String target) {
-    return false;  //To change body of implemented methods use File | Settings | File Templates.
+  public boolean getWhetherThisFrameMatchFrameExpression(String uid, String target) {
+    return getDelegate().getWhetherThisFrameMatchFrameExpression(uid, target);
   }
 
-  def void waitForFrameToLoad(String uid, int timeout) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void waitForFrameToLoad(String uid, int timeout) {
+    getDelegate().waitForFrameToLoad(uid, timeout);
   }
 
-  def void openWindow(String uid, String url) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void openWindow(String uid, String url) {
+    getDelegate().openWindow(uid, url);
   }
 
-  def void selectWindow(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void selectWindow(String uid) {
+    getDelegate().selectWindow(uid);
   }
 
-  def void closeWindow(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void closeWindow(String uid) {
+    getDelegate().closeWindow(uid);
   }
 
-  def void selectMainWindow() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void selectMainWindow() {
+    getDelegate().selectMainWindow();
   }
 
-  def void selectParentWindow() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void selectParentWindow() {
+    getDelegate().selectParentWindow();
   }
 
-  def void waitForPopUp(String uid, int timeout) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void waitForPopUp(String uid, int timeout) {
+    getDelegate().waitForPopUp(uid, timeout);
   }
 
-  def boolean getWhetherThisWindowMatchWindowExpression(String uid, String target) {
-    return false;  //To change body of implemented methods use File | Settings | File Templates.
+  public boolean getWhetherThisWindowMatchWindowExpression(String uid, String target) {
+    return getDelegate().getWhetherThisWindowMatchWindowExpression(uid, target);
   }
 
-  def void windowFocus() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void windowFocus() {
+    getDelegate().windowFocus();
   }
 
-  def void windowMaximize() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void windowMaximize() {
+    getDelegate().windowMaximize();
   }
 
-  def String getBodyText() {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String getBodyText() {
+    return getDelegate().getBodyText();
   }
 
-  def boolean isTextPresent(String pattern) {
-    return false;  //To change body of implemented methods use File | Settings | File Templates.
+  public boolean isTextPresent(String pattern) {
+    return getDelegate().isTextPresent(pattern);
   }
 
-  def String getExpression(String expression) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String getExpression(String expression) {
+    return getDelegate().getExpression(expression);
   }
 
-  def void runScript(String script) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void runScript(String script) {
+    getDelegate().runScript(script);
   }
 
-  def void captureScreenshot(String filename) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void captureScreenshot(String filename) {
+    getDelegate().captureScreenshot(filename);
   }
 
-  def void captureEntirePageScreenshot(String filename, String kwargs) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void captureEntirePageScreenshot(String filename, String kwargs) {
+    getDelegate().captureEntirePageScreenshot(filename, kwargs);
   }
 
-  def String captureScreenshotToString() {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String captureScreenshotToString() {
+    return getDelegate().captureScreenshotToString();
   }
 
-  def String captureEntirePageScreenshotToString(String kwargs) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String captureEntirePageScreenshotToString(String kwargs) {
+    return getDelegate().captureEntirePageScreenshotToString(kwargs);
   }
 
-  def void chooseCancelOnNextConfirmation() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void chooseCancelOnNextConfirmation() {
+    getDelegate().chooseCancelOnNextConfirmation();
   }
 
-  def void chooseOkOnNextConfirmation() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void chooseOkOnNextConfirmation() {
+    getDelegate().chooseOkOnNextConfirmation();
   }
 
-  def void answerOnNextPrompt(String answer) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void answerOnNextPrompt(String answer) {
+    getDelegate().answerOnNextPrompt(answer)
   }
 
-  def void goBack() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void goBack() {
+    getDelegate().goBack();
   }
 
-  def void refresh() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void refresh() {
+    getDelegate().refresh();
   }
 
-  def boolean isAlertPresent() {
-    return false;  //To change body of implemented methods use File | Settings | File Templates.
+  public boolean isAlertPresent() {
+    return getDelegate().isAlertPresent();
   }
 
-  def boolean isPromptPresent() {
-    return false;  //To change body of implemented methods use File | Settings | File Templates.
+  public boolean isPromptPresent() {
+    return getDelegate().isPromptPresent();
   }
 
-  def boolean isConfirmationPresent() {
-    return false;  //To change body of implemented methods use File | Settings | File Templates.
+  public boolean isConfirmationPresent() {
+    return getDelegate().isConfirmationPresent();
   }
 
-  def String getAlert() {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String getAlert() {
+    return getDelegate().getAlert();
   }
 
-  def String getConfirmation() {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String getConfirmation() {
+    return getDelegate().getConfirmation();
   }
 
-  def String getPrompt() {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String getPrompt() {
+    return getDelegate().getPrompt();
   }
 
-  def String getLocation() {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String getLocation() {
+    return getDelegate().getLocation();
   }
 
-  def String getTitle() {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String getTitle() {
+    return getDelegate().getTitle();
   }
 
-  def String[] getAllButtons() {
-    return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
+  public String[] getAllButtons() {
+    return getDelegate().getAllButtons();
   }
 
-  def String[] getAllLinks() {
-    return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
+  public String[] getAllLinks() {
+    return getDelegate().getAllLinks();
   }
 
-  def String[] getAllFields() {
-    return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
+  public String[] getAllFields() {
+    return getDelegate().getAllFields();
   }
 
-  def String[] getAllWindowIds() {
-    return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
+  public String[] getAllWindowIds() {
+    return getDelegate().getAllWindowIds();
   }
 
-  def String[] getAllWindowNames() {
-    return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
+  public String[] getAllWindowNames() {
+    return getDelegate().getAllWindowNames();
   }
 
-  def String[] getAllWindowTitles() {
-    return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
+  public String[] getAllWindowTitles() {
+    return getDelegate().getAllWindowTitles();
   }
 
-  def void waitForPageToLoad(int timeout) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void waitForPageToLoad(int timeout) {
+    getDelegate().waitForPageToLoad(timeout)
   }
 
-  def String getXMLDocument() {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String getXMLDocument() {
+    return getDelegate().getXMLDocument();
   }
 
-  def void setMaxMacroCmd(int max) {
-    
+  public void setMaxMacroCmd(int max) {
+    getDelegate().setMaxMacroCmd(max);
   }
 }

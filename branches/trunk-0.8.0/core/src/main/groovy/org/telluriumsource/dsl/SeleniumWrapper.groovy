@@ -130,7 +130,7 @@ class SeleniumWrapper extends BaseDslContext {
     }
 
     UiObject walkToWithException(WorkflowContext context, String uid) {
-      env.lastDslContext = this;
+//      env.lastDslContext = this;
       UiObject obj = ui.walkTo(context, uid);
       if (obj != null) {
         context.attachMetaCmd(uid, obj.amICacheable(), true);
@@ -2059,7 +2059,7 @@ class SeleniumWrapper extends BaseDslContext {
 
     //flag to decide whether we should cache jQuery selector
     protected boolean exploreUiModuleCache() {
-      return env.isUseCache()
+      return env.isUseNewEngine();
     }
 
     public void helpTest() {
@@ -2102,11 +2102,13 @@ class SeleniumWrapper extends BaseDslContext {
       extension.cleanCache(context)
     }
 
+/*
     public boolean getCacheState() {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
 
       return extension.getCacheState(context)
     }
+*/
 
     public void setCacheMaxSize(int size) {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())

@@ -49,9 +49,9 @@ class TelluriumApi extends BaseDslContext {
     //To change body of implemented methods use File | Settings | File Templates.
   }
 
-  def boolean getCacheState() {
-    return false;  //To change body of implemented methods use File | Settings | File Templates.
-  }
+/*  def boolean getCacheState() {
+    return false;  
+  }*/
 
   def void setCacheMaxSize(int size) {
     //To change body of implemented methods use File | Settings | File Templates.
