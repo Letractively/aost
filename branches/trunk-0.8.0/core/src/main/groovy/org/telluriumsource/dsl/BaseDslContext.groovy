@@ -5,6 +5,11 @@ import org.telluriumsource.crosscut.i18n.IResourceBundle;
 
 import org.telluriumsource.entity.UiModuleValidationResponse
 import org.stringtree.json.JSONReader
+import org.telluriumsource.framework.RuntimeEnvironment
+import org.telluriumsource.component.custom.Extension
+import org.telluriumsource.entity.EngineState
+import org.telluriumsource.component.data.Accessor
+import org.telluriumsource.component.event.EventHandler
 
 /**
  *
@@ -15,13 +20,17 @@ import org.stringtree.json.JSONReader
  */
 abstract class BaseDslContext implements DslContract {
 
-  protected IResourceBundle i18nBundle
+  protected IResourceBundle i18nBundle;
 
-  protected UiDslParser ui
+  protected UiDslParser ui;
 
-//  public BaseDslContext(){
-//	  i18nBundle = Environment.instance.myResourceBundle()
-//  }
+  protected RuntimeEnvironment env;
+
+  protected EventHandler eventHandler
+
+  protected Accessor accessor
+
+  protected Extension extension;
 
   protected geti18nBundle() {
     return this.i18nBundle;
@@ -48,5 +57,32 @@ abstract class BaseDslContext implements DslContract {
 //  protected UiModuleValidationResponse parseUseUiModuleResponse(Map result) {
   protected Map parseUseUiModuleResponse(Map result) {
     return result;
+  }
+
+  protected String getUiModuleId(String uid) {
+    UiID uiid = UiID.convertToUiID(uid);
+    return uiid.pop();
+  }
+
+  public EngineState getEngineState() {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    Map map = extension.getEngineState(context);
+
+    EngineState state = new EngineState();
+    state.parseJson(map);
+
+    return state;
+  }
+
+  public void helpTest() {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+
+    extension.helpTest(context);
+  }
+
+  public void noTest() {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+
+    extension.noTest(context);
   }
 }

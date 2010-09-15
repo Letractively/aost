@@ -104,17 +104,20 @@ public class Assembler {
         widgetConfigurator.setProperty("i18nBundle", i18nBundle);
         widgetConfigurator.setProperty("registry", uiObjectBuilderRegistry);
 
+        wrapper.setProperty("ui", parser);
+        wrapper.setProperty("i18nBundle", i18nBundle);
         wrapper.setProperty("optimizer", optimizer);
         wrapper.setProperty("locatorProcessor", locatorProcessor);
         wrapper.setProperty("env", env);
         wrapper.setProperty("eventHandler", eventHandler);
         wrapper.setProperty("accessor", accessor);
         wrapper.setProperty("extension", extension);
-        wrapper.setProperty("ui", parser);
-        wrapper.setProperty("i18nBundle", i18nBundle);
-        
+
         api.setProperty("ui", parser);
         api.setProperty("i18nBundle", i18nBundle);
+        api.setProperty("eventHandler", eventHandler);
+        api.setProperty("accessor", accessor);
+        api.setProperty("extension", extension);
 
         bundleProcessor.setProperty("i18nBundle", i18nBundle);
         bundleProcessor.setProperty("dispatcher", dispatcher);

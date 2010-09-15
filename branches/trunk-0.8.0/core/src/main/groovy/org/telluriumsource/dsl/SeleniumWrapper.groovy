@@ -28,6 +28,7 @@ import org.telluriumsource.util.Helper
 import org.telluriumsource.component.dispatch.Dispatcher
 import org.telluriumsource.ui.locator.JQueryProcessor
 import org.telluriumsource.ui.locator.XPathProcessor
+import org.telluriumsource.exception.NotMeaningfulMethodException
 
 /**
  * 
@@ -52,14 +53,6 @@ class SeleniumWrapper extends BaseDslContext {
   protected JQueryOptimizer optimizer
 
   protected LocatorProcessor locatorProcessor
-
-  protected RuntimeEnvironment env
-
-  protected EventHandler eventHandler
-
-  protected Accessor accessor
-
-  protected Extension extension
 
 //  abstract protected String locatorMapping(WorkflowContext context, loc)
 
@@ -122,11 +115,6 @@ class SeleniumWrapper extends BaseDslContext {
       def obj = ui.walkTo(context, uid)
 
       return obj
-    }
-
-    protected String getUiModuleId(String uid){
-      UiID uiid = UiID.convertToUiID(uid);
-      return uiid.pop();
     }
 
     UiObject walkToWithException(WorkflowContext context, String uid) {
@@ -2041,17 +2029,6 @@ class SeleniumWrapper extends BaseDslContext {
         return name
     }
 
-
-    public EngineState getEngineState(){
-      WorkflowContext context = WorkflowContext.getDefaultContext();
-//    String out = extension.getEngineState(context);
-//    Map map = parseSeleniumJSONReturnValue(out);
-      Map map = extension.getEngineState(context);
-      EngineState state = new EngineState();
-      state.parseJson(map);
-
-      return state;
-    }
     //flag to decide whether we should use jQuery Selector
     protected boolean exploreCssSelector() {
       return env.isUseCssSelector();
@@ -2062,30 +2039,12 @@ class SeleniumWrapper extends BaseDslContext {
       return env.isUseNewEngine();
     }
 
-    public void helpTest() {
-      WorkflowContext context = WorkflowContext.getDefaultContext();
-
-      extension.helpTest(context);
-    }
-
-    public void noTest() {
-      WorkflowContext context = WorkflowContext.getDefaultContext();
-
-      extension.noTest(context);
-    }
-
     public void enableClosestMatch(){
-      env.setUseClosestMatch(true);
-      WorkflowContext context = WorkflowContext.getDefaultContext();
-
-      extension.useClosestMatch(context, true);
+      throw new NotMeaningfulMethodException(i18nBundle.getMessage("SeleniumWrapper.NotMeaningfulMethodCall", "enableClosestMatch"));
     }
 
     public void disableClosestMatch(){
-      env.setUseClosestMatch(false);
-      WorkflowContext context = WorkflowContext.getDefaultContext();
-
-      extension.useClosestMatch(context, false)
+      throw new NotMeaningfulMethodException(i18nBundle.getMessage("SeleniumWrapper.NotMeaningfulMethodCall", "disableClosestMatch"));
     }
 
     public void enableCssSelector() {
@@ -2101,14 +2060,6 @@ class SeleniumWrapper extends BaseDslContext {
 
       extension.cleanCache(context)
     }
-
-/*
-    public boolean getCacheState() {
-      WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
-
-      return extension.getCacheState(context)
-    }
-*/
 
     public void setCacheMaxSize(int size) {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
