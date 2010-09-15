@@ -34,8 +34,10 @@ Tellurium.prototype.useTeApi = function(isUse){
     fbLog("before call useTeApi(" + isUse + ")" + this.isUseTeApi, this);
     if (typeof(isUse) == "boolean") {
         this.isUseTeApi = isUse;
+        this.cache.cacheOption = isUse;
     } else {
         this.isUseTeApi = ("true" == isUse || "TRUE" == isUse);
+        this.cache.cacheOption = ("true" == isUse || "TRUE" == isUse);
     }
     fbLog("After call useTeApi(" + isUse + ")" + this.isUseTeApi, this);
 };
