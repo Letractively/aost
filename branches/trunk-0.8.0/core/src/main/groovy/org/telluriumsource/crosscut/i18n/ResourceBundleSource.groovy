@@ -16,7 +16,7 @@ import org.telluriumsource.framework.config.Configurable
  * Date: Sep 23, 2009
  *
  */
-@Singleton
+//@Singleton
 class ResourceBundleSource implements Configurable {
 
 	//define the default locale
