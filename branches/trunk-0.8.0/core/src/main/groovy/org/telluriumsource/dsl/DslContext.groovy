@@ -77,10 +77,6 @@ class DslContext implements DslContract {
     getDelegate().cleanCache();
   }
 
-/*  public boolean getCacheState() {
-    return false; 
-  }*/
-
   public void setCacheMaxSize(int size) {
      getDelegate().setCacheMaxSize(size);
   }
@@ -177,6 +173,10 @@ class DslContext implements DslContract {
     return getDelegate().getMaxMacroCmd();
   }
 
+  public void setMaxMacroCmd(int max) {
+    getDelegate().setMaxMacroCmd(max);
+  }
+
   public void allowNativeXpath(boolean allow) {
      getDelegate().allowNativeXpath(allow);
   }
@@ -209,11 +209,11 @@ class DslContext implements DslContract {
      getDelegate().disableTelluriumEngine();
   }
 
-  public Object customUiCall(String uid, String method, Object[] args) {
+  public def customUiCall(String uid, String method, Object[] args) {
     return getDelegate().customUiCall(uid, method, args);  
   }
 
-  public Object customDirectCall(String method, Object[] args) {
+  public def customDirectCall(String method, Object[] args) {
     return getDelegate().customDirectCall(method, args);
   }
 
@@ -221,7 +221,7 @@ class DslContext implements DslContract {
      getDelegate().triggerEventOn(uid, event);
   }
 
-  public Object getUiElement(String uid) {
+  public def getUiElement(String uid) {
     return getDelegate().getUiElement(uid);  
   }
 
@@ -561,144 +561,37 @@ class DslContext implements DslContract {
     return getDelegate().getAllTableCellTextForTbody(uid, index);
   }
 
-  public int getTableHeaderColumnNumByXPath(String uid) {
-    return  getDelegate().getTableHeaderColumnNumByXPath(uid);
-  }
-
-  public int getTableFootColumnNumByXPath(String uid) {
-    return getDelegate().getTableFootColumnNumByXPath(uid);
-  }
-
-  public int getTableMaxRowNumByXPath(String uid) {
-    return getDelegate().getTableMaxRowNumByXPath(uid);
-  }
-
-  public int getTableMaxColumnNumByXPath(String uid) {
-    return getDelegate().getTableMaxColumnNumByXPath(uid);
-  }
-
-  public int getTableMaxRowNumForTbodyByXPath(String uid, int ntbody) {
-    return getDelegate().getTableMaxRowNumForTbodyByXPath(uid, ntbody);
-  }
-
-  public int getTableMaxColumnNumForTbodyByXPath(String uid, int ntbody) {
-    return getDelegate().getTableMaxColumnNumForTbodyByXPath(uid, ntbody);
-  }
-
-  public int getTableMaxTbodyNumByXPath(String uid) {
-    return getDelegate().getTableMaxTbodyNumByXPath(uid);
-  }
-
-  public int getTableHeaderColumnNumBySelector(String uid) {
-    return getDelegate().getTableHeaderColumnNumBySelector(uid);
-  }
-
-  public int getTableFootColumnNumBySelector(String uid) {
-    return getDelegate().getTableFootColumnNumBySelector(uid);
-  }
-
-  public int getTableMaxRowNumBySelector(String uid) {
-    return getDelegate().getTableMaxRowNumBySelector(uid);
-  }
-
-  public int getTableMaxColumnNumBySelector(String uid) {
-    return getDelegate().getTableMaxColumnNumBySelector(uid);
-  }
-
-  public int getTableMaxRowNumForTbodyBySelector(String uid, int ntbody) {
-    return  getDelegate().getTableMaxRowNumForTbodyBySelector(uid, ntbody);
-  }
-
-  public int getTableMaxColumnNumForTbodyBySelector(String uid, int ntbody) {
-    return  getDelegate().getTableMaxColumnNumForTbodyBySelector(uid, ntbody);
-  }
-
-  public int getTableMaxTbodyNumBySelector(String uid) {
-    return getDelegate().getTableMaxTbodyNumBySelector(uid);
-  }
-
-  public int getTeTableHeaderColumnNum(String uid) {
-    return getDelegate().getTeTableHeaderColumnNum(uid);
-  }
-
   public int getTableHeaderColumnNum(String uid) {
     return getDelegate().getTableHeaderColumnNum(uid);
-  }
-
-  public int getTeTableFootColumnNum(String uid) {
-    return getDelegate().getTeTableFootColumnNum(uid);
   }
 
   public int getTableFootColumnNum(String uid) {
     return  getDelegate().getTableFootColumnNum(uid);
   }
 
-  public int getTeTableRowNum(String uid) {
-    return getDelegate().getTeTableRowNum(uid);
-  }
-
   public int getTableMaxRowNum(String uid) {
     return getDelegate().getTableMaxRowNum(uid);  
-  }
-
-  public int getTeTableColumnNum(String uid) {
-    return getDelegate().getTeTableColumnNum(uid);
   }
 
   public int getTableMaxColumnNum(String uid) {
     return getDelegate().getTableMaxColumnNum(uid);
   }
 
-  public int getTeTableRowNumForTbody(String uid, int ntbody) {
-    return getDelegate().getTeTableRowNumForTbody(uid, ntbody);
-  }
-
   public int getTableMaxRowNumForTbody(String uid, int ntbody) {
     return getDelegate().getTableMaxRowNumForTbody(uid, ntbody);
-  }
-
-  public int getTeTableColumnNumForTbody(String uid, int ntbody) {
-    return getDelegate().getTeTableColumnNumForTbody(uid, ntbody);
   }
 
   public int getTableMaxColumnNumForTbody(String uid, int ntbody) {
     return getDelegate().getTableMaxColumnNumForTbody(uid, ntbody);
   }
 
-  public int getTeTableTbodyNum(String uid) {
-    return getDelegate().getTeTableTbodyNum(uid);
-  }
-
   public int getTableMaxTbodyNum(String uid) {
     return getDelegate().getTableMaxTbodyNum(uid);
   }
 
-  public int getRepeatNumByXPath(String uid) {
-    return getDelegate().getRepeatNumByXPath(uid);
-  }
-
-  public int getRepeatNumByCssSelector(String uid) {
-    return getDelegate().getRepeatNumByCssSelector(uid);
-  }
-
-  public int getTeRepeatNum(String uid) {
-    return  getDelegate().getTeRepeatNum(uid);
-  }
 
   public int getRepeatNum(String uid) {
     return getDelegate().getRepeatNum(uid);
-  }
-
-  public int getListSizeByXPath(String uid) {
-    return getDelegate().getListSizeByXPath(uid);
-  }
-
-  public int getListSizeBySelector(String uid) {
-    return getDelegate().getListSizeBySelector(uid);
-  }
-
-  public int getTeListSize(String uid) {
-    return  getDelegate().getTeListSize(uid);
   }
 
   public int getListSize(String uid) {
@@ -709,11 +602,11 @@ class DslContext implements DslContract {
     return getDelegate().isDisabled(uid);
   }
 
-  public Object getParentAttribute(String uid, String attribute) {
+  public def getParentAttribute(String uid, String attribute) {
     return getDelegate().getParentAttribute(uid, attribute);
   }
 
-  public Object getAttribute(String uid, String attribute) {
+  public def getAttribute(String uid, String attribute) {
     return getDelegate().getAttribute(uid, attribute);
   }
 
@@ -1033,7 +926,4 @@ class DslContext implements DslContract {
     return getDelegate().getXMLDocument();
   }
 
-  public void setMaxMacroCmd(int max) {
-    getDelegate().setMaxMacroCmd(max);
-  }
 }

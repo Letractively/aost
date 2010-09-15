@@ -589,6 +589,7 @@ class WidgetDslContext extends BaseDslContext {
   def String[] getAllTableCellTextForTbody(String uid, int index) {
     return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
   }
+/*
 
   def int getTableHeaderColumnNumByXPath(String uid) {
     return 0;  //To change body of implemented methods use File | Settings | File Templates.
@@ -649,59 +650,67 @@ class WidgetDslContext extends BaseDslContext {
   def int getTeTableHeaderColumnNum(String uid) {
     return 0;  //To change body of implemented methods use File | Settings | File Templates.
   }
+*/
 
   def int getTableHeaderColumnNum(String uid) {
     return 0;  //To change body of implemented methods use File | Settings | File Templates.
   }
 
+/*
   def int getTeTableFootColumnNum(String uid) {
     return 0;  //To change body of implemented methods use File | Settings | File Templates.
   }
+*/
 
   def int getTableFootColumnNum(String uid) {
     return 0;  //To change body of implemented methods use File | Settings | File Templates.
   }
 
-  def int getTeTableRowNum(String uid) {
+/*  def int getTeTableRowNum(String uid) {
     return 0;  //To change body of implemented methods use File | Settings | File Templates.
-  }
+  }*/
 
   def int getTableMaxRowNum(String uid) {
     return 0;  //To change body of implemented methods use File | Settings | File Templates.
   }
 
+/*
   def int getTeTableColumnNum(String uid) {
     return 0;  //To change body of implemented methods use File | Settings | File Templates.
   }
+*/
 
   def int getTableMaxColumnNum(String uid) {
     return 0;  //To change body of implemented methods use File | Settings | File Templates.
   }
 
+/*
   def int getTeTableRowNumForTbody(String uid, int ntbody) {
     return 0;  //To change body of implemented methods use File | Settings | File Templates.
   }
+*/
 
   def int getTableMaxRowNumForTbody(String uid, int ntbody) {
     return 0;  //To change body of implemented methods use File | Settings | File Templates.
   }
 
-  def int getTeTableColumnNumForTbody(String uid, int ntbody) {
+/*  def int getTeTableColumnNumForTbody(String uid, int ntbody) {
     return 0;  //To change body of implemented methods use File | Settings | File Templates.
-  }
+  }*/
 
   def int getTableMaxColumnNumForTbody(String uid, int ntbody) {
     return 0;  //To change body of implemented methods use File | Settings | File Templates.
   }
 
-  def int getTeTableTbodyNum(String uid) {
+/*  def int getTeTableTbodyNum(String uid) {
     return 0;  //To change body of implemented methods use File | Settings | File Templates.
-  }
+  }*/
 
   def int getTableMaxTbodyNum(String uid) {
     return 0;  //To change body of implemented methods use File | Settings | File Templates.
   }
 
+/*
   def int getRepeatNumByXPath(String uid) {
     return 0;  //To change body of implemented methods use File | Settings | File Templates.
   }
@@ -713,11 +722,13 @@ class WidgetDslContext extends BaseDslContext {
   def int getTeRepeatNum(String uid) {
     return 0;  //To change body of implemented methods use File | Settings | File Templates.
   }
+*/
 
   def int getRepeatNum(String uid) {
     return 0;  //To change body of implemented methods use File | Settings | File Templates.
   }
 
+/*
   def int getListSizeByXPath(String uid) {
     return 0;  //To change body of implemented methods use File | Settings | File Templates.
   }
@@ -729,6 +740,7 @@ class WidgetDslContext extends BaseDslContext {
   def int getTeListSize(String uid) {
     return 0;  //To change body of implemented methods use File | Settings | File Templates.
   }
+*/
 
   def int getListSize(String uid) {
     return 0;  //To change body of implemented methods use File | Settings | File Templates.
@@ -738,11 +750,11 @@ class WidgetDslContext extends BaseDslContext {
     return false;  //To change body of implemented methods use File | Settings | File Templates.
   }
 
-  def Object getParentAttribute(String uid, String attribute) {
+  def getParentAttribute(String uid, String attribute) {
     return null;  //To change body of implemented methods use File | Settings | File Templates.
   }
 
-  def Object getAttribute(String uid, String attribute) {
+  def getAttribute(String uid, String attribute) {
     return null;  //To change body of implemented methods use File | Settings | File Templates.
   }
 
