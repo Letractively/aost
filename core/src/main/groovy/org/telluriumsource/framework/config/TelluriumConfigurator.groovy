@@ -355,13 +355,14 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
 
   public RuntimeEnvironment createRuntimeEnvironment(){
     RuntimeEnvironment env = new RuntimeEnvironment();
-    env.setProperty("serverHost", conf.tellurium.connector.serverHost);
-    env.setProperty("serverPort", Integer.parseInt(conf.tellurium.connector.port));
-    env.setProperty("browser", conf.tellurium.connector.browser);
-    env.setProperty("useTrace", conf.tellurium.test.execution.trace);
-    env.setProperty("useBundle", conf.tellurium.bundle.useMacroCommand);
-    env.setProperty("useScreenshot", conf.tellurium.test.exception.captureScreenshot);
-    env.setProperty("maxMacroCmd", conf.tellurium.bundle.maxMacroCmd);
+    env.setServerHost(conf.tellurium.connector.serverHost);
+    env.setServerPort(Integer.parseInt(conf.tellurium.connector.port));
+    env.setBaseUrl(conf.tellurium.connector.baseUrl);
+    env.setBrowser(conf.tellurium.connector.browser);
+    env.setUseTrace(conf.tellurium.test.execution.trace);
+    env.setUseBundle(conf.tellurium.bundle.useMacroCommand);
+    env.setUseScreenshot(conf.tellurium.test.exception.captureScreenshot);
+    env.setMaxMacroCmd(conf.tellurium.bundle.maxMacroCmd);
     env.useLocale(conf.tellurium.i18n.locale);
     
     return env;
