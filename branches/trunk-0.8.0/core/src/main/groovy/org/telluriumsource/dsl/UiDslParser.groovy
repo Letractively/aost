@@ -22,8 +22,9 @@ class UiDslParser extends BuilderSupport{
        def UiObjectBuilderRegistry builderRegistry = new UiObjectBuilderRegistry()
 
        public UiDslParser(){
- 		  i18nBundle = Environment.instance.myResourceBundle()
+// 		  i18nBundle = Environment.instance.myResourceBundle()
        }
+  
        protected String nestObjectName(UiObject obj){
           String id
           if(obj.parent != null && obj.parent instanceof Table){
