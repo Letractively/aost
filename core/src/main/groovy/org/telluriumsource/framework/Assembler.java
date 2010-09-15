@@ -109,7 +109,7 @@ public class Assembler {
         wrapper.setProperty("accessor", accessor);
         wrapper.setProperty("extension", extension);
         wrapper.setProperty("uiParser", parser);
-        wrapper.setProperty("i18nBundle", resourceBundle);
+        wrapper.setProperty("i18nBundle", i18nBundle);
         
         api.setProperty("uiParser", parser);
         api.setProperty("i18nBundle", i18nBundle);

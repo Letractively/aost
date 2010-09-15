@@ -44,7 +44,7 @@ public class TelluriumFramework {
 
   public Session createNewSession(String id, RuntimeEnvironment env){
     String name = (id == null ? "" : id);
-    name = name + BaseUtil.toBase62(System.currentTimeMillis());
+    name = name + "@" + BaseUtil.toBase62(System.currentTimeMillis());
     Lookup lookup = new DefaultLookup();
     Assembler assembler = new Assembler(lookup, env, telluriumConfigurator);
     assembler.assemble();
