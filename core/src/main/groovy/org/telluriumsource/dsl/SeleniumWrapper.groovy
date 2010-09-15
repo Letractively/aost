@@ -500,7 +500,7 @@ class SeleniumWrapper extends BaseDslContext {
 
     boolean isElementPresent(String uid) {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
-      if(this.exploreUiModuleCache() && env.isUseTelluriumApi()){
+      if(this.exploreUiModuleCache() && env.isUseNewEngine()){
         walkToWithException(context, uid);
 //      return extension.isElementPresent(context, uid);
         return accessor.isElementPresent(context, uid);
@@ -2303,12 +2303,20 @@ class SeleniumWrapper extends BaseDslContext {
     }
 
     void enableTelluriumEngine(){
-      this.enableCache();
+      env.setUseNewEngine(true);
+      WorkflowContext context = WorkflowContext.getDefaultContext();
+
+      extension.useTeApi(context, true);
       this.enableMacroCmd();
     }
 
     void disableTelluriumEngine(){
-      this.disableCache();
+//      this.disableCache();
+      env.setUseNewEngine(false);
+      WorkflowContext context = WorkflowContext.getDefaultContext();
+
+      extension.useTeApi(context, false);
+      
       this.disableMacroCmd();
     }
 

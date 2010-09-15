@@ -99,6 +99,8 @@ public class Assembler {
         
         lookup.register("i18nBundle", i18nBundle);
 
+        parser.setProperty("i18nBundle", i18nBundle);
+        
         widgetConfigurator.setProperty("i18nBundle", i18nBundle);
         widgetConfigurator.setProperty("registry", uiObjectBuilderRegistry);
 
@@ -108,10 +110,10 @@ public class Assembler {
         wrapper.setProperty("eventHandler", eventHandler);
         wrapper.setProperty("accessor", accessor);
         wrapper.setProperty("extension", extension);
-        wrapper.setProperty("uiParser", parser);
+        wrapper.setProperty("ui", parser);
         wrapper.setProperty("i18nBundle", i18nBundle);
         
-        api.setProperty("uiParser", parser);
+        api.setProperty("ui", parser);
         api.setProperty("i18nBundle", i18nBundle);
 
         bundleProcessor.setProperty("i18nBundle", i18nBundle);
@@ -132,7 +134,7 @@ public class Assembler {
         dispatcher.setProperty("env", env);
 
         connector.setProperty("sel", customSelenium);
-
+        connector.setProperty("processor", bundleProcessor);
         connector.setProperty("commandProcessor",  customSelenium.getCommandProcessor());
         
         //configure components from Tellurium configuration

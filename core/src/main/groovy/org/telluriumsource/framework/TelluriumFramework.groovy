@@ -36,7 +36,7 @@ public class TelluriumFramework {
 
   private TelluriumConfigurator telluriumConfigurator;
 
-  private boolean runEmbeddedSeleniumServer = true;
+  private boolean runEmbeddedSeleniumServer = false;
 
   private EmbeddedSeleniumServer server;
 

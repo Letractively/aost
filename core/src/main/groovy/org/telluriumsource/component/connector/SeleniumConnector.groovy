@@ -5,6 +5,7 @@ import org.telluriumsource.framework.config.Configurable
 
 //import com.thoughtworks.selenium.CommandProcessor
 import org.telluriumsource.component.bundle.BundleProcessor
+import org.telluriumsource.framework.SessionManager
 
 /**
  * The connector that ties the Selenium server and Selenium Client together
@@ -38,6 +39,8 @@ class SeleniumConnector implements Configurable {
 
   protected String options = null
 
+  private BundleProcessor processor
+
   public CustomSelenium getSelenium() {
     return sel;
   }
@@ -46,7 +49,8 @@ class SeleniumConnector implements Configurable {
     sel.open(baseURL + url);
 //        sel.cleanCache();
     //connect up cache
-    BundleProcessor processor = BundleProcessor.instance;
+//    BundleProcessor processor = SessionManager.getSession().getLookup().lookById("bundleProcessor");
+//    BundleProcessor processor = BundleProcessor.instance;
     processor.cleanAllCache();
   }
 
@@ -54,7 +58,8 @@ class SeleniumConnector implements Configurable {
     sel.open(url);
 //        sel.cleanCache();
     //connect up cache
-    BundleProcessor processor = BundleProcessor.instance;
+//    BundleProcessor processor = BundleProcessor.instance;
+//    BundleProcessor processor = SessionManager.getSession().getLookup().lookById("bundleProcessor");
     processor.cleanAllCache();
 
   }
