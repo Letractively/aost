@@ -49,10 +49,6 @@ class TelluriumApi extends BaseDslContext {
     //To change body of implemented methods use File | Settings | File Templates.
   }
 
-/*  def boolean getCacheState() {
-    return false;  
-  }*/
-
   def void setCacheMaxSize(int size) {
     //To change body of implemented methods use File | Settings | File Templates.
   }
@@ -533,71 +529,7 @@ class TelluriumApi extends BaseDslContext {
     return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
   }
 
-  def int getTableHeaderColumnNumByXPath(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def int getTableFootColumnNumByXPath(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def int getTableMaxRowNumByXPath(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def int getTableMaxColumnNumByXPath(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def int getTableMaxRowNumForTbodyByXPath(String uid, int ntbody) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def int getTableMaxColumnNumForTbodyByXPath(String uid, int ntbody) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def int getTableMaxTbodyNumByXPath(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def int getTableHeaderColumnNumBySelector(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def int getTableFootColumnNumBySelector(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def int getTableMaxRowNumBySelector(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def int getTableMaxColumnNumBySelector(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def int getTableMaxRowNumForTbodyBySelector(String uid, int ntbody) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def int getTableMaxColumnNumForTbodyBySelector(String uid, int ntbody) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def int getTableMaxTbodyNumBySelector(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def int getTeTableHeaderColumnNum(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
   def int getTableHeaderColumnNum(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def int getTeTableFootColumnNum(String uid) {
     return 0;  //To change body of implemented methods use File | Settings | File Templates.
   }
 
@@ -605,15 +537,7 @@ class TelluriumApi extends BaseDslContext {
     return 0;  //To change body of implemented methods use File | Settings | File Templates.
   }
 
-  def int getTeTableRowNum(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
   def int getTableMaxRowNum(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def int getTeTableColumnNum(String uid) {
     return 0;  //To change body of implemented methods use File | Settings | File Templates.
   }
 
@@ -621,23 +545,11 @@ class TelluriumApi extends BaseDslContext {
     return 0;  //To change body of implemented methods use File | Settings | File Templates.
   }
 
-  def int getTeTableRowNumForTbody(String uid, int ntbody) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
   def int getTableMaxRowNumForTbody(String uid, int ntbody) {
     return 0;  //To change body of implemented methods use File | Settings | File Templates.
   }
 
-  def int getTeTableColumnNumForTbody(String uid, int ntbody) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
   def int getTableMaxColumnNumForTbody(String uid, int ntbody) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def int getTeTableTbodyNum(String uid) {
     return 0;  //To change body of implemented methods use File | Settings | File Templates.
   }
 
@@ -653,23 +565,7 @@ class TelluriumApi extends BaseDslContext {
     return 0;  //To change body of implemented methods use File | Settings | File Templates.
   }
 
-  def int getTeRepeatNum(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
   def int getRepeatNum(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def int getListSizeByXPath(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def int getListSizeBySelector(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def int getTeListSize(String uid) {
     return 0;  //To change body of implemented methods use File | Settings | File Templates.
   }
 

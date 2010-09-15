@@ -33,8 +33,6 @@ public interface DslContract {
 
   void cleanCache();
 
-//  boolean getCacheState();
-
   void setCacheMaxSize(int size);
 
   int getCacheSize();
@@ -279,6 +277,7 @@ public interface DslContract {
   //This only works for jQuery selector and Standard Table
   String[] getAllTableCellTextForTbody(String uid, int index);
 
+/*
   int getTableHeaderColumnNumByXPath(String uid);
 
   int getTableFootColumnNumByXPath(String uid);
@@ -306,49 +305,54 @@ public interface DslContract {
   int getTableMaxColumnNumForTbodyBySelector(String uid, int ntbody);
 
   int getTableMaxTbodyNumBySelector(String uid);
+*/
 
-  int getTeTableHeaderColumnNum(String uid);
+//  int getTeTableHeaderColumnNum(String uid);
 
   int getTableHeaderColumnNum(String uid);
 
-  int getTeTableFootColumnNum(String uid);
+//  int getTeTableFootColumnNum(String uid);
 
   int getTableFootColumnNum(String uid);
 
-  int getTeTableRowNum(String uid);
+//  int getTeTableRowNum(String uid);
 
   int getTableMaxRowNum(String uid);
 
-  int getTeTableColumnNum(String uid);
+//  int getTeTableColumnNum(String uid);
 
   int getTableMaxColumnNum(String uid);
 
-  int getTeTableRowNumForTbody(String uid, int ntbody);
+//  int getTeTableRowNumForTbody(String uid, int ntbody);
 
   int getTableMaxRowNumForTbody(String uid, int ntbody);
 
-  int getTeTableColumnNumForTbody(String uid, int ntbody);
+//  int getTeTableColumnNumForTbody(String uid, int ntbody);
 
   int getTableMaxColumnNumForTbody(String uid, int ntbody);
 
-  int getTeTableTbodyNum(String uid);
+//  int getTeTableTbodyNum(String uid);
 
   int getTableMaxTbodyNum(String uid);
 
+/*
   int getRepeatNumByXPath(String uid);
 
   int getRepeatNumByCssSelector(String uid);
+*/
 
-  int getTeRepeatNum(String uid);
+/*  int getTeRepeatNum(String uid);*/
 
   int getRepeatNum(String uid);
 
+/*
   int getListSizeByXPath(String uid);
 
   //use CSS Selector to optimize the list operations
   int getListSizeBySelector(String uid);
+*/
 
-  int getTeListSize(String uid);
+//  int getTeListSize(String uid);
 
   int getListSize(String uid);
 
