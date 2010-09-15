@@ -66,9 +66,11 @@ public class RuntimeEnvironment implements Cloneable {
 
     public void useLocale(String locale) {
         this.locale = locale;
-        String[] split = locale.split("_");
-        Locale loc = new Locale(split[0], split[1]);
-        this.resourceBundle.updateDefaultLocale(loc);
+        if(this.resourceBundle != null){
+            String[] split = locale.split("_");
+            Locale loc = new Locale(split[0], split[1]);
+            this.resourceBundle.updateDefaultLocale(loc);
+        }
     }
 
     public int getServerPort() {
