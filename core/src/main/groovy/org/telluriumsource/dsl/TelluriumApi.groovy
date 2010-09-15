@@ -1004,4 +1004,8 @@ class TelluriumApi extends BaseDslContext {
   def String getXMLDocument() {
     return null;  //To change body of implemented methods use File | Settings | File Templates.
   }
+
+  def void setMaxMacroCmd(int max) {
+    //To change body of implemented methods use File | Settings | File Templates.
+  }
 }

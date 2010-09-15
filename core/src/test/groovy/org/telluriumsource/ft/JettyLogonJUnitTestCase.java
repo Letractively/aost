@@ -115,7 +115,7 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
         System.out.println("Background color for Form.Username.Input: " + css[0]);
     }
 
-    @Ignore
+/*    @Ignore
     @Test
     public void testCookies(){
         useTelluriumApi(false);
@@ -132,7 +132,7 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
         assertNull(cookie);
         cookie = jlm.getCookieByJQuery("tellurium");
         assertNull(cookie);
-    }
+    }*/
 
     @Test
     public void testLogo(){
@@ -204,8 +204,8 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
     @Test
     public void testShowUi(){
         useEngineLog(true);
-        useTelluriumApi(true);
-        useCache(true);
+//        useTelluriumApi(true);
+//        useCache(true);
 //        jlm.show("Form", 10000);
         jlm.startShow("Form");
         jlm.endShow("Form");
@@ -273,7 +273,7 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
         jlm.typeOnly("Test", "Tellurium");
         jlm.reset("Form");
         useTelluriumEngine(false);
-        useCache(true);
+//        useCache(true);
         jlm.typeOnly("Test", "Tellurium");
         jlm.reset("Form");
     }

@@ -1032,4 +1032,8 @@ class DslContext implements DslContract {
   def String getXMLDocument() {
     return null;  //To change body of implemented methods use File | Settings | File Templates.
   }
+
+  def void setMaxMacroCmd(int max) {
+    
+  }
 }

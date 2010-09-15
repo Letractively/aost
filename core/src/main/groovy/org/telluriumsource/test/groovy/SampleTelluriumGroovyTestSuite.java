@@ -62,11 +62,11 @@ public final class SampleTelluriumGroovyTestSuite extends TestSuite
 
     public static void oneTimeSetUp() {
         tellurium = TelluriumSupport.addSupport();
-        tellurium.start();
+        tellurium.startServer(null);
     }
 
     public static void oneTimeTearDown() {
-        tellurium.stop();
+        tellurium.stopServer();
     }
 
 }

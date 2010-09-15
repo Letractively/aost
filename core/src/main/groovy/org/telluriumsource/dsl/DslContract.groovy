@@ -81,7 +81,7 @@ public interface DslContract {
 
   void disableMacroCmd();
 
-  useMaxMacroCmd(int max);
+  void setMaxMacroCmd(int max);
 
   int getMaxMacroCmd();
 

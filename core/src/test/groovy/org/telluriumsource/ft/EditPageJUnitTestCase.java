@@ -52,8 +52,8 @@ public class EditPageJUnitTestCase extends TelluriumMockJUnitTestCase {
     @Test
     public void testShowUi() {
         useEngineLog(true);
-        useTelluriumApi(true);
-        useCache(true);
+//        useTelluriumApi(true);
+//        useCache(true);
 //        epm.show("Account", 10000);
         epm.startShow("Account");
         epm.endShow("Account");
