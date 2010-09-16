@@ -1,8 +1,5 @@
 package org.telluriumsource.framework
 
-import org.telluriumsource.ui.builder.UiObjectBuilder
-import org.telluriumsource.ui.builder.UiObjectBuilderRegistry
-
 import org.telluriumsource.framework.config.CustomConfig
 import org.telluriumsource.framework.config.TelluriumConfigurator
 
@@ -12,16 +9,8 @@ import org.telluriumsource.server.EmbeddedSeleniumServer
 
 import org.telluriumsource.crosscut.i18n.IResourceBundle
 
-import org.telluriumsource.util.Helper
-import org.telluriumsource.entity.CachePolicy
-import org.telluriumsource.component.bundle.BundleProcessor
-import org.telluriumsource.entity.EngineState;
-
-
 import org.telluriumsource.util.BaseUtil
 import java.lang.reflect.Field
-import org.telluriumsource.dsl.SeleniumWrapper
-import org.telluriumsource.dsl.TelluriumApi
 
 /**
  * Put all initialization and cleanup jobs for the Tellurium framework here
@@ -42,6 +31,7 @@ public class TelluriumFramework {
 
   private boolean isStarted = false;
 
+  private RuntimeEnvironment defaultEnvironment;
 
   public Session createNewSession(String id, RuntimeEnvironment env){
     String name = (id == null ? "" : id);
@@ -119,8 +109,6 @@ public class TelluriumFramework {
     return newEnv;
   }
 
-  private RuntimeEnvironment defaultEnvironment;
-
   public synchronized void start() {
     if (!isStarted) {
       IResourceBundle i18nBundle = new org.telluriumsource.crosscut.i18n.ResourceBundle();
@@ -165,9 +153,6 @@ public class TelluriumFramework {
     telluriumConfigurator.config(server)
 
     server.runSeleniumServer()
-
-//    connector = new SeleniumConnector()
-//    telluriumConfigurator.config(connector)
   }
 
   public void startServer(CustomConfig customConfig) {
@@ -189,20 +174,6 @@ public class TelluriumFramework {
       println i18nBundle.getMessage("TelluriumFramework.OverwriteSeleniumServerSettings")
 
       server.runSeleniumServer()
-
-/*      connector = new SeleniumConnector()
-      telluriumConfigurator.config(connector)
-
-      //overwrite the selenium connector settings with these provided by custom configuration
-      connector.setProperty("browser", customConfig.getBrowser())
-      connector.setProperty("port", customConfig.getPort())
-      if (customConfig.getServerHost() != null) {
-        //only overwrite the server host if it is set
-        connector.setProperty("seleniumServerHost", customConfig.getServerHost())
-      }
-      println i18nBundle.getMessage("TelluriumFramework.OverwriteSeleniumConnectorSettings")
-*/
-
     }
   }
 
