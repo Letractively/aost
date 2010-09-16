@@ -134,155 +134,268 @@ class TelluriumApi extends BaseDslContext {
   }
 
   public void triggerEventOn(String uid, String event) {
-
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    walkToWithException(context, uid);
+    extension.triggerEvent(context, uid, event);
   }
 
-  def void click(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void click(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    walkToWithException(context, uid)?.click() {loc, String[] events ->
+      eventHandler.click(context, uid, events);
+    }
   }
 
-  def void doubleClick(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void doubleClick(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    walkToWithException(context, uid)?.doubleClick() {loc, String[] events ->
+      eventHandler.doubleClick(context, uid, events)
+    }
   }
 
-  def void clickAt(String uid, String coordination) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void clickAt(String uid, String coordination) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    walkToWithException(context, uid)?.clickAt(coordination) {loc, String[] events ->
+      eventHandler.clickAt(context, uid, coordination, events)
+    }
   }
 
-  def void check(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void check(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    walkToWithException(context, uid)?.check() {loc, String[] events ->
+      eventHandler.check(context, uid, events)
+    }
   }
 
-  def void uncheck(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void uncheck(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    walkToWithException(context, uid)?.uncheck() {loc, String[] events ->
+      eventHandler.uncheck(context, uid, events)
+    }
   }
 
-  def void type(String uid, Object input) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void type(String uid, Object input) {
+    String str = (input==null) ? "" : input.toString();
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    walkToWithException(context, uid)?.type(str) {loc, String[] events ->
+      eventHandler.type(context, uid, str, events);
+    }
   }
 
-  def void keyPress(String uid, String key) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void keyPress(String uid, String key) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    walkToWithException(context, uid)?.keyPress(key) {loc ->
+      extension.keyPress(context, uid, key);
+    }
   }
 
-  def void keyDown(String uid, String key) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void keyDown(String uid, String key) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    walkToWithException(context, uid)?.keyDown(key) {loc ->
+      extension.keyDown(context, uid, key)
+    }
   }
 
-  def void keyUp(String uid, String key) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void keyUp(String uid, String key) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    walkToWithException(context, uid)?.keyUp(key) {loc ->
+      extension.keyUp(context, uid, key);
+    }
   }
 
-  def void focus(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void focus(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    walkToWithException(context, uid)?.focus() {loc ->
+      extension.focus(context, uid);
+    }
   }
 
-  def void fireEvent(String uid, String eventName) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void fireEvent(String uid, String eventName) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    walkToWithException(context, uid)?.fireEvent(eventName) {loc ->
+      extension.fireEvent(context, uid, eventName)
+    }
   }
 
-  def void keyType(String uid, Object input) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void keyType(String uid, Object input) {
+    String str = (input == null) ? "" : input.toString();
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    walkToWithException(context, uid)?.keyType(str) {loc, String[] events ->
+      eventHandler.keyType(context, uid, str, events)
+    }
   }
 
-  def void typeAndReturn(String uid, Object input) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void typeAndReturn(String uid, Object input) {
+    String str = (input==null) ? "" : input.toString();
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    walkToWithException(context, uid)?.typeAndReturn(str) {loc, String[] events ->
+      eventHandler.typeAndReturn(context, uid, str, events)
+    }
   }
 
-  def void clearText(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void clearText(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    walkToWithException(context, uid)?.clearText() {loc, String[] events ->
+      eventHandler.clearText(context, uid, events)
+    }
   }
 
-  def void select(String uid, String target) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void select(String uid, String target) {
+    selectByLabel(uid, target);
   }
 
-  def void selectByLabel(String uid, String target) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void selectByLabel(String uid, String target) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    walkToWithException(context, uid)?.selectByLabel(target) {loc, optloc, String[] events ->
+      eventHandler.select(context, uid, optloc, events)
+    }
   }
 
-  def void selectByValue(String uid, String target) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void selectByValue(String uid, String target) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    walkToWithException(context, uid)?.selectByValue(target) {loc, optloc, String[] events ->
+      eventHandler.select(context, uid, optloc, events)
+    }
   }
 
-  def void selectByIndex(String uid, int target) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void selectByIndex(String uid, int target) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    walkToWithException(context, uid)?.selectByIndex(target) {loc, optloc, String[] events ->
+      eventHandler.select(context, uid, optloc, events)
+    }
   }
 
-  def void selectById(String uid, String target) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void selectById(String uid, String target) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    walkToWithException(context, uid)?.selectById(target) {loc, optloc, String[] events ->
+      eventHandler.select(context, uid, optloc, events)
+    }
   }
 
-  def void addSelectionByLabel(String uid, String target) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void addSelectionByLabel(String uid, String target) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    walkToWithException(context, uid)?.addSelectionByLabel(target) {loc, optloc ->
+      eventHandler.addSelection(context, uid, optloc)
+    }
   }
 
-  def void addSelectionByValue(String uid, String target) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void addSelectionByValue(String uid, String target) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    walkToWithException(context, uid)?.addSelectionByValue(target) {loc, optloc ->
+      eventHandler.addSelection(context, uid, optloc)
+    }
   }
 
-  def void removeSelectionByLabel(String uid, String target) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void removeSelectionByLabel(String uid, String target) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    walkToWithException(context, uid)?.removeSelectionByLabel(target) {loc, optloc ->
+      eventHandler.removeSelection(context, uid, optloc)
+    }
   }
 
-  def void removeSelectionByValue(String uid, String target) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void removeSelectionByValue(String uid, String target) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    walkToWithException(context, uid)?.removeSelectionByValue(target) {loc, optloc ->
+      eventHandler.removeSelection(context, uid, optloc)
+    }
+   }
+
+  public void removeAllSelections(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    walkToWithException(context, uid)?.removeAllSelections() {loc ->
+      eventHandler.removeAllSelections(context, uid)
+    }
   }
 
-  def void removeAllSelections(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public String[] getSelectOptions(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    return walkToWithException(context, uid)?.getSelectOptions() {loc ->
+      accessor.getSelectOptions(context, uid)
+    }
   }
 
-  def String[] getSelectOptions(String uid) {
-    return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
+  public String[] getSelectValues(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    return walkToWithException(context, uid)?.getSelectValues() {loc ->
+      accessor.getSelectValues(context, uid);
+    }
   }
 
-  def String[] getSelectValues(String uid) {
-    return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
+  public String[] getSelectedLabels(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    return walkToWithException(context, uid)?.getSelectedLabels() {loc ->
+      accessor.getSelectedLabels(context, uid);
+    }
   }
 
-  def String[] getSelectedLabels(String uid) {
-    return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
+  public String getSelectedLabel(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    return walkToWithException(context, uid)?.getSelectedLabel() {loc ->
+      accessor.getSelectedLabel(context, uid);
+    }
   }
 
-  def String getSelectedLabel(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String[] getSelectedValues(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    return walkToWithException(context, uid)?.getSelectedValues() {loc ->
+      accessor.getSelectedValues(context, uid)
+    }
   }
 
-  def String[] getSelectedValues(String uid) {
-    return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
+  public String getSelectedValue(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    return walkToWithException(context, uid)?.getSelectedValue() {loc ->
+      accessor.getSelectedValue(context, uid);
+    }
   }
 
-  def String getSelectedValue(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String[] getSelectedIndexes(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    return walkToWithException(context, uid)?.getSelectedIndexes() {loc ->
+      accessor.getSelectedIndexes(context, uid);
+    }
   }
 
-  def String[] getSelectedIndexes(String uid) {
-    return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
+  public String getSelectedIndex(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    return walkToWithException(context, uid)?.getSelectedIndex() {loc ->
+      accessor.getSelectedIndex(context, uid);
+    }
   }
 
-  def String getSelectedIndex(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String[] getSelectedIds(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    return walkToWithException(context, uid)?.getSelectedIds() {loc ->
+      accessor.getSelectedIds(context, uid);
+    }
   }
 
-  def String[] getSelectedIds(String uid) {
-    return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
+  public String getSelectedId(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    return walkToWithException(context, uid)?.getSelectedId() {loc ->
+      accessor.getSelectedId(context, uid);
+    }
   }
 
-  def String getSelectedId(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public boolean isSomethingSelected(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    return walkToWithException(context, uid)?.isSomethingSelected() {loc ->
+      accessor.isSomethingSelected(context, uid);
+    }
   }
 
-  def boolean isSomethingSelected(String uid) {
-    return false;  //To change body of implemented methods use File | Settings | File Templates.
+  public String waitForText(String uid, int timeout) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    return walkToWithException(context, uid)?.waitForText(timeout) {loc, int tmo ->
+      accessor.waitForText(context, uid, tmo)
+    }
   }
 
-  def String waitForText(String uid, int timeout) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
-  }
+  public boolean isElementPresent(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
 
-  def boolean isElementPresent(String uid) {
-    return false;  //To change body of implemented methods use File | Settings | File Templates.
+    walkToWithException(context, uid);
+    return accessor.isElementPresent(context, uid);
   }
 
   def boolean isVisible(String uid) {
