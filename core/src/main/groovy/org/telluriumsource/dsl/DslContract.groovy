@@ -261,13 +261,13 @@ public interface DslContract {
 
   Number getCssSelectorCount(String cssSelector);
 
-  Number getLocatorCount(String locator);
+//  Number getLocatorCount(String locator);
 
   String getXPath(String uid);
 
   String getSelector(String uid);
 
-  String getLocator(String uid);
+//  String getLocator(String uid);
 
   String[] getCSS(String uid, String cssName);
 
@@ -277,88 +277,27 @@ public interface DslContract {
   //This only works for jQuery selector and Standard Table
   String[] getAllTableCellTextForTbody(String uid, int index);
 
-/*
-  int getTableHeaderColumnNumByXPath(String uid);
-
-  int getTableFootColumnNumByXPath(String uid);
-
-  int getTableMaxRowNumByXPath(String uid);
-
-  int getTableMaxColumnNumByXPath(String uid);
-
-  int getTableMaxRowNumForTbodyByXPath(String uid, int ntbody);
-
-  int getTableMaxColumnNumForTbodyByXPath(String uid, int ntbody);
-
-  int getTableMaxTbodyNumByXPath(String uid);
-
-  int getTableHeaderColumnNumBySelector(String uid);
-
-  int getTableFootColumnNumBySelector(String uid);
-
-  int getTableMaxRowNumBySelector(String uid);
-
-  int getTableMaxColumnNumBySelector(String uid);
-
-  int getTableMaxRowNumForTbodyBySelector(String uid, int ntbody);
-
-  int getTableMaxColumnNumForTbodyBySelector(String uid, int ntbody);
-
-  int getTableMaxTbodyNumBySelector(String uid);
-*/
-
-//  int getTeTableHeaderColumnNum(String uid);
-
   int getTableHeaderColumnNum(String uid);
-
-//  int getTeTableFootColumnNum(String uid);
 
   int getTableFootColumnNum(String uid);
 
-//  int getTeTableRowNum(String uid);
-
   int getTableMaxRowNum(String uid);
-
-//  int getTeTableColumnNum(String uid);
 
   int getTableMaxColumnNum(String uid);
 
-//  int getTeTableRowNumForTbody(String uid, int ntbody);
-
   int getTableMaxRowNumForTbody(String uid, int ntbody);
-
-//  int getTeTableColumnNumForTbody(String uid, int ntbody);
 
   int getTableMaxColumnNumForTbody(String uid, int ntbody);
 
-//  int getTeTableTbodyNum(String uid);
-
   int getTableMaxTbodyNum(String uid);
 
-/*
-  int getRepeatNumByXPath(String uid);
-
-  int getRepeatNumByCssSelector(String uid);
-*/
-
-/*  int getTeRepeatNum(String uid);*/
-
   int getRepeatNum(String uid);
-
-/*
-  int getListSizeByXPath(String uid);
-
-  //use CSS Selector to optimize the list operations
-  int getListSizeBySelector(String uid);
-*/
-
-//  int getTeListSize(String uid);
 
   int getListSize(String uid);
 
   boolean isDisabled(String uid);
 
-  def getParentAttribute(String uid, String attribute);
+//  def getParentAttribute(String uid, String attribute);
 
   def getAttribute(String uid, String attribute);
 
