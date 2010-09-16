@@ -27,7 +27,7 @@ class DslTelluriumGroovyTestCase extends BaseTelluriumGroovyTestCase{
     public void init(){
         tellurium = TelluriumSupport.addSupport()
         tellurium.start(customConfig)
-        conn = tellurium.connector
+        conn = getCurrentConnector()
     }
 
 

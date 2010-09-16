@@ -40,7 +40,8 @@ public class TelluriumFramework {
 
   private EmbeddedSeleniumServer server;
 
-  private SessionFactory factory = new SessionFactory();
+  private boolean isStarted = false;
+
 
   public Session createNewSession(String id, RuntimeEnvironment env){
     String name = (id == null ? "" : id);
@@ -118,61 +119,16 @@ public class TelluriumFramework {
     return newEnv;
   }
 
-//  private SeleniumConnector connector;
-
-//  private SeleniumClient client;
-
   private RuntimeEnvironment defaultEnvironment;
 
-//  private GlobalDslContext global;
-
-  public void load() {
-
-//    defaultEnvironment = Environment.instance;
-
-//    By default ExpandoMetaClass doesn't do inheritance. To enable this you must call ExpandoMetaClass.enableGlobally()
-//    before your app starts such as in the main method or servlet bootstrap
-//        ExpandoMetaClass.enableGlobally()
-
-/*
-    def registry = GroovySystem.metaClassRegistry
-
-    registry.setMetaClass(UiObjectBuilderRegistry, new UiObjectBuilderRegistryMetaClass())
-
-    registry.setMetaClass(SeleniumClient, new SeleniumClientMetaClass())
-
-    registry.setMetaClass(Dispatcher, new DispatcherMetaClass())
-
-    registry.setMetaClass(Extension, new ExtensionMetaClass())
-
-    registry.setMetaClass(Accessor, new AccessorMetaClass())
-
-    registry.setMetaClass(EventHandler, new EventHandlerMetaClass())
-
-    registry.setMetaClass(LocatorProcessor, new LocatorProcessorMetaClass())
-
-    registry.setMetaClass(SeleniumConnector, new SeleniumConnectorMetaClass())
-    registry.setMetaClass(TelluriumConfigurator, new TelluriumConfiguratorMetaClass())
-*/
-
-
-//    IResourceBundle i18nBundle = session.i18nBundle;
-    IResourceBundle i18nBundle =  new org.telluriumsource.crosscut.i18n.ResourceBundle();
-    telluriumConfigurator = new TelluriumConfigurator();
-
-//    String fileName = "TelluriumConfig.groovy"
-    //Honor the JSON String configuration over the file
-/*
-    String jsonConf = defaultEnvironment.configString;
-    if (jsonConf != null && jsonConf.trim().length() > 0) {
-      println i18nBundle.getMessage("TelluriumFramework.ParseFromJSONString", jsonConf)
-      telluriumConfigurator.parseJSON(jsonConf)
-    } else {
+  public synchronized void start() {
+    if (!isStarted) {
+      IResourceBundle i18nBundle = new org.telluriumsource.crosscut.i18n.ResourceBundle();
+      telluriumConfigurator = new TelluriumConfigurator();
 
       String fileName = System.properties.getProperty("telluriumConfigFile");
-      if(fileName == null)
-        fileName = defaultEnvironment.configFileName;
-
+      if (fileName == null)
+        fileName = "TelluriumConfig.groovy"
       File file = new File(fileName)
       if (file != null && file.exists()) {
         println i18nBundle.getMessage("TelluriumFramework.ParseFromRootDirectory", fileName)
@@ -186,52 +142,17 @@ public class TelluriumFramework {
           println i18nBundle.getMessage("TelluriumFramework.CannotFindConfigFile", fileName)
         }
       }
+
+      defaultEnvironment = telluriumConfigurator.createRuntimeEnvironment();
+
+      Session session = reuseExistingOrCreateNewSession();
+      SessionManager.setSession(session);
+      this.isStarted = true;
     }
-*/
-    String fileName = System.properties.getProperty("telluriumConfigFile");
-    if (fileName == null)
-      fileName = "TelluriumConfig.groovy"
-    File file = new File(fileName)
-    if (file != null && file.exists()) {
-      println i18nBundle.getMessage("TelluriumFramework.ParseFromRootDirectory", fileName)
-      telluriumConfigurator.parse(file)
-    } else {
-      URL url = ClassLoader.getSystemResource(fileName)
-      if (url != null) {
-        println i18nBundle.getMessage("TelluriumFramework.ParseFromClassPath", fileName)
-        telluriumConfigurator.parse(url)
-      } else {
-        println i18nBundle.getMessage("TelluriumFramework.CannotFindConfigFile", fileName)
-      }
-    }
+  }
 
+  public synchronized void stop(){
 
-/*    //configure custom UI ojects
-    telluriumConfigurator.config(new UiObjectBuilderRegistry())
-
-    //configure widgets
-    telluriumConfigurator.config(new WidgetConfigurator())
-
-    //configure Event Handler
-    telluriumConfigurator.config(new EventHandler())
-
-    //configure Data Accessor
-    telluriumConfigurator.config(new Accessor())
-
-    //configure Dispatcher
-    telluriumConfigurator.config(new Dispatcher())
-
-    //configure runtime environment
-    telluriumConfigurator.config(defaultEnvironment)
-
-
-    //global methods
-    this.global = new GlobalDslContext();
-*/
-    defaultEnvironment = telluriumConfigurator.createRuntimeEnvironment();
-    
-    Session session = reuseExistingOrCreateNewSession();
-    SessionManager.setSession(session);   
   }
 
   public void disableEmbeddedSeleniumServer() {
@@ -299,223 +220,6 @@ public class TelluriumFramework {
   public void disconnectServer(){
      SeleniumConnector connector = SessionManager.getSession().getLookup().lookById("connector");
      connector.disconnectSeleniumServer()
-  }
-
-  public SeleniumConnector getCurrentConnector(){
-     return SessionManager.getSession().getLookup().lookById("connector");
-  }
-
-/*
-  public void stop() {
-    if (connector != null) {
-      connector.disconnectSeleniumServer()
-    }
-
-    if (runEmbeddedSeleniumServer && (server != null)) {
-      server.stopServer()
-    }
-  }
-*/
-  //register ui object builder
-  //users can overload the builders or add new builders for new ui objects
-  //by call this method
-  public void registerBuilder(String uiObjectName, UiObjectBuilder builder) {
-    UiObjectBuilderRegistry registry = new UiObjectBuilderRegistry()
-    registry.registerBuilder(uiObjectName, builder)
-  }
-
-  public SeleniumConnector getConnector() {
-//    return this.connector;
-     return SessionManager.getSession().getLookup().lookById("connector");
-  }
-
-  public void useMacroCmd(boolean isUse) {
-    RuntimeEnvironment env = SessionManager.getSession().env;
-    env.setUseBundle(isUse);
-  }
-
-  public setMaxMacroCmd(int max) {
-    RuntimeEnvironment env = SessionManager.getSession().env;
-    env.setMaxMacroCmd(max);
-  }
-
-  public int getMaxMacroCmd() {
-    RuntimeEnvironment env = SessionManager.getSession().env;
-    return env.getMaxMacroCmd();
-  }
-
-  public void helpTest(){
-    SeleniumWrapper wrapper = SessionManager.getSession().getLookup().lookById("wrapper");
-    wrapper.helpTest();
-  }
-
-  public void noTest(){
-    SeleniumWrapper wrapper = SessionManager.getSession().getLookup().lookById("wrapper");
-    wrapper.helpTest();
-  }
-  
-  /*public void enableLogging(LogLevels loggingLevel) {
-    defaultEnvironment.enableLogging(loggingLevel);
-    this.global.enableLogging(loggingLevel);
-  }
-  */
-
-  public void useTrace(boolean isUse) {
-    RuntimeEnvironment env = SessionManager.getSession().env;
-    env.setUseTrace(isUse);
-  }
-
-  public void generateBugReport(boolean isUse) {
-    RuntimeEnvironment env = SessionManager.getSession().env;
-    env.setUseBugReport(isUse);
-  }
-
-  public void showTrace() {
-    SeleniumWrapper wrapper = SessionManager.getSession().getLookup().lookById("wrapper");
-    wrapper.showTrace();
-  }
-
-  public void setEnvironment(String name, Object value) {
-    RuntimeEnvironment env = SessionManager.getSession().env;
-    env.setCustomEnvironment(name, value);
-  }
-
-  public Object getEnvironment(String name) {
-    RuntimeEnvironment env = SessionManager.getSession().env;
-
-    return env.getCustomEnvironment(name);
-  }
-
-  public void useClosestMatch(boolean isUse){
-    SeleniumWrapper wrapper = SessionManager.getSession().getLookup().lookById("wrapper");
-    if (isUse) {
-      wrapper.enableClosestMatch();
-    } else {
-      wrapper.disableClosestMatch();
-    }      
-  }
-
-  public void useCssSelector(boolean isUse) {
-    SeleniumWrapper wrapper = SessionManager.getSession().getLookup().lookById("wrapper");
-    if (isUse) {
-      wrapper.enableCssSelector();
-    } else {
-      wrapper.disableCssSelector();
-    }
-  }
-
-  public void cleanCache() {
-    TelluriumApi api = SessionManager.getSession().getLookup().lookById("api");
-    api.cleanCache();
-  }
-
-  public void setCacheMaxSize(int size) {
-    TelluriumApi api = SessionManager.getSession().getLookup().lookById("api");
-    api.setCacheMaxSize(size);
-  }
-
-  public int getCacheSize() {
-    TelluriumApi api = SessionManager.getSession().getLookup().lookById("api");
-    return api.getCacheSize();
-  }
-
-  public int getCacheMaxSize() {
-    TelluriumApi api = SessionManager.getSession().getLookup().lookById("api");
-    return api.getCacheMaxSize();
-  }
-
-  public String getCacheUsage() {
-    TelluriumApi api = SessionManager.getSession().getLookup().lookById("api");
-    return api.getCacheUsage();
-  }
-
-  public void useCachePolicy(CachePolicy policy) {
-    TelluriumApi api = SessionManager.getSession().getLookup().lookById("api");
-
-    if (policy != null) {
-      switch (policy) {
-        case CachePolicy.DISCARD_NEW:
-          api.useDiscardNewCachePolicy();
-          break;
-        case CachePolicy.DISCARD_OLD:
-          api.useDiscardOldCachePolicy();
-          break;
-        case CachePolicy.DISCARD_LEAST_USED:
-          api.useDiscardLeastUsedCachePolicy();
-          break;
-        case CachePolicy.DISCARD_INVALID:
-          api.useDiscardInvalidCachePolicy();
-          break;
-      }
-    }
-  }
-
-  public String getCurrentCachePolicy() {
-    TelluriumApi api = SessionManager.getSession().getLookup().lookById("api");
-
-    return api.getCurrentCachePolicy();
-  }
-
-  public void useDefaultXPathLibrary() {
-    SeleniumWrapper wrapper = SessionManager.getSession().getLookup().lookById("wrapper");
-    wrapper.useDefaultXPathLibrary();
-  }
-
-  public void useJavascriptXPathLibrary() {
-    SeleniumWrapper wrapper = SessionManager.getSession().getLookup().lookById("wrapper");
-    wrapper.useJavascriptXPathLibrary();
-  }
-
-  public void useAjaxsltXPathLibrary() {
-    SeleniumWrapper wrapper = SessionManager.getSession().getLookup().lookById("wrapper");
-    wrapper.useAjaxsltXPathLibrary();
-  }
-
-  public void allowNativeXpath(boolean allow) {
-    SeleniumWrapper wrapper = SessionManager.getSession().getLookup().lookById("wrapper");
-    wrapper.allowNativeXpath(allow);
-  }
-
-  public void registerNamespace(String prefix, String namespace) {
-    SeleniumWrapper wrapper = SessionManager.getSession().getLookup().lookById("wrapper");
-    wrapper.registerNamespace(prefix, namespace);
-  }
-
-  public String getNamespace(String prefix) {
-    SeleniumWrapper wrapper = SessionManager.getSession().getLookup().lookById("wrapper");
-    wrapper.getNamespace(prefix);
-  }
-
-  public void addScript(String scriptContent, String scriptTagId){
-    SeleniumWrapper wrapper = SessionManager.getSession().getLookup().lookById("wrapper");
-    wrapper.addScript(scriptContent, scriptTagId);
-  }
-
-  public void removeScript(String scriptTagId){
-    SeleniumWrapper wrapper = SessionManager.getSession().getLookup().lookById("wrapper");
-    wrapper.removeScript(scriptTagId);
-  }
-
-  public EngineState getEngineState(){
-    TelluriumApi api = SessionManager.getSession().getLookup().lookById("api");
-    return api.getEngineState();
-  }
-
-  def pause(int milliseconds) {
-    //flush out remaining commands in the command bundle before disconnection
-    BundleProcessor processor = BundleProcessor.instance
-    processor.flush()
-    
-    Helper.pause(milliseconds);
-  }
-
-  public void useEngineLog(boolean isUse){
-    TelluriumApi api = SessionManager.getSession().getLookup().lookById("api");
-    api.useEngineLog(isUse);
-  }
-
-  public void dumpEnvironment(){
-    println  SessionManager.getSession().env.toString();
   }
 
 }

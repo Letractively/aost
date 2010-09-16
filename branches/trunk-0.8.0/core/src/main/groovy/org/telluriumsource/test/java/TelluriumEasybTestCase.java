@@ -19,7 +19,7 @@ public class TelluriumEasybTestCase extends BaseTelluriumJavaTestCase {
             tellurium = TelluriumSupport.addSupport();
             tellurium.startServer(customConfig);
             tellurium.connectServer();
-            connector = (SeleniumConnector) tellurium.getConnector();
+            connector = (SeleniumConnector) getCurrentConnector();
         }
     }
 
