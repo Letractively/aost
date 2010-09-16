@@ -21,7 +21,7 @@ public abstract class TelluriumJUnitTestCase extends BaseTelluriumJavaTestCase {
             tellurium.startServer(customConfig);
 //        connector = (SeleniumConnector) tellurium.getProperty("connector");
 //            tellurium.connectServer();
-            connector = (SeleniumConnector) tellurium.getCurrentConnector();
+            connector = (SeleniumConnector) getCurrentConnector();
         }
     }
 

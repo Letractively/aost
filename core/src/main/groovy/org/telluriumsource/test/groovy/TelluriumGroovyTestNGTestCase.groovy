@@ -9,6 +9,7 @@ import org.telluriumsource.crosscut.i18n.IResourceBundle;
 
 import org.testng.annotations.AfterClass
 import org.testng.annotations.BeforeClass
+import org.telluriumsource.framework.SessionManager
 
 /**
  * Groovy Test NG Test Case
@@ -66,11 +67,15 @@ abstract public class TelluriumGroovyTestNGTestCase {
     customConfig = new CustomConfig(runInternally, port, browser, useMultiWindows, profileLocation, serverHost)
   }
 
+  public SeleniumConnector getCurrentConnector(){
+     return SessionManager.getSession().getLookup().lookById("connector");
+  }
+  
   @BeforeClass
   protected void setUpForClass() {
     tellurium = TelluriumSupport.addSupport()
     tellurium.start(customConfig)
-    conn = tellurium.connector
+    conn = getCurrentConnector();
     initUi()
   }
 

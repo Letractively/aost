@@ -23,7 +23,7 @@ public abstract class TelluriumTestNGTestCase extends BaseTelluriumJavaTestCase 
             tellurium = TelluriumSupport.addSupport();
             tellurium.startServer(customConfig);
 //            tellurium.connectServer();
-            connector = (SeleniumConnector) tellurium.getCurrentConnector();
+            connector = (SeleniumConnector) getCurrentConnector();
         }
     }
 
