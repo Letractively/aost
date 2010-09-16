@@ -9,6 +9,12 @@ import org.telluriumsource.entity.DiagnosisOption
 import org.telluriumsource.entity.UiByTagResponse
 import org.telluriumsource.exception.UiObjectNotFoundException
 import org.telluriumsource.ui.object.UiObject
+import org.telluriumsource.entity.DiagnosisRequest
+import org.telluriumsource.entity.KeyValuePairs
+import org.telluriumsource.ui.builder.AllPurposeObjectBuilder
+import org.telluriumsource.ui.object.AllPurposeObject
+import org.telluriumsource.exception.NotWidgetObjectException
+import org.telluriumsource.ui.widget.Widget
 
 /**
  * 
@@ -90,7 +96,6 @@ class TelluriumApi extends BaseDslContext {
     resp.parseJSON(out);
 
     return resp;
-
   }
 
   public void useDiscardNewCachePolicy() {
@@ -398,388 +403,592 @@ class TelluriumApi extends BaseDslContext {
     return accessor.isElementPresent(context, uid);
   }
 
-  def boolean isVisible(String uid) {
-    return false;  //To change body of implemented methods use File | Settings | File Templates.
+  public boolean isVisible(String uid) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
+      return walkToWithException(context, uid)?.isVisible() {loc ->
+        accessor.isVisible(context, uid);
+      }
   }
 
-  def boolean isChecked(String uid) {
-    return false;  //To change body of implemented methods use File | Settings | File Templates.
+  public boolean isChecked(String uid) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
+      return walkToWithException(context, uid)?.isChecked() {loc ->
+        accessor.isChecked(context, uid);
+      }
   }
 
-  def boolean isEnabled(String uid) {
-    return false;  //To change body of implemented methods use File | Settings | File Templates.
+  public boolean isEnabled(String uid) {
+      return !isDisabled(uid);
   }
 
-  def boolean waitForElementPresent(String uid, int timeout) {
-    return false;  //To change body of implemented methods use File | Settings | File Templates.
-  }
+  public boolean waitForElementPresent(String uid, int timeout) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
+      return walkToWithException(context, uid)?.waitForElementPresent(timeout) {loc ->
+        return accessor.waitForElementPresent(context, uid, timeout);
+      }
 
-  def boolean waitForElementPresent(String uid, int timeout, int step) {
-    return false;  //To change body of implemented methods use File | Settings | File Templates.
   }
 
-  def boolean waitForCondition(String script, int timeoutInMilliSecond) {
-    return false;  //To change body of implemented methods use File | Settings | File Templates.
+  public boolean waitForElementPresent(String uid, int timeout, int step) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
+      return walkToWithException(context, uid)?.waitForElementPresent(timeout, step) {loc ->
+        return accessor.waitForElementPresent(context, uid, timeout, step)
+      }
   }
 
-  def String getText(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String getText(String uid) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
+      return walkToWithException(context, uid)?.getText() {loc ->
+        return accessor.getText(context, uid);
+      }
   }
 
-  def String getValue(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String getValue(String uid) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
+      return walkToWithException(context, uid)?.getValue() {loc ->
+        return accessor.getValue(context, uid);
+      }
   }
 
-  def String getLink(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String getLink(String uid) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
+      walkToWithException(context, uid)?.getLink() {loc, attr ->
+        return extension.getAttribute(context, uid, attr);
+      }
   }
 
-  def String getImageSource(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String getImageSource(String uid) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
+      return walkToWithException(context, uid)?.getImageSource() {loc, attr ->
+        return extension.getAttribute(context, uid, attr);
+      }
   }
 
-  def String getImageAlt(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String getImageAlt(String uid) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
+      return walkToWithException(context, uid)?.getImageAlt() {loc, attr ->
+        return extension.getAttribute(context, uid, attr);
+      }
   }
 
-  def String getImageTitle(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public String getImageTitle(String uid) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
+      return walkToWithException(context, uid)?.getImageTitle() {loc, attr ->
+        return extension.getAttribute(context, uid, attr);
+      }
   }
 
-  def void submit(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
+  public boolean isEditable(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
 
-  def boolean isEditable(String uid) {
-    return false;  //To change body of implemented methods use File | Settings | File Templates.
+    return walkToWithException(context, uid)?.isEditable() {loc ->
+      return accessor.isEditable(context, uid)
+    }
   }
 
-  def void mouseOver(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void submit(String uid) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
+      walkToWithException(context, uid)?.submit() {loc ->
+        eventHandler.submit(context, uid);
+      }
   }
 
-  def void mouseOut(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
+  public void mouseOver(String uid) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
 
-  def void dragAndDrop(String uid, String movementsString) {
-    //To change body of implemented methods use File | Settings | File Templates.
+      walkToWithException(context, uid)?.mouseOver() {loc ->
+        eventHandler.mouseOver(context, uid);
+      }
   }
 
-  def void dragAndDropTo(String sourceUid, String targetUid) {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
+  public void mouseOut(String uid) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
 
-  def void mouseDown(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+      walkToWithException(context, uid)?.mouseOut() {loc ->
+        eventHandler.mouseOut(context, uid);
+      }
   }
 
-  def void mouseDownRight(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
+  public void dragAndDrop(String uid, String movementsString) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
 
-  def void mouseDownAt(String uid, String coordinate) {
-    //To change body of implemented methods use File | Settings | File Templates.
+      walkToWithException(context, uid)?.dragAndDrop(movementsString) {loc ->
+        eventHandler.dragAndDrop(context, uid, movementsString);
+      }
   }
 
-  def void mouseDownRightAt(String uid, String coordinate) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void dragAndDropTo(String sourceUid, String targetUid) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
+      walkToWithException(context, sourceUid);
+      walkToWithException(context, targetUid);
+      eventHandler.dragAndDropToObject(context, sourceUid, targetUid);
   }
 
-  def void mouseUp(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
+  public void mouseDown(String uid) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
 
-  def void mouseUpRight(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+      walkToWithException(context, uid)?.mouseDown() {loc ->
+        eventHandler.mouseDown(context, uid);
+      }
   }
 
-  def void mouseUpRightAt(String uid, String coordinate) {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
+  public void mouseDownRight(String uid) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
 
-  def void mouseMove(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+      walkToWithException(context, uid)?.mouseDownRight() {loc ->
+        eventHandler.mouseDownRight(context, uid);
+      }
   }
 
-  def void mouseMoveAt(String uid, String coordinate) {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
+  public void mouseDownAt(String uid, String coordinate) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
 
-  def Number getXpathCount(String xpath) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+      walkToWithException(context, uid)?.mouseDownAt() {loc ->
+        eventHandler.mouseDownAt(context, uid, coordinate);
+      }
   }
 
-  def String captureNetworkTraffic(String type) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
-  }
+  public void mouseDownRightAt(String uid, String coordinate) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
 
-  def void addCustomRequestHeader(String key, String value) {
-    //To change body of implemented methods use File | Settings | File Templates.
+      walkToWithException(context, uid)?.mouseDownRightAt() {loc ->
+        eventHandler.mouseDownRightAt(context, uid, coordinate);
+      }
   }
 
-  def Number getCssSelectorCount(String cssSelector) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
-  }
+  public void mouseUp(String uid) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
 
-  def Number getLocatorCount(String locator) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+      walkToWithException(context, uid)?.mouseUp() {loc ->
+        eventHandler.mouseUp(context, uid);
+      }
   }
 
-  def String getXPath(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
-  }
+  public void mouseUpRight(String uid) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
 
-  def String getSelector(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+      walkToWithException(context, uid)?.mouseUpRight() {loc ->
+        eventHandler.mouseUpRight(context, uid);
+      }
   }
 
-  def String getLocator(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
-  }
+  public void mouseUpRightAt(String uid, String coordinate) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
 
-  def String[] getCSS(String uid, String cssName) {
-    return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
+      walkToWithException(context, uid)?.mouseUpRightAt() {loc ->
+        eventHandler.mouseUpRightAt(context, uid, coordinate)
+      }
   }
 
-  def String[] getAllTableCellText(String uid) {
-    return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
-  }
+  public void mouseMove(String uid) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
 
-  def String[] getAllTableCellTextForTbody(String uid, int index) {
-    return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
+      walkToWithException(context, uid)?.mouseMove() {loc ->
+        eventHandler.mouseMove(context, uid);
+      }
   }
 
-  def int getTableHeaderColumnNum(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
-  }
+  public void mouseMoveAt(String uid, String coordinate) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
 
-  def int getTableFootColumnNum(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+      walkToWithException(context, uid)?.mouseMoveAt() {loc ->
+        eventHandler.mouseMoveAt(context, uid, coordinate)
+      }
   }
 
-  def int getTableMaxRowNum(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
-  }
+  public String[] getCSS(String uid, String cssName) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
 
-  def int getTableMaxColumnNum(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
-  }
+      return walkToWithException(context, uid)?.getCSS(cssName) {loc ->
 
-  def int getTableMaxRowNumForTbody(String uid, int ntbody) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
-  }
+        def out = extension.getCSS(context, uid, cssName)
 
-  def int getTableMaxColumnNumForTbody(String uid, int ntbody) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+        return (ArrayList) parseSeleniumJSONReturnValue(out)
+      }
   }
 
-  def int getTableMaxTbodyNum(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
-  }
+  public String[] getAllTableCellText(String uid) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
+      return walkToWithException(context, uid).getAllTableCellText(){loc, cell ->
+          def out = extension.getAllTableBodyText(context, uid);
 
-  def int getRepeatNumByXPath(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+          return (ArrayList) parseSeleniumJSONReturnValue(out);
+      }
   }
 
-  def int getRepeatNumByCssSelector(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
-  }
+  public String[] getAllTableCellTextForTbody(String uid, int index) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
+      return walkToWithException(context, uid)?.getAllTableCellTextForTbody(index) {loc, cell ->
+        def out = extension.getAllTableCellTextForTbody(context, uid, index);
 
-  def int getRepeatNum(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+        return (ArrayList) parseSeleniumJSONReturnValue(out);
+      }
   }
 
-  def int getListSize(String uid) {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
-  }
+  public int getTableHeaderColumnNum(String uid) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
+      return walkToWithException(context, uid)?.getTableHeaderColumnNum(){loc, optloc ->
 
-  def boolean isDisabled(String uid) {
-    return false;  //To change body of implemented methods use File | Settings | File Templates.
+        return extension.getTableHeaderColumnNum(context, uid);
+      }
   }
 
-  def Object getParentAttribute(String uid, String attribute) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
-  }
+  public int getTableFootColumnNum(String uid) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
+      return walkToWithException(context, uid)?.getTableFootColumnNum(){loc, optloc ->
 
-  def Object getAttribute(String uid, String attribute) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return extension.getTableFootColumnNum(context, uid);
+      }
   }
 
-  def boolean hasCssClass(String uid, String cssClass) {
-    return false;  //To change body of implemented methods use File | Settings | File Templates.
-  }
+  public int getTableMaxRowNum(String uid) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
+      return walkToWithException(context, uid)?.getTableMaxRowNum(){loc, optloc ->
 
-  def void toggle(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+        return extension.getTableMaxRowNum(context, uid);
+      }
   }
 
-  def void show(String uid, int delay) {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
+  public int getTableMaxColumnNum(String uid) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
+      return walkToWithException(context, uid)?.getTableMaxColumnNum(){loc, optloc ->
 
-  def void startShow(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+        return extension.getTableMaxColumnNum(context, uid);
+      }
   }
 
-  def void endShow(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
+  public int getTableMaxRowNumForTbody(String uid, int ntbody) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
+      return walkToWithException(context, uid)?.getTableMaxRowNumForTbody(){loc, optloc ->
 
-  def void dump(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+        return extension.getTableMaxRowNumForTbody(context, uid, ntbody);
+      }
   }
 
-  def String toString(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
-  }
+  public int getTableMaxColumnNumForTbody(String uid, int ntbody) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
+      return walkToWithException(context, uid)?.getTableMaxColumnNumForTbody(){loc, optloc ->
 
-  def JSONArray toJSONArray(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return extension.getTableMaxColumnNumForTbody(context, uid, ntbody);
+      }
   }
 
-  def void validate(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
+  public int getTableMaxTbodyNum(String uid) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
+      return walkToWithException(context, uid)?.getTableMaxTbodyNum(){loc, optloc ->
 
-  def UiModuleValidationResponse getUiModuleValidationResult(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return extension.getTableMaxTbodyNum(context, uid);
+      }
   }
 
-  def DiagnosisResponse getDiagnosisResult(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
-  }
+  public int getRepeatNum(String uid) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
+      return walkToWithException(context, uid)?.getRepeatNum(){loc ->
 
-  def DiagnosisResponse getDiagnosisResult(String uid, DiagnosisOption options) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return extension.getRepeatNum()(context, uid);
+      }
   }
 
-  def void diagnose(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public int getListSize(String uid) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
+      return walkToWithException(context, uid)?.getListSize(){loc ->
+
+        return extension.getListSize()(context, uid);
+      }
   }
+
+  public boolean isDisabled(String uid) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
 
-  def void diagnose(String uid, DiagnosisOption options) {
-    //To change body of implemented methods use File | Settings | File Templates.
+      return walkToWithException(context, uid).isDisabled() {loc ->
+
+        extension.isDisabled(context, uid);
+      }
   }
+
+  public Object getAttribute(String uid, String attribute) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
+
+      return walkToWithException(context, uid).getAttribut() {loc ->
 
-  def String toHTML(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+        extension.getAttribut(context, uid, attribute);
+      }
   }
 
-  def String toHTML() {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public boolean hasCssClass(String uid, String cssClass) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    String[] strings = walkToWithException(context, uid)?.hasCssClass() {loc, classAttr ->
+
+      String clazz = extension.getAttribut(context, uid, cssClass);
+      if (clazz != null && clazz.trim().length() > 0) {
+        return clazz.split(" ");
+      }
+      return null;
+    }
+
+    if (strings?.length) {
+      for (i in 0..<strings?.length) {
+        if (cssClass.equalsIgnoreCase(strings[i])) {
+          return true
+        }
+      }
+    }
+
+    return false
   }
+
+  public void toggle(String uid) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
 
-  def List getHTMLSourceResponse(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+      walkToWithException(context, uid).toggle() {loc ->
+
+        extension.toggle(context, uid);
+      }
   }
 
-  def void getHTMLSource(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void show(String uid, int delay) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+
+    def obj = walkToWithException(context, uid)
+    if (obj != null) {
+      extension.showUi(context, uid);
+      pause(delay);
+      extension.cleanUi(context, uid);
+      pause(200);
+    }
   }
 
-  def String getHtmlSource() {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public void startShow(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    def obj = walkToWithException(context, uid);
+    if (obj != null) {
+      extension.showUi(context, uid);
+      pause(200);
+    }
   }
 
-  def String retrieveLastRemoteControlLogs() {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public void endShow(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    def obj = walkToWithException(context, uid)
+    if (obj != null) {
+      extension.cleanUi(context, uid);
+      pause(200);
+    }
   }
 
-  def void setTimeout(long timeoutInMilliseconds) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void validate(String uid) {
+      UiModuleValidationResponse response = getUiModuleValidationResult(uid);
+      response?.showMe();
   }
+
+  public UiModuleValidationResponse getUiModuleValidationResult(String uid) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
+      def obj = walkToWithException(context, uid);
+      JSONArray arr = new JSONArray();
+      context.setJSONArray(arr);
+      obj.treeWalk(context);
+      JSONArray jsa = context.getJSONArray();
 
-  def boolean isCookiePresent(String name) {
-    return false;  //To change body of implemented methods use File | Settings | File Templates.
+      def out = extension.getValidateUiModule(context, jsa);
+
+      return parseUseUiModuleResponse(out);
   }
 
-  def String getCookieByName(String name) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  public DiagnosisResponse getDiagnosisResult(String uid) {
+      return getDiagnosisResult(uid, null);
   }
+
+  public DiagnosisResponse getDiagnosisResult(String uid, DiagnosisOption options) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
+      return walkToWithException(context, uid)?.diagnose() {loc ->
+
+        if(options == null)
+          options = new DiagnosisOption();
+
+        DiagnosisRequest request = new DiagnosisRequest(uid, null, loc, options);
 
-  def void createCookie(String nameValuePair, String optionsString) {
-    //To change body of implemented methods use File | Settings | File Templates.
+        def out = extension.getDiagnosisResponse(context, uid, request.toJSON());
+
+        return new DiagnosisResponse(parseSeleniumJSONReturnValue(out));
+      }
   }
 
-  def void deleteCookie(String name, String optionsString) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void diagnose(String uid) {
+    DiagnosisResponse resp = this.getDiagnosisResult(uid);
+    resp.showMe();
   }
 
-  def void deleteAllVisibleCookies() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void diagnose(String uid, DiagnosisOption options) {
+    DiagnosisResponse resp = getDiagnosisResult(uid, options);
+    resp.showMe();
   }
 
-  def void setCookie(String cookieName, String value, Object options) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public java.util.List getHTMLSourceResponse(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    walkToWithException(context, uid)
+    def out = extension.getHTMLSource(context, uid)
+
+    return parseSeleniumJSONReturnValue(out);
   }
 
-  def void setCookie(String cookieName, String value) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void getHTMLSource(String uid) {
+    java.util.List list = getHTMLSourceResponse(uid);
+    if (list != null && list.size() > 0) {
+      list.each {Map map ->
+        String key = map.get("key");
+        String val = map.get("val");
+        println(key + ": ");
+        println("");
+        println(val);
+        println("");
+      }
+    }
   }
+
+  public UiByTagResponse getUiByTag(String tag, Map filters) {
+      KeyValuePairs pairs = new KeyValuePairs(filters);
+      WorkflowContext context = WorkflowContext.getDefaultContext();
 
-  def UiByTagResponse getUiByTag(String tag, Map filters) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+      def out = extension.getUiByTag(context, tag, pairs.toJSON());
+
+      UiByTagResponse response = new UiByTagResponse(tag, filters, out);
+      AllPurposeObjectBuilder builder = new AllPurposeObjectBuilder();
+      if(out != null && out.size() > 0){
+        for(int i=0; i<out.size(); i++){
+          AllPurposeObject obj = builder.build(out[i], out[i], tag, filters, false);
+          ui.addUiObjectToRegistry(obj);
+        }
+      }
+
+      return response;
   }
 
-  def void removeMarkedUids(String tag) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void removeMarkedUids(String tag) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+
+    extension.removeMarkedUids(context, tag);
   }
+
+  public void reset(String uid) {
+      WorkflowContext context = WorkflowContext.getDefaultContext();
+      walkToWithException(context, uid).reset() {loc ->
 
-  def void reset(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+        extension.reset(context, uid);
+      }
   }
 
-  def Object getWidget(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  def getWidget(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    def obj = walkToWithException(context, uid)
+    if (!(obj instanceof Widget)) {
+      println i18nBundle.getMessage("DslContext.UIObject", {uid})
+
+      throw new NotWidgetObjectException(i18nBundle.getMessage("DslContext.UIObject", uid))
+    }
+
+    //add reference xpath for the widget
+    Widget widget = (Widget) obj
+    widget.updateParentRef(context.getReferenceLocator())
+
+    return obj
   }
+
+  def onWidget(String uid, String method, Object[] args) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    def obj = walkToWithException(context, uid)
+    if (!(obj instanceof Widget)) {
+      println i18nBundle.getMessage("DslContext.UIObject", uid)
 
-  def Object onWidget(String uid, String method, Object[] args) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+      throw new NotWidgetObjectException(i18nBundle.getMessage("DslContext.UIObject", uid))
+    } else {
+      if (obj.metaClass.respondsTo(obj, method, args)) {
+
+        //add reference xpath for the widget
+        Widget widget = (Widget) obj
+        widget.updateParentRef(context.getReferenceLocator())
+
+        return obj.invokeMethod(method, args)
+      } else {
+
+        throw new MissingMethodException(method, obj.metaClass.class, args)
+      }
+    }
   }
 
-  def void selectFrame(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void selectFrame(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    walkToWithException(context, uid)?.selectFrame() {String loc ->
+      eventHandler.selectFrame(context, uid);
+    }
   }
+
+  public void selectFrameByIndex(int index) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
 
-  def void selectFrameByIndex(int index) {
-    //To change body of implemented methods use File | Settings | File Templates.
+    eventHandler.selectFrame(context, "index=${index}")
   }
 
-  def void selectParentFrameFrom(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void selectParentFrameFrom(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    walkToWithException(context, uid)?.selectParentFrame() {String loc ->
+      eventHandler.selectFrame(context, uid);
+    }
   }
 
-  def void selectTopFrameFrom(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void selectTopFrameFrom(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    walkToWithException(context, uid)?.selectTopFrame() {String loc ->
+      eventHandler.selectFrame(context, uid);
+    }
   }
 
-  def boolean getWhetherThisFrameMatchFrameExpression(String uid, String target) {
-    return false;  //To change body of implemented methods use File | Settings | File Templates.
+  public boolean getWhetherThisFrameMatchFrameExpression(String uid, String target) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    walkToWithException(context, uid)?.getWhetherThisFrameMatchFrameExpression(target) {String loc, String tgt ->
+      accessor.getWhetherThisFrameMatchFrameExpression(context, uid, tgt);
+    }
   }
 
-  def void waitForFrameToLoad(String uid, int timeout) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void waitForFrameToLoad(String uid, int timeout) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    walkToWithException(context, uid)?.waitForFrameToLoad(timeout) {String loc, int tmo ->
+      accessor.waitForFrameToLoad(context, uid, Integer.toString(tmo));
+    }
   }
 
-  def void openWindow(String uid, String url) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void openWindow(String uid, String url) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    walkToWithException(context, uid)?.openWindow(url) {String loc, String aurl ->
+      eventHandler.openWindow(context, aurl, uid);
+    }
   }
 
-  def void selectWindow(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void selectWindow(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    walkToWithException(context, uid)?.selectWindow() {String loc ->
+      eventHandler.selectWindow(context, uid);
+    }
   }
 
-  def void closeWindow(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void closeWindow(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    walkToWithException(context, uid)?.closeWindow() {String loc ->
+      eventHandler.closeWindow(context, uid);
+    }
   }
 
-  def void waitForPopUp(String uid, int timeout) {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public void waitForPopUp(String uid, int timeout) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    walkToWithException(context, uid)?.waitForPopUp(timeout) {String loc ->
+      accessor.waitForPopUp(context, uid, Integer.toString(timeout));
+    }
   }
 
-  def boolean getWhetherThisWindowMatchWindowExpression(String uid, String target) {
-    return false;  //To change body of implemented methods use File | Settings | File Templates.
+  public boolean getWhetherThisWindowMatchWindowExpression(String uid, String target) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    walkToWithException(context, uid)?.getWhetherThisWindowMatchWindowExpression(target) {String loc ->
+      accessor.getWhetherThisWindowMatchWindowExpression(context, uid, target);
+    }
   }
 
 }

@@ -9,6 +9,7 @@ import org.telluriumsource.entity.UiModuleValidationResponse
 import org.telluriumsource.entity.DiagnosisResponse
 import org.telluriumsource.entity.DiagnosisOption
 import org.telluriumsource.entity.UiByTagResponse
+import org.telluriumsource.ui.object.UiObject
 
 /**
  * 
@@ -1075,6 +1076,10 @@ class WidgetDslContext extends BaseDslContext {
   }
 
   def void setMaxMacroCmd(int max) {
+    
+  }
+
+  UiObject walkToWithException(WorkflowContext context, String uid) {
     
   }
 }

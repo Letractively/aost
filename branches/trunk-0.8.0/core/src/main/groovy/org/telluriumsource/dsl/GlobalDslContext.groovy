@@ -11,7 +11,6 @@ import org.telluriumsource.component.bundle.BundleProcessor
 import org.stringtree.json.JSONReader
 import org.telluriumsource.entity.EngineState
 import org.telluriumsource.entity.CacheUsageResponse
-import org.telluriumsource.util.LogLevels
 
 /**
  * Global methods, which should not be tired to an individual UI module
@@ -114,7 +113,7 @@ public class GlobalDslContext {
 
   public void enableCache() {
     Environment.instance.useCache(true);
-//      this.exploreUiModuleCache = true
+//      this.exploreNewEngine = true
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
 
     extension.enableCache(context)
@@ -122,7 +121,7 @@ public class GlobalDslContext {
 
   public boolean disableCache() {
     Environment.instance.useCache(false);
-//      this.exploreUiModuleCache = false
+//      this.exploreNewEngine = false
     WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreUiModuleCache())
 
     extension.disableCache(context)

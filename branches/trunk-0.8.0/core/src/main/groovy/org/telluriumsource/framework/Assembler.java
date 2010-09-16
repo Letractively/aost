@@ -114,7 +114,10 @@ public class Assembler {
         wrapper.setProperty("extension", extension);
 
         api.setProperty("ui", parser);
+        api.setProperty("env", env);
         api.setProperty("i18nBundle", i18nBundle);
+        api.setProperty("locatorProcessor", locatorProcessor);
+        api.setProperty("optimizer", optimizer);
         api.setProperty("eventHandler", eventHandler);
         api.setProperty("accessor", accessor);
         api.setProperty("extension", extension);
