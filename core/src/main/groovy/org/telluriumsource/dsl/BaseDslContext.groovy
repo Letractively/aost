@@ -10,6 +10,10 @@ import org.telluriumsource.component.custom.Extension
 import org.telluriumsource.entity.EngineState
 import org.telluriumsource.component.data.Accessor
 import org.telluriumsource.component.event.EventHandler
+import org.telluriumsource.component.bundle.BundleProcessor
+import org.telluriumsource.util.Helper
+import org.telluriumsource.framework.SessionManager
+import org.telluriumsource.component.dispatch.Dispatcher
 
 /**
  *
@@ -19,6 +23,22 @@ import org.telluriumsource.component.event.EventHandler
  *
  */
 abstract class BaseDslContext implements DslContract {
+
+  protected static final String JQUERY_SELECTOR = "jquery="
+  protected static final String DEFAULT_XPATH = "default"
+  protected static final String JAVASCRIPT_XPATH = "javascript-xpath"
+  protected static final String AJAXSLT_XPATH = "ajaxslt"
+  protected static final String LOCATOR = "locator"
+  protected static final String OPTIMIZED_LOCATOR = "optimized"
+  //later on, may need to refactor it to use resource file so that we can show message for different localities
+  protected static final String XML_DOCUMENT_SCRIPT = """var doc = window.document;
+      var xml = null;
+      if(doc instanceof XMLDocument){
+         xml = new XMLSerializer().serializeToString(doc);
+      }else{
+         xml = getText(doc.body);
+      }
+      xml; """
 
   protected IResourceBundle i18nBundle;
 
@@ -44,7 +64,7 @@ abstract class BaseDslContext implements DslContract {
       out = result.substring(3);
     }
 
-    if(out.length() > 0){
+    if (out.length() > 0) {
       Map map = reader.read(out);
       UiModuleValidationResponse response = new UiModuleValidationResponse(map);
 
@@ -55,6 +75,7 @@ abstract class BaseDslContext implements DslContract {
   }
 
 //  protected UiModuleValidationResponse parseUseUiModuleResponse(Map result) {
+
   protected Map parseUseUiModuleResponse(Map result) {
     return result;
   }
@@ -85,4 +106,415 @@ abstract class BaseDslContext implements DslContract {
 
     extension.noTest(context);
   }
+
+
+  public void useDefaultXPathLibrary() {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    accessor.useXpathLibrary(context, DEFAULT_XPATH)
+  }
+
+  public void useJavascriptXPathLibrary() {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    accessor.useXpathLibrary(context, JAVASCRIPT_XPATH)
+  }
+
+  public void useAjaxsltXPathLibrary() {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    accessor.useXpathLibrary(context, AJAXSLT_XPATH)
+  }
+
+  public void registerNamespace(String prefix, String namespace) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    extension.addNamespace(context, prefix, namespace)
+  }
+
+  public String getNamespace(String prefix) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    return extension.getNamespace(context, prefix)
+  }
+
+  public void pause(int milliseconds) {
+    //flush out remaining commands in the command bundle before disconnection
+    BundleProcessor processor = SessionManager.getSession().getLookup().lookById("bundleProcessor");
+    processor.flush();
+
+    Helper.pause(milliseconds);
+  }
+
+  public void setEnvironment(String name, Object value) {
+    env.setCustomEnvironment(name, value);
+  }
+
+  public Object getEnvironment(String name) {
+    return env.getCustomEnvironment(name);
+  }
+
+  public void enableMacroCmd() {
+    env.setUseBundle(true);
+  }
+
+  public void disableMacroCmd() {
+    env.setUseBundle(false);
+  }
+
+  public void setMaxMacroCmd(int max) {
+    env.setMaxMacroCmd(max);
+  }
+
+  public int getMaxMacroCmd() {
+    return env.getMaxMacroCmd();
+  }
+
+  public void enableTrace() {
+    env.setUseTrace(true);
+  }
+
+  public void disableTrace() {
+    env.setUseTrace(false);
+  }
+
+  public void showTrace() {
+    Dispatcher dispatcher = SessionManager.getSession().getLookup().lookById("dispatcher");
+    dispatcher.showTrace();
+  }
+
+  public void flush() {
+    //flush out remaining commands in the command bundle before disconnection
+    BundleProcessor processor = SessionManager.getSession().getLookup().lookById("bundleProcessor");
+    processor.flush();
+  }
+
+  void allowNativeXpath(boolean allow) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    accessor.allowNativeXpath(context, allow)
+  }
+
+  void addScript(String scriptContent, String scriptTagId) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    accessor.addScript(context, scriptContent, scriptTagId);
+  }
+
+  void removeScript(String scriptTagId) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    accessor.removeScript(context, scriptTagId);
+  }
+
+  void enableEngineLog() {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    env.setUseEngineLog(true);
+    extension.useEngineLog(context, true);
+  }
+
+  void disableEngineLog() {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    env.setUseEngineLog(false);
+    extension.useEngineLog(context, false);
+  }
+
+  void useEngineLog(boolean isUse) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    env.setUseEngineLog(isUse);
+    extension.useEngineLog(context, isUse);
+  }
+
+  void enableTelluriumEngine() {
+    env.setUseNewEngine(true);
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+
+    extension.useTeApi(context, true);
+    this.enableMacroCmd();
+  }
+
+  void disableTelluriumEngine() {
+//      this.disableCache();
+    env.setUseNewEngine(false);
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+
+    extension.useTeApi(context, false);
+
+    this.disableMacroCmd();
+  }
+
+  //uid should use the format table2[2][3] for Table or list[2] for List
+
+  def getUiElement(String uid) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    def obj = ui.walkTo(context, uid)
+
+    return obj
+  }
+
+  String getConsoleInput() {
+    return (String) System.in.withReader {
+      it.readLine();
+    }
+  }
+
+
+  void windowFocus() {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    eventHandler.windowFocus(context)
+  }
+
+  void windowMaximize() {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    eventHandler.windowMaximize(context)
+  }
+
+  String getBodyText() {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    return accessor.getBodyText(context)
+  }
+
+  boolean isTextPresent(String pattern) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    return accessor.isTextPresent(context, pattern)
+  }
+
+  String getExpression(String expression) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    return accessor.getExpression(context, expression)
+  }
+
+  String getCookie() {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    return accessor.getCookie(context)
+  }
+
+  void runScript(String script) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    accessor.runScript(context, script)
+  }
+
+  String getEval(String script) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    return accessor.getEval(context, script)
+  }
+
+  void captureScreenshot(String filename) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    accessor.captureScreenshot(context, filename)
+  }
+
+  void captureEntirePageScreenshot(String filename, String kwargs) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    accessor.captureEntirePageScreenshot(context, filename, kwargs)
+  }
+
+  String captureScreenshotToString() {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    return accessor.captureScreenshotToString(context)
+  }
+
+  String captureEntirePageScreenshotToString(String kwargs) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    return accessor.captureEntirePageScreenshotToString(context, kwargs)
+  }
+
+  void chooseCancelOnNextConfirmation() {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    eventHandler.chooseCancelOnNextConfirmation(context)
+  }
+
+  void chooseOkOnNextConfirmation() {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    eventHandler.chooseOkOnNextConfirmation(context)
+  }
+
+  void answerOnNextPrompt(String answer) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    eventHandler.answerOnNextPrompt(context, answer)
+  }
+
+  void goBack() {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    eventHandler.goBack(context)
+  }
+
+  void refresh() {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    eventHandler.refresh(context)
+  }
+
+  boolean isAlertPresent() {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    return accessor.isAlertPresent(context)
+  }
+
+  boolean isPromptPresent() {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    return accessor.isPromptPresent(context)
+  }
+
+  boolean isConfirmationPresent() {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    return accessor.isConfirmationPresent(context)
+  }
+
+  String getAlert() {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    return accessor.getAlert(context)
+  }
+
+  String getConfirmation() {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    return accessor.getConfirmation(context)
+  }
+
+  String getPrompt() {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    return accessor.getPrompt(context)
+  }
+
+  String getLocation() {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    return accessor.getLocation(context)
+  }
+
+  String getTitle() {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    return accessor.getTitle(context)
+  }
+
+  String[] getAllButtons() {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    return accessor.getAllButtons(context)
+  }
+
+  String[] getAllLinks() {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    return accessor.getAllLinks(context)
+  }
+
+  String[] getAllFields() {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    return accessor.getAllFields(context)
+  }
+
+  String[] getAllWindowIds() {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    return accessor.getAllWindowIds(context)
+  }
+
+  String[] getAllWindowNames() {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    return accessor.getAllWindowNames(context)
+  }
+
+  String[] getAllWindowTitles() {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    return accessor.getAllWindowTitles(context)
+  }
+
+  void waitForPageToLoad(int timeout) {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    accessor.waitForPageToLoad(context, Integer.toString(timeout))
+  }
+
+  public String getXMLDocument() {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    String xml = getEval(context, XML_DOCUMENT_SCRIPT)
+
+    return xml
+  }
+
+  void selectMainWindow() {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    eventHandler.selectWindow(context, null)
+  }
+
+  void selectParentWindow() {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    eventHandler.selectWindow(context, ".")
+  }
+
+  public void bugReport() {
+    println "\nPlease cut and paste the following bug report to Tellurium user group (http://groups.google.com/group/tellurium-users)\n"
+    println "---------------------------- Bug Report --------------------------------"
+
+//      Environment env = env;
+    if (env.lastUiModule != null) {
+      println "\n-----------------------------------"
+      println "UI Module " + env.lastUiModule + ": \n";
+
+      println toString(env.lastUiModule);
+      println "-----------------------------------\n"
+    }
+
+    println "\n-----------------------------------"
+    println "HTML Source: \n";
+    println getHtmlSource();
+    println "-----------------------------------\n"
+
+    if (env.lastUiModule != null) {
+      println "\n-----------------------------------"
+      println "Validate UI Module" + env.lastUiModule + ": \n";
+      try {
+//        getHtmlSource(env.lastUiModule);
+        validate(env.lastUiModule);
+      } catch (Exception e) {
+
+      }
+      println "-----------------------------------\n"
+    }
+
+    println "\n-----------------------------------"
+    println "Environment: \n";
+    //dump Environment variables
+    println env.toString();
+    println "-----------------------------------\n"
+
+/*        println "\n-----------------------------------"
+        println "Last Error: \n";
+        println env.lastErrorDescription;
+        println "-----------------------------------\n"*/
+
+    println "\n-----------------------------------"
+    println "System log: \n";
+    println retrieveLastRemoteControlLogs();
+    println "-----------------------------------\n"
+
+    println "----------------------------    End     --------------------------------\n"
+  }
+
+  void altKeyUp() {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    eventHandler.altKeyUp(context)
+  }
+
+  void altKeyDown() {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    eventHandler.altKeyDown(context)
+  }
+
+  void ctrlKeyUp() {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    eventHandler.ctrlKeyUp(context)
+  }
+
+  void ctrlKeyDown() {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    eventHandler.ctrlKeyDown(context)
+  }
+
+  void shiftKeyUp() {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    eventHandler.shiftKeyUp(context)
+  }
+
+  void shiftKeyDown() {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    eventHandler.shiftKeyDown(context)
+  }
+
+  void metaKeyUp() {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    eventHandler.metaKeyUp(context)
+  }
+
+  void metaKeyDown() {
+    WorkflowContext context = WorkflowContext.getDefaultContext()
+    eventHandler.metaKeyDown(context)
+  }
+
 }

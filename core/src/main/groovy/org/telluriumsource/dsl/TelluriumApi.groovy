@@ -118,108 +118,23 @@ class TelluriumApi extends BaseDslContext {
     return extension.getCachePolicyName(context)
   }
 
-  def void useDefaultXPathLibrary() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  public def customUiCall(String uid, String method, Object[] args) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+
+    walkToWithException(context, uid);
+    Object[] list = [context, uid, args].flatten();
+
+    return extension.invokeMethod(method, list);
   }
 
-  def void useJavascriptXPathLibrary() {
-    //To change body of implemented methods use File | Settings | File Templates.
+  def customDirectCall(String method, Object[] args) {
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    Object[] list = [context, args].flatten()
+    return extension.invokeMethod(method, list)
   }
 
-  def void useAjaxsltXPathLibrary() {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
+  public void triggerEventOn(String uid, String event) {
 
-  def void registerNamespace(String prefix, String namespace) {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def String getNamespace(String prefix) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def void pause(int milliseconds) {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def void enableTrace() {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def void disableTrace() {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def void showTrace() {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def void setEnvironment(String name, Object value) {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def Object getEnvironment(String name) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def void enableMacroCmd() {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def void disableMacroCmd() {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def int getMaxMacroCmd() {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def void allowNativeXpath(boolean allow) {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def void addScript(String scriptContent, String scriptTagId) {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def void removeScript(String scriptTagId) {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def void enableEngineLog() {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def void disableEngineLog() {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def void useEngineLog(boolean isUse) {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def void enableTelluriumEngine() {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def void disableTelluriumEngine() {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def Object customUiCall(String uid, String method, Object[] args) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def Object customDirectCall(String method, Object[] args) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def void triggerEventOn(String uid, String event) {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def Object getUiElement(String uid) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
   }
 
   def void click(String uid) {
@@ -271,38 +186,6 @@ class TelluriumApi extends BaseDslContext {
   }
 
   def void typeAndReturn(String uid, Object input) {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def void altKeyUp() {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def void altKeyDown() {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def void ctrlKeyUp() {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def void ctrlKeyDown() {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def void shiftKeyUp() {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def void shiftKeyDown() {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def void metaKeyUp() {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def void metaKeyDown() {
     //To change body of implemented methods use File | Settings | File Templates.
   }
 
@@ -456,10 +339,6 @@ class TelluriumApi extends BaseDslContext {
 
   def boolean isEditable(String uid) {
     return false;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def String getEval(String script) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
   }
 
   def void mouseOver(String uid) {
@@ -702,10 +581,6 @@ class TelluriumApi extends BaseDslContext {
     return false;  //To change body of implemented methods use File | Settings | File Templates.
   }
 
-  def String getCookie() {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
   def String getCookieByName(String name) {
     return null;  //To change body of implemented methods use File | Settings | File Templates.
   }
@@ -739,10 +614,6 @@ class TelluriumApi extends BaseDslContext {
   }
 
   def void reset(String uid) {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def void bugReport() {
     //To change body of implemented methods use File | Settings | File Templates.
   }
 
@@ -790,14 +661,6 @@ class TelluriumApi extends BaseDslContext {
     //To change body of implemented methods use File | Settings | File Templates.
   }
 
-  def void selectMainWindow() {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def void selectParentWindow() {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
   def void waitForPopUp(String uid, int timeout) {
     //To change body of implemented methods use File | Settings | File Templates.
   }
@@ -806,131 +669,4 @@ class TelluriumApi extends BaseDslContext {
     return false;  //To change body of implemented methods use File | Settings | File Templates.
   }
 
-  def void windowFocus() {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def void windowMaximize() {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def String getBodyText() {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def boolean isTextPresent(String pattern) {
-    return false;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def String getExpression(String expression) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def void runScript(String script) {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def void captureScreenshot(String filename) {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def void captureEntirePageScreenshot(String filename, String kwargs) {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def String captureScreenshotToString() {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def String captureEntirePageScreenshotToString(String kwargs) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def void chooseCancelOnNextConfirmation() {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def void chooseOkOnNextConfirmation() {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def void answerOnNextPrompt(String answer) {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def void goBack() {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def void refresh() {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def boolean isAlertPresent() {
-    return false;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def boolean isPromptPresent() {
-    return false;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def boolean isConfirmationPresent() {
-    return false;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def String getAlert() {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def String getConfirmation() {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def String getPrompt() {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def String getLocation() {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def String getTitle() {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def String[] getAllButtons() {
-    return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def String[] getAllLinks() {
-    return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def String[] getAllFields() {
-    return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def String[] getAllWindowIds() {
-    return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def String[] getAllWindowNames() {
-    return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def String[] getAllWindowTitles() {
-    return new String[0];  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def void waitForPageToLoad(int timeout) {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def String getXMLDocument() {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  def void setMaxMacroCmd(int max) {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
 }
