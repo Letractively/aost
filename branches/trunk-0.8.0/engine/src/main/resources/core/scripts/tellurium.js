@@ -573,7 +573,8 @@ Tellurium.prototype.delegateToTellurium = function(response, cmd) {
     var command = this.getCommand(cmd.name);
 
     if(command != null){
-        var result;
+        var result = command.handler.apply(this, cmd.args);
+/*        var result;
         if(command.type == CommandType.HasUid){
             if(cmd.name == "getAttribute"){
                 var attr = this.parseAttributeFromLocator(cmd.args[0]);
@@ -585,7 +586,7 @@ Tellurium.prototype.delegateToTellurium = function(response, cmd) {
             }
         }else{
             result = this[cmd.name].apply(this, cmd.args);
-        }
+        }*/
 
 /*        if(command.type == CommandType.ASSERTION){
             result = this[cmd.name].apply(this, cmd.args);
