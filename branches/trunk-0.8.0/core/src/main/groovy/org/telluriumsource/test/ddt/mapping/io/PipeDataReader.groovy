@@ -5,6 +5,7 @@ import org.telluriumsource.ui.Const;
 import org.telluriumsource.test.ddt.mapping.DataMappingException
 import org.telluriumsource.crosscut.i18n.IResourceBundle
 import org.telluriumsource.ui.Const
+import org.telluriumsource.framework.SessionManager
 
 /**
  * The implementation for the field set reader with pipe field delimiter
@@ -22,7 +23,7 @@ class PipeDataReader implements DataReader{
 
 
 		public PipeDataReader(){
-			i18nBundle = Environment.instance.myResourceBundle()
+			i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
 
 		}
 		public void setupDataStream(FileInputStream input)

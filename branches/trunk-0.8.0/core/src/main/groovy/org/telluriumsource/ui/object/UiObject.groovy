@@ -9,6 +9,7 @@ import org.json.simple.JSONArray
 import org.telluriumsource.udl.MetaData
 import org.telluriumsource.crosscut.i18n.IResourceBundle
 import org.telluriumsource.framework.Environment
+import org.telluriumsource.framework.SessionManager
 
 /**
  *  Basic UI object
@@ -54,10 +55,7 @@ abstract class UiObject implements Cloneable{
     public static final String EVENTS = "events"
     String[] respondToEvents
 
-    protected IResourceBundle i18nBundle
-
     public UiObject(){
-      i18nBundle = Environment.instance.myResourceBundle()
     }
 
     abstract JSONObject toJSON()
@@ -316,7 +314,8 @@ abstract class UiObject implements Cloneable{
 
         //cannot find child
         String child = uiid.pop()
-
+      
+        IResourceBundle i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
         println(i18nBundle.getMessage("Container.CannotFindUIObject" , {[child , this.uid]}))
 
         return null

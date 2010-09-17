@@ -1,7 +1,8 @@
 package org.telluriumsource.entity
 
 import org.telluriumsource.framework.Environment;
-import org.telluriumsource.crosscut.i18n.IResourceBundle;
+import org.telluriumsource.crosscut.i18n.IResourceBundle
+import org.telluriumsource.framework.SessionManager;
 
 
 /**
@@ -45,7 +46,7 @@ public class DiagnosisResponse {
   }
 
   public void showMe() {
-    IResourceBundle i18nBundle  = Environment.instance.myResourceBundle();
+    IResourceBundle i18nBundle  = SessionManager.getSession().getLookup().lookById("i18nBundle");
 
     println i18nBundle.getMessage("DiagnosisResponse.DiagnosisResult" , uid);
 

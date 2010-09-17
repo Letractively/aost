@@ -5,7 +5,7 @@ import org.telluriumsource.test.ddt.mapping.type.TypeHandler
 import org.telluriumsource.test.ddt.mapping.DataMappingException
 import org.telluriumsource.framework.Environment
 import org.telluriumsource.crosscut.i18n.IResourceBundle
-
+import org.telluriumsource.framework.SessionManager
 
 /**
  * Default implementation to convert a data field to a Java object
@@ -22,7 +22,7 @@ class DefaultObjectUnmarshaller implements ObjectUnmarshaller{
     protected TypeHandlerRegistry registry
 
     DefaultObjectUnmarshaller(){
-    	i18nBundle = Environment.instance.myResourceBundle()
+    	i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
     }
 
     public void setTypeHandlerRegistry(TypeHandlerRegistry registry){

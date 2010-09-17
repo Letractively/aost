@@ -13,6 +13,7 @@ import org.telluriumsource.udl.MetaData
 import org.telluriumsource.udl.UidParser
 import org.antlr.runtime.RecognitionException
 import org.telluriumsource.exception.UidRecognitionException
+import org.telluriumsource.framework.SessionManager
 
 /**
  *  Basic UI object builder
@@ -27,10 +28,9 @@ abstract class UiObjectBuilder extends Const {
     def abstract build(Map map, Closure c);
 
     public UiObjectBuilder(){
-    	i18nBundle = Environment.instance.myResourceBundle();
     }
     boolean validate(UiObject obj, Map map){
-//    	Environment env = Environment.instance
+        i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
         boolean valid = true
         if(map == null || map.isEmpty()){
 

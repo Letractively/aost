@@ -18,12 +18,8 @@ class UiDslParser extends BuilderSupport{
 
        def registry = [:]
 
-       //this should return a singleton class with default builders populated
-       def UiObjectBuilderRegistry builderRegistry = new UiObjectBuilderRegistry()
-
-       public UiDslParser(){
-// 		  i18nBundle = Environment.instance.myResourceBundle()
-       }
+       def UiObjectBuilderRegistry builderRegistry
+        //= new UiObjectBuilderRegistry()
   
        protected String nestObjectName(UiObject obj){
           String id

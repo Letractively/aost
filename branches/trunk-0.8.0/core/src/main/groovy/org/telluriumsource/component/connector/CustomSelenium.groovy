@@ -26,12 +26,10 @@ class CustomSelenium extends DefaultSelenium {
 
     CustomSelenium(String host, int port, String browser, String url){
       super(host, port, browser, url)
-//      i18nBundle = Environment.instance.myResourceBundle()
     }
 
     CustomSelenium(CommandProcessor commandProcessor) {
       super (commandProcessor)
-//      i18nBundle = Environment.instance.myResourceBundle()
     }
 
     public void setUserExt(String userExt){

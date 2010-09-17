@@ -24,7 +24,7 @@ class TelluriumConfigParser {
     protected IResourceBundle i18nBundle
 
     public TelluriumConfigParser(){
-    	i18nBundle = Environment.instance.myResourceBundle()
+
     }
     public void parse(String fileName){
        try{

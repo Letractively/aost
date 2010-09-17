@@ -3,7 +3,8 @@ package org.telluriumsource.test.ddt.mapping.bind
 import org.telluriumsource.test.ddt.mapping.DataMappingException
 import org.telluriumsource.test.ddt.mapping.mapping.FieldSetMapResult
 import org.telluriumsource.crosscut.i18n.IResourceBundle;
-import org.telluriumsource.framework.Environment;
+import org.telluriumsource.framework.Environment
+import org.telluriumsource.framework.SessionManager;
 
 
 
@@ -25,8 +26,7 @@ class VariableBinder {
     protected ObjectBindRegistry registry = new ObjectBindRegistry()
 
     public VariableBinder(){
-    	i18nBundle = Environment.instance.myResourceBundle()
-
+    	i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
     }
     //useString duck type here
     public def bind(String dataFieldId){

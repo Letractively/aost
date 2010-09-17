@@ -142,8 +142,6 @@ class RGraph {
         root.addChild(ref);
       }
       ref.templates.add(iid);
-     
-//       throw new InvalidIndexException(Environment.instance.myResourceBundle().getMessage("UIObject.InvalidIndex", index))
     }
   }
 
@@ -291,7 +289,6 @@ class RGraph {
       return EMPTY_PATH;
     }else{
       return ROOT_PATH;
-//      throw new InvalidIndexException(Environment.instance.myResourceBundle().getMessage("UIObject.InvalidIndex", key));
     }
   }
 

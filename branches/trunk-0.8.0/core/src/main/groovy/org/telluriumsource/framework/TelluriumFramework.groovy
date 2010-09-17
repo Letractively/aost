@@ -113,7 +113,8 @@ public class TelluriumFramework {
     if (!isStarted) {
       IResourceBundle i18nBundle = new org.telluriumsource.crosscut.i18n.ResourceBundle();
       telluriumConfigurator = new TelluriumConfigurator();
-
+      telluriumConfigurator.i18nBundle = i18nBundle;
+      
       String fileName = System.properties.getProperty("telluriumConfigFile");
       if (fileName == null)
         fileName = "TelluriumConfig.groovy"

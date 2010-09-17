@@ -29,8 +29,7 @@ abstract public class TelluriumGroovyTestNGTestCase {
   protected TelluriumFramework tellurium
 
   public TelluriumGroovyTestNGTestCase(){
-	  i18nBundle = Environment.instance.myResourceBundle()
-  }
+	  i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");  }
   public SeleniumConnector getConnector() {
     return conn;
   }

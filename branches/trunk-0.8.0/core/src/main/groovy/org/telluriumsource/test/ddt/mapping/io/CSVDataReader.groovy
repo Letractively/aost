@@ -5,6 +5,7 @@ import org.telluriumsource.test.ddt.mapping.DataMappingException
 import org.telluriumsource.framework.Environment;
 import org.telluriumsource.crosscut.i18n.IResourceBundle
 import org.telluriumsource.ui.Const
+import org.telluriumsource.framework.SessionManager
 
 /**
  * The implementation for the field set reader with comma-separated values
@@ -21,8 +22,7 @@ class CSVDataReader implements DataReader{
 		protected IResourceBundle i18nBundle;
 
 		public CSVDataReader(){
-			i18nBundle = Environment.instance.myResourceBundle()
-		}
+			i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");		}
 
 		public void setupDataStream(FileInputStream input)
 		{

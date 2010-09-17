@@ -4,7 +4,8 @@ import org.telluriumsource.ui.builder.UiObjectBuilderRegistry
 import org.telluriumsource.framework.config.Configurable
 import org.telluriumsource.ui.widget.WidgetBootstrap
 import org.telluriumsource.framework.Environment;
-import org.telluriumsource.crosscut.i18n.IResourceBundle;
+import org.telluriumsource.crosscut.i18n.IResourceBundle
+import org.telluriumsource.framework.SessionManager;
 
 
 
@@ -25,8 +26,9 @@ class WidgetConfigurator implements Configurable{
     protected final static String WIDGET_MODULE_SEPARATOR = ","
 
     public WidgetConfigurator(){
-		  i18nBundle = Environment.instance.myResourceBundle()
+
 	}
+  
     public void configWidgetModule(String widgetModules){
         //first check if the string contains any widget module
         if(widgetModules != null && (widgetModules.trim().length() > 0)){
@@ -39,6 +41,7 @@ class WidgetConfigurator implements Configurable{
                     WidgetBootstrap bootstrap = (WidgetBootstrap) Class.forName(fullname).newInstance()
                     bootstrap.loadWidget(registry)
                 }else{
+                    i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
                     println i18nBundle.getMessage("WidgetConfigurator.ModuleNotempty" , module )
                 }
             }

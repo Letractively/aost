@@ -1,6 +1,7 @@
 package org.telluriumsource.framework;
 
 import org.telluriumsource.crosscut.i18n.IResourceBundle;
+import org.telluriumsource.util.Helper;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -46,6 +47,8 @@ public class RuntimeEnvironment implements Cloneable {
 
     private String lastUiModule = null;
 
+    protected String lastErrorDescription = "";
+
     private IResourceBundle resourceBundle = null;
 
     public IResourceBundle getResourceBundle() {
@@ -54,6 +57,10 @@ public class RuntimeEnvironment implements Cloneable {
 
     public void setResourceBundle(IResourceBundle resourceBundle) {
         this.resourceBundle = resourceBundle;
+    }
+
+    public void setLastError(Exception e){
+        this.lastErrorDescription = Helper.descException(e);
     }
 
     public String getBaseUrl() {
@@ -208,7 +215,8 @@ public class RuntimeEnvironment implements Cloneable {
             .append("useClosestMatch: ").append(useClosestMatch).append(",")
             .append("useEngineLog: ").append(useEngineLog).append(",")
             .append("useBugReport: ").append(useBugReport).append(",")
-            .append("locale").append(locale);
+            .append("locale: ").append(locale).append(",")
+            .append("lastError: ").append(this.lastErrorDescription);
         if(!map.isEmpty()){
             Set<String> keySet = map.keySet();
             for(String key: keySet){
