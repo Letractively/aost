@@ -29,7 +29,8 @@ abstract public class TelluriumGroovyTestNGTestCase {
   protected TelluriumFramework tellurium
 
   public TelluriumGroovyTestNGTestCase(){
-	  i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");  }
+
+  }
   public SeleniumConnector getConnector() {
     return conn;
   }
@@ -42,6 +43,7 @@ abstract public class TelluriumGroovyTestNGTestCase {
   }
   public IResourceBundle geti18nBundle()
   {
+    i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
 	return this.i18nBundle;
   }
   public void connectUrl(String url) {
@@ -73,7 +75,7 @@ abstract public class TelluriumGroovyTestNGTestCase {
   @BeforeClass
   protected void setUpForClass() {
     tellurium = TelluriumSupport.addSupport()
-    tellurium.start(customConfig)
+    tellurium.startServer(customConfig)
     conn = getCurrentConnector();
     initUi()
   }
