@@ -209,6 +209,10 @@ class DslContext implements DslContract {
      getDelegate().disableTelluriumEngine();
   }
 
+  public void useTelluriumEngine(boolean isUse) {
+      getDelegate().useTelluriumEngine(isUse);
+  }
+
   public def customUiCall(String uid, String method, Object[] args) {
     return getDelegate().customUiCall(uid, method, args);  
   }

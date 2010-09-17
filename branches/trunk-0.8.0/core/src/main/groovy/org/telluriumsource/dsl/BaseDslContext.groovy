@@ -313,7 +313,7 @@ abstract class BaseDslContext implements DslContract {
     WorkflowContext context = WorkflowContext.getDefaultContext();
 
     extension.useTeApi(context, true);
-    this.enableMacroCmd();
+//    this.enableMacroCmd();
   }
 
   void disableTelluriumEngine() {
@@ -323,7 +323,15 @@ abstract class BaseDslContext implements DslContract {
 
     extension.useTeApi(context, false);
 
-    this.disableMacroCmd();
+//    this.disableMacroCmd();
+  }
+  
+  void useTelluriumEngine(boolean isUse){
+    if(isUse){
+      enableTelluriumEngine();
+    }else{
+      disableTelluriumEngine();
+    }
   }
 
   //uid should use the format table2[2][3] for Table or list[2] for List

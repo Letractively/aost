@@ -29,7 +29,7 @@ class TelluriumApi extends BaseDslContext {
 //      env.lastDslContext = this;
     UiObject obj = ui.walkTo(context, uid);
     if (obj != null) {
-//        context.attachMetaCmd(uid, obj.amICacheable(), true);
+      context.attachMetaCmd(uid, obj.amICacheable(), true);
 //        context.putContext(WorkflowContext.DSLCONTEXT, this);
       env.lastUiModule = getUiModuleId(uid);
 
@@ -702,7 +702,7 @@ class TelluriumApi extends BaseDslContext {
 
       return walkToWithException(context, uid).isDisabled() {loc ->
 
-        extension.isDisabled(context, uid);
+        return extension.isDisabled(context, uid);
       }
   }
 

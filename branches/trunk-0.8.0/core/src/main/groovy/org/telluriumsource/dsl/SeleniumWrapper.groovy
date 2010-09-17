@@ -645,7 +645,7 @@ class SeleniumWrapper extends BaseDslContext {
     //This only works for jQuery selector
     String[] getAllTableCellText(String uid) {
       WorkflowContext context = WorkflowContext.getContextByEnvironment(true, this.exploreNewEngine())
-      if(this.exploreNewEngine() && this.isUseTelluriumApi()){
+      if(this.exploreNewEngine()){
         def obj = walkToWithException(context, uid)
         if(obj != null && obj.respondsTo("getAllTableCellText")){
           def out = extension.getAllTableBodyText(context, uid)

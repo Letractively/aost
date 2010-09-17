@@ -85,6 +85,7 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
 
     @Test
     public void testLogonWithClosestMatch() {
+        useTelluriumEngine(true);
         useClosestMatch(true);
         jlm.plogon("test", "test");
         useClosestMatch(false);
@@ -99,6 +100,7 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
 
     @Test
     public void testIsDisabled(){
+        useTelluriumEngine(false);
         useCssSelector(true);
         boolean result = jlm.isDisabled("Form.Username.Input");
         assertFalse(result);
@@ -106,6 +108,7 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
         result = jlm.isDisabled("Form.Username.Input");
         assertFalse(result);
         useCssSelector(true);
+        useTelluriumEngine(true);
     }
 
     @Test
