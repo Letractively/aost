@@ -5,7 +5,8 @@ import org.telluriumsource.dsl.WorkflowContext
 import org.telluriumsource.ui.object.UiObject
 import org.telluriumsource.framework.Environment;
 import org.telluriumsource.crosscut.i18n.IResourceBundle
-import org.telluriumsource.dsl.UiDslParser;
+import org.telluriumsource.dsl.UiDslParser
+import org.telluriumsource.framework.SessionManager;
 
 
 /**
@@ -36,7 +37,6 @@ abstract class Widget extends UiObject {
   //for example, if Dojo and ExtJS both has the widget called Accordion, we have to differentiate
   //them using name space, i.e., DOJO::Accordion and ExtJS::Accordion
   public Widget(){
-	  i18nBundle = Environment.instance.myResourceBundle();
       dsl = new WidgetDslContext();
       dsl.locator = this.locator;
       ui = dsl.ui;
@@ -60,6 +60,7 @@ abstract class Widget extends UiObject {
     if (nextid.equalsIgnoreCase(this.uid)) {
       return this
     } else {
+      IResourceBundle i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
       println(i18nBundle.getMessage("Widget.CannotFindUIObject" , nextid , this.uid ))
       return null
     }

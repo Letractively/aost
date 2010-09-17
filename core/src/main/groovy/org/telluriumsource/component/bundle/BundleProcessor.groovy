@@ -7,7 +7,6 @@ import org.telluriumsource.ui.locator.MetaCmd
 import org.stringtree.json.JSONReader
 import org.telluriumsource.dsl.UiID
 
-import org.telluriumsource.framework.Environment
 import org.telluriumsource.entity.UiModuleValidationRequest
 import org.telluriumsource.entity.UiModuleValidationResponse
 import org.telluriumsource.util.Helper
@@ -16,7 +15,6 @@ import org.telluriumsource.entity.EngineState
 import org.telluriumsource.crosscut.i18n.IResourceBundle
 import org.json.simple.JSONArray
 import org.telluriumsource.entity.ReturnType
-import org.telluriumsource.dsl.BaseDslContext
 import org.telluriumsource.framework.RuntimeEnvironment
 import org.telluriumsource.framework.SessionManager
 import org.telluriumsource.dsl.DslContract
@@ -55,20 +53,16 @@ public class BundleProcessor implements Configurable {
   private EngineStateTracer tracer = new EngineStateTracer();
 
   protected IResourceBundle i18nBundle
-  //= Environment.instance.myResourceBundle();
 
   private RuntimeEnvironment env
 
   //maximum number of commands in a bundle
   private int maxMacroCmd(){
-//    return Environment.instance.myMaxMacroCmd();
     return env.getMaxMacroCmd();
   }
 
   //whether to use the bundle feature
-//  private boolean exploitBundle = Environment.instance.&useBundle;
   private boolean exploitBundle(){
-//    return Environment.instance.isUseBundle();
     return env.isUseBundle();
   }
 

@@ -16,6 +16,7 @@ import org.telluriumsource.test.report.*
 import org.telluriumsource.test.groovy.BaseTelluriumGroovyTestCase
 import org.telluriumsource.framework.Environment;
 import org.telluriumsource.crosscut.i18n.IResourceBundle
+import org.telluriumsource.framework.SessionManager
 
 /**
  * Tellurium Data Driven test and it can include multiple data driven modules so that you do not have
@@ -164,7 +165,7 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
 
             tddm.defineModule()
         }else{
-        	IResourceBundle i18nBundle = Environment.instance.myResourceBundle()
+        	IResourceBundle i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
             throw new RuntimeException(i18nBundle.getMessage("TelluriumDataDrivenTest.IncludModule" , module?.getName()))
         }
     }

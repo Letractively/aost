@@ -9,6 +9,7 @@ import org.telluriumsource.framework.Environment;
 
 import java.util.regex.Pattern
 import java.util.regex.Matcher
+import org.telluriumsource.framework.SessionManager
 
 /**
  * Validate the field set reading from the file
@@ -21,7 +22,7 @@ import java.util.regex.Matcher
 class FieldSetValidator {
 
     public static boolean validate(FieldSet fs, List fields){
-        IResourceBundle i18nBundle = Environment.instance.myResourceBundle()
+        IResourceBundle i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
 
         if(fs == null || fs.getFields() == null || fs.getFields().size() < 1)
             throw new DataMappingException(i18nBundle.getMessage("FieldSetValidator.InvalidFieldSet"))

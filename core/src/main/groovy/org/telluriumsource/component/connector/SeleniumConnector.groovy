@@ -49,8 +49,6 @@ class SeleniumConnector implements Configurable {
     sel.open(baseURL + url);
 //        sel.cleanCache();
     //connect up cache
-//    BundleProcessor processor = SessionManager.getSession().getLookup().lookById("bundleProcessor");
-//    BundleProcessor processor = BundleProcessor.instance;
     processor.cleanAllCache();
   }
 
@@ -58,10 +56,7 @@ class SeleniumConnector implements Configurable {
     sel.open(url);
 //        sel.cleanCache();
     //connect up cache
-//    BundleProcessor processor = BundleProcessor.instance;
-//    BundleProcessor processor = SessionManager.getSession().getLookup().lookById("bundleProcessor");
     processor.cleanAllCache();
-
   }
 
   public void configBrowser(String serverHost, int serverPort, String baseUrl, String browser, String browserOptions) {

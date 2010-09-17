@@ -34,7 +34,8 @@ public class TimingDecorator {
     private List<TimingResult> results = new ArrayList<TimingResult>()
 
     public TimingDecorator(){
-    	  i18nBundle = Environment.instance.myResourceBundle()
+      //TODO: refactor this
+//    	  i18nBundle = Environment.instance.myResourceBundle()
     }
     public void setWhiteList(List<String> list){
       this.whiteList = list

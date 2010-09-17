@@ -20,10 +20,10 @@ class DslContext implements DslContract {
 
   private UiDslParser getUiParser(){
     Session session = SessionManager.getSession();
-     if(session == null){
+/*     if(session == null){
        session = TelluriumFramework.instance.createDefaultSession();
        SessionManager.setSession(session);
-     }
+     }*/
 
      Lookup lookup = session.getLookup();
      UiDslParser parser = (UiDslParser)lookup.lookById("uiParser");

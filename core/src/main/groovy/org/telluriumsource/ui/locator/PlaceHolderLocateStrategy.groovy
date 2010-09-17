@@ -1,7 +1,8 @@
 package org.telluriumsource.ui.locator
 
 import org.telluriumsource.framework.Environment;
-import org.telluriumsource.crosscut.i18n.IResourceBundle;
+import org.telluriumsource.crosscut.i18n.IResourceBundle
+import org.telluriumsource.framework.SessionManager;
 
 
 class PlaceHolderLocateStrategy {
@@ -15,7 +16,7 @@ class PlaceHolderLocateStrategy {
     }
 
     def static String locate(PlaceHolderLocator locator){
-    	IResourceBundle i18nBundle = Environment.instance.myResourceBundle()
+    	IResourceBundle i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
         if(locator == null)
             throw new RuntimeException(i18nBundle.getMessage("PlaceHolderLocatorStrategy.InvalidNullLocator"))
         def template = locator.template

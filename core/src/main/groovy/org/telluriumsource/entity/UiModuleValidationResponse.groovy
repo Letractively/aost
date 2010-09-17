@@ -6,6 +6,7 @@ import org.telluriumsource.framework.Environment
 import org.telluriumsource.ui.locator.CompositeLocator
 import org.json.simple.JSONObject
 import org.json.simple.JSONArray
+import org.telluriumsource.framework.SessionManager
 
 /**
  * The response object Passing back from Engine when do UI module locating and caching
@@ -89,8 +90,8 @@ public class UiModuleValidationResponse {
   }
 
   public void showMe() {
-    IResourceBundle i18nBundle  = Environment.instance.myResourceBundle();
-
+    IResourceBundle i18nBundle  = SessionManager.getSession().getLookup().lookById("i18nBundle");
+    
     println i18nBundle.getMessage("UiModuleValidationResponse.ValidationResult" , id);
 
     println("\n-------------------------------------------------------\n");

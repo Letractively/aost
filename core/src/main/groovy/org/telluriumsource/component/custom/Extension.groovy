@@ -16,8 +16,6 @@ public class Extension {
 
    private BundleProcessor cbp
 
-  //= BundleProcessor.instance
-
    def methodMissing(String name, args) {
       return cbp.metaClass.invokeMethod(cbp, name, args)
    }

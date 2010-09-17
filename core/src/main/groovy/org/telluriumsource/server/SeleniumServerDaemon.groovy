@@ -3,7 +3,8 @@ package org.telluriumsource.server
 import org.openqa.selenium.server.RemoteControlConfiguration
 import org.openqa.selenium.server.SeleniumServer
 import org.telluriumsource.framework.Environment;
-import org.telluriumsource.crosscut.i18n.IResourceBundle;
+import org.telluriumsource.crosscut.i18n.IResourceBundle
+import org.telluriumsource.framework.SessionManager;
 
 
 
@@ -87,7 +88,7 @@ public class SeleniumServerDaemon {
           if(userExtension != null && userExtension.trim().length() > 0){
             this.userExtension = userExtension;
           }
-        i18nBundle = Environment.instance.myResourceBundle()
+        i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
   	}
 	public final int getPort() {
 		return port;

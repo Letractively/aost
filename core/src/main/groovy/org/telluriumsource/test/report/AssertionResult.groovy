@@ -2,7 +2,8 @@ package org.telluriumsource.test.report
 
 import junit.framework.AssertionFailedError
 import org.telluriumsource.framework.Environment;
-import org.telluriumsource.crosscut.i18n.IResourceBundle;
+import org.telluriumsource.crosscut.i18n.IResourceBundle
+import org.telluriumsource.framework.SessionManager;
 
 
 
@@ -26,8 +27,9 @@ class AssertionResult {
     protected IResourceBundle i18nBundle
 
     public AssertionResult(){
-    	  i18nBundle = Environment.instance.myResourceBundle()
+      i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
     }
+  
     public boolean isPassed(){
         return passed
     }

@@ -27,7 +27,6 @@ abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
     protected TelluriumFramework tellurium
 
     public BaseTelluriumGroovyTestCase(){
-//		  i18nBundle = Environment.instance.myResourceBundle()
 	}
 
     public abstract SeleniumConnector getConnector()

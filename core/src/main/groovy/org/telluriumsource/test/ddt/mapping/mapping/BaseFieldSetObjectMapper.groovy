@@ -10,6 +10,7 @@ import org.telluriumsource.test.ddt.mapping.validator.FieldSetValidator
 import org.telluriumsource.test.ddt.mapping.FieldSetType
 import org.telluriumsource.crosscut.i18n.IResourceBundle
 import org.telluriumsource.framework.Environment
+import org.telluriumsource.framework.SessionManager
 
 /**
  * The default implemention of the FieldSet Object Mapper
@@ -34,8 +35,9 @@ abstract class BaseFieldSetObjectMapper implements FieldSetObjectMapper{
     protected ObjectUnmarshaller marshaller
 
     public BaseFieldSetObjectMapper(){
-    	i18nBundle = Environment.instance.myResourceBundle()
+    	i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
     }
+  
     protected boolean isEnd(List fieldData){
          //end of file
         if(fieldData == null || fieldData.size() < 1)

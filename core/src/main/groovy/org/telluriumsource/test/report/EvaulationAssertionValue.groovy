@@ -1,6 +1,7 @@
 package org.telluriumsource.test.report
 import org.telluriumsource.framework.Environment;
-import org.telluriumsource.crosscut.i18n.IResourceBundle;
+import org.telluriumsource.crosscut.i18n.IResourceBundle
+import org.telluriumsource.framework.SessionManager;
 
 
 /**
@@ -18,8 +19,9 @@ class EvaulationAssertionValue extends AssertionValue{
 
 
     public EvaulationAssertionValue(){
-    	  i18nBundle = Environment.instance.myResourceBundle()
+      i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
     }
+  
     public String toString() {
         final int typicalLength = 64
         final String avpSeparator = ": "
