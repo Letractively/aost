@@ -573,6 +573,8 @@ Tellurium.prototype.delegateToTellurium = function(response, cmd) {
     var command = this.getCommand(cmd.name);
 
     if(command != null){
+//        fbLog("Command ", command);
+//        fbLog("cmd.arg ", cmd.args);
         var result = command.handler.apply(this, cmd.args);
 /*        var result;
         if(command.type == CommandType.HasUid){
