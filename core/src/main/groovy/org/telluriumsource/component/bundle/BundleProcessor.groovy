@@ -18,6 +18,8 @@ import org.json.simple.JSONArray
 import org.telluriumsource.entity.ReturnType
 import org.telluriumsource.dsl.BaseDslContext
 import org.telluriumsource.framework.RuntimeEnvironment
+import org.telluriumsource.framework.SessionManager
+import org.telluriumsource.dsl.DslContract
 
 /**
  * Command Bundle Processor
@@ -235,7 +237,8 @@ public class BundleProcessor implements Configurable {
   }
 
   public boolean needCacheUiModule(WorkflowContext context, String cmd, String uid){
-    if(uid != null && uid.trim().length() > 0 && context.isUseUiModuleCache()){
+//    if(uid != null && uid.trim().length() > 0 && context.isUseUiModuleCache()){
+   if(uid != null && uid.trim().length() > 0 && env.isUseNewEngine()){
         if(inExclusiveList(cmd)){
           return false;
         }
@@ -248,11 +251,13 @@ public class BundleProcessor implements Configurable {
   }
 
   public CmdRequest getUseUiModuleRequest(WorkflowContext context, String uid){
-    BaseDslContext dslcontext = context.getContext(WorkflowContext.DSLCONTEXT);
+//    BaseDslContext dslcontext = context.getContext(WorkflowContext.DSLCONTEXT);
 //    String json = dslcontext.jsonify(uid);
 /*    String json = dslcontext.toJSON(uid);
     def args = [json];*/
-    JSONArray ar = dslcontext.toJSONArray(uid);
+    DslContract dsl = SessionManager.getSession().getLookup().lookById("api");
+
+    JSONArray ar = dsl.toJSONArray(uid);
     def args = [ar];
 
 //    CmdRequest cmd = new CmdRequest(nextSeq(), uid, UiModuleValidationRequest.CMD_NAME , args);

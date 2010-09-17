@@ -99,6 +99,8 @@ public interface DslContract {
 
   void disableTelluriumEngine();
 
+  void useTelluriumEngine(boolean isUse);
+
   def customUiCall(String uid, String method, Object[] args);
 
   def customDirectCall(String method, Object[] args);

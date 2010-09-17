@@ -255,6 +255,7 @@ TelluriumTestCase.prototype.testGeneralTableModule = function(){
     var dom = teJQuery("html");
     alg.validate(uim, dom);
     alg.santa(uim, dom);
+    
     tellurium.cache.cacheOption = true;
 //    tellurium.cache.addToCache("GT", uim);
     tellurium.cache.put("GT", uim);
@@ -268,10 +269,11 @@ TelluriumTestCase.prototype.testGeneralTableModule = function(){
 //    var uinput = uim.walkTo(context, uiid.convertToUiid("GT[1][1]"));
     var pinput = uim.walkTo(context, uiid.convertToUiid("GT[1][2].Input"));
     var smt = uim.walkTo(context, uiid.convertToUiid("GT[1][2].Some.Link"));
-    tellurium.cmdExecutor.keyDown("GT[1][2].Input", "T");
+    tellurium.click("GT[1][2].Input");
+    tellurium.keyDown("GT[1][2].Input", "T");
 //    var stree = tellurium.cache.takeSnapshot("GT");
 //    tellurium.teApi.getHTMLSource("GT");
-    tellurium.cmdExecutor.getHTMLSource("GT");
+    tellurium.getHTMLSource("GT");
 };
 
 TelluriumTestCase.prototype.testTelluriumDownloadResult = function(){

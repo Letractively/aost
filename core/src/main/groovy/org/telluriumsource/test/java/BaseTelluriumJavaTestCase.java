@@ -1,6 +1,7 @@
 package org.telluriumsource.test.java;
 
 import org.telluriumsource.component.bundle.BundleProcessor;
+import org.telluriumsource.dsl.DslContract;
 import org.telluriumsource.dsl.SeleniumWrapper;
 import org.telluriumsource.dsl.TelluriumApi;
 import org.telluriumsource.framework.RuntimeEnvironment;
@@ -152,11 +153,11 @@ public abstract class BaseTelluriumJavaTestCase {
   }
 
   public static void useClosestMatch(boolean isUse){
-    SeleniumWrapper wrapper = (SeleniumWrapper) SessionManager.getSession().getLookup().lookById("wrapper");
+    DslContract api = (DslContract) SessionManager.getSession().getLookup().lookById("api");
     if (isUse) {
-      wrapper.enableClosestMatch();
+      api.enableClosestMatch();
     } else {
-      wrapper.disableClosestMatch();
+      api.disableClosestMatch();
     }
   }
 
