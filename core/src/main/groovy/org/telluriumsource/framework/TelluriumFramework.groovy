@@ -140,8 +140,9 @@ public class TelluriumFramework {
     }
   }
 
-  public synchronized void stop(){
-
+  public synchronized void stop() {
+    SessionManager.setSession(null);
+    this.isStarted = false;
   }
 
   public void disableEmbeddedSeleniumServer() {
