@@ -342,6 +342,10 @@ class List extends Container {
       return c(this.locator, separators.join(","))
     }
 
+   int getListSize(Closure c){
+     
+     return c(this.locator)
+   }
 
   @Override
   public String toHTML() {

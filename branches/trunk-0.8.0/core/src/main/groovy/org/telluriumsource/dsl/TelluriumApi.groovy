@@ -693,7 +693,7 @@ class TelluriumApi extends BaseDslContext {
       WorkflowContext context = WorkflowContext.getDefaultContext();
       return walkToWithException(context, uid)?.getListSize(){loc ->
 
-        return extension.getListSize()(context, uid);
+        return extension.getListSize(context, uid);
       }
   }
 
