@@ -132,6 +132,10 @@ The generated DSL script is as follows and can be downloaded from [http://aost.g
 
 Similarly, Tellurium IDE could export the test script as a Groovy UI module file and a Java test file. For more details on how to create and run Tellurium Java test cases, please see [http://code.google.com/p/aost/wiki/UserGuide070TelluriumBasics#Testing_Support Tellurium test support].
 
+== Known Issues ==
+
+  * Tellurium IDE does not work in Mac OS X. 
+
 = What's Next =
 
 Be aware that Tellurium IDE 0.8.0 RC1 is work in process, please report any problems back to [http://groups.google.com/group/tellurium-users Tellurium user group].
