@@ -606,9 +606,9 @@ class DslContext implements DslContract {
     return getDelegate().isDisabled(uid);
   }
 
-  public def getParentAttribute(String uid, String attribute) {
-    return getDelegate().getParentAttribute(uid, attribute);
-  }
+//  public def getParentAttribute(String uid, String attribute) {
+//    return getDelegate().getParentAttribute(uid, attribute);
+//  }
 
   public def getAttribute(String uid, String attribute) {
     return getDelegate().getAttribute(uid, attribute);
