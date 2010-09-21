@@ -349,10 +349,11 @@ abstract class DslContext extends BaseDslContext {
     }
 
     public String getXMLDocument(){
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        String xml =  getEval(context, XML_DOCUMENT_SCRIPT)
-
-        return xml
+//        WorkflowContext context = WorkflowContext.getDefaultContext()
+//        String xml =  getEval(context, XML_DOCUMENT_SCRIPT)
+        return getEval(XML_DOCUMENT_SCRIPT)
+      
+//        return xml
     }
 
     //let the missing property return the a string of the properity, this is useful for the onWidget method
