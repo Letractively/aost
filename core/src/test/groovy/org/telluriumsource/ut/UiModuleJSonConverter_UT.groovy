@@ -1,6 +1,8 @@
 package org.telluriumsource.ut
 
 import org.telluriumsource.module.GoogleSearchModule
+import org.telluriumsource.framework.SessionManager
+import org.telluriumsource.mock.MockSessionFactory
 
 /**
  *
@@ -11,6 +13,10 @@ import org.telluriumsource.module.GoogleSearchModule
  */
 
 public class UiModuleJSonConverter_UT extends GroovyTestCase {
+
+  public void setUp(){
+    SessionManager.setSession(MockSessionFactory.getNewSession());
+  }
 
   public void testToJSONString(){
     GoogleSearchModule gsm = new GoogleSearchModule();

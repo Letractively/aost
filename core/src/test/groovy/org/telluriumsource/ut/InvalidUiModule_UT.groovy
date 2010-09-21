@@ -1,6 +1,8 @@
 package org.telluriumsource.ut
 
 import org.telluriumsource.exception.InvalidObjectTypeException
+import org.telluriumsource.framework.SessionManager
+import org.telluriumsource.mock.MockSessionFactory
 
 /**
  *
@@ -11,6 +13,10 @@ import org.telluriumsource.exception.InvalidObjectTypeException
  */
 
 public class InvalidUiModule_UT extends GroovyTestCase{
+
+  public void setUp(){
+    SessionManager.setSession(MockSessionFactory.getNewSession());
+  }
 
   public void testException(){
     InvalidUIModule ium = new InvalidUIModule();

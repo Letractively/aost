@@ -1,7 +1,7 @@
 package org.telluriumsource.ut
 
 import org.telluriumsource.framework.SessionManager
-import org.telluriumsource.framework.TelluriumFramework
+import org.telluriumsource.mock.MockSessionFactory
 
 /**
  * 
@@ -12,10 +12,11 @@ import org.telluriumsource.framework.TelluriumFramework
  */
 
 public class CustomUIExample_UT extends GroovyTestCase {
-  public void setUp(){
-      TelluriumFramework.instance.start(); 
-  }
 
+  public void setUp(){
+    SessionManager.setSession(MockSessionFactory.getNewSession());
+  }
+  
   public void testDump(){
     CustomUIExample cue = new CustomUIExample();
     cue.defineUi();
