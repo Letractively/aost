@@ -26,7 +26,7 @@ public class GoogleSearchGroovyTestCase extends TelluriumGroovyTestCase {
         useCssSelector(true);
         //enableLogging(LogLevels.ALL);
 
-        useTelluriumApi(true);
+        useTelluriumEngine(true);
 
         useTrace(true);
 
