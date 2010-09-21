@@ -19,7 +19,7 @@ import org.telluriumsource.framework.SessionManager;
  */
 class WidgetConfigurator implements Configurable{
 
-	protected IResourceBundle i18nBundle
+//	protected IResourceBundle i18nBundle
     private UiObjectBuilderRegistry registry
 
     protected final static String PACKAGE_DELIMITER = "."
@@ -41,8 +41,8 @@ class WidgetConfigurator implements Configurable{
                     WidgetBootstrap bootstrap = (WidgetBootstrap) Class.forName(fullname).newInstance()
                     bootstrap.loadWidget(registry)
                 }else{
-                    i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
-                    println i18nBundle.getMessage("WidgetConfigurator.ModuleNotempty" , module )
+//                    i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
+                    println SessionManager.getSession().getI18nBundle().getMessage("WidgetConfigurator.ModuleNotempty" , module )
                 }
             }
         }

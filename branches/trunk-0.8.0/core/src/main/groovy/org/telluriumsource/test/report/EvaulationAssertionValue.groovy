@@ -15,11 +15,11 @@ import org.telluriumsource.framework.SessionManager;
 class EvaulationAssertionValue extends AssertionValue{
 
     private def value
-    protected IResourceBundle i18nBundle
+//    protected IResourceBundle i18nBundle
 
 
     public EvaulationAssertionValue(){
-      i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
+//      SessionManager.getSession().getI18nBundle() = SessionManager.getSession().getLookup().lookById("SessionManager.getSession().getI18nBundle()");
     }
   
     public String toString() {
@@ -29,7 +29,7 @@ class EvaulationAssertionValue extends AssertionValue{
         final String fieldStart = " "
 
         StringBuilder sb = new StringBuilder(typicalLength)
-        sb.append(i18nBundle.getMessage("EvaulationAssertionValue.Expected")).append(avpSeparator).append("\"" + value + "\"").append(fieldSeparator)
+        sb.append(SessionManager.getSession().getI18nBundle().getMessage("EvaulationAssertionValue.Expected")).append(avpSeparator).append("\"" + value + "\"").append(fieldSeparator)
 
         return sb.toString()
     }

@@ -50,7 +50,7 @@ public class SeleniumServerDaemon {
 
     private String userExtension = null;
 
-    protected IResourceBundle i18nBundle
+//    protected IResourceBundle i18nBundle
 
     private String [] getParams(){
 		String cmd = "-port " + port + " -log " + logFile;
@@ -88,7 +88,7 @@ public class SeleniumServerDaemon {
           if(userExtension != null && userExtension.trim().length() > 0){
             this.userExtension = userExtension;
           }
-        i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
+//        i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
   	}
 	public final int getPort() {
 		return port;
@@ -131,12 +131,12 @@ public class SeleniumServerDaemon {
 		  File userExt = new File(this.userExtension);
 		  if(userExt.exists()){
             config.setUserExtensions(userExt);
-            println i18nBundle.getMessage("SeleniumServerDaemon.UserExtensionFile" , this.userExtension)
+            println SessionManager.getSession().getI18nBundle().getMessage("SeleniumServerDaemon.UserExtensionFile" , this.userExtension)
           } else {
-            println i18nBundle.getMessage("SeleniumServerDaemon.NoUserExtension" , userExt.getAbsolutePath())
+            println SessionManager.getSession().getI18nBundle().getMessage("SeleniumServerDaemon.NoUserExtension" , userExt.getAbsolutePath())
           }
         }else{
-          println i18nBundle.getMessage("SeleniumServerDaemon.NoUserExtensionWarning")
+          println SessionManager.getSession().getI18nBundle().getMessage("SeleniumServerDaemon.NoUserExtensionWarning")
         }
 		try {
             server = new SeleniumServer(config);

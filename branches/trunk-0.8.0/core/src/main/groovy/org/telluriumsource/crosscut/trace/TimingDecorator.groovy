@@ -3,7 +3,8 @@ import org.telluriumsource.framework.Environment;
 import org.telluriumsource.crosscut.i18n.IResourceBundle
 import org.telluriumsource.crosscut.log.ConsoleAppender
 import org.telluriumsource.crosscut.log.SimpleLogger
-import org.telluriumsource.crosscut.log.Logger;
+import org.telluriumsource.crosscut.log.Logger
+import org.telluriumsource.framework.SessionManager;
 
 
 
@@ -18,7 +19,7 @@ import org.telluriumsource.crosscut.log.Logger;
 public class TimingDecorator {
 //    @Delegate
     private delegate
-    protected IResourceBundle i18nBundle
+//    protected IResourceBundle i18nBundle
 
 
     private Logger logger
@@ -34,9 +35,8 @@ public class TimingDecorator {
     private List<TimingResult> results = new ArrayList<TimingResult>()
 
     public TimingDecorator(){
-      //TODO: refactor this
-//    	  i18nBundle = Environment.instance.myResourceBundle()
     }
+  
     public void setWhiteList(List<String> list){
       this.whiteList = list
     }
@@ -84,9 +84,9 @@ public class TimingDecorator {
         if(methodInWhiteList(name)){
           accumulatedTime += duration
 //          println "Calling $name($args) in ${duration} ms <-- Accumulated "
-          logger.log(i18nBundle.getMessage("TimingDecorator.MethodInWhiteList" , name,args,duration ))
+          logger.log(SessionManager.getSession().getI18nBundle().getMessage("TimingDecorator.MethodInWhiteList" , name,args,duration ))
         }else{
-          logger.log(i18nBundle.getMessage("TimingDecorator.MethodNotInWhiteList" , name,args,duration ))
+          logger.log(SessionManager.getSession().getI18nBundle().getMessage("TimingDecorator.MethodNotInWhiteList" , name,args,duration ))
 //          println "Calling $name($args) in ${duration} ms"
         }
 
@@ -108,7 +108,7 @@ public class TimingDecorator {
 
   public void outputResult() {
 
-    logger.log(i18nBundle.getMessage("TimingDecorator.FinalResults"))
+    logger.log(SessionManager.getSession().getI18nBundle().getMessage("TimingDecorator.FinalResults"))
     for (TimingResult result: results) {
       logger.log(result.strResult());
     }

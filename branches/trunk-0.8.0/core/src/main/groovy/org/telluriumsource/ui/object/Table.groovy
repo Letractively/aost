@@ -20,6 +20,7 @@ import org.telluriumsource.exception.InvalidIndexRefException
 import org.telluriumsource.ui.locator.JQueryBuilder
 import org.telluriumsource.ui.locator.JQueryOptimizer
 import org.telluriumsource.util.Helper
+import org.telluriumsource.framework.SessionManager
 
 /**
  *   This is a table without header tag "thead' and foot "tfoot", but in the format of
@@ -420,7 +421,7 @@ class Table extends Container {
       return this.getIndexedHeaderLocator(Integer.parseInt(key));
     } else {
       //TODO: rename Container.InvalidID to UiObject.InvalidID
-      throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", key));
+      throw new InvalidUidException(SessionManager.getSession().getI18nBundle().getMessage("Container.InvalidID", key));
     }
   }
 
@@ -477,7 +478,7 @@ class Table extends Container {
       }
     }
 
-    Accessor accessor = new Accessor();
+    Accessor accessor = SessionManager.getSession().lookup.lookById("accessor");
 
     return accessor.getIndex(ctx, lst);
   }
@@ -502,12 +503,12 @@ class Table extends Container {
     if(t.getType() == IndexType.REF){
       Index tRef = this.findHeaderIndex(context, t.getValue());
       if(tRef == null)
-        throw new InvalidIndexRefException(i18nBundle.getMessage("UDL.InvalidIndexRef" , t.value))
+        throw new InvalidIndexRefException(SessionManager.getSession().getI18nBundle().getMessage("UDL.InvalidIndexRef" , t.value))
       ri.x = tRef.getValue();
     }else if("all".equalsIgnoreCase(t.getValue()) && rGraph.isRef(inx[0])){
       Index tRef = this.findHeaderIndex(context, inx[0]);
       if(tRef == null)
-        throw new InvalidIndexRefException(i18nBundle.getMessage("UDL.InvalidIndexRef" , inx[0]))
+        throw new InvalidIndexRefException(SessionManager.getSession().getI18nBundle().getMessage("UDL.InvalidIndexRef" , inx[0]))
       ri.x = tRef.getValue();
     }else{
       ri.x = t.getValue();
@@ -517,12 +518,12 @@ class Table extends Container {
     if(r.getType() == IndexType.REF){
       Index rRef = this.findHeaderIndex(context, r.getValue());
       if(rRef == null)
-        throw new InvalidIndexRefException(i18nBundle.getMessage("UDL.InvalidIndexRef" , r.value))
+        throw new InvalidIndexRefException(SessionManager.getSession().getI18nBundle().getMessage("UDL.InvalidIndexRef" , r.value))
       ri.y = rRef.getValue();
     }else if("all".equalsIgnoreCase(r.getValue()) && rGraph.isRef(inx[1])){
       Index rRef = this.findHeaderIndex(context, inx[1]);
       if(rRef == null)
-        throw new InvalidIndexRefException(i18nBundle.getMessage("UDL.InvalidIndexRef" , inx[1]))
+        throw new InvalidIndexRefException(SessionManager.getSession().getI18nBundle().getMessage("UDL.InvalidIndexRef" , inx[1]))
       ri.y = rRef.getValue();
     }else{
       ri.y = r.getValue();
@@ -532,12 +533,12 @@ class Table extends Container {
     if(c.getType() == IndexType.REF){
       Index cRef = this.findHeaderIndex(context, c.getValue());
       if(cRef == null)
-        throw new InvalidIndexRefException(i18nBundle.getMessage("UDL.InvalidIndexRef" , c.value))
+        throw new InvalidIndexRefException(SessionManager.getSession().getI18nBundle().getMessage("UDL.InvalidIndexRef" , c.value))
       ri.setColumn(cRef.getValue());
     }else if("all".equalsIgnoreCase(c.getValue()) && rGraph.isRef(inx[2])){
       Index cRef = this.findHeaderIndex(context, inx[2]);
       if(cRef == null)
-        throw new InvalidIndexRefException(i18nBundle.getMessage("UDL.InvalidIndexRef" , inx[2]))
+        throw new InvalidIndexRefException(SessionManager.getSession().getI18nBundle().getMessage("UDL.InvalidIndexRef" , inx[2]))
       ri.setColumn(cRef.getValue());
     }else{
       ri.setColumn(c.getValue());
@@ -580,7 +581,7 @@ class Table extends Container {
       return this.getIndexedRowSelector(Integer.parseInt(index));
     } else {
       //TODO: rename Container.InvalidID to UiObject.InvalidID
-      throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", key));
+      throw new InvalidUidException(SessionManager.getSession().getI18nBundle().getMessage("Container.InvalidID", key));
     }
   }
 
@@ -618,7 +619,7 @@ class Table extends Container {
       return this.getIndexedColumnSelector(Integer.parseInt(index));
     } else {
       //TODO: rename Container.InvalidID to UiObject.InvalidID
-      throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", key));
+      throw new InvalidUidException(SessionManager.getSession().getI18nBundle().getMessage("Container.InvalidID", key));
     }
   }
 
@@ -679,7 +680,7 @@ class Table extends Container {
       return this.getIndexedRowLocator(index);
     } else {
       //TODO: rename Container.InvalidID to UiObject.InvalidID
-      throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", key));
+      throw new InvalidUidException(SessionManager.getSession().getI18nBundle().getMessage("Container.InvalidID", key));
     }
   }
 
@@ -730,7 +731,7 @@ class Table extends Container {
       return this.getIndexedColumnLocator(index);
     } else {
       //TODO: rename Container.InvalidID to UiObject.InvalidID
-      throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", key));
+      throw new InvalidUidException(SessionManager.getSession().getI18nBundle().getMessage("Container.InvalidID", key));
     }
   }
 
@@ -799,7 +800,7 @@ class Table extends Container {
   int getTableHeaderColumnNumByXPath(Closure c) {
 
     String rl = c(this.locator)
-    Accessor accessor = new Accessor()
+    Accessor accessor = SessionManager.getSession().lookup.lookById("accessor")
 
     String xpath;
     if(this.hasNamespace()){
@@ -815,7 +816,7 @@ class Table extends Container {
   int getTableMaxRowNumByXPath(Closure c) {
 
     String rl = c(this.locator)
-    Accessor accessor = new Accessor()
+    Accessor accessor = SessionManager.getSession().lookup.lookById("accessor")
     String xpath;
     if(this.hasNamespace()){
        xpath = rl + "/${this.namespace}:tbody/${this.namespace}:tr[child::${this.namespace}:td]/${this.namespace}:td[1]"
@@ -831,7 +832,7 @@ class Table extends Container {
   int getTableMaxColumnNumByXPath(Closure c) {
 
     String rl = c(this.locator)
-    Accessor accessor = new Accessor()
+    Accessor accessor = SessionManager.getSession().lookup.lookById("accessor")
     String xpath = rl
     if(this.hasNamespace()){
       xpath = xpath + "/${this.namespace}:tbody/${this.namespace}:tr[child::${this.namespace}:td][1]/${this.namespace}:td"

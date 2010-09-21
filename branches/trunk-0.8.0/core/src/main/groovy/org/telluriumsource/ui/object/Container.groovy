@@ -6,6 +6,7 @@ import org.telluriumsource.ui.locator.LocatorProcessor
 import org.telluriumsource.ui.locator.GroupLocateStrategy
 import org.json.simple.JSONObject
 import org.json.simple.JSONArray
+import org.telluriumsource.framework.SessionManager
 
 /**
  *  container
@@ -194,7 +195,7 @@ class Container extends UiObject {
 
             //cannot find the object
 
-            println i18nBundle.getMessage("Container.CannotFindUIObject" , child , this.uid)
+            println SessionManager.getSession().getI18nBundle().getMessage("Container.CannotFindUIObject" , child , this.uid)
 
             return null
         }
