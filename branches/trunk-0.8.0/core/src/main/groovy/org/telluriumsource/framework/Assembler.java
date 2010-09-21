@@ -102,7 +102,7 @@ public class Assembler {
         parser.setProperty("i18nBundle", i18nBundle);
         parser.setProperty("builderRegistry", uiObjectBuilderRegistry);
         
-        widgetConfigurator.setProperty("i18nBundle", i18nBundle);
+//        widgetConfigurator.setProperty("i18nBundle", i18nBundle);
         widgetConfigurator.setProperty("registry", uiObjectBuilderRegistry);
 
         wrapper.setProperty("ui", parser);
