@@ -813,6 +813,10 @@ class Table extends Container {
     return columnum
   }
 
+  int getTableMaxRowNum(Closure c){
+    return c(this.locator)
+  }
+
   int getTableMaxRowNumByXPath(Closure c) {
 
     String rl = c(this.locator)
