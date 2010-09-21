@@ -17,12 +17,12 @@ import org.telluriumsource.framework.SessionManager
  */
 class DefaultObjectUnmarshaller implements ObjectUnmarshaller{
 
-    protected IResourceBundle i18nBundle ;
+//    protected IResourceBundle i18nBundle ;
 
     protected TypeHandlerRegistry registry
 
     DefaultObjectUnmarshaller(){
-    	i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
+//    	i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
     }
 
     public void setTypeHandlerRegistry(TypeHandlerRegistry registry){
@@ -32,7 +32,7 @@ class DefaultObjectUnmarshaller implements ObjectUnmarshaller{
     public Object unmarshal(String type, String data) {
         TypeHandler handler = registry.getTypeHandler(type)
         if(handler == null)
-            throw new DataMappingException(i18nBundle.getMessage("ObjectUnmarshaller.UnsupportedFieldType"))
+            throw new DataMappingException(SessionManager.getSession().getI18nBundle().getMessage("ObjectUnmarshaller.UnsupportedFieldType"))
         return handler.valueOf(data)
     }
 

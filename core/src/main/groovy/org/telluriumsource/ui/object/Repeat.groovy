@@ -6,6 +6,7 @@ import org.telluriumsource.dsl.UiID
 import org.telluriumsource.ui.locator.LocatorProcessor
 import org.telluriumsource.ui.locator.GroupLocateStrategy
 import org.telluriumsource.component.data.Accessor
+import org.telluriumsource.framework.SessionManager
 
 /**
  * 
@@ -88,7 +89,7 @@ class Repeat extends Container {
 
             //cannot find the object
 
-            println i18nBundle.getMessage("Container.CannotFindUIObject" , child , this.uid)
+            println SessionManager.getSession().getI18nBundle().getMessage("Container.CannotFindUIObject" , child , this.uid)
 
             return null
         }

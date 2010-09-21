@@ -24,10 +24,10 @@ class AssertionResult {
 
     private AssertionFailedError error
 
-    protected IResourceBundle i18nBundle
+//    protected IResourceBundle i18nBundle
 
     public AssertionResult(){
-      i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
+//      i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
     }
   
     public boolean isPassed(){
@@ -42,13 +42,13 @@ class AssertionResult {
 
         StringBuilder sb = new StringBuilder(typicalLength)
         sb.append(value.toString())
-        sb.append(fieldStart).append(i18nBundle.getMessage("AssertionResult.Successful")).append(avpSeparator).append(passed)
+        sb.append(fieldStart).append(SessionManager.getSession().getI18nBundle().getMessage("AssertionResult.Successful")).append(avpSeparator).append(passed)
         if (error != null){
             sb.append(fieldSeparator)
             String errorMsg = error.getMessage()
             if(errorMsg == null)
-                errorMsg = i18nBundle.getMessage("AssertionResult.ResultComparisonError")
-            sb.append(fieldStart).append(i18nBundle.getMessage("AssertionResult.AssertionError")).append(avpSeparator).append("\"" + errorMsg + "\"")
+                errorMsg = SessionManager.getSession().getI18nBundle().getMessage("AssertionResult.ResultComparisonError")
+            sb.append(fieldStart).append(SessionManager.getSession().getI18nBundle().getMessage("AssertionResult.AssertionError")).append(avpSeparator).append("\"" + errorMsg + "\"")
         }
 
         return sb.toString()

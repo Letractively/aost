@@ -20,13 +20,13 @@ class CSVDataReader implements DataReader{
 		protected final static String FIELD_DELIMITER = ","
 		//	protected final static String ESCAPE_START = "\\Q"
 		//	protected final static String ESCAPE_END = "\\E"
-		protected IResourceBundle i18nBundle;
+//		protected IResourceBundle i18nBundle;
 
 		public CSVDataReader(){
 
-            SessionManager.setSession(MockSessionFactory.getNewSession());
+//            SessionManager.setSession(MockSessionFactory.getNewSession());
 
-			i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
+//			i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
         }
 
 		public void setupDataStream(FileInputStream input)
@@ -62,7 +62,7 @@ class CSVDataReader implements DataReader{
 	            }
 
 			} catch (IOException e) {
-				throw new DataMappingException(i18nBundle.getMessage("DataReader.ReadDataException" , e.getMessage()))
+				throw new DataMappingException(SessionManager.getSession().getI18nBundle().getMessage("DataReader.ReadDataException" , e.getMessage()))
 			}
 
 			return lst
