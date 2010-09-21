@@ -3,7 +3,9 @@ package org.telluriumsource.ut
 import org.telluriumsource.test.ddt.mapping.FieldSetRegistry
 import org.telluriumsource.test.ddt.mapping.FieldSetParser
 import org.telluriumsource.test.ddt.mapping.io.DataReader;
-import org.telluriumsource.test.ddt.mapping.io.ExcelDataReader;
+import org.telluriumsource.test.ddt.mapping.io.ExcelDataReader
+import org.telluriumsource.framework.SessionManager
+import org.telluriumsource.mock.MockSessionFactory;
 
 /**
  *
@@ -14,6 +16,10 @@ import org.telluriumsource.test.ddt.mapping.io.ExcelDataReader;
  */
 class ExcelFieldSetReader_UT extends GroovyTestCase {
 
+
+  public void setUp(){
+    SessionManager.setSession(MockSessionFactory.getNewSession());
+  }
 
     void testReadData(){
         FieldSetRegistry fsr = new FieldSetRegistry()

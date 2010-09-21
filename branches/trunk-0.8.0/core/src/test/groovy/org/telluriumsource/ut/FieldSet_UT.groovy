@@ -3,6 +3,8 @@ package org.telluriumsource.ut
 import org.telluriumsource.test.ddt.mapping.FieldSetRegistry
 import org.telluriumsource.test.ddt.mapping.FieldSetParser
 import org.telluriumsource.test.ddt.mapping.FieldSet
+import org.telluriumsource.framework.SessionManager
+import org.telluriumsource.mock.MockSessionFactory
 
 /**
  * Unit tests for Field Set
@@ -13,6 +15,10 @@ import org.telluriumsource.test.ddt.mapping.FieldSet
  *
  */
 class FieldSet_UT extends GroovyTestCase {
+
+  public void setUp(){
+    SessionManager.setSession(MockSessionFactory.getNewSession());
+  }
 
     void testNoIdentifierNoAction(){
         FieldSetRegistry fsr = new FieldSetRegistry()

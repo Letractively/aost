@@ -35,7 +35,6 @@ abstract class BaseFieldSetObjectMapper implements FieldSetObjectMapper{
     protected ObjectUnmarshaller marshaller
 
     public BaseFieldSetObjectMapper(){
-    	i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
     }
   
     protected boolean isEnd(List fieldData){
@@ -66,9 +65,12 @@ abstract class BaseFieldSetObjectMapper implements FieldSetObjectMapper{
             fs = registry.getFieldSetByInternalName(id)
         }
 
-        if(fs == null)
+        i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
 
-            throw new DataMappingException(i18nBundle.getMessage("FieldSetObjectMapper.CannotFindFieldSet" , convString(fieldData)))
+        if(fs == null){
+          throw new DataMappingException(i18nBundle.getMessage("FieldSetObjectMapper.CannotFindFieldSet" , convString(fieldData)))
+        }
+
 
         FieldSetValidator.validate(fs, fieldData)
         FieldSetMapResult result = new FieldSetMapResult()

@@ -8,6 +8,8 @@ import org.telluriumsource.test.ddt.mapping.FieldSetRegistry
 import org.telluriumsource.test.ddt.mapping.mapping.FieldSetMapResult
 import org.telluriumsource.test.ddt.mapping.type.TypeHandlerRegistry
 import org.telluriumsource.test.ddt.mapping.type.TypeHandlerRegistryConfigurator
+import org.telluriumsource.mock.MockSessionFactory
+import org.telluriumsource.framework.SessionManager
 
 /**
  *
@@ -26,6 +28,7 @@ class DataProvider_UT extends GroovyTestCase{
     protected FieldSetParser fs = new FieldSetParser(fsr)
 
     public void setUp(){
+        SessionManager.setSession(MockSessionFactory.getNewSession());
         TypeHandlerRegistryConfigurator.addCustomTypeHandler(thr, "phoneNumber", "org.telluriumsource.ut.PhoneNumberTypeHandler")
 
         fs.FieldSet(name: "fs4googlesearch", description: "example field set for google search"){

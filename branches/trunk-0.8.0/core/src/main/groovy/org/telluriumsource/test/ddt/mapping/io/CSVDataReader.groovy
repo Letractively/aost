@@ -6,6 +6,7 @@ import org.telluriumsource.framework.Environment;
 import org.telluriumsource.crosscut.i18n.IResourceBundle
 import org.telluriumsource.ui.Const
 import org.telluriumsource.framework.SessionManager
+import org.telluriumsource.mock.MockSessionFactory
 
 /**
  * The implementation for the field set reader with comma-separated values
@@ -22,7 +23,11 @@ class CSVDataReader implements DataReader{
 		protected IResourceBundle i18nBundle;
 
 		public CSVDataReader(){
-			i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");		}
+
+            SessionManager.setSession(MockSessionFactory.getNewSession());
+
+			i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
+        }
 
 		public void setupDataStream(FileInputStream input)
 		{
