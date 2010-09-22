@@ -1325,6 +1325,41 @@ var UiFrame = UiContainer.extend({
         this.tag = "iframe";
     },
 
+    walkTo: function(context, uiid){
+        !tellurium.logManager.isUseLog || fbLog("Walk to " + this.uiType + " " + this.uid, this);
+        if (!context.skipNext) {
+            if (this.domRef != null && this.amICacheable()) {
+                context.domRef = this.domRef;
+            } else {
+                var locator;
+                if(this.name != null){
+                    locator = this.name;
+                }else{
+                    locator = "index=" + this.id;
+                }
+                selenium.doSelectFrame(locator);
+                this.domRef = selenium.currentWindow.document;
+                context.domRef = this.domRef;
+            }
+        } else {
+            context.skipNext = false;
+        }
+
+        if(uiid.size() < 1)
+            return this;
+
+        var cid = uiid.pop();
+        var child = this.components.get(cid);
+        if(child != null){
+            !tellurium.logManager.isUseLog || fbLog("Walk to child " + cid, child);
+            return child.walkTo(context, uiid);
+        }else{
+            fbError("Cannot find child " + cid, child);
+            context.domRef = null;
+            return null;
+        }
+    },
+
     extraJSON: function(jso){
         this._super(jso);
         if(this.id != null)
