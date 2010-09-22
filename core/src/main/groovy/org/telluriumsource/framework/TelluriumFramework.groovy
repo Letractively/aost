@@ -47,6 +47,8 @@ public class TelluriumFramework {
     session.wrapper = lookup.lookById("wrapper");
     session.i18nBundle = lookup.lookById("i18nBundle");
 
+    println "Created new session: \n" + session.toString() + "\n";
+
     return session;
   }
   

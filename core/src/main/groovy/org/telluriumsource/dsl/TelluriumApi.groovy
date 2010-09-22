@@ -91,7 +91,7 @@ class TelluriumApi extends BaseDslContext {
   public CacheUsageResponse getCacheUsageResponse() {
     WorkflowContext context = WorkflowContext.getDefaultContext();
 
-    List out = extension.getCacheUsage(context);
+    Map out = extension.getCacheUsage(context);
     CacheUsageResponse resp = new CacheUsageResponse();
     resp.parseJSON(out);
 
@@ -645,7 +645,8 @@ class TelluriumApi extends BaseDslContext {
       WorkflowContext context = WorkflowContext.getDefaultContext();
       return walkToWithException(context, uid)?.getTableMaxRowNum(){loc ->
 
-        return extension.getTableMaxRowNum(context, uid);
+//        return extension.getTableMaxRowNum(context, uid);
+        return extension.getTableRowNum(context, uid);
       }
   }
 
@@ -669,7 +670,8 @@ class TelluriumApi extends BaseDslContext {
       WorkflowContext context = WorkflowContext.getDefaultContext();
       return walkToWithException(context, uid)?.getTableMaxColumnNumForTbody(){loc, optloc ->
 
-        return extension.getTableMaxColumnNumForTbody(context, uid, ntbody);
+//        return extension.getTableMaxColumnNumForTbody(context, uid, ntbody);
+        return extension.getTableColumnNumForTbody(context, uid, ntbody);
       }
   }
 
@@ -677,7 +679,8 @@ class TelluriumApi extends BaseDslContext {
       WorkflowContext context = WorkflowContext.getDefaultContext();
       return walkToWithException(context, uid)?.getTableMaxTbodyNum(){loc, optloc ->
 
-        return extension.getTableMaxTbodyNum(context, uid);
+//        return extension.getTableMaxTbodyNum(context, uid);
+        return extension.getTableTbodyNum(context, uid);
       }
   }
 
@@ -706,12 +709,12 @@ class TelluriumApi extends BaseDslContext {
       }
   }
 
-  public Object getAttribute(String uid, String attribute) {
+  public def getAttribute(String uid, String attribute) {
       WorkflowContext context = WorkflowContext.getDefaultContext();
 
-      return walkToWithException(context, uid).getAttribut(attribute) {loc ->
+      return walkToWithException(context, uid).getAttribute(attribute) {loc, attr ->
 
-        extension.getAttribut(context, uid, attribute);
+          return extension.getAttribute(context, uid, attribute);
       }
   }
 

@@ -70,4 +70,17 @@ public class Session {
     public void setApi(TelluriumApi api) {
         this.api = api;
     }
+
+    public String toString(){
+        StringBuffer sb = new StringBuffer(64);
+        sb.append("Session: [sessionId: ").append(sessionId);
+        if(env != null){
+            sb.append(", Environment: ").append(env.toString());
+        }else{
+            sb.append(", Environment: null");
+        }
+        sb.append("]");
+
+        return sb.toString();
+    }
 }
