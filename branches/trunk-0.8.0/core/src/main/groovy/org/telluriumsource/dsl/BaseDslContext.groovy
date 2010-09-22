@@ -511,10 +511,8 @@ abstract class BaseDslContext implements DslContract {
   }
 
   public String getXMLDocument() {
-    WorkflowContext context = WorkflowContext.getDefaultContext()
-    String xml = getEval(context, XML_DOCUMENT_SCRIPT)
 
-    return xml
+    return getEval(XML_DOCUMENT_SCRIPT)
   }
 
   void selectMainWindow() {
