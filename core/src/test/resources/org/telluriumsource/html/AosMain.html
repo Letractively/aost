@@ -1,0 +1,208 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Web Service Invocation Interface</title>
+<style type="text/css">
+	legend {
+		font-weight: bold;
+	}
+</style>
+</head>
+<body>
+	<form action="./XmlDoc.html" method="post" target="ivrTestResults">
+
+		<div><fieldset><legend>virtualIvrEmployeeUsername</legend>
+			<ul>
+				<li>Obtained: Concatenated Automated Ordering System name (aos), IVR system number, and IVR channel number</li>
+
+				<li>Used: ALL web service invocations</li>
+			</ul>
+			<input type="text" name="virtualIvrEmployeeUsername" size="10" value=""/>
+		</fieldset></div>
+
+		<div><fieldset><legend>virtualIvrEmployeePassword</legend>
+
+			<ul>
+
+				<li>Obtained: A configuration parameter in the IVR call flow script</li>
+				<li>Used: First call to listLastAiredProductGroups action, so to obtain a security ticket</li>
+			</ul>
+			<input type="password" name="virtualIvrEmployeePassword" size="10" value=""/>
+		</fieldset></div>
+
+		<div><fieldset><legend>virtualIvrEmployeeEmpId</legend>
+
+			<ul>
+				<li>Obtained: First call to listLastAiredProductGroups action at /Response/@VirtualIvrEmployeeEmpId</li>
+				<li>Used: ALL invocations after the first invocation</li>
+			</ul>
+			<input type="text" name="virtualIvrEmployeeEmpId" size="10" value=""/>
+		</fieldset></div>
+
+		<div><fieldset><legend>securityTicket</legend>
+
+			<ul>
+				<li>Obtained: First call to listLastAiredProductGroups action at /Response/@SecurityTicket</li>
+				<li>Used: ALL invocations after the first invocation</li>
+			</ul>
+			<input type="text" name="securityTicket" size="32" value=""/>
+		</fieldset></div>
+
+
+		<div><fieldset><legend>Web Service Method (action)</legend>
+			<select name="action">
+				<option value="listLastAiredProductGroups">listLastAiredProductGroups *</option>
+				<option value="retrieveProductGroupDetails">retrieveProductGroupDetails</option>
+				<option value="retrieveProductNameForProductGroupTouchTone">retrieveProductNameForProductGroupTouchTone</option>
+
+				<option value="reserveProductQuantity">reserveProductQuantity *</option>
+				<option value="retrieveCustomerInformation">retrieveCustomerInformation *</option>
+				<option value="validateCreditCardSelectionForCustomer">validateCreditCardSelectionForCustomer *</option>
+				<option value="changeCreditCardExpirationDateForCustomer">changeCreditCardExpirationDateForCustomer</option>
+				<option value="validateChannelSelectionForCustomer">validateChannelSelectionForCustomer *</option>
+				<option value="placeOrder">placeOrder *</option>
+
+				<option value="unreserveProductQuantity">unreserveProductQuantity *</option>
+			</select>
+		</fieldset></div>
+
+		<div><fieldset><legend>productNameToPurchase</legend>
+			<ul>
+				<li>Obtained: Calls to listLastAiredProductGroups action at /Response/ProductGroup/@ProductName_i</li>
+
+				<li>Used: reserveProductQuantity, retrieveCustomerInformation, and placeOrder</li>
+			</ul>
+			<input type="text" name="productNameToPurchase" size="10" value=""/>
+		</fieldset></div>
+
+		<div><fieldset><legend>productGroupNameSelected</legend>
+			<ul>
+
+				<li>Obtained: Calls to listLastAiredProductGroups action at /Response/ProductGroup/@ProductGroupName</li>
+				<li>Used: retrieveProductGroupDetails, reserveProductQuantity</li>
+			</ul>
+			<input type="text" name="productGroupNameSelected" size="10" value=""/>
+		</fieldset></div>
+
+		<div><fieldset><legend>productQuantityToPurchase</legend>
+
+			<ul>
+				<li>Obtained: Entered by customer via touch tone.</li>
+				<li>Used: reserveProductQuantity, retrieveCustomerInformation, and placeOrder</li>
+			</ul>
+			<input type="text" name="productQuantityToPurchase" size="10" value=""/>
+		</fieldset></div>
+
+		<div><fieldset><legend>desiredSizeTouchToneDigits</legend>
+
+			<ul>
+				<li>Obtained: Entered by customer via touch tone.</li>
+				<li>Used: retrieveProductNameForProductGroupTouchTone</li>
+			</ul>
+			<input type="text" name="desiredSizeTouchToneDigits" size="10" value=""/>
+		</fieldset></div>
+
+
+		<div><fieldset><legend>customerId</legend>
+			<ul>
+				<li>Obtained: Entered by customer via touch tone.</li>
+				<li>Used: retrieveCustomerInformation, validateCreditCardSelectionForCustomer,
+					changeCreditCardExpirationDateForCustomer, and placeOrder</li>
+			</ul>
+			<input type="text" name="customerId" size="10" value=""/>
+
+		</fieldset></div>
+
+		<div><fieldset><legend>creditCardNumberLastFourDigits</legend>
+			<ul>
+				<li>Obtained: Entered by customer via touch tone.</li>
+				<li>Used: validateCreditCardSelectionForCustomer,
+					changeCreditCardExpirationDateForCustomer, and placeOrder</li>
+			</ul>
+
+			<input type="text" name="creditCardNumberLastFourDigits" size="10" value=""/>
+		</fieldset></div>
+
+		<div><fieldset><legend>newCreditCardExpirationDateMMYYFormat</legend>
+			<ul>
+				<li>Obtained: Entered by customer via touch tone.</li>
+				<li>Used: changeCreditCardExpirationDateForCustomer</li>
+
+			</ul>
+			<input type="text" name="newCreditCardExpirationDateMMYYFormat" size="10" value=""/>
+		</fieldset></div>
+
+		<div><fieldset><legend>channelNumber</legend>
+			<ul>
+				<li>Obtained: Entered by customer via touch tone.</li>
+
+				<li>Used: validateChannelSelectionForCustomer and placeOrder</li>
+			</ul>
+			<input type="text" name="channelNumber" size="10" value=""/>
+		</fieldset></div>
+
+		<div><fieldset><legend>showCode</legend>
+
+			<ul>
+
+				<li>Obtained: Calls to retrieveCustomerInformation action at /Response/@ShowCode</li>
+				<li>Used: placeOrder</li>
+			</ul>
+			<input type="text" name="showCode" size="10" value=""/>
+		</fieldset></div>
+
+		<div><fieldset><legend>itemTotalInDollars</legend>
+
+			<ul>
+				<li>Obtained: Calls to retrieveCustomerInformation action at /Response/@ItemTotalInDollars</li>
+				<li>Used: placeOrder</li>
+			</ul>
+			<input type="text" name="itemTotalInDollars" size="10" value=""/>
+		</fieldset></div>
+
+		<div><fieldset><legend>shippingDeliveryTimeId</legend>
+
+			<ul>
+				<li>Obtained: Calls to retrieveCustomerInformation action at /Response/ShipMethod/@ShippingDeliveryTimeId</li>
+				<li>Used: placeOrder</li>
+			</ul>
+			<input type="text" name="shippingDeliveryTimeId" size="10" value=""/>
+		</fieldset></div>
+
+
+		<div><fieldset><legend>shippingHandlingChargeInDollars</legend>
+
+			<ul>
+				<li>Obtained: Calls to retrieveCustomerInformation action at /Response/ShipMethod/@ShippingHandlingChargeInDollars</li>
+				<li>Used: placeOrder</li>
+			</ul>
+			<input type="text" name="shippingHandlingChargeInDollars" size="10" value=""/>
+
+		</fieldset></div>
+
+		<div><fieldset><legend>taxChargeInDollars</legend>
+			<ul>
+				<li>Obtained: Calls to retrieveCustomerInformation action at /Response/ShipMethod/@TaxChargeInDollars</li>
+				<li>Used: placeOrder</li>
+			</ul>
+
+			<input type="text" name="taxChargeInDollars" size="10" value=""/>
+		</fieldset></div>
+
+		<div><fieldset><legend>orderTotalInDollars</legend>
+			<ul>
+				<li>Obtained: Calls to retrieveCustomerInformation action at /Response/ShipMethod/@OrderTotalInDollars</li>
+				<li>Used: placeOrder</li>
+
+			</ul>
+			<input type="text" name="orderTotalInDollars" size="10" value=""/>
+		</fieldset></div>
+
+
+		<input type="submit" value="Submit" accesskey="s"/>
+
+
+	</form>
+</body>
+</html>
