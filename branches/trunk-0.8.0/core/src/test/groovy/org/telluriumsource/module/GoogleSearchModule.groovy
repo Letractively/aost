@@ -6,6 +6,14 @@ public class GoogleSearchModule extends DslContext {
 
   public void defineUi() {
 
+    ui.Container(uid: "Sftab", clocator: [tag: "table", id: "sftab"]) {
+      Container(uid: "Table", clocator: [tag: "table"]) {
+        InputBox(uid: "Q", clocator: [tag: "input", type: "text", title: "Search", name: "q", class: "lst"])
+        InputBox(uid: "Grey", clocator: [tag: "input", type: "text", id: "grey", class: "lst"])
+      }
+      SubmitButton(uid: "Search", clocator: [tag: "input", type: "submit", value: "Search", class: "lsb", name: "btnG"])
+    }
+
 //    ui.Image(uid: "Logo", clocator: [tag: "img", src: "*/intl/en_ALL/images/logo.gif"])
       ui.Image(uid: "Logo", clocator: [tag: "img", src: "*.gif", alt: "Google"])
 //    ui.Image(uid: "Logo", clocator: [tag: "img", alt: "Google"])

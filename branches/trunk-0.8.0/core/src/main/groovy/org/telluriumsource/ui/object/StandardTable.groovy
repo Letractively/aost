@@ -976,7 +976,7 @@ class StandardTable extends Container{
   }
   
   int getTableMaxTbodyNum(Closure c){
-    return c(this.locator)
+    return c(this.locator, null)
   }
 
   int getTableMaxColumnNumByXPath(Closure c) {
@@ -994,6 +994,10 @@ class StandardTable extends Container{
         int columnum = accessor.getXpathCount(WorkflowContext.getDefaultContext(), xpath)
 
         return columnum
+    }
+
+    int getTableMaxColumnNumForTbody(Closure c){
+      return c(this.locator, null)  
     }
 
     int getTableMaxColumnNumForTbodyByXPath(int ntbody, Closure c) {

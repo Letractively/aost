@@ -967,14 +967,15 @@ class SeleniumWrapper extends BaseDslContext {
     }
 
     int getTableMaxColumnNumForTbody(String uid, int ntbody) {
-      if(this.exploreNewEngine() && this.isUseTelluriumApi()){
+      if (this.exploreCssSelector())
+        return getTableMaxColumnNumForTbodyBySelector(uid, ntbody)
+
+      return getTableMaxColumnNumForTbodyByXPath(uid, ntbody)
+
+/*      if(this.exploreNewEngine()){
         return getTeTableColumnNumForTbody(uid, ntbody)
       }else{
-        if (this.exploreCssSelector())
-          return getTableMaxColumnNumForTbodyBySelector(uid, ntbody)
-
-        return getTableMaxColumnNumForTbodyByXPath(uid, ntbody)
-      }
+      }*/
     }
 
     int getTeTableTbodyNum(String uid){
@@ -985,14 +986,15 @@ class SeleniumWrapper extends BaseDslContext {
     }
 
     int getTableMaxTbodyNum(String uid) {
-      if(this.exploreNewEngine() && this.isUseTelluriumApi()){
+      if (this.exploreCssSelector())
+        return getTableMaxTbodyNumBySelector(uid)
+
+      return getTableMaxTbodyNumByXPath(uid)
+
+/*      if(this.exploreNewEngine() && this .isUseTelluriumApi()){
         return getTeTableTbodyNum(uid)
       }else{
-        if (this.exploreCssSelector())
-          return getTableMaxTbodyNumBySelector(uid)
-
-        return getTableMaxTbodyNumByXPath(uid)
-      }
+      }*/
     }
 
     int getRepeatNumByXPath(String uid){

@@ -27,6 +27,10 @@ public class CacheUsageResponse {
 
   }
 
+  public void parseJSON(Map map){
+    this.map = map;
+  }
+
   public JSONObject toJSON(){
     JSONObject obj = new JSONObject();
     map?.each{String uim, CacheUsage usage ->
