@@ -2,12 +2,10 @@
 
 = Test Cases for Tellurium IDE 080_RC1  =
 
-Add your content here.
+*Test Case ID = TIDE_I_001*
 
+Description: Install Tellurium IDE on Firefox
 
-= Test Case ID = TIDE_I_001 =
-
-*1. Install Tellurium IDE on Firefox*
 Step 1: Install FireFox 3.5+ on Windows Xp host 
 Step 2: Install Tellurium IDE from https://addons.mozilla.org/en-US/firefox/addon/217284/
 
