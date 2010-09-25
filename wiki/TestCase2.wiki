@@ -1,6 +1,0 @@
-= Install Tellurium IDE on Firefox Firefox 1.5 = 
-
-Step 1: Install Firefox 1.5 from http://www.getfirefox.com/
-Step 2: Install Tellurium IDE in Firefox from https://addons.mozilla.org/en-US/firefox/addon/217284/
-
-Expected Result: Tellurium IDE is installed with no errors or exceptions
