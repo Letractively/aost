@@ -8,3 +8,15 @@
  # Install Tellurium IDE from https://addons.mozilla.org/en-US/firefox/addon/217284/
 
 Expected result: Tellurium IDE is installed with no errors and exceptions
+
+
+= Test Cases for Tellurium IDE 080_RC1  =
+
+==Test Case ID = TIDE_I_002 , Description: Test Record Button==
+
+ # Pre-requisite: Tellurium IDE is installed in Firefox 
+ # Verify that the record button is ON by default
+ # Perform simple search in Google
+ # Stop Recording by clicking the record button
+
+Expected result: Record button is active by default
