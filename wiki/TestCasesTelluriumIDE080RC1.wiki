@@ -2,7 +2,7 @@
 
 = Test Cases for Tellurium IDE 080_RC1  =
 
-==Test Case ID = TIDE_I_001 , Description: Install Tellurium IDE on Firefox==
+==Test Case ID = TIDE_I_001 , Description: Install Tellurium IDE on Firefox/WindowsXp==
 
  # Install FireFox 3.5+ on Windows Xp host 
  # Install Tellurium IDE from https://addons.mozilla.org/en-US/firefox/addon/217284/
@@ -45,3 +45,7 @@ Expected result: Record button is active by default
 ==Test Case ID = TIDE_I_0015 , Description: Test Export Groovy DSL==
 
 ==Test Case ID = TIDE_I_0016 , Description: Build Tellurium IDE from Source==
+
+==Test Case ID = TIDE_I_0017 , Description: Install Tellurium IDE on Firefox/Mac==
+
+==Test Case ID = TIDE_I_0018 , Description: Install Tellurium IDE on Firefox/Ubuntu==
