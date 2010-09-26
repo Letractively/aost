@@ -44,4 +44,4 @@ Expected result: Record button is active by default
 
 ==Test Case ID = TIDE_I_0015 , Description: Test Export Groovy DSL==
 
-==Test Case ID = TIDE_I_0016 , Description: Test Export Java Code==
+==Test Case ID = TIDE_I_0016 , Description: Build Tellurium IDE from Source==
