@@ -17,3 +17,31 @@ Expected result: Tellurium IDE is installed with no errors and exceptions
  # Stop Recording by clicking the record button
 
 Expected result: Record button is active by default
+
+==Test Case ID = TIDE_I_003 , Description: Test Replay Button==
+
+==Test Case ID = TIDE_I_004 , Description: Test Update Button==
+
+==Test Case ID = TIDE_I_005 , Description: Test Remove Button==
+
+==Test Case ID = TIDE_I_006 , Description: Test Insert Before Button==
+
+==Test Case ID = TIDE_I_007 , Description: Test Insert After Button==
+
+==Test Case ID = TIDE_I_008 , Description: Test Command List Columns==
+
+==Test Case ID = TIDE_I_009 , Description: Test Log Pane==
+
+==Test Case ID = TIDE_I_0010 , Description: Test Step into a recorded Test==
+
+==Test Case ID = TIDE_I_0011 , Description: Customize a test==
+
+==Test Case ID = TIDE_I_0012 , Description: Test Record View Tab==
+
+==Test Case ID = TIDE_I_0013 , Description: Test Command View Tab==
+
+==Test Case ID = TIDE_I_0014 , Description: Test Source View Tab==
+
+==Test Case ID = TIDE_I_0015 , Description: Test Export Groovy DSL==
+
+==Test Case ID = TIDE_I_0016 , Description: Test Export Java Code==
