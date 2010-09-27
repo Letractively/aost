@@ -49,3 +49,5 @@ Expected result: Record button is active by default
 ==Test Case ID = TIDE_I_0017 , Description: Install Tellurium IDE on Firefox/Mac==
 
 ==Test Case ID = TIDE_I_0018 , Description: Install Tellurium IDE on Firefox/Ubuntu==
+
+==Test Case ID = TIDE_I_0019 , Description: Install Tellurium IDE on IE/WindowsXP==
