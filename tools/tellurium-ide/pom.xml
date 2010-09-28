@@ -1,21 +1,22 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<parent>
-		<groupId>org.telluriumsource</groupId>
-		<artifactId>tellurium-tools</artifactId>
-		<version>0.8.0-SNAPSHOT</version>
-	</parent>
-	<modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
         <groupId>org.telluriumsource</groupId>
-	<artifactId>tellurium-ide</artifactId>
-	<version>0.8.0-SNAPSHOT</version>
-	<packaging>jar</packaging>
-	<name>Tellurium IDE</name>
-	<description>A Tellurium Firefox Plugin for Test Recording and Replaying</description>
-	<scm>
-		<connection>scm:svn:http://aost.google.code.com/svn/trunk/tools/tellurium-ide</connection>
-		<developerConnection>scm:svn:https://aost.googlecode.com/svn/trunk/tools/tellurium-ide</developerConnection>
-		<url>http://aost.google.code.com/svn/trunk/tools/tellurium-ide</url>
-	</scm>
+        <artifactId>tellurium-tools</artifactId>
+        <version>0.8.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.telluriumsource</groupId>
+    <artifactId>tellurium-ide</artifactId>
+    <version>0.8.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>Tellurium IDE</name>
+    <description>A Tellurium Firefox Plugin for Test Recording and Replaying</description>
+    <scm>
+        <connection>scm:svn:http://aost.google.code.com/svn/trunk/tools/tellurium-ide</connection>
+        <developerConnection>scm:svn:https://aost.googlecode.com/svn/trunk/tools/tellurium-ide</developerConnection>
+        <url>http://aost.google.code.com/svn/trunk/tools/tellurium-ide</url>
+    </scm>
     <build>
         <plugins>
             <plugin>
@@ -38,15 +39,16 @@
                         <artifactId>ant-nodeps</artifactId>
                         <version>1.7.1</version>
                     </dependency>
-<!--
-                    <dependency>
-                        <groupId>sun.jdk</groupId>
-                        <artifactId>tools</artifactId>
-                        <version>1.5.0</version>
-                        <scope>system</scope>
-                        <systemPath>${java.home}/../lib/tools.jar</systemPath>
-                    </dependency>
--->
+                    <!--
+                                        <dependency>
+                                            <groupId>sun.jdk</groupId>
+                                            <artifactId>tools</artifactId>
+                                            <version>1.5.0</version>
+                                            <scope>system</scope>
+                                            <systemPath>${java.home}/../lib/tools.jar</systemPath>
+                                        </dependency>
+                    -->
+                          
                 </dependencies>
 
                 <executions>
@@ -55,15 +57,44 @@
                         <phase>package</phase>
                         <configuration>
                             <tasks>
-                                <mkdir dir="${basedir}/target" />
-                                <zip update="true" compress="true" comment="Tellurium IDE development build" destfile="${basedir}/target/TelluriumIDE-${project.version}.xpi" basedir="${basedir}/trump" excludes="trump.kpf" />
+                                <mkdir dir="${basedir}/target"/>
+                                <zip update="true" compress="true" comment="Tellurium IDE development build"
+                                     destfile="${basedir}/target/TelluriumIDE-${project.version}.xpi"
+                                     basedir="${basedir}/trump" excludes="trump.kpf"/>
                             </tasks>
                         </configuration>
                         <goals>
                             <goal>run</goal>
                         </goals>
                     </execution>
+                    <execution>
+                        <id>jsLint-test</id>
+                        <phase>test</phase>
+                        <configuration>
+                            <tasks>
+
+                                <path id="project.testcompile.classpath">
+                                    <path refid="maven.test.classpath"/>
+                                </path>
+                                <property name="testcompile_classpath" refid="project.testcompile.classpath" />
+
+                                <java classname="com.googlecode.jslint4java.cli.Main" fork="true">
+                                    <classpath refid="project.testcompile.classpath"/>
+                                    <arg line="--browser --cap --debug --devel --evil --fragment --laxbreak --on" />
+                                    <arg value="${basedir}/trump/chrome/content"/>
+                                </java>
+
+
+                            </tasks>
+                            
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
                 </executions>
+
+              
             </plugin>
 
             <plugin>
@@ -87,6 +118,64 @@
                     </execution>
                 </executions>
             </plugin>
+
+<!--            <plugin>
+                <groupId>com.googlecode.jslintmavenplugin</groupId>
+
+                <artifactId>jslint</artifactId>
+                <version>${jslint.maven.plugin.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.googlecode.jslint4java</groupId>
+                        <artifactId>jslint4java</artifactId>
+                        <version>1.4.2</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>run-tests</id>
+
+                        <phase>test</phase>
+                        <goals>
+
+                            <goal>test</goal>
+                        </goals>
+
+                        <configuration>
+&lt;!&ndash;
+                            <jar>${jslint.jar}</jar>
+&ndash;&gt;
+
+                            <options>${jslint.options}</options>
+                            <predef>${jslint.predef}</predef>
+
+                            <src>${jslint.source.dir}</src>
+                        </configuration>
+
+                    </execution>
+                </executions>
+            </plugin>-->
         </plugins>
     </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.googlecode.jslint4java</groupId>
+            <artifactId>jslint4java</artifactId>
+            <version>1.4.2</version>
+        </dependency>
+        
+    </dependencies>
+
+    <properties>
+
+        <!--<jslint.jar>${basedir}/src/test/resources/jslint4java.jar</jslint.jar>-->
+        <jslint.maven.plugin.version>1.0-SNAPSHOT</jslint.maven.plugin.version>
+
+        <jslint.options>browser,cap,debug,devel,evil,fragment,laxbreak,on</jslint.options>
+        <jslint.predef/>
+
+        <jslint.source.dir>${basedir}/trump/chrome/content</jslint.source.dir>
+    </properties>
+    
 </project>
