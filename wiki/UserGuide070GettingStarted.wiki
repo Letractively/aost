@@ -53,7 +53,7 @@ mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id \
 For an Ant user: 
 
   # Download Tellurium 0.7.0 Release package from the [http://code.google.com/p/aost/downloads/list Tellurium project download page]
-  # Unpack the Tellurium 0.7.0 Release package and copy dependencies in directory dependencies/lib to your project /lib directory together with the {{{tellurium-core}}} and {{{tellurium-udl}}} 0.7.0 jar files. 
+  # Unpack the Tellurium 0.7.0 Release package and copy dependencies from the directory dependencies/lib to your project /lib directory together with the {{{tellurium-core}}} and {{{tellurium-udl}}} 0.7.0 jar files. 
   # Name the Tellurium configuration file as TelluriumConfig.groovy and place it in the project root directory.
 
 For Ant build scripts, refer to [http://code.google.com/p/aost/wiki/TelluriumSampleAntBuildScript the sample Tellurium Ant build scripts].
