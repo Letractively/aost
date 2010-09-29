@@ -60,8 +60,13 @@ public class FirefoxChromeLauncher extends AbstractBrowserLauncher {
         	throw new InvalidBrowserExecutableException("The specified path to the browser executable is invalid.");
         }
         this.browserInstallation = browserInstallation;
+        // don't set the library path on Snow Leopard
+        String platform = System.getProperty("os.name");
 
-        shell.setLibraryPath(browserInstallation.libraryPath());
+        if (!platform.startsWith("MAC")) {
+            shell.setLibraryPath(browserInstallation.libraryPath());
+        }
+//        shell.setLibraryPath(browserInstallation.libraryPath());
         // Set MOZ_NO_REMOTE in order to ensure we always get a new Firefox process
         // http://blog.dojotoolkit.org/2005/12/01/running-multiple-versions-of-firefox-side-by-side
         shell.setEnvironmentVariable("MOZ_NO_REMOTE", "1");
