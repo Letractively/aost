@@ -13,13 +13,13 @@ function UiPage(){
 }
 
 UiPage.prototype.insertFirst = function(cmd){
-    if(this.commandList != null){
+    if(this.commandList !== null){
         this.commandList.splice(0, 0, cmd);
     }
 };
 
 UiPage.prototype.getIndex = function(cmd){
-    if(this.commandList != null){
+    if(this.commandList !== null){
         for(var i=0; i<this.commandList.length; i++){
             if(this.commandList[i].seq == cmd.seq){
                 return i;
@@ -31,19 +31,19 @@ UiPage.prototype.getIndex = function(cmd){
 };
 
 UiPage.prototype.removeCommand = function(index){
-    if(this.commandList != null){
+    if(this.commandList !== null){
         this.commandList.splice(index, 1);
     }
 };
 
 UiPage.prototype.insertAt = function(index, cmd){
-    if(this.commandList != null){
+    if(this.commandList !== null){
         this.commandList.splice(index, 0, cmd);
     }
 };
 
 UiPage.prototype.commandSize = function(){
-    return this.commandList == null ? 0 : this.commandList.length;    
+    return this.commandList === null ? 0 : this.commandList.length;
 };
 
 const SourceLanguage = {
@@ -98,7 +98,7 @@ App.prototype.clearAll = function(){
 };
 
 App.prototype.findRefFromUid = function(uid){
-    if(this.refUidMap != null && this.refUidMap.size() > 0){
+    if(this.refUidMap !== null && this.refUidMap.size() > 0){
         var keySet = this.refUidMap.keySet();
         for(var i=0; i<keySet.length; i++){
             var key = keySet[i];
@@ -112,7 +112,7 @@ App.prototype.findRefFromUid = function(uid){
 };
 
 App.prototype.updateCommand = function(cmd){
-    if(cmd != null){
+    if(cmd !== null){
         var command = this.cmdIndex.get(cmd.seq);
         command.name = cmd.name;
         command.target = cmd.target;
@@ -121,7 +121,7 @@ App.prototype.updateCommand = function(cmd){
 };
 
 App.prototype.updateCommandList = function() {
-    if (this.pages != null && this.pages.length > 0) {
+    if (this.pages !== null && this.pages.length > 0) {
         for (var i = 0; i < this.pages.length; i++) {
             this.updateCommandListForPage(this.pages[i]);
         }
@@ -129,14 +129,14 @@ App.prototype.updateCommandList = function() {
 };
 
 App.prototype.updateCommandListForPage = function(page) {
-    if (page != null) {
+    if (page !== null) {
         var commandList = page.commandList;
-        if (commandList != null && commandList.length > 0) {
+        if (commandList !== null && commandList.length > 0) {
             for (var i = 0; i < commandList.length; i++) {
                 var cmd = commandList[i];
-                if (this.refUidMap != null && cmd.ref != null) {
+                if (this.refUidMap !== null && cmd.ref !== null) {
                     var uid = this.refUidMap.get(cmd.ref);
-                    if (uid != null && cmd.target != uid) {
+                    if (uid !== null && cmd.target != uid) {
                         cmd.target = uid;
                     }
                 }
@@ -146,8 +146,8 @@ App.prototype.updateCommandListForPage = function(page) {
 };
 
 App.prototype.insertCommand = function(prevCmd, cmd){
-    if(this.pages != null && this.pages.length > 0){
-        if(prevCmd == null){
+    if(this.pages !== null && this.pages.length > 0){
+        if(prevCmd === null){
             //insert as the first command
             this.pages[0].insertFirst(cmd);
         }else{
@@ -176,7 +176,7 @@ App.prototype.insertCommand = function(prevCmd, cmd){
 };
 
 App.prototype.deleteCommand = function(cmd) {
-    if (cmd != null) {
+    if (cmd !== null) {
         this.cmdIndex.remove(cmd.seq);
         for (var i = 0; i < this.pages.length; i++) {
             var page = this.pages[i];
@@ -193,14 +193,14 @@ App.prototype.getCommandList = function(){
     var list = new Array();
     var prevCmd = null;
     var skip = false;
-    if(this.pages != null && this.pages.length > 0){
+    if(this.pages !== null && this.pages.length > 0){
         for(var i=0; i<this.pages.length; i++){
             var commandList = this.pages[i].commandList;
-            if(commandList != null && commandList.length > 0){
+            if(commandList !== null && commandList.length > 0){
                 for(var j=0; j<commandList.length; j++) {
                     var uiCmd = commandList[j];
                     skip = false;
-                    if (prevCmd != null && "waitForPageToLoad" == prevCmd.name && "waitForPageToLoad" == uiCmd.name) {
+                    if (prevCmd !== null && "waitForPageToLoad" == prevCmd.name && "waitForPageToLoad" == uiCmd.name) {
                         logger.warn("Duplicated waitForPageToLoad, ignore it");
                         skip = true;
                     }
@@ -245,9 +245,9 @@ App.prototype.getUids = function(uid) {
     var uim = this.uimMap.get(first);
 //    uid = first;
 //    uiid.convertToUiid(uid);
-    if (uim != null) {
+    if (uim !== null) {
         var obj = uim.walkTo(context, uiid);
-        if (obj != null) {
+        if (obj !== null) {
             var stree = this.uiAlg.buildSTree(uim);
             var visitor = new UiUIDVisitor();
             stree.traverse(context, visitor);
@@ -297,7 +297,7 @@ App.prototype.walkToUiObject = function(uid){
 
     var uim = this.uimMap.get(first);
 
-    if(uim != null){
+    if(uim !== null){
         return uim.walkTo(new WorkflowContext(), uiid);
     }
     
@@ -311,13 +311,13 @@ App.prototype.savePage = function(window, uim, dom, commandList){
     page.dom = dom;
     page.commandList = commandList;
     //prevent duplicated uim root name
-    if(uim != null){
+    if(uim !== null){
         var um = this.uimMap.get(uim.id);
-        if(um != null){
+        if(um !== null){
             //found duplicated root name
             var newName = uim.id + this.identifier.next();
             uim.id = newName;
-            if(uim.root != null){
+            if(uim.root !== null){
                 uim.root.uid = newName;
             }
             uim.postUidChange();
@@ -335,7 +335,7 @@ App.prototype.toSource = function(){
     var code = "";
     if(this.pages.length > 0){
         for(var i=0; i<this.pages.length; i++){
-            if(this.pages[i].uim != null){
+            if(this.pages[i].uim !== null){
                 code = code + this.describeUiModule(this.pages[i].uim) + "\n";
             }
         }
@@ -369,7 +369,7 @@ App.prototype.toGroovyDsl = function() {
         sb.append(" */\n\n");
         if (this.pages.length > 0) {
             for (var i = 0; i < this.pages.length; i++) {
-                if (this.pages[i].uim != null) {
+                if (this.pages[i].uim !== null) {
                     sb.append(teJQuery.escape(this.describeUiModule(this.pages[i].uim))).append("\n");
                 }
             }
@@ -419,7 +419,7 @@ App.prototype.toUiModule = function() {
 
         if (this.pages.length > 0) {
             for (var i = 0; i < this.pages.length; i++) {
-                if (this.pages[i].uim != null) {
+                if (this.pages[i].uim !== null) {
                     sb.append(teJQuery.escape(this.describeUiModule(this.pages[i].uim))).append("\n");
                 }
             }
@@ -481,11 +481,11 @@ App.prototype.describeTestSetup = function(){
 
 App.prototype.describeCommand = function(commandList, mapper){
     var sb = new StringBuffer();
-    if(commandList != null && commandList.length > 0){
+    if(commandList !== null && commandList.length > 0){
         for(var i=0; i<commandList.length; i++){
             var cmd = commandList[i];
             var name = cmd.name;
-            if(mapper != null){
+            if(mapper !== null){
                 name = this.cmdMap.get(cmd.name) || cmd.name;
             }
             sb.append("\t\t");
@@ -502,7 +502,7 @@ App.prototype.describeUiModule = function(uim) {
     var visitor = new StringifyVisitor();
     uim.around(visitor);
     var uiModelArray = visitor.out;
-    if (uiModelArray != undefined && uiModelArray != null) {
+    if (uiModelArray != undefined && uiModelArray !== null) {
         var sb = new StringBuffer();
         for (var i = 0; i < uiModelArray.length; ++i) {
             if (i == 0) {

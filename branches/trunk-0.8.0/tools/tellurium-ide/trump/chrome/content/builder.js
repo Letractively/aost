@@ -79,8 +79,7 @@ Builder.prototype.getText = function(node) {
 Builder.prototype.getTextReg = function(txt) {
     var text = txt.replace(/^ *(.*?) *$/, "$1");
     if (text.match(/\xA0/)) { // if the text contains &nbsp;
-        return "regexp:" + text.replace(/[\(\)\[\]\\\^\$\*\+\?\.\|\{\}]/g, function(str) {return '\\' + str})
-                                      .replace(/\s+/g, function(str) {
+        return "regexp:" + text.replace(/[\(\)\[\]\\\^\$\*\+\?\.\|\{\}]/g, function(str) {return '\\' + str;}).replace(/\s+/g, function(str) {
                 if (str.match(/\xA0/)) {
                     if (str.length > 1) {
                         return "\\s+";
@@ -125,7 +124,7 @@ function getAttributesString(node){
     var attr="";
     for(var i=0; i < attributes.length; ++i){
         if(i != 0){
-            attr+=", "
+            attr+=", ";
         }
         attr+= attributes[i].name + ": \""+ attributes[i].value+"\"";
     }
