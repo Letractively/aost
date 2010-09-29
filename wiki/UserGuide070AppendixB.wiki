@@ -1172,6 +1172,10 @@ pkill Xvfb
 
 For ant, you can replace "mvn test" with your ant task.
 
+== How to Make Tellurium work with Firefox and Snow Leopard ==
+
+Please refer to Scott's blog on [http://scott.phillips.name/2010/09/make-tellurium-selenium-work-with-firefox-and-snow-leopard/ Make Tellurium / Selenium work with Firefox and Snow Leopard]
+
 == How to Search Tellurium Documents ==
 
 The trick is to use google's site meta command, which will narrow the search to one domain. You can use the following key words to do Google search,
