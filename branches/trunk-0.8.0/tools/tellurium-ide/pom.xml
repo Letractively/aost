@@ -121,42 +121,6 @@
                 </executions>
             </plugin>
 
-<!--            <plugin>
-                <groupId>com.googlecode.jslintmavenplugin</groupId>
-
-                <artifactId>jslint</artifactId>
-                <version>${jslint.maven.plugin.version}</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.googlecode.jslint4java</groupId>
-                        <artifactId>jslint4java</artifactId>
-                        <version>1.4.2</version>
-                    </dependency>
-                </dependencies>
-                <executions>
-                    <execution>
-                        <id>run-tests</id>
-
-                        <phase>test</phase>
-                        <goals>
-
-                            <goal>test</goal>
-                        </goals>
-
-                        <configuration>
-&lt;!&ndash;
-                            <jar>${jslint.jar}</jar>
-&ndash;&gt;
-
-                            <options>${jslint.options}</options>
-                            <predef>${jslint.predef}</predef>
-
-                            <src>${jslint.source.dir}</src>
-                        </configuration>
-
-                    </execution>
-                </executions>
-            </plugin>-->
         </plugins>
     </build>
 
@@ -172,16 +136,5 @@
             <version>1.4.2</version>
         </dependency>        
     </dependencies>
-
-    <properties>
-
-        <!--<jslint.jar>${basedir}/src/test/resources/jslint4java.jar</jslint.jar>-->
-        <jslint.maven.plugin.version>1.0-SNAPSHOT</jslint.maven.plugin.version>
-
-        <jslint.options>browser,cap,debug,devel,evil,fragment,laxbreak,on</jslint.options>
-        <jslint.predef/>
-
-        <jslint.source.dir>${basedir}/trump/chrome/content</jslint.source.dir>
-    </properties>
     
 </project>
