@@ -73,20 +73,22 @@
                         <configuration>
                             <tasks>
 
+                                <!--<mkdir dir="${basedir}/target/test-reports"/>-->
+                                <mkdir dir="${basedir}/target"/>
+<!--                                <touch file="${basedir}/target/jslint.txt" />-->
                                 <path id="project.testcompile.classpath">
                                     <path refid="maven.test.classpath"/>
                                 </path>
-                                <property name="testcompile_classpath" refid="project.testcompile.classpath" />
 
-                                <java classname="com.googlecode.jslint4java.cli.Main" fork="true">
-                                    <classpath refid="project.testcompile.classpath"/>
-                                    <arg line="--browser --cap --debug --devel --evil --fragment --laxbreak --on" />
-                                    <arg value="${basedir}/trump/chrome/content"/>
-                                </java>
-
+                                <taskdef name="jslint" classname="com.googlecode.jslint4java.ant.JSLintTask" classpathref="project.testcompile.classpath"/>
+                                <jslint options="browser,cap,debug,devel,evil,fragment,laxbreak,on">
+                                    <formatter type="plain" destfile="${basedir}/target/jslint.txt" />
+                                    <!--<formatter type="junit" destfile="${basedir}/target/test-reports" /> -->                              
+                                    <fileset dir="trump/chrome/content" includes="**/*.js"/>
+                                </jslint>
 
                             </tasks>
-                            
+
                         </configuration>
                         <goals>
                             <goal>run</goal>
@@ -164,7 +166,11 @@
             <artifactId>jslint4java</artifactId>
             <version>1.4.2</version>
         </dependency>
-        
+        <dependency>
+            <groupId>com.googlecode.jslint4java</groupId>
+            <artifactId>jslint4java-ant</artifactId>
+            <version>1.4.2</version>
+        </dependency>        
     </dependencies>
 
     <properties>
