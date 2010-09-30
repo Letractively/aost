@@ -84,7 +84,7 @@ abstract class BaseDslContext implements DslContract {
     return out;
   }
 
-  protected Object parseSeleniumJSONReturnValue(List out) {
+  protected Object parseSeleniumJSONReturnValue(java.util.List out) {
     return out;
   }
 
