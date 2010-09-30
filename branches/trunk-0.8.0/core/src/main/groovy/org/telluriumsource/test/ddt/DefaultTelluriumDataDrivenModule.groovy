@@ -1,10 +1,10 @@
 package org.telluriumsource.test.ddt
 
-import org.telluriumsource.test.ddt.mapping.FieldSetParser
+/*import org.telluriumsource.test.ddt.mapping.FieldSetParser
 import org.telluriumsource.dsl.UiDslParser
 
 import org.telluriumsource.test.ddt.mapping.type.TypeHandlerRegistry
-import org.telluriumsource.test.ddt.mapping.FieldSetRegistry
+import org.telluriumsource.test.ddt.mapping.FieldSetRegistry*/
 
 /**
  * 
@@ -15,6 +15,7 @@ import org.telluriumsource.test.ddt.mapping.FieldSetRegistry
  */
 class DefaultTelluriumDataDrivenModule extends TelluriumDataDrivenModule{
     
+/*
     public DefaultTelluriumDataDrivenModule(){
 
     }
@@ -48,11 +49,13 @@ class DefaultTelluriumDataDrivenModule extends TelluriumDataDrivenModule{
         return this.dataProvider
     }
 
-/*  XXX: seems this will cause endless loop in groovy and lead to stack overflow 
+*/
+/*  XXX: seems this will cause endless loop in groovy and lead to stack overflow
     public void setDataProvider(DataProvider dataprovider){
         this.dataprovider = dataprovider
     }
-*/
+*//*
+
 
     public TypeHandlerRegistry getTypeHandlerRegistry(){
         return this.thr
@@ -77,6 +80,7 @@ class DefaultTelluriumDataDrivenModule extends TelluriumDataDrivenModule{
     public TestRegistry getTestRegistry(){
         return this.tr
     }
+*/
 
     public void defineModule() {
 

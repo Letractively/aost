@@ -4,14 +4,14 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.telluriumsource.module.GoogleSearchModule;
-import org.telluriumsource.test.java.TelluriumJavaTestCase;
+import org.telluriumsource.test.java.TelluriumJUnitTestCase;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *         <p/>
  *         Date: May 22, 2010
  */
-public class GoogleTest extends TelluriumJavaTestCase {
+public class GoogleTest extends TelluriumJUnitTestCase {
     private static GoogleSearchModule gsm;
 
     @BeforeClass

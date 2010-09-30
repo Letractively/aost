@@ -14,7 +14,7 @@ import org.telluriumsource.dsl.UiDslParser
 
 import org.telluriumsource.test.report.*
 import org.telluriumsource.test.groovy.BaseTelluriumGroovyTestCase
-import org.telluriumsource.framework.Environment;
+//import org.telluriumsource.framework.Environment;
 import org.telluriumsource.crosscut.i18n.IResourceBundle
 import org.telluriumsource.framework.SessionManager
 
@@ -29,14 +29,14 @@ import org.telluriumsource.framework.SessionManager
  */
 abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
 
-  protected static final String STEP = "step"
+    protected static final String STEP = "step"
     protected static final String STEP_OVER = "stepOver"
     protected static final String STEP_TO_END = "stepToEnd"
     protected static final String CLOSE_DATA = "closeData"
     protected static final String COMPARE_RESULT = "compareResult"
     protected static final String RECORD_RESULT = "recordResult"
 
-    protected TypeHandlerRegistry thr
+/*    protected TypeHandlerRegistry thr
 
     protected FieldSetRegistry fsr
 
@@ -48,10 +48,13 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
 
     protected ResultListener listener
 
-    protected DefaultTelluriumDataDrivenModule dtddm
+    protected DefaultTelluriumDataDrivenModule dtddm*/
     //= new DefaultTelluriumDataDrivenModule(thr, fsr, fs, testreg, dataprovider)
 
     protected UiDslParser ui
+
+    protected java.util.List<TelluriumDataDrivenModule> modules
+
     //= dtddm.getUiDslParser()
 
 //    protected TelluriumFramework tellurium
@@ -95,7 +98,32 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
             return this.conn;
     }
 
+    public TypeHandlerRegistry getTypeHandlerRegistry(){
+      return SessionManager.getSession().getLookup().lookById("typeHandlerRegistry")
+    }
+
+    public FieldSetRegistry getFieldSetRegistry(){
+      return SessionManager.getSession().getLookup().lookById("fieldSetRegistry")
+    }
+
+    public DataProvider getDataProvider(){
+      return SessionManager.getSession().getLookup().lookById("dataProvider")
+    }
+
+    public FieldSetParser getFieldSetParser(){
+      return SessionManager.getSession().getLookup().lookById("fieldSetParser")
+    }
+
+    public TestRegistry getTestRegistry(){
+      return SessionManager.getSession().getLookup().lookById("testRegistry")
+    }
+
+    public ResultListener getDefaultResultListener(){
+      return SessionManager.getSession().getLookup().lookById("defaultResultListener")
+    }
+  
     protected def init(){
+/*
         tellurium = TelluriumSupport.addSupport()
         //should put here, other the UI builder is not updated with customer settings in TelluriumConfig.groovy
         thr  = new TypeHandlerRegistry()
@@ -108,12 +136,18 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
         ui = dtddm.getUiDslParser()
         tellurium.start(customConfig)
         this.conn = tellurium.getConnector()
+     */
+        modules = new ArrayList<TelluriumDataDrivenModule>()
+        ui = SessionManager.getSession().getLookup().lookById("uiParser")
+        tellurium = TelluriumSupport.addSupport()
+        tellurium.startServer(customConfig)
+        conn = getCurrentConnector()
         connectSeleniumServer();
    }
 
      protected void shutDown() {
         if(tellurium != null)
-            tellurium.stop()
+            tellurium.stopServer()
      }
 
     public void setUp(){
@@ -136,9 +170,14 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
             return this.invokeMethod(RECORD_RESULT, args)
         }
 
-        if(dtddm.metaClass.respondsTo(dtddm, name, args)){
-              return dtddm.invokeMethod(name, args)
+        for(TelluriumDataDrivenModule module: modules){
+          if(module.metaClass.respondsTo(module, name, args)){
+            return module.invokeMethod(name, args)
+          }
         }
+/*        if(dtddm.metaClass.respondsTo(dtddm, name, args)){
+              return dtddm.invokeMethod(name, args)
+        }*/
 
         throw new MissingMethodException(name, TelluriumDataDrivenTest.class, args)
      }
@@ -155,15 +194,16 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
         if(TelluriumDataDrivenModule.class.isAssignableFrom(module)){
             //switch variables
             TelluriumDataDrivenModule tddm = (TelluriumDataDrivenModule)module.newInstance()
-            tddm.setProperty("ui",this.ui)
+/*            tddm.setProperty("ui",this.ui)
             tddm.setProperty("thr", this.thr)
             tddm.setProperty("fsr", this.fsr)
             tddm.setProperty("fs", this.fs)
             tddm.setProperty("tr", this.testreg)
-            tddm.setProperty("dataProvider", this.dataProvider)
+            tddm.setProperty("dataProvider", this.dataProvider)*/
             tddm.belongTo(this)
 
             tddm.defineModule()
+            modules.add(tddm)
         }else{
         	IResourceBundle i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
             throw new RuntimeException(i18nBundle.getMessage("TelluriumDataDrivenTest.IncludModule" , module?.getName()))
@@ -198,7 +238,7 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
     //test scripts for each line
     public boolean step(Closure c){
         //get data from the data stream
-        FieldSetMapResult fsmr = dataProvider.nextFieldSet()
+        FieldSetMapResult fsmr = getDataProvider().nextFieldSet()
         //check if we reach the end of data stream
         if(fsmr != null && (!fsmr.isEmpty())){
             //check if the field set includes action name
@@ -215,7 +255,7 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
                     //if the field set includes action
                     //get the pre-defined action and run it
 
-                    Closure closure = testreg.getTest(action)
+                    Closure closure = getTestRegistry().getTest(action)
                     closure()
 /*
                     //use the proxy so that we can intercept calls for connectUrl and compareResult
@@ -236,7 +276,7 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
                 result.setProperty("exception", e)
             }
             result.setProperty("end", System.nanoTime())
-            listener.listenForInput(result)
+            getDefaultResultListener().listenForInput(result)
 
             return true
         }
@@ -255,7 +295,7 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
     //If the next line is of the same Field set as the current one, the data reading in will
     //be overwritten after this command
     public boolean stepOver(){
-        FieldSetMapResult fsmr = dataProvider.nextFieldSet()
+        FieldSetMapResult fsmr = getDataProvider().nextFieldSet()
         //check if we reach the end of data stream
         if(fsmr != null && (!fsmr.isEmpty())){
             //check if the field set includes action name
@@ -268,7 +308,7 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
             result.setProperty("status", StepStatus.SKIPPED)
 //            result.setProperty("passed", true)
 
-            listener.listenForInput(result)
+            getDefaultResultListener().listenForInput(result)
 
             return true
         }
@@ -281,17 +321,17 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
     //def stepOver = this.&stepOver
 
     public void loadData(String filePath){
-        dataProvider.useFile(filePath)
+        getDataProvider().useFile(filePath)
     }
 
     //useString data defined in the script file
     public void useData(String data){
-        dataProvider.useString(data)
+        getDataProvider().useString(data)
     }
 
     public void closeData(){
-        dataProvider.stop()
-        listener.report()
+        getDataProvider().stop()
+        getDefaultResultListener().report()
     }
 
     //def closeData = this.&closeData
@@ -356,16 +396,16 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
         listenForResult(result)
     }
     protected void logMessage(String message){
-        listener.listenForMessage(context.getStepCount() ,message)
+        getDefaultResultListener().listenForMessage(context.getStepCount() ,message)
     }
 
     protected String getTestForFieldSet(String fieldSetName){
-        FieldSet tfs = fsr.getFieldSetByName(fieldSetName)
+        FieldSet tfs = getFieldSetRegistry().getFieldSetByName(fieldSetName)
         if(tfs != null){
             TestField taf = tfs.getActionField()
             if(taf != null){
                 String tid = fieldSetName + "." + taf.getName()
-                return dataProvider.bind(tid)
+                return getDataProvider().bind(tid)
             }
         }
 
@@ -373,7 +413,7 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
     }
 
     protected void listenForResult(org.telluriumsource.test.report.TestResult result ){
-        listener.listenForResult(result)
+        getDefaultResultListener().listenForResult(result)
     }
 
     protected void cacheVariable(String name, value){

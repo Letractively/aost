@@ -7,6 +7,7 @@ import org.telluriumsource.test.ddt.mapping.FieldSetRegistry
 import org.telluriumsource.test.ddt.mapping.type.TypeHandlerRegistry
 import org.telluriumsource.test.ddt.mapping.type.TypeHandlerRegistryConfigurator
 import org.telluriumsource.dsl.DslContext
+import org.telluriumsource.dsl.DdDslContext
 
 /**
  * In this module, you can define the following things:
@@ -23,19 +24,19 @@ import org.telluriumsource.dsl.DslContext
  * Date: Jul 31, 2008
  *
  */
-abstract class TelluriumDataDrivenModule extends DslContext {
+abstract class TelluriumDataDrivenModule extends DdDslContext {
 
     //define your Data Driven module in this method
     abstract void defineModule()
 
-    protected DataProvider dataProvider
+/*    protected DataProvider dataProvider
 
     protected TypeHandlerRegistry thr
     protected FieldSetRegistry fsr
 
     protected FieldSetParser fs
 
-    protected TestRegistry tr
+    protected TestRegistry tr*/
 
     protected TelluriumDataDrivenTest runner
 
@@ -54,7 +55,7 @@ abstract class TelluriumDataDrivenModule extends DslContext {
     // here we assume that you have defined the tellurium.example.simpleDateTypeHandler class
     // it extends the TypeHandler interface
     public void typeHandler(String typeName, String fullClassName){
-        TypeHandlerRegistryConfigurator.addCustomTypeHandler(thr, typeName, fullClassName)
+        TypeHandlerRegistryConfigurator.addCustomTypeHandler(getTypeHandlerRegistry(), typeName, fullClassName)
     }
 
     //DSL to bind variables to data read from the file
@@ -73,16 +74,16 @@ abstract class TelluriumDataDrivenModule extends DslContext {
     }
     
     public void defineTest(String name, Closure c){
-        tr.addTest(name, c)
+        getTestRegistry().addTest(name, c)
     }
 
-    public void compareResult(expected, actual){
+/*    public void compareResult(expected, actual){
         runner?.recordResult(expected, actual, null)
     }
 
     public void compareResult(expected, actual, Closure c){
         runner?.recordResult(expected, actual, c)
-    }
+    }*/
 
     public void checkResult(value, Closure c){
         runner?.recordResult(value, c)
@@ -101,7 +102,7 @@ abstract class TelluriumDataDrivenModule extends DslContext {
         runner?.connectUrl(url)
     }
 
-    //add assertions here so that user can add custom compare result code in the closure
+/*    //add assertions here so that user can add custom compare result code in the closure
     public void assertTrue(boolean condition){
         runner?.assertTrue(condition)
 //        asserter.assertTrue(condition)
@@ -133,5 +134,5 @@ abstract class TelluriumDataDrivenModule extends DslContext {
 
     public void assertNotSame(expected, actual){
         runner?.assertNotSame(expected, actual)
-    }
+    }*/
 }
