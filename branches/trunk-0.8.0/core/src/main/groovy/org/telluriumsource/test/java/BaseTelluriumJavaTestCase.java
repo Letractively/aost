@@ -1,7 +1,7 @@
 package org.telluriumsource.test.java;
 
 import org.telluriumsource.component.bundle.BundleProcessor;
-import org.telluriumsource.dsl.DslContract;
+import org.telluriumsource.dsl.IDslContext;
 import org.telluriumsource.dsl.SeleniumWrapper;
 import org.telluriumsource.dsl.TelluriumApi;
 import org.telluriumsource.framework.RuntimeEnvironment;
@@ -12,13 +12,9 @@ import org.telluriumsource.crosscut.i18n.IResourceBundle;
 import org.telluriumsource.framework.TelluriumFramework;
 import org.telluriumsource.entity.CachePolicy;
 import org.telluriumsource.entity.EngineState;
-import org.telluriumsource.crosscut.i18n.ResourceBundle;
 import org.telluriumsource.ui.builder.UiObjectBuilder;
 import org.telluriumsource.ui.builder.UiObjectBuilderRegistry;
 import org.telluriumsource.util.Helper;
-import org.telluriumsource.util.LogLevels;
-
-import java.util.Map;
 
 /**
  * The base Java Testcase class for Tellurium and it will not include the before class and after class methods
@@ -153,7 +149,7 @@ public abstract class BaseTelluriumJavaTestCase {
   }
 
   public static void useClosestMatch(boolean isUse){
-    DslContract api = (DslContract) SessionManager.getSession().getLookup().lookById("api");
+    IDslContext api = (IDslContext) SessionManager.getSession().getLookup().lookById("api");
     if (isUse) {
       api.enableClosestMatch();
     } else {
