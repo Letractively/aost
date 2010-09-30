@@ -17,7 +17,7 @@ import org.json.simple.JSONArray
 import org.telluriumsource.entity.ReturnType
 import org.telluriumsource.framework.RuntimeEnvironment
 import org.telluriumsource.framework.SessionManager
-import org.telluriumsource.dsl.DslContract
+import org.telluriumsource.dsl.IDslContext
 
 /**
  * Command Bundle Processor
@@ -249,7 +249,7 @@ public class BundleProcessor implements Configurable {
 //    String json = dslcontext.jsonify(uid);
 /*    String json = dslcontext.toJSON(uid);
     def args = [json];*/
-    DslContract dsl = SessionManager.getSession().getLookup().lookById("api");
+    IDslContext dsl = SessionManager.getSession().getLookup().lookById("api");
 
     JSONArray ar = dsl.toJSONArray(uid);
     def args = [ar];

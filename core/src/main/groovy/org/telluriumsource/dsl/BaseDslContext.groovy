@@ -26,7 +26,7 @@ import org.json.simple.JSONArray
  * Date: Aug 21, 2008
  *
  */
-abstract class BaseDslContext implements DslContract {
+abstract class BaseDslContext implements IDslContext {
 
   protected static final String JQUERY_SELECTOR = "jquery=";
   protected static final String DEFAULT_XPATH = "default";

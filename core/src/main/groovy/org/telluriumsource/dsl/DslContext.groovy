@@ -11,10 +11,10 @@ import org.telluriumsource.framework.SessionManager
 import org.telluriumsource.framework.Session
 import org.telluriumsource.exception.NoSessionFoundException
 import org.telluriumsource.framework.RuntimeEnvironment
-import org.telluriumsource.framework.TelluriumFramework
+
 import org.telluriumsource.framework.Lookup
 
-class DslContext implements DslContract {
+class DslContext implements IDslContext {
 
   protected UiDslParser ui = this.&getUiParser();
 
@@ -31,7 +31,7 @@ class DslContext implements DslContract {
      return parser;
   }
 
-  protected DslContract getDelegate(){
+  protected IDslContext getDelegate(){
     Session session = SessionManager.getSession();
     if(session == null){
       throw new NoSessionFoundException("Cannot find session");
