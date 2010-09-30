@@ -19,5 +19,6 @@ import java.lang.annotation.Retention;
 @GroovyASTTransformationClass("org.telluriumsource.ast.SessionASTTransformation")
 public @interface Session {
     String name() default "";
+    String scope() default "Session";
     Env[] parameters();
 }
