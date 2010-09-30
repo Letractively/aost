@@ -28,7 +28,7 @@ class GoogleDataDrivenTest  extends TelluriumDataDrivenTest{
       
         connectSeleniumServer()
 
-        useCache(true);
+//        useCache(true);
         //read each line and run the test script until the end of the file
         stepToEnd()
 

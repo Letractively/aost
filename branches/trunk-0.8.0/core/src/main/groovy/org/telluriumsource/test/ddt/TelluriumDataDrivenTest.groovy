@@ -42,8 +42,6 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
 
     protected DataProvider dataProvider
 
-    protected FieldSetParser fs
-
     protected TestRegistry testreg
 
     protected ResultListener listener
@@ -52,6 +50,8 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
     //= new DefaultTelluriumDataDrivenModule(thr, fsr, fs, testreg, dataprovider)
 
     protected UiDslParser ui
+
+    protected FieldSetParser fs
 
     protected java.util.List<TelluriumDataDrivenModule> modules
 
@@ -137,9 +137,10 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
         tellurium.start(customConfig)
         this.conn = tellurium.getConnector()
      */
+        tellurium = TelluriumSupport.addSupport()
         modules = new ArrayList<TelluriumDataDrivenModule>()
         ui = SessionManager.getSession().getLookup().lookById("uiParser")
-        tellurium = TelluriumSupport.addSupport()
+        fs = getFieldSetParser()
         tellurium.startServer(customConfig)
         conn = getCurrentConnector()
         connectSeleniumServer();

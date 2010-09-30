@@ -34,11 +34,11 @@ abstract class TelluriumDataDrivenModule extends DdDslContext {
     protected TypeHandlerRegistry thr
     protected FieldSetRegistry fsr
 
-    protected FieldSetParser fs
-
     protected TestRegistry tr*/
 
     protected TelluriumDataDrivenTest runner
+  
+    protected FieldSetParser fs = getFieldSetParser()
 
     //add delegator for all assertions
 //    protected GroovyTestCase asserter = new GroovyTestCase()
