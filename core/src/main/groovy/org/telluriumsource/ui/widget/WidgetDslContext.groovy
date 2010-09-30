@@ -823,7 +823,7 @@ class WidgetDslContext extends BaseDslContext {
     return null;  //To change body of implemented methods use File | Settings | File Templates.
   }
 
-  def List getHTMLSourceResponse(String uid) {
+  def java.util.List getHTMLSourceResponse(String uid) {
     return null;  //To change body of implemented methods use File | Settings | File Templates.
   }
 

@@ -2,11 +2,11 @@ package org.telluriumsource.test.ddt.mapping.io
 
 import org.telluriumsource.ui.Const;
 import org.telluriumsource.test.ddt.mapping.DataMappingException
-import org.telluriumsource.framework.Environment;
-import org.telluriumsource.crosscut.i18n.IResourceBundle
-import org.telluriumsource.ui.Const
+//import org.telluriumsource.framework.Environment;
+//import org.telluriumsource.crosscut.i18n.IResourceBundle
+//import org.telluriumsource.ui.Const
 import org.telluriumsource.framework.SessionManager
-import org.telluriumsource.mock.MockSessionFactory
+
 
 /**
  * The implementation for the field set reader with comma-separated values
