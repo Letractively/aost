@@ -16,9 +16,9 @@ import org.telluriumsource.framework.Lookup
 
 class DslContext implements DslContract {
 
-  protected UiDslParser ui = getUiParser();
+  protected UiDslParser ui = this.&getUiParser();
 
-  private UiDslParser getUiParser(){
+  protected UiDslParser getUiParser(){
     Session session = SessionManager.getSession();
 /*     if(session == null){
        session = TelluriumFramework.instance.createDefaultSession();
