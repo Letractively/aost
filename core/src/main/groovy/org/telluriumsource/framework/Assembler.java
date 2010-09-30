@@ -14,6 +14,14 @@ import org.telluriumsource.dsl.SeleniumWrapper;
 import org.telluriumsource.dsl.TelluriumApi;
 import org.telluriumsource.dsl.UiDslParser;
 import org.telluriumsource.framework.config.TelluriumConfigurator;
+import org.telluriumsource.test.ddt.DataProvider;
+import org.telluriumsource.test.ddt.TelluriumDataDrivenTest;
+import org.telluriumsource.test.ddt.TestRegistry;
+import org.telluriumsource.test.ddt.mapping.FieldSetParser;
+import org.telluriumsource.test.ddt.mapping.FieldSetRegistry;
+import org.telluriumsource.test.ddt.mapping.type.TypeHandlerRegistry;
+import org.telluriumsource.test.report.DefaultResultListener;
+import org.telluriumsource.test.report.ResultListener;
 import org.telluriumsource.ui.builder.UiObjectBuilderRegistry;
 import org.telluriumsource.ui.locator.JQueryOptimizer;
 import org.telluriumsource.ui.locator.LocatorProcessor;
@@ -90,6 +98,24 @@ public class Assembler {
 
         CustomSelenium customSelenium = new CustomSelenium(env.getServerHost(), env.getServerPort(), env.getBrowser(), env.getBaseUrl());
         lookup.register("customSelenium", customSelenium);
+
+        TypeHandlerRegistry typeHandlerRegistry  = new TypeHandlerRegistry();
+        lookup.register("typeHandlerRegistry", typeHandlerRegistry);
+
+        FieldSetRegistry fieldSetRegistry = new FieldSetRegistry();
+        lookup.register("fieldSetRegistry", fieldSetRegistry);
+
+        DataProvider dataProvider = new DataProvider(fieldSetRegistry, typeHandlerRegistry);
+        lookup.register("dataProvider", dataProvider);
+
+        FieldSetParser fieldSetParser = new FieldSetParser(fieldSetRegistry);
+        lookup.register("fieldSetParser", fieldSetParser);
+
+        TestRegistry testRegistry = new TestRegistry();
+        lookup.register("testRegistry", testRegistry);
+
+        ResultListener listener = new DefaultResultListener();
+        lookup.register("defaultResultListener", listener);
 
         String[] split = env.getLocale().split("_");
         Locale loc = new Locale(split[0], split[1]);
