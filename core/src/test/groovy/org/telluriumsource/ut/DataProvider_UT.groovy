@@ -10,6 +10,7 @@ import org.telluriumsource.test.ddt.mapping.type.TypeHandlerRegistry
 import org.telluriumsource.test.ddt.mapping.type.TypeHandlerRegistryConfigurator
 import org.telluriumsource.mock.MockSessionFactory
 import org.telluriumsource.framework.SessionManager
+import org.telluriumsource.crosscut.i18n.IResourceBundle
 
 /**
  *
@@ -74,6 +75,8 @@ class DataProvider_UT extends GroovyTestCase{
 
     public void testFetchExcelData(){   
     	TelluriumConfigurator telluriumConfigurator = new TelluriumConfigurator()
+        IResourceBundle i18nBundle = new org.telluriumsource.crosscut.i18n.ResourceBundle()
+        telluriumConfigurator.i18nBundle = i18nBundle
         telluriumConfigurator.parse("config/TelluriumConfigForExcelReader.groovy")
         
     	dataProvider.useFile(ClassLoader.getSystemResource("data/excelDataReaderTest.xls").getFile())
