@@ -19,4 +19,5 @@ import java.lang.annotation.Retention;
 @GroovyASTTransformationClass("org.telluriumsource.ast.ProviderASTTransformation")
 public @interface Provider {
     Class type();
+    boolean singleton() default true;
 }

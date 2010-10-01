@@ -2,7 +2,7 @@ package org.telluriumsource.exception;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
- *         <p/>
+ *
  *         Date: Sep 9, 2010
  */
 public class ConnectionIoException extends TelluriumException {

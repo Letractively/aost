@@ -45,40 +45,4 @@ public class DefaultLookup implements Lookup {
         return cl;
     }
 
-    class LookupData {
-
-        String id;
-        String className;
-        Object obj;
-
-        LookupData(String id, String className, Object obj) {
-            this.id = id;
-            this.className = className;
-            this.obj = obj;
-        }
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getClassName() {
-            return className;
-        }
-
-        public void setClassName(String className) {
-            this.className = className;
-        }
-
-        public Object getObj() {
-            return obj;
-        }
-
-        public void setObj(Object obj) {
-            this.obj = obj;
-        }
-    }
 }
