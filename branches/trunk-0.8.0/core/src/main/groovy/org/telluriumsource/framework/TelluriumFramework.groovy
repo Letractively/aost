@@ -37,12 +37,15 @@ public class TelluriumFramework {
     String name = (id == null ? "" : id);
     name = name + "@" + BaseUtil.toBase62(System.currentTimeMillis());
     Lookup lookup = new DefaultLookup();
+    BeanFactory beanFactory = new DefaultBeanFactory();
+
     Assembler assembler = new Assembler(lookup, env, telluriumConfigurator);
     assembler.assemble();
     Session session = new Session();
     session.sessionId = name;
     session.env = env;
     session.lookup = lookup;
+    session.beanFactory = beanFactory;
     session.api = lookup.lookById("api");
     session.wrapper = lookup.lookById("wrapper");
     session.i18nBundle = lookup.lookById("i18nBundle");

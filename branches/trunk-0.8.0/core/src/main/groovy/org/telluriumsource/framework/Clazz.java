@@ -13,7 +13,7 @@ public class Clazz {
 
     private Class clazz;
 
-    private boolean singleton = false;
+    private boolean singleton = true;
 
     private Object instance;
 
