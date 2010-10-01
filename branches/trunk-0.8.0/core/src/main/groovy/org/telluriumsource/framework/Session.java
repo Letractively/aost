@@ -81,6 +81,10 @@ public class Session {
         this.api = api;
     }
 
+    public <T> T getBean(Class<T> clazz){
+        return this.beanFactory.getInstance(clazz);    
+    }
+
     public String toString(){
         StringBuffer sb = new StringBuffer(64);
         sb.append("Session: [sessionId: ").append(sessionId);

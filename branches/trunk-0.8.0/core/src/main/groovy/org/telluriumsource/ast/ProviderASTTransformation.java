@@ -13,10 +13,13 @@ import org.codehaus.groovy.transform.GroovyASTTransformation;
 
 import java.lang.ref.SoftReference;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import org.objectweb.asm.Opcodes;
+import org.telluriumsource.annotation.Provider;
 import org.telluriumsource.framework.ASTUtil;
+import org.telluriumsource.framework.TelluriumFramework;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -25,12 +28,7 @@ import org.telluriumsource.framework.ASTUtil;
  */
 @GroovyASTTransformation(phase = CompilePhase.CANONICALIZATION)
 public class ProviderASTTransformation implements ASTTransformation, Opcodes {
-
-    private static final ClassNode SOFT_REF = ClassHelper.make(SoftReference.class);
-    private static final Expression NULL_EXPR = ConstantExpression.NULL;
-    private static final ClassNode OBJECT_TYPE = new ClassNode(Object.class);
-    private static final Token ASSIGN = Token.newSymbol("=", -1, -1);
-    private static final Token COMPARE_NOT_EQUAL = Token.newSymbol("!=", -1, -1);
+    private static final ClassNode MY_TYPE = new ClassNode(Provider.class);
 
     public void visit(ASTNode[] nodes, SourceUnit sourceUnit) {
         if (nodes.length != 2 || !(nodes[0] instanceof AnnotationNode) || !(nodes[1] instanceof AnnotatedNode)) {
@@ -39,163 +37,113 @@ public class ProviderASTTransformation implements ASTTransformation, Opcodes {
 
         AnnotatedNode parent = (AnnotatedNode) nodes[1];
         AnnotationNode node = (AnnotationNode) nodes[0];
+        
+        if (!MY_TYPE.equals(node.getClassNode()))
+            return;
 
-        if (parent instanceof FieldNode) {
-            final FieldNode fieldNode = (FieldNode) parent;
-            final Expression member = node.getMember("soft");
-            final Expression init = getInitExpr(fieldNode);
+        String name = "";
+        final Expression nameExpr = node.getMember("name");
+        if(nameExpr != null && nameExpr instanceof ConstantExpression){
+            name = (String) ((ConstantExpression)nameExpr).getValue();
+        }
 
-            fieldNode.rename("$" + fieldNode.getName());
-            fieldNode.setModifiers(ACC_PRIVATE | (fieldNode.getModifiers() & (~(ACC_PUBLIC | ACC_PROTECTED))));
+        ClassNode clazz;
+        final Expression clazzExpr = node.getMember("type");
+        if(clazzExpr != null && clazzExpr instanceof ClassExpression){
+            clazz = ((ClassExpression)clazzExpr).getType();
+        }else{
+            clazz = (ClassNode)parent;
+        }
 
-            if (member instanceof ConstantExpression && ((ConstantExpression) member).getValue().equals(true))
-                createSoft(fieldNode, init);
-            else {
-                create(fieldNode, init);
-                // @Lazy not meaningful with primitive so convert to wrapper if needed
-                if (ClassHelper.isPrimitiveType(fieldNode.getType())) {
-                    fieldNode.setType(ClassHelper.getWrapper(fieldNode.getType()));
-                }
+        String scope = "Session";
+        final Expression scopeExpr = node.getMember("scope");
+        if(scopeExpr != null && scopeExpr instanceof ConstantExpression){
+            scope = (String) ((ConstantExpression)scopeExpr).getValue();
+        }
+
+        boolean singleton = true;   
+        final Expression singletonExpr = node.getMember("singleton");
+        if(singletonExpr != null && singletonExpr instanceof ConstantExpression){
+            singleton = (Boolean)((ConstantExpression)singletonExpr).getValue();
+        }
+
+        addConstructor(name, clazz, scope, singleton);
+
+    }
+
+    private void addConstructor(String name, ClassNode classNode, String scope, boolean singleton){
+
+        final List list = classNode.getDeclaredConstructors();
+        MethodNode found = null;
+        for (Iterator it = list.iterator(); it.hasNext();) {
+            MethodNode mn = (MethodNode) it.next();
+            final Parameter[] parameters = mn.getParameters();
+            if (parameters == null || parameters.length == 0) {
+                found = mn;
+                break;
             }
         }
 
-    }
-
-    private void process(FieldNode fieldNode){
-
-        List<ASTNode> nodes = ASTUtil.getProviderNodes("", null, true);
-        BlockStatement body = (BlockStatement) nodes.get(0);
-        
-    }
-
-    private void create(FieldNode fieldNode, final Expression initExpr) {
-        final BlockStatement body = new BlockStatement();
-        if (fieldNode.isStatic()) {
-            addHolderClassIdiomBody(body, fieldNode, initExpr);
-        } else if (isVolatile(fieldNode)) {
-            addNonThreadSafeBody(body, fieldNode, initExpr);
-        } else {
-            addDoubleCheckedLockingBody(body, fieldNode, initExpr);
+//        ClassExpression clazz = new ClassExpression(classNode);
+        List<ASTNode> nodes = null;
+        try {
+//            nodes = ASTUtil.getProviderNodes(name, Class.forName(classNode.getName()), scope, singleton);
+            nodes = ASTUtil.getProviderNodes(name, this.getClass(), scope, singleton);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
         }
-        addMethod(fieldNode, body, fieldNode.getType());
-    }
 
-    private void addHolderClassIdiomBody(BlockStatement body, FieldNode fieldNode, Expression initExpr) {
-        final ClassNode declaringClass = fieldNode.getDeclaringClass();
-        final ClassNode fieldType = fieldNode.getType();
-        final int visibility = ACC_PRIVATE | ACC_STATIC;
-        final String fullName = declaringClass.getName() + "$" + fieldType.getNameWithoutPackage() + "Holder_" + fieldNode.getName().substring(1);
-        final InnerClassNode holderClass = new InnerClassNode(declaringClass, fullName, visibility, OBJECT_TYPE);
-        final String innerFieldName = "INSTANCE";
-        holderClass.addField(innerFieldName, ACC_PRIVATE | ACC_STATIC | ACC_FINAL, fieldType, initExpr);
-        final Expression innerField = new PropertyExpression(new ClassExpression(holderClass), innerFieldName);
-        declaringClass.getModule().addClass(holderClass);
-        body.addStatement(new ReturnStatement(innerField));
-    }
+        BlockStatement stm = (BlockStatement) nodes.get(0);
+        ReturnStatement rst = (ReturnStatement) stm.getStatements().get(0);
+        BlockStatement b = new BlockStatement();
 
-    private void addDoubleCheckedLockingBody(BlockStatement body, FieldNode fieldNode, Expression initExpr) {
-        final Expression fieldExpr = new VariableExpression(fieldNode);
-        final VariableExpression localVar = new VariableExpression(fieldNode.getName() + "_local", fieldNode.getType());
-        body.addStatement(new ExpressionStatement(new DeclarationExpression(localVar, ASSIGN, fieldExpr)));
-        body.addStatement(new IfStatement(
-                new BooleanExpression(new BinaryExpression(localVar, COMPARE_NOT_EQUAL, NULL_EXPR)),
-                new ReturnStatement(localVar),
-                new SynchronizedStatement(
-                        synchTarget(fieldNode),
-                        new IfStatement(
-                                new BooleanExpression(new BinaryExpression(fieldExpr, COMPARE_NOT_EQUAL, NULL_EXPR)),
-                                new ReturnStatement(fieldExpr),
-                                new ReturnStatement(new BinaryExpression(fieldExpr, ASSIGN, initExpr))
-                        )
-                )
-        ));
-    }
-
-    private void addNonThreadSafeBody(BlockStatement body, FieldNode fieldNode, Expression initExpr) {
-        final Expression fieldExpr = new VariableExpression(fieldNode);
-        body.addStatement(new IfStatement(
-                new BooleanExpression(new BinaryExpression(fieldExpr, COMPARE_NOT_EQUAL, NULL_EXPR)),
-                new ExpressionStatement(fieldExpr),
-                new ExpressionStatement(new BinaryExpression(fieldExpr, ASSIGN, initExpr))
-        ));
-    }
-
-    private void addMethod(FieldNode fieldNode, BlockStatement body, ClassNode type) {
-        int visibility = ACC_PUBLIC;
-        if (fieldNode.isStatic()) visibility |= ACC_STATIC;
-        final String name = "get" + MetaClassHelper.capitalize(fieldNode.getName().substring(1));
-        fieldNode.getDeclaringClass().addMethod(name, visibility, type, Parameter.EMPTY_ARRAY, ClassNode.EMPTY_ARRAY, body);
-    }
-
-    private void createSoft(FieldNode fieldNode, Expression initExpr) {
-        final ClassNode type = fieldNode.getType();
-        fieldNode.setType(SOFT_REF);
-        createSoftGetter(fieldNode, initExpr, type);
-        createSoftSetter(fieldNode, type);
-    }
-
-    private void createSoftGetter(FieldNode fieldNode, Expression initExpr, ClassNode type) {
-        final BlockStatement body = new BlockStatement();
-        final Expression fieldExpr = new VariableExpression(fieldNode);
-        final Expression resExpr = new VariableExpression("res", type);
-        final MethodCallExpression callExpression = new MethodCallExpression(new VariableExpression(fieldNode), "get", new ArgumentListExpression());
-        callExpression.setSafe(true);
-        body.addStatement(new ExpressionStatement(new DeclarationExpression(resExpr, ASSIGN, callExpression)));
-
-        final BlockStatement elseBlock = new BlockStatement();
-        elseBlock.addStatement(new ExpressionStatement(new BinaryExpression(resExpr, ASSIGN, initExpr)));
-        elseBlock.addStatement(new ExpressionStatement(new BinaryExpression(fieldExpr, ASSIGN, new ConstructorCallExpression(SOFT_REF, resExpr))));
-        elseBlock.addStatement(new ExpressionStatement(resExpr));
-
-        final Statement mainIf = new IfStatement(
-                new BooleanExpression(new BinaryExpression(resExpr, COMPARE_NOT_EQUAL, NULL_EXPR)),
-                new ExpressionStatement(resExpr),
-                elseBlock
+        b.addStatement(
+            new ExpressionStatement(rst.getExpression())
         );
 
-        if (isVolatile(fieldNode)) {
-            body.addStatement(mainIf);
-        } else {
-            body.addStatement(new IfStatement(
-                    new BooleanExpression(new BinaryExpression(resExpr, COMPARE_NOT_EQUAL, NULL_EXPR)),
-                    new ExpressionStatement(resExpr),
-                    new SynchronizedStatement(synchTarget(fieldNode), mainIf)
-            ));
+        if (found == null) {
+            final BlockStatement body = new BlockStatement();
+            body.addStatement(
+                    new ExpressionStatement(
+                            new MethodCallExpression(
+                                    new PropertyExpression(
+//                                            new VariableExpression("TelluriumFramework"),
+                                            new ClassExpression(new ClassNode(TelluriumFramework.class)),
+                                            new ConstantExpression("instance")
+                                    ),
+                                    new ConstantExpression("registerBean"),
+                                    new ArgumentListExpression(
+                                            new Expression[]{
+                                                    new VariableExpression(name),
+//                                          new VariableExpression(classNode),
+//                                          new VariableExpression(clazz),
+ //                                                   new VariableExpression("this"),
+                                                    new ClassExpression(classNode),
+                                                    new ConstantExpression(scope),
+                                                    new ConstantExpression(singleton)
+
+                                            }
+                                    )
+                            )
+                    )
+            );
+
+//            final BlockStatement body = stm;
+
+   //         classNode.addConstructor(new ConstructorNode(ACC_PUBLIC, body));
+              classNode.addConstructor(new ConstructorNode(ACC_PUBLIC, b));
+
+/*            body.addStatement(new IfStatement(
+                    new BooleanExpression(new BinaryExpression(new VariableExpression(field), Token.newSymbol("!=",-1,-1), ConstantExpression.NULL)),
+                new ThrowStatement(
+                        new ConstructorCallExpression(ClassHelper.make(RuntimeException.class),
+                                new ArgumentListExpression(
+                                        new ConstantExpression("Can't instantiate singleton " + classNode.getName() + ". Use " + classNode.getName() + ".instance" )))),
+                new EmptyStatement()));
+            classNode.addConstructor(new ConstructorNode(ACC_PRIVATE, body));
+            */
         }
-        addMethod(fieldNode, body, type);
     }
 
-    private void createSoftSetter(FieldNode fieldNode, ClassNode type) {
-        final BlockStatement body = new BlockStatement();
-        final Expression fieldExpr = new VariableExpression(fieldNode);
-        final String name = "set" + MetaClassHelper.capitalize(fieldNode.getName().substring(1));
-        final Parameter parameter = new Parameter(type, "value");
-        final Expression paramExpr = new VariableExpression(parameter);
-        body.addStatement(new IfStatement(
-                new BooleanExpression(new BinaryExpression(paramExpr, COMPARE_NOT_EQUAL, NULL_EXPR)),
-                new ExpressionStatement(new BinaryExpression(fieldExpr, ASSIGN, new ConstructorCallExpression(SOFT_REF, paramExpr))),
-                new ExpressionStatement(new BinaryExpression(fieldExpr, ASSIGN, NULL_EXPR))
-        ));
-        int visibility = ACC_PUBLIC;
-        if (fieldNode.isStatic()) visibility |= ACC_STATIC;
-        fieldNode.getDeclaringClass().addMethod(name, visibility, ClassHelper.VOID_TYPE, new Parameter[]{parameter}, ClassNode.EMPTY_ARRAY, body);
-    }
-
-    private Expression synchTarget(FieldNode fieldNode) {
-        return fieldNode.isStatic() ? new ClassExpression(fieldNode.getDeclaringClass()) : VariableExpression.THIS_EXPRESSION;
-    }
-
-    private boolean isVolatile(FieldNode fieldNode) {
-        return (fieldNode.getModifiers() & ACC_VOLATILE) == 0;
-    }
-
-    private Expression getInitExpr(FieldNode fieldNode) {
-        Expression initExpr = fieldNode.getInitialValueExpression();
-        fieldNode.setInitialValueExpression(null);
-
-        if (initExpr == null)
-            initExpr = new ConstructorCallExpression(fieldNode.getType(), new ArgumentListExpression());
-
-        return initExpr;
-    }
 }

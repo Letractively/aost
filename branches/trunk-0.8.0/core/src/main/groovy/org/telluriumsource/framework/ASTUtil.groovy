@@ -11,9 +11,10 @@ import org.codehaus.groovy.ast.builder.AstBuilder
  * 
  */
 class ASTUtil {
-  public static List<ASTNode> getProviderNodes(String name, Class clazz, boolean isSingleton){
+  public static List<ASTNode> getProviderNodes(String name, Class clazz, String scope, boolean singleton){
     List<ASTNode> nodes = new AstBuilder().buildFromCode {
-      SessionManager.getSession().getBeanFactory().provide(name, clazz, isSingleton);
+//      SessionManager.getSession().getBeanFactory().provide(name, clazz, isSingleton);
+      TelluriumFramework.instance.registerBean(name, clazz, scope, singleton);
     }
 
     return nodes;

@@ -7,7 +7,7 @@ package org.telluriumsource.framework;
  */
 public interface BeanFactory {
 
-    void provide(String name, Class clazz, boolean isSingleton);
+    void provide(String name, Class clazz, String scope, boolean isSingleton);
 
     <T> T getInstance(Class<T> clazz);
 }

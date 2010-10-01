@@ -12,10 +12,7 @@ import org.telluriumsource.crosscut.i18n.ResourceBundle;
 import org.telluriumsource.dsl.SeleniumWrapper;
 import org.telluriumsource.dsl.TelluriumApi;
 import org.telluriumsource.dsl.UiDslParser;
-import org.telluriumsource.framework.DefaultLookup;
-import org.telluriumsource.framework.Lookup;
-import org.telluriumsource.framework.RuntimeEnvironment;
-import org.telluriumsource.framework.Session;
+import org.telluriumsource.framework.*;
 import org.telluriumsource.ui.builder.UiObjectBuilderRegistry;
 import org.telluriumsource.ui.locator.JQueryOptimizer;
 import org.telluriumsource.ui.locator.LocatorProcessor;
@@ -130,10 +127,13 @@ public class MockSessionFactory {
         connector.setProperty("seleniumServerHost", env.getServerHost());
         connector.setProperty("port", env.getServerPort());
         connector.setProperty("browser", env.getBrowser());
+        BeanFactory beanFactory = new DefaultBeanFactory();
+
         Session session = new Session();
         session.setSessionId(name);
         session.setEnv(env);
         session.setLookup(lookup);
+        session.setBeanFactory(beanFactory);          
         session.setApi(api);
         session.setWrapper(wrapper);
         session.setI18nBundle(i18nBundle);
