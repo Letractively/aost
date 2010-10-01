@@ -33,6 +33,12 @@ public class TelluriumFramework {
 
   private RuntimeEnvironment defaultEnvironment;
 
+  private BeanFactory beanFactory = new DefaultBeanFactory();
+
+  public void registerBean(String name, Class clazz, String scope, boolean isSingleton){
+    this.beanFactory.provide(name, clazz, scope, isSingleton);
+  }
+
   public Session createNewSession(String id, RuntimeEnvironment env){
     String name = (id == null ? "" : id);
     name = name + "@" + BaseUtil.toBase62(System.currentTimeMillis());

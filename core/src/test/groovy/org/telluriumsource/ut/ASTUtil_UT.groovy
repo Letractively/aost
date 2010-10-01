@@ -15,11 +15,12 @@ import org.codehaus.groovy.ast.stmt.BlockStatement
 class ASTUtil_UT extends GroovyTestCase {
 
   public void testProvider(){
-    List<ASTNode> list = ASTUtil.getProviderNodes("org.telluriumsource.dsl.UiDslParser", UiDslParser.class, true)
+    List<ASTNode> list = ASTUtil.getProviderNodes("org.telluriumsource.dsl.UiDslParser", UiDslParser.class, "Session", true)
     assertNotNull(list);
     assertEquals(1, list.size());
     BlockStatement stm = (BlockStatement) list.get(0);
     assertNotNull(stm);
+    println stm.toString()
   }
 
 }

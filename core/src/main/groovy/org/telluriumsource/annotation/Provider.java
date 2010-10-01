@@ -18,6 +18,8 @@ import java.lang.annotation.Retention;
 @Target({ElementType.TYPE})
 @GroovyASTTransformationClass("org.telluriumsource.ast.ProviderASTTransformation")
 public @interface Provider {
+    String name() default "";
     Class type();
+    String scope() default "Session";
     boolean singleton() default true;
 }

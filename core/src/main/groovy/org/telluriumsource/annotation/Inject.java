@@ -18,6 +18,6 @@ import java.lang.annotation.Retention;
 @Target({ElementType.FIELD})
 @GroovyASTTransformationClass("org.telluriumsource.ast.InjectASTTransformation")
 public @interface Inject {
-    String id() default "";
+    String name() default "";
     boolean lazy() default false;
 }
