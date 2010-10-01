@@ -15,6 +15,8 @@ public class Session {
 
     private RuntimeEnvironment env;
 
+    private BeanFactory beanFactory;
+
     private Lookup lookup;
 
     private SeleniumWrapper wrapper;
@@ -45,6 +47,14 @@ public class Session {
 
     public void setEnv(RuntimeEnvironment env) {
         this.env = env;
+    }
+
+    public BeanFactory getBeanFactory() {
+        return beanFactory;
+    }
+
+    public void setBeanFactory(BeanFactory beanFactory) {
+        this.beanFactory = beanFactory;
     }
 
     public Lookup getLookup() {
