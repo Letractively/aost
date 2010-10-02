@@ -15,16 +15,15 @@ import org.telluriumsource.annotation.Provider
 class Cached {
   private Map<String, Class> map = new HashMap<String, Class>()
 
-  public Map<String, Class> getCached(){
-    return this.map
+  public Set<String> getNames(){
+    return this.map.keySet();
   }
 
-/*  private def Cached() {
-     map = new HashMap<String, Class>()
-     initiate()
+  public Set<Class> getCachedClasses(){
+    return this.map.values();
   }
-  
-  public void initiate(){
 
-  }*/
+  public void addCache(String name, Class clazz){
+    this.map.put(name, clazz);
+  }
 }

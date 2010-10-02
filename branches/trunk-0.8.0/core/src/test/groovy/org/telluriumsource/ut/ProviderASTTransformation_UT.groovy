@@ -67,6 +67,22 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
         Object obj = session.getBean(res.getClass());
         assertNotNull obj
 
+        shell.evaluate("""
+              package org.telluriumsource
+
+              import org.telluriumsource.annotation.Provider
+              @Provider
+              class Y {
+                private ArrayList list = [1,2,3]
+
+                void op () {
+                  list
+                }
+              }
+
+              new Y()
+        """)
+
         def cached = shell.evaluate("""
           package org.telluriumsource.framework
           import org.telluriumsource.annotation.Provider
@@ -75,13 +91,29 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
           class Cached {
             private Map<String, Class> map = new HashMap<String, Class>()
 
-            public Map<String, Class> getCached(){
-              return this.map
+            public Set<String> getNames(){
+              return this.map.keySet();
             }
 
+            public Set<Class> getCachedClasses(){
+              return this.map.values();
+            }
+            
+            public void addCache(String name, Class clazz){
+              this.map.put(name, clazz);
+            }
           }
 
-          Cached.instance
+          @Provider(type=W.class)
+           class W {
+                private ArrayList list = [1,2,3]
+
+                void op () {
+                  list
+                }
+           }
+
+           Cached.instance
           
         """)
 
@@ -101,10 +133,10 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
               new Z()
         """)
     
-//        Cached cached = Cached.instance;
-        Map<String, Class> map = cached.getCached();
-        assertNotNull map
-        assertFalse map.isEmpty()
+        Set<Class> classes = cached.getCachedClasses();
+        assertNotNull classes
+        assertFalse classes.isEmpty()
+        assertEquals 3, classes.size()
   }
 
   public void testExplicitProvider(){
@@ -120,9 +152,5 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
     obj = session.getBean(Y.class);
     assertNotNull obj
 
-    Cached cached = Cached.instance;
-    Map<String, Class> map = cached.getCached();
-    assertNotNull map
-    assertFalse map.isEmpty()
   }
 }

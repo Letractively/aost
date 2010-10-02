@@ -68,7 +68,7 @@ public class ProviderASTTransformation implements ASTTransformation, Opcodes {
             singleton = (Boolean)((ConstantExpression)singletonExpr).getValue();
         }
 
-        addConstructor(name, clazz, scope, singleton);
+//        addConstructor(name, clazz, scope, singleton);
         if(Cached.class.getName().equals(clazzNode.getName())){
             cachedClazz = clazzNode;
             createNonLazy(clazzNode);
@@ -117,17 +117,8 @@ public class ProviderASTTransformation implements ASTTransformation, Opcodes {
     private Statement createCacheStatement(String name, ClassNode clazz) {
         return new ExpressionStatement(
                 new MethodCallExpression(
-                        new MethodCallExpression(
-/*                                new MethodCallExpression(
-                                        new ClassExpression(new ClassNode(Cached.class)),
-                                        new ConstantExpression("getInstance"),
-                                        new ArgumentListExpression()
-                                ),*/
-                                new VariableExpression("this"),
-                                new ConstantExpression("getCached"),
-                                new ArgumentListExpression()
-                        ),
-                        new ConstantExpression("put"),
+                        new VariableExpression("this"),
+                        new ConstantExpression("addCache"),
                         new ArgumentListExpression(
                                 new ConstantExpression(name),
                                 new ClassExpression(clazz)
