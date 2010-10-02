@@ -6,12 +6,9 @@ import org.codehaus.groovy.ast.expr.*;
 import org.codehaus.groovy.ast.stmt.*;
 import org.codehaus.groovy.control.CompilePhase;
 import org.codehaus.groovy.control.SourceUnit;
-import org.codehaus.groovy.runtime.MetaClassHelper;
-import org.codehaus.groovy.syntax.Token;
 import org.codehaus.groovy.transform.ASTTransformation;
 import org.codehaus.groovy.transform.GroovyASTTransformation;
 
-import java.lang.ref.SoftReference;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -50,7 +47,7 @@ public class ProviderASTTransformation implements ASTTransformation, Opcodes {
         ClassNode clazz;
         final Expression clazzExpr = node.getMember("type");
         if(clazzExpr != null && clazzExpr instanceof ClassExpression){
-            clazz = ((ClassExpression)clazzExpr).getType();
+            clazz = clazzExpr.getType();
         }else{
             clazz = (ClassNode)parent;
         }
@@ -84,10 +81,8 @@ public class ProviderASTTransformation implements ASTTransformation, Opcodes {
             }
         }
 
-//        ClassExpression clazz = new ClassExpression(classNode);
-        List<ASTNode> nodes = null;
+/*        List<ASTNode> nodes = null;
         try {
-//            nodes = ASTUtil.getProviderNodes(name, Class.forName(classNode.getName()), scope, singleton);
             nodes = ASTUtil.getProviderNodes(name, this.getClass(), scope, singleton);
         } catch (Exception e) {
             e.printStackTrace();
@@ -100,22 +95,23 @@ public class ProviderASTTransformation implements ASTTransformation, Opcodes {
 
         b.addStatement(
             new ExpressionStatement(rst.getExpression())
-        );
+        );*/
 
         if (found == null) {
             final BlockStatement body = new BlockStatement();
             body.addStatement(
                     new ExpressionStatement(
                             new MethodCallExpression(
-                                    new PropertyExpression(
+                                    new MethodCallExpression(
 //                                            new VariableExpression("TelluriumFramework"),
                                             new ClassExpression(new ClassNode(TelluriumFramework.class)),
-                                            new ConstantExpression("instance")
+                                            new ConstantExpression("getInstance"),
+                                            new ArgumentListExpression()
                                     ),
                                     new ConstantExpression("registerBean"),
                                     new ArgumentListExpression(
                                             new Expression[]{
-                                                    new VariableExpression(name),
+                                                    new ConstantExpression(name),
 //                                          new VariableExpression(classNode),
 //                                          new VariableExpression(clazz),
  //                                                   new VariableExpression("this"),
@@ -131,18 +127,8 @@ public class ProviderASTTransformation implements ASTTransformation, Opcodes {
 
 //            final BlockStatement body = stm;
 
-   //         classNode.addConstructor(new ConstructorNode(ACC_PUBLIC, body));
-              classNode.addConstructor(new ConstructorNode(ACC_PUBLIC, b));
-
-/*            body.addStatement(new IfStatement(
-                    new BooleanExpression(new BinaryExpression(new VariableExpression(field), Token.newSymbol("!=",-1,-1), ConstantExpression.NULL)),
-                new ThrowStatement(
-                        new ConstructorCallExpression(ClassHelper.make(RuntimeException.class),
-                                new ArgumentListExpression(
-                                        new ConstantExpression("Can't instantiate singleton " + classNode.getName() + ". Use " + classNode.getName() + ".instance" )))),
-                new EmptyStatement()));
-            classNode.addConstructor(new ConstructorNode(ACC_PRIVATE, body));
-            */
+            classNode.addConstructor(new ConstructorNode(ACC_PUBLIC, body));
+//              classNode.addConstructor(new ConstructorNode(ACC_PUBLIC, b));
         }
     }
 
