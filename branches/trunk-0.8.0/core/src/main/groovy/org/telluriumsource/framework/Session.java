@@ -82,7 +82,7 @@ public class Session {
     }
 
     public <T> T getBean(Class<T> clazz){
-        return this.beanFactory.getInstance(clazz);    
+        return this.beanFactory.getInstance(clazz);
     }
 
     public String toString(){

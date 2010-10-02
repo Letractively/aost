@@ -13,7 +13,7 @@ public class DefaultBeanFactory implements BeanFactory{
     private Map<String, Clazz> map = new HashMap<String, Clazz>();
 
     public synchronized void provide(String name, Class clazz, String scope, boolean isSingleton) {
-        if(name == null){
+        if(name == null || name.isEmpty()){
             name = clazz.getCanonicalName();
         }
         Clazz bean = new Clazz();
@@ -36,6 +36,6 @@ public class DefaultBeanFactory implements BeanFactory{
             map.put(name, bean);
         }
 
-        return (T)bean.getInstance();
+        return (T)bean.get();
     }
 }
