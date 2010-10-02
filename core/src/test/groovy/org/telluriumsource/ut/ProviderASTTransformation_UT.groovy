@@ -64,4 +64,18 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
         Object obj = session.getBean(res.getClass());
         assertNotNull obj
   }
+
+  public void testExplicitProvider(){
+    Session session = SessionManager.getSession()
+
+    assertNotNull session
+
+    Object obj = session.getBean(Y.class);
+    assertNotNull obj
+
+    new Y()
+
+    obj = session.getBean(Y.class);
+    assertNotNull obj    
+  }
 }
