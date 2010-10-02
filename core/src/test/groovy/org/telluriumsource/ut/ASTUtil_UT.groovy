@@ -1,6 +1,5 @@
 package org.telluriumsource.ut
 
-import org.telluriumsource.framework.ASTUtil
 import org.telluriumsource.dsl.UiDslParser
 import org.codehaus.groovy.ast.ASTNode
 import org.codehaus.groovy.ast.stmt.BlockStatement

@@ -1,7 +1,6 @@
 package org.telluriumsource.ast;
 
 import org.codehaus.groovy.ast.*;
-import org.codehaus.groovy.ast.builder.AstBuilder;
 import org.codehaus.groovy.ast.expr.*;
 import org.codehaus.groovy.ast.stmt.*;
 import org.codehaus.groovy.control.CompilePhase;
@@ -15,7 +14,6 @@ import java.util.List;
 
 import org.objectweb.asm.Opcodes;
 import org.telluriumsource.annotation.Provider;
-import org.telluriumsource.framework.ASTUtil;
 import org.telluriumsource.framework.TelluriumFramework;
 
 /**
@@ -81,29 +79,12 @@ public class ProviderASTTransformation implements ASTTransformation, Opcodes {
             }
         }
 
-/*        List<ASTNode> nodes = null;
-        try {
-            nodes = ASTUtil.getProviderNodes(name, this.getClass(), scope, singleton);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException(e.getMessage());
-        }
-
-        BlockStatement stm = (BlockStatement) nodes.get(0);
-        ReturnStatement rst = (ReturnStatement) stm.getStatements().get(0);
-        BlockStatement b = new BlockStatement();
-
-        b.addStatement(
-            new ExpressionStatement(rst.getExpression())
-        );*/
-
         if (found == null) {
             final BlockStatement body = new BlockStatement();
             body.addStatement(
                     new ExpressionStatement(
                             new MethodCallExpression(
                                     new MethodCallExpression(
-//                                            new VariableExpression("TelluriumFramework"),
                                             new ClassExpression(new ClassNode(TelluriumFramework.class)),
                                             new ConstantExpression("getInstance"),
                                             new ArgumentListExpression()
@@ -112,9 +93,6 @@ public class ProviderASTTransformation implements ASTTransformation, Opcodes {
                                     new ArgumentListExpression(
                                             new Expression[]{
                                                     new ConstantExpression(name),
-//                                          new VariableExpression(classNode),
-//                                          new VariableExpression(clazz),
- //                                                   new VariableExpression("this"),
                                                     new ClassExpression(classNode),
                                                     new ConstantExpression(scope),
                                                     new ConstantExpression(singleton)
@@ -125,10 +103,7 @@ public class ProviderASTTransformation implements ASTTransformation, Opcodes {
                     )
             );
 
-//            final BlockStatement body = stm;
-
             classNode.addConstructor(new ConstructorNode(ACC_PUBLIC, body));
-//              classNode.addConstructor(new ConstructorNode(ACC_PUBLIC, b));
         }
     }
 
