@@ -8,12 +8,11 @@ import org.codehaus.groovy.control.SourceUnit;
 import org.codehaus.groovy.transform.ASTTransformation;
 import org.codehaus.groovy.transform.GroovyASTTransformation;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import org.objectweb.asm.Opcodes;
 import org.telluriumsource.annotation.Provider;
+import org.telluriumsource.framework.Cached;
 import org.telluriumsource.framework.TelluriumFramework;
 
 /**
@@ -25,6 +24,9 @@ import org.telluriumsource.framework.TelluriumFramework;
 public class ProviderASTTransformation implements ASTTransformation, Opcodes {
     private static final ClassNode MY_TYPE = new ClassNode(Provider.class);
 
+    private static final Map<String, ClassNode> map = new HashMap<String, ClassNode>();
+    private static ClassNode cachedClazz = null;
+
     public void visit(ASTNode[] nodes, SourceUnit sourceUnit) {
         if (nodes.length != 2 || !(nodes[0] instanceof AnnotationNode) || !(nodes[1] instanceof AnnotatedNode)) {
             throw new RuntimeException("Internal error: expecting [AnnotationNode, AnnotatedNode] but got: " + Arrays.asList(nodes));
@@ -32,7 +34,8 @@ public class ProviderASTTransformation implements ASTTransformation, Opcodes {
 
         AnnotatedNode parent = (AnnotatedNode) nodes[1];
         AnnotationNode node = (AnnotationNode) nodes[0];
-        
+        ClassNode clazzNode = (ClassNode)parent;
+
         if (!MY_TYPE.equals(node.getClassNode()))
             return;
 
@@ -40,6 +43,8 @@ public class ProviderASTTransformation implements ASTTransformation, Opcodes {
         final Expression nameExpr = node.getMember("name");
         if(nameExpr != null && nameExpr instanceof ConstantExpression){
             name = (String) ((ConstantExpression)nameExpr).getValue();
+        }else{
+            name = clazzNode.getName();
         }
 
         ClassNode clazz;
@@ -47,7 +52,7 @@ public class ProviderASTTransformation implements ASTTransformation, Opcodes {
         if(clazzExpr != null && clazzExpr instanceof ClassExpression){
             clazz = clazzExpr.getType();
         }else{
-            clazz = (ClassNode)parent;
+            clazz = clazzNode;
         }
 
         String scope = "Session";
@@ -63,8 +68,72 @@ public class ProviderASTTransformation implements ASTTransformation, Opcodes {
         }
 
         addConstructor(name, clazz, scope, singleton);
-
+        if(Cached.class.getName().equals(clazzNode.getName())){
+            cachedClazz = clazzNode;
+            Set<String> names = map.keySet();
+            if(names != null && (!names.isEmpty())){
+                for(String key: names){
+                    addInitiateMethod(key, map.get(key));
+                }
+            }
+        }else{
+            if(cachedClazz != null){
+                addInitiateMethod(name, clazz);
+            }else{
+                map.put(name, clazz);
+            }
+        }
     }
+
+    private void addInitiateMethod(String name, ClassNode clazz){
+//        ClassNode cachedNode = new ClassNode(Cached.class);
+ //       final List list = cachedNode.getDeclaredConstructors();
+        final List list = cachedClazz.getAllDeclaredMethods(); //.getDeclaredConstructors();
+        MethodNode found = null;
+        for (Iterator it = list.iterator(); it.hasNext();) {
+            MethodNode mn = (MethodNode) it.next();
+//            final Parameter[] parameters = mn.getParameters();
+            if ("initiate".equals(mn.getName())) {
+                found = mn;
+                break;
+            }
+        }
+
+        if(found != null){
+
+            BlockStatement body = ((BlockStatement)found.getCode());
+            if(body == null){
+                body = new BlockStatement();
+            }
+            List existingStatements = body.getStatements();
+            Statement stm = createCacheStatement(name, clazz);
+            existingStatements.add(stm);
+            found.setCode(body);
+        }
+    }
+
+    private Statement createCacheStatement(String name, ClassNode clazz) {
+        return new ExpressionStatement(
+                new MethodCallExpression(
+                        new MethodCallExpression(
+/*                                new MethodCallExpression(
+                                        new ClassExpression(new ClassNode(Cached.class)),
+                                        new ConstantExpression("getInstance"),
+                                        new ArgumentListExpression()
+                                ),*/
+                                new VariableExpression("this"),
+                                new ConstantExpression("getCached"),
+                                new ArgumentListExpression()
+                        ),
+                        new ConstantExpression("put"),
+                        new ArgumentListExpression(
+                                new ConstantExpression(name),
+                                new ClassExpression(clazz)
+                        )
+                )
+         );
+    }
+
 
     private void addConstructor(String name, ClassNode classNode, String scope, boolean singleton){
 
