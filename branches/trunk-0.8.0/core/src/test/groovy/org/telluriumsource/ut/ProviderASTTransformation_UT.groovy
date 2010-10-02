@@ -67,27 +67,22 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
         Object obj = session.getBean(res.getClass());
         assertNotNull obj
 
-        shell.evaluate("""
+        def cached = shell.evaluate("""
           package org.telluriumsource.framework
           import org.telluriumsource.annotation.Provider
           
           @Provider
-          @Singleton
           class Cached {
-            private Map<String, Class> map
+            private Map<String, Class> map = new HashMap<String, Class>()
 
             public Map<String, Class> getCached(){
               return this.map
             }
 
-            private def Cached() {
-              map = new HashMap<String, Class>()
-              initiate()
-            }
-
-            public void initiate(){
-            }
           }
+
+          Cached.instance
+          
         """)
 
         shell.evaluate("""
@@ -102,9 +97,11 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
                   list
                 }
               }
+
+              new Z()
         """)
     
-        Cached cached = Cached.instance;
+//        Cached cached = Cached.instance;
         Map<String, Class> map = cached.getCached();
         assertNotNull map
         assertFalse map.isEmpty()

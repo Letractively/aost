@@ -5,6 +5,7 @@ import org.codehaus.groovy.ast.expr.*;
 import org.codehaus.groovy.ast.stmt.*;
 import org.codehaus.groovy.control.CompilePhase;
 import org.codehaus.groovy.control.SourceUnit;
+import org.codehaus.groovy.syntax.Token;
 import org.codehaus.groovy.transform.ASTTransformation;
 import org.codehaus.groovy.transform.GroovyASTTransformation;
 
@@ -70,6 +71,7 @@ public class ProviderASTTransformation implements ASTTransformation, Opcodes {
         addConstructor(name, clazz, scope, singleton);
         if(Cached.class.getName().equals(clazzNode.getName())){
             cachedClazz = clazzNode;
+            createNonLazy(clazzNode);
             Set<String> names = map.keySet();
             if(names != null && (!names.isEmpty())){
                 for(String key: names){
@@ -87,13 +89,13 @@ public class ProviderASTTransformation implements ASTTransformation, Opcodes {
 
     private void addInitiateMethod(String name, ClassNode clazz){
 //        ClassNode cachedNode = new ClassNode(Cached.class);
- //       final List list = cachedNode.getDeclaredConstructors();
-        final List list = cachedClazz.getAllDeclaredMethods(); //.getDeclaredConstructors();
+       final List list = cachedClazz.getDeclaredConstructors();
+//        final List list = cachedClazz.getAllDeclaredMethods();
         MethodNode found = null;
         for (Iterator it = list.iterator(); it.hasNext();) {
             MethodNode mn = (MethodNode) it.next();
-//            final Parameter[] parameters = mn.getParameters();
-            if ("initiate".equals(mn.getName())) {
+            final Parameter[] parameters = mn.getParameters();
+            if (parameters == null || parameters.length == 0) {
                 found = mn;
                 break;
             }
@@ -108,7 +110,7 @@ public class ProviderASTTransformation implements ASTTransformation, Opcodes {
             List existingStatements = body.getStatements();
             Statement stm = createCacheStatement(name, clazz);
             existingStatements.add(stm);
-            found.setCode(body);
+//            found.setCode(body);
         }
     }
 
@@ -134,6 +136,40 @@ public class ProviderASTTransformation implements ASTTransformation, Opcodes {
          );
     }
 
+    private void createNonLazy(ClassNode classNode) {
+        final FieldNode fieldNode = classNode.addField("instance", ACC_PUBLIC|ACC_FINAL|ACC_STATIC, classNode, new ConstructorCallExpression(classNode, new ArgumentListExpression()));
+        createConstructor(classNode, fieldNode);
+
+        final BlockStatement body = new BlockStatement();
+        body.addStatement(new ReturnStatement(new VariableExpression(fieldNode)));
+        classNode.addMethod("getInstance", ACC_STATIC|ACC_PUBLIC, classNode, Parameter.EMPTY_ARRAY, ClassNode.EMPTY_ARRAY, body);
+    }
+
+    private void createConstructor(ClassNode classNode, FieldNode field) {
+
+        final List list = classNode.getDeclaredConstructors();
+        MethodNode found = null;
+        for (Iterator it = list.iterator(); it.hasNext(); ) {
+            MethodNode mn = (MethodNode) it.next();
+            final Parameter[] parameters = mn.getParameters();
+            if (parameters == null || parameters.length == 0) {
+                found = mn;
+                break;
+            }
+        }
+
+        if (found == null) {
+            final BlockStatement body = new BlockStatement();
+            body.addStatement(new IfStatement(
+                    new BooleanExpression(new BinaryExpression(new VariableExpression(field), Token.newSymbol("!=",-1,-1), ConstantExpression.NULL)),
+                new ThrowStatement(
+                        new ConstructorCallExpression(ClassHelper.make(RuntimeException.class),
+                                new ArgumentListExpression(
+                                        new ConstantExpression("Can't instantiate singleton " + classNode.getName() + ". Use " + classNode.getName() + ".instance" )))),
+                new EmptyStatement()));
+            classNode.addConstructor(new ConstructorNode(ACC_PRIVATE, body));
+        }
+    }
 
     private void addConstructor(String name, ClassNode classNode, String scope, boolean singleton){
 

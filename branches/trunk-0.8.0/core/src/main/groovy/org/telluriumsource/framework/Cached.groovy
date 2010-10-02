@@ -11,20 +11,20 @@ import org.telluriumsource.annotation.Provider
  */
 
 @Provider
-@Singleton
+//@Singleton
 class Cached {
-  private Map<String, Class> map
+  private Map<String, Class> map = new HashMap<String, Class>()
 
   public Map<String, Class> getCached(){
     return this.map
   }
 
-  private def Cached() {
+/*  private def Cached() {
      map = new HashMap<String, Class>()
      initiate()
   }
   
   public void initiate(){
 
-  }
+  }*/
 }
