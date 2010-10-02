@@ -15,6 +15,8 @@ public class Clazz {
 
     private boolean singleton = true;
 
+    private String scope;
+
     private Object instance;
 
     public Object get(){
@@ -71,5 +73,13 @@ public class Clazz {
 
     public void setInstance(Object instance) {
         this.instance = instance;
+    }
+
+    public String getScope() {
+        return scope;
+    }
+
+    public void setScope(String scope) {
+        this.scope = scope;
     }
 }
