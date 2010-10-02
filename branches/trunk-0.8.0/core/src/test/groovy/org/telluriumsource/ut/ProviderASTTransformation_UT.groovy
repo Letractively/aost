@@ -3,6 +3,7 @@ package org.telluriumsource.ut
 import org.telluriumsource.framework.SessionManager
 import org.telluriumsource.mock.MockSessionFactory
 import org.telluriumsource.framework.Session
+import org.telluriumsource.framework.Cached
 
 /**
  * 
@@ -44,6 +45,8 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
   public void testProviderWithType(){
 
         def res = shell.evaluate("""
+              package org.telluriumsource
+
               import org.telluriumsource.annotation.Provider
               @Provider(type=X.class)
               class X {
@@ -63,6 +66,48 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
 
         Object obj = session.getBean(res.getClass());
         assertNotNull obj
+
+        shell.evaluate("""
+          package org.telluriumsource.framework
+          import org.telluriumsource.annotation.Provider
+          
+          @Provider
+          @Singleton
+          class Cached {
+            private Map<String, Class> map
+
+            public Map<String, Class> getCached(){
+              return this.map
+            }
+
+            private def Cached() {
+              map = new HashMap<String, Class>()
+              initiate()
+            }
+
+            public void initiate(){
+            }
+          }
+        """)
+
+        shell.evaluate("""
+              package org.telluriumsource
+
+              import org.telluriumsource.annotation.Provider
+              @Provider
+              class Z {
+                private ArrayList list = [1,2,3]
+
+                void op () {
+                  list
+                }
+              }
+        """)
+    
+        Cached cached = Cached.instance;
+        Map<String, Class> map = cached.getCached();
+        assertNotNull map
+        assertFalse map.isEmpty()
   }
 
   public void testExplicitProvider(){
@@ -76,6 +121,11 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
     new Y()
 
     obj = session.getBean(Y.class);
-    assertNotNull obj    
+    assertNotNull obj
+
+    Cached cached = Cached.instance;
+    Map<String, Class> map = cached.getCached();
+    assertNotNull map
+    assertFalse map.isEmpty()
   }
 }
