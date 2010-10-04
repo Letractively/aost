@@ -1,0 +1,49 @@
+package org.telluriumsource.framework.dj;
+
+/**
+ * @author: Jian Fang (John.Jian.Fang@gmail.com)
+ *
+ * Date: Oct 4, 2010
+ */
+public class BeanInfo {
+
+    private String name;
+
+    private Class clazz;
+
+    private boolean singleton = true;
+
+    private Scope scope;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Class getClazz() {
+        return clazz;
+    }
+
+    public void setClazz(Class clazz) {
+        this.clazz = clazz;
+    }
+
+    public boolean isSingleton() {
+        return singleton;
+    }
+
+    public void setSingleton(boolean singleton) {
+        this.singleton = singleton;
+    }
+
+    public Scope getScope() {
+        return scope;
+    }
+
+    public void setScope(Scope scope) {
+        this.scope = scope;
+    }
+}

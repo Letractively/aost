@@ -3,7 +3,8 @@ package org.telluriumsource.ut
 import org.telluriumsource.framework.SessionManager
 import org.telluriumsource.mock.MockSessionFactory
 import org.telluriumsource.framework.Session
-import org.telluriumsource.framework.Cached
+
+import org.telluriumsource.framework.dj.BeanInfo
 
 /**
  * 
@@ -19,7 +20,7 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
         SessionManager.setSession(MockSessionFactory.getNewSession())
   }
 
-  public void testProviderNoParameter(){
+/*  public void testProviderNoParameter(){
         def res = shell.evaluate("""
               import org.telluriumsource.annotation.Provider
               @Provider
@@ -40,7 +41,7 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
 
         Object obj = session.getBean(res.getClass());
         assertNotNull obj
-  }
+  }*/
 
   public void testProviderWithType(){
 
@@ -83,24 +84,31 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
               new Y()
         """)
 
-        def cached = shell.evaluate("""
-          package org.telluriumsource.framework
+        def injector = shell.evaluate("""
+          package org.telluriumsource.framework.dj
+
           import org.telluriumsource.annotation.Provider
           
           @Provider
-          class Cached {
-            private Map<String, Class> map = new HashMap<String, Class>()
+          class Injector {
+            private Map<String, BeanInfo> map = new HashMap<String, BeanInfo>()
 
             public Set<String> getNames(){
               return this.map.keySet();
             }
 
-            public Set<Class> getCachedClasses(){
+            public Set<BeanInfo> getBeanInfos(){
               return this.map.values();
             }
             
-            public void addCache(String name, Class clazz){
-              this.map.put(name, clazz);
+            public void addBeanInfo(String name, Class clazz, String scope, boolean singleton){
+              BeanInfo cl = new BeanInfo();
+              cl.setName(name);
+              cl.setClazz(clazz);
+              cl.setScope(Scope.valueOf(scope));
+              cl.setSingleton(singleton);
+
+              this.map.put(name, cl);
             }
           }
 
@@ -113,7 +121,7 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
                 }
            }
 
-           Cached.instance
+           Injector.instance
           
         """)
 
@@ -133,10 +141,10 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
               new Z()
         """)
     
-        Set<Class> classes = cached.getCachedClasses();
-        assertNotNull classes
-        assertFalse classes.isEmpty()
-        assertEquals 3, classes.size()
+        Set<BeanInfo> infos = injector.getBeanInfos();
+        assertNotNull infos
+        assertFalse infos.isEmpty()
+        assertEquals 3, infos.size()
   }
 
   public void testExplicitProvider(){
