@@ -13,7 +13,7 @@ import java.util.*;
 
 import org.objectweb.asm.Opcodes;
 import org.telluriumsource.annotation.Provider;
-import org.telluriumsource.framework.Cached;
+import org.telluriumsource.framework.dj.Injector;
 import org.telluriumsource.framework.TelluriumFramework;
 
 /**
@@ -23,10 +23,10 @@ import org.telluriumsource.framework.TelluriumFramework;
  */
 @GroovyASTTransformation(phase = CompilePhase.CANONICALIZATION)
 public class ProviderASTTransformation implements ASTTransformation, Opcodes {
-    private static final ClassNode MY_TYPE = new ClassNode(Provider.class);
+    private static final ClassNode PROVIDER = new ClassNode(Provider.class);
 
     private static final Map<String, ClassNode> map = new HashMap<String, ClassNode>();
-    private static ClassNode cachedClazz = null;
+    private static ClassNode injector = null;
 
     public void visit(ASTNode[] nodes, SourceUnit sourceUnit) {
         if (nodes.length != 2 || !(nodes[0] instanceof AnnotationNode) || !(nodes[1] instanceof AnnotatedNode)) {
@@ -37,10 +37,10 @@ public class ProviderASTTransformation implements ASTTransformation, Opcodes {
         AnnotationNode node = (AnnotationNode) nodes[0];
         ClassNode clazzNode = (ClassNode)parent;
 
-        if (!MY_TYPE.equals(node.getClassNode()))
+        if (!PROVIDER.equals(node.getClassNode()))
             return;
 
-        String name = "";
+        String name;
         final Expression nameExpr = node.getMember("name");
         if(nameExpr != null && nameExpr instanceof ConstantExpression){
             name = (String) ((ConstantExpression)nameExpr).getValue();
@@ -69,28 +69,28 @@ public class ProviderASTTransformation implements ASTTransformation, Opcodes {
         }
 
 //        addConstructor(name, clazz, scope, singleton);
-        if(Cached.class.getName().equals(clazzNode.getName())){
-            cachedClazz = clazzNode;
+        if(Injector.class.getName().equals(clazzNode.getName())){
+            injector = clazzNode;
             createNonLazy(clazzNode);
             Set<String> names = map.keySet();
             if(names != null && (!names.isEmpty())){
                 for(String key: names){
-                    addInitiateMethod(key, map.get(key));
+                    addInitiateMethod(key, map.get(key), scope, singleton);
                 }
             }
         }else{
-            if(cachedClazz != null){
-                addInitiateMethod(name, clazz);
+            if(injector != null){
+                addInitiateMethod(name, clazz, scope, singleton);
             }else{
                 map.put(name, clazz);
             }
         }
     }
 
-    private void addInitiateMethod(String name, ClassNode clazz){
-//        ClassNode cachedNode = new ClassNode(Cached.class);
-       final List list = cachedClazz.getDeclaredConstructors();
-//        final List list = cachedClazz.getAllDeclaredMethods();
+    private void addInitiateMethod(String name, ClassNode clazz, String scope, boolean isSingleton){
+//        ClassNode cachedNode = new ClassNode(Injector.class);
+       final List list = injector.getDeclaredConstructors();
+//        final List list = injector.getAllDeclaredMethods();
         MethodNode found = null;
         for (Iterator it = list.iterator(); it.hasNext();) {
             MethodNode mn = (MethodNode) it.next();
@@ -108,23 +108,28 @@ public class ProviderASTTransformation implements ASTTransformation, Opcodes {
                 body = new BlockStatement();
             }
             List existingStatements = body.getStatements();
-            Statement stm = createCacheStatement(name, clazz);
+            Statement stm = createCacheStatement(name, clazz, scope, isSingleton);
             existingStatements.add(stm);
 //            found.setCode(body);
         }
     }
 
-    private Statement createCacheStatement(String name, ClassNode clazz) {
+    private Statement createCacheStatement(String name, ClassNode clazz, String scope, boolean isSingleton) {
         return new ExpressionStatement(
                 new MethodCallExpression(
                         new VariableExpression("this"),
-                        new ConstantExpression("addCache"),
+                        new ConstantExpression("addBeanInfo"),
                         new ArgumentListExpression(
-                                new ConstantExpression(name),
-                                new ClassExpression(clazz)
+                                new Expression[]{
+                                        new ConstantExpression(name),
+                                        new ClassExpression(clazz),
+                                        new ConstantExpression(scope),
+                                        new ConstantExpression(isSingleton)
+                                }
+
                         )
                 )
-         );
+        );
     }
 
     private void createNonLazy(ClassNode classNode) {
