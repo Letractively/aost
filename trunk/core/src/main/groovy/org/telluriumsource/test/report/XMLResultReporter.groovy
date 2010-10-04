@@ -16,27 +16,36 @@ class XMLResultReporter implements ResultReporter{
         int total = 0
         int succeeded = 0
         int failed = 0
+        int skipped = 0
         if (results != null && (!results.isEmpty())) {
-            total = results.size()
-            results.each {TestResult val ->
-                if (val.isPassed()) {
-                    succeeded++
-                } else {
-                    failed++
-                }
+          total = results.size()
+          results.each {TestResult val ->
+            if (val.isSkipped()) {
+              skipped++
+            } else {
+              if (val.isPassed()) {
+                succeeded++
+              } else {
+                failed++
+              }
+
             }
+          }
         }
 
         def writer = new StringWriter()
         def xml = new groovy.xml.MarkupBuilder(writer)
         xml.TestResults {
             Total("${total}")
+            Skipped("${skipped}")
             Succeeded("${succeeded}")
             Failed("${failed}")
             results.each {result ->
                 Test(name: result.testName) {
                     Step(result.stepId)
-                    Passed(result.isPassed())
+                    if(!result.isSkipped()){
+                      Passed(result.isPassed())
+                    }
                     Input {
                         result.input.each {key, value ->
                             "${key}"(value)
