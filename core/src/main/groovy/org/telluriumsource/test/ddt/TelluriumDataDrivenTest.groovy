@@ -35,6 +35,10 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
     protected static final String COMPARE_RESULT = "compareResult"
     protected static final String RECORD_RESULT = "recordResult"
 
+    private boolean abortOnException = false
+
+    private boolean hasException = false
+  
     protected TypeHandlerRegistry thr
 
     protected FieldSetRegistry fsr
@@ -73,6 +77,10 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
     //----------------------------------------------------------------------------------------------------------
 
 //    protected SeleniumConnector connector
+
+    public void useAbortOnException(boolean isUse){
+      abortOnException = isUse
+    }
 
     public void connectSeleniumServer(){
         getConnector().connectSeleniumServer()
@@ -196,26 +204,27 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
     //read one line from the file and run the test script so that you can have different
     //test scripts for each line
     public boolean step(Closure c){
-        //get data from the data stream
-        FieldSetMapResult fsmr = dataProvider.nextFieldSet()
-        //check if we reach the end of data stream
-        if(fsmr != null && (!fsmr.isEmpty())){
-            //check if the field set includes action name
-            String action = getTestForFieldSet(fsmr.getFieldSetName())
+      //get data from the data stream
+      FieldSetMapResult fsmr = dataProvider.nextFieldSet()
+      //check if we reach the end of data stream
+      if (fsmr != null && (!fsmr.isEmpty())) {
+        //check if the field set includes action name
+        String action = getTestForFieldSet(fsmr.getFieldSetName())
 
-            TestResult result = new TestResult()
-            result.setProperty("testName", action)
-            result.setProperty("stepId",  context.nextStep())
-            result.setProperty("start", System.nanoTime())
-            result.setProperty("input", fsmr.getResults())
+        TestResult result = new TestResult()
+        result.setProperty("testName", action)
+        result.setProperty("stepId", context.nextStep())
+        result.setProperty("start", System.nanoTime())
+        result.setProperty("input", fsmr.getResults())
 
-            try{
-                if(action != null){
-                    //if the field set includes action
-                    //get the pre-defined action and run it
+        if (this.hasException && this.abortOnException) {
+          try {
+            if (action != null) {
+              //if the field set includes action
+              //get the pre-defined action and run it
 
-                    Closure closure = testreg.getTest(action)
-                    closure()
+              Closure closure = testreg.getTest(action)
+              closure()
 /*
                     //use the proxy so that we can intercept calls for connectUrl and compareResult
                     proxy.interceptor = this.interceptor
@@ -223,24 +232,29 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
                         closure()
                     }
 */
-                }
-
-                //if there is other user defined closure, run it
-                if(c != null){
-                    c()
-                }
-                result.setProperty("status", StepStatus.PROCEEDED)
-            }catch(Exception e){
-                result.setProperty("status", StepStatus.EXECPTION)
-                result.setProperty("exception", e)
             }
-            result.setProperty("end", System.nanoTime())
-            listener.listenForInput(result)
 
-            return true
+            //if there is other user defined closure, run it
+            if (c != null) {
+              c()
+            }
+            result.setProperty("status", StepStatus.PROCEEDED)
+          } catch (Exception e) {
+            result.setProperty("status", StepStatus.EXECPTION)
+            result.setProperty("exception", e)
+            this.hasException = true
+          }
+
+        } else {
+          result.setProperty("status", StepStatus.SKIPPED)
         }
+        result.setProperty("end", System.nanoTime())
+        listener.listenForInput(result)
 
-        return false
+        return true
+      }
+
+      return false
     }
 
     public void step(){
