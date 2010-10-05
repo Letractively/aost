@@ -3,6 +3,7 @@ package org.telluriumsource.framework;
 import org.telluriumsource.crosscut.i18n.IResourceBundle;
 import org.telluriumsource.dsl.SeleniumWrapper;
 import org.telluriumsource.dsl.TelluriumApi;
+import org.telluriumsource.framework.dj.BeanFactory;
 
 /**
  * @author: Jian Fang (John.Jian.Fang@gmail.com)
@@ -81,8 +82,8 @@ public class Session {
         this.api = api;
     }
 
-    public <T> T getBean(Class<T> clazz){
-        return this.beanFactory.getInstance(clazz);
+    public <T> T getInstance(Class<T> clazz){
+        return this.beanFactory.getByClass(clazz);
     }
 
     public String toString(){

@@ -23,6 +23,10 @@ class Injector {
     return this.map.values();
   }
 
+  public Map<String, BeanInfo> getRegistry(){
+    return this.map;
+  }
+
   public void addBeanInfo(String name, Class clazz, String scope, boolean singleton){
     BeanInfo info = new BeanInfo();
     info.setName(name);

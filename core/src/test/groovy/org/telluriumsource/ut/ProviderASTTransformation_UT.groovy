@@ -5,6 +5,8 @@ import org.telluriumsource.mock.MockSessionFactory
 import org.telluriumsource.framework.Session
 
 import org.telluriumsource.framework.dj.BeanInfo
+import org.telluriumsource.framework.dj.DefaultBeanFactory
+import org.telluriumsource.framework.dj.Injector
 
 /**
  * 
@@ -39,7 +41,7 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
 
         assertNotNull session
 
-        Object obj = session.getBean(res.getClass());
+        Object obj = session.getInstance(res.getClass());
         assertNotNull obj
   }*/
 
@@ -64,8 +66,10 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
         Session session = SessionManager.getSession()
 
         assertNotNull session
+    
+        ((DefaultBeanFactory)session.getBeanFactory()).initialize(Injector.instance.getRegistry())
 
-        Object obj = session.getBean(res.getClass());
+        Object obj = session.getInstance(res.getClass());
         assertNotNull obj
 
         shell.evaluate("""
@@ -99,6 +103,10 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
 
             public Set<BeanInfo> getBeanInfos(){
               return this.map.values();
+            }
+
+            public Map<String, BeanInfo> getRegistry(){
+              return this.map;
             }
             
             public void addBeanInfo(String name, Class clazz, String scope, boolean singleton){
@@ -152,12 +160,13 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
 
     assertNotNull session
 
-    Object obj = session.getBean(Y.class);
+    ((DefaultBeanFactory)session.getBeanFactory()).initialize(Injector.instance.getRegistry())
+    Object obj = session.getInstance(Y.class);
     assertNotNull obj
 
     new Y()
 
-    obj = session.getBean(Y.class);
+    obj = session.getInstance(Y.class);
     assertNotNull obj
 
   }

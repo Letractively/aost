@@ -34,6 +34,21 @@ public class DefaultBeanFactory implements BeanFactory{
         }
     }
 
+    public void initialize(Map<String, BeanInfo> beanInfos){
+        if(beanInfos != null && (!beanInfos.isEmpty())){
+            Set<String> keys = beanInfos.keySet();
+            for(String key: keys){
+                BeanInfo info = beanInfos.get(key);
+                Bean bean = new Bean();
+                bean.setName(info.getName());
+                bean.setClazz(info.getClazz());
+                bean.setScope(info.getScope());
+                bean.setSingleton(info.isSingleton());
+                map.put(key, bean);
+            }
+        }        
+    }
+
     public Object getByName(String name) {
         Bean bean = map.get(name);
         if(bean == null){
