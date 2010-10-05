@@ -485,10 +485,8 @@ var UiOutlineVisitor = STreeVisitor.extend({
 var UiOutlineCleaner = STreeVisitor.extend({
     visit: function(context, snode){
         var elem = snode.domRef;
-        var $elem = teJQuery(elem);
-        var outline = $elem.data("originalOutline");
-//        elem.style.outline = "";
-        elem.style.outline = outline;
+        var $elem = teJQuery(elem);     
+        elem.style.outline = $elem.data("originalOutline");
         $elem.removeData("originalOutline");
 
         !tellurium.logManager.isUseLog || fbLog("Clean outline for " + snode.getFullRid(), elem);
