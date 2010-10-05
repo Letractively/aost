@@ -13,6 +13,8 @@ import org.telluriumsource.dsl.SeleniumWrapper;
 import org.telluriumsource.dsl.TelluriumApi;
 import org.telluriumsource.dsl.UiDslParser;
 import org.telluriumsource.framework.*;
+import org.telluriumsource.framework.dj.BeanFactory;
+import org.telluriumsource.framework.dj.DefaultBeanFactory;
 import org.telluriumsource.ui.builder.UiObjectBuilderRegistry;
 import org.telluriumsource.ui.locator.JQueryOptimizer;
 import org.telluriumsource.ui.locator.LocatorProcessor;

@@ -11,6 +11,9 @@ import org.telluriumsource.crosscut.i18n.IResourceBundle
 
 import org.telluriumsource.util.BaseUtil
 import java.lang.reflect.Field
+import org.telluriumsource.framework.dj.BeanFactory
+import org.telluriumsource.framework.dj.DefaultBeanFactory
+import org.telluriumsource.framework.dj.Injector
 
 /**
  * Put all initialization and cleanup jobs for the Tellurium framework here
@@ -35,15 +38,16 @@ public class TelluriumFramework {
 
   private BeanFactory beanFactory = new DefaultBeanFactory();
 
-  public void registerBean(String name, Class clazz, String scope, boolean isSingleton){
+/*  public void registerBean(String name, Class clazz, String scope, boolean isSingleton){
     this.beanFactory.provide(name, clazz, scope, isSingleton);
   }
+  */
 
   public Session createNewSession(String id, RuntimeEnvironment env){
     String name = (id == null ? "" : id);
     name = name + "@" + BaseUtil.toBase62(System.currentTimeMillis());
     Lookup lookup = new DefaultLookup();
-    BeanFactory beanFactory = new DefaultBeanFactory();
+    BeanFactory beanFactory = new DefaultBeanFactory(Injector.instance.getRegistry());
 
     Assembler assembler = new Assembler(lookup, env, telluriumConfigurator);
     assembler.assemble();
@@ -144,6 +148,7 @@ public class TelluriumFramework {
       }
 
       defaultEnvironment = telluriumConfigurator.createRuntimeEnvironment();
+      ((DefaultBeanFactory)beanFactory).initialize(Injector.instance.getRegistry());
 
       Session session = reuseExistingOrCreateNewSession();
       SessionManager.setSession(session);
