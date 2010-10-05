@@ -12,6 +12,7 @@ import org.telluriumsource.annotation.Provider
 
 @Provider
 class Injector {
+  
   private Map<String, BeanInfo> map = new HashMap<String, BeanInfo>()
 
   public Set<String> getNames(){
