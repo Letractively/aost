@@ -15,6 +15,17 @@ public class BeanInfo {
 
     private Scope scope;
 
+    public BeanInfo(){
+
+    }
+
+    public BeanInfo(String name, Class clazz, boolean singleton, Scope scope) {
+        this.name = name;
+        this.clazz = clazz;
+        this.singleton = singleton;
+        this.scope = scope;
+    }
+
     public String getName() {
         return name;
     }
