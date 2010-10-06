@@ -27,10 +27,11 @@ class Injector {
     return this.map;
   }
 
-  public void addBeanInfo(String name, Class clazz, String scope, boolean singleton){
+  public void addBeanInfo(String name, Class clazz, Class concrete, String scope, boolean singleton){
     BeanInfo info = new BeanInfo();
     info.setName(name);
     info.setClazz(clazz);
+    info.setConcrete(concrete);
     info.setScope(Scope.valueOf(scope));
     info.setSingleton(singleton);
 

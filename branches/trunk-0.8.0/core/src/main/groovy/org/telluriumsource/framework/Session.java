@@ -86,6 +86,10 @@ public class Session {
         return this.beanFactory.getByClass(clazz);
     }
 
+    public Object getInstanceByName(String name){
+        return this.beanFactory.getByName(name);
+    }
+
     public String toString(){
         StringBuffer sb = new StringBuffer(64);
         sb.append("Session: [sessionId: ").append(sessionId);

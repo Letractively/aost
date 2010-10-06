@@ -15,6 +15,7 @@ import org.objectweb.asm.Opcodes;
 import org.telluriumsource.annotation.Provider;
 import org.telluriumsource.framework.dj.Injector;
 import org.telluriumsource.framework.TelluriumFramework;
+import org.telluriumsource.framework.dj.Scope;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -25,7 +26,7 @@ import org.telluriumsource.framework.TelluriumFramework;
 public class ProviderASTTransformation implements ASTTransformation, Opcodes {
     private static final ClassNode PROVIDER = new ClassNode(Provider.class);
 
-    private static final Map<String, ClassNode> map = new HashMap<String, ClassNode>();
+    private static final Map<String, ClassInfo> map = new HashMap<String, ClassInfo>();
     private static ClassNode injector = null;
 
     public void visit(ASTNode[] nodes, SourceUnit sourceUnit) {
@@ -40,6 +41,8 @@ public class ProviderASTTransformation implements ASTTransformation, Opcodes {
         if (!PROVIDER.equals(node.getClassNode()))
             return;
 
+        ClassNode concrete = clazzNode;
+        
         String name;
         final Expression nameExpr = node.getMember("name");
         if(nameExpr != null && nameExpr instanceof ConstantExpression){
@@ -75,19 +78,21 @@ public class ProviderASTTransformation implements ASTTransformation, Opcodes {
             Set<String> names = map.keySet();
             if(names != null && (!names.isEmpty())){
                 for(String key: names){
-                    addInitiateMethod(key, map.get(key), scope, singleton);
+                    ClassInfo info = map.get(key);
+                    addInitiateMethod(key, info.getClazz(), info.getConcrete(), info.getScope(), info.isSingleton());
                 }
             }
         }else{
             if(injector != null){
-                addInitiateMethod(name, clazz, scope, singleton);
+                addInitiateMethod(name, clazz, concrete, scope, singleton);
             }else{
-                map.put(name, clazz);
+                ClassInfo classInfo = new ClassInfo(name, clazz, concrete, singleton, scope);
+                map.put(name, classInfo);
             }
         }
     }
 
-    private void addInitiateMethod(String name, ClassNode clazz, String scope, boolean isSingleton){
+    private void addInitiateMethod(String name, ClassNode clazz, ClassNode concrete, String scope, boolean isSingleton){
 //        ClassNode cachedNode = new ClassNode(Injector.class);
        final List list = injector.getDeclaredConstructors();
 //        final List list = injector.getAllDeclaredMethods();
@@ -108,13 +113,13 @@ public class ProviderASTTransformation implements ASTTransformation, Opcodes {
                 body = new BlockStatement();
             }
             List existingStatements = body.getStatements();
-            Statement stm = createCacheStatement(name, clazz, scope, isSingleton);
+            Statement stm = createCacheStatement(name, clazz, concrete, scope, isSingleton);
             existingStatements.add(stm);
 //            found.setCode(body);
         }
     }
 
-    private Statement createCacheStatement(String name, ClassNode clazz, String scope, boolean isSingleton) {
+    private Statement createCacheStatement(String name, ClassNode clazz, ClassNode concrete, String scope, boolean isSingleton) {
         return new ExpressionStatement(
                 new MethodCallExpression(
                         new VariableExpression("this"),
@@ -123,6 +128,7 @@ public class ProviderASTTransformation implements ASTTransformation, Opcodes {
                                 new Expression[]{
                                         new ConstantExpression(name),
                                         new ClassExpression(clazz),
+                                        new ClassExpression(concrete),
                                         new ConstantExpression(scope),
                                         new ConstantExpression(isSingleton)
                                 }
@@ -208,4 +214,63 @@ public class ProviderASTTransformation implements ASTTransformation, Opcodes {
         }
     }
 
+    class ClassInfo {
+        private String name;
+
+        private ClassNode clazz;
+
+        private ClassNode concrete;
+
+        private boolean singleton = true;
+
+        private String scope;
+
+        ClassInfo(String name, ClassNode clazz, ClassNode concrete, boolean singleton, String scope) {
+            this.name = name;
+            this.clazz = clazz;
+            this.concrete = concrete;
+            this.singleton = singleton;
+            this.scope = scope;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public ClassNode getClazz() {
+            return clazz;
+        }
+
+        public void setClazz(ClassNode clazz) {
+            this.clazz = clazz;
+        }
+
+        public ClassNode getConcrete() {
+            return concrete;
+        }
+
+        public void setConcrete(ClassNode concrete) {
+            this.concrete = concrete;
+        }
+
+        public boolean isSingleton() {
+            return singleton;
+        }
+
+        public void setSingleton(boolean singleton) {
+            this.singleton = singleton;
+        }
+
+        public String getScope() {
+            return scope;
+        }
+
+        public void setScope(String scope) {
+            this.scope = scope;
+        }
+    }
 }

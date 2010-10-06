@@ -11,6 +11,8 @@ public class BeanInfo {
 
     private Class clazz;
 
+    private Class concrete;
+
     private boolean singleton = true;
 
     private Scope scope;
@@ -19,9 +21,10 @@ public class BeanInfo {
 
     }
 
-    public BeanInfo(String name, Class clazz, boolean singleton, Scope scope) {
+    public BeanInfo(String name, Class clazz, Class concrete, boolean singleton, Scope scope) {
         this.name = name;
         this.clazz = clazz;
+        this.concrete = concrete;
         this.singleton = singleton;
         this.scope = scope;
     }
@@ -42,6 +45,14 @@ public class BeanInfo {
         this.clazz = clazz;
     }
 
+    public Class getConcrete() {
+        return concrete;
+    }
+
+    public void setConcrete(Class concrete) {
+        this.concrete = concrete;
+    }
+
     public boolean isSingleton() {
         return singleton;
     }
@@ -57,4 +68,5 @@ public class BeanInfo {
     public void setScope(Scope scope) {
         this.scope = scope;
     }
+
 }

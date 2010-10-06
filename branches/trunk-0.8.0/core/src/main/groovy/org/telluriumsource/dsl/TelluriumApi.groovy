@@ -15,6 +15,7 @@ import org.telluriumsource.ui.builder.AllPurposeObjectBuilder
 import org.telluriumsource.ui.object.AllPurposeObject
 import org.telluriumsource.exception.NotWidgetObjectException
 import org.telluriumsource.ui.widget.Widget
+import org.telluriumsource.annotation.Provider
 
 /**
  * 
@@ -23,6 +24,7 @@ import org.telluriumsource.ui.widget.Widget
  * Date: Sep 10, 2010
  * 
  */
+@Provider(name="TelluriumApi", type=IDslContext.class)
 class TelluriumApi extends BaseDslContext {
 
   UiObject walkToWithException(WorkflowContext context, String uid) {
