@@ -112,10 +112,11 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
               return this.map;
             }
             
-            public void addBeanInfo(String name, Class clazz, String scope, boolean singleton){
+            public void addBeanInfo(String name, Class clazz, Class concrete, String scope, boolean singleton){
               BeanInfo cl = new BeanInfo();
               cl.setName(name);
               cl.setClazz(clazz);
+              cl.setConcrete(concrete);
               cl.setScope(Scope.valueOf(scope));
               cl.setSingleton(singleton);
 
