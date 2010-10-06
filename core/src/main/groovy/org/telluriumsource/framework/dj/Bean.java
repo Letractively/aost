@@ -14,8 +14,8 @@ public class Bean extends BeanInfo {
     public Bean() {
     }
 
-    public Bean(String name, Class clazz, boolean singleton, Scope scope, Object instance) {
-        super(name, clazz, singleton, scope);
+    public Bean(String name, Class clazz, Class concrete, boolean singleton, Scope scope, Object instance) {
+        super(name, clazz, concrete, singleton, scope);
         this.instance = instance;
     }
 

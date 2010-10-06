@@ -7,6 +7,7 @@ import org.telluriumsource.framework.Session
 import org.telluriumsource.framework.dj.BeanInfo
 import org.telluriumsource.framework.dj.DefaultBeanFactory
 import org.telluriumsource.framework.dj.Injector
+import org.telluriumsource.component.dispatch.Dispatcher
 
 /**
  * 
@@ -62,7 +63,7 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
 
               new X ()
         """)
-
+/*
         Session session = SessionManager.getSession()
 
         assertNotNull session
@@ -71,8 +72,10 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
 
         Object obj = session.getInstance(res.getClass());
         assertNotNull obj
+        */
 
         shell.evaluate("""
+
               package org.telluriumsource
 
               import org.telluriumsource.annotation.Provider
@@ -161,12 +164,10 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
     assertNotNull session
 
     ((DefaultBeanFactory)session.getBeanFactory()).initialize(Injector.instance.getRegistry())
-    Object obj = session.getInstance(Y.class);
+    Object obj = session.getInstance(Dispatcher.class);
     assertNotNull obj
 
-    new Y()
-
-    obj = session.getInstance(Y.class);
+    obj = session.getInstanceByName("TelluriumApi");
     assertNotNull obj
 
   }

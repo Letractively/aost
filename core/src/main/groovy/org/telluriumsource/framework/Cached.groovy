@@ -10,8 +10,6 @@ import org.telluriumsource.annotation.Provider
  * 
  */
 
-@Provider
-//@Singleton
 class Cached {
   private Map<String, Class> map = new HashMap<String, Class>()
 

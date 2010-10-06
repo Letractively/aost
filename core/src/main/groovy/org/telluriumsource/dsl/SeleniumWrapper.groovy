@@ -22,6 +22,7 @@ import org.telluriumsource.exception.NotWidgetObjectException
 import org.telluriumsource.ui.locator.JQueryProcessor
 import org.telluriumsource.ui.locator.XPathProcessor
 import org.telluriumsource.exception.NotMeaningfulMethodException
+import org.telluriumsource.annotation.Provider
 
 /**
  * 
@@ -30,6 +31,7 @@ import org.telluriumsource.exception.NotMeaningfulMethodException
  * Date: Sep 10, 2010
  * 
  */
+@Provider(name="SeleniumWrapper", type=IDslContext.class)
 class SeleniumWrapper extends BaseDslContext {
 
   public static final String KEY = "key"

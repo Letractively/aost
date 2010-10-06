@@ -27,6 +27,7 @@ public class DefaultBeanFactory implements BeanFactory{
                 Bean bean = new Bean();
                 bean.setName(info.getName());
                 bean.setClazz(info.getClazz());
+                bean.setConcrete(info.getConcrete());
                 bean.setScope(info.getScope());
                 bean.setSingleton(info.isSingleton());
                 map.put(key, bean);
@@ -42,6 +43,7 @@ public class DefaultBeanFactory implements BeanFactory{
                 Bean bean = new Bean();
                 bean.setName(info.getName());
                 bean.setClazz(info.getClazz());
+                bean.setConcrete(info.getConcrete());
                 bean.setScope(info.getScope());
                 bean.setSingleton(info.isSingleton());
                 map.put(key, bean);
@@ -68,13 +70,13 @@ public class DefaultBeanFactory implements BeanFactory{
         if(bean.isSingleton()){
             Object instance = bean.getInstance();
             if(instance == null){
-                instance = createInstance(bean.getClazz());
+                instance = createInstance(bean.getConcrete());
                 bean.setInstance(instance);
             }
 
             return instance;
         }else{
-            Object instance = createInstance(bean.getClazz());
+            Object instance = createInstance(bean.getConcrete());
             bean.setInstance(instance);
 
             return instance; 

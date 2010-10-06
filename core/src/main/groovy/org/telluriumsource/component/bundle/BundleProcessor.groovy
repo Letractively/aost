@@ -18,6 +18,7 @@ import org.telluriumsource.entity.ReturnType
 import org.telluriumsource.framework.RuntimeEnvironment
 import org.telluriumsource.framework.SessionManager
 import org.telluriumsource.dsl.IDslContext
+import org.telluriumsource.annotation.Inject
 
 /**
  * Command Bundle Processor
@@ -41,6 +42,7 @@ public class BundleProcessor implements Configurable {
   //sequence number for each command
   private int sequence = 1;
 
+  @Inject
   private Dispatcher dispatcher
   //= new Dispatcher();
 
