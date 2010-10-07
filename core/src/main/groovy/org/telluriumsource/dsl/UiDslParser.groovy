@@ -6,10 +6,11 @@ import org.telluriumsource.ui.object.*
 import org.telluriumsource.exception.InvalidObjectTypeException
 
 import org.telluriumsource.crosscut.i18n.IResourceBundle;
-import org.telluriumsource.framework.Environment;
+import org.telluriumsource.framework.Environment
+import org.telluriumsource.annotation.Provider;
 
 
-
+@Provider
 class UiDslParser extends BuilderSupport{
        public static final String UID = "uid"
        public static final String REF = "ref"

@@ -1,6 +1,5 @@
 package org.telluriumsource.ft
 
-import org.junit.Ignore
 import org.telluriumsource.framework.SessionManager
 import org.telluriumsource.mock.MockSessionFactory
 

@@ -4,9 +4,12 @@ import org.telluriumsource.framework.config.Configurable
 import org.telluriumsource.util.Helper
 
 import org.telluriumsource.component.bundle.BundleProcessor
-import org.telluriumsource.dsl.WorkflowContext;
+import org.telluriumsource.dsl.WorkflowContext
+import org.telluriumsource.annotation.Provider
+import org.telluriumsource.annotation.Inject;
 
 
+@Provider
 class Accessor implements Configurable {
 
   protected static final int ACCESS_WAIT_TIME = 50
@@ -15,6 +18,7 @@ class Accessor implements Configurable {
 
   protected static final String ELEMENT_NOT_PRESENT_ERROR_MESSAGE = "Element is not present"
 
+  @Inject
   private BundleProcessor cbp
 
   private boolean checkElement = true

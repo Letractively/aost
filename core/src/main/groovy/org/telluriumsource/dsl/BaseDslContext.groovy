@@ -18,6 +18,7 @@ import org.telluriumsource.ui.locator.JQueryOptimizer
 import org.telluriumsource.ui.locator.LocatorProcessor
 import org.telluriumsource.ui.object.UiObject
 import org.json.simple.JSONArray
+import org.telluriumsource.annotation.Inject
 
 /**
  *
@@ -45,20 +46,28 @@ abstract class BaseDslContext implements IDslContext {
       }
       xml; """
 
+  @Inject
   protected IResourceBundle i18nBundle;
 
+  @Inject
   protected UiDslParser ui;
 
+  @Inject
   protected RuntimeEnvironment env;
 
+  @Inject
   protected EventHandler eventHandler;
 
+  @Inject
   protected Accessor accessor;
 
+  @Inject
   protected Extension extension;
 
+  @Inject
   protected JQueryOptimizer optimizer;
 
+  @Inject
   protected LocatorProcessor locatorProcessor;
 
   abstract UiObject walkToWithException(WorkflowContext context, String uid);

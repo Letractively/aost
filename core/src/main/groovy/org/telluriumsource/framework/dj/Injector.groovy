@@ -11,7 +11,7 @@ import org.telluriumsource.annotation.Provider
  */
 
 @Provider
-class Injector {
+class Injector implements BeanFactory{
   
   private Map<String, BeanInfo> map = new HashMap<String, BeanInfo>()
 
@@ -36,5 +36,15 @@ class Injector {
     info.setSingleton(singleton);
 
     this.map.put(name, info);
+  }
+
+
+  public Object getByName(String name) {
+    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  }
+
+  public <T> T getByClass(Class<T> clazz) {
+
+    return null;  //To change body of implemented methods use File | Settings | File Templates.
   }
 }
