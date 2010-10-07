@@ -28,9 +28,10 @@ import java.util.List;
 public class InjectASTTransformation implements ASTTransformation, Opcodes {
 
     private static final Expression NULL_EXPR = ConstantExpression.NULL;
-    private static final ClassNode OBJECT_TYPE = new ClassNode(Object.class);
+
     private static final Token ASSIGN = Token.newSymbol("=", -1, -1);
     private static final Token COMPARE_NOT_EQUAL = Token.newSymbol("!=", -1, -1);
+
     public void visit(ASTNode[] nodes, SourceUnit sourceUnit) {
         if (nodes.length != 2 || !(nodes[0] instanceof AnnotationNode) || !(nodes[1] instanceof AnnotatedNode)) {
             throw new RuntimeException("Internal error: expecting [AnnotationNode, AnnotatedNode] but got: " + Arrays.asList(nodes));
@@ -49,7 +50,7 @@ public class InjectASTTransformation implements ASTTransformation, Opcodes {
                 name = fieldNode.getType().getName();
             }
 
-            boolean lazy = true;
+            boolean lazy = false;
             final Expression lazyExpr = node.getMember("lazy");
             if (lazyExpr != null && lazyExpr instanceof ConstantExpression) {
                 lazy = (Boolean) ((ConstantExpression) lazyExpr).getValue();
