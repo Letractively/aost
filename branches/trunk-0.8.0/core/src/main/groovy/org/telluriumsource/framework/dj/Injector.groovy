@@ -15,7 +15,7 @@ class Injector implements BeanFactory{
   
   private Map<String, BeanInfo> map = new HashMap<String, BeanInfo>()
 
-  private BeanFactory beanFactory
+  private BeanFactory beanFactory = new DefaultBeanFactory();
 
   public Set<String> getNames(){
     return this.map.keySet();
@@ -38,10 +38,8 @@ class Injector implements BeanFactory{
     info.setSingleton(singleton);
 
     this.map.put(name, info);
-  }
-
-  public void initialize(){
-    this.beanFactory = new DefaultBeanFactory(this.map);
+    
+    addBean(name, info);
   }
 
   public Object getByName(String name) {
@@ -50,5 +48,9 @@ class Injector implements BeanFactory{
 
   public <T> T getByClass(Class<T> clazz) {
     return this.beanFactory.getByClass(clazz);
+  }
+
+  void addBean(String name, BeanInfo info) {
+     this.beanFactory.addBean(name, info);
   }
 }

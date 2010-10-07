@@ -5,7 +5,6 @@ import java.util.Map
 import java.util.Set
 import java.util.ResourceBundle
 
-import groovy.lang.Singleton;
 import org.telluriumsource.framework.config.Configurable
 
 /**
@@ -16,7 +15,7 @@ import org.telluriumsource.framework.config.Configurable
  * Date: Sep 23, 2009
  *
  */
-//@Singleton
+
 class ResourceBundleSource implements Configurable {
 
 	//define the default locale

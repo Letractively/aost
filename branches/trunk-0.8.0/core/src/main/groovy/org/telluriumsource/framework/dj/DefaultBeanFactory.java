@@ -67,6 +67,23 @@ public class DefaultBeanFactory implements BeanFactory{
         }        
     }
 
+    public void addBean(String name, BeanInfo info) {
+        Bean bean;
+        if (info.getScope() == Scope.Global) {
+            bean = new GlobalBean();
+        } else if (info.getScope() == Scope.Session) {
+            bean = new SessionBean();
+        } else {
+            bean = new RequestBean();
+        }
+        bean.setName(info.getName());
+        bean.setClazz(info.getClazz());
+        bean.setConcrete(info.getConcrete());
+        bean.setScope(info.getScope());
+        bean.setSingleton(info.isSingleton());
+        map.put(name, bean);
+    }
+
     public Object getByName(String name) {
         Bean bean = map.get(name);
         if(bean == null){

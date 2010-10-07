@@ -43,8 +43,6 @@ class InjectASTTransformation_UT extends GroovyShellTestCase {
         }
 
       }
-
-      Injector.instance.initialize()
       
       new Y()
     """)
