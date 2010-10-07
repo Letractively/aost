@@ -71,7 +71,6 @@ public class ProviderASTTransformation implements ASTTransformation, Opcodes {
             singleton = (Boolean)((ConstantExpression)singletonExpr).getValue();
         }
 
-//        addConstructor(name, clazz, scope, singleton);
         if(Injector.class.getName().equals(clazzNode.getName())){
             injector = clazzNode;
             createNonLazy(clazzNode);

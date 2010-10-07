@@ -19,6 +19,7 @@ import org.telluriumsource.framework.RuntimeEnvironment
 import org.telluriumsource.framework.SessionManager
 import org.telluriumsource.dsl.IDslContext
 import org.telluriumsource.annotation.Inject
+import org.telluriumsource.annotation.Provider
 
 /**
  * Command Bundle Processor
@@ -29,7 +30,7 @@ import org.telluriumsource.annotation.Inject
  * 
  */
 
-//@Singleton
+@Provider
 public class BundleProcessor implements Configurable {
 
   public static final String OK = "ok";
@@ -54,8 +55,10 @@ public class BundleProcessor implements Configurable {
 
   private EngineStateTracer tracer = new EngineStateTracer();
 
+  @Inject
   protected IResourceBundle i18nBundle
 
+  @Inject
   private RuntimeEnvironment env
 
   //maximum number of commands in a bundle

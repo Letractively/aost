@@ -10,15 +10,19 @@ import org.telluriumsource.framework.RuntimeEnvironment
 import org.telluriumsource.component.connector.CustomSelenium
 import org.telluriumsource.framework.SessionManager
 import org.telluriumsource.annotation.Provider
+import org.telluriumsource.annotation.Inject
 
 @Provider
 class Dispatcher implements Configurable {
     public static final String PLACE_HOLDER = "\\?"
+
+    @Inject
     protected IResourceBundle i18nBundle ;
 
     private String filenamePattern = "Screenshot?.png";
 
 //    private SeleniumClient sc = new SeleniumClient();
+    @Inject
     private RuntimeEnvironment env;
 
     private CustomSelenium sel;

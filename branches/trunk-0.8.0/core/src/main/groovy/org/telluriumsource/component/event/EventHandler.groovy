@@ -11,16 +11,21 @@ import java.awt.event.KeyEvent
 import org.telluriumsource.framework.Environment;
 import org.telluriumsource.crosscut.i18n.IResourceBundle;
 import org.telluriumsource.component.bundle.BundleProcessor
-import org.telluriumsource.dsl.WorkflowContext;
+import org.telluriumsource.dsl.WorkflowContext
+import org.telluriumsource.annotation.Provider
+import org.telluriumsource.annotation.Inject;
 
 
+@Provider
 class EventHandler implements Configurable{
 
+    @Inject
 	protected IResourceBundle i18nBundle
 
     public static final String RETURN_KEY= "BSBS13"
 	public static final int ACTION_WAIT_TIME = 50
 
+    @Inject
     BundleProcessor cbp
 
     private EventSorter alg = new EventSorter()
