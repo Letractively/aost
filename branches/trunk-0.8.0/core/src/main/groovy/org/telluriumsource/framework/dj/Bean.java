@@ -7,24 +7,30 @@ import org.telluriumsource.framework.dj.BeanInfo;
  *
  *         Date: Oct 4, 2010
  */
-public class Bean extends BeanInfo {
+public interface Bean{
 
-    private Object instance;
+    String getName();
 
-    public Bean() {
-    }
+    void setName(String name);
 
-    public Bean(String name, Class clazz, Class concrete, boolean singleton, Scope scope, Object instance) {
-        super(name, clazz, concrete, singleton, scope);
-        this.instance = instance;
-    }
+    Class getClazz();
 
-    public Object getInstance() {
-        return instance;
-    }
+    void setClazz(Class clazz);
 
-    public void setInstance(Object instance) {
-        this.instance = instance;
-    }
+    Class getConcrete();
+
+    void setConcrete(Class concrete);
+
+    boolean isSingleton();
+
+    void setSingleton(boolean singleton);
+
+    Scope getScope();
+
+    void setScope(Scope scope);
+
+    Object getInstance();
+
+    void setInstance(Object instance);
        
 }

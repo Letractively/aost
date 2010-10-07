@@ -24,7 +24,15 @@ public class DefaultBeanFactory implements BeanFactory{
             Set<String> keys = beanInfos.keySet();
             for(String key: keys){
                 BeanInfo info = beanInfos.get(key);
-                Bean bean = new Bean();
+                Bean bean;
+                if(info.getScope() == Scope.Global){
+                    bean = new GlobalBean();
+                }else if(info.getScope() == Scope.Session){
+                    bean = new SessionBean();
+                }else {
+                    bean = new RequestBean();
+                }
+
                 bean.setName(info.getName());
                 bean.setClazz(info.getClazz());
                 bean.setConcrete(info.getConcrete());
@@ -40,7 +48,15 @@ public class DefaultBeanFactory implements BeanFactory{
             Set<String> keys = beanInfos.keySet();
             for(String key: keys){
                 BeanInfo info = beanInfos.get(key);
-                Bean bean = new Bean();
+
+                Bean bean;
+                if(info.getScope() == Scope.Global){
+                    bean = new GlobalBean();
+                }else if(info.getScope() == Scope.Session){
+                    bean = new SessionBean();
+                }else {
+                    bean = new RequestBean();
+                }
                 bean.setName(info.getName());
                 bean.setClazz(info.getClazz());
                 bean.setConcrete(info.getConcrete());

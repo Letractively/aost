@@ -22,6 +22,7 @@ class InjectASTTransformation_UT extends GroovyShellTestCase {
       package org.telluriumsource
       import org.telluriumsource.annotation.Provider
       import org.telluriumsource.annotation.Inject
+      import org.telluriumsource.framework.dj.Injector
 
       @Provider
       public class X {
@@ -43,10 +44,13 @@ class InjectASTTransformation_UT extends GroovyShellTestCase {
 
       }
 
+      Injector.instance.initialize()
+      
       new Y()
     """)
 
       assertNotNull y
+      assertNotNull y.getValue()
     
   }
 
