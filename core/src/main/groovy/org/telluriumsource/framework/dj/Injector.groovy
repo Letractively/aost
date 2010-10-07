@@ -15,6 +15,8 @@ class Injector implements BeanFactory{
   
   private Map<String, BeanInfo> map = new HashMap<String, BeanInfo>()
 
+  private BeanFactory beanFactory
+
   public Set<String> getNames(){
     return this.map.keySet();
   }
@@ -38,13 +40,15 @@ class Injector implements BeanFactory{
     this.map.put(name, info);
   }
 
+  public void initialize(){
+    this.beanFactory = new DefaultBeanFactory(this.map);
+  }
 
   public Object getByName(String name) {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+    return this.beanFactory.getByName(name);
   }
 
   public <T> T getByClass(Class<T> clazz) {
-
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+    return this.beanFactory.getByClass(clazz);
   }
 }
