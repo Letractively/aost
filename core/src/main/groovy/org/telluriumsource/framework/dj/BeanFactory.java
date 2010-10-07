@@ -7,6 +7,8 @@ package org.telluriumsource.framework.dj;
  */
 public interface BeanFactory {
 
+    void addBean(String name, BeanInfo info);
+
     Object getByName(String name);
 
     <T> T getByClass(Class<T> clazz);

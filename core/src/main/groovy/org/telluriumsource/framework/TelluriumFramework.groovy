@@ -36,8 +36,6 @@ public class TelluriumFramework {
 
   private RuntimeEnvironment defaultEnvironment;
 
-  private BeanFactory beanFactory = new DefaultBeanFactory();
-
 /*  public void registerBean(String name, Class clazz, String scope, boolean isSingleton){
     this.beanFactory.provide(name, clazz, scope, isSingleton);
   }
@@ -148,7 +146,6 @@ public class TelluriumFramework {
       }
 
       defaultEnvironment = telluriumConfigurator.createRuntimeEnvironment();
-      ((DefaultBeanFactory)beanFactory).initialize(Injector.instance.getRegistry());
 
       Session session = reuseExistingOrCreateNewSession();
       SessionManager.setSession(session);

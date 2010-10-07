@@ -3,7 +3,8 @@ package org.telluriumsource.crosscut.i18n
 import java.text.DateFormat;
 import java.text.MessageFormat;
 import java.text.NumberFormat
-import org.telluriumsource.framework.config.Configurable;
+import org.telluriumsource.framework.config.Configurable
+import org.telluriumsource.annotation.Provider;
 
 /**
  * ResourceBundle - provides internationalization support
@@ -13,6 +14,7 @@ import org.telluriumsource.framework.config.Configurable;
  * Date: Sep 23, 2009
  *
  */
+@Provider
 class ResourceBundle implements IResourceBundle, Configurable
 {
  	//define the default locale
