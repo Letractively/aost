@@ -21,7 +21,8 @@ import org.telluriumsource.ui.locator.LocatorProcessor;
 import org.telluriumsource.ui.widget.WidgetConfigurator;
 import org.telluriumsource.util.BaseUtil;
 
-import java.util.Locale;
+import java.util.Locale
+import org.telluriumsource.framework.dj.Injector;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -43,7 +44,9 @@ public class MockSessionFactory {
         IResourceBundle i18nBundle = new org.telluriumsource.crosscut.i18n.ResourceBundle();
         env.setResourceBundle(i18nBundle);
 
-        UiDslParser parser = new UiDslParser();
+//        UiDslParser parser = new UiDslParser();
+/*
+        UiDslParser parser = Injector.instance.getByClass(UiDslParser.class);
         lookup.register("uiParser", parser);
         EventHandler eventHandler = new EventHandler();
         lookup.register("eventHandler", eventHandler);
@@ -139,6 +142,7 @@ public class MockSessionFactory {
         session.setApi(api);
         session.setWrapper(wrapper);
         session.setI18nBundle(i18nBundle);
+*/
 
         return session;
     }
