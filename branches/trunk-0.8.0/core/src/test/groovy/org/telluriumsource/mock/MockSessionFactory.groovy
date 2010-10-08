@@ -129,13 +129,11 @@ public class MockSessionFactory {
         connector.setProperty("seleniumServerHost", env.getServerHost());
         connector.setProperty("port", env.getServerPort());
         connector.setProperty("browser", env.getBrowser());
-        BeanFactory beanFactory = new DefaultBeanFactory();
 
         Session session = new Session();
         session.setSessionId(name);
         session.setEnv(env);
         session.setLookup(lookup);
-        session.setBeanFactory(beanFactory);          
         session.setApi(api);
         session.setWrapper(wrapper);
         session.setI18nBundle(i18nBundle);

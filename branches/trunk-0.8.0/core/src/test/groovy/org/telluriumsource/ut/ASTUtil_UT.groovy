@@ -31,4 +31,15 @@ class ASTUtil_UT extends GroovyTestCase {
     println stm.toString()
   }
 
+  public void testGetByNameLazy(){
+    ASTUtil util = new ASTUtil();
+    List<ASTNode> list = util.getInjectNodeByNameLazy("org.telluriumsource.dsl.UiDslParser")
+    assertNotNull(list);
+    assertEquals(1, list.size());
+    BlockStatement stm = (BlockStatement) list.get(0);
+    assertNotNull(stm);
+    println stm.toString()
+    
+  }
+
 }

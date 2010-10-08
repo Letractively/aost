@@ -16,71 +16,24 @@ public class DefaultBeanFactory implements BeanFactory{
 
     private Map<String, Bean> map = new HashMap<String, Bean>();
 
-    public DefaultBeanFactory() {
-    }
-
-    public DefaultBeanFactory(Map<String, BeanInfo> beanInfos) {
-        if(beanInfos != null && (!beanInfos.isEmpty())){
-            Set<String> keys = beanInfos.keySet();
-            for(String key: keys){
-                BeanInfo info = beanInfos.get(key);
-                Bean bean;
-                if(info.getScope() == Scope.Global){
-                    bean = new GlobalBean();
-                }else if(info.getScope() == Scope.Session){
-                    bean = new SessionBean();
-                }else {
-                    bean = new RequestBean();
-                }
-
-                bean.setName(info.getName());
-                bean.setClazz(info.getClazz());
-                bean.setConcrete(info.getConcrete());
-                bean.setScope(info.getScope());
-                bean.setSingleton(info.isSingleton());
-                map.put(key, bean);
-            }
-        }
-    }
-
-    public void initialize(Map<String, BeanInfo> beanInfos){
-        if(beanInfos != null && (!beanInfos.isEmpty())){
-            Set<String> keys = beanInfos.keySet();
-            for(String key: keys){
-                BeanInfo info = beanInfos.get(key);
-
-                Bean bean;
-                if(info.getScope() == Scope.Global){
-                    bean = new GlobalBean();
-                }else if(info.getScope() == Scope.Session){
-                    bean = new SessionBean();
-                }else {
-                    bean = new RequestBean();
-                }
-                bean.setName(info.getName());
-                bean.setClazz(info.getClazz());
-                bean.setConcrete(info.getConcrete());
-                bean.setScope(info.getScope());
-                bean.setSingleton(info.isSingleton());
-                map.put(key, bean);
-            }
-        }        
-    }
-
-    public void addBean(String name, BeanInfo info) {
+    public void addBean(String name, Class clazz, Class concrete, Scope scope, boolean singleton, Object instance) {
         Bean bean;
-        if (info.getScope() == Scope.Global) {
+        if (scope == Scope.Global) {
             bean = new GlobalBean();
-        } else if (info.getScope() == Scope.Session) {
+        } else if (scope == Scope.Session) {
             bean = new SessionBean();
         } else {
             bean = new RequestBean();
         }
-        bean.setName(info.getName());
-        bean.setClazz(info.getClazz());
-        bean.setConcrete(info.getConcrete());
-        bean.setScope(info.getScope());
-        bean.setSingleton(info.isSingleton());
+        bean.setName(name);
+        bean.setClazz(clazz);
+        bean.setConcrete(concrete);
+        bean.setScope(scope);
+        bean.setSingleton(singleton);
+        if(instance != null){
+            bean.setInstance(instance);
+        }
+
         map.put(name, bean);
     }
 
