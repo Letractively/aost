@@ -7,7 +7,8 @@ import org.telluriumsource.exception.InvalidObjectTypeException
 
 import org.telluriumsource.crosscut.i18n.IResourceBundle;
 import org.telluriumsource.framework.Environment
-import org.telluriumsource.annotation.Provider;
+import org.telluriumsource.annotation.Provider
+import org.telluriumsource.annotation.Inject;
 
 
 @Provider
@@ -15,6 +16,8 @@ class UiDslParser extends BuilderSupport{
        public static final String UID = "uid"
        public static final String REF = "ref"
        public static final String INCLUDE = "Include"
+
+       @Inject(name="i18nBundle", lazy=true)
        protected IResourceBundle i18nBundle
 
        def registry = [:]
