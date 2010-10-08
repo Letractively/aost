@@ -1,5 +1,6 @@
 package org.telluriumsource.framework.dj;
 
+import org.telluriumsource.framework.Session;
 import org.telluriumsource.framework.dj.BeanInfo;
 
 /**
@@ -29,9 +30,9 @@ public interface Bean{
 
     void setScope(Scope scope);
 
-    Object getInstance();
+    Object getInstance(Session session);
 
-    void setInstance(Object instance);
+    void setInstance(Session session, Object instance);
 
     String toString();
        
