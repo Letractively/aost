@@ -19,7 +19,7 @@ import org.telluriumsource.annotation.Inject;
 @Provider
 class EventHandler implements Configurable{
 
-//    @Inject
+    @Inject(name="i18nBundle", lazy=true)
 	protected IResourceBundle i18nBundle
 
     public static final String RETURN_KEY= "BSBS13"

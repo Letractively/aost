@@ -18,7 +18,7 @@ import org.telluriumsource.framework.SessionManager
  */
 
 public class UiModuleValidationResponse {
-    protected IResourceBundle i18nBundle;
+//    protected IResourceBundle i18nBundle;
   
     //ID for the UI module
     public static String ID = "id";

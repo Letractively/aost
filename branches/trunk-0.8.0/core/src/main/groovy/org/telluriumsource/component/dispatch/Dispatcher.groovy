@@ -16,7 +16,7 @@ import org.telluriumsource.annotation.Inject
 class Dispatcher implements Configurable {
     public static final String PLACE_HOLDER = "\\?"
 
-//    @Inject
+    @Inject(name="i18nBundle", lazy=true)
     protected IResourceBundle i18nBundle ;
 
     private String filenamePattern = "Screenshot?.png";

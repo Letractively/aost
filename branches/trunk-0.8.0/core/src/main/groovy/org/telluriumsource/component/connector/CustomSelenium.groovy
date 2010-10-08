@@ -6,6 +6,7 @@ import org.telluriumsource.util.grid.GridSupport
 import org.telluriumsource.crosscut.i18n.IResourceBundle
 import org.telluriumsource.entity.UiModuleValidationRequest
 import org.telluriumsource.util.LogLevels
+import org.telluriumsource.annotation.Inject
 
 /**
  * Customize Selenium RC so that we can add custom methods to Selenium RC
@@ -18,7 +19,7 @@ import org.telluriumsource.util.LogLevels
  *
  */
 class CustomSelenium extends DefaultSelenium {
-
+    @Inject(name="i18nBundle", lazy=true)
     protected IResourceBundle i18nBundle;
 
     protected CustomCommand customClass = null

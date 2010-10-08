@@ -4,7 +4,8 @@ import org.telluriumsource.crosscut.i18n.IResourceBundle
 import org.telluriumsource.crosscut.log.ConsoleAppender
 import org.telluriumsource.crosscut.log.SimpleLogger
 import org.telluriumsource.crosscut.log.Logger
-import org.telluriumsource.framework.SessionManager;
+import org.telluriumsource.framework.SessionManager
+import org.telluriumsource.annotation.Inject;
 
 
 
@@ -19,7 +20,9 @@ import org.telluriumsource.framework.SessionManager;
 public class TimingDecorator {
 //    @Delegate
     private delegate
-//    protected IResourceBundle i18nBundle
+
+    @Inject(name="i18nBundle", lazy=true)
+    protected IResourceBundle i18nBundle
 
 
     private Logger logger
