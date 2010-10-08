@@ -34,6 +34,11 @@ public class MockSessionFactory {
         RuntimeEnvironment env = new RuntimeEnvironment();
         String name = Thread.currentThread().getName();
         name = name + "@" + BaseUtil.toBase62(System.currentTimeMillis());
+        Session session = new Session();
+        session.setSessionId(name);
+        session.setEnv(env);
+        SessionManager.setSession(session);
+
         Lookup lookup = new DefaultLookup();
         IResourceBundle i18nBundle = new org.telluriumsource.crosscut.i18n.ResourceBundle();
         env.setResourceBundle(i18nBundle);
@@ -130,9 +135,6 @@ public class MockSessionFactory {
         connector.setProperty("port", env.getServerPort());
         connector.setProperty("browser", env.getBrowser());
 
-        Session session = new Session();
-        session.setSessionId(name);
-        session.setEnv(env);
         session.setLookup(lookup);
         session.setApi(api);
         session.setWrapper(wrapper);

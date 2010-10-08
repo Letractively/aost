@@ -32,5 +32,7 @@ public interface Bean{
     Object getInstance();
 
     void setInstance(Object instance);
+
+    String toString();
        
 }

@@ -16,4 +16,6 @@ public interface BeanFactory {
     <T> T getByClass(Class<T> clazz);
 
     List<Bean> getAllBeans();
+
+    void destroy();
 }

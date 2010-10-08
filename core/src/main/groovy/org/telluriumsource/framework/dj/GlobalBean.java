@@ -24,4 +24,17 @@ public class GlobalBean extends BeanInfo implements Bean {
     public void setInstance(Object instance) {
         this.instance = instance;
     }
+
+    public String toString(){
+        final int typicalLength = 128;
+        final String avpSeparator = ": ";
+        final String fieldSeparator = ", ";
+
+        StringBuffer sb = new StringBuffer(typicalLength);
+        sb.append("[").append(BEAN_INFO).append(avpSeparator).append(super.toString()).append(fieldSeparator)
+                .append(INSTANCE).append(avpSeparator).append(instance).append(fieldSeparator)
+                .append("]");
+
+        return sb.toString();      
+    }
 }

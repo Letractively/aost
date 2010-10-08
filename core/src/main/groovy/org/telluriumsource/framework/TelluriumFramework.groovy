@@ -36,31 +36,29 @@ public class TelluriumFramework {
 
   private RuntimeEnvironment defaultEnvironment;
 
-/*  public void registerBean(String name, Class clazz, String scope, boolean isSingleton){
-    this.beanFactory.provide(name, clazz, scope, isSingleton);
-  }
-  */
-
   public Session createNewSession(String id, RuntimeEnvironment env){
     String name = (id == null ? "" : id);
     name = name + "@" + BaseUtil.toBase62(System.currentTimeMillis());
-    Lookup lookup = new DefaultLookup();
-//    BeanFactory beanFactory = new DefaultBeanFactory(Injector.instance.getRegistry());
-
-    Assembler assembler = new Assembler(lookup, env, telluriumConfigurator);
-    assembler.assemble();
     Session session = new Session();
     session.sessionId = name;
     session.env = env;
-    session.lookup = lookup;
-//    session.beanFactory = beanFactory;
-    session.api = lookup.lookById("api");
-    session.wrapper = lookup.lookById("wrapper");
-    session.i18nBundle = lookup.lookById("i18nBundle");
 
     println "Created new session: \n" + session.toString() + "\n";
 
     return session;
+  }
+
+  public void assembleFrameworkForCurrentSession(){
+    Session session = SessionManager.getSession();
+
+    Lookup lookup = new DefaultLookup();
+
+    Assembler assembler = new Assembler(lookup, session.getEnv(), telluriumConfigurator);
+    assembler.assemble();
+    session.lookup = lookup;
+    session.api = lookup.lookById("api");
+    session.wrapper = lookup.lookById("wrapper");
+    session.i18nBundle = lookup.lookById("i18nBundle");
   }
   
   public Session createNewSession(RuntimeEnvironment env){
@@ -149,6 +147,8 @@ public class TelluriumFramework {
 
       Session session = reuseExistingOrCreateNewSession();
       SessionManager.setSession(session);
+      assembleFrameworkForCurrentSession();
+
       this.isStarted = true;
     }
   }

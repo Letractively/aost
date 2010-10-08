@@ -56,6 +56,10 @@ public class DefaultBeanFactory implements BeanFactory{
         return list;    
     }
 
+    public void destroy() {
+       map = null;     
+    }
+
     private synchronized Object getInstance(Bean bean){
         if(bean.isSingleton()){
             Object instance = bean.getInstance();
