@@ -152,8 +152,9 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
 
               new Z()
         """)
-    
-        Set<BeanInfo> infos = injector.getBeanInfos();
+
+
+        Set<BeanInfo> infos = injector.getBeanInfos()
         assertNotNull infos
         assertFalse infos.isEmpty()
         assertEquals 3, infos.size()
@@ -165,10 +166,10 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
     assertNotNull session
 
     ((DefaultBeanFactory)session.getBeanFactory()).initialize(Injector.instance.getRegistry())
-    Object obj = session.getInstance(Dispatcher.class);
+    Object obj = Injector.instance.getInstance(Dispatcher.class);
     assertNotNull obj
 
-    obj = session.getInstanceByName("TelluriumApi");
+    obj = Injector.instance.getInstanceByName("TelluriumApi");
     assertNotNull obj
 
   }

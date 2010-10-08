@@ -1,5 +1,7 @@
 package org.telluriumsource.framework.dj;
 
+import java.util.List;
+
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
@@ -12,5 +14,6 @@ public interface BeanFactory {
     Object getByName(String name);
 
     <T> T getByClass(Class<T> clazz);
-    
+
+    List<Bean> getAllBeans();
 }

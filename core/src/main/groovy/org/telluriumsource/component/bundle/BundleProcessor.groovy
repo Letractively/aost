@@ -55,7 +55,7 @@ public class BundleProcessor implements Configurable {
 
   private EngineStateTracer tracer = new EngineStateTracer();
 
-  @Inject
+//  @Inject
   protected IResourceBundle i18nBundle
 
   @Inject
