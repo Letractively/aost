@@ -2,10 +2,7 @@ package org.telluriumsource.ast;
 
 import org.codehaus.groovy.ast.*;
 import org.codehaus.groovy.ast.expr.*;
-import org.codehaus.groovy.ast.stmt.BlockStatement;
-import org.codehaus.groovy.ast.stmt.ExpressionStatement;
-import org.codehaus.groovy.ast.stmt.IfStatement;
-import org.codehaus.groovy.ast.stmt.Statement;
+import org.codehaus.groovy.ast.stmt.*;
 import org.codehaus.groovy.control.CompilePhase;
 import org.codehaus.groovy.control.SourceUnit;
 import org.codehaus.groovy.runtime.MetaClassHelper;
@@ -56,22 +53,50 @@ public class InjectASTTransformation implements ASTTransformation, Opcodes {
                 lazy = (Boolean) ((ConstantExpression) lazyExpr).getValue();
             }
 
-            if(!lazy){
+            if(lazy){
+                addMethodPointer(name, fieldNode);
+            }else{
                 addMethodToConstructor(name, fieldNode);
             }
-
-/*            if (!lazy){
-                create(fieldNode);
-            }else {
-                final Expression init = getInitExpr(fieldNode);                
-                createLazy(fieldNode, init);
-                // @Inject not meaningful with primitive so convert to wrapper if needed
-                if (ClassHelper.isPrimitiveType(fieldNode.getType())) {
-                    fieldNode.setType(ClassHelper.getWrapper(fieldNode.getType()));
-                }
-            }*/
         }
+    }
 
+    private void addMethodPointer(String name, FieldNode fieldNode){
+        ClassNode classNode = fieldNode.getType();
+        final String methodName = "inject" + MetaClassHelper.capitalize(fieldNode.getName());
+
+        BlockStatement body = new BlockStatement();
+        body.addStatement(
+                new ReturnStatement(
+                    new MethodCallExpression(
+                        new MethodCallExpression(
+                                new ClassExpression(new ClassNode(Injector.class)),
+                                new ConstantExpression("getInstance"),
+                                new ArgumentListExpression()
+                        ),
+                        new ConstantExpression("getByName"),
+                        new ArgumentListExpression(
+                            new ConstantExpression(name)
+                        )
+                    )
+                )
+
+        );
+
+        addMethod(methodName, fieldNode, body, classNode);
+
+        fieldNode.setInitialValueExpression(
+                new MethodPointerExpression(
+                    new VariableExpression("this"),
+                    new ConstantExpression(methodName)
+                )
+        );
+    }
+
+    private void addMethod(String name, FieldNode fieldNode, BlockStatement body, ClassNode type) {
+        int visibility = ACC_PUBLIC;
+        if (fieldNode.isStatic()) visibility |= ACC_STATIC;
+        fieldNode.getDeclaringClass().addMethod(name, visibility, type, Parameter.EMPTY_ARRAY, ClassNode.EMPTY_ARRAY, body);
     }
 
     private Statement getInjectStatement(String name, FieldNode fieldNode) {
@@ -121,43 +146,5 @@ public class InjectASTTransformation implements ASTTransformation, Opcodes {
             Statement stm = getInjectStatement(name, fieldNode);
             existingStatements.add(stm);
         }
-    }
-
-    private void create(FieldNode fieldNode){
-
-    }
-
-    private void createLazy(FieldNode fieldNode, final Expression initExpr) {
-        final BlockStatement body = new BlockStatement();
-
-        addNonThreadSafeBody(body, fieldNode, initExpr);
-
-        addMethod(fieldNode, body, fieldNode.getType());
-    }
-
-    private void addMethod(FieldNode fieldNode, BlockStatement body, ClassNode type) {
-        int visibility = ACC_PUBLIC;
-        if (fieldNode.isStatic()) visibility |= ACC_STATIC;
-        final String name = "get" + MetaClassHelper.capitalize(fieldNode.getName().substring(1));
-        fieldNode.getDeclaringClass().addMethod(name, visibility, type, Parameter.EMPTY_ARRAY, ClassNode.EMPTY_ARRAY, body);
-    }
-
-    private Expression getInitExpr(FieldNode fieldNode) {
-        Expression initExpr = fieldNode.getInitialValueExpression();
-        fieldNode.setInitialValueExpression(null);
-
-        if (initExpr == null)
-            initExpr = new ConstructorCallExpression(fieldNode.getType(), new ArgumentListExpression());
-
-        return initExpr;
-    }
-
-    private void addNonThreadSafeBody(BlockStatement body, FieldNode fieldNode, Expression initExpr) {
-        final Expression fieldExpr = new VariableExpression(fieldNode);
-        body.addStatement(new IfStatement(
-                new BooleanExpression(new BinaryExpression(fieldExpr, COMPARE_NOT_EQUAL, NULL_EXPR)),
-                new ExpressionStatement(fieldExpr),
-                new ExpressionStatement(new BinaryExpression(fieldExpr, ASSIGN, initExpr))
-        ));
     }
 }
