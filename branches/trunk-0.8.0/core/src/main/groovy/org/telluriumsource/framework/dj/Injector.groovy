@@ -31,4 +31,8 @@ class Injector implements BeanFactory{
   void addBean(String name, Class clazz, Class concrete, Scope scope, boolean singleton, Object instance) {
     this.beanFactory.addBean(name, clazz, concrete, scope, singleton, instance);
   }
+
+  List<Bean> getAllBeans() {
+    return this.beanFactory.getAllBeans();
+  }
 }

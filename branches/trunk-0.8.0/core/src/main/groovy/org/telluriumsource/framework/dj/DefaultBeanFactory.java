@@ -3,9 +3,7 @@ package org.telluriumsource.framework.dj;
 import org.telluriumsource.exception.BeanNotFoundException;
 import org.telluriumsource.exception.InstanceCreationException;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -50,6 +48,12 @@ public class DefaultBeanFactory implements BeanFactory{
         String name = clazz.getCanonicalName();
         
         return (T)getByName(name);
+    }
+
+    public List<Bean> getAllBeans() {
+        List<Bean> list = new ArrayList<Bean>();
+        list.addAll(map.values());
+        return list;    
     }
 
     private synchronized Object getInstance(Bean bean){
