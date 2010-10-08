@@ -127,7 +127,8 @@ public class InjectASTTransformation implements ASTTransformation, Opcodes {
 
     private void addMethodToConstructor(String name, FieldNode fieldNode){
 
-        ClassNode classNode = fieldNode.getType();
+//        ClassNode classNode = fieldNode.getType();
+        ClassNode classNode = fieldNode.getDeclaringClass();
 
         List list = classNode.getDeclaredConstructors();
         if(list == null || list.isEmpty()){
