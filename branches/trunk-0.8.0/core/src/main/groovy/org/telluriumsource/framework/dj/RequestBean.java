@@ -1,5 +1,7 @@
 package org.telluriumsource.framework.dj;
 
+import org.telluriumsource.framework.Session;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,11 +31,11 @@ public class RequestBean extends BeanInfo implements Bean {
         return instances;
     }
 
-    public Object getInstance() {
+    public Object getInstance(Session session) {
         return null;
     }
 
-    public void setInstance(Object instance) {
+    public void setInstance(Session session, Object instance) {
         this.instances.add(instance);
     }
 

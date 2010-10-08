@@ -27,15 +27,12 @@ public class SessionBean extends BeanInfo implements Bean {
         this.instances = new HashMap<String, Object>();
     }
 
-    public Object getInstance() {
-        Session session = SessionManager.getSession();
+    public Object getInstance(Session session) {
         return instances.get(session.getSessionId());
     }
 
-    public void setInstance(Object instance) {
-        Session session = SessionManager.getSession();
-
-        this.instances.put(session.getSessionId(), instance);
+    public void setInstance(Session session, Object instance) {
+        instances.put(session.getSessionId(), instance);
     }
 
     public String toString(){

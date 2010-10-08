@@ -1,5 +1,7 @@
 package org.telluriumsource.framework.dj;
 
+import org.telluriumsource.framework.Session;
+
 import java.util.List;
 
 /**

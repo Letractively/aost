@@ -5,18 +5,20 @@ import org.telluriumsource.exception.InstanceCreationException;
 import org.telluriumsource.framework.Session;
 import org.telluriumsource.framework.SessionManager;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
- *         Date: Oct 4, 2010
+ *         Date: Oct 8, 2010
  */
-public class DefaultBeanFactory implements BeanFactory{
-
+public class DefaultSessionAwareBeanFactory implements SessionAwareBeanFactory {
     private Map<String, Bean> map = new HashMap<String, Bean>();
 
-    public void addBean(String name, Class clazz, Class concrete, Scope scope, boolean singleton, Object instance) {
+    public void addBean(Session session, String name, Class clazz, Class concrete, Scope scope, boolean singleton, Object instance) {
         Bean bean;
         if (scope == Scope.Global) {
             bean = new GlobalBean();
@@ -31,55 +33,56 @@ public class DefaultBeanFactory implements BeanFactory{
         bean.setScope(scope);
         bean.setSingleton(singleton);
         if(instance != null){
-            bean.setInstance(SessionManager.getSession(), instance);
+            bean.setInstance(session, instance);
         }
 
         map.put(name, bean);
+
     }
 
-    public Object getByName(String name) {
+    public Object getByName(Session session, String name) {
         Bean bean = map.get(name);
         if(bean == null){
             throw new BeanNotFoundException("Bean " + name + " is not found");
         }
 
-        return getInstance(bean);
+        return getInstance(session, bean);
     }
 
-    public <T> T getByClass(Class<T> clazz) {
+    public <T> T getByClass(Session session, Class<T> clazz) {
         String name = clazz.getCanonicalName();
-        
-        return (T)getByName(name);
+
+        return (T)getByName(session, name);
     }
 
     public List<Bean> getAllBeans() {
         List<Bean> list = new ArrayList<Bean>();
         list.addAll(map.values());
-        return list;    
+        return list;
     }
 
     public void destroy() {
-        map = null;    
+        map = null;  
     }
-
-    private synchronized Object getInstance(Bean bean){
+        
+    private synchronized Object getInstance(Session session, Bean bean){
         if(bean.isSingleton()){
             Object instance = bean.getInstance(SessionManager.getSession());
             if(instance == null){
-                instance = createInstance(bean.getConcrete());
+                instance = createInstance(session, bean.getConcrete());
                 bean.setInstance(SessionManager.getSession(), instance);
             }
 
             return instance;
         }else{
-            Object instance = createInstance(bean.getConcrete());
+            Object instance = createInstance(session, bean.getConcrete());
             bean.setInstance(SessionManager.getSession(), instance);
 
             return instance;
         }
     }
 
-    private Object createInstance(Class clazz){
+    private Object createInstance(Session session, Class clazz){
         try {
             return clazz.newInstance();
         } catch (InstantiationException e) {

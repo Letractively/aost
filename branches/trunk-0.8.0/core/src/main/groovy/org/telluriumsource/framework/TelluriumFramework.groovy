@@ -11,8 +11,7 @@ import org.telluriumsource.crosscut.i18n.IResourceBundle
 
 import org.telluriumsource.util.BaseUtil
 import java.lang.reflect.Field
-import org.telluriumsource.framework.dj.BeanFactory
-import org.telluriumsource.framework.dj.DefaultBeanFactory
+
 import org.telluriumsource.framework.dj.Injector
 
 /**
@@ -42,23 +41,11 @@ public class TelluriumFramework {
     Session session = new Session();
     session.sessionId = name;
     session.env = env;
+    Injector.instance.assembleFramework(session);
 
     println "Created new session: \n" + session.toString() + "\n";
 
     return session;
-  }
-
-  public void assembleFrameworkForCurrentSession(){
-    Session session = SessionManager.getSession();
-
-    Lookup lookup = new DefaultLookup();
-
-    Assembler assembler = new Assembler(lookup, session.getEnv(), telluriumConfigurator);
-    assembler.assemble();
-    session.lookup = lookup;
-    session.api = lookup.lookById("api");
-    session.wrapper = lookup.lookById("wrapper");
-    session.i18nBundle = lookup.lookById("i18nBundle");
   }
   
   public Session createNewSession(RuntimeEnvironment env){
@@ -147,7 +134,6 @@ public class TelluriumFramework {
 
       Session session = reuseExistingOrCreateNewSession();
       SessionManager.setSession(session);
-      assembleFrameworkForCurrentSession();
 
       this.isStarted = true;
     }

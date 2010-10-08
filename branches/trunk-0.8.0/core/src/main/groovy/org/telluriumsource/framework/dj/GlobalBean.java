@@ -1,5 +1,7 @@
 package org.telluriumsource.framework.dj;
 
+import org.telluriumsource.framework.Session;
+
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
@@ -17,11 +19,11 @@ public class GlobalBean extends BeanInfo implements Bean {
         this.instance = instance;
     }
 
-    public Object getInstance() {
+    public Object getInstance(Session session) {
         return instance;
     }
 
-    public void setInstance(Object instance) {
+    public void setInstance(Session session, Object instance) {
         this.instance = instance;
     }
 
