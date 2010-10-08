@@ -39,7 +39,17 @@ class ASTUtil_UT extends GroovyTestCase {
     BlockStatement stm = (BlockStatement) list.get(0);
     assertNotNull(stm);
     println stm.toString()
-    
+  }
+
+  public void testInjectMethodLazy(){
+    ASTUtil util = new ASTUtil();
+    List<ASTNode> list = util.getInjectMethodLazy()
+    assertNotNull(list);
+    assertEquals(1, list.size());
+    BlockStatement stm = (BlockStatement) list.get(0);
+    assertNotNull(stm);
+    println stm.toString()
+
   }
 
 }
