@@ -16,8 +16,6 @@ public class Session {
 
     private RuntimeEnvironment env;
 
-    private BeanFactory beanFactory;
-
     private Lookup lookup;
 
     private SeleniumWrapper wrapper;
@@ -50,14 +48,6 @@ public class Session {
         this.env = env;
     }
 
-    public BeanFactory getBeanFactory() {
-        return beanFactory;
-    }
-
-    public void setBeanFactory(BeanFactory beanFactory) {
-        this.beanFactory = beanFactory;
-    }
-
     public Lookup getLookup() {
         return lookup;
     }
@@ -80,14 +70,6 @@ public class Session {
 
     public void setApi(TelluriumApi api) {
         this.api = api;
-    }
-
-    public <T> T getInstance(Class<T> clazz){
-        return this.beanFactory.getByClass(clazz);
-    }
-
-    public Object getInstanceByName(String name){
-        return this.beanFactory.getByName(name);
     }
 
     public String toString(){

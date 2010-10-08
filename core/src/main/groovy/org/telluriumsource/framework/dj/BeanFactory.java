@@ -7,7 +7,7 @@ package org.telluriumsource.framework.dj;
  */
 public interface BeanFactory {
 
-    void addBean(String name, BeanInfo info);
+    void addBean(String name, Class clazz, Class concrete, Scope scope, boolean singleton, Object instance);
 
     Object getByName(String name);
 

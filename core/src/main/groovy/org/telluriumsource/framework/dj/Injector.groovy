@@ -12,34 +12,12 @@ import org.telluriumsource.annotation.Provider
 
 @Provider
 class Injector implements BeanFactory{
-  
-  private Map<String, BeanInfo> map = new HashMap<String, BeanInfo>()
 
   private BeanFactory beanFactory = new DefaultBeanFactory();
 
-  public Set<String> getNames(){
-    return this.map.keySet();
-  }
-
-  public Set<BeanInfo> getBeanInfos(){
-    return this.map.values();
-  }
-
-  public Map<String, BeanInfo> getRegistry(){
-    return this.map;
-  }
-
   public void addBeanInfo(String name, Class clazz, Class concrete, String scope, boolean singleton){
-    BeanInfo info = new BeanInfo();
-    info.setName(name);
-    info.setClazz(clazz);
-    info.setConcrete(concrete);
-    info.setScope(Scope.valueOf(scope));
-    info.setSingleton(singleton);
-
-    this.map.put(name, info);
     
-    addBean(name, info);
+    addBean(name, clazz, concrete, Scope.valueOf(scope), singleton, null);
   }
 
   public Object getByName(String name) {
@@ -50,7 +28,7 @@ class Injector implements BeanFactory{
     return this.beanFactory.getByClass(clazz);
   }
 
-  void addBean(String name, BeanInfo info) {
-     this.beanFactory.addBean(name, info);
+  void addBean(String name, Class clazz, Class concrete, Scope scope, boolean singleton, Object instance) {
+    this.beanFactory.addBean(name, clazz, concrete, scope, singleton, instance);
   }
 }

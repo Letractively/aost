@@ -39,4 +39,17 @@ class ASTUtil {
 
     return nodes;
   }
+
+  private Object injectVar(){
+     return Injector.getInstance().getByName(name);
+  }
+
+  public List<ASTNode> getInjectNodeByNameLazy(String name){
+    List<ASTNode> nodes = new AstBuilder().buildFromCode {
+        Object var = this.&injectVar;
+    }
+
+    return nodes;
+  }
+
 }
