@@ -90,7 +90,7 @@ public class UiModuleValidationResponse {
   }
 
   public void showMe() {
-    IResourceBundle i18nBundle  = SessionManager.getSession().getLookup().lookById("i18nBundle");
+    IResourceBundle i18nBundle  = (IResourceBundle)SessionManager.getSession().getByName("i18nBundle");
     
     println i18nBundle.getMessage("UiModuleValidationResponse.ValidationResult" , id);
 

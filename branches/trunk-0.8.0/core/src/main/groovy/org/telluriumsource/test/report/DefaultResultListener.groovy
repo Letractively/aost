@@ -12,7 +12,7 @@ import org.telluriumsource.annotation.Provider
  * Date: Jul 27, 2008
  *
  */
-@Provider
+@Provider(type=ResultListener.class)
 class DefaultResultListener implements ResultListener, Configurable {
     
     private Map<Integer, TestResult> results = new HashMap<Integer, TestResult>()

@@ -68,7 +68,7 @@ abstract class BaseFieldSetObjectMapper implements FieldSetObjectMapper{
             fs = registry.getFieldSetByInternalName(id)
         }
 
-        i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
+//        i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
 
         if(fs == null){
           throw new DataMappingException(i18nBundle.getMessage("FieldSetObjectMapper.CannotFindFieldSet" , convString(fieldData)))

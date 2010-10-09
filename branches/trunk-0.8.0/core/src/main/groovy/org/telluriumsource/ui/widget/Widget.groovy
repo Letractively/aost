@@ -60,7 +60,7 @@ abstract class Widget extends UiObject {
     if (nextid.equalsIgnoreCase(this.uid)) {
       return this
     } else {
-      IResourceBundle i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
+      IResourceBundle i18nBundle = SessionManager.getSession().getI18nBundle();
       println(i18nBundle.getMessage("Widget.CannotFindUIObject" , nextid , this.uid ))
       return null
     }

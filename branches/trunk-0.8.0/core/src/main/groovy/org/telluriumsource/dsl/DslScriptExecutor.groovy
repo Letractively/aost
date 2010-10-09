@@ -19,7 +19,7 @@ class DslScriptExecutor {
                         init()
                         ${dsl}
                         shutDown()
-                        IResourceBundle i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
+                        IResourceBundle i18nBundle = SessionManager.getSession().getByName("i18nBundle");
 
                         println i18nBundle.getMessage("DslScriptExecutor.DslTestDone")
                     }
@@ -32,7 +32,7 @@ class DslScriptExecutor {
             new GroovyShell().evaluate(script)
 
        }else{
-    	   IResourceBundle i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
+    	   IResourceBundle i18nBundle = SessionManager.getSession().getByName("i18nBundle");
 
            println i18nBundle.getMessage("DslScriptExecutor.Usage")
        }

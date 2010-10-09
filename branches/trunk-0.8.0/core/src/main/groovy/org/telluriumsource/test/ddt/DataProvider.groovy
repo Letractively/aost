@@ -8,6 +8,7 @@ import org.telluriumsource.test.ddt.mapping.FieldSetRegistry
 import org.telluriumsource.framework.config.Configurable
 import org.telluriumsource.framework.config.TelluriumConfigurator
 import org.telluriumsource.framework.SessionManager
+import org.telluriumsource.annotation.Provider
 
 /**
  * The data provider for different formats of input
@@ -17,6 +18,7 @@ import org.telluriumsource.framework.SessionManager
  * Date: Jul 24, 2008
  *
  */
+@Provider
 class DataProvider extends DataFieldSetObjectMapper implements Configurable{
     
     protected VariableBinder binder = new VariableBinder()

@@ -99,7 +99,7 @@ class RTree {
         }
       }
     }else{
-       IResourceBundle i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
+       IResourceBundle i18nBundle = SessionManager.getSession().getI18nBundle(); 
        throw new InvalidIndexException(i18nBundle.getMessage("UIObject.InvalidIndex", index))
     }
   }
@@ -144,7 +144,7 @@ class RTree {
     }else if("all".equalsIgnoreCase(key)){
       return EMPTY_PATH;  
     }else{
-      IResourceBundle i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
+      IResourceBundle i18nBundle = SessionManager.getSession().getI18nBundle();
       throw new InvalidIndexException(i18nBundle.getMessage("UIObject.InvalidIndex", key));
     }
   }

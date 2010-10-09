@@ -235,7 +235,7 @@ abstract class BaseDslContext implements IDslContext {
 
   public void pause(int milliseconds) {
     //flush out remaining commands in the command bundle before disconnection
-    BundleProcessor processor = SessionManager.getSession().getLookup().lookById("bundleProcessor");
+    BundleProcessor processor = SessionManager.getSession().getByClass(BundleProcessor.class);
     processor.flush();
 
     Helper.pause(milliseconds);
@@ -274,13 +274,13 @@ abstract class BaseDslContext implements IDslContext {
   }
 
   public void showTrace() {
-    Dispatcher dispatcher = SessionManager.getSession().getLookup().lookById("dispatcher");
+    Dispatcher dispatcher = SessionManager.getSession().getByClass(Dispatcher.class);
     dispatcher.showTrace();
   }
 
   public void flush() {
     //flush out remaining commands in the command bundle before disconnection
-    BundleProcessor processor = SessionManager.getSession().getLookup().lookById("bundleProcessor");
+    BundleProcessor processor = SessionManager.getSession().getByClass(BundleProcessor.class);
     processor.flush();
   }
 

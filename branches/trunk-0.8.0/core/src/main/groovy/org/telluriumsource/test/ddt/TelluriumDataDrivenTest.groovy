@@ -99,27 +99,27 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
     }
 
     public TypeHandlerRegistry getTypeHandlerRegistry(){
-      return SessionManager.getSession().getLookup().lookById("typeHandlerRegistry")
+      return SessionManager.getSession().getByClass(TypeHandlerRegistry.class);
     }
 
     public FieldSetRegistry getFieldSetRegistry(){
-      return SessionManager.getSession().getLookup().lookById("fieldSetRegistry")
+      return SessionManager.getSession().getByClass(FieldSetRegistry.class);
     }
 
     public DataProvider getDataProvider(){
-      return SessionManager.getSession().getLookup().lookById("dataProvider")
+      return SessionManager.getSession().getByClass(DataProvider.class);
     }
 
     public FieldSetParser getFieldSetParser(){
-      return SessionManager.getSession().getLookup().lookById("fieldSetParser")
+      return SessionManager.getSession().getByClass(FieldSetParser.class);
     }
 
     public TestRegistry getTestRegistry(){
-      return SessionManager.getSession().getLookup().lookById("testRegistry")
+      return SessionManager.getSession().getByClass(TestRegistry.class);
     }
 
     public ResultListener getDefaultResultListener(){
-      return SessionManager.getSession().getLookup().lookById("defaultResultListener")
+      return SessionManager.getSession().getByClass(ResultListener.class);
     }
   
     protected def init(){
@@ -139,7 +139,7 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
      */
         tellurium = TelluriumSupport.addSupport()
         modules = new ArrayList<TelluriumDataDrivenModule>()
-        ui = SessionManager.getSession().getLookup().lookById("uiParser")
+        ui = SessionManager.getSession().getByClass(UiDslParser.class)
         fs = getFieldSetParser()
         tellurium.startServer(customConfig)
         conn = getCurrentConnector()
@@ -206,7 +206,7 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
             tddm.defineModule()
             modules.add(tddm)
         }else{
-        	IResourceBundle i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
+        	IResourceBundle i18nBundle = SessionManager.getSession().getByName("i18nBundle");
             throw new RuntimeException(i18nBundle.getMessage("TelluriumDataDrivenTest.IncludModule" , module?.getName()))
         }
     }

@@ -1,28 +1,13 @@
 package org.telluriumsource.mock;
 
-import org.telluriumsource.component.bundle.BundleProcessor;
-import org.telluriumsource.component.connector.CustomSelenium;
-import org.telluriumsource.component.connector.SeleniumConnector;
-import org.telluriumsource.component.custom.Extension;
-import org.telluriumsource.component.data.Accessor;
-import org.telluriumsource.component.dispatch.Dispatcher;
-import org.telluriumsource.component.event.EventHandler;
-import org.telluriumsource.crosscut.i18n.IResourceBundle;
-import org.telluriumsource.crosscut.i18n.ResourceBundle;
-import org.telluriumsource.dsl.SeleniumWrapper;
-import org.telluriumsource.dsl.TelluriumApi;
-import org.telluriumsource.dsl.UiDslParser;
-import org.telluriumsource.framework.*;
-import org.telluriumsource.framework.dj.BeanFactory;
-import org.telluriumsource.framework.dj.DefaultBeanFactory;
-import org.telluriumsource.ui.builder.UiObjectBuilderRegistry;
-import org.telluriumsource.ui.locator.JQueryOptimizer;
-import org.telluriumsource.ui.locator.LocatorProcessor;
-import org.telluriumsource.ui.widget.WidgetConfigurator;
-import org.telluriumsource.util.BaseUtil;
 
-import java.util.Locale
-import org.telluriumsource.framework.dj.Injector;
+import org.telluriumsource.crosscut.i18n.IResourceBundle;
+
+
+import org.telluriumsource.framework.*;
+
+
+import org.telluriumsource.util.BaseUtil;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -40,7 +25,7 @@ public class MockSessionFactory {
         session.setEnv(env);
         SessionManager.setSession(session);
 
-        Lookup lookup = new DefaultLookup();
+        ILookup lookup = new DefaultLookup();
         IResourceBundle i18nBundle = new org.telluriumsource.crosscut.i18n.ResourceBundle();
         env.setResourceBundle(i18nBundle);
 
