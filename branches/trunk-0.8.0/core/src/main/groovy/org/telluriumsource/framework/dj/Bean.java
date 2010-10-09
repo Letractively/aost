@@ -1,7 +1,6 @@
 package org.telluriumsource.framework.dj;
 
 import org.telluriumsource.framework.Session;
-import org.telluriumsource.framework.dj.BeanInfo;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)

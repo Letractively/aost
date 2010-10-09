@@ -22,7 +22,8 @@ class UiDslParser extends BuilderSupport{
 
        def registry = [:]
 
-       def UiObjectBuilderRegistry builderRegistry
+       @Inject
+       protected UiObjectBuilderRegistry builderRegistry
         //= new UiObjectBuilderRegistry()
   
        protected String nestObjectName(UiObject obj){

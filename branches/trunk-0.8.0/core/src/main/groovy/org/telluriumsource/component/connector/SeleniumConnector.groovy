@@ -6,6 +6,7 @@ import org.telluriumsource.framework.config.Configurable
 //import com.thoughtworks.selenium.CommandProcessor
 import org.telluriumsource.component.bundle.BundleProcessor
 import org.telluriumsource.framework.SessionManager
+import org.telluriumsource.annotation.Inject
 
 /**
  * The connector that ties the Selenium server and Selenium Client together
@@ -21,6 +22,7 @@ class SeleniumConnector implements Configurable {
 
   protected final String HTTP_BASE_URL = "http://localhost:8080"
 
+  @Inject
   protected CustomSelenium sel
 
 //  protected CustomSelenium customSelenium
@@ -39,6 +41,7 @@ class SeleniumConnector implements Configurable {
 
   protected String options = null
 
+  @Inject
   private BundleProcessor processor
 
   public CustomSelenium getSelenium() {

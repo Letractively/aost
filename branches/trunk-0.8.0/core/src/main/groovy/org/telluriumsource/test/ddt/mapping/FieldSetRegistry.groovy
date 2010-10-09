@@ -1,4 +1,6 @@
 package org.telluriumsource.test.ddt.mapping
+
+import org.telluriumsource.annotation.Provider
 /**
  *
  * The Registry to hold all FieldSets defined
@@ -8,6 +10,7 @@ package org.telluriumsource.test.ddt.mapping
  * Date: Jul 23, 2008
  *
  */
+@Provider
 class FieldSetRegistry {
     
     private Map<String, FieldSet> fieldSets = new HashMap<String, FieldSet>()
