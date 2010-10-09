@@ -17,7 +17,7 @@ import java.lang.annotation.Retention;
 @Retention(RetentionPolicy.SOURCE)
 @Target({ElementType.METHOD})
 @GroovyASTTransformationClass("org.telluriumsource.ast.SessionASTTransformation")
-public @interface Session {
+public @interface NewSession {
     String name() default "";
     boolean newSession() default false;
     Env[] parameters();

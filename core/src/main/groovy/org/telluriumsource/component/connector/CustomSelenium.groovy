@@ -7,6 +7,7 @@ import org.telluriumsource.crosscut.i18n.IResourceBundle
 import org.telluriumsource.entity.UiModuleValidationRequest
 import org.telluriumsource.util.LogLevels
 import org.telluriumsource.annotation.Inject
+import org.telluriumsource.annotation.Provider
 
 /**
  * Customize Selenium RC so that we can add custom methods to Selenium RC
@@ -18,6 +19,7 @@ import org.telluriumsource.annotation.Inject
  * Date: Oct 21, 2008
  *
  */
+//@Provider(name="customSelenium")
 class CustomSelenium extends DefaultSelenium {
     @Inject(name="i18nBundle", lazy=true)
     protected IResourceBundle i18nBundle;

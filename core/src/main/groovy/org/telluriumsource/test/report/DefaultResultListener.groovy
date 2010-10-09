@@ -2,6 +2,7 @@ package org.telluriumsource.test.report
 
 import org.telluriumsource.framework.config.Configurable
 import org.telluriumsource.framework.config.TelluriumConfigurator
+import org.telluriumsource.annotation.Provider
 
 /**
  * Default implementation of Test Listener
@@ -11,6 +12,7 @@ import org.telluriumsource.framework.config.TelluriumConfigurator
  * Date: Jul 27, 2008
  *
  */
+@Provider
 class DefaultResultListener implements ResultListener, Configurable {
     
     private Map<Integer, TestResult> results = new HashMap<Integer, TestResult>()

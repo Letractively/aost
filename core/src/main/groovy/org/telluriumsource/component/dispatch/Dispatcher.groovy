@@ -7,10 +7,10 @@ import org.telluriumsource.crosscut.trace.ExecutionTracer
 import org.telluriumsource.dsl.WorkflowContext
 import org.telluriumsource.util.Helper
 import org.telluriumsource.framework.RuntimeEnvironment
-import org.telluriumsource.component.connector.CustomSelenium
 import org.telluriumsource.framework.SessionManager
 import org.telluriumsource.annotation.Provider
 import org.telluriumsource.annotation.Inject
+import org.telluriumsource.component.connector.CustomSelenium
 
 @Provider
 class Dispatcher implements Configurable {
@@ -25,6 +25,7 @@ class Dispatcher implements Configurable {
     @Inject
     private RuntimeEnvironment env;
 
+    @Inject(name="customSelenium")
     private CustomSelenium sel;
 
     private ExecutionTracer tracer = new DefaultExecutionTracer();

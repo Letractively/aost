@@ -1,4 +1,6 @@
 package org.telluriumsource.test.ddt
+
+import org.telluriumsource.annotation.Provider
 /**
  *
  * Registry to hold user defined Tests
@@ -6,6 +8,7 @@ package org.telluriumsource.test.ddt
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  */
+@Provider
 class TestRegistry {
 
     private Map<String, Closure> tests = new HashMap<String, Closure>()
