@@ -16,7 +16,7 @@ class PlaceHolderLocateStrategy {
     }
 
     def static String locate(PlaceHolderLocator locator){
-    	IResourceBundle i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
+    	IResourceBundle i18nBundle = SessionManager.getSession().getByName("i18nBundle");
         if(locator == null)
             throw new RuntimeException(i18nBundle.getMessage("PlaceHolderLocatorStrategy.InvalidNullLocator"))
         def template = locator.template

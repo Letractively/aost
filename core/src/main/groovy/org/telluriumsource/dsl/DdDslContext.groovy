@@ -40,27 +40,27 @@ abstract class DdDslContext extends DslContext{
 //    protected ResultListener listener = new DefaultResultListener()
 
     public TypeHandlerRegistry getTypeHandlerRegistry(){
-      return SessionManager.getSession().getLookup().lookById("typeHandlerRegistry")
+      return SessionManager.getSession().getByClass(TypeHandlerRegistry.class);
     }
 
     public FieldSetRegistry getFieldSetRegistry(){
-      return SessionManager.getSession().getLookup().lookById("fieldSetRegistry")
+      return SessionManager.getSession().getByClass(FieldSetRegistry.class);
     }
 
     public DataProvider getDataProvider(){
-      return SessionManager.getSession().getLookup().lookById("dataProvider")
+      return SessionManager.getSession().getByClass(DataProvider.class);
     }
 
     public FieldSetParser getFieldSetParser(){
-      return SessionManager.getSession().getLookup().lookById("fieldSetParser")
+      return SessionManager.getSession().getByClass(FieldSetParser.class); 
     }
 
     public TestRegistry getTestRegistry(){
-      return SessionManager.getSession().getLookup().lookById("testRegistry")
+      return SessionManager.getSession().getByClass(TestRegistry.class);
     }
 
     public ResultListener getDefaultResultListener(){
-      return SessionManager.getSession().getLookup().lookById("defaultResultListener")
+      return SessionManager.getSession().getByClass(ResultListener.class);
     }
 
     //the count of number of steps can also be used to identify the ith run of the test

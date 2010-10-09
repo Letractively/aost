@@ -7,6 +7,7 @@ import org.telluriumsource.framework.config.Configurable
 import org.telluriumsource.component.bundle.BundleProcessor
 import org.telluriumsource.framework.SessionManager
 import org.telluriumsource.annotation.Inject
+import org.telluriumsource.annotation.Provider
 
 /**
  * The connector that ties the Selenium server and Selenium Client together
@@ -14,6 +15,7 @@ import org.telluriumsource.annotation.Inject
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  * 
  */
+@Provider
 class SeleniumConnector implements Configurable {
 
   protected int port = 4444

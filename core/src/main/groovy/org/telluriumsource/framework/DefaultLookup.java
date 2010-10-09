@@ -10,7 +10,7 @@ import java.util.Map;
  *
  * Date: Sep 10, 2010
  */
-public class DefaultLookup implements Lookup {
+public class DefaultLookup implements ILookup {
     private List<LookupData> list = new ArrayList<LookupData>();
     private Map<String, LookupData> index = new HashMap<String, LookupData>();
 

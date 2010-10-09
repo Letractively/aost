@@ -24,8 +24,8 @@ class PipeDataReader implements DataReader{
 
 		public PipeDataReader(){
 //			i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
-
 		}
+
 		public void setupDataStream(FileInputStream input)
 		{
 			//not defined for this class

@@ -3,20 +3,21 @@ package org.telluriumsource.framework;
 import org.telluriumsource.crosscut.i18n.IResourceBundle;
 import org.telluriumsource.dsl.SeleniumWrapper;
 import org.telluriumsource.dsl.TelluriumApi;
-import org.telluriumsource.framework.dj.BeanFactory;
+import org.telluriumsource.framework.dj.Lookup;
+import org.telluriumsource.framework.dj.SessionAwareBeanFactory;
 
 /**
  * @author: Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Sep 10, 2010
  */
-public class Session {
+public class Session implements Lookup {
 
     private String sessionId;
 
     private RuntimeEnvironment env;
 
-    private Lookup lookup;
+    private SessionAwareBeanFactory beanFactory;
 
     private SeleniumWrapper wrapper;
 
@@ -48,13 +49,7 @@ public class Session {
         this.env = env;
     }
 
-    public Lookup getLookup() {
-        return lookup;
-    }
 
-    public void setLookup(Lookup lookup) {
-        this.lookup = lookup;
-    }
 
     public SeleniumWrapper getWrapper() {
         return wrapper;
@@ -70,6 +65,22 @@ public class Session {
 
     public void setApi(TelluriumApi api) {
         this.api = api;
+    }
+
+    public SessionAwareBeanFactory getBeanFactory() {
+        return beanFactory;
+    }
+
+    public void setBeanFactory(SessionAwareBeanFactory beanFactory) {
+        this.beanFactory = beanFactory;
+    }
+
+    public Object getByName(String name) {
+        return this.beanFactory.getByName(this, name);
+    }
+
+    public <T> T getByClass(Class<T> clazz) {
+        return this.beanFactory.getByClass(this, clazz);
     }
 
     public String toString(){

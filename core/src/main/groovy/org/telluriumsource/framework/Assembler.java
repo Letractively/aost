@@ -2,7 +2,6 @@ package org.telluriumsource.framework;
 
 import org.telluriumsource.component.bundle.BundleProcessor;
 import org.telluriumsource.component.connector.CustomSelenium;
-import org.telluriumsource.component.connector.DefaultSelenium;
 import org.telluriumsource.component.connector.SeleniumConnector;
 import org.telluriumsource.component.custom.Extension;
 import org.telluriumsource.component.data.Accessor;
@@ -15,7 +14,6 @@ import org.telluriumsource.dsl.TelluriumApi;
 import org.telluriumsource.dsl.UiDslParser;
 import org.telluriumsource.framework.config.TelluriumConfigurator;
 import org.telluriumsource.test.ddt.DataProvider;
-import org.telluriumsource.test.ddt.TelluriumDataDrivenTest;
 import org.telluriumsource.test.ddt.TestRegistry;
 import org.telluriumsource.test.ddt.mapping.FieldSetParser;
 import org.telluriumsource.test.ddt.mapping.FieldSetRegistry;
@@ -36,23 +34,23 @@ import java.util.Locale;
  */
 public class Assembler {
     
-    private Lookup lookup;
+    private ILookup lookup;
 
     private RuntimeEnvironment env;
 
     private TelluriumConfigurator configurator;
 
-    public Assembler(Lookup lookup, RuntimeEnvironment env, TelluriumConfigurator telluriumConfigurator) {
+    public Assembler(ILookup lookup, RuntimeEnvironment env, TelluriumConfigurator telluriumConfigurator) {
         this.lookup = lookup;
         this.env = env;
         this.configurator = telluriumConfigurator;
     }
 
-    public Lookup getLookup() {
+    public ILookup getLookup() {
         return lookup;
     }
 
-    public void setLookup(Lookup lookup) {
+    public void setLookup(ILookup lookup) {
         this.lookup = lookup;
     }
 

@@ -69,14 +69,14 @@ abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
     }
 
   public SeleniumConnector getCurrentConnector(){
-     return SessionManager.getSession().getLookup().lookById("connector");
+     return SessionManager.getSession().getByClass(SeleniumConnector.class);
   }
 
   //register ui object builder
   //users can overload the builders or add new builders for new ui objects
   //by call this method
   public void registerBuilder(String uiObjectName, UiObjectBuilder builder) {
-    UiObjectBuilderRegistry registry = (UiObjectBuilderRegistry) SessionManager.getSession().getLookup().lookById("uiObjectBuilderRegistry");
+    UiObjectBuilderRegistry registry = (UiObjectBuilderRegistry) SessionManager.getSession().getByClass(UiObjectBuilderRegistry.class);
     registry.registerBuilder(uiObjectName, builder);
   }
 
@@ -96,12 +96,12 @@ abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
   }
 
   public void helpTest(){
-    SeleniumWrapper wrapper = SessionManager.getSession().getLookup().lookById("wrapper");
+    SeleniumWrapper wrapper = SessionManager.getSession().getWrapper();
     wrapper.helpTest();
   }
 
   public void noTest(){
-    SeleniumWrapper wrapper = SessionManager.getSession().getLookup().lookById("wrapper");
+    SeleniumWrapper wrapper = SessionManager.getSession().getWrapper();
     wrapper.helpTest();
   }
 
@@ -116,7 +116,7 @@ abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
   }
 
   public void showTrace() {
-    SeleniumWrapper wrapper = SessionManager.getSession().getLookup().lookById("wrapper");
+    SeleniumWrapper wrapper = SessionManager.getSession().getWrapper();
     wrapper.showTrace();
   }
 
@@ -132,7 +132,7 @@ abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
   }
 
   public void useClosestMatch(boolean isUse){
-    SeleniumWrapper wrapper = SessionManager.getSession().getLookup().lookById("wrapper");
+    SeleniumWrapper wrapper = SessionManager.getSession().getWrapper();
     if (isUse) {
       wrapper.enableClosestMatch();
     } else {
@@ -141,7 +141,7 @@ abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
   }
 
   public void useCssSelector(boolean isUse) {
-    SeleniumWrapper wrapper = SessionManager.getSession().getLookup().lookById("wrapper");
+    SeleniumWrapper wrapper = SessionManager.getSession().getWrapper();
     if (isUse) {
       wrapper.enableCssSelector();
     } else {
@@ -150,32 +150,32 @@ abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
   }
 
   public void cleanCache() {
-    TelluriumApi api = SessionManager.getSession().getLookup().lookById("api");
+    TelluriumApi api = SessionManager.getSession().getApi();
     api.cleanCache();
   }
 
   public void setCacheMaxSize(int size) {
-    TelluriumApi api = SessionManager.getSession().getLookup().lookById("api");
+    TelluriumApi api = SessionManager.getSession().getApi();
     api.setCacheMaxSize(size);
   }
 
   public int getCacheSize() {
-    TelluriumApi api = SessionManager.getSession().getLookup().lookById("api");
+    TelluriumApi api = SessionManager.getSession().getApi();
     return api.getCacheSize();
   }
 
   public int getCacheMaxSize() {
-    TelluriumApi api = SessionManager.getSession().getLookup().lookById("api");
+    TelluriumApi api = SessionManager.getSession().getApi();
     return api.getCacheMaxSize();
   }
 
   public String getCacheUsage() {
-    TelluriumApi api = SessionManager.getSession().getLookup().lookById("api");
+    TelluriumApi api = SessionManager.getSession().getApi();
     return api.getCacheUsage();
   }
 
   public void useCachePolicy(CachePolicy policy) {
-    TelluriumApi api = SessionManager.getSession().getLookup().lookById("api");
+    TelluriumApi api = SessionManager.getSession().getApi();
 
     if (policy != null) {
       switch (policy) {
@@ -196,66 +196,66 @@ abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
   }
 
   public String getCurrentCachePolicy() {
-    TelluriumApi api = SessionManager.getSession().getLookup().lookById("api");
+    TelluriumApi api = SessionManager.getSession().getApi();
 
     return api.getCurrentCachePolicy();
   }
 
   public void useDefaultXPathLibrary() {
-    SeleniumWrapper wrapper = SessionManager.getSession().getLookup().lookById("wrapper");
+    SeleniumWrapper wrapper = SessionManager.getSession().getWrapper();
     wrapper.useDefaultXPathLibrary();
   }
 
   public void useJavascriptXPathLibrary() {
-    SeleniumWrapper wrapper = SessionManager.getSession().getLookup().lookById("wrapper");
+    SeleniumWrapper wrapper = SessionManager.getSession().getWrapper();
     wrapper.useJavascriptXPathLibrary();
   }
 
   public void useAjaxsltXPathLibrary() {
-    SeleniumWrapper wrapper = SessionManager.getSession().getLookup().lookById("wrapper");
+    SeleniumWrapper wrapper = SessionManager.getSession().getWrapper();
     wrapper.useAjaxsltXPathLibrary();
   }
 
   public void allowNativeXpath(boolean allow) {
-    SeleniumWrapper wrapper = SessionManager.getSession().getLookup().lookById("wrapper");
+    SeleniumWrapper wrapper = SessionManager.getSession().getWrapper();
     wrapper.allowNativeXpath(allow);
   }
 
   public void registerNamespace(String prefix, String namespace) {
-    SeleniumWrapper wrapper = SessionManager.getSession().getLookup().lookById("wrapper");
+    SeleniumWrapper wrapper = SessionManager.getSession().getWrapper();
     wrapper.registerNamespace(prefix, namespace);
   }
 
   public String getNamespace(String prefix) {
-    SeleniumWrapper wrapper = SessionManager.getSession().getLookup().lookById("wrapper");
+    SeleniumWrapper wrapper = SessionManager.getSession().getWrapper();
     return wrapper.getNamespace(prefix);
   }
 
   public void addScript(String scriptContent, String scriptTagId){
-    SeleniumWrapper wrapper = SessionManager.getSession().getLookup().lookById("wrapper");
+    SeleniumWrapper wrapper = SessionManager.getSession().getWrapper();
     wrapper.addScript(scriptContent, scriptTagId);
   }
 
   public void removeScript(String scriptTagId){
-    SeleniumWrapper wrapper = SessionManager.getSession().getLookup().lookById("wrapper");
+    SeleniumWrapper wrapper = SessionManager.getSession().getWrapper();
     wrapper.removeScript(scriptTagId);
   }
 
   public EngineState getEngineState(){
-    TelluriumApi api = SessionManager.getSession().getLookup().lookById("api");
+    TelluriumApi api = SessionManager.getSession().getApi();
     return api.getEngineState();
   }
 
   public void pause(int milliseconds) {
     //flush out remaining commands in the command bundle before disconnection
-    BundleProcessor processor = SessionManager.getSession().getLookup().lookById("bundleProcessor");
+    BundleProcessor processor = SessionManager.getSession().getByClass(BundleProcessor.class);
     processor.flush()
 
     Helper.pause(milliseconds);
   }
 
   public void useEngineLog(boolean isUse){
-    TelluriumApi api = SessionManager.getSession().getLookup().lookById("api");
+    TelluriumApi api = SessionManager.getSession().getApi();
     api.useEngineLog(isUse);
   }
 
@@ -264,7 +264,7 @@ abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
   }
 
   public void useTelluriumEngine(boolean isUse) {
-    TelluriumApi api = (TelluriumApi) SessionManager.getSession().getLookup().lookById("api");
+    TelluriumApi api = SessionManager.getSession().getApi();
     if (isUse)
       api.enableTelluriumEngine();
     else

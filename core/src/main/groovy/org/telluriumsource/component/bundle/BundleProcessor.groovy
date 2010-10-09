@@ -254,7 +254,7 @@ public class BundleProcessor implements Configurable {
 //    String json = dslcontext.jsonify(uid);
 /*    String json = dslcontext.toJSON(uid);
     def args = [json];*/
-    IDslContext dsl = SessionManager.getSession().getLookup().lookById("api");
+    IDslContext dsl = SessionManager.getSession().getApi();
 
     JSONArray ar = dsl.toJSONArray(uid);
     def args = [ar];

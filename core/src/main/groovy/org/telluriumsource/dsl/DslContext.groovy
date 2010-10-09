@@ -12,23 +12,14 @@ import org.telluriumsource.framework.Session
 import org.telluriumsource.exception.NoSessionFoundException
 import org.telluriumsource.framework.RuntimeEnvironment
 
-import org.telluriumsource.framework.Lookup
+import org.telluriumsource.framework.ILookup
 
 class DslContext implements IDslContext {
 
   protected UiDslParser ui = this.&getUiParser();
 
   protected UiDslParser getUiParser(){
-    Session session = SessionManager.getSession();
-/*     if(session == null){
-       session = TelluriumFramework.instance.createDefaultSession();
-       SessionManager.setSession(session);
-     }*/
-
-     Lookup lookup = session.getLookup();
-     UiDslParser parser = (UiDslParser)lookup.lookById("uiParser");
-
-     return parser;
+    return SessionManager.getSession().getByClass(UiDslParser.class);
   }
 
   protected IDslContext getDelegate(){

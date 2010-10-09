@@ -41,6 +41,7 @@ public class TelluriumFramework {
     Session session = new Session();
     session.sessionId = name;
     session.env = env;
+    session.beanFactory = Injector.instance;
     Injector.instance.assembleFramework(session);
 
     println "Created new session: \n" + session.toString() + "\n";
@@ -185,12 +186,12 @@ public class TelluriumFramework {
   }
 
   public void connectServer(){
-     SeleniumConnector connector = SessionManager.getSession().getLookup().lookById("connector");
+     SeleniumConnector connector = SessionManager.getSession().getByClass(SeleniumConnector.class);
      connector.connectSeleniumServer();
   }
 
   public void disconnectServer(){
-     SeleniumConnector connector = SessionManager.getSession().getLookup().lookById("connector");
+     SeleniumConnector connector = SessionManager.getSession().getByClass(SeleniumConnector.class);
      connector.disconnectSeleniumServer()
   }
 

@@ -4,6 +4,7 @@ import org.telluriumsource.test.ddt.mapping.builder.FieldBuilder
 import org.telluriumsource.test.ddt.mapping.builder.FieldSetBuilder
 import org.telluriumsource.test.ddt.mapping.builder.IdentifierFieldBuilder
 import org.telluriumsource.test.ddt.mapping.builder.TestFieldBuilder
+import org.telluriumsource.annotation.Provider
 
 /**
  * parse the Field Set definition
@@ -13,6 +14,7 @@ import org.telluriumsource.test.ddt.mapping.builder.TestFieldBuilder
  * Date: Jul 24, 2008
  *
  */
+@Provider
 class FieldSetParser extends BuilderSupport{
     protected final static String FIELD_SET = "FieldSet"
     protected final static String FIELD = "Field"

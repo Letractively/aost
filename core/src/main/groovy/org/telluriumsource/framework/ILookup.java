@@ -7,7 +7,7 @@ import java.util.List;
  *
  * Date: Sep 10, 2010
  */
-public interface Lookup {
+public interface ILookup {
 
     void register(String id, Object obj);
 
