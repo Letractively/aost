@@ -67,16 +67,16 @@ public class DefaultSessionAwareBeanFactory implements SessionAwareBeanFactory {
         
     private synchronized Object getInstance(Session session, Bean bean){
         if(bean.isSingleton()){
-            Object instance = bean.getInstance(SessionManager.getSession());
+            Object instance = bean.getInstance(session);
             if(instance == null){
                 instance = createInstance(session, bean.getConcrete());
-                bean.setInstance(SessionManager.getSession(), instance);
+                bean.setInstance(session, instance);
             }
 
             return instance;
         }else{
             Object instance = createInstance(session, bean.getConcrete());
-            bean.setInstance(SessionManager.getSession(), instance);
+            bean.setInstance(session, instance);
 
             return instance;
         }
