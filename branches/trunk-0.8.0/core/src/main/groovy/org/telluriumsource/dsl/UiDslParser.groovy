@@ -6,7 +6,6 @@ import org.telluriumsource.ui.object.*
 import org.telluriumsource.exception.InvalidObjectTypeException
 
 import org.telluriumsource.crosscut.i18n.IResourceBundle;
-import org.telluriumsource.framework.Environment
 import org.telluriumsource.annotation.Provider
 import org.telluriumsource.annotation.Inject;
 

@@ -43,7 +43,6 @@ public class TelluriumFramework {
     session.sessionId = name;
     session.env = env;
     session.beanFactory = Injector.instance;
-    Injector.instance.assembleFramework(session);
 
     println "Created new session: \n" + session.toString() + "\n";
 
@@ -136,7 +135,8 @@ public class TelluriumFramework {
 
       Session session = reuseExistingOrCreateNewSession();
       SessionManager.setSession(session);
-
+      Injector.instance.assembleFramework(session);
+     
       this.isStarted = true;
     }
   }

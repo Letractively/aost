@@ -24,8 +24,9 @@ class InjectASTTransformation_UT extends GroovyShellTestCase {
       import org.telluriumsource.annotation.Provider
       import org.telluriumsource.annotation.Inject
       import org.telluriumsource.framework.dj.Injector
+      import org.telluriumsource.framework.dj.Scope
 
-      @Provider
+//      @Provider
       public class X {
         private int x = 10;
 
@@ -36,7 +37,7 @@ class InjectASTTransformation_UT extends GroovyShellTestCase {
 
 
       public class Y {
-        @Inject
+        @Inject(name="x", lazy=true)
         private X x
 
         public int getValue(){
@@ -44,8 +45,10 @@ class InjectASTTransformation_UT extends GroovyShellTestCase {
         }
 
       }
-      
+      Injector.instance.addBean("x",  X.class, X.class, Scope.Session, true, new X());
       new Y()
+      
+      Injector.instance.showAllBeans()
     """)
 
       println Injector.instance.showAllBeans();
