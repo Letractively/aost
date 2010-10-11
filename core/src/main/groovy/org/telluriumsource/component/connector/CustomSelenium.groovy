@@ -19,7 +19,7 @@ import org.telluriumsource.annotation.Provider
  * Date: Oct 21, 2008
  *
  */
-//@Provider(name="customSelenium")
+@Provider(name="customSelenium")
 class CustomSelenium extends DefaultSelenium {
     @Inject(name="i18nBundle", lazy=true)
     protected IResourceBundle i18nBundle;
@@ -27,12 +27,20 @@ class CustomSelenium extends DefaultSelenium {
     protected CustomCommand customClass = null
     protected String userExtension = null
 
+    CustomSelenium(){
+
+    }
+
     CustomSelenium(String host, int port, String browser, String url){
       super(host, port, browser, url)
     }
 
     CustomSelenium(CommandProcessor commandProcessor) {
       super (commandProcessor)
+    }
+
+    public void init(String host, int port, String browser, String url){
+      this.commandProcessor = new HttpCommandProcessor(host, port, browser, url);
     }
 
     public void setUserExt(String userExt){
