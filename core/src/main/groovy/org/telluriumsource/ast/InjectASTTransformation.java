@@ -79,17 +79,62 @@ public class InjectASTTransformation implements ASTTransformation, Opcodes {
                             new ConstantExpression(name)
                         )
                     )
-                )
+                )                     
 
         );
 
         addMethod(methodName, fieldNode, body, classNode);
 
-        fieldNode.setInitialValueExpression(
+/*        fieldNode.setInitialValueExpression(
                 new MethodPointerExpression(
                     new VariableExpression("this"),
                     new ConstantExpression(methodName)
                 )
+        );*/
+
+        addLazyMethodToConstructor(fieldNode, methodName);
+
+    }
+
+    private void addLazyMethodToConstructor(FieldNode fieldNode, String methodName){
+        ClassNode classNode = fieldNode.getDeclaringClass();
+
+        List list = classNode.getDeclaredConstructors();
+        if(list == null || list.isEmpty()){
+            final BlockStatement emptyBody = new BlockStatement();
+            classNode.addConstructor(new ConstructorNode(ACC_PUBLIC, emptyBody));
+        }
+
+        list = classNode.getDeclaredConstructors();
+        for(int i=0; i<list.size(); i++){
+            MethodNode mn = (MethodNode) list.get(i);
+            BlockStatement body = ((BlockStatement)mn.getCode());
+            if(body == null){
+                body = new BlockStatement();
+            }
+            List existingStatements = body.getStatements();
+            Statement stm = getLazyAssignmentStatement(methodName, fieldNode);
+            existingStatements.add(stm);
+        }
+    }
+
+    private Statement getLazyAssignmentStatement(String methodName, FieldNode fieldNode) {
+        final Expression fieldExpr = new VariableExpression(fieldNode);
+        ClassNode clazz = fieldNode.getType();
+        return new ExpressionStatement(
+                new BinaryExpression(
+                        fieldExpr,
+                        ASSIGN,
+                        new CastExpression(
+                                clazz,
+                                new MethodPointerExpression(
+                                        new VariableExpression("this"),
+                                        new ConstantExpression(methodName)
+                                )
+                        )
+
+                )
+
         );
     }
 
