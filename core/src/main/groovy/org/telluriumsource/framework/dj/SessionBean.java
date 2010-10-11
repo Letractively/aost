@@ -1,6 +1,7 @@
 package org.telluriumsource.framework.dj;
 
 import org.telluriumsource.framework.Session;
+import org.telluriumsource.framework.SessionManager;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,10 +28,17 @@ public class SessionBean extends BeanInfo implements Bean {
     }
 
     public Object getInstance(Session session) {
+        if(session == null){
+            //TODO: more elegant way to decouple Session manager from DI injection
+            session = SessionManager.getSession();
+        }
         return instances.get(session.getSessionId());
     }
 
     public void setInstance(Session session, Object instance) {
+        if(session == null){
+            session = SessionManager.getSession();
+        }
         instances.put(session.getSessionId(), instance);
     }
 

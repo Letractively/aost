@@ -14,7 +14,7 @@ import org.telluriumsource.annotation.Provider;
  * Date: Sep 23, 2009
  *
  */
-@Provider(type=IResourceBundle.class)
+//@Provider(type=IResourceBundle.class)
 class ResourceBundle implements IResourceBundle, Configurable
 {
  	//define the default locale

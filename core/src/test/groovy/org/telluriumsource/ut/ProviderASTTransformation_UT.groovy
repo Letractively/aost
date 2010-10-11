@@ -95,7 +95,7 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
           package org.telluriumsource.framework.dj
 
           import org.telluriumsource.annotation.Provider
-          
+
           @Provider
           class Injector {
             private Map<String, BeanInfo> map = new HashMap<String, BeanInfo>()

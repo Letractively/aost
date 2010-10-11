@@ -85,7 +85,7 @@ class Injector implements SessionAwareBeanFactory{
     SeleniumWrapper wrapper = getByName(session, "SeleniumWrapper");
     session.wrapper = wrapper;
 //    TelluriumApi api = getByClass(session, TelluriumApi.class);
-    TelluriumApi api = getByClass(session, "TelluriumApi");
+    TelluriumApi api = getByName(session, "TelluriumApi");
     session.api = api;
   }
 
