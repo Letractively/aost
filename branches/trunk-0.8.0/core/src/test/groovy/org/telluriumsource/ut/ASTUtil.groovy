@@ -12,6 +12,8 @@ import org.telluriumsource.framework.dj.Injector
  * 
  */
 class ASTUtil {
+  private String aVar;
+
   public static List<ASTNode> getProviderNodes(String name, Class clazz, String scope, boolean singleton){
     List<ASTNode> nodes = new AstBuilder().buildFromCode {
 //      TelluriumFramework.instance.registerBean(name, clazz, scope, singleton);
@@ -47,7 +49,7 @@ class ASTUtil {
 
   public List<ASTNode> getInjectNodeByNameLazy(String name){
     List<ASTNode> nodes = new AstBuilder().buildFromCode {
-        Object var = this.&injectVar;
+        aVar = (String)this.&injectVar;
     }
 
     return nodes;
