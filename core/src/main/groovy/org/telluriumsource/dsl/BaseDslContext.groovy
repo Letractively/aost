@@ -46,7 +46,8 @@ abstract class BaseDslContext implements IDslContext {
       }
       xml; """
 
-  @Inject(name="i18nBundle", lazy=true)
+//  @Inject(name="i18nBundle", lazy=true)
+  @Inject(name="i18nBundle")
   protected IResourceBundle i18nBundle;
 
   @Inject
