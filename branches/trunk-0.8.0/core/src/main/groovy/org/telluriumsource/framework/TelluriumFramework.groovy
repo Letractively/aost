@@ -13,6 +13,7 @@ import org.telluriumsource.util.BaseUtil
 import java.lang.reflect.Field
 
 import org.telluriumsource.framework.dj.Injector
+import org.telluriumsource.component.connector.CustomSelenium
 
 /**
  * Put all initialization and cleanup jobs for the Tellurium framework here

@@ -30,6 +30,10 @@ public class DefaultSelenium implements Selenium {
         this.commandProcessor = commandProcessor;
     }
 
+    public DefaultSelenium(){
+
+    }
+
     /** Uses a CommandBridgeClient, specifying a server host/port, a command to launch the browser, and a starting URL for the browser.
      *
      * <p><i>browserStartCommand</i> may be any one of the following:
@@ -58,6 +62,7 @@ public class DefaultSelenium implements Selenium {
      * @param browserURL the starting URL including just a domain name.  We'll start the browser pointing at the Selenium resources on this URL,
      * e.g. "http://www.google.com" would send the browser to "http://www.google.com/selenium-server/SeleneseRunner.html"
      */
+
     public DefaultSelenium(String serverHost, int serverPort, String browserStartCommand, String browserURL) {
         this.commandProcessor = new HttpCommandProcessor(serverHost, serverPort, browserStartCommand, browserURL);
     }

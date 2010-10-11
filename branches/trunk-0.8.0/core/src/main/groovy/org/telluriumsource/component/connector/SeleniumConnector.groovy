@@ -80,6 +80,7 @@ class SeleniumConnector implements Configurable {
    public void connectSeleniumServer() {
 
 //        sel = new CustomSelenium(seleniumServerHost, port, browser, baseURL)
+        sel.init(seleniumServerHost, port, browser, baseURL);
 
         sel.start()
 
