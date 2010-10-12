@@ -228,6 +228,10 @@ public class RuntimeEnvironment implements Cloneable {
         this.lastUiModule = lastUiModule;
     }
 
+    public boolean hasKey(String name){
+        return map.containsKey(name);
+    }
+
     public String toString(){
         StringBuffer sb = new StringBuffer(64);
         sb.append("RuntimeEnvironment: [").append("serverHost: ").append(getServerHost()).append(",")
