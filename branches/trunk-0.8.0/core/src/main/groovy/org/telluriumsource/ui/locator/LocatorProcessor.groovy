@@ -5,7 +5,8 @@ import org.telluriumsource.exception.InvalidLocatorException
 import org.telluriumsource.crosscut.i18n.IResourceBundle;
 import org.telluriumsource.framework.Environment
 import org.telluriumsource.framework.SessionManager
-import org.telluriumsource.annotation.Inject;
+import org.telluriumsource.annotation.Inject
+import org.telluriumsource.annotation.Provider;
 
 
 
@@ -16,6 +17,7 @@ import org.telluriumsource.annotation.Inject;
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  */
+@Provider
 class LocatorProcessor{
     public static final String CANNOT_HANDLE_LOCATOR= "Cannot handle locator"
 

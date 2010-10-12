@@ -122,15 +122,22 @@ public class InjectASTTransformation implements ASTTransformation, Opcodes {
         final Expression fieldExpr = new VariableExpression(fieldNode);
         ClassNode clazz = fieldNode.getType();
         return new ExpressionStatement(
+//        return new ReturnStatement(
                 new BinaryExpression(
                         fieldExpr,
                         ASSIGN,
                         new CastExpression(
                                 clazz,
-                                new MethodPointerExpression(
+                                new MethodCallExpression(
                                         new VariableExpression("this"),
-                                        new ConstantExpression(methodName)
+                                        new ConstantExpression(methodName),
+                                        new ArgumentListExpression()
                                 )
+/*                                new MethodPointerExpression(
+                                        new VariableExpression("this"),
+//                                        new ClassExpression(fieldNode.getDeclaringClass()),
+                                        new ConstantExpression(methodName)
+                                )*/
                         )
 
                 )
@@ -142,32 +149,6 @@ public class InjectASTTransformation implements ASTTransformation, Opcodes {
         int visibility = ACC_PUBLIC;
         if (fieldNode.isStatic()) visibility |= ACC_STATIC;
         fieldNode.getDeclaringClass().addMethod(name, visibility, type, Parameter.EMPTY_ARRAY, ClassNode.EMPTY_ARRAY, body);
-    }
-
-    private Statement getInjectStatement(String name, FieldNode fieldNode) {
-        final Expression fieldExpr = new VariableExpression(fieldNode);
-        return new ExpressionStatement(
-                new BinaryExpression(
-                        fieldExpr,
-                        ASSIGN,
-                        new MethodCallExpression(
-                                new MethodCallExpression(
-                                        new ClassExpression(new ClassNode(Injector.class)),
-                                        new ConstantExpression("getInstance"),
-                                        new ArgumentListExpression()
-                                ),
-                                new ConstantExpression("getByName"),
-                                new ArgumentListExpression(
-                                        new Expression[]{
-                                                new ConstantExpression(name)
-                                        }
-                                )
-                        )
-
-
-                )
-
-        );
     }
 
     private void addMethodToConstructor(String name, FieldNode fieldNode){
@@ -192,5 +173,31 @@ public class InjectASTTransformation implements ASTTransformation, Opcodes {
             Statement stm = getInjectStatement(name, fieldNode);
             existingStatements.add(stm);
         }
+    }
+
+    private Statement getInjectStatement(String name, FieldNode fieldNode) {
+        final Expression fieldExpr = new VariableExpression(fieldNode);
+        return new ExpressionStatement(
+                new BinaryExpression(
+                        fieldExpr,
+                        ASSIGN,
+                        new MethodCallExpression(
+                                new MethodCallExpression(
+                                        new ClassExpression(new ClassNode(Injector.class)),
+                                        new ConstantExpression("getInstance"),
+                                        new ArgumentListExpression()
+                                ),
+                                new ConstantExpression("getByName"),
+                                new ArgumentListExpression(
+//                                        new Expression[]{
+                                                new ConstantExpression(name)
+//                                        }
+                                )
+                        )
+
+
+                )
+
+        );
     }
 }
