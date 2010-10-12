@@ -17,6 +17,7 @@ public class RuntimeEnvironment implements Cloneable {
     
     private Map<String, Object> map = new HashMap<String, Object>();
 
+/*
     private String serverHost = "localhost";
 
     private int serverPort = 4444;
@@ -24,10 +25,6 @@ public class RuntimeEnvironment implements Cloneable {
     private String browser = null;
 
     private String baseUrl = "https://localhost:8080";
-
-    private boolean useCssSelector = true;
-
-    private boolean useNewEngine = false;
 
     private boolean useTrace = false;
 
@@ -38,18 +35,31 @@ public class RuntimeEnvironment implements Cloneable {
     private int maxMacroCmd = 5;
 
     private String locale = "en_US";
-    
+*/
+
+    private boolean useNewEngine = false;
+
+    private boolean useCssSelector = true;
+
     private boolean useClosestMatch = false;
 
     private boolean useEngineLog = false;
 
-    protected boolean useBugReport = false;
+//    protected boolean useBugReport = false;
 
     private String lastUiModule = null;
 
     protected String lastErrorDescription = "";
 
     private IResourceBundle resourceBundle = null;
+
+    public void addEnvironmentVariable(String key, Object val){
+        this.map.put(key, val);
+    }
+
+    public Object getEnvironmentVariable(String key){
+        return this.map.get(key);
+    }
 
     public IResourceBundle getResourceBundle() {
         return resourceBundle;
@@ -64,15 +74,16 @@ public class RuntimeEnvironment implements Cloneable {
     }
 
     public String getBaseUrl() {
-        return baseUrl;
+        return (String) map.get("tellurium.connector.baseUrl");
     }
 
     public void setBaseUrl(String baseUrl) {
-        this.baseUrl = baseUrl;
+        map.put("tellurium.connector.baseUrl", baseUrl);
     }
 
     public void useLocale(String locale) {
-        this.locale = locale;
+//        this.locale = locale;
+        map.put("tellurium.i18n.locale", locale);
         if(this.resourceBundle != null){
             String[] split = locale.split("_");
             Locale loc = new Locale(split[0], split[1]);
@@ -81,27 +92,32 @@ public class RuntimeEnvironment implements Cloneable {
     }
 
     public int getServerPort() {
-        return serverPort;
+//        return serverPort;
+        return (Integer)map.get("tellurium.connector.port");
     }
 
     public void setServerPort(int serverPort) {
-        this.serverPort = serverPort;
+//        this.serverPort = serverPort;
+        map.put("tellurium.connector.port", serverPort);
     }
 
     public String getServerHost() {
-        return serverHost;
+        return (String)map.get("tellurium.connector.serverHost");
     }
 
     public void setServerHost(String serverHost) {
-        this.serverHost = serverHost;
+//        this.serverHost = serverHost;
+        map.put("tellurium.connector.serverHost", serverHost);
     }
 
     public String getBrowser() {
-        return browser;
+//        return browser;
+        return (String) map.get("tellurium.connector.browser");
     }
 
     public void setBrowser(String browser) {
-        this.browser = browser;
+//        this.browser = browser;
+        map.put("tellurium.connector.browser", browser);
     }
 
     public void setCustomEnvironment(String name, Object value) {
@@ -129,43 +145,53 @@ public class RuntimeEnvironment implements Cloneable {
     }
 
     public boolean isUseTrace() {
-        return useTrace;
+//        return useTrace;
+        return (Boolean)map.get("tellurium.test.execution.trace");
     }
 
     public void setUseTrace(boolean useTrace) {
-        this.useTrace = useTrace;
+//        this.useTrace = useTrace;
+        map.put("tellurium.test.execution.trace", useTrace);
     }
 
     public boolean isUseBundle() {
-        return useBundle;
+//        return useBundle;
+        return (Boolean)map.get("tellurium.bundle.useMacroCommand");
     }
 
     public void setUseBundle(boolean useBundle) {
-        this.useBundle = useBundle;
+//        this.useBundle = useBundle;
+        map.put("tellurium.bundle.useMacroCommand", useBundle);
     }
 
     public boolean isUseScreenshot() {
-        return useScreenshot;
+//        return useScreenshot;
+        return (Boolean)map.get("tellurium.test.exception.captureScreenshot");
     }
 
     public void setUseScreenshot(boolean useScreenshot) {
-        this.useScreenshot = useScreenshot;
+//        this.useScreenshot = useScreenshot;
+        map.put("tellurium.test.exception.captureScreenshot", useScreenshot);
     }
 
     public int getMaxMacroCmd() {
-        return maxMacroCmd;
+//        return maxMacroCmd;
+        return (Integer)map.get("tellurium.bundle.maxMacroCmd");
     }
 
     public void setMaxMacroCmd(int maxMacroCmd) {
-        this.maxMacroCmd = maxMacroCmd;
+//        this.maxMacroCmd = maxMacroCmd;
+        map.put("tellurium.bundle.maxMacroCmd", maxMacroCmd);
     }
 
     public String getLocale() {
-        return locale;
+        return (String) map.get("tellurium.i18n.locale");
+//        return locale;
     }
 
     public void setLocale(String locale) {
-        this.locale = locale;
+//        this.locale = locale;
+        map.put("tellurium.i18n.locale", locale);
     }
 
     public boolean isUseClosestMatch() {
@@ -185,11 +211,13 @@ public class RuntimeEnvironment implements Cloneable {
     }
 
     public boolean isUseBugReport() {
-        return useBugReport;
+//        return useBugReport;
+        return (Boolean)map.get("tellurium.test.exception.bugReport");
     }
 
     public void setUseBugReport(boolean useBugReport) {
-        this.useBugReport = useBugReport;
+//        this.useBugReport = useBugReport;
+        map.put("tellurium.test.exception.bugReport", useBugReport);
     }
 
     public String getLastUiModule() {
@@ -202,20 +230,20 @@ public class RuntimeEnvironment implements Cloneable {
 
     public String toString(){
         StringBuffer sb = new StringBuffer(64);
-        sb.append("RuntimeEnvironment: [").append("serverHost: ").append(serverHost).append(",")
-            .append("serverPort: ").append(serverPort).append(",")
-            .append("baseUrl: ").append(baseUrl).append(",")
-            .append("browser: ").append(browser).append(",")
+        sb.append("RuntimeEnvironment: [").append("serverHost: ").append(getServerHost()).append(",")
+            .append("serverPort: ").append(getServerPort()).append(",")
+            .append("baseUrl: ").append(getBaseUrl()).append(",")
+            .append("browser: ").append(getBrowser()).append(",")
             .append("useCssSelector: ").append(useCssSelector).append(",")
-            .append("useTrace: ").append(useTrace).append(",")
-            .append("useBundle: ").append(useBundle).append(",")
-            .append("maxMacroCmd: ").append(maxMacroCmd).append(",")
-            .append("useScreenshot: ").append(useScreenshot).append(",")
+            .append("useTrace: ").append(isUseTrace()).append(",")
+            .append("useBundle: ").append(isUseBundle()).append(",")
+            .append("maxMacroCmd: ").append(getMaxMacroCmd()).append(",")
+            .append("useScreenshot: ").append(isUseScreenshot()).append(",")
             .append("useNewEngine: ").append(useNewEngine).append(",")
             .append("useClosestMatch: ").append(useClosestMatch).append(",")
             .append("useEngineLog: ").append(useEngineLog).append(",")
-            .append("useBugReport: ").append(useBugReport).append(",")
-            .append("locale: ").append(locale).append(",")
+            .append("useBugReport: ").append(isUseBugReport()).append(",")
+            .append("locale: ").append(getLocale()).append(",")
             .append("lastError: ").append(this.lastErrorDescription);
         if(!map.isEmpty()){
             Set<String> keySet = map.keySet();
@@ -230,21 +258,11 @@ public class RuntimeEnvironment implements Cloneable {
     public RuntimeEnvironment clone(){
 
         RuntimeEnvironment newEnv = new RuntimeEnvironment();
-        newEnv.setServerHost(serverHost);
-        newEnv.setServerPort(serverPort);
-        newEnv.setBaseUrl(baseUrl);
-        newEnv.setBrowser(browser);
         newEnv.setUseCssSelector(useCssSelector);
         newEnv.setUseNewEngine(useNewEngine);
-        newEnv.setUseTrace(useTrace);
-        newEnv.setUseBundle(useBundle);
-        newEnv.setUseScreenshot(useScreenshot);
-        newEnv.setMaxMacroCmd(maxMacroCmd);
         newEnv.setUseClosestMatch(useClosestMatch);
         newEnv.setUseEngineLog(useEngineLog);
         newEnv.setLastUiModule(lastUiModule);
-        newEnv.setUseBugReport(useBugReport);
-        newEnv.setLocale(locale);
 
         Set<String> keySet = map.keySet();
         for(String key: keySet){
