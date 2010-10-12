@@ -217,7 +217,7 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
         result.setProperty("start", System.nanoTime())
         result.setProperty("input", fsmr.getResults())
 
-        if (this.hasException && this.abortOnException) {
+        if (!(this.hasException && this.abortOnException)) {
           try {
             if (action != null) {
               //if the field set includes action
