@@ -121,17 +121,19 @@ public class TelluriumFramework {
       if (file != null && file.exists()) {
         println i18nBundle.getMessage("TelluriumFramework.ParseFromRootDirectory", fileName)
         telluriumConfigurator.parse(file)
+        defaultEnvironment = telluriumConfigurator.createRuntimeEnvironment();
       } else {
         URL url = ClassLoader.getSystemResource(fileName)
         if (url != null) {
           println i18nBundle.getMessage("TelluriumFramework.ParseFromClassPath", fileName)
           telluriumConfigurator.parse(url)
+          defaultEnvironment = telluriumConfigurator.createRuntimeEnvironment();
         } else {
           println i18nBundle.getMessage("TelluriumFramework.CannotFindConfigFile", fileName)
+          defaultEnvironment = telluriumConfigurator.createDefaultRuntimeEnvironment();
         }
       }
 
-      defaultEnvironment = telluriumConfigurator.createRuntimeEnvironment();
 
       Session session = reuseExistingOrCreateNewSession();
       SessionManager.setSession(session);
