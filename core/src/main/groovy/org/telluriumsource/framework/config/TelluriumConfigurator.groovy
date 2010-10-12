@@ -399,7 +399,7 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
 
     env.addEnvironmentVariable("tellurium.accessor.checkElement", false)
 
-    env.addEnvironmentVariable("conf.tellurium.test.exception.filenamePattern", "Screenshot?.png")
+    env.addEnvironmentVariable("tellurium.test.exception.filenamePattern", "Screenshot?.png")
 
     env.addEnvironmentVariable("tellurium.bundle.maxMacroCmd", 5)
 
@@ -526,7 +526,7 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
     env.addEnvironmentVariable("tellurium.accessor.checkElement", conf.tellurium.accessor.checkElement)
 
     checkConfig("conf.tellurium.test.exception.filenamePattern")
-    env.addEnvironmentVariable("conf.tellurium.test.exception.filenamePattern", conf.tellurium.test.exception.filenamePattern)
+    env.addEnvironmentVariable("tellurium.test.exception.filenamePattern", conf.tellurium.test.exception.filenamePattern)
 
     checkConfig("conf.tellurium.bundle.maxMacroCmd")
     env.addEnvironmentVariable("tellurium.bundle.maxMacroCmd", conf.tellurium.bundle.maxMacroCmd)
@@ -545,16 +545,6 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
 
     checkConfig("conf.tellurium.i18n.locale")
     env.addEnvironmentVariable("tellurium.i18n.locale", conf.tellurium.i18n.locale)    
-
-/*    env.setServerHost(conf.tellurium.connector.serverHost);
-    env.setServerPort(Integer.parseInt(conf.tellurium.connector.port));
-    env.setBaseUrl(conf.tellurium.connector.baseUrl);
-    env.setBrowser(conf.tellurium.connector.browser);
-    env.setUseTrace(conf.tellurium.test.execution.trace);
-    env.setUseBundle(conf.tellurium.bundle.useMacroCommand);
-    env.setUseScreenshot(conf.tellurium.test.exception.captureScreenshot);
-    env.setMaxMacroCmd(conf.tellurium.bundle.maxMacroCmd);
-    env.useLocale(conf.tellurium.i18n.locale);*/
     
     return env;
   }

@@ -5,7 +5,9 @@ import org.telluriumsource.framework.config.Configurable
 import org.telluriumsource.ui.widget.WidgetBootstrap
 import org.telluriumsource.framework.Environment;
 import org.telluriumsource.crosscut.i18n.IResourceBundle
-import org.telluriumsource.framework.SessionManager;
+import org.telluriumsource.framework.SessionManager
+import org.telluriumsource.annotation.Inject
+import org.telluriumsource.annotation.Provider;
 
 
 
@@ -17,9 +19,12 @@ import org.telluriumsource.framework.SessionManager;
  * Date: Sep 2, 2008
  *
  */
+@Provider
 class WidgetConfigurator implements Configurable{
 
 //	protected IResourceBundle i18nBundle
+
+    @Inject
     private UiObjectBuilderRegistry registry
 
     protected final static String PACKAGE_DELIMITER = "."

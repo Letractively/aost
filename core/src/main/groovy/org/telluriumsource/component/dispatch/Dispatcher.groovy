@@ -19,6 +19,7 @@ class Dispatcher implements Configurable {
     @Inject(name="i18nBundle", lazy=true)
     protected IResourceBundle i18nBundle ;
 
+    @Inject(name="tellurium.test.exception.filenamePattern")
     private String filenamePattern = "Screenshot?.png";
 
 //    private SeleniumClient sc = new SeleniumClient();
@@ -27,7 +28,7 @@ class Dispatcher implements Configurable {
 
     @Inject(name="customSelenium")
     private CustomSelenium sel;
-
+  
     private ExecutionTracer tracer = new DefaultExecutionTracer();
   
     public boolean isConnected(){
