@@ -9,6 +9,7 @@ import org.telluriumsource.dsl.TelluriumApi
 import org.telluriumsource.framework.SessionManager
 import org.telluriumsource.component.connector.CustomSelenium
 import org.telluriumsource.exception.FrameworkWiringException
+import org.telluriumsource.component.connector.SeleniumConnector
 
 /**
  * 
@@ -83,12 +84,9 @@ class Injector implements SessionAwareBeanFactory{
 
       env.setResourceBundle(i18nBundle);
       addBean(session, "i18nBundle",  IResourceBundle.class, org.telluriumsource.crosscut.i18n.ResourceBundle.class, Scope.Session, true, i18nBundle);
-//    CustomSelenium customSelenium = new CustomSelenium(env.getServerHost(), env.getServerPort(), env.getBrowser(), env.getBaseUrl());
-//    addBean(session, "customSelenium", CustomSelenium.class, CustomSelenium.class, Scope.Session, true, customSelenium);
-//    SeleniumWrapper wrapper = getByClass(session, SeleniumWrapper.class);
+      getByClass(session, SeleniumConnector.class);
       SeleniumWrapper wrapper = getByName(session, "SeleniumWrapper");
       session.wrapper = wrapper;
-//    TelluriumApi api = getByClass(session, TelluriumApi.class);
       TelluriumApi api = getByName(session, "TelluriumApi");
       session.api = api;
     }catch(Exception e){
