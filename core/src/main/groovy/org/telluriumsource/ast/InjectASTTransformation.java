@@ -122,7 +122,6 @@ public class InjectASTTransformation implements ASTTransformation, Opcodes {
         final Expression fieldExpr = new VariableExpression(fieldNode);
         ClassNode clazz = fieldNode.getType();
         return new ExpressionStatement(
-//        return new ReturnStatement(
                 new BinaryExpression(
                         fieldExpr,
                         ASSIGN,
@@ -133,11 +132,13 @@ public class InjectASTTransformation implements ASTTransformation, Opcodes {
                                         new ConstantExpression(methodName),
                                         new ArgumentListExpression()
                                 )
-/*                                new MethodPointerExpression(
+/*
+                                new MethodPointerExpression(
                                         new VariableExpression("this"),
 //                                        new ClassExpression(fieldNode.getDeclaringClass()),
                                         new ConstantExpression(methodName)
-                                )*/
+                                )
+*/
                         )
 
                 )
