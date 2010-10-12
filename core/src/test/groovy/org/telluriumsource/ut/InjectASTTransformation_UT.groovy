@@ -47,14 +47,13 @@ class InjectASTTransformation_UT extends GroovyShellTestCase {
       }
       Injector.instance.addBean("x",  X.class, X.class, Scope.Session, true, new X());
       new Y()
-      
-      Injector.instance.showAllBeans()
-    """)
+
+      """)
 
       println Injector.instance.showAllBeans();
       assertNotNull y
       assertNotNull y.getValue()
-    
+      assertEquals 10, y.getValue()
   }
 
 }

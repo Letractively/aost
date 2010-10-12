@@ -54,11 +54,54 @@ public class InjectASTTransformation implements ASTTransformation, Opcodes {
             }
 
             if(lazy){
-                addMethodPointer(name, fieldNode);
+//                addMethodPointer(name, fieldNode);
+                renameFieldNodeAndAddGetter(name, fieldNode);
             }else{
                 addMethodToConstructor(name, fieldNode);
             }
         }
+    }
+
+    private void renameFieldNodeAndAddGetter(String name, FieldNode fieldNode){
+        fieldNode.rename("$" + fieldNode.getName());
+        fieldNode.setModifiers(ACC_PRIVATE | (fieldNode.getModifiers() & (~(ACC_PUBLIC | ACC_PROTECTED))));
+
+        int visibility = ACC_PUBLIC;
+        if (fieldNode.isStatic()) visibility |= ACC_STATIC;
+        final String getterName = "get" + MetaClassHelper.capitalize(fieldNode.getName().substring(1));
+        final BlockStatement body = new BlockStatement();
+        Expression initExpr = getInitExpr(name);
+        addNonThreadSafeBody(body, fieldNode, initExpr);
+
+        fieldNode.getDeclaringClass().addMethod(getterName, visibility,  fieldNode.getType(), Parameter.EMPTY_ARRAY, ClassNode.EMPTY_ARRAY, body);
+
+        // Lazy not meaningful with primitive so convert to wrapper if needed
+        if (ClassHelper.isPrimitiveType(fieldNode.getType())) {
+            fieldNode.setType(ClassHelper.getWrapper(fieldNode.getType()));
+        }
+    }
+
+    private void addNonThreadSafeBody(BlockStatement body, FieldNode fieldNode, Expression initExpr) {
+        final Expression fieldExpr = new VariableExpression(fieldNode);
+        body.addStatement(new IfStatement(
+                new BooleanExpression(new BinaryExpression(fieldExpr, COMPARE_NOT_EQUAL, NULL_EXPR)),
+                new ExpressionStatement(fieldExpr),
+                new ExpressionStatement(new BinaryExpression(fieldExpr, ASSIGN, initExpr))
+        ));
+    }
+
+    private Expression getInitExpr(String name){
+        return new MethodCallExpression(
+            new MethodCallExpression(
+                    new ClassExpression(new ClassNode(Injector.class)),
+                    new ConstantExpression("getInstance"),
+                    new ArgumentListExpression()
+            ),
+            new ConstantExpression("getByName"),
+            new ArgumentListExpression(
+                new ConstantExpression(name)
+            )
+        );
     }
 
     private void addMethodPointer(String name, FieldNode fieldNode){
