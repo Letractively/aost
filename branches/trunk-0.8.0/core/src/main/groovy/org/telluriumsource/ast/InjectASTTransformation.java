@@ -63,6 +63,7 @@ public class InjectASTTransformation implements ASTTransformation, Opcodes {
     }
 
     private void renameFieldNodeAndAddGetter(String name, FieldNode fieldNode){
+        fieldNode.setInitialValueExpression(null);
         fieldNode.rename("$" + fieldNode.getName());
         fieldNode.setModifiers(ACC_PRIVATE | (fieldNode.getModifiers() & (~(ACC_PUBLIC | ACC_PROTECTED))));
 
