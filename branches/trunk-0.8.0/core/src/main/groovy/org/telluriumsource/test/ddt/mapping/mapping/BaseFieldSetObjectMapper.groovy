@@ -30,7 +30,7 @@ abstract class BaseFieldSetObjectMapper implements FieldSetObjectMapper{
     @Inject(name="i18nBundle", lazy=true)
     protected IResourceBundle i18nBundle;
 
-
+    @Inject
     protected FieldSetRegistry registry
 
     protected DataReader reader
