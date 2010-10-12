@@ -44,12 +44,17 @@ class ASTUtil {
 
   private Object injectVar(){
      String name = "good";
-     return Injector.getInstance().getByName(name);
+//     return Injector.getInstance().getByName(name);
+    return name;
+  }
+
+  public void setAVar(){
+    this.aVar = this.&injectVar as String;
   }
 
   public List<ASTNode> getInjectNodeByNameLazy(String name){
     List<ASTNode> nodes = new AstBuilder().buildFromCode {
-        aVar = (String)this.&injectVar;
+        aVar = this.&injectVar as String;
     }
 
     return nodes;

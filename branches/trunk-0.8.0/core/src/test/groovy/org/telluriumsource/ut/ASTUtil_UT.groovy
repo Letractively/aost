@@ -52,4 +52,10 @@ class ASTUtil_UT extends GroovyTestCase {
 
   }
 
+  public void testMethodClosure(){
+    ASTUtil util = new ASTUtil();
+    util.setAVar();
+    println util.aVar;
+  }
+
 }

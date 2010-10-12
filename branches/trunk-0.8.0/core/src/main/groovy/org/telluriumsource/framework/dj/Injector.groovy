@@ -71,7 +71,7 @@ class Injector implements SessionAwareBeanFactory{
     this.beanFactory.destroy();
   }
 
-  public void assembleFramework(Session session){
+  public synchronized void assembleFramework(Session session){
     Session original = SessionManager.getSession();
     SessionManager.setSession(session);
     try{
