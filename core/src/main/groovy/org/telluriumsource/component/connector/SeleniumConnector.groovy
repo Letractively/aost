@@ -24,7 +24,7 @@ class SeleniumConnector implements Configurable {
 
   protected final String HTTP_BASE_URL = "http://localhost:8080"
 
-  @Inject
+  @Inject(name="customSelenium")
   protected CustomSelenium sel
 
 //  protected CustomSelenium customSelenium
