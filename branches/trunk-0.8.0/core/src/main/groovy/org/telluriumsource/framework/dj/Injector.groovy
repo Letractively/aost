@@ -30,7 +30,12 @@ class Injector implements SessionAwareBeanFactory{
   }
 
   public Object getByName(String name) {
-    return this.beanFactory.getByName(SessionManager.getSession(), name);
+    Session session = SessionManager.getSession();
+    if(session.getEnv().hasKey(name)){
+      return session.getEnv().getEnvironmentVariable(name);
+    }
+
+    return this.beanFactory.getByName(session, name);
   }
 
   public <T> T getByClass(Class<T> clazz) {
@@ -111,6 +116,10 @@ class Injector implements SessionAwareBeanFactory{
   }
 
   public Object getByName(Session session, String name) {
+    if(session.getEnv().hasKey(name)){
+      return session.getEnv().getEnvironmentVariable(name);
+    }
+    
     return this.beanFactory.getByName(session, name);
   }
 }

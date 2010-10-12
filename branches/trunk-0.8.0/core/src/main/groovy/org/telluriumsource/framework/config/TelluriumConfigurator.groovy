@@ -418,6 +418,7 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
 
   public RuntimeEnvironment createRuntimeEnvironment(){
     RuntimeEnvironment env = new RuntimeEnvironment();
+    
     checkConfig("conf.tellurium.embeddedserver.port")
     env.addEnvironmentVariable("tellurium.embeddedserver.port", Integer.parseInt(conf.tellurium.embeddedserver.port))
 
@@ -455,11 +456,15 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
     String clazz = conf.tellurium.connector.customClass
     if (clazz != null && clazz.trim().length() > 0)
       env.addEnvironmentVariable("tellurium.connector.customClass", Class.forName(clazz).newInstance())
+    else
+      env.addEnvironmentVariable("tellurium.connector.customClass", null)
 
     checkConfig("conf.tellurium.connector.options")
     String options = conf.tellurium.connector.options
     if (options != null && options.trim().length() > 0) {
       env.addEnvironmentVariable("tellurium.connector.options", options);
+    }else{
+      env.addEnvironmentVariable("tellurium.connector.options", null);
     }
 
     checkConfig("conf.tellurium.datadriven.dataprovider.reader")
@@ -504,6 +509,8 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
         customBuilders.put(key, builder)
       }
       env.addEnvironmentVariable("tellurium.uiobject.builder", customBuilders)
+    }else{
+      env.addEnvironmentVariable("tellurium.uiobject.builder", null)
     }
 
     checkConfig("conf.tellurium.widget.module.included")

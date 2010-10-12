@@ -18,6 +18,7 @@ import org.telluriumsource.annotation.Provider
 @Provider
 class SeleniumConnector implements Configurable {
 
+  @Inject(name="tellurium.connector.port")
   protected int port = 4444
 
   protected final String HTTPS_BASE_URL = "https://localhost:8443"
@@ -31,16 +32,22 @@ class SeleniumConnector implements Configurable {
 
   protected CommandProcessor commandProcessor
 
+  @Inject(name="tellurium.connector.baseUrl")
   protected String baseURL = HTTP_BASE_URL
 
+  @Inject(name="tellurium.connector.browser")
   protected String browser = "*chrome"
 
+  @Inject(name="tellurium.connector.serverHost")
   protected seleniumServerHost = "localhost"
 
+  @Inject(name="tellurium.embeddedserver.userExtension")
   protected String userExtension = null
 
+  @Inject(name="tellurium.connector.customClass")
   protected def customClass = null
 
+  @Inject(name="tellurium.connector.options")
   protected String options = null
 
   @Inject
