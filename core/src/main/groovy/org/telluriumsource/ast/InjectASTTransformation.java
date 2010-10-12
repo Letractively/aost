@@ -118,6 +118,28 @@ public class InjectASTTransformation implements ASTTransformation, Opcodes {
         }
     }
 
+/*    private Statement getLazyAssignmentStatement(String methodName, FieldNode fieldNode) {
+        final Expression fieldExpr = new VariableExpression(fieldNode);
+        ClassNode clazz = fieldNode.getType();
+        return new ExpressionStatement(
+                new BinaryExpression(
+                        fieldExpr,
+                        ASSIGN,
+                        new CastExpression(
+                                clazz,
+
+                                new MethodPointerExpression(
+                                        new VariableExpression("this"),
+                                        new ConstantExpression(methodName)
+                                ),
+                                true
+                        )
+
+                )
+
+        );
+    }*/
+
     private Statement getLazyAssignmentStatement(String methodName, FieldNode fieldNode) {
         final Expression fieldExpr = new VariableExpression(fieldNode);
         ClassNode clazz = fieldNode.getType();
@@ -131,14 +153,8 @@ public class InjectASTTransformation implements ASTTransformation, Opcodes {
                                         new VariableExpression("this"),
                                         new ConstantExpression(methodName),
                                         new ArgumentListExpression()
-                                )
-/*
-                                new MethodPointerExpression(
-                                        new VariableExpression("this"),
-//                                        new ClassExpression(fieldNode.getDeclaringClass()),
-                                        new ConstantExpression(methodName)
-                                )
-*/
+                                ),
+                                true
                         )
 
                 )
