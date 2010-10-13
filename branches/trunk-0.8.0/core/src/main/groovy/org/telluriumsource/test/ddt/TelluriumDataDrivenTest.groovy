@@ -14,7 +14,6 @@ import org.telluriumsource.dsl.UiDslParser
 
 import org.telluriumsource.test.report.*
 import org.telluriumsource.test.groovy.BaseTelluriumGroovyTestCase
-//import org.telluriumsource.framework.Environment;
 import org.telluriumsource.crosscut.i18n.IResourceBundle
 import org.telluriumsource.framework.SessionManager
 
@@ -36,32 +35,11 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
     protected static final String COMPARE_RESULT = "compareResult"
     protected static final String RECORD_RESULT = "recordResult"
 
-/*    protected TypeHandlerRegistry thr
-
-    protected FieldSetRegistry fsr
-
-    protected DataProvider dataProvider
-
-    protected TestRegistry testreg
-
-    protected ResultListener listener
-
-    protected DefaultTelluriumDataDrivenModule dtddm*/
-    //= new DefaultTelluriumDataDrivenModule(thr, fsr, fs, testreg, dataprovider)
-
     protected UiDslParser ui
 
     protected FieldSetParser fs
 
     protected java.util.List<TelluriumDataDrivenModule> modules
-
-    //= dtddm.getUiDslParser()
-
-//    protected TelluriumFramework tellurium
-
-//    protected TelluriumDataDrivenModuleInterceptor interceptor = new TelluriumDataDrivenModuleInterceptor(this)
-
- //   def proxy = ProxyMetaClass.getInstance(DefaultTelluriumDataDrivenModule.class)
 
     //--------------------------------------------------------------------------------------------------------
     // Abstract method for child class to implement
@@ -123,20 +101,6 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
     }
   
     protected def init(){
-/*
-        tellurium = TelluriumSupport.addSupport()
-        //should put here, other the UI builder is not updated with customer settings in TelluriumConfig.groovy
-        thr  = new TypeHandlerRegistry()
-        fsr = new FieldSetRegistry()
-        dataProvider = new DataProvider(fsr, thr)
-        fs = new FieldSetParser(fsr)
-        testreg = new TestRegistry()
-        listener = new DefaultResultListener()
-        dtddm = new DefaultTelluriumDataDrivenModule(thr, fsr, fs, testreg, dataProvider)
-        ui = dtddm.getUiDslParser()
-        tellurium.start(customConfig)
-        this.conn = tellurium.getConnector()
-     */
         tellurium = TelluriumSupport.addSupport()
         modules = new ArrayList<TelluriumDataDrivenModule>()
         ui = SessionManager.getSession().getByClass(UiDslParser.class)

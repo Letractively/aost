@@ -31,16 +31,12 @@ public abstract class BaseTelluriumJavaTestCase {
 
     protected static TelluriumFramework tellurium;
 
-    public BaseTelluriumJavaTestCase() {
-//        i18nBundle = new ResourceBundle();
-    }
-
     public static void openUrl(String url) {
         connector.connectSeleniumServer();
         connector.connectUrl(url);
     }
 
-    public IResourceBundle geti18nBundle() {
+    public IResourceBundle getI18nResourceBundle() {
         return SessionManager.getSession().getI18nBundle();
     }
 
