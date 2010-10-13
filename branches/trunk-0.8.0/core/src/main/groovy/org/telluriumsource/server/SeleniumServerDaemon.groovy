@@ -2,9 +2,7 @@ package org.telluriumsource.server
 
 import org.openqa.selenium.server.RemoteControlConfiguration
 import org.openqa.selenium.server.SeleniumServer
-import org.telluriumsource.framework.Environment;
 import org.telluriumsource.crosscut.i18n.IResourceBundle
-import org.telluriumsource.framework.SessionManager
 import org.telluriumsource.annotation.Inject;
 
 

@@ -4,13 +4,11 @@ import org.telluriumsource.test.ddt.mapping.FieldSet
 import org.telluriumsource.test.ddt.mapping.Field
 import org.telluriumsource.test.ddt.mapping.DataMappingException
 import org.telluriumsource.crosscut.i18n.IResourceBundle;
-import org.telluriumsource.framework.Environment;
 
 
 import java.util.regex.Pattern
 import java.util.regex.Matcher
 import org.telluriumsource.framework.SessionManager
-import org.telluriumsource.annotation.Inject
 
 /**
  * Validate the field set reading from the file

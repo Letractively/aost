@@ -12,8 +12,6 @@ import org.telluriumsource.framework.Session
 import org.telluriumsource.exception.NoSessionFoundException
 import org.telluriumsource.framework.RuntimeEnvironment
 
-import org.telluriumsource.framework.ILookup
-
 class DslContext implements IDslContext {
 
   protected UiDslParser ui = this.&getUiParser();

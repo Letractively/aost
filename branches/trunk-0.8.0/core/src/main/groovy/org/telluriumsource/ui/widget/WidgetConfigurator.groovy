@@ -3,9 +3,7 @@ package org.telluriumsource.ui.widget
 import org.telluriumsource.ui.builder.UiObjectBuilderRegistry
 import org.telluriumsource.framework.config.Configurable
 import org.telluriumsource.ui.widget.WidgetBootstrap
-import org.telluriumsource.framework.Environment;
 import org.telluriumsource.crosscut.i18n.IResourceBundle
-import org.telluriumsource.framework.SessionManager
 import org.telluriumsource.annotation.Inject
 import org.telluriumsource.annotation.Provider;
 
@@ -22,32 +20,27 @@ import org.telluriumsource.annotation.Provider;
 @Provider
 class WidgetConfigurator implements Configurable{
 
-//	protected IResourceBundle i18nBundle
+    @Inject(name="i18nBundle", lazy=true)
+	private IResourceBundle i18nBundle
 
     @Inject
     private UiObjectBuilderRegistry registry
 
     protected final static String PACKAGE_DELIMITER = "."
     protected final static String WIDGET_MODULE_SEPARATOR = ","
-
-    public WidgetConfigurator(){
-
-	}
   
     public void configWidgetModule(String widgetModules){
         //first check if the string contains any widget module
         if(widgetModules != null && (widgetModules.trim().length() > 0)){
             String[] modules = widgetModules.trim().split(WIDGET_MODULE_SEPARATOR)
 
-//            UiObjectBuilderRegistry registry = new UiObjectBuilderRegistry()
             for(String module : modules){
                 String fullname = getWidgetBootstrapClassFullName(module)
                 if(fullname != null){
                     WidgetBootstrap bootstrap = (WidgetBootstrap) Class.forName(fullname).newInstance()
                     bootstrap.loadWidget(registry)
                 }else{
-//                    i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
-                    println SessionManager.getSession().getI18nBundle().getMessage("WidgetConfigurator.ModuleNotempty" , module )
+                    println i18nBundle.getMessage("WidgetConfigurator.ModuleNotempty" , module )
                 }
             }
         }

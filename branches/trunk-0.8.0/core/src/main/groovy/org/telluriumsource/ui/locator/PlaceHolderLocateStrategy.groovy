@@ -1,6 +1,5 @@
 package org.telluriumsource.ui.locator
 
-import org.telluriumsource.framework.Environment;
 import org.telluriumsource.crosscut.i18n.IResourceBundle
 import org.telluriumsource.framework.SessionManager;
 

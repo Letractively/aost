@@ -1,8 +1,6 @@
 package org.telluriumsource.ft;
 
-import com.thoughtworks.selenium.SeleniumException;
 import org.telluriumsource.exception.AssertionFailureException;
-import org.telluriumsource.framework.Environment;
 import org.telluriumsource.test.java.TelluriumMockJUnitTestCase;
 import org.telluriumsource.module.JettyLogonModule;
 import org.telluriumsource.entity.EngineState;

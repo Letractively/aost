@@ -53,7 +53,8 @@ public class BundleProcessor implements Configurable {
 
   private Map<String, UiModuleState> states = new HashMap<String, UiModuleState>();
 
-  private EngineStateTracer tracer = new EngineStateTracer();
+  @Inject
+  private EngineStateTracer tracer
 
   @Inject(name="i18nBundle", lazy=true)
   protected IResourceBundle i18nBundle

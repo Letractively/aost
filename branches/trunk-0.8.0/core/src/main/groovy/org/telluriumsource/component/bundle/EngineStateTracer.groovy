@@ -1,9 +1,9 @@
 package org.telluriumsource.component.bundle
 
 import org.telluriumsource.entity.EngineState
-import org.telluriumsource.framework.Environment
 import org.telluriumsource.framework.SessionManager
 import org.telluriumsource.framework.RuntimeEnvironment
+import org.telluriumsource.annotation.Provider
 
 /**
  * 
@@ -13,6 +13,7 @@ import org.telluriumsource.framework.RuntimeEnvironment
  * 
 **/
 
+@Provider
 public class EngineStateTracer {
   private int numStateUpdate = 0;
 

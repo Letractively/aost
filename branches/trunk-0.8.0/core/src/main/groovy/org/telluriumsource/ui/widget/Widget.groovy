@@ -3,7 +3,6 @@ package org.telluriumsource.ui.widget
 import org.telluriumsource.dsl.UiID
 import org.telluriumsource.dsl.WorkflowContext
 import org.telluriumsource.ui.object.UiObject
-import org.telluriumsource.framework.Environment;
 import org.telluriumsource.crosscut.i18n.IResourceBundle
 import org.telluriumsource.dsl.UiDslParser
 import org.telluriumsource.framework.SessionManager;
