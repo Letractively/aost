@@ -16,7 +16,7 @@ class ASTUtil {
 
   public static List<ASTNode> getProviderNodes(String name, Class clazz, String scope, boolean singleton){
     List<ASTNode> nodes = new AstBuilder().buildFromCode {
-//      TelluriumFramework.instance.registerBean(name, clazz, scope, singleton);
+      Injector.instance.addBean(name, clazz, clazz, scope, singleton, null);
     }
 
     return nodes;
