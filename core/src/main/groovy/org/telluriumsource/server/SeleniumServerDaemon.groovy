@@ -4,7 +4,8 @@ import org.openqa.selenium.server.RemoteControlConfiguration
 import org.openqa.selenium.server.SeleniumServer
 import org.telluriumsource.framework.Environment;
 import org.telluriumsource.crosscut.i18n.IResourceBundle
-import org.telluriumsource.framework.SessionManager;
+import org.telluriumsource.framework.SessionManager
+import org.telluriumsource.annotation.Inject;
 
 
 
@@ -23,6 +24,9 @@ public class SeleniumServerDaemon {
 
     private static final String DEFAULT_LOG_FILE = "selenium.log";
 
+    @Inject(name="i18nBundle", lazy=true)
+    private IResourceBundle i18nBundle
+
     private int port;
 
     private String logFile;
@@ -32,6 +36,7 @@ public class SeleniumServerDaemon {
     private boolean slowResources = false;
 
     private boolean trustAllSSLCertificates = false;
+
     private int timeoutInSeconds = 30;
 
     private boolean avoidProxy = false;
@@ -50,8 +55,6 @@ public class SeleniumServerDaemon {
 
     private String userExtension = null;
 
-//    protected IResourceBundle i18nBundle
-
     private String [] getParams(){
 		String cmd = "-port " + port + " -log " + logFile;
 
@@ -65,10 +68,10 @@ public class SeleniumServerDaemon {
     public SeleniumServerDaemon(int port, String logFile, boolean useMultiWindows, boolean trustAllSSLCertificates,
             boolean avoidProxy, boolean browserSessionReuse, boolean ensureCleanSession, boolean debugMode, boolean interactive,
             int timeoutInSeconds, String profileLocation, String userExtension) {
-  		super();
-  		this.port = port;
-  		this.logFile = logFile;
-  		this.useMultiWindows = useMultiWindows;
+  		  super();
+  		  this.port = port;
+  		  this.logFile = logFile;
+  		  this.useMultiWindows = useMultiWindows;
           this.trustAllSSLCertificates = trustAllSSLCertificates;
           this.avoidProxy = avoidProxy;
           this.browserSessionReuse = browserSessionReuse;
@@ -88,8 +91,8 @@ public class SeleniumServerDaemon {
           if(userExtension != null && userExtension.trim().length() > 0){
             this.userExtension = userExtension;
           }
-//        i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
   	}
+  
 	public final int getPort() {
 		return port;
 	}
@@ -124,19 +127,18 @@ public class SeleniumServerDaemon {
           config.setInteractive(this.interactive);
           config.setDebugMode(this.debugMode);
           config.setEnsureCleanSession(this.ensureCleanSession);
-
         }
 
         if(this.userExtension != null && this.userExtension.trim().length() > 0){
 		  File userExt = new File(this.userExtension);
 		  if(userExt.exists()){
             config.setUserExtensions(userExt);
-            println SessionManager.getSession().getI18nBundle().getMessage("SeleniumServerDaemon.UserExtensionFile" , this.userExtension)
+            println i18nBundle.getMessage("SeleniumServerDaemon.UserExtensionFile" , this.userExtension)
           } else {
-            println SessionManager.getSession().getI18nBundle().getMessage("SeleniumServerDaemon.NoUserExtension" , userExt.getAbsolutePath())
+            println i18nBundle.getMessage("SeleniumServerDaemon.NoUserExtension" , userExt.getAbsolutePath())
           }
         }else{
-          println SessionManager.getSession().getI18nBundle().getMessage("SeleniumServerDaemon.NoUserExtensionWarning")
+          println i18nBundle.getMessage("SeleniumServerDaemon.NoUserExtensionWarning")
         }
 		try {
             server = new SeleniumServer(config);
