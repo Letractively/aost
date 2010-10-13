@@ -22,7 +22,7 @@ import org.telluriumsource.framework.SessionManager
 abstract public class TelluriumGroovyTestNGTestCase {
   //custom configuration
   protected CustomConfig customConfig = null;
-//  protected IResourceBundle i18nBundle = this.&getI18nBundle;
+//  protected IResourceBundle i18nBundle = this.&getI18nResourceBundle;
 
   protected SeleniumConnector conn;
   protected TelluriumFramework tellurium
