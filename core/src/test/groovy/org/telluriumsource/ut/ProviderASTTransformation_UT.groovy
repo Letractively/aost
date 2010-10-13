@@ -165,11 +165,11 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
 
     assertNotNull session
 
-    ((DefaultBeanFactory)session.getBeanFactory()).initialize(Injector.instance.getRegistry())
-    Object obj = Injector.instance.getInstance(Dispatcher.class);
+//    ((DefaultBeanFactory)session.getBeanFactory()).initialize(Injector.instance.getRegistry())
+    Object obj = Injector.instance.getByClass(Dispatcher.class);
     assertNotNull obj
 
-    obj = Injector.instance.getInstanceByName("TelluriumApi");
+    obj = Injector.instance.getByName("TelluriumApi");
     assertNotNull obj
 
   }

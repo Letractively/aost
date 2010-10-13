@@ -24,7 +24,10 @@ class CustomSelenium extends DefaultSelenium {
     @Inject(name="i18nBundle", lazy=true)
     protected IResourceBundle i18nBundle;
 
+    @Inject(name="tellurium.connector.customClass")
     protected CustomCommand customClass = null
+
+    @Inject(name="tellurium.embeddedserver.userExtension")
     protected String userExtension = null
 
     CustomSelenium(){
