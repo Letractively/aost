@@ -17,26 +17,6 @@ public class RuntimeEnvironment implements Cloneable {
     
     private Map<String, Object> map = new HashMap<String, Object>();
 
-/*
-    private String serverHost = "localhost";
-
-    private int serverPort = 4444;
-
-    private String browser = null;
-
-    private String baseUrl = "https://localhost:8080";
-
-    private boolean useTrace = false;
-
-    private boolean useBundle = false;
-
-    private boolean useScreenshot = false;
-
-    private int maxMacroCmd = 5;
-
-    private String locale = "en_US";
-*/
-
     private boolean useNewEngine = false;
 
     private boolean useCssSelector = true;
@@ -44,8 +24,6 @@ public class RuntimeEnvironment implements Cloneable {
     private boolean useClosestMatch = false;
 
     private boolean useEngineLog = false;
-
-//    protected boolean useBugReport = false;
 
     private String lastUiModule = null;
 
@@ -82,7 +60,6 @@ public class RuntimeEnvironment implements Cloneable {
     }
 
     public void useLocale(String locale) {
-//        this.locale = locale;
         map.put("tellurium.i18n.locale", locale);
         if(this.resourceBundle != null){
             String[] split = locale.split("_");
@@ -92,12 +69,10 @@ public class RuntimeEnvironment implements Cloneable {
     }
 
     public int getServerPort() {
-//        return serverPort;
         return (Integer)map.get("tellurium.connector.port");
     }
 
     public void setServerPort(int serverPort) {
-//        this.serverPort = serverPort;
         map.put("tellurium.connector.port", serverPort);
     }
 
@@ -106,17 +81,14 @@ public class RuntimeEnvironment implements Cloneable {
     }
 
     public void setServerHost(String serverHost) {
-//        this.serverHost = serverHost;
         map.put("tellurium.connector.serverHost", serverHost);
     }
 
     public String getBrowser() {
-//        return browser;
         return (String) map.get("tellurium.connector.browser");
     }
 
     public void setBrowser(String browser) {
-//        this.browser = browser;
         map.put("tellurium.connector.browser", browser);
     }
 
@@ -145,32 +117,26 @@ public class RuntimeEnvironment implements Cloneable {
     }
 
     public boolean isUseTrace() {
-//        return useTrace;
         return (Boolean)map.get("tellurium.test.execution.trace");
     }
 
     public void setUseTrace(boolean useTrace) {
-//        this.useTrace = useTrace;
         map.put("tellurium.test.execution.trace", useTrace);
     }
 
     public boolean isUseBundle() {
-//        return useBundle;
         return (Boolean)map.get("tellurium.bundle.useMacroCommand");
     }
 
     public void setUseBundle(boolean useBundle) {
-//        this.useBundle = useBundle;
         map.put("tellurium.bundle.useMacroCommand", useBundle);
     }
 
     public boolean isUseScreenshot() {
-//        return useScreenshot;
         return (Boolean)map.get("tellurium.test.exception.captureScreenshot");
     }
 
     public void setUseScreenshot(boolean useScreenshot) {
-//        this.useScreenshot = useScreenshot;
         map.put("tellurium.test.exception.captureScreenshot", useScreenshot);
     }
 
@@ -180,17 +146,14 @@ public class RuntimeEnvironment implements Cloneable {
     }
 
     public void setMaxMacroCmd(int maxMacroCmd) {
-//        this.maxMacroCmd = maxMacroCmd;
         map.put("tellurium.bundle.maxMacroCmd", maxMacroCmd);
     }
 
     public String getLocale() {
         return (String) map.get("tellurium.i18n.locale");
-//        return locale;
     }
 
     public void setLocale(String locale) {
-//        this.locale = locale;
         map.put("tellurium.i18n.locale", locale);
     }
 
@@ -211,12 +174,10 @@ public class RuntimeEnvironment implements Cloneable {
     }
 
     public boolean isUseBugReport() {
-//        return useBugReport;
         return (Boolean)map.get("tellurium.test.exception.bugReport");
     }
 
     public void setUseBugReport(boolean useBugReport) {
-//        this.useBugReport = useBugReport;
         map.put("tellurium.test.exception.bugReport", useBugReport);
     }
 
