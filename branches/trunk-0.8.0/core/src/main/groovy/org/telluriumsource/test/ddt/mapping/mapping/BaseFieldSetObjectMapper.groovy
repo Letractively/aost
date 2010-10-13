@@ -33,12 +33,11 @@ abstract class BaseFieldSetObjectMapper implements FieldSetObjectMapper{
     @Inject
     protected FieldSetRegistry registry
 
+    @Inject(name="tellurium.datadriven.dataprovider.reader")
     protected DataReader reader
 
+    @Inject
     protected ObjectUnmarshaller marshaller
-
-    public BaseFieldSetObjectMapper(){
-    }
   
     protected boolean isEnd(List fieldData){
          //end of file

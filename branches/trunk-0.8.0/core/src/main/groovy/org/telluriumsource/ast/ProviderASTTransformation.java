@@ -42,14 +42,6 @@ public class ProviderASTTransformation implements ASTTransformation, Opcodes {
             return;
 
         ClassNode concrete = clazzNode;
-        
-        String name;
-        final Expression nameExpr = node.getMember("name");
-        if(nameExpr != null && nameExpr instanceof ConstantExpression){
-            name = (String) ((ConstantExpression)nameExpr).getValue();
-        }else{
-            name = clazzNode.getName();
-        }
 
         ClassNode clazz;
         final Expression clazzExpr = node.getMember("type");
@@ -57,6 +49,14 @@ public class ProviderASTTransformation implements ASTTransformation, Opcodes {
             clazz = clazzExpr.getType();
         }else{
             clazz = clazzNode;
+        }
+
+        String name;
+        final Expression nameExpr = node.getMember("name");
+        if(nameExpr != null && nameExpr instanceof ConstantExpression){
+            name = (String) ((ConstantExpression)nameExpr).getValue();
+        }else{
+            name = clazz.getName();
         }
 
         String scope = "Session";

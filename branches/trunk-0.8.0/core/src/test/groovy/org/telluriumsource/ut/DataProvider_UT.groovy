@@ -1,7 +1,6 @@
 package org.telluriumsource.ut
 
 import org.telluriumsource.framework.config.TelluriumConfigurator;
-import org.telluriumsource.framework.config.TelluriumConfiguratorMetaClass;
 import org.telluriumsource.test.ddt.DataProvider
 import org.telluriumsource.test.ddt.mapping.FieldSetParser
 import org.telluriumsource.test.ddt.mapping.FieldSetRegistry
@@ -24,22 +23,20 @@ class DataProvider_UT extends GroovyTestCase{
     protected TypeHandlerRegistry thr  = new TypeHandlerRegistry()
     protected FieldSetRegistry fsr = new FieldSetRegistry()
 
-    protected DataProvider dataProvider = new DataProvider(fsr, thr)
+    protected DataProvider dataProvider
 
-    protected FieldSetParser fs = new FieldSetParser(fsr)
+    protected FieldSetParser fs
 
     public void setUp(){
         SessionManager.setSession(MockSessionFactory.getNewSession());
+        dataProvider = new DataProvider(fsr, thr)
+        fs = new FieldSetParser(fsr)
         TypeHandlerRegistryConfigurator.addCustomTypeHandler(thr, "phoneNumber", "org.telluriumsource.ut.PhoneNumberTypeHandler")
-
         fs.FieldSet(name: "fs4googlesearch", description: "example field set for google search"){
             Field(name: "regularSearch", type: "boolean", description: "whether we should use regular search or use I'm feeling lucky")
             Field(name: "phoneNumber", type: "phoneNumber", description: "Phone number")
             Field(name: "input", description: "input variable")
         }
-
-        def registry = GroovySystem.metaClassRegistry
-        registry.setMetaClass(TelluriumConfigurator, new TelluriumConfiguratorMetaClass())
     }
 
     public void testFetchData(){

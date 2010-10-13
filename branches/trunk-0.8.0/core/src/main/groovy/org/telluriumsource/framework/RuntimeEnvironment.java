@@ -141,7 +141,6 @@ public class RuntimeEnvironment implements Cloneable {
     }
 
     public int getMaxMacroCmd() {
-//        return maxMacroCmd;
         return (Integer)map.get("tellurium.bundle.maxMacroCmd");
     }
 
