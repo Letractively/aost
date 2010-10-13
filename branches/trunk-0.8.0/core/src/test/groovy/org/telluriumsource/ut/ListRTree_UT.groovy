@@ -5,6 +5,8 @@ import org.telluriumsource.ui.object.TextBox
 import org.telluriumsource.ui.object.UiObject
 import org.telluriumsource.ui.routing.RTree
 import org.telluriumsource.exception.InvalidIndexException
+import org.telluriumsource.framework.SessionManager
+import org.telluriumsource.mock.MockSessionFactory
 
 /**
  * 
@@ -15,6 +17,10 @@ import org.telluriumsource.exception.InvalidIndexException
  */
 class ListRTree_UT extends GroovyTestCase {
 
+  public void setUp(){
+    SessionManager.setSession(MockSessionFactory.getNewSession());
+  }
+  
   public void testFullTree(){
     RTree tree = new RTree();
     tree.preBuild();

@@ -10,6 +10,7 @@ import org.telluriumsource.test.ddt.mapping.type.TypeHandlerRegistryConfigurator
 import org.telluriumsource.mock.MockSessionFactory
 import org.telluriumsource.framework.SessionManager
 import org.telluriumsource.crosscut.i18n.IResourceBundle
+import org.telluriumsource.framework.TelluriumFramework
 
 /**
  *
@@ -28,7 +29,8 @@ class DataProvider_UT extends GroovyTestCase{
     protected FieldSetParser fs
 
     public void setUp(){
-        SessionManager.setSession(MockSessionFactory.getNewSession());
+//        SessionManager.setSession(MockSessionFactory.getNewSession());
+        TelluriumFramework.instance.start()
         dataProvider = new DataProvider(fsr, thr)
         fs = new FieldSetParser(fsr)
         TypeHandlerRegistryConfigurator.addCustomTypeHandler(thr, "phoneNumber", "org.telluriumsource.ut.PhoneNumberTypeHandler")
