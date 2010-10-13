@@ -14,9 +14,6 @@ import org.testng.annotations.BeforeTest;
  */
 public abstract class TelluriumTestNGTestCase extends BaseTelluriumJavaTestCase {
 
-//    protected static TelluriumFramework tellurium;
-
-//    @BeforeClass
     @BeforeTest(alwaysRun = true)
     public static void setUpForTest() {
         if(tellurium == null){
@@ -27,7 +24,6 @@ public abstract class TelluriumTestNGTestCase extends BaseTelluriumJavaTestCase 
         }
     }
 
-//    @AfterClass
     @AfterTest(alwaysRun = true)
     public static void tearDownForTest() {
         if(tellurium != null){

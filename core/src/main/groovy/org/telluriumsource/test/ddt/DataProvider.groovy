@@ -41,7 +41,7 @@ class DataProvider extends DataFieldSetObjectMapper implements Configurable{
     public void useString(String data){
         //get the singleton configurator
 //        TelluriumConfigurator configurator = new TelluriumConfigurator()
-//        configurator.i18nBundle = SessionManager.getSession().getI18nResourceBundle()
+//        configurator.i18nBundle = SessionManager.getSession().getI18nBundle()
         //configure the reader
 //        configurator.config(this)
         this.readData(data)

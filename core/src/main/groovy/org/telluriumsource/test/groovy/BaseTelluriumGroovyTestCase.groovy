@@ -29,11 +29,11 @@ abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
 
     public abstract SeleniumConnector getConnector()
 
-	public IResourceBundle geti18nBundle()
+	public IResourceBundle getI18nResourceBundle()
 	{
-//		return this.i18nBundle;
        return SessionManager.getSession().getI18nBundle();
 	}
+
     public void openUrl(String url){
         getConnector().connectSeleniumServer()
         getConnector().connectUrl(url)

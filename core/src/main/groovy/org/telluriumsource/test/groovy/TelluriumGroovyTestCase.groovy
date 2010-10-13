@@ -11,9 +11,6 @@ import org.telluriumsource.component.connector.SeleniumConnector
  */
 abstract class TelluriumGroovyTestCase extends BaseTelluriumGroovyTestCase{
 
-//    protected EmbeddedSeleniumServer server;
-//	 protected SeleniumConnector conn;
-
     public SeleniumConnector getConnector() {
         return conn;
     }
