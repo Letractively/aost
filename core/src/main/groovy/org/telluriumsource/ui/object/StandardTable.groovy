@@ -982,7 +982,7 @@ class StandardTable extends Container{
   int getTableMaxColumnNumByXPath(Closure c) {
 
         String rl = c(this.locator)
-        Accessor accessor = SessionManager.getSession().lookup.lookById("accessor")
+        Accessor accessor = SessionManager.getSession().getByClass(Accessor.class)
 
         int index = 1
         if(hasHeader() && this.headTag.equals(this.bodyTag)){
@@ -1003,7 +1003,7 @@ class StandardTable extends Container{
     int getTableMaxColumnNumForTbodyByXPath(int ntbody, Closure c) {
 
         String rl = c(this.locator)
-        Accessor accessor = SessionManager.getSession().lookup.lookById("accessor")
+        Accessor accessor = SessionManager.getSession().getByClass(Accessor.class)
 
         int index = ntbody
         if(hasHeader() && this.headTag.equals(this.bodyTag)){
@@ -1019,7 +1019,7 @@ class StandardTable extends Container{
 
     int getTableMaxTbodyNumByXPath(Closure c){
         String rl = c(this.locator)
-        Accessor accessor = SessionManager.getSession().lookup.lookById("accessor")
+        Accessor accessor = SessionManager.getSession().getByClass(Accessor.class)
         String xpath = rl + "/${this.bodyTag}"
 
         int tbodynum = accessor.getXpathCount(WorkflowContext.getDefaultContext(), xpath)

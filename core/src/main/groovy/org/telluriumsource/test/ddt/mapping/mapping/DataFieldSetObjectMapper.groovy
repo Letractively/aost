@@ -22,13 +22,17 @@ class DataFieldSetObjectMapper extends BaseFieldSetObjectMapper{
 
     private BufferedReader br = null;
     private FileInputStream fis= null;
+
+    public DataFieldSetObjectMapper(){
+
+    }
     
     public DataFieldSetObjectMapper(FieldSetRegistry fsr, TypeHandlerRegistry thr){
 //        reader = new PipeDataReader()
 //        this.reader = reader
 //        marshaller = new DefaultObjectUnmarshaller()
         //configure the default type handlers and put them into the registry
-        TypeHandlerRegistryConfigurator.configure(thr)
+//        TypeHandlerRegistryConfigurator.configure(thr)
         marshaller.setTypeHandlerRegistry(thr)
         this.registry = fsr
     }

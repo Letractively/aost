@@ -39,6 +39,7 @@ abstract class DdDslContext extends DslContext{
 
 //    protected ResultListener listener = new DefaultResultListener()
 
+
     public TypeHandlerRegistry getTypeHandlerRegistry(){
       return SessionManager.getSession().getByClass(TypeHandlerRegistry.class);
     }

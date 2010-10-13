@@ -46,8 +46,7 @@ abstract class BaseDslContext implements IDslContext {
       }
       xml; """
 
-//  @Inject(name="i18nBundle", lazy=true)
-  @Inject(name="i18nBundle")
+  @Inject(name="i18nBundle", lazy=true)
   protected IResourceBundle i18nBundle;
 
   @Inject
@@ -73,7 +72,7 @@ abstract class BaseDslContext implements IDslContext {
 
   abstract UiObject walkToWithException(WorkflowContext context, String uid);
 
-  protected geti18nBundle() {
+  protected getI18nBundle() {
     return this.i18nBundle;
   }
 
@@ -539,7 +538,6 @@ abstract class BaseDslContext implements IDslContext {
     println "\nPlease cut and paste the following bug report to Tellurium user group (http://groups.google.com/group/tellurium-users)\n"
     println "---------------------------- Bug Report --------------------------------"
 
-//      Environment env = env;
     if (env.lastUiModule != null) {
       println "\n-----------------------------------"
       println "UI Module " + env.lastUiModule + ": \n";

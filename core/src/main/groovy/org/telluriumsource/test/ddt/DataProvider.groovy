@@ -22,7 +22,11 @@ import org.telluriumsource.annotation.Provider
 class DataProvider extends DataFieldSetObjectMapper implements Configurable{
     
     protected VariableBinder binder = new VariableBinder()
-    
+
+    public DataProvider(){
+
+    }
+  
     public DataProvider(FieldSetRegistry fsr, TypeHandlerRegistry thr){
        super(fsr, thr)
      }
