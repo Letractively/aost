@@ -155,7 +155,7 @@ public class TelluriumFramework {
   public void startSeleniumServer() {
     server = new EmbeddedSeleniumServer()
 
-    telluriumConfigurator.config(server)
+//    telluriumConfigurator.config(server)
 
     server.runSeleniumServer()
   }
@@ -168,7 +168,7 @@ public class TelluriumFramework {
 
       server = new EmbeddedSeleniumServer()
 
-      telluriumConfigurator.config(server)
+//      telluriumConfigurator.config(server)
 
       //overwrite the embedded server settings with these provided by custom configuration
       server.setProperty("runSeleniumServerInternally", customConfig.isRunInternally())

@@ -34,7 +34,7 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
     String key = name.substring(5)
     def obj = this.props.get(key)
     if(obj == null){
-       throw new ConfigNotFoundException(i18nBundle.getMessage("TelluriumConfigurator.ConfigNotFound.default" ,  key, "http://code.google.com/p/aost/wiki/TelluriumConfig070", "Tellurium user group at http://groups.google.com/group/tellurium-users" ))
+       throw new ConfigNotFoundException(i18nBundle.getMessage("TelluriumConfigurator.ConfigNotFound.default" ,  key, "http://code.google.com/p/aost/wiki/WhatsNewInTellurium080", "Tellurium user group at http://groups.google.com/group/tellurium-users" ))
     }
   }
 
