@@ -27,9 +27,17 @@ public class RuntimeEnvironment implements Cloneable {
 
     private String lastUiModule = null;
 
-    protected String lastErrorDescription = "";
+    private String lastErrorDescription = "";
 
     private IResourceBundle resourceBundle = null;
+
+    public String getLastErrorDescription() {
+        return lastErrorDescription;
+    }
+
+    public void setLastErrorDescription(String lastErrorDescription) {
+        this.lastErrorDescription = lastErrorDescription;
+    }
 
     public void addEnvironmentVariable(String key, Object val){
         this.map.put(key, val);
@@ -219,8 +227,7 @@ public class RuntimeEnvironment implements Cloneable {
         return sb.toString();
     }
 
-    public RuntimeEnvironment clone(){
-
+    public RuntimeEnvironment clone() {
         RuntimeEnvironment newEnv = new RuntimeEnvironment();
         newEnv.setUseCssSelector(useCssSelector);
         newEnv.setUseNewEngine(useNewEngine);

@@ -36,7 +36,7 @@ public abstract class BaseTelluriumJavaTestCase {
         connector.connectUrl(url);
     }
 
-    public IResourceBundle getI18nResourceBundle() {
+    public static IResourceBundle getI18nResourceBundle() {
         return SessionManager.getSession().getI18nBundle();
     }
 

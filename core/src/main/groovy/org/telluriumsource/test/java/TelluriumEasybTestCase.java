@@ -1,9 +1,7 @@
 package org.telluriumsource.test.java;
 
 import org.telluriumsource.component.connector.SeleniumConnector;
-import org.telluriumsource.framework.TelluriumFramework;
 import org.telluriumsource.framework.bootstrap.TelluriumSupport;
-import org.testng.annotations.AfterTest;
 
 /**
  * Created by IntelliJ IDEA.
