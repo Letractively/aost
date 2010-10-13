@@ -141,7 +141,7 @@ class Table extends Container {
         components.put(metaData.getId(), component);
         this.rGraph.insert(component);
      } else {
-        throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidUID" , component.uid))
+        throw new InvalidUidException(getI18nBundle.getMessage("Container.InvalidUID" , component.uid))
     }
   }
 
@@ -381,7 +381,7 @@ class Table extends Container {
       return this.getIndexedHeaderSelector(Integer.parseInt(key));
     } else {
       //TODO: rename Container.InvalidID to UiObject.InvalidID
-      throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID", key));
+      throw new InvalidUidException(getI18nBundle.getMessage("Container.InvalidID", key));
     }
   }
 
@@ -478,7 +478,7 @@ class Table extends Container {
       }
     }
 
-    Accessor accessor = SessionManager.getSession().lookup.lookById("accessor");
+    Accessor accessor = SessionManager.getSession().getByClass(Accessor.class);
 
     return accessor.getIndex(ctx, lst);
   }
@@ -800,7 +800,7 @@ class Table extends Container {
   int getTableHeaderColumnNumByXPath(Closure c) {
 
     String rl = c(this.locator)
-    Accessor accessor = SessionManager.getSession().lookup.lookById("accessor")
+    Accessor accessor = SessionManager.getSession().getByClass(Accessor.class)
 
     String xpath;
     if(this.hasNamespace()){
@@ -820,7 +820,7 @@ class Table extends Container {
   int getTableMaxRowNumByXPath(Closure c) {
 
     String rl = c(this.locator)
-    Accessor accessor = SessionManager.getSession().lookup.lookById("accessor")
+    Accessor accessor = SessionManager.getSession().getByClass(Accessor.class)
     String xpath;
     if(this.hasNamespace()){
        xpath = rl + "/${this.namespace}:tbody/${this.namespace}:tr[child::${this.namespace}:td]/${this.namespace}:td[1]"
@@ -836,7 +836,7 @@ class Table extends Container {
   int getTableMaxColumnNumByXPath(Closure c) {
 
     String rl = c(this.locator)
-    Accessor accessor = SessionManager.getSession().lookup.lookById("accessor")
+    Accessor accessor = SessionManager.getSession().getByClass(Accessor.class)
     String xpath = rl
     if(this.hasNamespace()){
       xpath = xpath + "/${this.namespace}:tbody/${this.namespace}:tr[child::${this.namespace}:td][1]/${this.namespace}:td"
