@@ -129,13 +129,6 @@ public class InjectASTTransformation implements ASTTransformation, Opcodes {
 
         addMethod(methodName, fieldNode, body, classNode);
 
-/*        fieldNode.setInitialValueExpression(
-                new MethodPointerExpression(
-                    new VariableExpression("this"),
-                    new ConstantExpression(methodName)
-                )
-        );*/
-
         addLazyMethodToConstructor(fieldNode, methodName);
 
     }
@@ -161,28 +154,6 @@ public class InjectASTTransformation implements ASTTransformation, Opcodes {
             existingStatements.add(stm);
         }
     }
-
-/*    private Statement getLazyAssignmentStatement(String methodName, FieldNode fieldNode) {
-        final Expression fieldExpr = new VariableExpression(fieldNode);
-        ClassNode clazz = fieldNode.getType();
-        return new ExpressionStatement(
-                new BinaryExpression(
-                        fieldExpr,
-                        ASSIGN,
-                        new CastExpression(
-                                clazz,
-
-                                new MethodPointerExpression(
-                                        new VariableExpression("this"),
-                                        new ConstantExpression(methodName)
-                                ),
-                                true
-                        )
-
-                )
-
-        );
-    }*/
 
     private Statement getLazyAssignmentStatement(String methodName, FieldNode fieldNode) {
         final Expression fieldExpr = new VariableExpression(fieldNode);
