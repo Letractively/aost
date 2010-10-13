@@ -8,7 +8,6 @@ import org.json.simple.JSONObject
 import org.json.simple.JSONArray
 import org.telluriumsource.udl.MetaData
 import org.telluriumsource.crosscut.i18n.IResourceBundle
-import org.telluriumsource.framework.Environment
 import org.telluriumsource.framework.SessionManager
 
 /**

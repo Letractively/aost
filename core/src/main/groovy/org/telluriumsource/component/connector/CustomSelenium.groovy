@@ -1,7 +1,6 @@
 package org.telluriumsource.component.connector
 
 import org.telluriumsource.exception.*
-import org.telluriumsource.framework.Environment;
 import org.telluriumsource.util.grid.GridSupport
 import org.telluriumsource.crosscut.i18n.IResourceBundle
 import org.telluriumsource.entity.UiModuleValidationRequest

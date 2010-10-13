@@ -3,8 +3,6 @@ package org.telluriumsource.ui.locator
 import org.telluriumsource.dsl.WorkflowContext
 import org.telluriumsource.exception.InvalidLocatorException
 import org.telluriumsource.crosscut.i18n.IResourceBundle;
-import org.telluriumsource.framework.Environment
-import org.telluriumsource.framework.SessionManager
 import org.telluriumsource.annotation.Inject
 import org.telluriumsource.annotation.Provider;
 
@@ -59,7 +57,6 @@ class LocatorProcessor{
 
         }
       
-//        IResourceBundle i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
         throw new InvalidLocatorException(i18nBundle.getMessage("LocatorProcessor.CannnotHandleLocator" , locator.getClass()))
     }
 }

@@ -2,7 +2,6 @@ package org.telluriumsource.entity
 
 import org.telluriumsource.entity.RelaxDetail
 import org.telluriumsource.crosscut.i18n.IResourceBundle
-import org.telluriumsource.framework.Environment
 import org.telluriumsource.ui.locator.CompositeLocator
 import org.json.simple.JSONObject
 import org.json.simple.JSONArray

@@ -3,9 +3,7 @@ package org.telluriumsource.test.ddt.mapping.mapping
 import org.telluriumsource.test.ddt.mapping.type.TypeHandlerRegistry
 import org.telluriumsource.test.ddt.mapping.type.TypeHandler
 import org.telluriumsource.test.ddt.mapping.DataMappingException
-import org.telluriumsource.framework.Environment
 import org.telluriumsource.crosscut.i18n.IResourceBundle
-import org.telluriumsource.framework.SessionManager
 import org.telluriumsource.annotation.Inject
 import org.telluriumsource.annotation.Provider
 

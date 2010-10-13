@@ -1,13 +1,11 @@
 package org.telluriumsource.test.groovy
 
 import org.telluriumsource.framework.config.CustomConfig
-import org.telluriumsource.framework.Environment;
 import org.telluriumsource.crosscut.i18n.IResourceBundle;
 import org.telluriumsource.component.connector.SeleniumConnector
 import org.telluriumsource.framework.TelluriumFramework
 import org.telluriumsource.entity.CachePolicy
 import org.telluriumsource.util.Helper
-import org.telluriumsource.util.LogLevels
 import org.telluriumsource.entity.EngineState
 import org.telluriumsource.framework.SessionManager
 import org.telluriumsource.dsl.TelluriumApi

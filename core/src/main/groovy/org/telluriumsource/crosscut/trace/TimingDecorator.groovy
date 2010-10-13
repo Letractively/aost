@@ -1,5 +1,4 @@
 package org.telluriumsource.crosscut.trace
-import org.telluriumsource.framework.Environment;
 import org.telluriumsource.crosscut.i18n.IResourceBundle
 import org.telluriumsource.crosscut.log.ConsoleAppender
 import org.telluriumsource.crosscut.log.SimpleLogger

@@ -4,7 +4,6 @@ import org.telluriumsource.ui.object.UiObject
 import org.telluriumsource.ui.object.TextBox
 import org.telluriumsource.udl.ListMetaData
 import org.telluriumsource.exception.InvalidIndexException
-import org.telluriumsource.framework.Environment
 import org.telluriumsource.crosscut.i18n.IResourceBundle
 import org.telluriumsource.framework.SessionManager
 import org.telluriumsource.annotation.Inject

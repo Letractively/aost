@@ -9,8 +9,6 @@ import org.telluriumsource.test.ddt.mapping.DataMappingException
 import org.telluriumsource.test.ddt.mapping.validator.FieldSetValidator
 import org.telluriumsource.test.ddt.mapping.FieldSetType
 import org.telluriumsource.crosscut.i18n.IResourceBundle
-import org.telluriumsource.framework.Environment
-import org.telluriumsource.framework.SessionManager
 import org.telluriumsource.annotation.Inject
 
 /**
