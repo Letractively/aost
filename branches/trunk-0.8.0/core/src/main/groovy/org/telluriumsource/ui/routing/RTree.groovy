@@ -148,7 +148,6 @@ class RTree {
     }else if("all".equalsIgnoreCase(key)){
       return EMPTY_PATH;  
     }else{
-//      IResourceBundle i18nBundle = SessionManager.getSession().getI18nBundle();
       throw new InvalidIndexException(i18nBundle.getMessage("UIObject.InvalidIndex", key));
     }
   }

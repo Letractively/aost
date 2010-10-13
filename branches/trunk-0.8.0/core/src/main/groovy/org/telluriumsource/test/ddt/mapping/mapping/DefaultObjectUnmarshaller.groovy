@@ -32,7 +32,6 @@ class DefaultObjectUnmarshaller implements ObjectUnmarshaller{
         TypeHandler handler = registry.getTypeHandler(type)
         if(handler == null)
           throw new DataMappingException(i18nBundle.getMessage("ObjectUnmarshaller.UnsupportedFieldType"))
-//            throw new DataMappingException(SessionManager.getSession().getI18nBundle().getMessage("ObjectUnmarshaller.UnsupportedFieldType"))
 
         return handler.valueOf(data)
     }

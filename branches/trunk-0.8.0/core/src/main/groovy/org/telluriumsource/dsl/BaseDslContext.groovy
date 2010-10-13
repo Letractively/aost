@@ -72,7 +72,7 @@ abstract class BaseDslContext implements IDslContext {
 
   abstract UiObject walkToWithException(WorkflowContext context, String uid);
 
-  protected getI18nBundle() {
+  protected getI18nResourceBundle() {
     return this.i18nBundle;
   }
 

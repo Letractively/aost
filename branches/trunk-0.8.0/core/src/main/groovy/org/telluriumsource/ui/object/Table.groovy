@@ -141,7 +141,7 @@ class Table extends Container {
         components.put(metaData.getId(), component);
         this.rGraph.insert(component);
      } else {
-        throw new InvalidUidException(getI18nBundle.getMessage("Container.InvalidUID" , component.uid))
+        throw new InvalidUidException(SessionManager.getSession().getI18nBundle().getMessage("Container.InvalidUID" , component.uid))
     }
   }
 
@@ -381,7 +381,7 @@ class Table extends Container {
       return this.getIndexedHeaderSelector(Integer.parseInt(key));
     } else {
       //TODO: rename Container.InvalidID to UiObject.InvalidID
-      throw new InvalidUidException(getI18nBundle.getMessage("Container.InvalidID", key));
+      throw new InvalidUidException(SessionManager.getSession().getI18nBundle().getMessage("Container.InvalidID", key));
     }
   }
 
