@@ -15,7 +15,6 @@ import org.objectweb.asm.Opcodes;
 import org.telluriumsource.annotation.Provider;
 import org.telluriumsource.framework.dj.Injector;
 import org.telluriumsource.framework.TelluriumFramework;
-import org.telluriumsource.framework.dj.Scope;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)

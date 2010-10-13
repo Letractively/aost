@@ -3,7 +3,6 @@ package org.telluriumsource.framework.dj;
 import org.telluriumsource.exception.BeanNotFoundException;
 import org.telluriumsource.exception.InstanceCreationException;
 import org.telluriumsource.framework.Session;
-import org.telluriumsource.framework.SessionManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;

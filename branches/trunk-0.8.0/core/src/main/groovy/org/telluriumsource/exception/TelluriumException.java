@@ -10,7 +10,6 @@ package org.telluriumsource.exception;
  */
 
 public class TelluriumException extends RuntimeException {
-//  protected static final String SEPARATOR = " ";
 
     protected String errorCode;
 

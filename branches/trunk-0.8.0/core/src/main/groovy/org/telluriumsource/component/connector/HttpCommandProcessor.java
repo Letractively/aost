@@ -143,7 +143,7 @@ class HttpCommandProcessor implements CommandProcessor {
               uc.setRequestProperty("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");
               uc.setInstanceFollowRedirects(false);
               uc.setDoOutput(true);
-              wr = getOutputStreamWriter(uc);;
+              wr = getOutputStreamWriter(uc);
               wr.write(body);
               wr.flush();
               responsecode = getResponseCode(uc);
