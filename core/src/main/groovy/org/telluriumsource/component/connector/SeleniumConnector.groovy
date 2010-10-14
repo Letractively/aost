@@ -3,8 +3,11 @@ package org.telluriumsource.component.connector
 import org.telluriumsource.component.client.SeleniumClient
 import org.telluriumsource.framework.config.Configurable
 
-import com.thoughtworks.selenium.CommandProcessor
+//import com.thoughtworks.selenium.CommandProcessor
 import org.telluriumsource.component.bundle.BundleProcessor
+import org.telluriumsource.framework.SessionManager
+import org.telluriumsource.annotation.Inject
+import org.telluriumsource.annotation.Provider
 
 /**
  * The connector that ties the Selenium server and Selenium Client together
@@ -12,31 +15,43 @@ import org.telluriumsource.component.bundle.BundleProcessor
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  * 
  */
+@Provider
 class SeleniumConnector implements Configurable {
 
+  @Inject(name="tellurium.connector.port")
   protected int port = 4444
 
   protected final String HTTPS_BASE_URL = "https://localhost:8443"
 
   protected final String HTTP_BASE_URL = "http://localhost:8080"
 
+  @Inject(name="customSelenium")
   protected CustomSelenium sel
 
-  protected CustomSelenium customSelenium
+//  protected CustomSelenium customSelenium
 
   protected CommandProcessor commandProcessor
 
+  @Inject(name="tellurium.connector.baseUrl")
   protected String baseURL = HTTP_BASE_URL
 
+  @Inject(name="tellurium.connector.browser")
   protected String browser = "*chrome"
 
+  @Inject(name="tellurium.connector.serverHost")
   protected seleniumServerHost = "localhost"
 
+  @Inject(name="tellurium.embeddedserver.userExtension")
   protected String userExtension = null
 
+  @Inject(name="tellurium.connector.customClass")
   protected def customClass = null
 
+  @Inject(name="tellurium.connector.options")
   protected String options = null
+
+  @Inject
+  private BundleProcessor processor
 
   public CustomSelenium getSelenium() {
     return sel;
@@ -46,7 +61,6 @@ class SeleniumConnector implements Configurable {
     sel.open(baseURL + url);
 //        sel.cleanCache();
     //connect up cache
-    BundleProcessor processor = BundleProcessor.instance;
     processor.cleanAllCache();
   }
 
@@ -54,9 +68,7 @@ class SeleniumConnector implements Configurable {
     sel.open(url);
 //        sel.cleanCache();
     //connect up cache
-    BundleProcessor processor = BundleProcessor.instance;
     processor.cleanAllCache();
-
   }
 
   public void configBrowser(String serverHost, int serverPort, String baseUrl, String browser, String browserOptions) {
@@ -71,8 +83,26 @@ class SeleniumConnector implements Configurable {
     if (browserOptions != null)
       this.options = browserOptions;
   }
+  
+   public void connectSeleniumServer() {
 
-  public synchronized void connectSeleniumServer() {
+//        sel = new CustomSelenium(seleniumServerHost, port, browser, baseURL)
+        sel.init(seleniumServerHost, port, browser, baseURL);
+
+        sel.start()
+
+        SeleniumClient sc = new SeleniumClient()
+        sc.client = sel
+
+    }
+
+	public void disconnectSeleniumServer() {
+
+		if(sel != null)
+			sel.stop();
+	}
+
+ /* public synchronized void connectSeleniumServer() {
 
     //The selenium server startup logic is moved to EmbeddedSeleniumServer so that we can
     //decouple the selenium client and the selenium server.
@@ -118,5 +148,5 @@ class SeleniumConnector implements Configurable {
     SeleniumClient sc = new SeleniumClient()
     sc.client = customSelenium;
   }
-
+*/
 }

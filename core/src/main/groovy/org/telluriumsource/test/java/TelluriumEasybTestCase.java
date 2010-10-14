@@ -1,9 +1,7 @@
 package org.telluriumsource.test.java;
 
 import org.telluriumsource.component.connector.SeleniumConnector;
-import org.telluriumsource.framework.TelluriumFramework;
 import org.telluriumsource.framework.bootstrap.TelluriumSupport;
-import org.testng.annotations.AfterTest;
 
 /**
  * Created by IntelliJ IDEA.
@@ -17,14 +15,18 @@ public class TelluriumEasybTestCase extends BaseTelluriumJavaTestCase {
     public void start() {
         if(tellurium == null){
             tellurium = TelluriumSupport.addSupport();
-            tellurium.start(customConfig);
-            connector = (SeleniumConnector) tellurium.getConnector();
+            tellurium.startServer(customConfig);
+            tellurium.connectServer();
+            connector = (SeleniumConnector) getCurrentConnector();
         }
     }
 
     public void stop() {
-        if(tellurium != null)
-            tellurium.stop();
+        if(tellurium != null){
+            tellurium.disconnectServer();
+            tellurium.stopServer();
+        }
+
     }
    
 }

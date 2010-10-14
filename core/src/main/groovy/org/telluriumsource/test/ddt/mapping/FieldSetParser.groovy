@@ -4,6 +4,8 @@ import org.telluriumsource.test.ddt.mapping.builder.FieldBuilder
 import org.telluriumsource.test.ddt.mapping.builder.FieldSetBuilder
 import org.telluriumsource.test.ddt.mapping.builder.IdentifierFieldBuilder
 import org.telluriumsource.test.ddt.mapping.builder.TestFieldBuilder
+import org.telluriumsource.annotation.Provider
+import org.telluriumsource.annotation.Inject
 
 /**
  * parse the Field Set definition
@@ -13,13 +15,19 @@ import org.telluriumsource.test.ddt.mapping.builder.TestFieldBuilder
  * Date: Jul 24, 2008
  *
  */
+@Provider
 class FieldSetParser extends BuilderSupport{
     protected final static String FIELD_SET = "FieldSet"
     protected final static String FIELD = "Field"
     protected final static String IDENTIFIER = "Identifier"
     protected final static String TEST = "Test"
 
+    @Inject
     private FieldSetRegistry registry
+
+    public FieldSetParser(){
+
+    }
 
     public FieldSetParser(FieldSetRegistry registry){
         this.registry = registry

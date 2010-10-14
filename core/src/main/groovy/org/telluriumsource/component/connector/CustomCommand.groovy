@@ -1,6 +1,5 @@
 package org.telluriumsource.component.connector
 
-import com.thoughtworks.selenium.CommandProcessor
 
 /**
  * 

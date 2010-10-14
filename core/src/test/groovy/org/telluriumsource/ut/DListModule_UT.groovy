@@ -1,6 +1,8 @@
 package org.telluriumsource.ut
 
 import org.telluriumsource.module.DListModule
+import org.telluriumsource.framework.SessionManager
+import org.telluriumsource.mock.MockSessionFactory
 
 /**
  * 
@@ -10,6 +12,10 @@ import org.telluriumsource.module.DListModule
  * 
  */
 class DListModule_UT extends GroovyTestCase {
+
+  public void setUp(){
+    SessionManager.setSession(MockSessionFactory.getNewSession());
+  }
 
   public void testDump(){
     DListModule dlm = new DListModule();

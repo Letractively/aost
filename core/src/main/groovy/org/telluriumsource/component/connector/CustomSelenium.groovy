@@ -1,13 +1,12 @@
 package org.telluriumsource.component.connector
 
-import com.thoughtworks.selenium.DefaultSelenium
-import com.thoughtworks.selenium.CommandProcessor
 import org.telluriumsource.exception.*
-import org.telluriumsource.framework.Environment;
 import org.telluriumsource.util.grid.GridSupport
 import org.telluriumsource.crosscut.i18n.IResourceBundle
 import org.telluriumsource.entity.UiModuleValidationRequest
 import org.telluriumsource.util.LogLevels
+import org.telluriumsource.annotation.Inject
+import org.telluriumsource.annotation.Provider
 
 /**
  * Customize Selenium RC so that we can add custom methods to Selenium RC
@@ -19,21 +18,31 @@ import org.telluriumsource.util.LogLevels
  * Date: Oct 21, 2008
  *
  */
+@Provider(name="customSelenium")
 class CustomSelenium extends DefaultSelenium {
+    @Inject(name="i18nBundle", lazy=true)
+    protected IResourceBundle i18nBundle;
 
-  protected IResourceBundle i18nBundle;
-
+    @Inject(name="tellurium.connector.customClass")
     protected CustomCommand customClass = null
+
+    @Inject(name="tellurium.embeddedserver.userExtension")
     protected String userExtension = null
+
+    CustomSelenium(){
+
+    }
 
     CustomSelenium(String host, int port, String browser, String url){
       super(host, port, browser, url)
-      i18nBundle = Environment.instance.myResourceBundle()
     }
 
     CustomSelenium(CommandProcessor commandProcessor) {
       super (commandProcessor)
-      i18nBundle = Environment.instance.myResourceBundle()
+    }
+
+    public void init(String host, int port, String browser, String url){
+      this.commandProcessor = new HttpCommandProcessor(host, port, browser, url);
     }
 
     public void setUserExt(String userExt){

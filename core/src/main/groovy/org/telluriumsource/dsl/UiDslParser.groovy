@@ -6,24 +6,25 @@ import org.telluriumsource.ui.object.*
 import org.telluriumsource.exception.InvalidObjectTypeException
 
 import org.telluriumsource.crosscut.i18n.IResourceBundle;
-import org.telluriumsource.framework.Environment;
+import org.telluriumsource.annotation.Provider
+import org.telluriumsource.annotation.Inject;
 
 
-
+@Provider
 class UiDslParser extends BuilderSupport{
        public static final String UID = "uid"
        public static final String REF = "ref"
        public static final String INCLUDE = "Include"
+
+       @Inject(name="i18nBundle", lazy=true)
        protected IResourceBundle i18nBundle
 
        def registry = [:]
 
-       //this should return a singleton class with default builders populated
-       def UiObjectBuilderRegistry builderRegistry = new UiObjectBuilderRegistry()
-
-       public UiDslParser(){
- 		  i18nBundle = Environment.instance.myResourceBundle()
-       }
+       @Inject
+       protected UiObjectBuilderRegistry builderRegistry
+        //= new UiObjectBuilderRegistry()
+  
        protected String nestObjectName(UiObject obj){
           String id
           if(obj.parent != null && obj.parent instanceof Table){

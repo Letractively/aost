@@ -50,8 +50,8 @@ public class MenuNavJUnitTestCase  extends TelluriumMockJUnitTestCase {
     @Test
     public void testFlowWithSelenium() {
         connect("JettyLogon");
-        useTelluriumApi(false);
-        useCache(false);
+//        useTelluriumApi(false);
+//        useCache(false);
         jlm.click("Welcome.MenuLink");
         jlm.waitForPageToLoad(10000);
         assertTrue("Did not find main menu", mnm.isElementPresent("mainnav"));
@@ -64,9 +64,9 @@ public class MenuNavJUnitTestCase  extends TelluriumMockJUnitTestCase {
     @Test
     public void testFlowWithTellurium() {
         connect("JettyLogon");
-        useTelluriumApi(true);
+//        useTelluriumApi(true);
 //        useCache(false);
-        useCache(true);
+//        useCache(true);
         jlm.click("Welcome.MenuLink");
         jlm.waitForPageToLoad(10000);
         assertTrue("Did not find main menu", mnm.isElementPresent("mainnav"));
@@ -74,14 +74,14 @@ public class MenuNavJUnitTestCase  extends TelluriumMockJUnitTestCase {
         mnm.click("mainnav2.suppliers");
         mnm.waitForPageToLoad(20000);
         assertTrue(jlm.isElementPresent("Welcome.MenuLink"));
-        useTelluriumApi(false);
+//        useTelluriumApi(false);
     }
 
     @Test
     public void testFlowWithSeleniumAndCaching() {
         connect("JettyLogon");
-        useTelluriumApi(false);
-        useCache(true);
+//        useTelluriumApi(false);
+//        useCache(true);
         jlm.click("Welcome.MenuLink");
         jlm.waitForPageToLoad(10000);
         assertTrue("Did not find main menu", mnm.isElementPresent("mainnav"));
@@ -89,14 +89,14 @@ public class MenuNavJUnitTestCase  extends TelluriumMockJUnitTestCase {
         mnm.click("mainnav2.suppliers");
         mnm.waitForPageToLoad(20000);
         assertTrue(jlm.isElementPresent("Welcome.MenuLink"));
-        useCache(false);
+//        useCache(false);
     }
 
     @Test
     public void testFlowWithTelluriumAndCaching() {
         connect("JettyLogon");
-        useTelluriumApi(true);
-        useCache(true);
+//        useTelluriumApi(true);
+//        useCache(true);
         jlm.click("Welcome.MenuLink");
         jlm.waitForPageToLoad(10000);
         assertTrue("Did not find main menu", mnm.isElementPresent("mainnav"));
@@ -104,8 +104,8 @@ public class MenuNavJUnitTestCase  extends TelluriumMockJUnitTestCase {
         mnm.click("mainnav2.suppliers");
         mnm.waitForPageToLoad(20000);
         assertTrue(jlm.isElementPresent("Welcome.MenuLink"));
-        useTelluriumApi(false);
-        useCache(false);
+//        useTelluriumApi(false);
+//        useCache(false);
     }
 
     @AfterClass

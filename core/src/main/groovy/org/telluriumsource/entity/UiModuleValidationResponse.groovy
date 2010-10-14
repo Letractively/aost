@@ -2,10 +2,10 @@ package org.telluriumsource.entity
 
 import org.telluriumsource.entity.RelaxDetail
 import org.telluriumsource.crosscut.i18n.IResourceBundle
-import org.telluriumsource.framework.Environment
 import org.telluriumsource.ui.locator.CompositeLocator
 import org.json.simple.JSONObject
 import org.json.simple.JSONArray
+import org.telluriumsource.framework.SessionManager
 
 /**
  * The response object Passing back from Engine when do UI module locating and caching
@@ -17,7 +17,7 @@ import org.json.simple.JSONArray
  */
 
 public class UiModuleValidationResponse {
-    protected IResourceBundle i18nBundle;
+//    protected IResourceBundle i18nBundle;
   
     //ID for the UI module
     public static String ID = "id";
@@ -89,8 +89,8 @@ public class UiModuleValidationResponse {
   }
 
   public void showMe() {
-    IResourceBundle i18nBundle  = Environment.instance.myResourceBundle();
-
+    IResourceBundle i18nBundle  = (IResourceBundle)SessionManager.getSession().getByName("i18nBundle");
+    
     println i18nBundle.getMessage("UiModuleValidationResponse.ValidationResult" , id);
 
     println("\n-------------------------------------------------------\n");

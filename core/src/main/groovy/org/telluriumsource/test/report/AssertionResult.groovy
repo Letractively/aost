@@ -1,8 +1,9 @@
 package org.telluriumsource.test.report
 
 import junit.framework.AssertionFailedError
-import org.telluriumsource.framework.Environment;
-import org.telluriumsource.crosscut.i18n.IResourceBundle;
+import org.telluriumsource.crosscut.i18n.IResourceBundle
+import org.telluriumsource.framework.SessionManager
+import org.telluriumsource.annotation.Inject;
 
 
 
@@ -23,11 +24,9 @@ class AssertionResult {
 
     private AssertionFailedError error
 
-    protected IResourceBundle i18nBundle
-
-    public AssertionResult(){
-    	  i18nBundle = Environment.instance.myResourceBundle()
-    }
+    @Inject(name="i18nBundle", lazy=true)
+    private IResourceBundle i18nBundle
+  
     public boolean isPassed(){
         return passed
     }

@@ -9,7 +9,7 @@ import org.telluriumsource.test.ddt.mapping.DataMappingException
 import org.telluriumsource.test.ddt.mapping.validator.FieldSetValidator
 import org.telluriumsource.test.ddt.mapping.FieldSetType
 import org.telluriumsource.crosscut.i18n.IResourceBundle
-import org.telluriumsource.framework.Environment
+import org.telluriumsource.annotation.Inject
 
 /**
  * The default implemention of the FieldSet Object Mapper
@@ -24,18 +24,19 @@ abstract class BaseFieldSetObjectMapper implements FieldSetObjectMapper{
     protected final static String BLOCK_START_PREFIX = "#{"
     protected final static String BLOCK_END_PREFIX = "#}"
     protected final static String META_DATA_PREFIX = "#!"
+
+    @Inject(name="i18nBundle", lazy=true)
     protected IResourceBundle i18nBundle;
 
-
+    @Inject
     protected FieldSetRegistry registry
 
+    @Inject(name="tellurium.datadriven.dataprovider.reader")
     protected DataReader reader
 
+    @Inject
     protected ObjectUnmarshaller marshaller
-
-    public BaseFieldSetObjectMapper(){
-    	i18nBundle = Environment.instance.myResourceBundle()
-    }
+  
     protected boolean isEnd(List fieldData){
          //end of file
         if(fieldData == null || fieldData.size() < 1)
@@ -64,9 +65,12 @@ abstract class BaseFieldSetObjectMapper implements FieldSetObjectMapper{
             fs = registry.getFieldSetByInternalName(id)
         }
 
-        if(fs == null)
+//        i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
 
-            throw new DataMappingException(i18nBundle.getMessage("FieldSetObjectMapper.CannotFindFieldSet" , convString(fieldData)))
+        if(fs == null){
+          throw new DataMappingException(i18nBundle.getMessage("FieldSetObjectMapper.CannotFindFieldSet" , convString(fieldData)))
+        }
+
 
         FieldSetValidator.validate(fs, fieldData)
         FieldSetMapResult result = new FieldSetMapResult()

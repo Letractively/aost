@@ -7,6 +7,7 @@ import org.telluriumsource.test.ddt.mapping.FieldSetRegistry
 import org.telluriumsource.test.ddt.mapping.type.TypeHandlerRegistryConfigurator
 import org.telluriumsource.test.ddt.mapping.FieldSetType
 import org.telluriumsource.ui.Const
+import org.telluriumsource.annotation.Provider
 
 /**
  * Handle Pipe format file
@@ -16,17 +17,22 @@ import org.telluriumsource.ui.Const
  * Date: Jul 23, 2008
  *
  */
+@Provider(type=FieldSetObjectMapper.class)
 class DataFieldSetObjectMapper extends BaseFieldSetObjectMapper{
 
     private BufferedReader br = null;
     private FileInputStream fis= null;
+
+    public DataFieldSetObjectMapper(){
+
+    }
     
     public DataFieldSetObjectMapper(FieldSetRegistry fsr, TypeHandlerRegistry thr){
 //        reader = new PipeDataReader()
 //        this.reader = reader
-        marshaller = new DefaultObjectUnmarshaller()
+//        marshaller = new DefaultObjectUnmarshaller()
         //configure the default type handlers and put them into the registry
-        TypeHandlerRegistryConfigurator.configure(thr)
+//        TypeHandlerRegistryConfigurator.configure(thr)
         marshaller.setTypeHandlerRegistry(thr)
         this.registry = fsr
     }

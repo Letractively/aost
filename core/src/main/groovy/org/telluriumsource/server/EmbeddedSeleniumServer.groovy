@@ -3,6 +3,7 @@ package org.telluriumsource.server
 import org.telluriumsource.framework.config.Configurable
 
 import org.telluriumsource.util.Helper
+import org.telluriumsource.annotation.Inject
 
 /**
  * Embedded Selenium Server and will be running as a daemon thread
@@ -13,12 +14,15 @@ class EmbeddedSeleniumServer implements Configurable{
 
     private SeleniumServerDaemon daemon;
 
+    @Inject(name="tellurium.embeddedserver.port")
     protected int port = 4444;
 
     protected String logFile = "selenium.log";
 
+    @Inject(name="tellurium.embeddedserver.useMultiWindows")
     protected boolean useMultiWindows = false;
 
+    @Inject(name="tellurium.embeddedserver.trustAllSSLCertificates")
     protected boolean trustAllSSLCertificates = false;
 
     protected int DEFAULT_DELAY_IN_SECONDS = 5;
@@ -37,10 +41,15 @@ class EmbeddedSeleniumServer implements Configurable{
 
     protected int serverDelayInSeconds = DEFAULT_DELAY_IN_SECONDS;
 
-	protected boolean runSeleniumServerInternally = true;
+    @Inject(name="tellurium.embeddedserver.runInternally")
+	protected boolean runSeleniumServerInternally = false;
 
+    protected boolean isRunning = false;
+
+    @Inject(name="tellurium.embeddedserver.profile")
     protected String profileLocation = null;
 
+    @Inject(name="tellurium.embeddedserver.userExtension")
     protected String userExtension = null;
 
     protected boolean useXvfb = false;
@@ -61,16 +70,17 @@ class EmbeddedSeleniumServer implements Configurable{
                     this.avoidProxy, this.browserSessionReuse, this.ensureCleanSession, this.debugMode, this.interactive,
                     this.timeoutInSeconds, this.profileLocation, this.userExtension);
 			daemon.run();
+            isRunning = true;
             Helper.pause(serverDelayInSeconds*1000)
 		} catch (Exception e) {
-
+            isRunning = false;
 			e.printStackTrace();
 		}
     }
 
     public void runSeleniumServer() {
 
-		if(runSeleniumServerInternally)
+		if(runSeleniumServerInternally && (!isRunning))
 			setUpSeleniumServer();
     }
 
@@ -79,8 +89,9 @@ class EmbeddedSeleniumServer implements Configurable{
 	}
 
     public void stopSeleniumServer(){
-        if(runSeleniumServerInternally && daemon != null){
+        if(runSeleniumServerInternally && daemon != null && isRunning){
               daemon.stop()
+              isRunning = false;
         }
     }
 }

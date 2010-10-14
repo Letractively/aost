@@ -3,6 +3,8 @@ package org.telluriumsource.ut
 import org.telluriumsource.test.ddt.mapping.FieldSetRegistry
 import org.telluriumsource.test.ddt.mapping.FieldSetParser
 import org.telluriumsource.test.ddt.mapping.io.PipeDataReader
+import org.telluriumsource.framework.SessionManager
+import org.telluriumsource.mock.MockSessionFactory
 
 /**
  *
@@ -15,6 +17,10 @@ class PipeFieldSetReader_UT extends GroovyTestCase {
 
     protected String data = """true | 865-692-6000 | tellurium
        false| 865-123-4444 | tellurium selenium test"""
+
+    public void setUp(){
+      SessionManager.setSession(MockSessionFactory.getNewSession());
+    }
 
     void testReadData(){
         FieldSetRegistry fsr = new FieldSetRegistry()

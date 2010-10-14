@@ -80,8 +80,8 @@ public class GoogleBookTestCase extends TelluriumJUnitTestCase {
     @Test
     public void testGetHTMLSource(){
         useEngineLog(true);
-        useTelluriumApi(true);
-        useCache(true);
+//        useTelluriumApi(true);
+//        useCache(true);
         gbm.getHTMLSource("GoogleBooksList");
     }
 

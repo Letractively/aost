@@ -1,7 +1,7 @@
 package org.telluriumsource.dsl
 
 import org.telluriumsource.crosscut.i18n.IResourceBundle;
-import org.telluriumsource.framework.Environment;
+import org.telluriumsource.framework.SessionManager;
 
 class DslScriptExecutor {
 
@@ -10,14 +10,15 @@ class DslScriptExecutor {
             def dsl = new File(args[0]).text
             def script = """
                 import org.telluriumsource.dsl.DslScriptEngine
-                import org.telluriumsource.framework.Environment;
+                import org.telluriumsource.framework.RuntimeEnvironment;
                 import org.telluriumsource.crosscut.i18n.IResourceBundle;
+                import org.telluriumsource.framework.SessionManager;
                 class DslTest extends DslScriptEngine{
                     def test(){
                         init()
                         ${dsl}
                         shutDown()
-                        IResourceBundle i18nBundle = Environment.instance.myResourceBundle()
+                        IResourceBundle i18nBundle = SessionManager.getSession().getByName("i18nBundle");
 
                         println i18nBundle.getMessage("DslScriptExecutor.DslTestDone")
                     }
@@ -30,7 +31,7 @@ class DslScriptExecutor {
             new GroovyShell().evaluate(script)
 
        }else{
-    	   IResourceBundle i18nBundle = Environment.instance.myResourceBundle()
+    	   IResourceBundle i18nBundle = SessionManager.getSession().getByName("i18nBundle");
 
            println i18nBundle.getMessage("DslScriptExecutor.Usage")
        }

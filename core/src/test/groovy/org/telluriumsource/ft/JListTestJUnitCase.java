@@ -114,8 +114,8 @@ public class JListTestJUnitCase extends TelluriumMockJUnitTestCase {
     @Test
     public void testRepeatForCache(){
         connect("JForm");
-        useTelluriumApi(true);
-        useCache(true);
+//        useTelluriumApi(true);
+//        useCache(true);
         useEngineLog(true);
         int num = jlm.getRepeatNum("SailingForm.Section");
         assertEquals(2, num);
@@ -129,16 +129,16 @@ public class JListTestJUnitCase extends TelluriumMockJUnitTestCase {
         assertEquals("08:00", departureTime);
         String arrivalTime = jlm.getText("SailingForm.Section[1].Option[1].Details.ShipInfo.Arrival.Time");
         assertEquals("11:45", arrivalTime);
-        useTelluriumApi(false);
-        useCache(false);
+//        useTelluriumApi(false);
+//        useCache(false);
         useEngineLog(false);
     }
 
     @Test
     public void testShowUI(){
         connect("JForm");
-        useTelluriumApi(true);
-        useCache(true);
+//        useTelluriumApi(true);
+//        useCache(true);
         useEngineLog(true);
 //        jlm.show("SailingForm", 5000);
         jlm.startShow("SailingForm");
@@ -148,8 +148,8 @@ public class JListTestJUnitCase extends TelluriumMockJUnitTestCase {
     @Test
     public void testGetHTMLSource(){
         connect("JForm");
-        useTelluriumApi(true);
-        useCache(true);
+//        useTelluriumApi(true);
+//        useCache(true);
         useEngineLog(true);
         jlm.getHTMLSource("SailingForm");
     }
@@ -157,8 +157,8 @@ public class JListTestJUnitCase extends TelluriumMockJUnitTestCase {
     @Test
     public void testIsElementPresent(){
         connect("JForm");
-        useTelluriumApi(true);
-        useCache(true);
+//        useTelluriumApi(true);
+//        useCache(true);
         useEngineLog(true);
         boolean present = jlm.isElementPresent("SailingForm.Section[3]");
         assertFalse(present);

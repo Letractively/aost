@@ -18,6 +18,7 @@ import org.telluriumsource.test.report.*
 import org.telluriumsource.component.bundle.BundleProcessor
 import org.telluriumsource.framework.Environment
 import org.telluriumsource.exception.ConfigNotFoundException
+import org.telluriumsource.framework.RuntimeEnvironment
 
 /**
  * Tellurium Configurator
@@ -33,7 +34,7 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
     String key = name.substring(5)
     def obj = this.props.get(key)
     if(obj == null){
-       throw new ConfigNotFoundException(i18nBundle.getMessage("TelluriumConfigurator.ConfigNotFound.default" ,  key, "http://code.google.com/p/aost/wiki/TelluriumConfig070", "Tellurium user group at http://groups.google.com/group/tellurium-users" ))
+       throw new ConfigNotFoundException(i18nBundle.getMessage("TelluriumConfigurator.ConfigNotFound.default" ,  key, "http://code.google.com/p/aost/wiki/WhatsNewInTellurium080", "Tellurium user group at http://groups.google.com/group/tellurium-users" ))
     }
   }
 
@@ -246,13 +247,13 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
     checkConfig("conf.tellurium.test.exception.bugReport")
     checkConfig("conf.tellurium.i18n.locale")
     
-//    env.setProperty("maxMacroCmd", conf.tellurium.bundle.maxMacroCmd);
-    env.useMaxMacroCmd(conf.tellurium.bundle.maxMacroCmd);
+    env.setProperty("maxMacroCmd", conf.tellurium.bundle.maxMacroCmd);
     env.setProperty("exploitBundle", conf.tellurium.bundle.useMacroCommand);
     env.setProperty("trace", conf.tellurium.test.execution.trace);
     env.setProperty("captureScreenshot", conf.tellurium.test.exception.captureScreenshot);
     env.setProperty("bugReport", conf.tellurium.test.exception.bugReport);
-    env.useLocale(conf.tellurium.i18n.locale);
+//    env.useLocale(conf.tellurium.i18n.locale);
+    env.setProperty("locale", conf.tellurium.i18n.locale);
   }
 
   protected void configEnvironmentDefaultValues(Environment env) {
@@ -350,6 +351,202 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
 
     }
 
+  }
+
+  public RuntimeEnvironment createDefaultRuntimeEnvironment(){
+    RuntimeEnvironment env = new RuntimeEnvironment();
+    env.addEnvironmentVariable("tellurium.embeddedserver.port", 4444)
+
+    env.addEnvironmentVariable("tellurium.embeddedserver.useMultiWindows", false)
+
+    env.addEnvironmentVariable("tellurium.embeddedserver.trustAllSSLCertificates", true)
+
+    env.addEnvironmentVariable("tellurium.embeddedserver.runInternally", false)
+
+    env.addEnvironmentVariable("tellurium.embeddedserver.profile", null)
+
+    env.addEnvironmentVariable("tellurium.embeddedserver.userExtension", null)
+
+    env.addEnvironmentVariable("tellurium.connector.serverHost", "localhost")
+
+    env.addEnvironmentVariable("tellurium.connector.port", 4444)
+
+    env.addEnvironmentVariable("tellurium.connector.baseUrl", "http://localhost:8080")
+
+    env.addEnvironmentVariable("tellurium.connector.browser", "*chrome")
+
+    env.addEnvironmentVariable("tellurium.embeddedserver.userExtension", null)
+
+    env.addEnvironmentVariable("tellurium.connector.customClass", null)
+
+    env.addEnvironmentVariable("tellurium.connector.options", null);
+
+    env.addEnvironmentVariable("tellurium.datadriven.dataprovider.reader", new PipeDataReader())
+
+    env.addEnvironmentVariable("tellurium.test.result.reporter", new XMLResultReporter())
+
+    env.addEnvironmentVariable("tellurium.test.result.output", new ConsoleOutput())
+
+    env.addEnvironmentVariable("tellurium.test.result.fileName", "TestResult.output")
+
+    env.addEnvironmentVariable("tellurium.uiobject.builder", null)
+
+    env.addEnvironmentVariable("tellurium.widget.module.included", null)
+
+    env.addEnvironmentVariable("tellurium.eventhandler.checkElement", false)
+
+    env.addEnvironmentVariable("tellurium.eventhandler.extraEvent", false)
+
+    env.addEnvironmentVariable("tellurium.accessor.checkElement", false)
+
+    env.addEnvironmentVariable("tellurium.test.exception.filenamePattern", "Screenshot?.png")
+
+    env.addEnvironmentVariable("tellurium.bundle.maxMacroCmd", 5)
+
+    env.addEnvironmentVariable("tellurium.bundle.useMacroCommand", false)
+
+    env.addEnvironmentVariable("tellurium.test.execution.trace", false)
+
+    env.addEnvironmentVariable("tellurium.test.exception.captureScreenshot", false)
+
+    env.addEnvironmentVariable("tellurium.test.exception.bugReport", false)
+
+    env.addEnvironmentVariable("tellurium.i18n.locale", "en_US")
+
+    return env;
+  }
+
+  public RuntimeEnvironment createRuntimeEnvironment(){
+    RuntimeEnvironment env = new RuntimeEnvironment();
+    
+    checkConfig("conf.tellurium.embeddedserver.port")
+    env.addEnvironmentVariable("tellurium.embeddedserver.port", Integer.parseInt(conf.tellurium.embeddedserver.port))
+
+    checkConfig("conf.tellurium.embeddedserver.useMultiWindows")
+    env.addEnvironmentVariable("tellurium.embeddedserver.useMultiWindows", conf.tellurium.embeddedserver.useMultiWindows)
+
+    checkConfig("conf.tellurium.embeddedserver.trustAllSSLCertificates")
+    env.addEnvironmentVariable("tellurium.embeddedserver.trustAllSSLCertificates", conf.tellurium.embeddedserver.trustAllSSLCertificates)
+
+    checkConfig("conf.tellurium.embeddedserver.runInternally")
+    env.addEnvironmentVariable("tellurium.embeddedserver.runInternally", conf.tellurium.embeddedserver.runInternally)
+
+    checkConfig("conf.tellurium.embeddedserver.profile")
+    env.addEnvironmentVariable("tellurium.embeddedserver.profile", conf.tellurium.embeddedserver.profile)
+
+    checkConfig("conf.tellurium.embeddedserver.userExtension")
+    env.addEnvironmentVariable("tellurium.embeddedserver.userExtension", conf.tellurium.embeddedserver.userExtension)
+
+    checkConfig("conf.tellurium.connector.serverHost")
+    env.addEnvironmentVariable("tellurium.connector.serverHost", conf.tellurium.connector.serverHost)
+
+    checkConfig("conf.tellurium.connector.port")
+    env.addEnvironmentVariable("tellurium.connector.port", Integer.parseInt(conf.tellurium.connector.port))
+
+    checkConfig("conf.tellurium.connector.baseUrl")
+    env.addEnvironmentVariable("tellurium.connector.baseUrl", conf.tellurium.connector.baseUrl)
+
+    checkConfig("conf.tellurium.connector.browser")
+    env.addEnvironmentVariable("tellurium.connector.browser", conf.tellurium.connector.browser)
+
+    checkConfig("conf.tellurium.embeddedserver.userExtension")
+    env.addEnvironmentVariable("tellurium.embeddedserver.userExtension", conf.tellurium.embeddedserver.userExtension)
+
+    checkConfig("conf.tellurium.connector.customClass")
+    String clazz = conf.tellurium.connector.customClass
+    if (clazz != null && clazz.trim().length() > 0)
+      env.addEnvironmentVariable("tellurium.connector.customClass", Class.forName(clazz).newInstance())
+    else
+      env.addEnvironmentVariable("tellurium.connector.customClass", null)
+
+    checkConfig("conf.tellurium.connector.options")
+    String options = conf.tellurium.connector.options
+    if (options != null && options.trim().length() > 0) {
+      env.addEnvironmentVariable("tellurium.connector.options", options);
+    }else{
+      env.addEnvironmentVariable("tellurium.connector.options", null);
+    }
+
+    checkConfig("conf.tellurium.datadriven.dataprovider.reader")
+    if ("PipeFileReader".equalsIgnoreCase(conf.tellurium.datadriven.dataprovider.reader)) {
+      env.addEnvironmentVariable("tellurium.datadriven.dataprovider.reader", new PipeDataReader())
+    } else if ("CSVFileReader".equalsIgnoreCase(conf.tellurium.datadriven.dataprovider.reader)) {
+      env.addEnvironmentVariable("tellurium.datadriven.dataprovider.reader", new CSVDataReader())
+    } else if ("ExcelFileReader".equalsIgnoreCase(conf.tellurium.datadriven.dataprovider.reader)) {
+      env.addEnvironmentVariable("tellurium.datadriven.dataprovider.reader", new ExcelDataReader())
+    } else {
+      println i18nBundle.getMessage("TelluriumConfigurator.UnsupportedReader", conf.tellurium.datadriven.dataprovider.reader)
+    }
+
+    checkConfig("conf.tellurium.test.result.reporter")
+    if ("SimpleResultReporter".equalsIgnoreCase(conf.tellurium.test.result.reporter)) {
+      env.addEnvironmentVariable("tellurium.test.result.reporter", new SimpleResultReporter())
+    }
+    if ("XMLResultReporter".equalsIgnoreCase(conf.tellurium.test.result.reporter)) {
+      env.addEnvironmentVariable("tellurium.test.result.reporter", new XMLResultReporter())
+    }
+    if ("StreamXMLResultReporter".equalsIgnoreCase(conf.tellurium.test.result.reporter)) {
+      env.addEnvironmentVariable("tellurium.test.result.reporter", new StreamXMLResultReporter())
+    }
+
+    checkConfig("conf.tellurium.test.result.output")
+    if ("Console".equalsIgnoreCase(conf.tellurium.test.result.output)) {
+      env.addEnvironmentVariable("tellurium.test.result.output", new ConsoleOutput())
+    }
+    if ("File".equalsIgnoreCase(conf.tellurium.test.result.output)) {
+      env.addEnvironmentVariable("tellurium.test.result.output", new FileOutput())
+    }
+
+    checkConfig("conf.tellurium.test.result.filename")
+    env.addEnvironmentVariable("tellurium.test.result.fileName", conf.tellurium.test.result.filename)
+
+    Map builders = conf.tellurium.uiobject.builder
+
+    if (builders != null && (!builders.isEmpty())) {
+      Map<String, UiObjectBuilder> customBuilders = new HashMap<String, UiObjectBuilder>()
+      builders.each {key, value ->
+        UiObjectBuilder builder = (UiObjectBuilder) Class.forName(value).newInstance()
+        customBuilders.put(key, builder)
+      }
+      env.addEnvironmentVariable("tellurium.uiobject.builder", customBuilders)
+    }else{
+      env.addEnvironmentVariable("tellurium.uiobject.builder", null)
+    }
+
+    checkConfig("conf.tellurium.widget.module.included")
+    env.addEnvironmentVariable("tellurium.widget.module.included", conf.tellurium.widget.module.included)
+
+    checkConfig("conf.tellurium.eventhandler.checkElement")
+    env.addEnvironmentVariable("tellurium.eventhandler.checkElement", conf.tellurium.eventhandler.checkElement)
+
+    checkConfig("conf.tellurium.eventhandler.extraEvent")
+    env.addEnvironmentVariable("tellurium.eventhandler.extraEvent", conf.tellurium.eventhandler.extraEvent)
+
+    checkConfig("conf.tellurium.accessor.checkElement")
+    env.addEnvironmentVariable("tellurium.accessor.checkElement", conf.tellurium.accessor.checkElement)
+
+    checkConfig("conf.tellurium.test.exception.filenamePattern")
+    env.addEnvironmentVariable("tellurium.test.exception.filenamePattern", conf.tellurium.test.exception.filenamePattern)
+
+    checkConfig("conf.tellurium.bundle.maxMacroCmd")
+    env.addEnvironmentVariable("tellurium.bundle.maxMacroCmd", conf.tellurium.bundle.maxMacroCmd)
+
+    checkConfig("conf.tellurium.bundle.useMacroCommand")
+    env.addEnvironmentVariable("tellurium.bundle.useMacroCommand", conf.tellurium.bundle.useMacroCommand)
+
+    checkConfig("conf.tellurium.test.execution.trace")
+    env.addEnvironmentVariable("tellurium.test.execution.trace", conf.tellurium.test.execution.trace)
+
+    checkConfig("conf.tellurium.test.exception.captureScreenshot")
+    env.addEnvironmentVariable("tellurium.test.exception.captureScreenshot", conf.tellurium.test.exception.captureScreenshot)
+
+    checkConfig("conf.tellurium.test.exception.bugReport")
+    env.addEnvironmentVariable("tellurium.test.exception.bugReport", conf.tellurium.test.exception.bugReport)
+
+    checkConfig("conf.tellurium.i18n.locale")
+    env.addEnvironmentVariable("tellurium.i18n.locale", conf.tellurium.i18n.locale)    
+    
+    return env;
   }
 
 }

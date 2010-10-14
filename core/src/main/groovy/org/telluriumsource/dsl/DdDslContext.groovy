@@ -15,6 +15,7 @@ import org.telluriumsource.test.report.ResultListener
 import org.telluriumsource.test.report.StepStatus
 import org.telluriumsource.test.report.AssertionResult
 import junit.framework.AssertionFailedError
+import org.telluriumsource.framework.SessionManager
 
 /**
  *
@@ -27,16 +28,41 @@ import junit.framework.AssertionFailedError
  */
 abstract class DdDslContext extends DslContext{
     
-    protected TypeHandlerRegistry thr  = new TypeHandlerRegistry()
-    protected FieldSetRegistry fsr = new FieldSetRegistry()
+//    protected TypeHandlerRegistry thr  = new TypeHandlerRegistry()
+//    protected FieldSetRegistry fsr = new FieldSetRegistry()
 
-    protected DataProvider dataProvider = new DataProvider(fsr, thr)
+//    protected DataProvider dataProvider = new DataProvider(fsr, thr)
 
-    protected FieldSetParser fs = new FieldSetParser(fsr)
+//    protected FieldSetParser fs = new FieldSetParser(fsr)
 
-    protected TestRegistry ar = new TestRegistry()
+//    protected TestRegistry ar = new TestRegistry()
 
-    protected ResultListener listener = new DefaultResultListener()
+//    protected ResultListener listener = new DefaultResultListener()
+
+
+    public TypeHandlerRegistry getTypeHandlerRegistry(){
+      return SessionManager.getSession().getByClass(TypeHandlerRegistry.class);
+    }
+
+    public FieldSetRegistry getFieldSetRegistry(){
+      return SessionManager.getSession().getByClass(FieldSetRegistry.class);
+    }
+
+    public DataProvider getDataProvider(){
+      return SessionManager.getSession().getByClass(DataProvider.class);
+    }
+
+    public FieldSetParser getFieldSetParser(){
+      return SessionManager.getSession().getByClass(FieldSetParser.class); 
+    }
+
+    public TestRegistry getTestRegistry(){
+      return SessionManager.getSession().getByClass(TestRegistry.class);
+    }
+
+    public ResultListener getDefaultResultListener(){
+      return SessionManager.getSession().getByClass(ResultListener.class);
+    }
 
     //the count of number of steps can also be used to identify the ith run of the test
     protected int stepCount = 0
@@ -46,14 +72,14 @@ abstract class DdDslContext extends DslContext{
     // here we assume that you have defined the tellurium.example.simpleDateTypeHandler class
     // it extends the TypeHandler interface
     public void typeHandler(String typeName, String fullClassName){
-        TypeHandlerRegistryConfigurator.addCustomTypeHandler(thr, typeName, fullClassName)
+        TypeHandlerRegistryConfigurator.addCustomTypeHandler(getTypeHandlerRegistry(), typeName, fullClassName)
     }
 
     //DSL to bind variables to data read from the file
     // def var1 = bind("dataset1.username")
     public def bind(String dataFieldId){
 
-        return dataProvider.bind(dataFieldId)
+        return getDataProvider().bind(dataFieldId)
     }
 
     //flow control
@@ -75,7 +101,7 @@ abstract class DdDslContext extends DslContext{
     //test scripts for each line
     public boolean step(Closure c){
         //get data from the data stream
-        FieldSetMapResult fsmr = dataProvider.nextFieldSet()
+        FieldSetMapResult fsmr = getDataProvider().nextFieldSet()
         //check if we reach the end of data stream
         if(fsmr != null && (!fsmr.isEmpty())){
             //check if the field set includes test name
@@ -91,7 +117,7 @@ abstract class DdDslContext extends DslContext{
                 if(test != null){
                     //if the field set includes test
                     //get the pre-defined test and run it
-                    Closure closure = ar.getTest(test)
+                    Closure closure = getTestRegistry().getTest(test)
                     closure()
                 }
 
@@ -106,7 +132,7 @@ abstract class DdDslContext extends DslContext{
                 result.setProperty("exception", e)
             }
             result.setProperty("end", System.nanoTime())
-            listener.listenForInput(result)
+            getDefaultResultListener().listenForInput(result)
 
             return true
         }
@@ -125,7 +151,7 @@ abstract class DdDslContext extends DslContext{
     //If the next line is of the same Field set as the current one, the data reading in will
     //be overwritten after this command
     public boolean stepOver(){
-        FieldSetMapResult fsmr = dataProvider.nextFieldSet()
+        FieldSetMapResult fsmr = getDataProvider().nextFieldSet()
         //check if we reach the end of data stream
         if(fsmr != null && (!fsmr.isEmpty())){
             //check if the field set includes action name
@@ -138,7 +164,7 @@ abstract class DdDslContext extends DslContext{
             result.setProperty("status", StepStatus.SKIPPED)
 //            result.setProperty("passed", true)
 
-            listener.listenForInput(result)
+            getDefaultResultListener().listenForInput(result)
 
             return true
         }
@@ -151,32 +177,32 @@ abstract class DdDslContext extends DslContext{
 //    def stepOver = this.&stepOver
 
     public void loadData(String filePath){
-        dataProvider.useFile(filePath)
+        getDataProvider().useFile(filePath)
     }
 
     //useString data defined in the script file
     public void useData(String data){
-        dataProvider.useString(data)
+        getDataProvider().useString(data)
     }
 
     public void closeData(){
-        dataProvider.stop()
-        listener.report()
+        getDataProvider().stop()
+        getDefaultResultListener().report()
     }
 
 //    def closeData = this.&closeData
 
     public void defineTest(String name, Closure c){
-        ar.addTest(name, c)
+        getTestRegistry().addTest(name, c)
     }
 
     protected String getTestForFieldSet(String fieldSetName){
-        FieldSet tfs = fsr.getFieldSetByName(fieldSetName)
+        FieldSet tfs = getFieldSetRegistry().getFieldSetByName(fieldSetName)
         if(tfs != null){
             TestField taf = tfs.getActionField()
             if(taf != null){
                 String tid = fieldSetName + "." + taf.getName()
-                return dataProvider.bind(tid)
+                return getDataProvider().bind(tid)
             }
         }
 
@@ -184,7 +210,7 @@ abstract class DdDslContext extends DslContext{
     }
 
     public void listenForResult(org.telluriumsource.test.report.TestResult result ){
-        listener.listenForResult(result)    
+        getDefaultResultListener().listenForResult(result)
     }
 
     public boolean compareResult(expected, actual){

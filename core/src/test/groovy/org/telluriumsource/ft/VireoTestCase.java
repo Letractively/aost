@@ -28,18 +28,20 @@ public class VireoTestCase extends TelluriumMockJUnitTestCase {
         connect("Display");
     }
 
-    @Ignore
+//    @Ignore
     @Test
     public void testUIModuleTellurium(){
         useTelluriumEngine(true);
-        dm.click("DegreeInformationForm.degree");
+//        dm.click("DegreeInformationForm.degree");
+        dm.dump("DegreeInformationForm");
     }
 
-    @Ignore
+//    @Ignore
     @Test
     public void testUIModuleSelenium(){
         useTelluriumEngine(false);
-        dm.click("DegreeInformationForm.degree");
+//        dm.click("DegreeInformationForm.degree");
+        dm.dump("DegreeInformationForm");
     }
     
 }

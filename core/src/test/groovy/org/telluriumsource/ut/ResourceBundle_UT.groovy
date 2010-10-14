@@ -3,16 +3,16 @@ package org.telluriumsource.ut;
 import java.sql.Date;
 
 
-import org.telluriumsource.framework.Environment;
+//import org.telluriumsource.framework.Environment;
 import org.telluriumsource.crosscut.i18n.IResourceBundle;
-
+import org.telluriumsource.crosscut.i18n.ResourceBundle;
 
 public class ResourceBundle_UT extends GroovyTestCase {
 
 	public void testTranslateWithEnglishLocale()
 	{
 		Locale defaultLocaleForTest = new Locale("en" , "US")
-		IResourceBundle i18nBundle = Environment.instance.myResourceBundle()
+		IResourceBundle i18nBundle = new ResourceBundle();
 		i18nBundle.addResourceBundle("TestMessagesBundle")
 
 		//translating of strings
@@ -44,7 +44,7 @@ public class ResourceBundle_UT extends GroovyTestCase {
 	public void testTranslateWithFrenchLocale()
 	{
 		Locale defaultLocaleForTest = new Locale("fr" , "FR")
-		IResourceBundle i18nBundle = Environment.instance.myResourceBundle()
+		IResourceBundle i18nBundle = new ResourceBundle()
 		i18nBundle.addResourceBundle("TestMessagesBundle",defaultLocaleForTest)
 		
 		//String messageFromResourceBundle = i18nBundle.translate("i18nManager.testString")

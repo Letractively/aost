@@ -45,8 +45,6 @@ class TestResult {
 
     private static final String PASSED = "Passed"
 
-    private static final String SKIPPED = "Skipped"
-  
     public boolean isPassed(){
         if(assertionResults.size() > 0){
             for(AssertionResult atr: assertionResults){
@@ -57,10 +55,6 @@ class TestResult {
         }
 
         return true
-    }
-
-    public boolean isSkipped(){
-      return status == StepStatus.SKIPPED
     }
 
     public void addAssertationResult(AssertionResult result){
@@ -84,9 +78,7 @@ class TestResult {
         StringBuilder sb = new StringBuilder(typicalLength)
         sb.append(fieldStart).append(STEP_ID).append(avpSeparator).append(stepId).append(fieldSeparator)
         sb.append(fieldStart).append(TEST_NAME).append(avpSeparator).append(testName).append(fieldSeparator)
-        if(status != StepStatus.SKIPPED){
-          sb.append(fieldStart).append(PASSED).append(avpSeparator).append(isPassed()).append(fieldSeparator) 
-        }
+        sb.append(fieldStart).append(PASSED).append(avpSeparator).append(isPassed()).append(fieldSeparator)
         sb.append(fieldStart).append(INPUT).append(avpSeparator).append(" [ ").append(convertInput()).append(" ]").append(fieldSeparator)
         if(assertionResults.size() > 0){
             for(AssertionResult atr : assertionResults){

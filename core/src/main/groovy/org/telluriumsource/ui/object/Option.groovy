@@ -4,6 +4,7 @@ import org.telluriumsource.dsl.WorkflowContext
 import org.telluriumsource.dsl.UiID
 import org.telluriumsource.component.data.Accessor
 import org.json.simple.JSONObject
+import org.telluriumsource.framework.SessionManager
 
 /**
  *
@@ -80,10 +81,10 @@ class Option extends UiObject{
                 }
             }
         }else{
-        	println i18nBundle.getMessage("Container.NoUIObjectForOption", {[this.uid , this.uid]})
+        	println SessionManager.getSession().getI18nBundle().getMessage("Container.NoUIObjectForOption", {[this.uid , this.uid]})
         	return null
         }
-        println i18nBundle.getMessage("Container.CannotFindXPath", {this.uid})
+        println SessionManager.getSession().getI18nBundle().getMessage("Container.CannotFindXPath", {this.uid})
         return null
     }
 }
