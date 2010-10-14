@@ -15,7 +15,18 @@ import java.util.Set;
  *         Date: Sep 11, 2010
  */
 public class RuntimeEnvironment implements Lookup, Cloneable {
-    
+
+    public static final String I18N_LOCALE = "tellurium.i18n.locale";
+    public static final String CONNECTOR_BASE_URL = "tellurium.connector.baseUrl";
+    public static final String CONNECTOR_PORT = "tellurium.connector.port";
+    public static final String CONNECTOR_SERVER_HOST = "tellurium.connector.serverHost";
+    public static final String CONNECTOR_BROWSER = "tellurium.connector.browser";
+    public static final String TEST_EXECUTION_TRACE = "tellurium.test.execution.trace";
+    public static final String TEST_EXCEPTION_CAPTURE_SCREEN = "tellurium.test.exception.captureScreenshot";
+    public static final String TEST_EXCEPTION_BUG_REPORT = "tellurium.test.exception.bugReport";
+    public static final String BUNDLE_USE_MACRO_COMMAND = "tellurium.bundle.useMacroCommand";
+    public static final String BUNDLE_MAX_MACRO_COMMAND = "tellurium.bundle.maxMacroCmd";
+
     private Map<String, Object> map = new HashMap<String, Object>();
 
     private boolean useNewEngine = false;
@@ -61,15 +72,23 @@ public class RuntimeEnvironment implements Lookup, Cloneable {
     }
 
     public String getBaseUrl() {
-        return (String) map.get("tellurium.connector.baseUrl");
+        return (String) map.get(CONNECTOR_BASE_URL);
     }
 
     public void setBaseUrl(String baseUrl) {
-        map.put("tellurium.connector.baseUrl", baseUrl);
+        map.put(CONNECTOR_BASE_URL, baseUrl);
+    }
+
+    public String getLocale() {
+        return (String) map.get(I18N_LOCALE);
+    }
+
+    public void setLocale(String locale) {
+        map.put(I18N_LOCALE, locale);
     }
 
     public void useLocale(String locale) {
-        map.put("tellurium.i18n.locale", locale);
+        map.put(I18N_LOCALE, locale);
         if(this.resourceBundle != null){
             String[] split = locale.split("_");
             Locale loc = new Locale(split[0], split[1]);
@@ -78,27 +97,27 @@ public class RuntimeEnvironment implements Lookup, Cloneable {
     }
 
     public int getServerPort() {
-        return (Integer)map.get("tellurium.connector.port");
+        return (Integer)map.get(CONNECTOR_PORT);
     }
 
     public void setServerPort(int serverPort) {
-        map.put("tellurium.connector.port", serverPort);
+        map.put(CONNECTOR_PORT, serverPort);
     }
 
     public String getServerHost() {
-        return (String)map.get("tellurium.connector.serverHost");
+        return (String)map.get(CONNECTOR_SERVER_HOST);
     }
 
     public void setServerHost(String serverHost) {
-        map.put("tellurium.connector.serverHost", serverHost);
+        map.put(CONNECTOR_SERVER_HOST, serverHost);
     }
 
     public String getBrowser() {
-        return (String) map.get("tellurium.connector.browser");
+        return (String) map.get(CONNECTOR_BROWSER);
     }
 
     public void setBrowser(String browser) {
-        map.put("tellurium.connector.browser", browser);
+        map.put(CONNECTOR_BROWSER, browser);
     }
     
     public boolean isUseCssSelector() {
@@ -118,43 +137,35 @@ public class RuntimeEnvironment implements Lookup, Cloneable {
     }
 
     public boolean isUseTrace() {
-        return (Boolean)map.get("tellurium.test.execution.trace");
+        return (Boolean)map.get(TEST_EXECUTION_TRACE);
     }
 
     public void setUseTrace(boolean useTrace) {
-        map.put("tellurium.test.execution.trace", useTrace);
+        map.put(TEST_EXECUTION_TRACE, useTrace);
     }
 
     public boolean isUseBundle() {
-        return (Boolean)map.get("tellurium.bundle.useMacroCommand");
+        return (Boolean)map.get(BUNDLE_USE_MACRO_COMMAND);
     }
 
     public void setUseBundle(boolean useBundle) {
-        map.put("tellurium.bundle.useMacroCommand", useBundle);
+        map.put(BUNDLE_USE_MACRO_COMMAND, useBundle);
     }
 
     public boolean isUseScreenshot() {
-        return (Boolean)map.get("tellurium.test.exception.captureScreenshot");
+        return (Boolean)map.get(TEST_EXCEPTION_CAPTURE_SCREEN);
     }
 
     public void setUseScreenshot(boolean useScreenshot) {
-        map.put("tellurium.test.exception.captureScreenshot", useScreenshot);
+        map.put(TEST_EXCEPTION_CAPTURE_SCREEN, useScreenshot);
     }
 
     public int getMaxMacroCmd() {
-        return (Integer)map.get("tellurium.bundle.maxMacroCmd");
+        return (Integer)map.get(BUNDLE_MAX_MACRO_COMMAND);
     }
 
     public void setMaxMacroCmd(int maxMacroCmd) {
-        map.put("tellurium.bundle.maxMacroCmd", maxMacroCmd);
-    }
-
-    public String getLocale() {
-        return (String) map.get("tellurium.i18n.locale");
-    }
-
-    public void setLocale(String locale) {
-        map.put("tellurium.i18n.locale", locale);
+        map.put(BUNDLE_MAX_MACRO_COMMAND, maxMacroCmd);
     }
 
     public boolean isUseClosestMatch() {
@@ -174,11 +185,11 @@ public class RuntimeEnvironment implements Lookup, Cloneable {
     }
 
     public boolean isUseBugReport() {
-        return (Boolean)map.get("tellurium.test.exception.bugReport");
+        return (Boolean)map.get(TEST_EXCEPTION_BUG_REPORT);
     }
 
     public void setUseBugReport(boolean useBugReport) {
-        map.put("tellurium.test.exception.bugReport", useBugReport);
+        map.put(TEST_EXCEPTION_BUG_REPORT, useBugReport);
     }
 
     public String getLastUiModule() {
@@ -193,22 +204,25 @@ public class RuntimeEnvironment implements Lookup, Cloneable {
         return map.containsKey(name);
     }
 
+    public boolean has(String name){
+        return map.containsKey(name);
+    }
+
+    public Object getByName(String name) {
+        return map.get(name);
+    }
+
+    public <T> T getByClass(Class<T> clazz) {
+        return (T)map.get(clazz.getCanonicalName());
+    }
+
     public String toString(){
         StringBuffer sb = new StringBuffer(64);
-        sb.append("RuntimeEnvironment: [").append("serverHost: ").append(getServerHost()).append(",")
-            .append("serverPort: ").append(getServerPort()).append(",")
-            .append("baseUrl: ").append(getBaseUrl()).append(",")
-            .append("browser: ").append(getBrowser()).append(",")
+        sb.append("RuntimeEnvironment: [")
             .append("useCssSelector: ").append(useCssSelector).append(",")
-            .append("useTrace: ").append(isUseTrace()).append(",")
-            .append("useBundle: ").append(isUseBundle()).append(",")
-            .append("maxMacroCmd: ").append(getMaxMacroCmd()).append(",")
-            .append("useScreenshot: ").append(isUseScreenshot()).append(",")
             .append("useNewEngine: ").append(useNewEngine).append(",")
             .append("useClosestMatch: ").append(useClosestMatch).append(",")
             .append("useEngineLog: ").append(useEngineLog).append(",")
-            .append("useBugReport: ").append(isUseBugReport()).append(",")
-            .append("locale: ").append(getLocale()).append(",")
             .append("lastError: ").append(this.lastErrorDescription);
         if(!map.isEmpty()){
             Set<String> keySet = map.keySet();
@@ -234,17 +248,5 @@ public class RuntimeEnvironment implements Lookup, Cloneable {
         }
 
         return newEnv;
-    }
-
-    public boolean has(String name){
-        return map.containsKey(name);
-    }
-
-    public Object getByName(String name) {
-        return map.get(name);
-    }
-
-    public <T> T getByClass(Class<T> clazz) {
-        return (T)map.get(clazz.getCanonicalName());
     }
 }
