@@ -242,11 +242,11 @@ abstract class BaseDslContext implements IDslContext {
   }
 
   public void setEnvironment(String name, Object value) {
-    env.setCustomEnvironment(name, value);
+    env.setEnvironmentVariable(name, value);
   }
 
   public Object getEnvironment(String name) {
-    return env.getCustomEnvironment(name);
+    return env.getEnvironmentVariable(name);
   }
 
   public void enableMacroCmd() {

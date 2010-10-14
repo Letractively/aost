@@ -120,13 +120,13 @@ abstract class BaseTelluriumGroovyTestCase extends GroovyTestCase{
 
   public void setEnvironment(String name, Object value) {
     RuntimeEnvironment env = SessionManager.getSession().env;
-    env.setCustomEnvironment(name, value);
+    env.setEnvironmentVariable(name, value);
   }
 
   public Object getEnvironment(String name) {
     RuntimeEnvironment env = SessionManager.getSession().env;
 
-    return env.getCustomEnvironment(name);
+    return env.getEnvironmentVariable(name);
   }
 
   public void useClosestMatch(boolean isUse){
