@@ -1,8 +1,7 @@
 package org.telluriumsource.ut
 
-import org.telluriumsource.framework.SessionManager
 import org.telluriumsource.mock.MockSessionFactory
-import org.telluriumsource.framework.dj.Injector
+import org.telluriumsource.framework.inject.Injector
 
 /**
  * 
@@ -23,8 +22,8 @@ class InjectASTTransformation_UT extends GroovyShellTestCase {
       package org.telluriumsource
       import org.telluriumsource.annotation.Provider
       import org.telluriumsource.annotation.Inject
-      import org.telluriumsource.framework.dj.Injector
-      import org.telluriumsource.framework.dj.Scope
+      import org.telluriumsource.framework.inject.Injector
+      import org.telluriumsource.framework.inject.Scope
 
 //      @Provider
       public class X {

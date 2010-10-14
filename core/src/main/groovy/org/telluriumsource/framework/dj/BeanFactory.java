@@ -1,4 +1,4 @@
-package org.telluriumsource.framework.dj;
+package org.telluriumsource.framework.inject;
 
 import java.util.List;
 

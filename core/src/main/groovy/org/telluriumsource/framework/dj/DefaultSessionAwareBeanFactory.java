@@ -1,4 +1,4 @@
-package org.telluriumsource.framework.dj;
+package org.telluriumsource.framework.inject;
 
 import org.telluriumsource.exception.BeanNotFoundException;
 import org.telluriumsource.exception.InstanceCreationException;

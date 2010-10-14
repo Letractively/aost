@@ -2,7 +2,7 @@ package org.telluriumsource.ut
 
 import org.codehaus.groovy.ast.ASTNode
 import org.codehaus.groovy.ast.builder.AstBuilder
-import org.telluriumsource.framework.dj.Injector
+import org.telluriumsource.framework.inject.Injector
 
 /**
  * 

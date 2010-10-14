@@ -1,4 +1,4 @@
-package org.telluriumsource.framework.dj;
+package org.telluriumsource.framework.inject;
 
 /**
  * @author: Jian Fang (John.Jian.Fang@gmail.com)
