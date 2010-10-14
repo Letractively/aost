@@ -54,7 +54,7 @@ class Injector implements SessionAwareBeanFactory{
   }
 
   void addBean(String name, Class clazz, Class concrete, Scope scope, boolean singleton, Object instance) {
-    this.beanFactory.addBean(this.currentSessionId, name, clazz, concrete, scope, singleton, instance);
+    this.beanFactory.addBean(this.getCurrentSessionId(), name, clazz, concrete, scope, singleton, instance);
   }
 
   List<Bean> getAllBeans() {
