@@ -6,6 +6,8 @@ package org.telluriumsource.framework.inject;
  *         Date: Oct 8, 2010
  */
 public interface Lookup {
+
+    boolean has(String name);
     
     Object getByName(String name);
 

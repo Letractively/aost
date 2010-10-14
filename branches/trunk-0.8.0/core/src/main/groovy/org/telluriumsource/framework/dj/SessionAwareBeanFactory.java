@@ -11,11 +11,11 @@ import java.util.List;
  */
 public interface SessionAwareBeanFactory {
 
-    void addBean(Session session, String name, Class clazz, Class concrete, Scope scope, boolean singleton, Object instance);
+    void addBean(String sessionId, String name, Class clazz, Class concrete, Scope scope, boolean singleton, Object instance);
 
-    Object getByName(Session session, String name);
+    Object getByName(String sessionId, String name);
 
-    <T> T getByClass(Session session, Class<T> clazz);
+    <T> T getByClass(String sessionId, Class<T> clazz);
 
     List<Bean> getAllBeans();
 

@@ -63,16 +63,6 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
 
               new X ()
         """)
-/*
-        Session session = SessionManager.getSession()
-
-        assertNotNull session
-    
-        ((DefaultBeanFactory)session.getBeanFactory()).initialize(Injector.instance.getRegistry())
-
-        Object obj = session.getInstance(res.getClass());
-        assertNotNull obj
-        */
 
         shell.evaluate("""
 
@@ -165,7 +155,6 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
 
     assertNotNull session
 
-//    ((DefaultBeanFactory)session.getBeanFactory()).initialize(Injector.instance.getRegistry())
     Object obj = Injector.instance.getByClass(Dispatcher.class);
     assertNotNull obj
 

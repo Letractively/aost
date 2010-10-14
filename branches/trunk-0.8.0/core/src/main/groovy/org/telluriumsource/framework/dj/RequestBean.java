@@ -31,11 +31,11 @@ public class RequestBean extends BeanInfo implements Bean {
         return instances;
     }
 
-    public Object getInstance(Session session) {
+    public Object getInstance(String sessionId) {
         return null;
     }
 
-    public void setInstance(Session session, Object instance) {
+    public void setInstance(String sessionId, Object instance) {
         this.instances.add(instance);
     }
 

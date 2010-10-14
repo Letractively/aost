@@ -49,8 +49,6 @@ public class Session implements Lookup {
         this.env = env;
     }
 
-
-
     public SeleniumWrapper getWrapper() {
         return wrapper;
     }
@@ -75,12 +73,16 @@ public class Session implements Lookup {
         this.beanFactory = beanFactory;
     }
 
+    public boolean has(String name) {
+        return this.env.has(name);
+    }
+
     public Object getByName(String name) {
-        return this.beanFactory.getByName(this, name);
+        return this.beanFactory.getByName(this.sessionId, name);
     }
 
     public <T> T getByClass(Class<T> clazz) {
-        return this.beanFactory.getByClass(this, clazz);
+        return this.beanFactory.getByClass(this.sessionId, clazz);
     }
 
     public String toString(){

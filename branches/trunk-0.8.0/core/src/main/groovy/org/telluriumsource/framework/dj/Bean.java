@@ -29,9 +29,9 @@ public interface Bean{
 
     void setScope(Scope scope);
 
-    Object getInstance(Session session);
+    Object getInstance(String sessionId);
 
-    void setInstance(Session session, Object instance);
+    void setInstance(String sessionId, Object instance);
 
     String toString();
        

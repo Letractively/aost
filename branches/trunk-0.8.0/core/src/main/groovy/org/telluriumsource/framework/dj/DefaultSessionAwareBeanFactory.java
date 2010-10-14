@@ -17,7 +17,7 @@ import java.util.Map;
 public class DefaultSessionAwareBeanFactory implements SessionAwareBeanFactory {
     private Map<String, Bean> map = new HashMap<String, Bean>();
 
-    public void addBean(Session session, String name, Class clazz, Class concrete, Scope scope, boolean singleton, Object instance) {
+    public void addBean(String sessionId, String name, Class clazz, Class concrete, Scope scope, boolean singleton, Object instance) {
         Bean bean;
         if (scope == Scope.Global) {
             bean = new GlobalBean();
@@ -32,26 +32,26 @@ public class DefaultSessionAwareBeanFactory implements SessionAwareBeanFactory {
         bean.setScope(scope);
         bean.setSingleton(singleton);
         if(instance != null){
-            bean.setInstance(session, instance);
+            bean.setInstance(sessionId, instance);
         }
 
         map.put(name, bean);
 
     }
 
-    public Object getByName(Session session, String name) {
+    public Object getByName(String sessionId, String name) {
         Bean bean = map.get(name);
         if(bean == null){
             throw new BeanNotFoundException("Bean " + name + " is not found");
         }
 
-        return getInstance(session, bean);
+        return getInstance(sessionId, bean);
     }
 
-    public <T> T getByClass(Session session, Class<T> clazz) {
+    public <T> T getByClass(String sessionId, Class<T> clazz) {
         String name = clazz.getCanonicalName();
 
-        return (T)getByName(session, name);
+        return (T)getByName(sessionId, name);
     }
 
     public List<Bean> getAllBeans() {
@@ -64,24 +64,24 @@ public class DefaultSessionAwareBeanFactory implements SessionAwareBeanFactory {
         map = null;  
     }
         
-    private synchronized Object getInstance(Session session, Bean bean){
+    private synchronized Object getInstance(String sessionId, Bean bean){
         if(bean.isSingleton()){
-            Object instance = bean.getInstance(session);
+            Object instance = bean.getInstance(sessionId);
             if(instance == null){
-                instance = createInstance(session, bean.getConcrete());
-                bean.setInstance(session, instance);
+                instance = createInstance(sessionId, bean.getConcrete());
+                bean.setInstance(sessionId, instance);
             }
 
             return instance;
         }else{
-            Object instance = createInstance(session, bean.getConcrete());
-            bean.setInstance(session, instance);
+            Object instance = createInstance(sessionId, bean.getConcrete());
+            bean.setInstance(sessionId, instance);
 
             return instance;
         }
     }
 
-    private Object createInstance(Session session, Class clazz){
+    private Object createInstance(String sessionId, Class clazz){
         try {
             return clazz.newInstance();
         } catch (InstantiationException e) {

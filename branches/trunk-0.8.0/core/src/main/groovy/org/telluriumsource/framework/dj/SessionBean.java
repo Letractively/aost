@@ -12,6 +12,7 @@ import java.util.Map;
  *         Date: Oct 6, 2010
  */
 public class SessionBean extends BeanInfo implements Bean {
+
     public static final String INSTANCES = "instances";
 
     public static final String INSTANCE_SIZE = "instanceSize";
@@ -27,19 +28,14 @@ public class SessionBean extends BeanInfo implements Bean {
         this.instances = new HashMap<String, Object>();
     }
 
-    public Object getInstance(Session session) {
-        if(session == null){
-            //TODO: more elegant way to decouple Session manager from DI injection
-            session = SessionManager.getSession();
-        }
-        return instances.get(session.getSessionId());
+    public Object getInstance(String sessionId) {
+
+        return instances.get(sessionId);
     }
 
-    public void setInstance(Session session, Object instance) {
-        if(session == null){
-            session = SessionManager.getSession();
-        }
-        instances.put(session.getSessionId(), instance);
+    public void setInstance(String sessionId, Object instance) {
+
+        instances.put(sessionId, instance);
     }
 
     public String toString(){
