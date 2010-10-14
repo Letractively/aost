@@ -48,7 +48,7 @@ public class TelluriumFramework {
     Session session = new Session();
     session.sessionId = SessionManager.getNewSessionId(id);
     session.env = env;
-    session.beanFactory = Injector.instance;
+    session.beanFactory = TelluriumInjector.instance;
 
     println "Created new session: \n" + session.toString() + "\n";
 
@@ -200,10 +200,10 @@ public class TelluriumFramework {
   }
   
   public synchronized void assembleFramework(Session session){
-    Injector injector = Injector.instance;
+    Injector injector = TelluriumInjector.instance;
     Session original = SessionManager.getSession();
     String sessionId = session.getSessionId();
-    injector.setSessionQuery(this.sQuery);
+//    injector.setSessionQuery(this.sQuery);
     SessionManager.setSession(session);
     try{
       RuntimeEnvironment env = session.getEnv();

@@ -8,6 +8,7 @@ import org.telluriumsource.framework.inject.BeanInfo
 
 import org.telluriumsource.framework.inject.Injector
 import org.telluriumsource.component.dispatch.Dispatcher
+import org.telluriumsource.framework.TelluriumInjector
 
 /**
  * 
@@ -85,33 +86,18 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
           package org.telluriumsource.framework.inject
 
           import org.telluriumsource.annotation.Provider
+          import org.telluriumsource.framework.DefaultSessionQuery
 
           @Provider
-          class Injector {
-            private Map<String, BeanInfo> map = new HashMap<String, BeanInfo>()
+          class TestInjector extends Injector {
+                private SessionQuery sQuery = new DefaultSessionQuery();
 
-            public Set<String> getNames(){
-              return this.map.keySet();
-            }
+                public SessionQuery getSessionQuery(){
 
-            public Set<BeanInfo> getBeanInfos(){
-              return this.map.values();
-            }
+                  return this.sQuery;
+                }
 
-            public Map<String, BeanInfo> getRegistry(){
-              return this.map;
-            }
-            
-            public void addBeanInfo(String name, Class clazz, Class concrete, String scope, boolean singleton){
-              BeanInfo cl = new BeanInfo();
-              cl.setName(name);
-              cl.setClazz(clazz);
-              cl.setConcrete(concrete);
-              cl.setScope(Scope.valueOf(scope));
-              cl.setSingleton(singleton);
 
-              this.map.put(name, cl);
-            }
           }
 
           @Provider(type=W.class)
@@ -123,7 +109,7 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
                 }
            }
 
-           Injector.instance
+           TestInjector.instance
           
         """)
 
@@ -155,10 +141,10 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
 
     assertNotNull session
 
-    Object obj = Injector.instance.getByClass(Dispatcher.class);
+    Object obj = TelluriumInjector.instance.getByClass(Dispatcher.class);
     assertNotNull obj
 
-    obj = Injector.instance.getByName("TelluriumApi");
+    obj = TelluriumInjector.instance.getByName("TelluriumApi");
     assertNotNull obj
 
   }

@@ -69,8 +69,10 @@ public class ProviderASTTransformation implements ASTTransformation, Opcodes {
             singleton = (Boolean)((ConstantExpression)singletonExpr).getValue();
         }
 
-        if(Injector.class.getName().equals(clazzNode.getName())){
+        if(Injector.class.getName().equals(clazzNode.getSuperClass().getName())){
             injector = clazzNode;
+//            ProviderASTTransformation.injector = injector;
+            
             createNonLazy(clazzNode);
             Set<String> names = map.keySet();
             if(names != null && (!names.isEmpty())){
@@ -78,6 +80,7 @@ public class ProviderASTTransformation implements ASTTransformation, Opcodes {
                     ClassInfo info = map.get(key);
                     addInitiateMethod(key, info.getClazz(), info.getConcrete(), info.getScope(), info.isSingleton());
                 }
+                map.clear();
             }
         }else{
             if(injector != null){
