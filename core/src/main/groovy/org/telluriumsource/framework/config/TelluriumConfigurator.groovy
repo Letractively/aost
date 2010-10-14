@@ -16,7 +16,6 @@ import org.telluriumsource.ui.widget.WidgetConfigurator
 import org.telluriumsource.test.report.*
 
 import org.telluriumsource.component.bundle.BundleProcessor
-import org.telluriumsource.framework.Environment
 import org.telluriumsource.exception.ConfigNotFoundException
 import org.telluriumsource.framework.RuntimeEnvironment
 
@@ -238,6 +237,7 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
     dispatcher.filenamePattern = "Screenshot?.png"
 //    dispatcher.trace = false
   }
+/*
 
   protected void configEnvironment(Environment env) {
     checkConfig("conf.tellurium.bundle.maxMacroCmd")
@@ -266,6 +266,7 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
     env.useLocale("en_US");
 //    env.setProperty("locale", "en_US");
   }
+*/
 
   public void config(Configurable configurable) {
 
@@ -303,8 +304,8 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
       } else if (configurable instanceof BundleProcessor) {
         println i18nBundle.getMessage("TelluriumConfigurator.Bundle")
         configBundleProcessor(configurable)
-      } else if (configurable instanceof Environment) {
-        configEnvironment(configurable)
+//      } else if (configurable instanceof Environment) {
+//        configEnvironment(configurable)
       } else {
         println i18nBundle.getMessage("TelluriumConfigurator.UnsupportedType");
       }
@@ -343,8 +344,8 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
       } else if (configurable instanceof BundleProcessor) {
         println i18nBundle.getMessage("TelluriumConfigurator.Bundle.default")
         configBundleProcessorDefaultValues(configurable)
-      } else if (configurable instanceof Environment) {
-        configEnvironmentDefaultValues(configurable)
+//      } else if (configurable instanceof Environment) {
+//        configEnvironmentDefaultValues(configurable)
       } else {
         println i18nBundle.getMessage("TelluriumConfigurator.UnsupportedType");
       }
