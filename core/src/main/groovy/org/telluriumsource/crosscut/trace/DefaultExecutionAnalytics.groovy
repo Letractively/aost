@@ -1,4 +1,7 @@
 package org.telluriumsource.crosscut.trace
+
+import org.telluriumsource.annotation.Provider
+
 /**
  * 
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -7,6 +10,7 @@ package org.telluriumsource.crosscut.trace
  * 
  */
 
+@Provider(name="DefaultExecutionAnalytics")
 public class DefaultExecutionAnalytics implements ExecutionAnalytics, ExecutionReporter {
   private static int SB_LEN = 64;
 
@@ -16,24 +20,24 @@ public class DefaultExecutionAnalytics implements ExecutionAnalytics, ExecutionR
 
   private Map<String, ExecutionResult> map = new HashMap<String, ExecutionResult>();
 
-  public void analysize(ExecutionTime etime) {
+  public void analyze(ExecutionTime exeTime) {
 
-    long ltime = etime.startTime + etime.duration;
+    long ltime = exeTime.startTime + exeTime.duration;
     if(endTime < ltime){
       endTime = ltime;
     }
     if(startTime == 0)
-      startTime = etime.startTime;
+      startTime = exeTime.startTime;
 
-    ExecutionResult result = map.get(etime.testName);
+    ExecutionResult result = map.get(exeTime.testName);
     if(result != null){
       ++result.count;
-      result.total += etime.duration;
+      result.total += exeTime.duration;
     }else{
-      result = new ExecutionResult(etime.testName, 1, etime.duration);
+      result = new ExecutionResult(exeTime.testName, 1, exeTime.duration);
     }
 
-    map.put(etime.testName, result);
+    map.put(exeTime.testName, result);
   }
 
   def report() {

@@ -11,6 +11,7 @@ import java.util.Map;
 
 import org.telluriumsource.crosscut.i18n.ResourceBundle;
 import org.telluriumsource.crosscut.i18n.IResourceBundle;
+import org.telluriumsource.framework.SessionManager;
 
 
 /**
@@ -28,11 +29,10 @@ public class UiDataReader {
 	protected final static String ESCAPE_START = "\\Q";
 	protected final static String ESCAPE_END = "\\E";
 
-	protected IResourceBundle i18nBundle;
-
+//	protected IResourceBundle i18nBundle;
 
 	public UiDataReader(){
-    	i18nBundle = new ResourceBundle();
+//    	i18nBundle = new ResourceBundle();
 	}
     public BufferedReader getReaderForDate(String data){
         ByteArrayInputStream bais = new ByteArrayInputStream(data.getBytes());
@@ -85,7 +85,7 @@ public class UiDataReader {
             }
 
         }catch (IOException e) {
-        	i18nBundle.getMessage("UIDataReader.ReadDataException" , new Object[]{e.getMessage()});
+        	SessionManager.getSession().getI18nBundle().getMessage("UIDataReader.ReadDataException" , new Object[]{e.getMessage()});
 		}
 
 		return dfm;

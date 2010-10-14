@@ -1,4 +1,5 @@
 package org.telluriumsource.test.ddt.mapping
+
 /**
  *
  * The field set includes multiple fields and it usually is a record

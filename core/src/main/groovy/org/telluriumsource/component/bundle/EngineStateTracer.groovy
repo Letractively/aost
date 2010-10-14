@@ -1,7 +1,9 @@
 package org.telluriumsource.component.bundle
 
 import org.telluriumsource.entity.EngineState
-import org.telluriumsource.framework.Environment
+import org.telluriumsource.framework.SessionManager
+import org.telluriumsource.framework.RuntimeEnvironment
+import org.telluriumsource.annotation.Provider
 
 /**
  * 
@@ -11,6 +13,7 @@ import org.telluriumsource.framework.Environment
  * 
 **/
 
+@Provider
 public class EngineStateTracer {
   private int numStateUpdate = 0;
 
@@ -43,17 +46,17 @@ public class EngineStateTracer {
   }
 
   public void updateEngineStateFromEnvironment(){
-    Environment env = Environment.instance;
+    RuntimeEnvironment env = SessionManager.getSession().getEnv();
 
-    this.state.useCache(env.isUseCache());
-    this.state.useTelluriumApi(env.isUseTelluriumApi());
+//    this.state.useCache(env.isUseCache());
+    this.state.useTelluriumApi(env.isUseNewEngine());
     this.state.useClosestMatch(env.isUseClosestMatch());
   }
 
   public EngineState getEngineStateUpdate(){
-    Environment env = Environment.instance;
+    RuntimeEnvironment env = SessionManager.getSession().getEnv();
 
-    if(this.state.isUseCache() == env.isUseCache() && this.state.isUseTelluriumApi() == env.isUseTelluriumApi() && this.state.isUseClosestMatch() == env.isUseClosestMatch()){
+    if(this.state.isUseTelluriumApi() == env.isUseNewEngine() && this.state.isUseClosestMatch() == env.isUseClosestMatch()){
       return null;
     }else{
       this.updateEngineStateFromEnvironment();

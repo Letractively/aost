@@ -1,6 +1,8 @@
 package org.telluriumsource.component.custom
 
 import org.telluriumsource.component.bundle.BundleProcessor
+import org.telluriumsource.annotation.Provider
+import org.telluriumsource.annotation.Inject
 
 /**
  * Class to pass user custom methods to the delegator
@@ -11,10 +13,11 @@ import org.telluriumsource.component.bundle.BundleProcessor
  *
  */
 
-//public class Extension implements GroovyInterceptable {
+@Provider
 public class Extension {
 
-   private BundleProcessor cbp  = BundleProcessor.instance
+   @Inject
+   private BundleProcessor cbp
 
    def methodMissing(String name, args) {
       return cbp.metaClass.invokeMethod(cbp, name, args)

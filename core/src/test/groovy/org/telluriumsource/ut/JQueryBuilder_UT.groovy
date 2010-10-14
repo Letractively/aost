@@ -1,8 +1,13 @@
 package org.telluriumsource.ut
 
 import org.telluriumsource.ui.locator.JQueryBuilder
+import org.telluriumsource.mock.MockSessionFactory
+import org.telluriumsource.framework.SessionManager
 
 public class JQueryBuilder_UT extends GroovyTestCase {
+  public void setUp(){
+    SessionManager.setSession(MockSessionFactory.getNewSession());
+  }
 
   public void testCheckTag(){
     String tag = null

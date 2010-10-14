@@ -3,7 +3,8 @@ package org.telluriumsource.ui.locator
 import org.telluriumsource.dsl.WorkflowContext
 import org.telluriumsource.exception.InvalidLocatorException
 import org.telluriumsource.crosscut.i18n.IResourceBundle;
-import org.telluriumsource.framework.Environment;
+import org.telluriumsource.annotation.Inject
+import org.telluriumsource.annotation.Provider;
 
 
 
@@ -14,14 +15,13 @@ import org.telluriumsource.framework.Environment;
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  */
+@Provider
 class LocatorProcessor{
     public static final String CANNOT_HANDLE_LOCATOR= "Cannot handle locator"
-  	protected IResourceBundle i18nBundle
 
-  	public LocatorProcessor(){
-    	  i18nBundle = Environment.instance.myResourceBundle()
 
-    }
+    @Inject(name="i18nBundle", lazy=true)
+    private IResourceBundle i18nBundle;
 
     def String locate(WorkflowContext context, locator, int index){
         if(locator == null)
@@ -36,6 +36,8 @@ class LocatorProcessor{
 
             return CompositeLocateStrategy.locate(locator, index)
         }
+
+ //       IResourceBundle i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
 
         throw new InvalidLocatorException(i18nBundle.getMessage("LocatorProcessor.CannnotHandleLocator" , locator.getClass()))
     }
@@ -54,7 +56,7 @@ class LocatorProcessor{
             return CompositeLocateStrategy.locate(locator)
 
         }
-
+      
         throw new InvalidLocatorException(i18nBundle.getMessage("LocatorProcessor.CannnotHandleLocator" , locator.getClass()))
     }
 }

@@ -12,11 +12,12 @@ import org.telluriumsource.test.ddt.mapping.FieldSetParser
  */
 class DefaultDdDslContext extends DdDslContext{
 
-    public FieldSetParser getFieldSetParser(){
+/*    public FieldSetParser getFieldSetParser(){
         return this.fs
-    }
+    }*/
 
     public UiDslParser getUiDslParser(){
-        return this.ui
+//        return this.ui
+      return getUiParser();
     }
 }

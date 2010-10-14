@@ -5,6 +5,8 @@ import org.telluriumsource.ui.object.Button
 import org.telluriumsource.ui.object.TextBox
 import org.telluriumsource.ui.object.UiObject
 import org.telluriumsource.ui.object.UrlLink
+import org.telluriumsource.framework.SessionManager
+import org.telluriumsource.mock.MockSessionFactory
 
 /**
  * Unit tests for Table
@@ -13,6 +15,10 @@ import org.telluriumsource.ui.object.UrlLink
  *
  */
 class Table_UT extends GroovyTestCase{
+
+  public void setUp(){
+    SessionManager.setSession(MockSessionFactory.getNewSession());
+  }
 
    void testTable1(){
        Table1 table1 = new Table1()

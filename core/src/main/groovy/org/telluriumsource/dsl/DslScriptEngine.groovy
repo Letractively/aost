@@ -1,8 +1,11 @@
 package org.telluriumsource.dsl
 
 import org.telluriumsource.test.groovy.DslTelluriumGroovyTestCase
+import org.telluriumsource.test.ddt.mapping.FieldSetParser
 
 class DslScriptEngine extends DdDslContext {
+
+  protected FieldSetParser fs = getFieldSetParser()
 
   @Delegate
   private DslTelluriumGroovyTestCase aost = new DslTelluriumGroovyTestCase()

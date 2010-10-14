@@ -1,13 +1,13 @@
 package org.telluriumsource.ut
 
-import org.telluriumsource.framework.config.TelluriumConfigurator;
-import org.telluriumsource.framework.config.TelluriumConfiguratorMetaClass;
 import org.telluriumsource.test.ddt.DataProvider
 import org.telluriumsource.test.ddt.mapping.FieldSetParser
 import org.telluriumsource.test.ddt.mapping.FieldSetRegistry
 import org.telluriumsource.test.ddt.mapping.mapping.FieldSetMapResult
 import org.telluriumsource.test.ddt.mapping.type.TypeHandlerRegistry
 import org.telluriumsource.test.ddt.mapping.type.TypeHandlerRegistryConfigurator
+import org.telluriumsource.framework.TelluriumFramework
+import org.telluriumsource.test.ddt.mapping.io.ExcelDataReader
 
 /**
  *
@@ -21,21 +21,21 @@ class DataProvider_UT extends GroovyTestCase{
     protected TypeHandlerRegistry thr  = new TypeHandlerRegistry()
     protected FieldSetRegistry fsr = new FieldSetRegistry()
 
-    protected DataProvider dataProvider = new DataProvider(fsr, thr)
+    protected DataProvider dataProvider
 
-    protected FieldSetParser fs = new FieldSetParser(fsr)
+    protected FieldSetParser fs
 
     public void setUp(){
-        TypeHandlerRegistryConfigurator.addCustomTypeHandler(thr, "phoneNumber", "org.telluriumsource.ut.PhoneNumberTypeHandler")
+        TelluriumFramework.instance.start()
+        dataProvider = new DataProvider(fsr, thr)
 
+        fs = new FieldSetParser(fsr)
+        TypeHandlerRegistryConfigurator.addCustomTypeHandler(thr, "phoneNumber", "org.telluriumsource.ut.PhoneNumberTypeHandler")
         fs.FieldSet(name: "fs4googlesearch", description: "example field set for google search"){
             Field(name: "regularSearch", type: "boolean", description: "whether we should use regular search or use I'm feeling lucky")
             Field(name: "phoneNumber", type: "phoneNumber", description: "Phone number")
             Field(name: "input", description: "input variable")
         }
-
-        def registry = GroovySystem.metaClassRegistry
-        registry.setMetaClass(TelluriumConfigurator, new TelluriumConfiguratorMetaClass())
     }
 
     public void testFetchData(){
@@ -70,9 +70,12 @@ class DataProvider_UT extends GroovyTestCase{
     }
 
     public void testFetchExcelData(){   
-    	TelluriumConfigurator telluriumConfigurator = new TelluriumConfigurator()
-        telluriumConfigurator.parse("config/TelluriumConfigForExcelReader.groovy")
-        
+//    	TelluriumConfigurator telluriumConfigurator = new TelluriumConfigurator()
+//        IResourceBundle i18nBundle = new org.telluriumsource.crosscut.i18n.ResourceBundle()
+//        telluriumConfigurator.i18nBundle = i18nBundle
+//        telluriumConfigurator.parse("config/TelluriumConfigForExcelReader.groovy")
+
+        dataProvider.reader = new ExcelDataReader()
     	dataProvider.useFile(ClassLoader.getSystemResource("data/excelDataReaderTest.xls").getFile())
         
         FieldSetMapResult result = dataProvider.nextFieldSet()

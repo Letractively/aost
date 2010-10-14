@@ -1,8 +1,5 @@
 package org.telluriumsource.framework.config
 
-import java.util.Locale;
-
-import org.telluriumsource.framework.Environment;
 import org.telluriumsource.crosscut.i18n.IResourceBundle
 import org.stringtree.json.JSONReader
 import org.telluriumsource.entity.config.Config;
@@ -24,7 +21,7 @@ class TelluriumConfigParser {
     protected IResourceBundle i18nBundle
 
     public TelluriumConfigParser(){
-    	i18nBundle = Environment.instance.myResourceBundle()
+
     }
     public void parse(String fileName){
        try{

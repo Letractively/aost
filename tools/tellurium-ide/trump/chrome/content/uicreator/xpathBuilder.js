@@ -27,9 +27,8 @@ function XPathBuilder(){
 }
 
 XPathBuilder.prototype.buildPosition = function(position){
-    if(position < 1){
+    if(position < 1)
         return "";
-    }
 
     return "position()=" + position;
 };
@@ -39,9 +38,8 @@ XPathBuilder.prototype.startsWith = function(str, pattern) {
 };
 
 XPathBuilder.prototype.buildText = function(value){
-    if(value == null || trimString(value).length <= 0){
+    if(value == null || trimString(value).length <= 0)
         return "";
-    }
 
     var trimed = trimString(value);
     //start with "%%"
@@ -61,11 +59,13 @@ XPathBuilder.prototype.buildAttribute = function(name, value){
         return "@" + name;
     }
 
-    if(value.indexOf(this.constants.CONTAIN_PREFIX) == 0){
-        var actual = value.substring(2, value.length);
+//    var trimed = trimString(value);
+    var trimed = value;
+    if(trimed.indexOf(this.constants.CONTAIN_PREFIX) == 0){
+        var actual = trimed.substring(2, trimed.length);
         return "contains(@" + name + ", \"" + actual + "\")";
     }else{
-        return "@" + name + "=\"" + value + "\"";
+        return "@" + name + "=\"" + trimed + "\"";
     }
 };
 

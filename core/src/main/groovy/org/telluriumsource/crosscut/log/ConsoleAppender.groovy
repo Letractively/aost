@@ -1,4 +1,7 @@
 package org.telluriumsource.crosscut.log
+
+import org.telluriumsource.annotation.Provider
+
 /**
  * 
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -7,6 +10,7 @@ package org.telluriumsource.crosscut.log
  * 
  */
 
+@Provider(name="ConsoleAppender", type=Appender.class)
 public class ConsoleAppender implements Appender {
 
   public static final String TE = "TE"

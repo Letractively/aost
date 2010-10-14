@@ -1,6 +1,4 @@
 package org.telluriumsource.test.report
-
-import org.telluriumsource.util.Helper
 /**
  * 
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -14,18 +12,13 @@ class StreamXMLResultReporter implements ResultReporter{
         int total = 0
         int succeeded = 0
         int failed = 0
-        int skipped = 0
         if (results != null && (!results.isEmpty())) {
             total = results.size()
             results.each {TestResult val ->
-                if(val.isSkipped()){
-                  skipped++
-                }else{
-                  if (val.isPassed()) {
-                      succeeded++
-                  } else {
-                      failed++
-                  }
+                if (val.isPassed()) {
+                    succeeded++
+                } else {
+                    failed++
                 }
             }
         }
@@ -35,15 +28,12 @@ class StreamXMLResultReporter implements ResultReporter{
             mkp.declareNamespace(ns: "http://code.google.com/p/aost/")
             xml.TestResults {
                 Total("${total}")
-                Skipped("$skipped")
                 Succeeded("${succeeded}")
                 Failed("${failed}")
                 results.each {result ->
                     Test(name: result.testName) {
                         Step(result.stepId)
-                        if(!result.isSkipped()){
-                          Passed(result.isPassed())
-                        }
+                        Passed(result.isPassed())
                         Input {
                             result.input.each {key, value ->
                                 "${key}"(value)

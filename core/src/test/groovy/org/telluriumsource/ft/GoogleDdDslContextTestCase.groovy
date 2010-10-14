@@ -1,6 +1,7 @@
 package org.telluriumsource.ft
 
-import org.junit.Ignore
+import org.telluriumsource.framework.SessionManager
+import org.telluriumsource.mock.MockSessionFactory
 
 /**
  * Functional Test for GoogleDdDslContext
@@ -12,9 +13,14 @@ import org.junit.Ignore
  */
 class GoogleDdDslContextTestCase extends GroovyTestCase{
 
-    @Ignore
+    public void setUp() {
+      SessionManager.setSession(MockSessionFactory.getNewSession());
+    }
+
+//    @Ignore
     public void testGoogleSearch(){
         GoogleDdDslContext gddc = new GoogleDdDslContext()
+
         gddc.init()
         gddc.connectSeleniumServer()
         gddc.test()

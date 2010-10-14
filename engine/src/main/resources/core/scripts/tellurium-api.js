@@ -34,8 +34,10 @@ Tellurium.prototype.useTeApi = function(isUse){
     fbLog("before call useTeApi(" + isUse + ")" + this.isUseTeApi, this);
     if (typeof(isUse) == "boolean") {
         this.isUseTeApi = isUse;
+        this.cache.cacheOption = isUse;
     } else {
         this.isUseTeApi = ("true" == isUse || "TRUE" == isUse);
+        this.cache.cacheOption = ("true" == isUse || "TRUE" == isUse);
     }
     fbLog("After call useTeApi(" + isUse + ")" + this.isUseTeApi, this);
 };
@@ -571,45 +573,6 @@ Tellurium.prototype.getTableColumnNumForTbody = function(uid) {
 Tellurium.prototype.getTableTbodyNum = function(uid) {
     return this.execCommand("getTableTbodyNum", uid);
 };
-
-/*
-
-Tellurium.prototype.getTeListSize = function(uid) {
-    return this.execCommand("getListSize", uid);
-};
-
-
-Tellurium.prototype.getTeTableHeaderColumnNum = function(uid) {
-    return this.execCommand("getHeaderColumnNum", uid);
-};
-
-
-Tellurium.prototype.getTeTableFootColumnNum = function(uid) {
-    return this.execCommand("getFooterColumnNum", uid);
-};
-
-Tellurium.prototype.getTeTableRowNum = function(uid) {
-    return this.execCommand("getTableRowNum", uid);
-};
-
-
-Tellurium.prototype.getTeTableColumnNum = function(uid) {
-    return this.execCommand("getTableColumnNum", uid);
-};
-
-
-Tellurium.prototype.getTeTableRowNumForTbody = function(uid) {
-    return this.execCommand("getTableRowNumForTbody", uid);
-};
-
-Tellurium.prototype.getTeTableColumnNumForTbody = function(uid) {
-    return this.execCommand("getTableColumnNumForTbody", uid);
-};
-
-Tellurium.prototype.getTeTableTbodyNum = function(uid) {
-    return this.execCommand("getTableTbodyNum", uid);
-};
-*/
 
 Tellurium.prototype.getRepeatNum = function(uid) {
     return this.execCommand("getRepeatNum", uid);

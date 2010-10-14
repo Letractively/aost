@@ -1,6 +1,13 @@
 package org.telluriumsource.ut
 
+import org.telluriumsource.framework.SessionManager
+import org.telluriumsource.mock.MockSessionFactory
+
 public class IncludeUiModule_UT extends GroovyTestCase {
+
+  public void setUp(){
+    SessionManager.setSession(MockSessionFactory.getNewSession());
+  }
 
   public void testIncludeGoolgeSearch(){
     IncludeUiModule module = new IncludeUiModule()

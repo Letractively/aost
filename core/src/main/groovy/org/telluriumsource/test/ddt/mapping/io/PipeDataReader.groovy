@@ -1,10 +1,8 @@
 package org.telluriumsource.test.ddt.mapping.io
 
-import org.telluriumsource.framework.Environment;
 import org.telluriumsource.ui.Const;
 import org.telluriumsource.test.ddt.mapping.DataMappingException
-import org.telluriumsource.crosscut.i18n.IResourceBundle
-import org.telluriumsource.ui.Const
+import org.telluriumsource.framework.SessionManager
 
 /**
  * The implementation for the field set reader with pipe field delimiter
@@ -18,13 +16,13 @@ class PipeDataReader implements DataReader{
 		protected final static String FIELD_DELIMITER = "\\|"
 		protected final static String ESCAPE_START = "\\Q"
 		protected final static String ESCAPE_END = "\\E"
-		protected IResourceBundle i18nBundle ;
+//		protected IResourceBundle i18nBundle ;
 
 
 		public PipeDataReader(){
-			i18nBundle = Environment.instance.myResourceBundle()
-
+//			i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
 		}
+
 		public void setupDataStream(FileInputStream input)
 		{
 			//not defined for this class
@@ -68,7 +66,7 @@ class PipeDataReader implements DataReader{
 	            }
 
 			} catch (IOException e) {
-				throw new DataMappingException(i18nBundle.getMessage("DataReader.ReadDataException" , e.getMessage()))
+				throw new DataMappingException(SessionManager.getSession().getI18nBundle().getMessage("DataReader.ReadDataException" , e.getMessage()))
 			}
 
 			return lst

@@ -1,7 +1,9 @@
 package org.telluriumsource.ui.builder
 
 import org.telluriumsource.framework.config.Configurable
+import org.telluriumsource.annotation.Provider
 
+@Provider
 class UiObjectBuilderRegistry implements Configurable{
 
     //useString this registry to map the ui object name to its builder

@@ -1,6 +1,8 @@
 package org.telluriumsource.ut
 
 import org.telluriumsource.module.LoginFormModule
+import org.telluriumsource.framework.SessionManager
+import org.telluriumsource.mock.MockSessionFactory
 
 /**
  * 
@@ -10,6 +12,11 @@ import org.telluriumsource.module.LoginFormModule
  * 
  */
 class LoginForm_UT extends GroovyTestCase {
+
+  public void setUp(){
+    SessionManager.setSession(MockSessionFactory.getNewSession());
+  }
+
   public void testUim(){
     LoginFormModule lfm = new LoginFormModule();
     lfm.defineUiModule();

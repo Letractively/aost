@@ -1,366 +1,922 @@
 package org.telluriumsource.dsl
 
-import org.telluriumsource.exception.NotWidgetObjectException
-import org.telluriumsource.ui.widget.Widget
-import org.telluriumsource.framework.Environment
+import org.telluriumsource.entity.EngineState
+import org.telluriumsource.entity.CacheUsageResponse
+import org.json.simple.JSONArray
+import org.telluriumsource.entity.UiModuleValidationResponse
+import org.telluriumsource.entity.DiagnosisResponse
+import org.telluriumsource.entity.DiagnosisOption
+import org.telluriumsource.entity.UiByTagResponse
+import org.telluriumsource.framework.SessionManager
+import org.telluriumsource.framework.Session
+import org.telluriumsource.exception.NoSessionFoundException
+import org.telluriumsource.framework.RuntimeEnvironment
 
-abstract class DslContext extends BaseDslContext {
+class DslContext implements IDslContext {
 
-    //later on, may need to refactor it to use resource file so that we can show message for different localities
-    protected static final String XML_DOCUMENT_SCRIPT = """var doc = window.document;
-        var xml = null;
-        if(doc instanceof XMLDocument){
-           xml = new XMLSerializer().serializeToString(doc);
-        }else{
-           xml = getText(doc.body);
-        }
-        xml; """
+  protected UiDslParser ui = this.&getUiParser();
 
-//    def defUi = ui.&Container
+  protected UiDslParser getUiParser(){
+    return SessionManager.getSession().getByClass(UiDslParser.class);
+  }
 
-    //Must implement this method to define UI
-//    remove this constraint so that DSL script does not need to define this method
-//    public abstract void defineUi()
-
-    def getWidget(String uid) {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        def obj = walkToWithException(context, uid)
-        if (!(obj instanceof Widget)) {
-            println i18nBundle.getMessage("DslContext.UIObject" , {uid})
-
-            throw new NotWidgetObjectException(i18nBundle.getMessage("DslContext.UIObject" , uid))
-        }
-
-        //add reference xpath for the widget
-        Widget widget = (Widget)obj
-        widget.updateParentRef(context.getReferenceLocator())
-
-        return obj
+  protected IDslContext getDelegate(){
+    Session session = SessionManager.getSession();
+    if(session == null){
+      throw new NoSessionFoundException("Cannot find session");
     }
 
-    def onWidget(String uid, String method, Object[] args) {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        def obj = walkToWithException(context, uid)
-        if (!(obj instanceof Widget)) {
-            println i18nBundle.getMessage("DslContext.UIObject" , uid)
+    RuntimeEnvironment env = session.getEnv();
+    if(env.isUseNewEngine())
+      return session.getApi();
+    else
+      return session.getWrapper();
+  }
 
-//            throw new RuntimeException(i18nManager.getMessage("DslContext.UIObject" , {uid}))
-            throw new NotWidgetObjectException(i18nBundle.getMessage("DslContext.UIObject" , uid))
-        } else {
-            if (obj.metaClass.respondsTo(obj, method, args)) {
+  public EngineState getEngineState() {
 
-                //add reference xpath for the widget
-                Widget widget = (Widget)obj
-                widget.updateParentRef(context.getReferenceLocator())
+    return getDelegate().getEngineState();
+  }
 
-                return obj.invokeMethod(method, args)
-            } else {
+  public void helpTest() {
+     getDelegate().helpTest();
+  }
 
-                throw new MissingMethodException(method, obj.metaClass.class, args)
-            }
-        }
-    }
+  public void noTest() {
+    getDelegate().noTest();
+  }
 
-    protected String locatorMapping(WorkflowContext context, loc) {
-      return locatorMappingWithOption(context, loc, null)
-    }
+  public void enableClosestMatch() {
+    getDelegate().enableClosestMatch();
+  }
 
-    protected String locatorMappingWithOption(WorkflowContext context, loc, optLoc) {
-      if(Environment.instance.isUseCache() && (!Environment.instance.isUseLocatorWithCache())){
-         if(optLoc != null)
-            return JQUERY_SELECTOR + optLoc;
+  public void disableClosestMatch() {
+    getDelegate().disableClosestMatch();
+  }
 
-         return JQUERY_SELECTOR;
-      }else{
-        //get ui object's locator
+  public void enableCssSelector() {
+    getDelegate().enableCssSelector();
+  }
 
-        String locator;
-        if(context.noMoreProcess){
-          locator = ""
-        }else{
-          locator = locatorProcessor.locate(context, loc)
-        }
+  public void disableCssSelector() {
+     getDelegate().disableCssSelector();
+  }
 
-        //get the reference locator all the way to the ui object
-        if (context.getReferenceLocator() != null){
-//            locator = context.getReferenceLocator() + locator
-            context.appendReferenceLocator(locator)
-            locator = context.getReferenceLocator()
-        }
+  public void cleanCache() {
+    getDelegate().cleanCache();
+  }
 
-        if(optLoc != null)
-          locator = locator + optLoc
+  public void setCacheMaxSize(int size) {
+     getDelegate().setCacheMaxSize(size);
+  }
 
-        if(context.isUseCssSelector()){
-//          locator = optimizer.optimize(JQUERY_SELECTOR + locator.trim())
-            locator = postProcessSelector(context, locator.trim())
-        } else {
-          //make sure the xpath starts with "//"
-//          if (locator != null && (!locator.startsWith("//")) && (!locator.startsWith(JQUERY_SELECTOR))) {
-            if (locator != null && (!locator.startsWith("//"))){
-              locator = "/" + locator
-          }
-        }
+  public int getCacheSize() {
+    return getDelegate().getCacheSize();
+  }
 
-        return locator
+  public int getCacheMaxSize() {
+    return getDelegate().getCacheMaxSize();
+  }
 
-      }
-    }
+  public String getCacheUsage() {
+    return getDelegate().getCacheUsage();
+  }
 
-    def selectFrame(String uid) {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        walkToWithException(context, uid)?.selectFrame() {String loc ->
-            eventHandler.selectFrame(context, loc)
-        }
-    }
+  public CacheUsageResponse getCacheUsageResponse() {
+    return getDelegate().getCacheUsageResponse();
+  }
 
-    def selectFrameByIndex(int index) {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
+  public void useDiscardNewCachePolicy() {
+    getDelegate().useDiscardNewCachePolicy();
+  }
 
-        eventHandler.selectFrame(context, "index=${index}")
-    }
+  public void useDiscardOldCachePolicy() {
+    getDelegate().useDiscardOldCachePolicy();
+  }
 
-    def selectParentFrameFrom(String uid) {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        walkToWithException(context, uid)?.selectParentFrame() {String loc ->
-            eventHandler.selectFrame(context, loc)
-        }
-    }
+  public void useDiscardLeastUsedCachePolicy() {
+    getDelegate().useDiscardLeastUsedCachePolicy();
+  }
 
-    def selectTopFrameFrom(String uid) {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        walkToWithException(context, uid)?.selectTopFrame() {String loc ->
-            eventHandler.selectFrame(context, loc)
-        }
-    }
+  public void useDiscardInvalidCachePolicy() {
+    getDelegate().useDiscardInvalidCachePolicy();
+  }
 
-    boolean getWhetherThisFrameMatchFrameExpression(String uid, String target) {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        walkToWithException(context, uid)?.getWhetherThisFrameMatchFrameExpression(target) {String loc, String tgt ->
-            accessor.getWhetherThisFrameMatchFrameExpression(context, loc, tgt)
-        }
-    }
+  public String getCurrentCachePolicy() {
+    return getDelegate().getCurrentCachePolicy();
+  }
 
-    void waitForFrameToLoad(String uid, int timeout) {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        walkToWithException(context, uid)?.waitForFrameToLoad(timeout) {String loc, int tmo ->
-            accessor.waitForFrameToLoad(context, loc, Integer.toString(tmo))
-        }
-    }
+  public void useDefaultXPathLibrary() {
+      getDelegate().useDefaultXPathLibrary();
+  }
 
-    def openWindow(String uid, String url) {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        walkToWithException(context, uid)?.openWindow(url) {String loc, String aurl ->
-            eventHandler.openWindow(context, aurl, loc)
-        }
-    }
+  public void useJavascriptXPathLibrary() {
+      getDelegate().useJavascriptXPathLibrary();
+  }
 
-    def selectWindow(String uid) {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        walkToWithException(context, uid)?.selectWindow() {String loc ->
-            eventHandler.selectWindow(context, loc)
-        }
-    }
+  public void useAjaxsltXPathLibrary() {
+      getDelegate().useAjaxsltXPathLibrary();
+  }
 
-    def closeWindow(String uid) {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        walkToWithException(context, uid)?.closeWindow() {String loc ->
-            eventHandler.closeWindow(context, loc)
-        }
-    }
+  public void registerNamespace(String prefix, String namespace) {
+      getDelegate().registerNamespace(prefix, namespace);
+  }
 
-    def selectMainWindow() {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        eventHandler.selectWindow(context, null)
-    }
+  public String getNamespace(String prefix) {
+    return getDelegate().getNamespace(prefix);
+  }
 
-    def selectParentWindow() {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        eventHandler.selectWindow(context, ".")
-    }
+  public void pause(int milliseconds) {
+      getDelegate().pause(milliseconds);
+  }
 
-    def waitForPopUp(String uid, int timeout) {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        walkToWithException(context, uid)?.waitForPopUp(timeout) {String loc ->
-            accessor.waitForPopUp(context, loc, Integer.toString(timeout))
-        }
-    }
+  public void enableTrace() {
+     getDelegate().enableTrace();
+  }
 
-    boolean getWhetherThisWindowMatchWindowExpression(String uid, String target) {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        walkToWithException(context, uid)?.getWhetherThisWindowMatchWindowExpression(target) {String loc ->
-            accessor.getWhetherThisWindowMatchWindowExpression(context, loc, target)
-        }
-    }
+  public void disableTrace() {
+      getDelegate().disableTrace();
+  }
 
-    def windowFocus() {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        eventHandler.windowFocus(context)
-    }
+  public void showTrace() {
+      getDelegate().showTrace();
+  }
 
-    def windowMaximize() {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        eventHandler.windowMaximize(context)
-    }
+  public void setEnvironment(String name, Object value) {
+     getDelegate().setEnvironment(name, value);
+  }
 
-    String getBodyText() {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        return accessor.getBodyText(context)
-    }
+  public Object getEnvironment(String name) {
+    return getDelegate().getEnvironment(name);
+  }
 
-    boolean isTextPresent(String pattern) {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        return accessor.isTextPresent(context, pattern)
-    }
+  public void enableMacroCmd() {
+     getDelegate().enableMacroCmd();
+  }
 
-    String getExpression(String expression) {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        return accessor.getExpression(context, expression)
-    }
+  public void disableMacroCmd() {
+    getDelegate().disableMacroCmd();
+  }
 
-    String getCookie() {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        return accessor.getCookie(context)
-    }
+  public int getMaxMacroCmd() {
+    return getDelegate().getMaxMacroCmd();
+  }
 
-    void runScript(String script) {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        accessor.runScript(context, script)
-    }
+  public void setMaxMacroCmd(int max) {
+    getDelegate().setMaxMacroCmd(max);
+  }
 
-    void captureScreenshot(String filename) {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        accessor.captureScreenshot(context, filename)
-    }
+  public void allowNativeXpath(boolean allow) {
+     getDelegate().allowNativeXpath(allow);
+  }
 
-    void captureEntirePageScreenshot(String filename, String kwargs){
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        accessor.captureEntirePageScreenshot(context, filename, kwargs)
-    }
+  public void addScript(String scriptContent, String scriptTagId) {
+     getDelegate().addScript(scriptContent, scriptTagId);
+  }
 
-    String captureScreenshotToString(){
-       WorkflowContext context = WorkflowContext.getDefaultContext()
-       return accessor.captureScreenshotToString(context)
-    }
+  public void removeScript(String scriptTagId) {
+     getDelegate().removeScript(scriptTagId);
+  }
 
-    String captureEntirePageScreenshotToString(String kwargs){
-       WorkflowContext context = WorkflowContext.getDefaultContext()
-       return accessor.captureEntirePageScreenshotToString(context, kwargs)
-    }
-  
-    void chooseCancelOnNextConfirmation() {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        eventHandler.chooseCancelOnNextConfirmation(context)
-    }
+  public void enableEngineLog() {
+     getDelegate().enableEngineLog();
+  }
 
-    void chooseOkOnNextConfirmation() {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        eventHandler.chooseOkOnNextConfirmation(context)
-    }
+  public void disableEngineLog() {
+     getDelegate().disableEngineLog();
+  }
 
-    void answerOnNextPrompt(String answer) {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        eventHandler.answerOnNextPrompt(context, answer)
-    }
+  public void useEngineLog(boolean isUse) {
+     getDelegate().useEngineLog(isUse);
+  }
 
-    void goBack() {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        eventHandler.goBack(context)
-    }
+  public void enableTelluriumEngine() {
+     getDelegate().enableTelluriumEngine();
+  }
 
-    void refresh() {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        eventHandler.refresh(context)
-    }
+  public void disableTelluriumEngine() {
+     getDelegate().disableTelluriumEngine();
+  }
 
-    boolean isAlertPresent() {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        return accessor.isAlertPresent(context)
-    }
+  public void useTelluriumEngine(boolean isUse) {
+      getDelegate().useTelluriumEngine(isUse);
+  }
 
-    boolean isPromptPresent() {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        return accessor.isPromptPresent(context)
-    }
+  public def customUiCall(String uid, String method, Object[] args) {
+    return getDelegate().customUiCall(uid, method, args);  
+  }
 
-    boolean isConfirmationPresent() {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        return accessor.isConfirmationPresent(context)
-    }
+  public def customDirectCall(String method, Object[] args) {
+    return getDelegate().customDirectCall(method, args);
+  }
 
-    String getAlert() {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        return accessor.getAlert(context)
-    }
+  public void triggerEventOn(String uid, String event) {
+     getDelegate().triggerEventOn(uid, event);
+  }
 
-    String getConfirmation() {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        return accessor.getConfirmation(context)
-    }
+  public def getUiElement(String uid) {
+    return getDelegate().getUiElement(uid);  
+  }
 
-    String getPrompt() {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        return accessor.getPrompt(context)
-    }
+  public void click(String uid) {
+     getDelegate().click(uid);
+  }
 
-    String getLocation() {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        return accessor.getLocation(context)
-    }
+  public void doubleClick(String uid) {
+     getDelegate().doubleClick(uid);
+  }
 
-    String getTitle() {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        return accessor.getTitle(context)
-    }
+  public void clickAt(String uid, String coordination) {
+     getDelegate().clickAt(uid, coordination);
+  }
 
-    String[] getAllButtons() {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        return accessor.getAllButtons(context)
-    }
+  public void check(String uid) {
+    getDelegate().check(uid);
+  }
 
-    String[] getAllLinks() {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        return accessor.getAllLinks(context)
-    }
+  public void uncheck(String uid) {
+    getDelegate().uncheck(uid);
+  }
 
-    String[] getAllFields() {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        return accessor.getAllFields(context)
-    }
+  public void type(String uid, Object input) {
+    getDelegate().type(uid, input);
+  }
 
-    String[] getAllWindowIds() {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        return accessor.getAllWindowIds(context)
-    }
+  public void keyPress(String uid, String key) {
+     getDelegate().keyPress(uid, key);
+  }
 
-    String[] getAllWindowNames() {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        return accessor.getAllWindowNames(context)
-    }
+  public void keyDown(String uid, String key) {
+     getDelegate().keyDown(uid, key);
+  }
 
-    String[] getAllWindowTitles() {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        return accessor.getAllWindowTitles(context)
-    }
+  public void keyUp(String uid, String key) {
+     getDelegate().keyUp(uid, key);
+  }
 
-    void waitForPageToLoad(int timeout) {
-        WorkflowContext context = WorkflowContext.getDefaultContext()
-        accessor.waitForPageToLoad(context, Integer.toString(timeout))
-    }
+  public void focus(String uid) {
+     getDelegate().focus(uid);
+  }
 
-    public String getXMLDocument(){
-//        WorkflowContext context = WorkflowContext.getDefaultContext()
-//        String xml =  getEval(context, XML_DOCUMENT_SCRIPT)
-        return getEval(XML_DOCUMENT_SCRIPT)
-      
-//        return xml
-    }
+  public void fireEvent(String uid, String eventName) {
+    getDelegate().fireEvent(uid, eventName);
+  }
 
-    //let the missing property return the a string of the properity, this is useful for the onWidget method
-    //so that we can pass in widget method directly, instead of passing in the method name as a String
-    def propertyMissing(String name) {
-        println i18nBundle.getMessage("BaseDslContext.PropertyIsMissing" , name)
-        return name
-    }
+  public void keyType(String uid, Object input) {
+    getDelegate().keyType(uid, input);
+  }
+
+  public void typeAndReturn(String uid, Object input) {
+    getDelegate().typeAndReturn(uid, input);
+  }
+
+  public void altKeyUp() {
+    getDelegate().altKeyUp();
+  }
+
+  public void altKeyDown() {
+    getDelegate().altKeyDown();
+  }
+
+  public void ctrlKeyUp() {
+    getDelegate().ctrlKeyUp();
+  }
+
+  public void ctrlKeyDown() {
+    getDelegate().ctrlKeyDown();
+  }
+
+  public void shiftKeyUp() {
+    getDelegate().shiftKeyUp();
+  }
+
+  public void shiftKeyDown() {
+    getDelegate().shiftKeyDown();
+  }
+
+  public void metaKeyUp() {
+    getDelegate().metaKeyUp();
+  }
+
+  public void metaKeyDown() {
+    getDelegate().metaKeyDown();
+  }
+
+  public void clearText(String uid) {
+    getDelegate().clearText(uid);
+  }
+
+  public void select(String uid, String target) {
+    getDelegate().select(uid, target);
+  }
+
+  public void selectByLabel(String uid, String target) {
+    getDelegate().selectByLabel(uid, target);
+  }
+
+  public void selectByValue(String uid, String target) {
+    getDelegate().selectByValue(uid, target);
+  }
+
+  public void selectByIndex(String uid, int target) {
+    getDelegate().selectByIndex(uid, target);
+  }
+
+  public void selectById(String uid, String target) {
+    getDelegate().selectById(uid, target);
+  }
+
+  public void addSelectionByLabel(String uid, String target) {
+    getDelegate().addSelectionByLabel(uid, target);
+  }
+
+  public void addSelectionByValue(String uid, String target) {
+    getDelegate().addSelectionByValue(uid, target);
+  }
+
+  public void removeSelectionByLabel(String uid, String target) {
+    getDelegate().removeSelectionByLabel(uid, target);
+  }
+
+  public void removeSelectionByValue(String uid, String target) {
+    getDelegate().removeSelectionByValue(uid, target);
+  }
+
+  public void removeAllSelections(String uid) {
+    getDelegate().removeAllSelections(uid);
+  }
+
+  public String[] getSelectOptions(String uid) {
+    return getDelegate().getSelectOptions(uid);
+  }
+
+  public String[] getSelectValues(String uid) {
+    return getDelegate().getSelectValues(uid);
+  }
+
+  public String[] getSelectedLabels(String uid) {
+    return getDelegate().getSelectedLabels(uid);
+  }
+
+  public String getSelectedLabel(String uid) {
+    return  getDelegate().getSelectedLabel(uid);
+  }
+
+  public String[] getSelectedValues(String uid) {
+    return getDelegate().getSelectedValues(uid);
+  }
+
+  public String getSelectedValue(String uid) {
+    return getDelegate().getSelectedValue(uid);
+  }
+
+  public String[] getSelectedIndexes(String uid) {
+    return getDelegate().getSelectedIndexes(uid);
+  }
+
+  public String getSelectedIndex(String uid) {
+    return getDelegate().getSelectedIndex(uid);
+  }
+
+  public String[] getSelectedIds(String uid) {
+    return getDelegate().getSelectedIds(uid);
+  }
+
+  public String getSelectedId(String uid) {
+    return getDelegate().getSelectedId(uid);
+  }
+
+  public boolean isSomethingSelected(String uid) {
+    return getDelegate().isSomethingSelected(uid);
+  }
+
+  public String waitForText(String uid, int timeout) {
+    return getDelegate(). waitForText(uid, timeout);
+  }
+
+  public boolean isElementPresent(String uid) {
+    return getDelegate().isElementPresent(uid);
+  }
+
+  public boolean isVisible(String uid) {
+    return getDelegate().isVisible(uid);
+  }
+
+  public boolean isChecked(String uid) {
+    return  getDelegate().isChecked(uid);
+  }
+
+  public boolean isEnabled(String uid) {
+    return getDelegate().isEnabled(uid);
+  }
+
+  public boolean waitForElementPresent(String uid, int timeout) {
+    return getDelegate().waitForElementPresent(uid, timeout);
+  }
+
+  public boolean waitForElementPresent(String uid, int timeout, int step) {
+    return getDelegate().waitForElementPresent(uid, timeout, step);
+  }
+
+  public boolean waitForCondition(String script, int timeoutInMilliSecond) {
+    return getDelegate().waitForCondition(script, timeoutInMilliSecond);
+  }
+
+  public String getText(String uid) {
+    return getDelegate().getText(uid);
+  }
+
+  public String getValue(String uid) {
+    return getDelegate().getValue(uid);
+  }
+
+  public String getLink(String uid) {
+    return getDelegate().getLink(uid);
+  }
+
+  public String getImageSource(String uid) {
+    return getDelegate().getImageSource(uid);
+  }
+
+  public String getImageAlt(String uid) {
+    return  getDelegate().getImageAlt(uid);
+  }
+
+  public String getImageTitle(String uid) {
+    return getDelegate().getImageTitle(uid);
+  }
+
+  public void submit(String uid) {
+    getDelegate().submit(uid);
+  }
+
+  public boolean isEditable(String uid) {
+    return getDelegate().isEditable(uid);
+  }
+
+  public String getEval(String script) {
+    return getDelegate().getEval(script);
+  }
+
+  public void mouseOver(String uid) {
+    getDelegate().mouseOver(uid);
+  }
+
+  public void mouseOut(String uid) {
+    getDelegate().mouseOut(uid)
+  }
+
+  public void dragAndDrop(String uid, String movementsString) {
+    getDelegate().dragAndDrop(uid, movementsString);
+  }
+
+  public void dragAndDropTo(String sourceUid, String targetUid) {
+    getDelegate().dragAndDropTo(sourceUid, targetUid);
+  }
+
+  public void mouseDown(String uid) {
+    getDelegate().mouseDown(uid);
+  }
+
+  public void mouseDownRight(String uid) {
+    getDelegate().mouseDownRight(uid);
+  }
+
+  public void mouseDownAt(String uid, String coordinate) {
+    getDelegate().mouseDownAt(uid, coordinate);
+  }
+
+  public void mouseDownRightAt(String uid, String coordinate) {
+    getDelegate().mouseDownRightAt(uid, coordinate);
+  }
+
+  public void mouseUp(String uid) {
+    getDelegate().mouseUp(uid);
+  }
+
+  public void mouseUpRight(String uid) {
+    getDelegate().mouseUpRight(uid);
+  }
+
+  public void mouseUpRightAt(String uid, String coordinate) {
+    getDelegate().mouseUpRightAt(uid, coordinate);
+  }
+
+  public void mouseMove(String uid) {
+    getDelegate().mouseMove(uid);
+  }
+
+  public void mouseMoveAt(String uid, String coordinate) {
+    getDelegate().mouseMoveAt(uid, coordinate);
+  }
+
+  public Number getXpathCount(String xpath) {
+    return getDelegate().getXpathCount(xpath);
+  }
+
+  public String captureNetworkTraffic(String type) {
+    return getDelegate().captureNetworkTraffic(type);
+  }
+
+  public void addCustomRequestHeader(String key, String value) {
+    getDelegate().addCustomRequestHeader(key, value);
+  }
+
+  public Number getCssSelectorCount(String cssSelector) {
+    return getDelegate().getCssSelectorCount(cssSelector);
+  }
+
+  public Number getLocatorCount(String locator) {
+    return getDelegate().getLocatorCount(locator);
+  }
+
+  public String getXPath(String uid) {
+    return getDelegate().getXPath(uid);
+  }
+
+  public String getSelector(String uid) {
+    return getDelegate().getSelector(uid);
+  }
+
+  public String getLocator(String uid) {
+    return getDelegate().getLocator(uid);
+  }
+
+  public String[] getCSS(String uid, String cssName) {
+    return getDelegate().getCSS(uid, cssName);
+  }
+
+  public String[] getAllTableCellText(String uid) {
+    return getDelegate().getAllTableCellText(uid);
+  }
+
+  public String[] getAllTableCellTextForTbody(String uid, int index) {
+    return getDelegate().getAllTableCellTextForTbody(uid, index);
+  }
+
+  public int getTableHeaderColumnNum(String uid) {
+    return getDelegate().getTableHeaderColumnNum(uid);
+  }
+
+  public int getTableFootColumnNum(String uid) {
+    return  getDelegate().getTableFootColumnNum(uid);
+  }
+
+  public int getTableMaxRowNum(String uid) {
+    return getDelegate().getTableMaxRowNum(uid);  
+  }
+
+  public int getTableMaxColumnNum(String uid) {
+    return getDelegate().getTableMaxColumnNum(uid);
+  }
+
+  public int getTableMaxRowNumForTbody(String uid, int ntbody) {
+    return getDelegate().getTableMaxRowNumForTbody(uid, ntbody);
+  }
+
+  public int getTableMaxColumnNumForTbody(String uid, int ntbody) {
+    return getDelegate().getTableMaxColumnNumForTbody(uid, ntbody);
+  }
+
+  public int getTableMaxTbodyNum(String uid) {
+    return getDelegate().getTableMaxTbodyNum(uid);
+  }
+
+
+  public int getRepeatNum(String uid) {
+    return getDelegate().getRepeatNum(uid);
+  }
+
+  public int getListSize(String uid) {
+    return getDelegate().getListSize(uid);
+  }
+
+  public boolean isDisabled(String uid) {
+    return getDelegate().isDisabled(uid);
+  }
+
+//  public def getParentAttribute(String uid, String attribute) {
+//    return getDelegate().getParentAttribute(uid, attribute);
+//  }
+
+  public def getAttribute(String uid, String attribute) {
+    return getDelegate().getAttribute(uid, attribute);
+  }
+
+  public boolean hasCssClass(String uid, String cssClass) {
+    return getDelegate().hasCssClass(uid, cssClass);
+  }
+
+  public void toggle(String uid) {
+    getDelegate().toggle(uid);
+  }
+
+  public void show(String uid, int delay) {
+    getDelegate().show(uid, delay);
+  }
+
+  public void startShow(String uid) {
+    getDelegate().startShow(uid);
+  }
+
+  public void endShow(String uid) {
+    getDelegate().endShow(uid);
+  }
+
+  public void dump(String uid) {
+    getDelegate().dump(uid);
+  }
+
+  public String toString(String uid) {
+    return getDelegate().toString(uid);
+  }
+
+  public JSONArray toJSONArray(String uid) {
+    return getDelegate().toJSONArray(uid);
+  }
+
+  public void validate(String uid) {
+    getDelegate().validate(uid);
+  }
+
+  public UiModuleValidationResponse getUiModuleValidationResult(String uid) {
+    return getDelegate().getUiModuleValidationResult(uid);
+  }
+
+  public DiagnosisResponse getDiagnosisResult(String uid) {
+    return getDelegate().getDiagnosisResult(uid);
+  }
+
+  public DiagnosisResponse getDiagnosisResult(String uid, DiagnosisOption options) {
+    return getDelegate().getDiagnosisResult(uid, options);
+  }
+
+  public void diagnose(String uid) {
+    getDelegate().diagnose(uid);
+  }
+
+  public void diagnose(String uid, DiagnosisOption options) {
+    getDelegate().diagnose(uid, options);
+  }
+
+  public String toHTML(String uid) {
+    return getDelegate().toHTML(uid);
+  }
+
+  public String toHTML() {
+    return getDelegate().toHTML();
+  }
+
+  public List getHTMLSourceResponse(String uid) {
+    return getDelegate().getHTMLSourceResponse(uid);
+  }
+
+  public void getHTMLSource(String uid) {
+    getDelegate().getHTMLSource(uid);
+  }
+
+  public String getHtmlSource() {
+    return getDelegate().getHtmlSource();
+  }
+
+  public String retrieveLastRemoteControlLogs() {
+    return getDelegate().retrieveLastRemoteControlLogs();
+  }
+
+  public void setTimeout(long timeoutInMilliseconds) {
+    getDelegate().setTimeout(timeoutInMilliseconds);
+  }
+
+  public boolean isCookiePresent(String name) {
+    return getDelegate().isCookiePresent(name);
+  }
+
+  public String getCookie() {
+    return getDelegate().getCookie();
+  }
+
+  public String getCookieByName(String name) {
+    return getDelegate().getCookieByName(name);
+  }
+
+  public void createCookie(String nameValuePair, String optionsString) {
+    getDelegate().createCookie(nameValuePair, optionsString)
+  }
+
+  public void deleteCookie(String name, String optionsString) {
+    getDelegate().deleteCookie(name, optionsString)
+  }
+
+  public void deleteAllVisibleCookies() {
+    getDelegate().deleteAllVisibleCookies();
+  }
+
+  public void setCookie(String cookieName, String value, Object options) {
+    getDelegate().setCookie(cookieName, value, options);
+  }
+
+  public void setCookie(String cookieName, String value) {
+    getDelegate().setCookie(cookieName, value);
+  }
+
+  public UiByTagResponse getUiByTag(String tag, Map filters) {
+    return getDelegate().getUiByTag(tag, filters);
+  }
+
+  public void removeMarkedUids(String tag) {
+    getDelegate().removeMarkedUids(tag);
+  }
+
+  public void reset(String uid) {
+    getDelegate().reset(uid);
+  }
+
+  public void bugReport() {
+    getDelegate().bugReport();
+  }
+
+  public Object getWidget(String uid) {
+    return getDelegate().getWidget(uid);
+  }
+
+  public Object onWidget(String uid, String method, Object[] args) {
+    return getDelegate().onWidget(uid, method, args);
+  }
+
+  public void selectFrame(String uid) {
+    getDelegate().selectFrame(uid);
+  }
+
+  public void selectFrameByIndex(int index) {
+    getDelegate().selectFrameByIndex(index);
+  }
+
+  public void selectParentFrameFrom(String uid) {
+    getDelegate().selectParentFrameFrom(uid);
+  }
+
+  public void selectTopFrameFrom(String uid) {
+    getDelegate().selectTopFrameFrom(uid);
+  }
+
+  public boolean getWhetherThisFrameMatchFrameExpression(String uid, String target) {
+    return getDelegate().getWhetherThisFrameMatchFrameExpression(uid, target);
+  }
+
+  public void waitForFrameToLoad(String uid, int timeout) {
+    getDelegate().waitForFrameToLoad(uid, timeout);
+  }
+
+  public void openWindow(String uid, String url) {
+    getDelegate().openWindow(uid, url);
+  }
+
+  public void selectWindow(String uid) {
+    getDelegate().selectWindow(uid);
+  }
+
+  public void closeWindow(String uid) {
+    getDelegate().closeWindow(uid);
+  }
+
+  public void selectMainWindow() {
+    getDelegate().selectMainWindow();
+  }
+
+  public void selectParentWindow() {
+    getDelegate().selectParentWindow();
+  }
+
+  public void waitForPopUp(String uid, int timeout) {
+    getDelegate().waitForPopUp(uid, timeout);
+  }
+
+  public boolean getWhetherThisWindowMatchWindowExpression(String uid, String target) {
+    return getDelegate().getWhetherThisWindowMatchWindowExpression(uid, target);
+  }
+
+  public void windowFocus() {
+    getDelegate().windowFocus();
+  }
+
+  public void windowMaximize() {
+    getDelegate().windowMaximize();
+  }
+
+  public String getBodyText() {
+    return getDelegate().getBodyText();
+  }
+
+  public boolean isTextPresent(String pattern) {
+    return getDelegate().isTextPresent(pattern);
+  }
+
+  public String getExpression(String expression) {
+    return getDelegate().getExpression(expression);
+  }
+
+  public void runScript(String script) {
+    getDelegate().runScript(script);
+  }
+
+  public void captureScreenshot(String filename) {
+    getDelegate().captureScreenshot(filename);
+  }
+
+  public void captureEntirePageScreenshot(String filename, String kwargs) {
+    getDelegate().captureEntirePageScreenshot(filename, kwargs);
+  }
+
+  public String captureScreenshotToString() {
+    return getDelegate().captureScreenshotToString();
+  }
+
+  public String captureEntirePageScreenshotToString(String kwargs) {
+    return getDelegate().captureEntirePageScreenshotToString(kwargs);
+  }
+
+  public void chooseCancelOnNextConfirmation() {
+    getDelegate().chooseCancelOnNextConfirmation();
+  }
+
+  public void chooseOkOnNextConfirmation() {
+    getDelegate().chooseOkOnNextConfirmation();
+  }
+
+  public void answerOnNextPrompt(String answer) {
+    getDelegate().answerOnNextPrompt(answer)
+  }
+
+  public void goBack() {
+    getDelegate().goBack();
+  }
+
+  public void refresh() {
+    getDelegate().refresh();
+  }
+
+  public boolean isAlertPresent() {
+    return getDelegate().isAlertPresent();
+  }
+
+  public boolean isPromptPresent() {
+    return getDelegate().isPromptPresent();
+  }
+
+  public boolean isConfirmationPresent() {
+    return getDelegate().isConfirmationPresent();
+  }
+
+  public String getAlert() {
+    return getDelegate().getAlert();
+  }
+
+  public String getConfirmation() {
+    return getDelegate().getConfirmation();
+  }
+
+  public String getPrompt() {
+    return getDelegate().getPrompt();
+  }
+
+  public String getLocation() {
+    return getDelegate().getLocation();
+  }
+
+  public String getTitle() {
+    return getDelegate().getTitle();
+  }
+
+  public String[] getAllButtons() {
+    return getDelegate().getAllButtons();
+  }
+
+  public String[] getAllLinks() {
+    return getDelegate().getAllLinks();
+  }
+
+  public String[] getAllFields() {
+    return getDelegate().getAllFields();
+  }
+
+  public String[] getAllWindowIds() {
+    return getDelegate().getAllWindowIds();
+  }
+
+  public String[] getAllWindowNames() {
+    return getDelegate().getAllWindowNames();
+  }
+
+  public String[] getAllWindowTitles() {
+    return getDelegate().getAllWindowTitles();
+  }
+
+  public void waitForPageToLoad(int timeout) {
+    getDelegate().waitForPageToLoad(timeout)
+  }
+
+  public String getXMLDocument() {
+    return getDelegate().getXMLDocument();
+  }
 
 }

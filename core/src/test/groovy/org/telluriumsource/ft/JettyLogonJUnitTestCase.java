@@ -1,7 +1,6 @@
 package org.telluriumsource.ft;
 
-import com.thoughtworks.selenium.SeleniumException;
-import org.telluriumsource.framework.Environment;
+import org.telluriumsource.exception.AssertionFailureException;
 import org.telluriumsource.test.java.TelluriumMockJUnitTestCase;
 import org.telluriumsource.module.JettyLogonModule;
 import org.telluriumsource.entity.EngineState;
@@ -84,6 +83,7 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
 
     @Test
     public void testLogonWithClosestMatch() {
+        useTelluriumEngine(true);
         useClosestMatch(true);
         jlm.plogon("test", "test");
         useClosestMatch(false);
@@ -98,6 +98,7 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
 
     @Test
     public void testIsDisabled(){
+        useTelluriumEngine(false);
         useCssSelector(true);
         boolean result = jlm.isDisabled("Form.Username.Input");
         assertFalse(result);
@@ -105,6 +106,7 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
         result = jlm.isDisabled("Form.Username.Input");
         assertFalse(result);
         useCssSelector(true);
+        useTelluriumEngine(true);
     }
 
     @Test
@@ -114,7 +116,7 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
         System.out.println("Background color for Form.Username.Input: " + css[0]);
     }
 
-    @Ignore
+/*    @Ignore
     @Test
     public void testCookies(){
         useTelluriumApi(false);
@@ -131,7 +133,7 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
         assertNull(cookie);
         cookie = jlm.getCookieByJQuery("tellurium");
         assertNull(cookie);
-    }
+    }*/
 
     @Test
     public void testLogo(){
@@ -142,7 +144,8 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
         assertEquals("Logo", alt);
     }
 
-    @Test(expected= SeleniumException.class)
+//    @Test(expected= SeleniumException.class)
+    @Test(expected= AssertionFailureException.class)
     public void testGetValue(){
         String value = jlm.getValue("Form.Username.Label");
         assertEquals("", value);
@@ -202,8 +205,8 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
     @Test
     public void testShowUi(){
         useEngineLog(true);
-        useTelluriumApi(true);
-        useCache(true);
+//        useTelluriumApi(true);
+//        useCache(true);
 //        jlm.show("Form", 10000);
         jlm.startShow("Form");
         jlm.endShow("Form");
@@ -271,7 +274,7 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
         jlm.typeOnly("Test", "Tellurium");
         jlm.reset("Form");
         useTelluriumEngine(false);
-        useCache(true);
+//        useCache(true);
         jlm.typeOnly("Test", "Tellurium");
         jlm.reset("Form");
     }

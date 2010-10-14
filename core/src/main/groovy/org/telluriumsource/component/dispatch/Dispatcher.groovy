@@ -1,75 +1,76 @@
 package org.telluriumsource.component.dispatch
 
-import org.telluriumsource.component.client.SeleniumClient
 import org.telluriumsource.framework.config.Configurable
 import org.telluriumsource.crosscut.i18n.IResourceBundle;
-import org.telluriumsource.crosscut.trace.DefaultExecutionTracer
 import org.telluriumsource.crosscut.trace.ExecutionTracer
-import org.telluriumsource.framework.Environment
 import org.telluriumsource.dsl.WorkflowContext
 import org.telluriumsource.util.Helper
+import org.telluriumsource.framework.RuntimeEnvironment
+import org.telluriumsource.framework.SessionManager
+import org.telluriumsource.annotation.Provider
+import org.telluriumsource.annotation.Inject
+import org.telluriumsource.component.connector.CustomSelenium
 
+@Provider
 class Dispatcher implements Configurable {
     public static final String PLACE_HOLDER = "\\?"
+
+    @Inject(name="i18nBundle", lazy=true)
     protected IResourceBundle i18nBundle ;
 
+    @Inject(name="tellurium.test.exception.filenamePattern")
     private String filenamePattern = "Screenshot?.png";
 
-    private SeleniumClient sc = new SeleniumClient();
-    private ExecutionTracer tracer = new DefaultExecutionTracer();
+    @Inject
+    private RuntimeEnvironment env;
 
-    public Dispatcher(){
-    	i18nBundle = Environment.instance.myResourceBundle()
-    }
+    @Inject(name="customSelenium")
+    private CustomSelenium sel;
+
+    @Inject
+    private ExecutionTracer tracer;
   
     public boolean isConnected(){
-      //TODO: sometimes, the selenium client is not singleton ??  Fix it
-      if(sc.client == null)
-        sc = new SeleniumClient()
-      
-      if(sc.client == null || sc.client.getActiveSeleniumSession() == null)
+
+      if(sel == null || (!sel.isConnected()))
         return false;
 
       return true;
     }
 
     private boolean isUseScreenshot(){
-      return Environment.instance.isUseScreenshot();
+      return env.isUseScreenshot();
     }
 
     private boolean isUseTrace(){
-      return Environment.instance.isUseTrace();
+      return env.isUseTrace();
     }
 
     private boolean isGenerateBugReport(){
-      return Environment.instance.isGenerateBugReport();
+      return env.isUseBugReport();
     }
 
     def methodMissing(String name, args) {
       WorkflowContext context = args[0]
-      String apiname = context.getApiName();
+      String apiName = context.getApiName();
       Object[] params = Helper.removeFirst(args);
-
-      //TODO: sometimes, the selenium client is not singleton ??  Fix it
-      //here reset selenium client to use the new singleton instance which has the client set
-      if (sc.client == null || sc.client.getActiveSeleniumSession() == null)
-        sc = new SeleniumClient()
 
       try {
         long beforeTime = System.currentTimeMillis()
-        def result = sc.client.getActiveSeleniumSession().metaClass.invokeMethod(sc.client.getActiveSeleniumSession(), name, params)
+        def result = sel.metaClass.invokeMethod(sel, name, params)
         long duration = System.currentTimeMillis() - beforeTime
         if (isUseTrace())
-          tracer.publish(apiname, beforeTime, duration)
+          tracer.publish(apiName, beforeTime, duration)
 
         return result
       } catch (Exception e) {
-        Environment.instance.setLastError(e);
+        RuntimeEnvironment env = SessionManager.getSession().getEnv();
+        env.setLastError(e);
 
         if (isUseScreenshot()) {
           long timestamp = System.currentTimeMillis()
           String filename = filenamePattern.replaceFirst(PLACE_HOLDER, "${timestamp}")
-          sc.client.getActiveSeleniumSession().captureScreenshot(filename)
+          sel.captureScreenshot(filename)
           println i18nBundle.getMessage("Dispatcher.ExceptionMessage", e.getMessage(), filename)
         }
 
@@ -77,7 +78,7 @@ class Dispatcher implements Configurable {
           bugReport();
         }else{
           //dump Environment variables
-          println Environment.instance.toString();
+          println env.toString();
         }
 
         throw e
@@ -91,52 +92,12 @@ class Dispatcher implements Configurable {
 */
 
   public void bugReport() {
-    Environment env = Environment.instance;
+/*   
     if (env.lastDslContext != null) {
       env.lastDslContext.bugReport();
-    }
+    }*/
+
   }
-
-/*  public void bugReport() {
-    println "Please cut and paste the following bug report to Tellurium user group http://groups.google.com/group/tellurium-users"
-    println "---------------------------- Bug Report --------------------------------"
-
-    Environment env = Environment.instance;
-    if (env.lastUiModule != null && env.lastDslContext != null) {
-      println "UI Module " + env.lastUiModule + ": ";
-      println env.lastUiModule.toString(env.lastUiModule);
-
-    }
-
-    if (env.lastDslContext != null) {
-      println "HTML Source: ";
-
-      println env.lastDslContext.getHtmlSource();
-    }
-
-    if (env.lastUiModule != null && env.lastDslContext != null) {
-      println "HTML for UI Module" + env.lastUiModule + ": ";
-      try {
-        env.lastDslContext.getHtmlSource(env.lastUiModule);
-      } catch (Exception e) {
-
-      }
-    }
-
-    println "Environment: ";
-    //dump Environment variables
-    println env.toString();
-
-    println "Last Error: ";
-    println env.lastErrorDescription;
-
-    if (env.lastDslContext != null) {
-      println "System log: ";
-      println env.lastDslContext.retrieveLastRemoteControlLogs();
-    }
-
-    println "----------------------------    End     --------------------------------"
-  }*/
 
   def showTrace() {
     tracer.report()
