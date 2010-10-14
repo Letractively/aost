@@ -2,6 +2,7 @@ package org.telluriumsource.test.report
 
 import org.telluriumsource.framework.config.Configurable
 import org.telluriumsource.framework.config.TelluriumConfigurator
+import org.telluriumsource.annotation.Inject
 
 /**
  * Ouput the results as a file
@@ -12,14 +13,8 @@ import org.telluriumsource.framework.config.TelluriumConfigurator
  *
  */
 class FileOutput implements ResultOutput, Configurable{
-    protected String fileName
-
-    public FileOutput(){
-        //get the singleton configurator
-        TelluriumConfigurator configurator = new TelluriumConfigurator()
-        //configure the reader
-        configurator.config(this)
-    }
+    @Inject(name="tellurium.test.result.filename")
+    private String fileName
 
     public String output(String results) {
         File wf= new File(fileName)

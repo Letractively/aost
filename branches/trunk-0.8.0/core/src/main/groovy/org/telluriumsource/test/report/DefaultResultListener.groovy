@@ -18,7 +18,6 @@ class DefaultResultListener implements ResultListener, Configurable {
     
     private Map<Integer, TestResult> results = new HashMap<Integer, TestResult>()
 
-    //private List<ResultReporter> reporters = new ArrayList<ResultReporter>()
     @Inject(name="tellurium.test.result.reporter")
     protected ResultReporter reporter
 
@@ -78,9 +77,9 @@ class DefaultResultListener implements ResultListener, Configurable {
 
     public void report() {
         //get the singleton configurator
-        TelluriumConfigurator configurator = new TelluriumConfigurator()
+//        TelluriumConfigurator configurator = new TelluriumConfigurator()
         //configure the reader
-        configurator.config(this)
+//        configurator.config(this)
         
         if(!this.results.isEmpty()){
 
