@@ -19,11 +19,11 @@ public class GlobalBean extends BeanInfo implements Bean {
         this.instance = instance;
     }
 
-    public Object getInstance(Session session) {
+    public Object getInstance(String sessionId) {
         return instance;
     }
 
-    public void setInstance(Session session, Object instance) {
+    public void setInstance(String sessionId, Object instance) {
         this.instance = instance;
     }
 

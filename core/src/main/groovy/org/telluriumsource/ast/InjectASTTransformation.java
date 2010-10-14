@@ -221,9 +221,7 @@ public class InjectASTTransformation implements ASTTransformation, Opcodes {
                                 ),
                                 new ConstantExpression("getByName"),
                                 new ArgumentListExpression(
-//                                        new Expression[]{
-                                                new ConstantExpression(name)
-//                                        }
+                                        new ConstantExpression(name)
                                 )
                         )
 

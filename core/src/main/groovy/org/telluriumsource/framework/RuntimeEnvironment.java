@@ -1,6 +1,7 @@
 package org.telluriumsource.framework;
 
 import org.telluriumsource.crosscut.i18n.IResourceBundle;
+import org.telluriumsource.framework.inject.Lookup;
 import org.telluriumsource.util.Helper;
 
 import java.util.HashMap;
@@ -13,7 +14,7 @@ import java.util.Set;
  *
  *         Date: Sep 11, 2010
  */
-public class RuntimeEnvironment implements Cloneable {
+public class RuntimeEnvironment implements Lookup, Cloneable {
     
     private Map<String, Object> map = new HashMap<String, Object>();
 
@@ -241,5 +242,17 @@ public class RuntimeEnvironment implements Cloneable {
         }
 
         return newEnv;
+    }
+
+    public boolean has(String name){
+        return map.containsKey(name);
+    }
+
+    public Object getByName(String name) {
+        return map.get(name);
+    }
+
+    public <T> T getByClass(Class<T> clazz) {
+        return (T)map.get(clazz.getCanonicalName());
     }
 }
