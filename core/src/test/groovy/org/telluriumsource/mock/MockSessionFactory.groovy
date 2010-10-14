@@ -28,7 +28,7 @@ public class MockSessionFactory {
         session.beanFactory = Injector.instance;
       
         SessionManager.setSession(session);
-        Injector.instance.assembleFramework(session);
+        TelluriumFramework.instance.assembleFramework(session);
 
         return session;
     }
