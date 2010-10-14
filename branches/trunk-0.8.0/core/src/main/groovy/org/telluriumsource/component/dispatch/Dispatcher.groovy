@@ -2,7 +2,6 @@ package org.telluriumsource.component.dispatch
 
 import org.telluriumsource.framework.config.Configurable
 import org.telluriumsource.crosscut.i18n.IResourceBundle;
-import org.telluriumsource.crosscut.trace.DefaultExecutionTracer
 import org.telluriumsource.crosscut.trace.ExecutionTracer
 import org.telluriumsource.dsl.WorkflowContext
 import org.telluriumsource.util.Helper
@@ -22,17 +21,16 @@ class Dispatcher implements Configurable {
     @Inject(name="tellurium.test.exception.filenamePattern")
     private String filenamePattern = "Screenshot?.png";
 
-//    private SeleniumClient sc = new SeleniumClient();
     @Inject
     private RuntimeEnvironment env;
 
     @Inject(name="customSelenium")
     private CustomSelenium sel;
-  
-    private ExecutionTracer tracer = new DefaultExecutionTracer();
+
+    @Inject
+    private ExecutionTracer tracer;
   
     public boolean isConnected(){
-      //TODO: sometimes, the selenium client is not singleton ??  Fix it
 /*      if(sc.client == null)
         sc = new SeleniumClient()
       
@@ -58,10 +56,9 @@ class Dispatcher implements Configurable {
 
     def methodMissing(String name, args) {
       WorkflowContext context = args[0]
-      String apiname = context.getApiName();
+      String apiName = context.getApiName();
       Object[] params = Helper.removeFirst(args);
 
-      //TODO: sometimes, the selenium client is not singleton ??  Fix it
       //here reset selenium client to use the new singleton instance which has the client set
 //      if (sc.client == null || sc.client.getActiveSeleniumSession() == null)
 //        sc = new SeleniumClient()
@@ -71,7 +68,7 @@ class Dispatcher implements Configurable {
         def result = sel.metaClass.invokeMethod(sel, name, params)
         long duration = System.currentTimeMillis() - beforeTime
         if (isUseTrace())
-          tracer.publish(apiname, beforeTime, duration)
+          tracer.publish(apiName, beforeTime, duration)
 
         return result
       } catch (Exception e) {
