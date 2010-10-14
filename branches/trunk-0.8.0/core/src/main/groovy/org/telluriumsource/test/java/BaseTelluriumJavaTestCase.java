@@ -135,13 +135,13 @@ public abstract class BaseTelluriumJavaTestCase {
 
   public static void setEnvironment(String name, Object value) {
     RuntimeEnvironment env = SessionManager.getSession().getEnv();
-    env.setCustomEnvironment(name, value);
+    env.setEnvironmentVariable(name, value);
   }
 
   public static Object getEnvironment(String name) {
     RuntimeEnvironment env = SessionManager.getSession().getEnv();
 
-    return env.getCustomEnvironment(name);
+    return env.getEnvironmentVariable(name);
   }
 
   public static void useClosestMatch(boolean isUse){

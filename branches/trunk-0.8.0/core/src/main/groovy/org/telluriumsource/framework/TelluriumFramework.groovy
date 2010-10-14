@@ -108,7 +108,7 @@ public class TelluriumFramework {
             throw new RuntimeException("Unsupported type " + fieldTypeName);
           }
         }else{
-          newEnv.setCustomEnvironment(key, val);
+          newEnv.setEnvironmentVariable(key, val);
         }
       }
 

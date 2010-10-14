@@ -40,7 +40,7 @@ public class RuntimeEnvironment implements Lookup, Cloneable {
         this.lastErrorDescription = lastErrorDescription;
     }
 
-    public void addEnvironmentVariable(String key, Object val){
+    public void setEnvironmentVariable(String key, Object val){
         this.map.put(key, val);
     }
 
@@ -99,14 +99,6 @@ public class RuntimeEnvironment implements Lookup, Cloneable {
 
     public void setBrowser(String browser) {
         map.put("tellurium.connector.browser", browser);
-    }
-
-    public void setCustomEnvironment(String name, Object value) {
-        map.put(name, value);
-    }
-
-    public Object getCustomEnvironment(String name) {
-        return map.get(name);
     }
     
     public boolean isUseCssSelector() {
@@ -238,7 +230,7 @@ public class RuntimeEnvironment implements Lookup, Cloneable {
 
         Set<String> keySet = map.keySet();
         for(String key: keySet){
-            newEnv.setCustomEnvironment(key, map.get(key));
+            newEnv.setEnvironmentVariable(key, map.get(key));
         }
 
         return newEnv;
