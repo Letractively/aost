@@ -31,11 +31,7 @@ class Dispatcher implements Configurable {
     private ExecutionTracer tracer;
   
     public boolean isConnected(){
-/*      if(sc.client == null)
-        sc = new SeleniumClient()
-      
-      if(sc.client == null || sc.client.getActiveSeleniumSession() == null)
-        return false;*/
+
       if(sel == null || (!sel.isConnected()))
         return false;
 
@@ -58,10 +54,6 @@ class Dispatcher implements Configurable {
       WorkflowContext context = args[0]
       String apiName = context.getApiName();
       Object[] params = Helper.removeFirst(args);
-
-      //here reset selenium client to use the new singleton instance which has the client set
-//      if (sc.client == null || sc.client.getActiveSeleniumSession() == null)
-//        sc = new SeleniumClient()
 
       try {
         long beforeTime = System.currentTimeMillis()
