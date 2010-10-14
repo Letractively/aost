@@ -4,9 +4,9 @@ import org.telluriumsource.framework.SessionManager
 import org.telluriumsource.mock.MockSessionFactory
 import org.telluriumsource.framework.Session
 
-import org.telluriumsource.framework.dj.BeanInfo
-import org.telluriumsource.framework.dj.DefaultBeanFactory
-import org.telluriumsource.framework.dj.Injector
+import org.telluriumsource.framework.inject.BeanInfo
+
+import org.telluriumsource.framework.inject.Injector
 import org.telluriumsource.component.dispatch.Dispatcher
 
 /**
@@ -92,7 +92,7 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
         """)
 
         def injector = shell.evaluate("""
-          package org.telluriumsource.framework.dj
+          package org.telluriumsource.framework.inject
 
           import org.telluriumsource.annotation.Provider
 

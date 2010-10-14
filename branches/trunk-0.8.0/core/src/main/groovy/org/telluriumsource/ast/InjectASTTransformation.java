@@ -10,7 +10,7 @@ import org.codehaus.groovy.syntax.Token;
 import org.codehaus.groovy.transform.ASTTransformation;
 import org.codehaus.groovy.transform.GroovyASTTransformation;
 import org.objectweb.asm.Opcodes;
-import org.telluriumsource.framework.dj.Injector;
+import org.telluriumsource.framework.inject.Injector;
 
 import java.util.Arrays;
 import java.util.List;

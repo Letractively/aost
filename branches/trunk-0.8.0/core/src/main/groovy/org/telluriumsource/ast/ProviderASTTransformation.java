@@ -13,7 +13,7 @@ import java.util.*;
 
 import org.objectweb.asm.Opcodes;
 import org.telluriumsource.annotation.Provider;
-import org.telluriumsource.framework.dj.Injector;
+import org.telluriumsource.framework.inject.Injector;
 import org.telluriumsource.framework.TelluriumFramework;
 
 /**
@@ -170,6 +170,7 @@ public class ProviderASTTransformation implements ASTTransformation, Opcodes {
             classNode.addConstructor(new ConstructorNode(ACC_PRIVATE, body));
         }
     }
+/*
 
     private void addConstructor(String name, ClassNode classNode, String scope, boolean singleton){
 
@@ -211,6 +212,7 @@ public class ProviderASTTransformation implements ASTTransformation, Opcodes {
             classNode.addConstructor(new ConstructorNode(ACC_PUBLIC, body));
         }
     }
+*/
 
     class ClassInfo {
         private String name;

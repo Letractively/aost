@@ -1,4 +1,4 @@
-package org.telluriumsource.framework.dj;
+package org.telluriumsource.framework.inject;
 
 import org.telluriumsource.framework.Session;
 import org.telluriumsource.framework.SessionManager;

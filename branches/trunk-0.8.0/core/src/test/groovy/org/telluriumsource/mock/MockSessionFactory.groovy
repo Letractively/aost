@@ -1,15 +1,12 @@
 package org.telluriumsource.mock;
 
 
-import org.telluriumsource.crosscut.i18n.IResourceBundle;
-
-
 import org.telluriumsource.framework.*;
 
 
 import org.telluriumsource.util.BaseUtil
 import org.telluriumsource.framework.config.TelluriumConfigurator
-import org.telluriumsource.framework.dj.Injector;
+import org.telluriumsource.framework.inject.Injector;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)

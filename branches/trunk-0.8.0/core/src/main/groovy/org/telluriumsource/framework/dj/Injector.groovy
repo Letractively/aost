@@ -1,4 +1,4 @@
-package org.telluriumsource.framework.dj
+package org.telluriumsource.framework.inject
 
 import org.telluriumsource.annotation.Provider
 import org.telluriumsource.framework.Session
@@ -7,7 +7,7 @@ import org.telluriumsource.crosscut.i18n.IResourceBundle
 import org.telluriumsource.dsl.SeleniumWrapper
 import org.telluriumsource.dsl.TelluriumApi
 import org.telluriumsource.framework.SessionManager
-import org.telluriumsource.component.connector.CustomSelenium
+
 import org.telluriumsource.exception.FrameworkWiringException
 import org.telluriumsource.component.connector.SeleniumConnector
 import org.telluriumsource.ui.widget.WidgetConfigurator
