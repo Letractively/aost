@@ -1,5 +1,7 @@
 package org.telluriumsource.framework;
 
+import org.telluriumsource.util.BaseUtil;
+
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
@@ -30,6 +32,13 @@ public class SessionManager {
 
     public static Session getSession() {
       return (Session) cache.get();
+    }
+
+    public static String getNewSessionId(String id){
+        String name = (id == null ? "" : id);
+        name = name + "@" + BaseUtil.toBase62(System.currentTimeMillis());
+
+        return name;
     }
 
 }

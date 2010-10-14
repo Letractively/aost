@@ -2,7 +2,7 @@ package org.telluriumsource.entity;
 
 /**
  * @author: Jian Fang (John.Jian.Fang@gmail.com)
- * <p/>
+ * 
  * Date: Sep 16, 2010
  */
 public enum CachePolicy {
