@@ -2,7 +2,6 @@ package org.telluriumsource.framework.inject;
 
 import org.telluriumsource.exception.BeanNotFoundException;
 import org.telluriumsource.exception.InstanceCreationException;
-import org.telluriumsource.framework.Session;
 
 import java.util.ArrayList;
 import java.util.HashMap;

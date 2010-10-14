@@ -1,7 +1,5 @@
 package org.telluriumsource.framework.inject;
 
-import org.telluriumsource.framework.Session;
-
 import java.util.List;
 
 /**

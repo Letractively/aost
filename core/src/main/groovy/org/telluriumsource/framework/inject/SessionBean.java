@@ -1,8 +1,5 @@
 package org.telluriumsource.framework.inject;
 
-import org.telluriumsource.framework.Session;
-import org.telluriumsource.framework.SessionManager;
-
 import java.util.HashMap;
 import java.util.Map;
 
