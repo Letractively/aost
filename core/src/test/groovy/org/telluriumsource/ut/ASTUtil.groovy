@@ -3,6 +3,7 @@ package org.telluriumsource.ut
 import org.codehaus.groovy.ast.ASTNode
 import org.codehaus.groovy.ast.builder.AstBuilder
 import org.telluriumsource.framework.inject.Injector
+import org.telluriumsource.framework.TelluriumInjector
 
 /**
  * 
@@ -16,7 +17,7 @@ class ASTUtil {
 
   public static List<ASTNode> getProviderNodes(String name, Class clazz, String scope, boolean singleton){
     List<ASTNode> nodes = new AstBuilder().buildFromCode {
-      Injector.instance.addBean(name, clazz, clazz, scope, singleton, null);
+      TelluriumInjector.instance.addBean(name, clazz, clazz, scope, singleton, null);
     }
 
     return nodes;

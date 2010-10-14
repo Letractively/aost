@@ -2,6 +2,7 @@ package org.telluriumsource.ut
 
 import org.telluriumsource.mock.MockSessionFactory
 import org.telluriumsource.framework.inject.Injector
+import org.telluriumsource.framework.TelluriumInjector
 
 /**
  * 
@@ -24,6 +25,8 @@ class InjectASTTransformation_UT extends GroovyShellTestCase {
       import org.telluriumsource.annotation.Inject
       import org.telluriumsource.framework.inject.Injector
       import org.telluriumsource.framework.inject.Scope
+      import org.telluriumsource.framework.TelluriumInjector
+
 
 //      @Provider
       public class X {
@@ -44,12 +47,12 @@ class InjectASTTransformation_UT extends GroovyShellTestCase {
         }
 
       }
-      Injector.instance.addBean("x",  X.class, X.class, Scope.Session, true, new X());
+      TelluriumInjector.instance.addBean("x",  X.class, X.class, Scope.Session, true, new X());
       new Y()
 
       """)
 
-      println Injector.instance.showAllBeans();
+      println TelluriumInjector.instance.showAllBeans();
       assertNotNull y
       assertNotNull y.getValue()
       assertEquals 10, y.getValue()

@@ -1,6 +1,6 @@
 package org.telluriumsource.framework.inject
 
-import org.telluriumsource.annotation.Provider
+//import org.telluriumsource.annotation.Provider
 
 
 /**
@@ -11,20 +11,23 @@ import org.telluriumsource.annotation.Provider
  * 
  */
 
-@Provider
-class Injector implements SessionAwareBeanFactory{
+//@Provider
+abstract class Injector implements SessionAwareBeanFactory{
 
   private Map<String, Lookup> sLookup = new HashMap<String, Lookup>();
 
-  private SessionQuery sQuery;
+  private SessionAwareBeanFactory beanFactory = new DefaultSessionAwareBeanFactory();
 
-  public void setSessionQuery(SessionQuery query){
+  public abstract SessionQuery getSessionQuery();
+
+
+/*  public void setSessionQuery(SessionQuery query){
     this.sQuery = query;
-  }
+  }*/
 
   private String getCurrentSessionId(){
-    if(this.sQuery != null)
-      return this.sQuery.getCurrentSessionId();
+    if(this.getSessionQuery() != null)
+      return this.getSessionQuery().getCurrentSessionId();
 
     return null;
   }
@@ -32,8 +35,6 @@ class Injector implements SessionAwareBeanFactory{
   public void addLookupForSession(String sessionId, Lookup lookup){
     this.sLookup.put(sessionId, lookup);
   }
-
-  private SessionAwareBeanFactory beanFactory = new DefaultSessionAwareBeanFactory();
 
   public void addBeanInfo(String name, Class clazz, Class concrete, String scope, boolean singleton){
     
@@ -53,15 +54,15 @@ class Injector implements SessionAwareBeanFactory{
     return this.beanFactory.getByClass(this.getCurrentSessionId(), clazz);
   }
 
-  void addBean(String name, Class clazz, Class concrete, Scope scope, boolean singleton, Object instance) {
+  public void addBean(String name, Class clazz, Class concrete, Scope scope, boolean singleton, Object instance) {
     this.beanFactory.addBean(this.getCurrentSessionId(), name, clazz, concrete, scope, singleton, instance);
   }
 
-  List<Bean> getAllBeans() {
+  public List<Bean> getAllBeans() {
     return this.beanFactory.getAllBeans();
   }
 
-  void destroy() {
+  public void destroy() {
     this.beanFactory.destroy();
   }
 
@@ -82,7 +83,7 @@ class Injector implements SessionAwareBeanFactory{
     return this.beanFactory.getByName(sessionId, name);
   }
 
-  String showAllBeans() {
+  public String showAllBeans() {
     final String fieldSeparator = ", ";
 
     List<Bean> list = this.getAllBeans();

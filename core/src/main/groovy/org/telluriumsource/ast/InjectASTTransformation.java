@@ -12,8 +12,7 @@ import org.codehaus.groovy.transform.GroovyASTTransformation;
 import org.objectweb.asm.Opcodes;
 import org.telluriumsource.framework.inject.Injector;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -28,6 +27,9 @@ public class InjectASTTransformation implements ASTTransformation, Opcodes {
 
     private static final Token ASSIGN = Token.newSymbol("=", -1, -1);
     private static final Token COMPARE_NOT_EQUAL = Token.newSymbol("!=", -1, -1);
+
+    private static ClassNode injector = null;
+    private static final List<InjectInfo> list = new ArrayList<InjectInfo>();
 
     public void visit(ASTNode[] nodes, SourceUnit sourceUnit) {
         if (nodes.length != 2 || !(nodes[0] instanceof AnnotationNode) || !(nodes[1] instanceof AnnotatedNode)) {
@@ -53,12 +55,32 @@ public class InjectASTTransformation implements ASTTransformation, Opcodes {
                 lazy = (Boolean) ((ConstantExpression) lazyExpr).getValue();
             }
 
-            if(lazy){
-//                addMethodPointer(name, fieldNode);
-                renameFieldNodeAndAddGetter(name, fieldNode);
+            if(injector == null){
+                InjectInfo info = new InjectInfo(fieldNode, name, lazy);
+                list.add(info);
             }else{
-                addMethodToConstructor(name, fieldNode);
+                inject(fieldNode, name, lazy);
             }
+        }else if(parent instanceof ClassNode){
+            ClassNode clazzNode = (ClassNode)parent;
+            if(Injector.class.getCanonicalName().equals(clazzNode.getSuperClass().getName())){
+                injector = clazzNode;
+                if(!list.isEmpty()){
+                    for(InjectInfo inf: list){
+                        inject(inf.getFieldNode(), inf.getName(), inf.isLazy());
+                    }
+                    list.clear();
+                }                
+            }
+        }
+    }
+    
+    private void inject(FieldNode fieldNode, String name, boolean lazy){
+        if(lazy){
+//                addMethodPointer(name, fieldNode);
+            renameFieldNodeAndAddGetter(name, fieldNode);
+        }else{
+            addMethodToConstructor(name, fieldNode);
         }
     }
 
@@ -94,7 +116,8 @@ public class InjectASTTransformation implements ASTTransformation, Opcodes {
     private Expression getInitExpr(String name){
         return new MethodCallExpression(
             new MethodCallExpression(
-                    new ClassExpression(new ClassNode(Injector.class)),
+//                    new ClassExpression(new ClassNode(Injector.class)),
+                    new ClassExpression(injector),
                     new ConstantExpression("getInstance"),
                     new ArgumentListExpression()
             ),
@@ -114,7 +137,8 @@ public class InjectASTTransformation implements ASTTransformation, Opcodes {
                 new ReturnStatement(
                     new MethodCallExpression(
                         new MethodCallExpression(
-                                new ClassExpression(new ClassNode(Injector.class)),
+//                                new ClassExpression(new ClassNode(Injector.class)),
+                                new ClassExpression(injector),
                                 new ConstantExpression("getInstance"),
                                 new ArgumentListExpression()
                         ),
@@ -215,7 +239,8 @@ public class InjectASTTransformation implements ASTTransformation, Opcodes {
                         ASSIGN,
                         new MethodCallExpression(
                                 new MethodCallExpression(
-                                        new ClassExpression(new ClassNode(Injector.class)),
+//                                        new ClassExpression(new ClassNode(Injector.class)),
+                                        new ClassExpression(injector),
                                         new ConstantExpression("getInstance"),
                                         new ArgumentListExpression()
                                 ),
@@ -229,5 +254,44 @@ public class InjectASTTransformation implements ASTTransformation, Opcodes {
                 )
 
         );
+    }
+
+    class InjectInfo{
+        
+        private String name;
+
+        private boolean lazy;
+
+        private FieldNode fieldNode;
+
+        InjectInfo(FieldNode fieldNode, String name, boolean lazy) {
+            this.fieldNode = fieldNode;
+            this.lazy = lazy;
+            this.name = name;
+        }
+
+        public FieldNode getFieldNode() {
+            return fieldNode;
+        }
+
+        public void setFieldNode(FieldNode fieldNode) {
+            this.fieldNode = fieldNode;
+        }
+
+        public boolean isLazy() {
+            return lazy;
+        }
+
+        public void setLazy(boolean lazy) {
+            this.lazy = lazy;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
     }
 }
