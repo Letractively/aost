@@ -7,7 +7,6 @@ import org.telluriumsource.framework.SessionManager
 import org.telluriumsource.annotation.Inject;
 
 
-
 /**
  *
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -17,7 +16,7 @@ import org.telluriumsource.annotation.Inject;
  */
 
 public class TimingDecorator {
-//    @Delegate
+
     private delegate
 
     @Inject(name="i18nBundle", lazy=true)

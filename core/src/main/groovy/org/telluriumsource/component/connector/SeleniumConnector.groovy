@@ -1,11 +1,8 @@
 package org.telluriumsource.component.connector
 
-import org.telluriumsource.component.client.SeleniumClient
 import org.telluriumsource.framework.config.Configurable
 
-//import com.thoughtworks.selenium.CommandProcessor
 import org.telluriumsource.component.bundle.BundleProcessor
-import org.telluriumsource.framework.SessionManager
 import org.telluriumsource.annotation.Inject
 import org.telluriumsource.annotation.Provider
 
@@ -19,36 +16,34 @@ import org.telluriumsource.annotation.Provider
 class SeleniumConnector implements Configurable {
 
   @Inject(name="tellurium.connector.port")
-  protected int port = 4444
+  private int port = 4444
 
-  protected final String HTTPS_BASE_URL = "https://localhost:8443"
+  private final String HTTPS_BASE_URL = "https://localhost:8443"
 
-  protected final String HTTP_BASE_URL = "http://localhost:8080"
+  private final String HTTP_BASE_URL = "http://localhost:8080"
 
   @Inject(name="customSelenium")
-  protected CustomSelenium sel
+  private CustomSelenium sel
 
-//  protected CustomSelenium customSelenium
-
-  protected CommandProcessor commandProcessor
+  private CommandProcessor commandProcessor
 
   @Inject(name="tellurium.connector.baseUrl")
-  protected String baseURL = HTTP_BASE_URL
+  private String baseURL = HTTP_BASE_URL
 
   @Inject(name="tellurium.connector.browser")
-  protected String browser = "*chrome"
+  private String browser = "*chrome"
 
   @Inject(name="tellurium.connector.serverHost")
-  protected seleniumServerHost = "localhost"
+  private seleniumServerHost = "localhost"
 
   @Inject(name="tellurium.embeddedserver.userExtension")
-  protected String userExtension = null
+  private String userExtension = null
 
   @Inject(name="tellurium.connector.customClass")
-  protected def customClass = null
+  private def customClass = null
 
   @Inject(name="tellurium.connector.options")
-  protected String options = null
+  private String options = null
 
   @Inject
   private BundleProcessor processor
@@ -91,8 +86,8 @@ class SeleniumConnector implements Configurable {
 
         sel.start()
 
-        SeleniumClient sc = new SeleniumClient()
-        sc.client = sel
+//        SeleniumClient sc = new SeleniumClient()
+//        sc.client = sel
 
     }
 
