@@ -14,7 +14,6 @@ import java.util.*;
 import org.objectweb.asm.Opcodes;
 import org.telluriumsource.annotation.Provider;
 import org.telluriumsource.framework.inject.Injector;
-import org.telluriumsource.framework.TelluriumFramework;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -170,49 +169,6 @@ public class ProviderASTTransformation implements ASTTransformation, Opcodes {
             classNode.addConstructor(new ConstructorNode(ACC_PRIVATE, body));
         }
     }
-/*
-
-    private void addConstructor(String name, ClassNode classNode, String scope, boolean singleton){
-
-        final List list = classNode.getDeclaredConstructors();
-        MethodNode found = null;
-        for (Iterator it = list.iterator(); it.hasNext();) {
-            MethodNode mn = (MethodNode) it.next();
-            final Parameter[] parameters = mn.getParameters();
-            if (parameters == null || parameters.length == 0) {
-                found = mn;
-                break;
-            }
-        }
-
-        if (found == null) {
-            final BlockStatement body = new BlockStatement();
-            body.addStatement(
-                    new ExpressionStatement(
-                            new MethodCallExpression(
-                                    new MethodCallExpression(
-                                            new ClassExpression(new ClassNode(TelluriumFramework.class)),
-                                            new ConstantExpression("getInstance"),
-                                            new ArgumentListExpression()
-                                    ),
-                                    new ConstantExpression("registerBean"),
-                                    new ArgumentListExpression(
-                                            new Expression[]{
-                                                    new ConstantExpression(name),
-                                                    new ClassExpression(classNode),
-                                                    new ConstantExpression(scope),
-                                                    new ConstantExpression(singleton)
-
-                                            }
-                                    )
-                            )
-                    )
-            );
-
-            classNode.addConstructor(new ConstructorNode(ACC_PUBLIC, body));
-        }
-    }
-*/
 
     class ClassInfo {
         private String name;

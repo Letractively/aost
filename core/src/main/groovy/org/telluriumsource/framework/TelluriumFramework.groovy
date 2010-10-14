@@ -13,6 +13,13 @@ import org.telluriumsource.util.BaseUtil
 import java.lang.reflect.Field
 
 import org.telluriumsource.framework.inject.Injector
+import org.telluriumsource.framework.inject.Scope
+import org.telluriumsource.ui.builder.UiObjectBuilder
+import org.telluriumsource.ui.builder.UiObjectBuilderRegistry
+import org.telluriumsource.ui.widget.WidgetConfigurator
+import org.telluriumsource.dsl.SeleniumWrapper
+import org.telluriumsource.dsl.TelluriumApi
+import org.telluriumsource.exception.FrameworkWiringException
 
 /**
  * Put all initialization and cleanup jobs for the Tellurium framework here
@@ -136,7 +143,7 @@ public class TelluriumFramework {
 
       Session session = reuseExistingOrCreateNewSession();
       SessionManager.setSession(session);
-      Injector.instance.assembleFramework(session);
+      assembleFramework(session);
      
       this.isStarted = true;
     }
@@ -195,6 +202,52 @@ public class TelluriumFramework {
   public void disconnectServer(){
      SeleniumConnector connector = SessionManager.getSession().getByClass(SeleniumConnector.class);
      connector.disconnectSeleniumServer()
+  }
+  
+  public synchronized void assembleFramework(Session session){
+    Injector injector = Injector.instance;
+    Session original = SessionManager.getSession();
+    SessionManager.setSession(session);
+    try{
+      RuntimeEnvironment env = session.getEnv();
+      injector.addBean(session, RuntimeEnvironment.class.getCanonicalName(),  RuntimeEnvironment.class, RuntimeEnvironment.class, Scope.Session, true, env);
+      IResourceBundle i18nBundle =  new org.telluriumsource.crosscut.i18n.ResourceBundle();
+      String[] split = env.getLocale().split("_");
+      Locale loc = new Locale(split[0], split[1]);
+      i18nBundle.updateDefaultLocale(loc);
+      env.setResourceBundle(i18nBundle);
+      injector.addBean(session, "i18nBundle",  IResourceBundle.class, org.telluriumsource.crosscut.i18n.ResourceBundle.class, Scope.Session, true, i18nBundle);
+
+      Map<String, UiObjectBuilder> customBuilders = env.getEnvironmentVariable("tellurium.uiobject.builder");
+
+      if(customBuilders != null && (!customBuilders.isEmpty())){
+        UiObjectBuilderRegistry uobRegistry = injector.getByClass(session, UiObjectBuilderRegistry.class);
+          customBuilders.each {key, value ->
+            UiObjectBuilder builder = (UiObjectBuilder) Class.forName(value).newInstance()
+            uobRegistry.registerBuilder(key, builder)
+        }
+      }
+
+      String widgetModules = env.getEnvironmentVariable("tellurium.widget.module.included");
+
+      if(widgetModules != null && (!widgetModules.isEmpty())){
+        WidgetConfigurator widgetConfigurator = injector.getByClass(session, WidgetConfigurator.class);
+        widgetConfigurator.configWidgetModule(widgetModules);
+      }
+
+      injector.getByClass(session, SeleniumConnector.class);
+
+      SeleniumWrapper wrapper = injector.getByName(session, "SeleniumWrapper");
+      session.wrapper = wrapper;
+      TelluriumApi api = injector.getByName(session, "TelluriumApi");
+      session.api = api;
+    }catch(Exception e){
+      e.printStackTrace();
+      throw new FrameworkWiringException("Error Wiring Tellurium Framework", e);
+    }finally{
+      SessionManager.setSession(original);
+    }
+
   }
 
 }
