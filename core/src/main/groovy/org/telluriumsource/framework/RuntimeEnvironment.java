@@ -219,15 +219,15 @@ public class RuntimeEnvironment implements Lookup, Cloneable {
     public String toString(){
         StringBuffer sb = new StringBuffer(64);
         sb.append("RuntimeEnvironment: [")
-            .append("useCssSelector: ").append(useCssSelector).append(",")
-            .append("useNewEngine: ").append(useNewEngine).append(",")
-            .append("useClosestMatch: ").append(useClosestMatch).append(",")
-            .append("useEngineLog: ").append(useEngineLog).append(",")
+            .append("useCssSelector: ").append(useCssSelector).append(", ")
+            .append("useNewEngine: ").append(useNewEngine).append(", ")
+            .append("useClosestMatch: ").append(useClosestMatch).append(", ")
+            .append("useEngineLog: ").append(useEngineLog).append(", ")
             .append("lastError: ").append(this.lastErrorDescription);
         if(!map.isEmpty()){
             Set<String> keySet = map.keySet();
             for(String key: keySet){
-                sb.append(",").append(key).append(": ").append(map.get(key));
+                sb.append(", ").append(key).append(": ").append(map.get(key));
             }
         }
 

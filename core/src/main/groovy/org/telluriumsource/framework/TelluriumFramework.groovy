@@ -9,7 +9,6 @@ import org.telluriumsource.server.EmbeddedSeleniumServer
 
 import org.telluriumsource.crosscut.i18n.IResourceBundle
 
-import org.telluriumsource.util.BaseUtil
 import java.lang.reflect.Field
 
 import org.telluriumsource.framework.inject.Injector
@@ -46,10 +45,8 @@ public class TelluriumFramework {
   private SessionQuery sQuery = new DefaultSessionQuery();
 
   public Session createNewSession(String id, RuntimeEnvironment env){
-    String name = (id == null ? "" : id);
-    name = name + "@" + BaseUtil.toBase62(System.currentTimeMillis());
     Session session = new Session();
-    session.sessionId = name;
+    session.sessionId = SessionManager.getNewSessionId(id);
     session.env = env;
     session.beanFactory = Injector.instance;
 
@@ -143,7 +140,6 @@ public class TelluriumFramework {
         }
       }
 
-
       Session session = reuseExistingOrCreateNewSession();
       SessionManager.setSession(session);
       assembleFramework(session);
@@ -164,8 +160,6 @@ public class TelluriumFramework {
   public void startSeleniumServer() {
     server = new EmbeddedSeleniumServer()
 
-//    telluriumConfigurator.config(server)
-
     server.runSeleniumServer()
   }
 
@@ -176,8 +170,6 @@ public class TelluriumFramework {
     } else {
 
       server = new EmbeddedSeleniumServer()
-
-//      telluriumConfigurator.config(server)
 
       //overwrite the embedded server settings with these provided by custom configuration
       server.setProperty("runSeleniumServerInternally", customConfig.isRunInternally())
