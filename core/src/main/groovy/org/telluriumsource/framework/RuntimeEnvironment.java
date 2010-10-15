@@ -1,7 +1,7 @@
 package org.telluriumsource.framework;
 
 import org.telluriumsource.crosscut.i18n.IResourceBundle;
-import org.telluriumsource.framework.inject.Lookup;
+import org.telluriumsource.inject.Lookup;
 import org.telluriumsource.util.Helper;
 
 import java.util.HashMap;

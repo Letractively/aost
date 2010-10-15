@@ -11,8 +11,8 @@ import org.telluriumsource.crosscut.i18n.IResourceBundle
 
 import java.lang.reflect.Field
 
-import org.telluriumsource.framework.inject.Injector
-import org.telluriumsource.framework.inject.Scope
+import org.telluriumsource.inject.Injector
+import org.telluriumsource.inject.Scope
 import org.telluriumsource.ui.builder.UiObjectBuilder
 import org.telluriumsource.ui.builder.UiObjectBuilderRegistry
 import org.telluriumsource.ui.widget.WidgetConfigurator

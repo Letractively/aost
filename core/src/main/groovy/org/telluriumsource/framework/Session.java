@@ -3,11 +3,11 @@ package org.telluriumsource.framework;
 import org.telluriumsource.crosscut.i18n.IResourceBundle;
 import org.telluriumsource.dsl.SeleniumWrapper;
 import org.telluriumsource.dsl.TelluriumApi;
-import org.telluriumsource.framework.inject.Lookup;
-import org.telluriumsource.framework.inject.SessionAwareBeanFactory;
+import org.telluriumsource.inject.Lookup;
+import org.telluriumsource.inject.SessionAwareBeanFactory;
 
 /**
- * @author: Jian Fang (John.Jian.Fang@gmail.com)
+ * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  * Date: Sep 10, 2010
  */
