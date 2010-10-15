@@ -260,6 +260,7 @@
     </build>
     <modules>
         <module>udl</module>
+        <module>injector</module>
         <module>core</module>
         <module>engine</module>
         <module>extensions</module>
