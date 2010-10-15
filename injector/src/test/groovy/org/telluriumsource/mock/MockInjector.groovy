@@ -1,8 +1,7 @@
 package org.telluriumsource.mock
 
-import org.telluriumsource.inject.Injector
-import org.telluriumsource.annotation.Provider
-import org.telluriumsource.annotation.Inject
+import org.telluriumsource.inject.AbstractInjector
+import org.telluriumsource.annotation.Injector
 
 /**
  * 
@@ -11,9 +10,8 @@ import org.telluriumsource.annotation.Inject
  * Date: Oct 14, 2010
  * 
  */
-@Inject
-@Provider
-class MockInjector extends Injector {
+@Injector
+class MockInjector extends AbstractInjector {
   private static final String DEFAULT = "default";
 
   String getCurrentSessionId() {
