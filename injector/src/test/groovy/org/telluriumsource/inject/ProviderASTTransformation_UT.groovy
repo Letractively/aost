@@ -4,6 +4,8 @@ import java.lang.reflect.Method
 import java.lang.reflect.Field
 import org.telluriumsource.mock.MockInjector
 import org.telluriumsource.mock.MockProvider
+import org.telluriumsource.ast.ProviderASTTransformation
+import org.telluriumsource.ast.InjectASTTransformation
 
 /**
  * 
@@ -15,50 +17,39 @@ import org.telluriumsource.mock.MockProvider
 class ProviderASTTransformation_UT extends GroovyShellTestCase {
 
   public void setUp(){
-        super.setUp()
+    super.setUp()
+    ProviderASTTransformation.injector = null;
+    InjectASTTransformation.injector = null;
   }
 
-  public void testProviderWithType(){
-
-        def res = shell.evaluate("""
-              package org.telluriumsource
-
-              import org.telluriumsource.annotation.Provider
-              @Provider(type=X.class)
-              class X {
-                private ArrayList list = [1,2,3]
-
-                void op () {
-                  list
-                }
-              }
-
-              new X ()
-        """)
-
-        shell.evaluate("""
-
-              package org.telluriumsource
-
-              import org.telluriumsource.annotation.Provider
-              @Provider
-              class Y {
-                private ArrayList list = [1,2,3]
-
-                void op () {
-                  list
-                }
-              }
-
-              new Y()
-        """)
+  public void testProvider(){
 
         def injector = shell.evaluate("""
           package org.telluriumsource
 
           import org.telluriumsource.annotation.Provider
+          import org.telluriumsource.annotation.Inject
           import org.telluriumsource.inject.Injector
 
+          @Provider(name="x")
+          class X {
+            private ArrayList list = [1,2,3]
+
+            void op () {
+              list
+            }
+          }
+
+          @Provider
+          class Y {
+              private ArrayList list = [1,2,3]
+
+              void op () {
+                list
+              }
+           }
+
+          @Inject
           @Provider
           class TestInjector extends Injector {
 
@@ -80,23 +71,6 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
            TestInjector.instance
           
         """)
-
-        shell.evaluate("""
-              package org.telluriumsource
-
-              import org.telluriumsource.annotation.Provider
-              @Provider
-              class Z {
-                private ArrayList list = [1,2,3]
-
-                void op () {
-                  list
-                }
-              }
-
-              new Z()
-        """)
-
 
         Set<Bean> infos = injector.getAllBeans()
         assertNotNull infos
