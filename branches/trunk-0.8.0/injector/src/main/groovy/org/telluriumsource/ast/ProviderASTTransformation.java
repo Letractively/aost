@@ -13,7 +13,7 @@ import java.util.*;
 
 import org.objectweb.asm.Opcodes;
 import org.telluriumsource.annotation.Provider;
-import org.telluriumsource.inject.Injector;
+import org.telluriumsource.inject.AbstractInjector;
 
 
 /**
@@ -26,7 +26,6 @@ public class ProviderASTTransformation implements ASTTransformation, Opcodes {
     private static final ClassNode PROVIDER = new ClassNode(Provider.class);
 
     private static final Map<String, ClassInfo> map = new HashMap<String, ClassInfo>();
-    private static ClassNode injector = null;
 
     public void visit(ASTNode[] nodes, SourceUnit sourceUnit) {
         if (nodes.length != 2 || !(nodes[0] instanceof AnnotationNode) || !(nodes[1] instanceof AnnotatedNode)) {
@@ -35,11 +34,11 @@ public class ProviderASTTransformation implements ASTTransformation, Opcodes {
 
         AnnotatedNode parent = (AnnotatedNode) nodes[1];
         AnnotationNode node = (AnnotationNode) nodes[0];
-        ClassNode clazzNode = (ClassNode)parent;
 
         if (!PROVIDER.equals(node.getClassNode()))
             return;
 
+        ClassNode clazzNode = (ClassNode)parent;
         ClassNode concrete = clazzNode;
 
         ClassNode clazz;
@@ -70,11 +69,8 @@ public class ProviderASTTransformation implements ASTTransformation, Opcodes {
             singleton = (Boolean)((ConstantExpression)singletonExpr).getValue();
         }
 
-        if(Injector.class.getName().equals(clazzNode.getSuperClass().getName())){
-            injector = clazzNode;
-//            ProviderASTTransformation.injector = injector;
-            
-            createNonLazy(clazzNode);
+        ClassNode injector = InjectorASTTransformation.getInjector();
+        if(injector != null){
             Set<String> names = map.keySet();
             if(names != null && (!names.isEmpty())){
                 for(String key: names){
@@ -83,20 +79,18 @@ public class ProviderASTTransformation implements ASTTransformation, Opcodes {
                 }
                 map.clear();
             }
+
+            addInitiateMethod(name, clazz, concrete, scope, singleton);
         }else{
-            if(injector != null){
-                addInitiateMethod(name, clazz, concrete, scope, singleton);
-            }else{
-                ClassInfo classInfo = new ClassInfo(name, clazz, concrete, singleton, scope);
-                map.put(name, classInfo);
-            }
+            ClassInfo classInfo = new ClassInfo(name, clazz, concrete, singleton, scope);
+            map.put(name, classInfo);
         }
     }
 
     private void addInitiateMethod(String name, ClassNode clazz, ClassNode concrete, String scope, boolean isSingleton){
-//        ClassNode cachedNode = new ClassNode(Injector.class);
+       ClassNode injector = InjectorASTTransformation.getInjector();
        final List list = injector.getDeclaredConstructors();
-//        final List list = injector.getAllDeclaredMethods();
+
         MethodNode found = null;
         for (Iterator it = list.iterator(); it.hasNext();) {
             MethodNode mn = (MethodNode) it.next();
@@ -116,7 +110,6 @@ public class ProviderASTTransformation implements ASTTransformation, Opcodes {
             List existingStatements = body.getStatements();
             Statement stm = createCacheStatement(name, clazz, concrete, scope, isSingleton);
             existingStatements.add(stm);
-//            found.setCode(body);
         }
     }
 
@@ -137,41 +130,6 @@ public class ProviderASTTransformation implements ASTTransformation, Opcodes {
                         )
                 )
         );
-    }
-
-    private void createNonLazy(ClassNode classNode) {
-        final FieldNode fieldNode = classNode.addField("instance", ACC_PUBLIC|ACC_FINAL|ACC_STATIC, classNode, new ConstructorCallExpression(classNode, new ArgumentListExpression()));
-        createConstructor(classNode, fieldNode);
-
-        final BlockStatement body = new BlockStatement();
-        body.addStatement(new ReturnStatement(new VariableExpression(fieldNode)));
-        classNode.addMethod("getInstance", ACC_STATIC|ACC_PUBLIC, classNode, Parameter.EMPTY_ARRAY, ClassNode.EMPTY_ARRAY, body);
-    }
-
-    private void createConstructor(ClassNode classNode, FieldNode field) {
-
-        final List list = classNode.getDeclaredConstructors();
-        MethodNode found = null;
-        for (Iterator it = list.iterator(); it.hasNext(); ) {
-            MethodNode mn = (MethodNode) it.next();
-            final Parameter[] parameters = mn.getParameters();
-            if (parameters == null || parameters.length == 0) {
-                found = mn;
-                break;
-            }
-        }
-
-        if (found == null) {
-            final BlockStatement body = new BlockStatement();
-            body.addStatement(new IfStatement(
-                    new BooleanExpression(new BinaryExpression(new VariableExpression(field), Token.newSymbol("!=",-1,-1), ConstantExpression.NULL)),
-                new ThrowStatement(
-                        new ConstructorCallExpression(ClassHelper.make(RuntimeException.class),
-                                new ArgumentListExpression(
-                                        new ConstantExpression("Can't instantiate singleton " + classNode.getName() + ". Use " + classNode.getName() + ".instance" )))),
-                new EmptyStatement()));
-            classNode.addConstructor(new ConstructorNode(ACC_PRIVATE, body));
-        }
     }
 
     class ClassInfo {

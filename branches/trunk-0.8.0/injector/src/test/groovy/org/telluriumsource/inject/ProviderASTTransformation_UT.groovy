@@ -4,8 +4,7 @@ import java.lang.reflect.Method
 import java.lang.reflect.Field
 import org.telluriumsource.mock.MockInjector
 import org.telluriumsource.mock.MockProvider
-import org.telluriumsource.ast.ProviderASTTransformation
-import org.telluriumsource.ast.InjectASTTransformation
+import org.telluriumsource.ast.InjectorASTTransformation
 
 /**
  * 
@@ -18,8 +17,7 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
 
   public void setUp(){
     super.setUp()
-    ProviderASTTransformation.injector = null;
-    InjectASTTransformation.injector = null;
+    InjectorASTTransformation.injector = null;
   }
 
   public void testProvider(){
@@ -29,7 +27,8 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
 
           import org.telluriumsource.annotation.Provider
           import org.telluriumsource.annotation.Inject
-          import org.telluriumsource.inject.Injector
+          import org.telluriumsource.annotation.Injector
+          import org.telluriumsource.inject.AbstractInjector
 
           @Provider(name="x")
           class X {
@@ -49,9 +48,8 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
               }
            }
 
-          @Inject
-          @Provider
-          class TestInjector extends Injector {
+          @Injector
+          class TestInjector extends AbstractInjector {
 
             public String getCurrentSessionId(){
               return "default"

@@ -10,7 +10,6 @@ import org.codehaus.groovy.syntax.Token;
 import org.codehaus.groovy.transform.ASTTransformation;
 import org.codehaus.groovy.transform.GroovyASTTransformation;
 import org.objectweb.asm.Opcodes;
-import org.telluriumsource.inject.Injector;
 
 import java.util.*;
 
@@ -28,7 +27,6 @@ public class InjectASTTransformation implements ASTTransformation, Opcodes {
     private static final Token ASSIGN = Token.newSymbol("=", -1, -1);
     private static final Token COMPARE_NOT_EQUAL = Token.newSymbol("!=", -1, -1);
 
-    private static ClassNode injector = null;
     private static final List<InjectInfo> list = new ArrayList<InjectInfo>();
 
     public void visit(ASTNode[] nodes, SourceUnit sourceUnit) {
@@ -55,22 +53,19 @@ public class InjectASTTransformation implements ASTTransformation, Opcodes {
                 lazy = (Boolean) ((ConstantExpression) lazyExpr).getValue();
             }
 
+            ClassNode injector = InjectorASTTransformation.getInjector();
+
             if(injector == null){
                 InjectInfo info = new InjectInfo(fieldNode, name, lazy);
                 list.add(info);
             }else{
-                inject(fieldNode, name, lazy);
-            }
-        }else if(parent instanceof ClassNode){
-            ClassNode clazzNode = (ClassNode)parent;
-            if(Injector.class.getCanonicalName().equals(clazzNode.getSuperClass().getName())){
-                injector = clazzNode;
                 if(!list.isEmpty()){
                     for(InjectInfo inf: list){
                         inject(inf.getFieldNode(), inf.getName(), inf.isLazy());
                     }
                     list.clear();
-                }                
+                }
+                inject(fieldNode, name, lazy);
             }
         }
     }
@@ -114,9 +109,10 @@ public class InjectASTTransformation implements ASTTransformation, Opcodes {
     }
 
     private Expression getInitExpr(String name){
+        ClassNode injector = InjectorASTTransformation.getInjector();
+
         return new MethodCallExpression(
             new MethodCallExpression(
-//                    new ClassExpression(new ClassNode(Injector.class)),
                     new ClassExpression(injector),
                     new ConstantExpression("getInstance"),
                     new ArgumentListExpression()
@@ -131,13 +127,13 @@ public class InjectASTTransformation implements ASTTransformation, Opcodes {
     private void addMethodPointer(String name, FieldNode fieldNode){
         ClassNode classNode = fieldNode.getType();
         final String methodName = "inject" + MetaClassHelper.capitalize(fieldNode.getName());
+        ClassNode injector = InjectorASTTransformation.getInjector();
 
         BlockStatement body = new BlockStatement();
         body.addStatement(
                 new ReturnStatement(
                     new MethodCallExpression(
                         new MethodCallExpression(
-//                                new ClassExpression(new ClassNode(Injector.class)),
                                 new ClassExpression(injector),
                                 new ConstantExpression("getInstance"),
                                 new ArgumentListExpression()
@@ -209,7 +205,6 @@ public class InjectASTTransformation implements ASTTransformation, Opcodes {
 
     private void addMethodToConstructor(String name, FieldNode fieldNode){
 
-//        ClassNode classNode = fieldNode.getType();
         ClassNode classNode = fieldNode.getDeclaringClass();
 
         List list = classNode.getDeclaredConstructors();
@@ -233,13 +228,14 @@ public class InjectASTTransformation implements ASTTransformation, Opcodes {
 
     private Statement getInjectStatement(String name, FieldNode fieldNode) {
         final Expression fieldExpr = new VariableExpression(fieldNode);
+        ClassNode injector = InjectorASTTransformation.getInjector();
+
         return new ExpressionStatement(
                 new BinaryExpression(
                         fieldExpr,
                         ASSIGN,
                         new MethodCallExpression(
                                 new MethodCallExpression(
-//                                        new ClassExpression(new ClassNode(Injector.class)),
                                         new ClassExpression(injector),
                                         new ConstantExpression("getInstance"),
                                         new ArgumentListExpression()

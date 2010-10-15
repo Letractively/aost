@@ -9,7 +9,7 @@ package org.telluriumsource.inject
  * 
  */
 
-abstract class Injector implements SessionAwareBeanFactory{
+abstract class AbstractInjector implements SessionAwareBeanFactory {
 
   private Map<String, Lookup> sLookup = new HashMap<String, Lookup>();
 

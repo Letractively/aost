@@ -1,10 +1,11 @@
 package org.telluriumsource.annotation;
 
-import org.codehaus.groovy.transform.GroovyASTTransformationClass;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Retention;
+
+import org.codehaus.groovy.transform.GroovyASTTransformationClass;
 
 /**
  * 
@@ -15,7 +16,7 @@ import java.lang.annotation.Retention;
  */
 
 @Retention(RetentionPolicy.SOURCE)
-@Target({ElementType.FIELD, ElementType.TYPE})
+@Target({ElementType.FIELD})
 @GroovyASTTransformationClass("org.telluriumsource.ast.InjectASTTransformation")
 public @interface Inject {
     String name() default "";
