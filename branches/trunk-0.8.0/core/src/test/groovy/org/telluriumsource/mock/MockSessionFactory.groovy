@@ -6,7 +6,6 @@ import org.telluriumsource.framework.*;
 
 import org.telluriumsource.util.BaseUtil
 import org.telluriumsource.framework.config.TelluriumConfigurator
-import org.telluriumsource.framework.inject.Injector;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -25,9 +24,10 @@ public class MockSessionFactory {
         Session session = new Session();
         session.sessionId = name;
         session.env = env;
+        SessionManager.setSession(session);
+
         session.beanFactory = TelluriumInjector.instance;
       
-        SessionManager.setSession(session);
         TelluriumFramework.instance.assembleFramework(session);
 
         return session;

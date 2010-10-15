@@ -4,11 +4,11 @@ import org.telluriumsource.framework.SessionManager
 import org.telluriumsource.mock.MockSessionFactory
 import org.telluriumsource.framework.Session
 
-import org.telluriumsource.framework.inject.BeanInfo
-
-import org.telluriumsource.framework.inject.Injector
 import org.telluriumsource.component.dispatch.Dispatcher
 import org.telluriumsource.framework.TelluriumInjector
+import org.telluriumsource.framework.inject.Bean
+import java.lang.reflect.Method
+import java.lang.reflect.Field
 
 /**
  * 
@@ -83,20 +83,17 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
         """)
 
         def injector = shell.evaluate("""
-          package org.telluriumsource.framework.inject
+          package org.telluriumsource.framework
 
           import org.telluriumsource.annotation.Provider
-          import org.telluriumsource.framework.DefaultSessionQuery
+          import org.telluriumsource.framework.inject.Injector
 
           @Provider
           class TestInjector extends Injector {
-                private SessionQuery sQuery = new DefaultSessionQuery();
 
-                public SessionQuery getSessionQuery(){
-
-                  return this.sQuery;
-                }
-
+            public String getCurrentSessionId(){
+              return SessionManager.getSession().getSessionId();
+            }
 
           }
 
@@ -130,7 +127,7 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
         """)
 
 
-        Set<BeanInfo> infos = injector.getBeanInfos()
+        Set<Bean> infos = injector.getAllBeans()
         assertNotNull infos
         assertFalse infos.isEmpty()
         assertEquals 3, infos.size()
@@ -141,6 +138,15 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
 
     assertNotNull session
 
+//    Object obj = TelluriumInjector.instance.getByClass(Dispatcher.class);
+    TelluriumInjector.getMethods().each{Method m ->
+      println m.toGenericString();  
+    }
+
+    TelluriumInjector.getFields().each{Field f ->
+      println f.toGenericString();
+    }
+    
     Object obj = TelluriumInjector.instance.getByClass(Dispatcher.class);
     assertNotNull obj
 
