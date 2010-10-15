@@ -24,7 +24,6 @@ public class SelectorExampleTestCase  extends TelluriumMockJUnitTestCase {
         //comment out the following line, the test will break
         useTelluriumEngine(true);
         useTrace(true);
-        useTelluriumApi(true);
         useEngineLog(true);
     }
 

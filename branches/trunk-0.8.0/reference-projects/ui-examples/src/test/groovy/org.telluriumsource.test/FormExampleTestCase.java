@@ -103,8 +103,7 @@ public class FormExampleTestCase extends TelluriumMockTestNGTestCase {
     @Parameters({"useSelector", "useCache", "useTeApi"})
     public void testLogon(boolean useSelector, boolean useCache, boolean useTeApi) {
         useCssSelector(useSelector);
-        useCache(useCache);
-        useTelluriumApi(useTeApi);
+        useTelluriumEngine(useCache);
         fem.logon("test", "test");
     }
 

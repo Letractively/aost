@@ -85,17 +85,6 @@ public class GoogleSearchTestNGTestCase extends TelluriumTestNGTestCase{
     }
 
     @Test
-    public void testUseCache(){
-        useCache(true);
-        boolean result = gsm.getCacheState();
-        assertTrue(result);
-
-        useCache(false);
-        result = gsm.getCacheState();
-        assertFalse(result);
-    }
-
-    @Test
     public void testRegisterNamespace(){
         registerNamespace("te", te_ns);
         String ns = getNamespace("te");
@@ -112,7 +101,7 @@ public class GoogleSearchTestNGTestCase extends TelluriumTestNGTestCase{
     @Test
     public void testCachePolicy(){
         useCssSelector(true);
-        useCache(true);
+        useTelluriumEngine(true);
         String policy = getCurrentCachePolicy();
         assertEquals("DiscardOldPolicy", policy);
         useCachePolicy(CachePolicy.DISCARD_LEAST_USED);
