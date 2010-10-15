@@ -1,17 +1,15 @@
 package org.telluriumsource.framework;
 
-import org.telluriumsource.annotation.Inject;
-import org.telluriumsource.annotation.Provider;
-import org.telluriumsource.inject.Injector
+import org.telluriumsource.inject.AbstractInjector
+import org.telluriumsource.annotation.Injector
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  *
  *         Date: Oct 14, 2010
  */
-@Inject
-@Provider
-public class TelluriumInjector extends Injector {
+@Injector
+public class TelluriumInjector extends AbstractInjector {
 
     public String getCurrentSessionId(){
         return SessionManager.getSession().getSessionId();

@@ -11,7 +11,6 @@ import org.telluriumsource.crosscut.i18n.IResourceBundle
 
 import java.lang.reflect.Field
 
-import org.telluriumsource.inject.Injector
 import org.telluriumsource.inject.Scope
 import org.telluriumsource.ui.builder.UiObjectBuilder
 import org.telluriumsource.ui.builder.UiObjectBuilderRegistry
@@ -196,7 +195,7 @@ public class TelluriumFramework {
   }
   
   public synchronized void assembleFramework(Session session){
-    Injector injector = TelluriumInjector.instance;
+    TelluriumInjector injector = TelluriumInjector.instance;
     Session original = SessionManager.getSession();
     String sessionId = session.getSessionId();
     SessionManager.setSession(session);
