@@ -1,7 +1,5 @@
 package org.telluriumsource.framework.inject
 
-//import org.telluriumsource.annotation.Provider
-
 
 /**
  * 
@@ -11,26 +9,13 @@ package org.telluriumsource.framework.inject
  * 
  */
 
-//@Provider
 abstract class Injector implements SessionAwareBeanFactory{
 
   private Map<String, Lookup> sLookup = new HashMap<String, Lookup>();
 
   private SessionAwareBeanFactory beanFactory = new DefaultSessionAwareBeanFactory();
 
-  public abstract SessionQuery getSessionQuery();
-
-
-/*  public void setSessionQuery(SessionQuery query){
-    this.sQuery = query;
-  }*/
-
-  private String getCurrentSessionId(){
-    if(this.getSessionQuery() != null)
-      return this.getSessionQuery().getCurrentSessionId();
-
-    return null;
-  }
+  public abstract String getCurrentSessionId();
 
   public void addLookupForSession(String sessionId, Lookup lookup){
     this.sLookup.put(sessionId, lookup);

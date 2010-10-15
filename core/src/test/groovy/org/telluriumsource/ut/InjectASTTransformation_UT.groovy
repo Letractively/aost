@@ -21,14 +21,12 @@ class InjectASTTransformation_UT extends GroovyShellTestCase {
   public void testInject(){
     def y = shell.evaluate("""
       package org.telluriumsource
+
       import org.telluriumsource.annotation.Provider
       import org.telluriumsource.annotation.Inject
-      import org.telluriumsource.framework.inject.Injector
       import org.telluriumsource.framework.inject.Scope
       import org.telluriumsource.framework.TelluriumInjector
 
-
-//      @Provider
       public class X {
         private int x = 10;
 

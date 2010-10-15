@@ -19,7 +19,6 @@ import org.telluriumsource.ui.widget.WidgetConfigurator
 import org.telluriumsource.dsl.SeleniumWrapper
 import org.telluriumsource.dsl.TelluriumApi
 import org.telluriumsource.exception.FrameworkWiringException
-import org.telluriumsource.framework.inject.SessionQuery
 
 /**
  * Put all initialization and cleanup jobs for the Tellurium framework here
@@ -42,13 +41,10 @@ public class TelluriumFramework {
 
   private RuntimeEnvironment defaultEnvironment;
 
-  private SessionQuery sQuery = new DefaultSessionQuery();
-
   public Session createNewSession(String id, RuntimeEnvironment env){
     Session session = new Session();
     session.sessionId = SessionManager.getNewSessionId(id);
     session.env = env;
-    session.beanFactory = TelluriumInjector.instance;
 
     println "Created new session: \n" + session.toString() + "\n";
 
@@ -203,9 +199,9 @@ public class TelluriumFramework {
     Injector injector = TelluriumInjector.instance;
     Session original = SessionManager.getSession();
     String sessionId = session.getSessionId();
-//    injector.setSessionQuery(this.sQuery);
     SessionManager.setSession(session);
     try{
+      session.beanFactory = TelluriumInjector.instance;
       RuntimeEnvironment env = session.getEnv();
       injector.addLookupForSession(sessionId, env);
       injector.addBean(sessionId, RuntimeEnvironment.class.getCanonicalName(),  RuntimeEnvironment.class, RuntimeEnvironment.class, Scope.Session, true, env);
