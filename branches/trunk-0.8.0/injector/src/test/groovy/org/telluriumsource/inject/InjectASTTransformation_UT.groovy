@@ -1,6 +1,8 @@
 package org.telluriumsource.inject
 
 import org.telluriumsource.mock.MockInjector
+import org.telluriumsource.ast.ProviderASTTransformation
+import org.telluriumsource.ast.InjectASTTransformation
 
 /**
  * 
@@ -12,7 +14,9 @@ import org.telluriumsource.mock.MockInjector
 class InjectASTTransformation_UT extends GroovyShellTestCase {
 
   public void setUp(){
-        super.setUp()
+    super.setUp()
+    ProviderASTTransformation.injector = null;
+    InjectASTTransformation.injector = null;
   }
 
   public void testInject(){
@@ -27,7 +31,7 @@ class InjectASTTransformation_UT extends GroovyShellTestCase {
 
       @Inject
       @Provider
-      class TestInjector extends Injector {
+      class NewInjector extends Injector {
 
           public String getCurrentSessionId(){
             return "default"
@@ -57,7 +61,7 @@ class InjectASTTransformation_UT extends GroovyShellTestCase {
       }
 
       Y y = new Y()
-      y.beans = TestInjector.instance.getAllBeans()
+      y.beans = NewInjector.instance.getAllBeans()
 
       y
       """)
