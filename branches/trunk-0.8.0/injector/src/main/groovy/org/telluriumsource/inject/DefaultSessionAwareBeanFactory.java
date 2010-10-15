@@ -1,7 +1,4 @@
-package org.telluriumsource.framework.inject;
-
-import org.telluriumsource.exception.BeanNotFoundException;
-import org.telluriumsource.exception.InstanceCreationException;
+package org.telluriumsource.inject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,7 +38,7 @@ public class DefaultSessionAwareBeanFactory implements SessionAwareBeanFactory {
     public Object getByName(String sessionId, String name) {
         Bean bean = map.get(name);
         if(bean == null){
-            throw new BeanNotFoundException("Bean " + name + " is not found");
+            throw new RuntimeException("Bean " + name + " is not found");
         }
 
         return getInstance(sessionId, bean);
@@ -85,10 +82,10 @@ public class DefaultSessionAwareBeanFactory implements SessionAwareBeanFactory {
             return clazz.newInstance();
         } catch (InstantiationException e) {
             e.printStackTrace();
-            throw new InstanceCreationException(e.getMessage());
+            throw new RuntimeException(e.getMessage());
         } catch (IllegalAccessException e) {
             e.printStackTrace();
-            throw new InstanceCreationException(e.getMessage());
+            throw new RuntimeException(e.getMessage());
         }
     }
 }

@@ -1,9 +1,8 @@
-package org.telluriumsource.ut
+package org.telluriumsource.ast
 
 import org.codehaus.groovy.ast.ASTNode
 import org.codehaus.groovy.ast.builder.AstBuilder
-import org.telluriumsource.framework.inject.Injector
-import org.telluriumsource.framework.TelluriumInjector
+import org.telluriumsource.mock.MockInjector
 
 /**
  * 
@@ -17,7 +16,7 @@ class ASTUtil {
 
   public static List<ASTNode> getProviderNodes(String name, Class clazz, String scope, boolean singleton){
     List<ASTNode> nodes = new AstBuilder().buildFromCode {
-      TelluriumInjector.instance.addBean(name, clazz, clazz, scope, singleton, null);
+      MockInjector.instance.addBean(name, clazz, clazz, scope, singleton, null);
     }
 
     return nodes;
@@ -27,7 +26,7 @@ class ASTUtil {
     List<ASTNode> nodes = new AstBuilder().buildFromCode {
       Object var;
 
-      var = Injector.getInstance().getByClass(clazz);
+      var = MockInjector.getInstance().getByClass(clazz);
     }
 
     return nodes;
@@ -37,7 +36,7 @@ class ASTUtil {
     List<ASTNode> nodes = new AstBuilder().buildFromCode {
       Object var;
 
-      var = Injector.getInstance().getByName(name);
+      var = MockInjector.getInstance().getByName(name);
     }
 
     return nodes;
@@ -45,7 +44,6 @@ class ASTUtil {
 
   private Object injectVar(){
      String name = "good";
-//     return Injector.getInstance().getByName(name);
     return name;
   }
 
@@ -64,7 +62,7 @@ class ASTUtil {
   public List<ASTNode> getInjectMethodLazy(){
     List<ASTNode> nodes = new AstBuilder().buildFromCode {
       String name = "good";
-      return Injector.getInstance().getByName(name);
+      return MockInjector.getInstance().getByName(name);
     }
 
     return nodes;
