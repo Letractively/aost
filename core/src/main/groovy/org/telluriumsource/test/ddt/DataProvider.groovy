@@ -6,7 +6,8 @@ import org.telluriumsource.test.ddt.mapping.bind.VariableBinder
 import org.telluriumsource.test.ddt.mapping.mapping.FieldSetMapResult
 import org.telluriumsource.test.ddt.mapping.FieldSetRegistry
 import org.telluriumsource.framework.config.Configurable
-import org.telluriumsource.framework.config.TelluriumConfigurator
+
+import org.telluriumsource.annotation.Provider
 
 /**
  * The data provider for different formats of input
@@ -16,27 +17,33 @@ import org.telluriumsource.framework.config.TelluriumConfigurator
  * Date: Jul 24, 2008
  *
  */
+@Provider
 class DataProvider extends DataFieldSetObjectMapper implements Configurable{
     
     protected VariableBinder binder = new VariableBinder()
-    
+
+    public DataProvider(){
+
+    }
+  
     public DataProvider(FieldSetRegistry fsr, TypeHandlerRegistry thr){
        super(fsr, thr)
      }
 
     public void useFile(String filePath){
         //get the singleton configurator
-        TelluriumConfigurator configurator = new TelluriumConfigurator()
+//        TelluriumConfigurator configurator = new TelluriumConfigurator()
         //configure the reader
-        configurator.config(this)
+//        configurator.config(this)
         openFile(filePath)
     }
 
     public void useString(String data){
         //get the singleton configurator
-        TelluriumConfigurator configurator = new TelluriumConfigurator()
+//        TelluriumConfigurator configurator = new TelluriumConfigurator()
+//        configurator.i18nBundle = SessionManager.getSession().getI18nBundle()
         //configure the reader
-        configurator.config(this)
+//        configurator.config(this)
         this.readData(data)
     }
 

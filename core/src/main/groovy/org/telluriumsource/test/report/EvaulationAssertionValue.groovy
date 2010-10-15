@@ -1,6 +1,6 @@
 package org.telluriumsource.test.report
-import org.telluriumsource.framework.Environment;
-import org.telluriumsource.crosscut.i18n.IResourceBundle;
+import org.telluriumsource.crosscut.i18n.IResourceBundle
+import org.telluriumsource.annotation.Inject;
 
 
 /**
@@ -14,12 +14,10 @@ import org.telluriumsource.crosscut.i18n.IResourceBundle;
 class EvaulationAssertionValue extends AssertionValue{
 
     private def value
-    protected IResourceBundle i18nBundle
 
-
-    public EvaulationAssertionValue(){
-    	  i18nBundle = Environment.instance.myResourceBundle()
-    }
+    @Inject(name="i18nBundle", lazy=true)
+    private IResourceBundle i18nBundle
+  
     public String toString() {
         final int typicalLength = 64
         final String avpSeparator = ": "

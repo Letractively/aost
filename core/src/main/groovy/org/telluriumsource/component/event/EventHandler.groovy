@@ -8,30 +8,30 @@ import org.telluriumsource.exception.ElementNotPresentException
 import org.telluriumsource.util.Helper
 import java.awt.event.KeyEvent
 
-import org.telluriumsource.framework.Environment;
 import org.telluriumsource.crosscut.i18n.IResourceBundle;
 import org.telluriumsource.component.bundle.BundleProcessor
-import org.telluriumsource.dsl.WorkflowContext;
+import org.telluriumsource.dsl.WorkflowContext
+import org.telluriumsource.annotation.Provider
+import org.telluriumsource.annotation.Inject;
 
 
+@Provider
 class EventHandler implements Configurable{
 
+    @Inject(name="i18nBundle", lazy=true)
 	protected IResourceBundle i18nBundle
 
     public static final String RETURN_KEY= "BSBS13"
 	public static final int ACTION_WAIT_TIME = 50
 
-    BundleProcessor cbp  = BundleProcessor.instance
+    @Inject
+    BundleProcessor cbp
 
     private EventSorter alg = new EventSorter()
 
     private boolean checkElement = false
     private boolean extraEvent = false
 
-    EventHandler(){
-	  i18nBundle = Environment.instance.myResourceBundle()
-
-	}
     public void mustCheckElement(){
         this.checkElement = true
     }

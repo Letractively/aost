@@ -1,16 +1,20 @@
 package org.telluriumsource.test.java;
 
+import org.telluriumsource.component.bundle.BundleProcessor;
+import org.telluriumsource.dsl.IDslContext;
+import org.telluriumsource.dsl.SeleniumWrapper;
+import org.telluriumsource.dsl.TelluriumApi;
+import org.telluriumsource.framework.RuntimeEnvironment;
+import org.telluriumsource.framework.SessionManager;
 import org.telluriumsource.framework.config.CustomConfig;
 import org.telluriumsource.component.connector.SeleniumConnector;
 import org.telluriumsource.crosscut.i18n.IResourceBundle;
 import org.telluriumsource.framework.TelluriumFramework;
 import org.telluriumsource.entity.CachePolicy;
 import org.telluriumsource.entity.EngineState;
-import org.telluriumsource.crosscut.i18n.ResourceBundle;
+import org.telluriumsource.ui.builder.UiObjectBuilder;
+import org.telluriumsource.ui.builder.UiObjectBuilderRegistry;
 import org.telluriumsource.util.Helper;
-import org.telluriumsource.util.LogLevels;
-
-import java.util.Map;
 
 /**
  * The base Java Testcase class for Tellurium and it will not include the before class and after class methods
@@ -21,23 +25,19 @@ import java.util.Map;
 public abstract class BaseTelluriumJavaTestCase {
     //custom configuration
     protected static CustomConfig customConfig = null;
-    protected IResourceBundle i18nBundle;
+//    protected IResourceBundle i18nBundle;
 
     protected static SeleniumConnector connector;
 
     protected static TelluriumFramework tellurium;
-
-    public BaseTelluriumJavaTestCase() {
-        i18nBundle = new ResourceBundle();
-    }
 
     public static void openUrl(String url) {
         connector.connectSeleniumServer();
         connector.connectUrl(url);
     }
 
-    public IResourceBundle geti18nBundle() {
-        return this.i18nBundle;
+    public static IResourceBundle getI18nResourceBundle() {
+        return SessionManager.getSession().getI18nBundle();
     }
 
     public static void openUrlWithBrowserParameters(String url, String serverHost, int serverPort, String baseUrl, String browser, String browserOptions) {
@@ -80,163 +80,207 @@ public abstract class BaseTelluriumJavaTestCase {
         customConfig = new CustomConfig(runInternally, port, browser, useMultiWindows, profileLocation, serverHost, browserOptions);
     }
 
-    public static void helpTest(){
-      tellurium.helpTest();
+
+  public static SeleniumConnector getCurrentConnector(){
+     return (SeleniumConnector) SessionManager.getSession().getByClass(SeleniumConnector.class);
+  }
+
+  //register ui object builder
+  //users can overload the builders or add new builders for new ui objects
+  //by call this method
+  public static void registerBuilder(String uiObjectName, UiObjectBuilder builder) {
+    UiObjectBuilderRegistry registry = (UiObjectBuilderRegistry) SessionManager.getSession().getByClass(UiObjectBuilderRegistry.class);
+    registry.registerBuilder(uiObjectName, builder);
+  }
+
+  public static void useMacroCmd(boolean isUse) {
+    RuntimeEnvironment env = SessionManager.getSession().getEnv();
+    env.setUseBundle(isUse);
+  }
+
+  public static void setMaxMacroCmd(int max) {
+    RuntimeEnvironment env = SessionManager.getSession().getEnv();
+    env.setMaxMacroCmd(max);
+  }
+
+  public static int getMaxMacroCmd() {
+    RuntimeEnvironment env = SessionManager.getSession().getEnv();
+    return env.getMaxMacroCmd();
+  }
+
+  public static void helpTest(){
+    SeleniumWrapper wrapper = SessionManager.getSession().getWrapper();
+    wrapper.helpTest();
+  }
+
+  public static void noTest(){
+    SeleniumWrapper wrapper = SessionManager.getSession().getWrapper();
+    wrapper.helpTest();
+  }
+
+  public static void useTrace(boolean isUse) {
+    RuntimeEnvironment env = SessionManager.getSession().getEnv();
+    env.setUseTrace(isUse);
+  }
+
+  public static void generateBugReport(boolean isUse) {
+    RuntimeEnvironment env = SessionManager.getSession().getEnv();
+    env.setUseBugReport(isUse);
+  }
+
+  public static void showTrace() {
+    SeleniumWrapper wrapper = SessionManager.getSession().getWrapper();
+    wrapper.showTrace();
+  }
+
+  public static void setEnvironment(String name, Object value) {
+    RuntimeEnvironment env = SessionManager.getSession().getEnv();
+    env.setEnvironmentVariable(name, value);
+  }
+
+  public static Object getEnvironment(String name) {
+    RuntimeEnvironment env = SessionManager.getSession().getEnv();
+
+    return env.getEnvironmentVariable(name);
+  }
+
+  public static void useClosestMatch(boolean isUse){
+    IDslContext api = (IDslContext) SessionManager.getSession().getApi();
+    if (isUse) {
+      api.enableClosestMatch();
+    } else {
+      api.disableClosestMatch();
+    }
+  }
+
+  public static void useCssSelector(boolean isUse) {
+    SeleniumWrapper wrapper = SessionManager.getSession().getWrapper();
+    if (isUse) {
+      wrapper.enableCssSelector();
+    } else {
+      wrapper.disableCssSelector();
+    }
+  }
+
+  public static void cleanCache() {
+    TelluriumApi api = SessionManager.getSession().getApi();
+    api.cleanCache();
+  }
+
+  public static void setCacheMaxSize(int size) {
+    TelluriumApi api = SessionManager.getSession().getApi();
+    api.setCacheMaxSize(size);
+  }
+
+  public static int getCacheSize() {
+    TelluriumApi api = SessionManager.getSession().getApi();
+    return api.getCacheSize();
+  }
+
+  public static int getCacheMaxSize() {
+    TelluriumApi api = SessionManager.getSession().getApi();
+    return api.getCacheMaxSize();
+  }
+
+  public static String getCacheUsage() {
+    TelluriumApi api = SessionManager.getSession().getApi();
+    return api.getCacheUsage();
+  }
+
+  public static void useCachePolicy(CachePolicy policy) {
+    TelluriumApi api = SessionManager.getSession().getApi();
+
+    if (policy != null) {
+      switch (policy) {
+        case DISCARD_NEW:
+          api.useDiscardNewCachePolicy();
+          break;
+        case DISCARD_OLD:
+          api.useDiscardOldCachePolicy();
+          break;
+        case DISCARD_LEAST_USED:
+          api.useDiscardLeastUsedCachePolicy();
+          break;
+        case DISCARD_INVALID:
+          api.useDiscardInvalidCachePolicy();
+          break;
+      }
+    }
+  }
+
+  public static String getCurrentCachePolicy() {
+    TelluriumApi api = SessionManager.getSession().getApi();
+
+    return api.getCurrentCachePolicy();
+  }
+
+  public static void useDefaultXPathLibrary() {
+    SeleniumWrapper wrapper = SessionManager.getSession().getWrapper();
+    wrapper.useDefaultXPathLibrary();
+  }
+
+  public static void useJavascriptXPathLibrary() {
+    SeleniumWrapper wrapper = SessionManager.getSession().getWrapper();
+    wrapper.useJavascriptXPathLibrary();
+  }
+
+  public static void useAjaxsltXPathLibrary() {
+    SeleniumWrapper wrapper = SessionManager.getSession().getWrapper();
+    wrapper.useAjaxsltXPathLibrary();
+  }
+
+  public static void allowNativeXpath(boolean allow) {
+    SeleniumWrapper wrapper = SessionManager.getSession().getWrapper();
+    wrapper.allowNativeXpath(allow);
+  }
+
+  public static void registerNamespace(String prefix, String namespace) {
+    SeleniumWrapper wrapper = SessionManager.getSession().getWrapper();
+    wrapper.registerNamespace(prefix, namespace);
+  }
+
+  public static String getNamespace(String prefix) {
+    SeleniumWrapper wrapper = SessionManager.getSession().getWrapper();
+    return wrapper.getNamespace(prefix);
+  }
+
+  public static void addScript(String scriptContent, String scriptTagId){
+    SeleniumWrapper wrapper = SessionManager.getSession().getWrapper();
+    wrapper.addScript(scriptContent, scriptTagId);
+  }
+
+  public static void removeScript(String scriptTagId){
+    SeleniumWrapper wrapper = SessionManager.getSession().getWrapper();
+    wrapper.removeScript(scriptTagId);
+  }
+
+  public static EngineState getEngineState(){
+    TelluriumApi api = SessionManager.getSession().getApi();
+    return api.getEngineState();
+  }
+
+  public static void pause(int milliseconds) {
+    //flush out remaining commands in the command bundle before disconnection
+    BundleProcessor processor = SessionManager.getSession().getByClass(BundleProcessor.class); 
+    processor.flush();
+
+    Helper.pause(milliseconds);
+  }
+
+  public static void useEngineLog(boolean isUse){
+    TelluriumApi api = SessionManager.getSession().getApi();
+    api.useEngineLog(isUse);
+  }
+
+    public static void useTelluriumEngine(boolean isUse) {
+        TelluriumApi api = SessionManager.getSession().getApi();
+        if (isUse)
+            api.enableTelluriumEngine();
+        else
+            api.disableTelluriumEngine();
     }
 
-    public static void noTest(){
-      tellurium.noTest();
-    }
-
-    public static boolean isUseLocatorWithCache(){
-        return tellurium.isUseLocatorWithCache();
-    }
-
-    public static void useLocatorWithCache(boolean isUse){
-        tellurium.useLocatorWithCache(isUse);
-    }
-
-    public static void useClosestMatch(boolean isUse) {
-        tellurium.useClosestMatch(isUse);
-    }
-
-    public static void useCssSelector(boolean isUse) {
-        tellurium.useCssSelector(isUse);
-    }
-
-    public static void useCache(boolean isUse) {
-        tellurium.useCache(isUse);
-    }
-
-    public static void cleanCache() {
-        tellurium.cleanCache();
-    }
-
-    public static boolean isUsingCache() {
-        return tellurium.isUsingCache();
-    }
-
-    public static void setCacheMaxSize(int size) {
-        tellurium.setCacheMaxSize(size);
-    }
-
-    public static int getCacheSize() {
-        return tellurium.getCacheSize();
-    }
-
-    public static int getCacheMaxSize() {
-        return tellurium.getCacheMaxSize();
-    }
-
-    public static String getCacheUsage() {
-        return tellurium.getCacheUsage();
-    }
-
-    public static void useCachePolicy(CachePolicy policy) {
-        tellurium.useCachePolicy(policy);
-    }
-
-    public static String getCurrentCachePolicy() {
-        return tellurium.getCurrentCachePolicy();
-    }
-
-    public static void useDefaultXPathLibrary() {
-        tellurium.useDefaultXPathLibrary();
-    }
-
-    public static void useJavascriptXPathLibrary() {
-        tellurium.useJavascriptXPathLibrary();
-    }
-
-    public static void useAjaxsltXPathLibrary() {
-        tellurium.useAjaxsltXPathLibrary();
-    }
-
-    public static void registerNamespace(String prefix, String namespace) {
-        tellurium.registerNamespace(prefix, namespace);
-    }
-
-    public static String getNamespace(String prefix) {
-        return tellurium.getNamespace(prefix);
-    }
-
-    public static void pause(int milliseconds) {
-        tellurium.pause(milliseconds);
-//      Helper.pause(milliseconds);
-    }
-
-    public static void useMacroCmd(boolean isUse) {
-        tellurium.useMacroCmd(isUse);
-    }
-
-    public static void setMaxMacroCmd(int max) {
-        tellurium.setMaxMacroCmd(max);
-    }
-
-    public static int getMaxMacroCmd() {
-        return tellurium.getMaxMacroCmd();
-    }
-
-    public static boolean isUseTelluriumApi() {
-        return tellurium.isUseTelluriumApi();
-    }
-
-    public static void useTelluriumApi(boolean isUse) {
-        tellurium.useTelluriumApi(isUse);
-    }
-
-    /*public static void enableLogging(LogLevels loggingLevel){
-      tellurium.enableLogging(loggingLevel) ;
-    }
-    */
-
-    public static void useTrace(boolean isUse){
-      tellurium.useTrace(isUse);
-    }
-
-    public static void showTrace() {
-        tellurium.showTrace();
-    }
-
-    public static void generateBugReport(boolean isUse){
-        tellurium.generateBugReport(isUse);
-    }
-
-    public static void setEnvironment(String name, Object value) {
-        tellurium.setEnvironment(name, value);
-    }
-
-    public static Object getEnvironment(String name) {
-        return tellurium.getEnvironment(name);
-    }
-
-    public static void allowNativeXpath(boolean allow) {
-        tellurium.allowNativeXpath(allow);
-    }
-
-    public static void addScript(String scriptContent, String scriptTagId){
-        tellurium.addScript(scriptContent, scriptTagId);
-    }
-
-    public static void removeScript(String scriptTagId){
-        tellurium.removeScript(scriptTagId);
-    }
-
-    public static EngineState getEngineState(){
-        return tellurium.getEngineState();
-    }
-
-    public static void useEngineLog(boolean isUse){
-        tellurium.useEngineLog(isUse);
-    }
-
-    public static void useTelluriumEngine(boolean isUse){
-        useCache(isUse);
-        useMacroCmd(isUse);
-        useTelluriumApi(isUse);
-    }
-
-    public static void dumpEnvironment(){
-        tellurium.dumpEnvironment();
-    }
+  public static void dumpEnvironment(){
+    System.out.println(SessionManager.getSession().getEnv().toString());
+  }
 }

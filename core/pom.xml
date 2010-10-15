@@ -81,6 +81,12 @@
             <version>${pom.version}</version>
             <scope>compile</scope>
         </dependency>
+         <dependency>
+            <groupId>org.telluriumsource</groupId>
+            <artifactId>tellurium-injector</artifactId>
+            <version>${pom.version}</version>
+            <scope>compile</scope>
+        </dependency>
         <dependency>
             <groupId>org.stringtree</groupId>
             <artifactId>stringtree-json</artifactId>
@@ -92,7 +98,12 @@
             <version>7.0.1.v20091125</version>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>asm</groupId>
+            <artifactId>asm</artifactId>
+            <version>3.2</version>
+            <scope>compile</scope>
+        </dependency>
 	</dependencies>
     <properties>
         <javac-debug>true</javac-debug>

@@ -7,7 +7,6 @@ import org.telluriumsource.ui.locator.MetaCmd
 import org.stringtree.json.JSONReader
 import org.telluriumsource.dsl.UiID
 
-import org.telluriumsource.framework.Environment
 import org.telluriumsource.entity.UiModuleValidationRequest
 import org.telluriumsource.entity.UiModuleValidationResponse
 import org.telluriumsource.util.Helper
@@ -16,7 +15,11 @@ import org.telluriumsource.entity.EngineState
 import org.telluriumsource.crosscut.i18n.IResourceBundle
 import org.json.simple.JSONArray
 import org.telluriumsource.entity.ReturnType
-import org.telluriumsource.dsl.BaseDslContext
+import org.telluriumsource.framework.RuntimeEnvironment
+import org.telluriumsource.framework.SessionManager
+import org.telluriumsource.dsl.IDslContext
+import org.telluriumsource.annotation.Inject
+import org.telluriumsource.annotation.Provider
 
 /**
  * Command Bundle Processor
@@ -27,7 +30,7 @@ import org.telluriumsource.dsl.BaseDslContext
  * 
  */
 
-@Singleton
+@Provider
 public class BundleProcessor implements Configurable {
 
   public static final String OK = "ok";
@@ -40,7 +43,9 @@ public class BundleProcessor implements Configurable {
   //sequence number for each command
   private int sequence = 1;
 
-  private Dispatcher dispatcher = new Dispatcher();
+  @Inject
+  private Dispatcher dispatcher
+  //= new Dispatcher();
 
   private MacroCmd bundle = new MacroCmd();
 
@@ -48,19 +53,23 @@ public class BundleProcessor implements Configurable {
 
   private Map<String, UiModuleState> states = new HashMap<String, UiModuleState>();
 
-  private EngineStateTracer tracer = new EngineStateTracer();
+  @Inject
+  private EngineStateTracer tracer
 
-  protected IResourceBundle i18nBundle = Environment.instance.myResourceBundle();
+  @Inject(name="i18nBundle", lazy=true)
+  protected IResourceBundle i18nBundle
+
+  @Inject
+  private RuntimeEnvironment env
 
   //maximum number of commands in a bundle
   private int maxMacroCmd(){
-    return Environment.instance.myMaxMacroCmd();
+    return env.getMaxMacroCmd();
   }
 
   //whether to use the bundle feature
-//  private boolean exploitBundle = Environment.instance.&useBundle;
   private boolean exploitBundle(){
-    return Environment.instance.isUseBundle();
+    return env.isUseBundle();
   }
 
   public void cleanAllCache(){
@@ -228,7 +237,8 @@ public class BundleProcessor implements Configurable {
   }
 
   public boolean needCacheUiModule(WorkflowContext context, String cmd, String uid){
-    if(uid != null && uid.trim().length() > 0 && context.isUseUiModuleCache()){
+//    if(uid != null && uid.trim().length() > 0 && context.isUseUiModuleCache()){
+   if(uid != null && uid.trim().length() > 0 && env.isUseNewEngine()){
         if(inExclusiveList(cmd)){
           return false;
         }
@@ -241,11 +251,13 @@ public class BundleProcessor implements Configurable {
   }
 
   public CmdRequest getUseUiModuleRequest(WorkflowContext context, String uid){
-    BaseDslContext dslcontext = context.getContext(WorkflowContext.DSLCONTEXT);
+//    BaseDslContext dslcontext = context.getContext(WorkflowContext.DSLCONTEXT);
 //    String json = dslcontext.jsonify(uid);
 /*    String json = dslcontext.toJSON(uid);
     def args = [json];*/
-    JSONArray ar = dslcontext.toJSONArray(uid);
+    IDslContext dsl = SessionManager.getSession().getApi();
+
+    JSONArray ar = dsl.toJSONArray(uid);
     def args = [ar];
 
 //    CmdRequest cmd = new CmdRequest(nextSeq(), uid, UiModuleValidationRequest.CMD_NAME , args);

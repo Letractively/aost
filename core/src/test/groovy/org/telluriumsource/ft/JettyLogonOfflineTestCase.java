@@ -32,9 +32,9 @@ public class JettyLogonOfflineTestCase extends TelluriumJUnitTestCase {
     @Test
     public void testOfflineEngineStateUpdate(){
         useCssSelector(true);
-        useTelluriumApi(true);
+//        useTelluriumApi(true);
         useTrace(true);
-        useCache(true);
+//        useCache(true);
         connectSeleniumServer();
         connectUrl("http://localhost:8080/logon.html");
         jlm.logon("test", "test");

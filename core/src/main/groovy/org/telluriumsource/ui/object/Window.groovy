@@ -4,6 +4,7 @@ import org.telluriumsource.dsl.UiID
 import org.telluriumsource.dsl.WorkflowContext
 
 import org.json.simple.JSONObject
+import org.telluriumsource.framework.SessionManager
 
 /**
  *  Prototype for windows
@@ -83,7 +84,7 @@ class Window  extends Container{
         }else{
 
             //cannot find the object
-            println(i18nBundle.getMessage("Container.CannotFindUIObject" , {[child , this.uid]}))
+            println(SessionManager.getSession().getI18nBundle().getMessage("Container.CannotFindUIObject" , {[child , this.uid]}))
 
             return null
         }

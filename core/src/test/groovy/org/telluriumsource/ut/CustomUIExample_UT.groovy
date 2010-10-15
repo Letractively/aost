@@ -1,5 +1,8 @@
 package org.telluriumsource.ut
 
+import org.telluriumsource.framework.SessionManager
+import org.telluriumsource.mock.MockSessionFactory
+
 /**
  * 
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -9,6 +12,10 @@ package org.telluriumsource.ut
  */
 
 public class CustomUIExample_UT extends GroovyTestCase {
+
+  public void setUp(){
+    SessionManager.setSession(MockSessionFactory.getNewSession());
+  }
   
   public void testDump(){
     CustomUIExample cue = new CustomUIExample();

@@ -1,6 +1,13 @@
 package org.telluriumsource.ut
 
+import org.telluriumsource.framework.SessionManager
+import org.telluriumsource.mock.MockSessionFactory
+
 public class StandardTable_UT extends GroovyTestCase {
+
+  public void setUp(){
+    SessionManager.setSession(MockSessionFactory.getNewSession());
+  }
 
   void testTable1(){
       StandardTable1 table1 = new StandardTable1()
@@ -45,10 +52,10 @@ public class StandardTable_UT extends GroovyTestCase {
      table.dump("table1")
      table.dump("table2")
      table.enableCssSelector();
-     table.setUseCacheFlag(false);
+     table.useTelluriumEngine(false);
      table.dump("table1")
      table.dump("table2")
-     table.setUseCacheFlag(true);
+     table.useTelluriumEngine(true);
      table.dump("table1")
      table.dump("table2")
    }

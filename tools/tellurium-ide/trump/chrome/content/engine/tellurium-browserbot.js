@@ -95,12 +95,14 @@ var BrowserBot = Class.extend({
     },
 
     getMainWindow: function() {
-        return window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+        var mainWindow = window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
                 .getInterface(Components.interfaces.nsIWebNavigation)
                 .QueryInterface(Components.interfaces.nsIDocShellTreeItem)
                 .rootTreeItem
                 .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-                .getInterface(Components.interfaces.nsIDOMWindow);       
+                .getInterface(Components.interfaces.nsIDOMWindow);
+
+        return mainWindow;
     },
 
     getAllWindows: function() {

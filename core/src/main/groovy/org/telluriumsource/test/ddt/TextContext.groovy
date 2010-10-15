@@ -1,4 +1,5 @@
 package org.telluriumsource.test.ddt
+
 /**
  * Transfer object passing through tests
  *
@@ -10,6 +11,7 @@ package org.telluriumsource.test.ddt
 class TextContext {
     //store the step count
     protected int stepCount = 0
+  
     //cache variables so that we can pass variables among tests
     def cache = [:]
 

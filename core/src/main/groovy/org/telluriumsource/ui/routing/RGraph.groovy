@@ -3,8 +3,6 @@ package org.telluriumsource.ui.routing
 import org.telluriumsource.ui.object.UiObject
 import org.telluriumsource.ui.object.TextBox
 import org.telluriumsource.udl.TableBodyMetaData
-import org.telluriumsource.exception.InvalidIndexException
-import org.telluriumsource.framework.Environment
 import org.telluriumsource.udl.Index
 
 /**
@@ -142,8 +140,6 @@ class RGraph {
         root.addChild(ref);
       }
       ref.templates.add(iid);
-     
-//       throw new InvalidIndexException(Environment.instance.myResourceBundle().getMessage("UIObject.InvalidIndex", index))
     }
   }
 
@@ -291,7 +287,6 @@ class RGraph {
       return EMPTY_PATH;
     }else{
       return ROOT_PATH;
-//      throw new InvalidIndexException(Environment.instance.myResourceBundle().getMessage("UIObject.InvalidIndex", key));
     }
   }
 

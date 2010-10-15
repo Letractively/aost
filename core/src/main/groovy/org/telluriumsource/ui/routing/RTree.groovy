@@ -4,7 +4,9 @@ import org.telluriumsource.ui.object.UiObject
 import org.telluriumsource.ui.object.TextBox
 import org.telluriumsource.udl.ListMetaData
 import org.telluriumsource.exception.InvalidIndexException
-import org.telluriumsource.framework.Environment
+import org.telluriumsource.crosscut.i18n.IResourceBundle
+import org.telluriumsource.framework.SessionManager
+import org.telluriumsource.annotation.Inject
 
 /**
  * Routing Tree
@@ -15,6 +17,10 @@ import org.telluriumsource.framework.Environment
  * 
  */
 class RTree {
+
+  @Inject(name="i18nBundle", lazy=true)
+  private IResourceBundle i18nBundle;
+  
   //RTree holds the tree nodes for routing search
   RNode root;
 
@@ -97,7 +103,8 @@ class RTree {
         }
       }
     }else{
-       throw new InvalidIndexException(Environment.instance.myResourceBundle().getMessage("UIObject.InvalidIndex", index))
+       IResourceBundle i18nBundle = SessionManager.getSession().getI18nBundle(); 
+       throw new InvalidIndexException(i18nBundle.getMessage("UIObject.InvalidIndex", index))
     }
   }
   
@@ -141,7 +148,7 @@ class RTree {
     }else if("all".equalsIgnoreCase(key)){
       return EMPTY_PATH;  
     }else{
-      throw new InvalidIndexException(Environment.instance.myResourceBundle().getMessage("UIObject.InvalidIndex", key));      
+      throw new InvalidIndexException(i18nBundle.getMessage("UIObject.InvalidIndex", key));
     }
   }
 

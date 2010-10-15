@@ -9,6 +9,6 @@ package org.telluriumsource.crosscut.trace
  */
 public interface ExecutionAnalytics {
 
-  public void analysize(ExecutionTime etime);
+  public void analyze(ExecutionTime exeTime);
 
 }

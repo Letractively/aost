@@ -5,6 +5,8 @@ import org.telluriumsource.ui.object.InputBox
 import org.telluriumsource.ui.object.TextBox
 import org.telluriumsource.ui.object.UiObject
 import org.telluriumsource.ui.object.UrlLink
+import org.telluriumsource.framework.SessionManager
+import org.telluriumsource.mock.MockSessionFactory
 
 /**
  *
@@ -14,6 +16,10 @@ import org.telluriumsource.ui.object.UrlLink
  *
  */
 class List_UT extends GroovyTestCase{
+
+  public void setUp(){
+    SessionManager.setSession(MockSessionFactory.getNewSession());
+  }
 
     public void testListXPath() {
         List1 list = new List1()
@@ -63,10 +69,10 @@ class List_UT extends GroovyTestCase{
     public void testListSeparator(){
       List1 list = new List1()
       list.defineList()
-      list.setUseCacheFlag(false)
+      list.useTelluriumEngine(false)
       list.dump("A")
       list.dump("B")
-      list.setUseCacheFlag(true)
+      list.useTelluriumEngine(true)
       list.dump("A")
       list.dump("B")
 

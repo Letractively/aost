@@ -4,11 +4,11 @@ import org.telluriumsource.framework.bootstrap.TelluriumSupport
 import org.telluriumsource.framework.config.CustomConfig
 import org.telluriumsource.component.connector.SeleniumConnector
 import org.telluriumsource.framework.TelluriumFramework
-import org.telluriumsource.framework.Environment;
 import org.telluriumsource.crosscut.i18n.IResourceBundle;
 
 import org.testng.annotations.AfterClass
 import org.testng.annotations.BeforeClass
+import org.telluriumsource.framework.SessionManager
 
 /**
  * Groovy Test NG Test Case
@@ -21,15 +21,12 @@ import org.testng.annotations.BeforeClass
 
 abstract public class TelluriumGroovyTestNGTestCase {
   //custom configuration
-  protected CustomConfig customConfig = null
-  protected IResourceBundle i18nBundle
+  protected CustomConfig customConfig = null;
+//  protected IResourceBundle i18nBundle = this.&getI18nResourceBundle;
 
   protected SeleniumConnector conn;
   protected TelluriumFramework tellurium
 
-  public TelluriumGroovyTestNGTestCase(){
-	  i18nBundle = Environment.instance.myResourceBundle()
-  }
   public SeleniumConnector getConnector() {
     return conn;
   }
@@ -40,9 +37,9 @@ abstract public class TelluriumGroovyTestNGTestCase {
     getConnector().connectSeleniumServer()
     getConnector().connectUrl(url)
   }
-  public IResourceBundle geti18nBundle()
+  public IResourceBundle getI18nBundle()
   {
-	return this.i18nBundle;
+    return (IResourceBundle)SessionManager.getSession().getByName("i18nBundle");
   }
   public void connectUrl(String url) {
     getConnector().connectUrl(url)
@@ -66,17 +63,24 @@ abstract public class TelluriumGroovyTestNGTestCase {
     customConfig = new CustomConfig(runInternally, port, browser, useMultiWindows, profileLocation, serverHost)
   }
 
+  public SeleniumConnector getCurrentConnector(){
+     return SessionManager.getSession().getByClass(SeleniumConnector.class); 
+  }
+  
   @BeforeClass
   protected void setUpForClass() {
     tellurium = TelluriumSupport.addSupport()
-    tellurium.start(customConfig)
-    conn = tellurium.connector
+    tellurium.start()
+    tellurium.startServer(customConfig)
+    conn = getCurrentConnector();
     initUi()
   }
 
   @AfterClass
   protected void tearDownForClass() {
-    if (tellurium != null)
+    if (tellurium != null){
+      tellurium.stopServer()
       tellurium.stop()
+    }
   }
 }

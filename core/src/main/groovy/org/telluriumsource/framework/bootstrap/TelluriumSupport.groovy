@@ -1,7 +1,6 @@
 package org.telluriumsource.framework.bootstrap
 
 import org.telluriumsource.framework.TelluriumFramework
-import org.telluriumsource.framework.TelluriumFrameworkMetaClass
 
 /**
  * Used to initalize the Tellurium framework
@@ -11,24 +10,20 @@ import org.telluriumsource.framework.TelluriumFrameworkMetaClass
 class TelluriumSupport {
 
     public static TelluriumFramework addSupport(){
-        
-       def registry = GroovySystem.metaClassRegistry
-
-       registry.setMetaClass(TelluriumFramework, new TelluriumFrameworkMetaClass())
-
-       return new TelluriumFramework()
+      
+      TelluriumFramework instance = TelluriumFramework.instance;
+      if(!instance.isStarted)
+        instance.start();
+      return instance;
     }
 
     //Disable embedded selenium server
     public static TelluriumFramework addSupportWithoutEmbeddedSeleniumServer(){
-
-       def registry = GroovySystem.metaClassRegistry
-
-       registry.setMetaClass(TelluriumFramework, new TelluriumFrameworkMetaClass())
-
-       TelluriumFramework framework = new TelluriumFramework()
-       framework.disableEmbeddedSeleniumServer()
-
-       return framework
+      TelluriumFramework instance = TelluriumFramework.instance;
+      if(!instance.isStarted)
+        instance.start();
+      instance.runEmbeddedSeleniumServer = false;
+      
+      return instance;
     }
 }

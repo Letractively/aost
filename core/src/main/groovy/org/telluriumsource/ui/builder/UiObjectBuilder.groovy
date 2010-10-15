@@ -6,13 +6,13 @@ import org.telluriumsource.ui.locator.JQLocator
 import org.telluriumsource.ui.object.Container
 import org.telluriumsource.ui.object.UiObject
 import org.telluriumsource.ui.Const
-import org.telluriumsource.framework.Environment;
 import org.telluriumsource.crosscut.i18n.IResourceBundle
 import org.telluriumsource.ui.Const
 import org.telluriumsource.udl.MetaData
 import org.telluriumsource.udl.UidParser
 import org.antlr.runtime.RecognitionException
 import org.telluriumsource.exception.UidRecognitionException
+import org.telluriumsource.framework.SessionManager
 
 /**
  *  Basic UI object builder
@@ -22,24 +22,24 @@ import org.telluriumsource.exception.UidRecognitionException
  */
 abstract class UiObjectBuilder extends Const {
 
-    protected IResourceBundle i18nBundle
+//    protected IResourceBundle i18nBundle
 
     def abstract build(Map map, Closure c);
 
     public UiObjectBuilder(){
-    	i18nBundle = Environment.instance.myResourceBundle();
     }
+
     boolean validate(UiObject obj, Map map){
-//    	Environment env = Environment.instance
+//        i18nBundle = SessionManager.getSession().getLookup().lookById("i18nBundle");
         boolean valid = true
         if(map == null || map.isEmpty()){
 
-            println i18nBundle.getMessage("UIObjectBuilder.EmptyMap")
+            println SessionManager.getSession().getI18nBundle().getMessage("UIObjectBuilder.EmptyMap")
             return false
         }
 
         if(map.get(UID) == null){
-            println i18nBundle.getMessage("UIObjectBuilder.UIDRequired")
+            println SessionManager.getSession().getI18nBundle().getMessage("UIObjectBuilder.UIDRequired")
             return false
         }
 
@@ -49,7 +49,7 @@ abstract class UiObjectBuilder extends Const {
         }*/
 
         if(map.get(USE_GROUP_INFO) != null && (!Container.class.isAssignableFrom(obj.getClass())) ){
-           println i18nBundle.getMessage("UIObjectBuilder.GroupInfoRequired")
+           println SessionManager.getSession().getI18nBundle().getMessage("UIObjectBuilder.GroupInfoRequired")
            return false
         }
         return valid
@@ -67,7 +67,7 @@ abstract class UiObjectBuilder extends Const {
 
     def internBuild(UiObject obj, Map map, Map df){
        if(!validate(obj, map))
-         throw new RuntimeException(i18nBundle.getMessage("UIObjectBuilder.ObjectDefinitionError"))
+         throw new RuntimeException(SessionManager.getSession().getI18nBundle().getMessage("UIObjectBuilder.ObjectDefinitionError"))
 
         //make all lower cases
         map = makeCaseInsensitive(map)
@@ -76,7 +76,7 @@ abstract class UiObjectBuilder extends Const {
         try{
           obj.metaData = UidParser.parse(dsluid)
         }catch(RecognitionException e){
-          throw new UidRecognitionException(i18nBundle.getMessage("UidParser.CannotParseUid" , dsluid))
+          throw new UidRecognitionException(SessionManager.getSession().getI18nBundle().getMessage("UidParser.CannotParseUid" , dsluid))
         }
 
 //        obj.uid = map.get(UID)

@@ -9,6 +9,6 @@ package org.telluriumsource.crosscut.trace
  */
 public interface ExecutionListener {
 
-  public void publish(String testname, long start, long duration);
+  public void publish(String testName, long start, long duration);
 
 }

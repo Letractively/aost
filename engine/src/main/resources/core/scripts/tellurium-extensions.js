@@ -45,16 +45,6 @@ Selenium.prototype.getCSS = function(locator, cssName) {
     }
 
     return out;
-/*    $e.each(function() {
-        var val = teJQuery(this).css(cssName);
-        //need to walk up the tree if the color is transparent
-        if(val == "transparent" && (cssName == "background-color" || cssName == "backgroundColor" || cssName == "color")){
-            val = getColor(this, cssName);
-        }
-        out.push(val);        
-//        out.push(teJQuery(this).css(cssName));
-    });*/
-//    return JSON.stringify(out);
 };
 
 Selenium.prototype.isDisabled = function(locator) {

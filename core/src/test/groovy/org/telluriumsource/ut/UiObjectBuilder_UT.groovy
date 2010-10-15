@@ -1,5 +1,8 @@
 package org.telluriumsource.ut
 
+import org.telluriumsource.framework.SessionManager
+import org.telluriumsource.mock.MockSessionFactory
+
 /**
  *
  *  Test all default UI object builder
@@ -7,6 +10,10 @@ package org.telluriumsource.ut
  *   @author Jian Fang (John.Jian.Fang@gmail.com)
  */
 class UiObjectBuilder_UT extends GroovyTestCase{
+
+  public void setUp(){
+    SessionManager.setSession(MockSessionFactory.getNewSession());
+  }
 
     public void testBaseLocator(){
         SampleUI sample = new SampleUI()

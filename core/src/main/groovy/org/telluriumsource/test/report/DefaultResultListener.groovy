@@ -2,6 +2,8 @@ package org.telluriumsource.test.report
 
 import org.telluriumsource.framework.config.Configurable
 import org.telluriumsource.framework.config.TelluriumConfigurator
+import org.telluriumsource.annotation.Provider
+import org.telluriumsource.annotation.Inject
 
 /**
  * Default implementation of Test Listener
@@ -11,19 +13,16 @@ import org.telluriumsource.framework.config.TelluriumConfigurator
  * Date: Jul 27, 2008
  *
  */
+@Provider(type=ResultListener.class)
 class DefaultResultListener implements ResultListener, Configurable {
     
     private Map<Integer, TestResult> results = new HashMap<Integer, TestResult>()
 
-    //private List<ResultReporter> reporters = new ArrayList<ResultReporter>()
+    @Inject(name="tellurium.test.result.reporter")
     protected ResultReporter reporter
 
+    @Inject(name="tellurium.test.result.output")
     protected ResultOutput output
-
-    public DefaultResultListener(){
-//        reporters.add(new SimpleResultReporter())
-//        reporters.add(new XMLResultReporter())
-    }
     
 /*
     public void addReporter(ResultReporter reporter){
@@ -78,9 +77,9 @@ class DefaultResultListener implements ResultListener, Configurable {
 
     public void report() {
         //get the singleton configurator
-        TelluriumConfigurator configurator = new TelluriumConfigurator()
+//        TelluriumConfigurator configurator = new TelluriumConfigurator()
         //configure the reader
-        configurator.config(this)
+//        configurator.config(this)
         
         if(!this.results.isEmpty()){
 

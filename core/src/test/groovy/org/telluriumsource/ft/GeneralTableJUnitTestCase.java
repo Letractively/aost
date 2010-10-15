@@ -58,7 +58,7 @@ public class GeneralTableJUnitTestCase extends TelluriumMockJUnitTestCase {
 
     @Test
     public void testIsElementPresent(){
-        useCache(true);
+//        useCache(true);
         assertTrue(gtm.isElementPresent("GT.header[2]"));
         assertFalse(gtm.isElementPresent("GT[12][12]"));
     }
@@ -81,7 +81,7 @@ public class GeneralTableJUnitTestCase extends TelluriumMockJUnitTestCase {
 
     @Test
     public void testWorkWithCache(){
-        useCache(true);
+//        useCache(true);
         System.out.println(gtm.getText("GT.header[2]"));
         System.out.println(gtm.getText("GT[1][1]"));
         gtm.work("Tellurium jQuery");
@@ -89,8 +89,8 @@ public class GeneralTableJUnitTestCase extends TelluriumMockJUnitTestCase {
 
     @Test
     public void testGetTableText(){
-        useCache(true);
-        useTelluriumApi(true);
+//        useCache(true);
+//        useTelluriumApi(true);
         String[] texts = gtm.getAllTableCellText("GT");
         assertNotNull(texts);
         System.out.println("Get Table body text for GT");
@@ -101,15 +101,15 @@ public class GeneralTableJUnitTestCase extends TelluriumMockJUnitTestCase {
 
     @Test
     public void testShowUiModule(){
-        useCache(true);
-        useTelluriumApi(true);
+//        useCache(true);
+//        useTelluriumApi(true);
         gtm.show("GT", 2000);
     }
 
     @Test
     public void testGetTableSize(){
-        useCache(true);
-        useTelluriumApi(true);
+//        useCache(true);
+//        useTelluriumApi(true);
         int size = gtm.getTableMaxTbodyNum("GT");
         assertEquals(1, size);
         size = gtm.getTableMaxColumnNumForTbody("GT", 1);
@@ -128,9 +128,9 @@ public class GeneralTableJUnitTestCase extends TelluriumMockJUnitTestCase {
 
     @Test
     public void testShowUi() {
-        useEngineLog(true);
-        useTelluriumApi(true);
-        useCache(true);
+//        useEngineLog(true);
+//        useTelluriumApi(true);
+//        useCache(true);
 //        gtm.show("GT", 10000);
         gtm.startShow("GT");
         gtm.endShow("GT");

@@ -14,23 +14,22 @@ import org.testng.annotations.BeforeTest;
  */
 public abstract class TelluriumTestNGTestCase extends BaseTelluriumJavaTestCase {
 
-//    protected static TelluriumFramework tellurium;
-
-//    @BeforeClass
     @BeforeTest(alwaysRun = true)
     public static void setUpForTest() {
         if(tellurium == null){
             tellurium = TelluriumSupport.addSupport();
-            tellurium.start(customConfig);
-//        connector = (SeleniumConnector) tellurium.getProperty("connector");
-            connector = (SeleniumConnector) tellurium.getConnector();
+            tellurium.startServer(customConfig);
+//            tellurium.connectServer();
+            connector = (SeleniumConnector) getCurrentConnector();
         }
     }
 
-//    @AfterClass
     @AfterTest(alwaysRun = true)
     public static void tearDownForTest() {
-        if(tellurium != null)
-            tellurium.stop();
+        if(tellurium != null){
+            tellurium.disconnectServer();
+            tellurium.stopServer();
+        }
+
     }
 }

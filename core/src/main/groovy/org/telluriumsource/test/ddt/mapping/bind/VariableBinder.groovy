@@ -3,7 +3,8 @@ package org.telluriumsource.test.ddt.mapping.bind
 import org.telluriumsource.test.ddt.mapping.DataMappingException
 import org.telluriumsource.test.ddt.mapping.mapping.FieldSetMapResult
 import org.telluriumsource.crosscut.i18n.IResourceBundle;
-import org.telluriumsource.framework.Environment;
+import org.telluriumsource.framework.SessionManager
+import org.telluriumsource.annotation.Inject;
 
 
 
@@ -19,16 +20,12 @@ import org.telluriumsource.framework.Environment;
 class VariableBinder {
 
     public static final String ID_SEPARATOR = '\\.'
-    protected IResourceBundle i18nBundle ;
 
+    @Inject(name="i18nBundle", lazy=true)
+    private IResourceBundle i18nBundle ;
 
     protected ObjectBindRegistry registry = new ObjectBindRegistry()
 
-    public VariableBinder(){
-    	i18nBundle = Environment.instance.myResourceBundle()
-
-    }
-    //useString duck type here
     public def bind(String dataFieldId){
         if(dataFieldId == null)
 

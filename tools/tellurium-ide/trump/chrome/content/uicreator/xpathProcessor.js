@@ -9,9 +9,9 @@ function XPathProcessor(){
 }
 
 XPathProcessor.prototype.splitXPath = function(xpath){
-    var result = [];
+    var result = new Array();
 
-    if(xpath !== null){
+    if(xpath != null){
         var splited = xpath.split(this.DELIMITER);
         //need to remove the first empty string
         for(var i=0; i<splited.length; i++){
@@ -24,9 +24,9 @@ XPathProcessor.prototype.splitXPath = function(xpath){
     return result;
 };
 
-XPathProcessor.prototype.getTag = function(str){    
+XPathProcessor.prototype.getTag = function(str){
     var tag = null;
-    if(str !== null){
+    if(str != null){
         var lst = str.split(this.SEPARATOR);
         tag = lst[0];
         var inx = tag.indexOf(this.PREFIX);
@@ -41,11 +41,11 @@ XPathProcessor.prototype.getTag = function(str){
 
 XPathProcessor.prototype.getTags = function(xpath){
     var splited = this.splitXPath(xpath);
-    var tags = [];
-    if(splited !== null && splited.length > 0){
+    var tags = new Array();
+    if(splited != null && splited.length > 0){
         for(var i=0; i<splited.length; i++){
             var tag = this.getTag(splited[i]);
-            if(tag !== null){
+            if(tag != null){
                 tags.push(tag);
             }
         }
@@ -56,7 +56,7 @@ XPathProcessor.prototype.getTags = function(xpath){
 
 XPathProcessor.prototype.getSubXPath = function(xpath, inx){
     var subxp = new StringBuffer();
-    if(xpath !== null){
+    if(xpath != null){
         var splited = this.splitXPath(xpath);
         if(inx > splited.length-1){
             //change to warning/error to log later
@@ -66,7 +66,7 @@ XPathProcessor.prototype.getSubXPath = function(xpath, inx){
 
         for(var i=0; i<=inx; i++){
             subxp.append(this.DELIMITER);
-            subxp.append(splited[i]);
+            subxp.append(splited[i])
         }
     }
     
@@ -75,7 +75,7 @@ XPathProcessor.prototype.getSubXPath = function(xpath, inx){
 
 XPathProcessor.prototype.getLastXPath = function(xpath, inx){
     var subxp = new StringBuffer();
-    if(xpath !== null){
+    if(xpath != null){
         var splited = this.splitXPath(xpath);
         if(inx > splited.length-1){
             //change to warning/error to log later
@@ -86,7 +86,7 @@ XPathProcessor.prototype.getLastXPath = function(xpath, inx){
 
         for(var i=inx; i<splited.length; i++){
             subxp.append(this.DELIMITER);
-            subxp.append(splited[i]);
+            subxp.append(splited[i])
         }
     }
 
@@ -96,12 +96,12 @@ XPathProcessor.prototype.getLastXPath = function(xpath, inx){
 //remove the last portion from the XPath
 XPathProcessor.prototype.popXPath = function(xpath){
     var subxp = new StringBuffer();
-    if(xpath !== null){
+    if(xpath != null){
         var splited = this.splitXPath(xpath);
 
         for(var i=0; i<splited.length-1; i++){
             subxp.append(this.DELIMITER);
-            subxp.append(splited[i]);
+            subxp.append(splited[i])
         }
     }
 
@@ -110,7 +110,7 @@ XPathProcessor.prototype.popXPath = function(xpath){
 
 XPathProcessor.prototype.findTagIndex = function(tagList, tag){
     var inx = -1;
-    if(tagList !== null && tag !== null){
+    if(tagList != null && tag != null){
         for(var i=0; i<tagList.length; i++){
             if(tag == tagList[i]){
                 inx = i;
@@ -123,11 +123,11 @@ XPathProcessor.prototype.findTagIndex = function(tagList, tag){
 };
 
 XPathProcessor.prototype.reverseList = function (lst){
-    if(lst === null || lst.length <= 1){
+    if(lst == null || lst.length <= 1){
         return lst;
     }
 
-    var result = [];
+    var result = new Array();
     for(var i=lst.length-1 ; i>=0; i--){
         result.push(lst[i]);
     }
@@ -137,11 +137,11 @@ XPathProcessor.prototype.reverseList = function (lst){
 
 
 XPathProcessor.prototype.startWith = function(xpath, prefix){
-    if(xpath === null || prefix === null || xpath.length < prefix.length){
+    if(xpath == null || prefix == null || xpath.length < prefix.length){
         return false;
     }
 
-    if(xpath.substring(0, prefix.length-1) === prefix){
+    if(xpath.substring(0, prefix.length-1) == prefix){
         return true;
     }
 
@@ -160,11 +160,13 @@ XPathProcessor.prototype.checkXPathCount = function(doc, xpath) {
 };
 
 XPathProcessor.prototype.checkPosition = function(str){
-    if(str !== null){
+    if(str != null){
         //check the pattern such as "//a/td[13]/" and "table[@class='st' and position()=3]"
         var mcs = str.match(/(position\(\)=[\d]+|\[[\d]+\])/);
-        if(mcs !== null){
-            return new String(mcs).match(/[\d]+/);           
+        if(mcs != null){
+            var pos = new String(mcs).match(/[\d]+/);
+
+            return pos;
         }
     }
 
@@ -173,7 +175,7 @@ XPathProcessor.prototype.checkPosition = function(str){
 
 XPathProcessor.prototype.checkPositionForlastXPath = function(xpath){
     var parts = this.splitXPath(xpath);
-    if(parts !== null || parts.length > 0){
+    if(parts != null || parts.length > 0){
         var last = parts[parts.length-1];
         return this.checkPosition(last);
     }

@@ -11,6 +11,7 @@ import org.telluriumsource.udl.MetaData
 import org.telluriumsource.udl.ListMetaData
 import org.telluriumsource.ui.routing.RTree
 import org.telluriumsource.exception.InvalidUidException
+import org.telluriumsource.framework.SessionManager
 
 /**
  * Abstracted class for a list, which holds one dimension array of Ui objects
@@ -53,7 +54,7 @@ class List extends Container {
             }
             this.rTree.insert(component);
         }else{
-           println i18nBundle.getMessage("Container.InvalidID" , {component.uid})
+           println SessionManager.getSession().getI18nBundle().getMessage("Container.InvalidID" , {component.uid})
         }
     }
 
@@ -108,7 +109,7 @@ class List extends Container {
           return this.getLocatorByIndexWithSeparator(index);
         }else{
           //TODO: rename Container.InvalidID to UiObject.InvalidID
-          throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID" , key));
+          throw new InvalidUidException(SessionManager.getSession().getI18nBundle().getMessage("Container.InvalidID" , key));
         }
       }else{
        if("any".equalsIgnoreCase(index)){
@@ -123,7 +124,7 @@ class List extends Container {
           return this.getLocatorByIndexWithoutSeparator(index);
         }else{
           //TODO: rename Container.InvalidID to UiObject.InvalidID
-          throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID" , key));
+          throw new InvalidUidException(SessionManager.getSession().getI18nBundle().getMessage("Container.InvalidID" , key));
         }
       }
     }
@@ -226,7 +227,7 @@ class List extends Container {
           return this.getSelectorByIndexWithSeparator(key);
         }else{
           //TODO: rename Container.InvalidID to UiObject.InvalidID
-          throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID" , key));
+          throw new InvalidUidException(SessionManager.getSession().getI18nBundle().getMessage("Container.InvalidID" , key));
         }
       }else{
        if("any".equalsIgnoreCase(key)){
@@ -239,7 +240,7 @@ class List extends Container {
           return this.getSelectorByIndexWithoutSeparator(key);
         }else{
           //TODO: rename Container.InvalidID to UiObject.InvalidID
-          throw new InvalidUidException(i18nBundle.getMessage("Container.InvalidID" , key));
+          throw new InvalidUidException(SessionManager.getSession().getI18nBundle().getMessage("Container.InvalidID" , key));
         }
       }
     }
@@ -342,6 +343,10 @@ class List extends Container {
       return c(this.locator, separators.join(","))
     }
 
+   int getListSize(Closure c){
+     
+     return c(this.locator)
+   }
 
   @Override
   public String toHTML() {
