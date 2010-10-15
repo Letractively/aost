@@ -1,4 +1,4 @@
-package org.telluriumsource.framework.inject;
+package org.telluriumsource.inject;
 
 import java.util.ArrayList;
 import java.util.List;

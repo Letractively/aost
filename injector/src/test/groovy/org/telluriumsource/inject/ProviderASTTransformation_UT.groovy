@@ -1,14 +1,9 @@
-package org.telluriumsource.ut
+package org.telluriumsource.inject
 
-import org.telluriumsource.framework.SessionManager
-import org.telluriumsource.mock.MockSessionFactory
-import org.telluriumsource.framework.Session
-
-import org.telluriumsource.component.dispatch.Dispatcher
-import org.telluriumsource.framework.TelluriumInjector
-import org.telluriumsource.framework.inject.Bean
 import java.lang.reflect.Method
 import java.lang.reflect.Field
+import org.telluriumsource.mock.MockInjector
+import org.telluriumsource.mock.MockProvider
 
 /**
  * 
@@ -21,31 +16,7 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
 
   public void setUp(){
         super.setUp()
-        SessionManager.setSession(MockSessionFactory.getNewSession())
   }
-
-/*  public void testProviderNoParameter(){
-        def res = shell.evaluate("""
-              import org.telluriumsource.annotation.Provider
-              @Provider
-              class X {
-                private ArrayList list = [1,2,3]
-
-                void op () {
-                  list
-                }
-              }
-
-              new X ()
-        """)
-
-        Session session = SessionManager.getSession()
-
-        assertNotNull session
-
-        Object obj = session.getInstance(res.getClass());
-        assertNotNull obj
-  }*/
 
   public void testProviderWithType(){
 
@@ -83,16 +54,16 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
         """)
 
         def injector = shell.evaluate("""
-          package org.telluriumsource.framework
+          package org.telluriumsource
 
           import org.telluriumsource.annotation.Provider
-          import org.telluriumsource.framework.inject.Injector
+          import org.telluriumsource.inject.Injector
 
           @Provider
           class TestInjector extends Injector {
 
             public String getCurrentSessionId(){
-              return SessionManager.getSession().getSessionId();
+              return "default"
             }
 
           }
@@ -134,23 +105,18 @@ class ProviderASTTransformation_UT extends GroovyShellTestCase {
   }
 
   public void testExplicitProvider(){
-    Session session = SessionManager.getSession()
-
-    assertNotNull session
-
-//    Object obj = TelluriumInjector.instance.getByClass(Dispatcher.class);
-    TelluriumInjector.getMethods().each{Method m ->
+    MockInjector.getMethods().each{Method m ->
       println m.toGenericString();  
     }
 
-    TelluriumInjector.getFields().each{Field f ->
+    MockInjector.getFields().each{Field f ->
       println f.toGenericString();
     }
     
-    Object obj = TelluriumInjector.instance.getByClass(Dispatcher.class);
+    Object obj = MockInjector.instance.getByClass(MockProvider.class);
     assertNotNull obj
 
-    obj = TelluriumInjector.instance.getByName("TelluriumApi");
+    obj = MockInjector.instance.getByName(MockProvider.class.getCanonicalName());
     assertNotNull obj
 
   }

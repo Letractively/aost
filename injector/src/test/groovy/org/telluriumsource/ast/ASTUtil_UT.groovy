@@ -1,8 +1,8 @@
-package org.telluriumsource.ut
+package org.telluriumsource.ast
 
-import org.telluriumsource.dsl.UiDslParser
 import org.codehaus.groovy.ast.ASTNode
 import org.codehaus.groovy.ast.stmt.BlockStatement
+import org.telluriumsource.mock.MockProvider
 
 /**
  * 
@@ -14,7 +14,7 @@ import org.codehaus.groovy.ast.stmt.BlockStatement
 class ASTUtil_UT extends GroovyTestCase {
 
   public void testProvider(){
-    List<ASTNode> list = ASTUtil.getProviderNodes("org.telluriumsource.dsl.UiDslParser", UiDslParser.class, "Session", true)
+    List<ASTNode> list = ASTUtil.getProviderNodes("org.telluriumsource.mock.MockProvider", MockProvider.class, "Session", true)
     assertNotNull(list);
     assertEquals(1, list.size());
     BlockStatement stm = (BlockStatement) list.get(0);
@@ -23,7 +23,7 @@ class ASTUtil_UT extends GroovyTestCase {
   }
 
   public void testGetByName(){
-    List<ASTNode> list = ASTUtil.getInjectNodeByName("org.telluriumsource.dsl.UiDslParser");
+    List<ASTNode> list = ASTUtil.getInjectNodeByName("org.telluriumsource.mock.MockProvider");
     assertNotNull(list);
     assertEquals(1, list.size());
     BlockStatement stm = (BlockStatement) list.get(0);
@@ -33,7 +33,7 @@ class ASTUtil_UT extends GroovyTestCase {
 
   public void testGetByNameLazy(){
     ASTUtil util = new ASTUtil();
-    List<ASTNode> list = util.getInjectNodeByNameLazy("org.telluriumsource.dsl.UiDslParser")
+    List<ASTNode> list = util.getInjectNodeByNameLazy("org.telluriumsource.mock.MockProvider")
     assertNotNull(list);
     assertEquals(1, list.size());
     BlockStatement stm = (BlockStatement) list.get(0);

@@ -13,7 +13,8 @@ import java.util.*;
 
 import org.objectweb.asm.Opcodes;
 import org.telluriumsource.annotation.Provider;
-import org.telluriumsource.framework.inject.Injector;
+import org.telluriumsource.inject.Injector;
+
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
