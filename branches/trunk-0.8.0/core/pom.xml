@@ -81,6 +81,12 @@
             <version>${pom.version}</version>
             <scope>compile</scope>
         </dependency>
+         <dependency>
+            <groupId>org.telluriumsource</groupId>
+            <artifactId>tellurium-injector</artifactId>
+            <version>${pom.version}</version>
+            <scope>compile</scope>
+        </dependency>
         <dependency>
             <groupId>org.stringtree</groupId>
             <artifactId>stringtree-json</artifactId>

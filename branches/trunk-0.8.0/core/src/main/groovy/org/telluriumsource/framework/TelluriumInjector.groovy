@@ -2,7 +2,7 @@ package org.telluriumsource.framework;
 
 import org.telluriumsource.annotation.Inject;
 import org.telluriumsource.annotation.Provider;
-import org.telluriumsource.framework.inject.Injector;
+import org.telluriumsource.inject.Injector
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
