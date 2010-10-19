@@ -1,4 +1,5 @@
-#summary One-sentence summary of this page.
+#summary Test Cases for Tellurium IDE 080_RC1.
+#labels Phase-QA
 
 = Test Cases for Tellurium IDE 080_RC1  =
 
