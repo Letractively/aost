@@ -4,8 +4,8 @@
 
 = Introduction =
 
-[http://groovy.codehaus.org/Compile-time+Metaprogramming+-+AST+Transformations AST Transformation] is a cool feature in Groovy to do compile-time metaprogramming. This feature somehow looks like the compile-time weaving in AOP programming. This article will
-introduce how to use Groovy AST Transformation as a simple dependency injection for Groovy classes. The basic idea is to change the Groovy class source code at compile time to wire in dependences.
+[http://groovy.codehaus.org/Compile-time+Metaprogramming+-+AST+Transformations AST Transformation] is a cool feature in Groovy to do compile-time meta-programming. This feature somehow looks like the compile-time weaving in AOP programming. This article will
+introduce how to use Groovy AST Transformation as a simple dependency injection framework for Groovy classes. The basic idea is to change the Groovy class source code at compile time to wire in dependences.
 
 = Implementation =
 
