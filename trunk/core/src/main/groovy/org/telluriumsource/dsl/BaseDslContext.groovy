@@ -155,7 +155,7 @@ abstract class BaseDslContext extends GlobalDslContext {
       context.attachMetaCmd(uid, obj.amICacheable(), true);
       context.putContext(WorkflowContext.DSLCONTEXT, this);
       Environment.instance.lastUiModule = getUiModuleId(uid);
-
+      
       return obj
     }
 
