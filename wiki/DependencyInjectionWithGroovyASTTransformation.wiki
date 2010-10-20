@@ -4,16 +4,14 @@
 
 = Introduction =
 
-[http://groovy.codehaus.org/Compile-time+Metaprogramming+-+AST+Transformations AST Transformation] is a cool feature in Groovy to do compile-time metaprogramming. This feature somehow looks like compile-time weaving for AOP programming. This article will
-introduce how to use Groovy AST Transformation for simple dependency injection. The basic
-idea is to change the Groovy class source code at compile time to wire in the dependence.
+[http://groovy.codehaus.org/Compile-time+Metaprogramming+-+AST+Transformations AST Transformation] is a cool feature in Groovy to do compile-time metaprogramming. This feature somehow looks like the compile-time weaving in AOP programming. This article will
+introduce how to use Groovy AST Transformation as a simple dependency injection for Groovy classes. The basic idea is to change the Groovy class source code at compile time to wire in dependences.
 
 = Implementation =
 
 == Dependence Provider ==
 
-First, need to define the dependency provider so that the framework know which instance 
-to inject to a class. Thus, we define the following annotation.
+First, we need to define the dependency provider so that the framework knows which instance is used to inject into a class. Thus, we define the following @Provider annotation.
 
 {{{
 @Retention(RetentionPolicy.SOURCE)
@@ -27,7 +25,7 @@ public @interface Provider {
 }
 }}}
 
-The above annotation can be used to the concrete class as follows,
+The above annotation can be used on a concrete class as follows,
 
 {{{
 @Provider(name="ConsoleAppender", type=Appender.class)
@@ -42,9 +40,9 @@ public class ConsoleAppender implements Appender {
 }
 }}}
 
-where the name is a unique id and type is the class the annotated class provides instance for. For example, the above annotation on the ConsoleAppender class indicates that it provide instance for interface Appender.
+where the name is a unique id and the type is the class the annotated class provides instance for. For example, the @Provider annotation on the ConsoleAppender class indicates that it provides instance for the interface Appender.
 
-The AST transformation is defined as follows.
+The AST transformation for @Provider is defined as follows.
 
 {{{
 @GroovyASTTransformation(phase = CompilePhase.CANONICALIZATION)
@@ -117,12 +115,11 @@ public class ProviderASTTransformation implements ASTTransformation, Opcodes {
 }
 }}}
 
-The idea is to add the class information to a class annotated by @Injector, which will be
-discussed later.
+The idea is to add the class information to the constructor of the class annotated by @Injector, which will be discussed later.
 
-== Factory Bean ==
+== Bean Factory ==
 
-A factory bean is defined to generate instance for different classes.
+A bean factory is defined to generate instances for different classes.
 
 {{{
 public interface SessionAwareBeanFactory {
@@ -155,7 +152,7 @@ public interface Lookup {
 
 }}}
 
-For example, we can define the run time environment as follows for Tellurium.
+For example, we can define the run time environment as follows in the Tellurium framework.
 
 {{{
 public class RuntimeEnvironment implements Lookup, Cloneable {
@@ -174,11 +171,11 @@ public class RuntimeEnvironment implements Lookup, Cloneable {
 }
 }}}
 
-Then we can use the key of the map for dependency injection.
+Then we can use the key of the map as an ID for dependency injection.
 
 == Inject Dependency ==
 
-The @Inject annotation is used on fields to introduce dependency injection.
+The @Inject annotation is used on field variables to introduce dependency injection.
 
 {{{
 @Retention(RetentionPolicy.SOURCE)
@@ -190,9 +187,9 @@ public @interface Inject {
 }
 }}}
 
-where name is the unique id and lazy means the actual value will not be set until the field variable is first called.
+where the name is the unique id and the lazy option means the actual value will not be set until the field variable is first called.
 
-Similarly, the AST transformation is defined as follows.
+Similarly, the AST transformation for @Inject is defined as follows.
 
 {{{
 @GroovyASTTransformation(phase = CompilePhase.CANONICALIZATION)
@@ -250,7 +247,7 @@ public class InjectASTTransformation implements ASTTransformation, Opcodes {
 }
 }}}
 
-To inject a variable, simply add the value assignment to its constructor. For lazy wiring, we use the same way the Groovy @Lazy AST transformation does, i.e., rename the field variable and add a getter to the class.
+To inject a variable, simply add the value assignment to its constructor. For lazy wiring, we use the same mechanism that the Groovy @Lazy AST transformation does, i.e., rename the field variable and add a getter to the class.
 
 == Injector ==
 
@@ -265,7 +262,7 @@ public @interface Injector {
 
 }}}
 
-The @Injector AST Transformation will change the injector to a Groovy singleton class and record the compile time class node for the injector.
+The @Injector AST Transformation will change the injector to a Groovy singleton class and record the compile time class node of the injector for @Provider and @Inject AST transformation.
 
 {{{
 @GroovyASTTransformation(phase = CompilePhase.CANONICALIZATION)
@@ -374,6 +371,11 @@ class MockInjector extends AbstractInjector {
   }
 }
 }}}
+
+== AST Expressions ==
+
+AST transformation introduces new AST expressions to the compile time AST syntax tree. It is non-trival to write AST expressions by hand. The good news is that we can use AstBuilder
+
 
 = Test =
 
