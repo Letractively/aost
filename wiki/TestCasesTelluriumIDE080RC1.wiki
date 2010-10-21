@@ -31,7 +31,13 @@ Expected result: Recorded sequence must be replayed
 
 ==Test Case ID = TIDE_I_004 , Description: Test Update Button==
 
+ # Pre-requisite: Steps sequence must be recorded  
+ # Click on command view tab
+ # Select a recorded command row
+ # On value text box, edit the populated value
+ # Click on update button 
 
+Expected result: Edited value must be updated in the selected row, all other rows must not be updated.
 
 ==Test Case ID = TIDE_I_005 , Description: Test Remove Button==
 
