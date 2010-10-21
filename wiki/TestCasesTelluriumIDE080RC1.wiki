@@ -22,8 +22,9 @@ Expected result: Record button is active by default
 ==Test Case ID = TIDE_I_003 , Description: Test Replay Button==
 
  # Pre-requisite: Steps sequence must be recorded  
- # Verify that the Replay button is enabled
- # Click on Replay button
+ # Verify that the Run button is enabled
+ # Select the first step recorded
+ # Click on Run button 
 
 
 Expected result: Recorded sequence must be replayed
