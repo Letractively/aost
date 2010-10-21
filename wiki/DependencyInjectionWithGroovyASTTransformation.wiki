@@ -389,6 +389,8 @@ AST transformation introduces new AST expressions to the compile time AST syntax
 
 }}}
 
+You can also rely on [http://groovy.codehaus.org/Groovy+Console Groovy AST Browser]. Here is [http://groovyastbrowser.appspot.com/ an online Groovy AST browser]. 
+
 = Test =
 
 To test the AST transformation, we need to use GroovySellTestCase to compile the Groovy
