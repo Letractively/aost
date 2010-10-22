@@ -41,6 +41,13 @@ Expected result: Edited value must be updated in the selected row, all other row
 
 ==Test Case ID = TIDE_I_005 , Description: Test Remove Button==
 
+ # Pre-requisite: Steps sequence must be recorded  
+ # Click on command view tab
+ # Select a recorded command row
+ # Click on Remove button 
+
+Expected result: The selected value must be deleted from the sequence steps, all other rows must not be removed.
+
 ==Test Case ID = TIDE_I_006 , Description: Test Insert Before Button==
 
 ==Test Case ID = TIDE_I_007 , Description: Test Insert After Button==
