@@ -50,7 +50,33 @@ Expected result: The selected value must be deleted from the sequence steps, all
 
 ==Test Case ID = TIDE_I_006 , Description: Test Insert Before Button==
 
+ # Pre-requisite: Steps sequence must be recorded  
+ # Click on command view tab
+ # Select a recorded command row
+ # Click on InsertBefore button
+ # Edit the Name, Target and Value text fields 
+ # Click on update button 
+ # Select a recorded command row
+ # Edit the Name, Target and Value text fields
+ # Click on InsertBefore button
+
+Expected result: The edited step must be added 1 step before current selected row.
+
+
 ==Test Case ID = TIDE_I_007 , Description: Test Insert After Button==
+
+
+ # Pre-requisite: Steps sequence must be recorded  
+ # Click on command view tab
+ # Select a recorded command row
+ # Click on InsertAfter button
+ # Edit the Name, Target and Value text fields 
+ # Click on update button 
+ # Select a recorded command row
+ # Edit the Name, Target and Value text fields
+ # Click on InsertAfter button
+
+Expected result: The edited step must be added 1 step after current selected row.
 
 ==Test Case ID = TIDE_I_008 , Description: Test Command List Columns==
 
