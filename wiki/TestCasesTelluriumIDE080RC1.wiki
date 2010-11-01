@@ -80,6 +80,16 @@ Expected result: The edited step must be added 1 step after current selected row
 
 ==Test Case ID = TIDE_I_008 , Description: Test Command List Columns==
 
+ # Pre-requisite: Steps sequence must be recorded  
+ # Click on command view tab
+ # Verify command list columns are displayed: Name, Target, Value, Variable and Status
+ # Select a recorded command row
+ # Verify Name, Target and Value columns data
+ # Click on run button 
+ # Verify Status column
+ 
+Expected result: All columns populate data without errors, Status column populates Pass or Fail values after the test is ran.
+
 ==Test Case ID = TIDE_I_009 , Description: Test Log Pane==
 
 ==Test Case ID = TIDE_I_0010 , Description: Test Step into a recorded Test==
