@@ -92,6 +92,14 @@ Expected result: All columns populate data without errors, Status column populat
 
 ==Test Case ID = TIDE_I_009 , Description: Test Log Pane==
 
+ # Pre-requisite: Steps sequence must be recorded  
+ # Click on command view tab
+ # Click on run button 
+ # Verify Test Log Pane
+ 
+Expected result: Log pane must display errors, warnings and debug information .
+
+
 ==Test Case ID = TIDE_I_0010 , Description: Test Step into a recorded Test==
 
 ==Test Case ID = TIDE_I_0011 , Description: Customize a test==
