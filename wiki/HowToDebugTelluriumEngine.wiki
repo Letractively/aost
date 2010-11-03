@@ -14,7 +14,7 @@ The basic idea is to write a Javascript test to call Tellurium Engine and embed 
 
 = Prerequisites =
 
-To use Firebug, I need to have Firebug installed to either a Firebug profile or the customized Selenium server. How to add Firebug support is described in details on the wiki page [http://code.google.com/p/aost/w/TelluriumJQueryFirebug Use Firebug and JQuery to Trace Problems in Tellurium Tests].
+To use Firebug, I need to have Firebug installed to either a Firebug profile or the customized Selenium server. How to add Firebug support is described in details on the wiki page [http://code.google.com/p/aost/wiki/TelluriumJQueryFirebug Use Firebug and JQuery to Trace Problems in Tellurium Tests].
 
 = Details =
 
