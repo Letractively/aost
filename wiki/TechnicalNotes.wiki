@@ -52,5 +52,6 @@
   * [http://www.infoq.com/articles/tellurium_intro InfoQ: Introducing the Tellurium Automated Testing Framework]
   * [http://code.google.com/p/aost/wiki/TelluriumTrump080RC1 Tellurium UI Module Firefox Plugin (Trump) 0.8.0 RC1: New Face and More Power.]
   * [http://code.google.com/p/aost/wiki/TelluriumIde080RC1 Tellurium IDE 0.8.0 RC1]
+  * [http://code.google.com/p/aost/wiki/FirefoxPluginDevelopmentWithTelluriumIDE My Firefox Plugin Development Experience with Tellurium IDE.]
   * [http://code.google.com/p/aost/wiki/TelluriumWorks080RC1 TelluriumWorks 0.8.0 RC1: A Tellurium DSL Script Runner.]
   * [http://code.google.com/p/aost/wiki/DependencyInjectionWithGroovyASTTransformation Simple Dependency Injection with Groovy AST Transformation.]
