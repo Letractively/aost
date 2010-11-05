@@ -93,9 +93,8 @@ function TestText(){
     return /[^\s]+/.test(teJQuery(this).text());
 }
 
-UimAlg.prototype.reachTop = function($node){
-    var nodeObject = $node.data(UimConst.NODE_OBJECT);
-    var top = nodeObject;
+UimAlg.prototype.reachTop = function($node){    
+    var top = $node.data(UimConst.NODE_OBJECT);
     while(top != null && top.parent != null){
         top = top.parent;
     }

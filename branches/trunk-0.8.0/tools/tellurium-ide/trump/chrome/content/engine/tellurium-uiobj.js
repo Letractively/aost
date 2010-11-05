@@ -547,12 +547,10 @@ var UiObject = Class.extend({
 
     isVisible: function(context){
         var element = context.domRef;
-        var isHiddenCSS = element.css("visibility") == "hidden" ? true : false;
+        var isHiddenCSS = element.css("visibility") == "hidden";
         var isHidden = element.is(":hidden");
 
-        if (isHidden) {
-            return false;
-        } else if (isHiddenCSS) {
+        if (isHidden || isHiddenCSS) {
             return false;
         } else {
             return true;

@@ -35,6 +35,10 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
     protected static final String COMPARE_RESULT = "compareResult"
     protected static final String RECORD_RESULT = "recordResult"
 
+    private boolean abortOnException = false
+
+    private boolean hasException = false
+
     protected UiDslParser ui
 
     protected FieldSetParser fs
@@ -55,6 +59,10 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
     //----------------------------------------------------------------------------------------------------------
 
 //    protected SeleniumConnector connector
+
+    public void useAbortOnException(boolean isUse){
+      abortOnException = isUse
+    }
 
     public void connectSeleniumServer(){
         getConnector().connectSeleniumServer()
@@ -215,7 +223,8 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
             result.setProperty("start", System.nanoTime())
             result.setProperty("input", fsmr.getResults())
 
-            try{
+ 			if (!(this.hasException && this.abortOnException)) {
+              try{
                 if(action != null){
                     //if the field set includes action
                     //get the pre-defined action and run it
@@ -239,6 +248,9 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
             }catch(Exception e){
                 result.setProperty("status", StepStatus.EXECPTION)
                 result.setProperty("exception", e)
+				this.hasException = true
+            } else {
+          		result.setProperty("status", StepStatus.SKIPPED)
             }
             result.setProperty("end", System.nanoTime())
             getDefaultResultListener().listenForInput(result)
