@@ -654,9 +654,9 @@ class TelluriumApi extends BaseDslContext {
 
   public int getTableMaxColumnNum(String uid) {
       WorkflowContext context = WorkflowContext.getDefaultContext();
-      return walkToWithException(context, uid)?.getTableMaxColumnNum(){loc, optloc ->
+      return walkToWithException(context, uid)?.getTableMaxColumnNum(){loc ->
 
-        return extension.getTableMaxColumnNum(context, uid);
+        return extension.getTableColumnNum(context, uid);
       }
   }
 
@@ -664,7 +664,7 @@ class TelluriumApi extends BaseDslContext {
       WorkflowContext context = WorkflowContext.getDefaultContext();
       return walkToWithException(context, uid)?.getTableMaxRowNumForTbody(){loc, optloc ->
 
-        return extension.getTableMaxRowNumForTbody(context, uid, ntbody);
+        return extension.getTableRowNumForTbody(context, uid, ntbody);
       }
   }
 
