@@ -61,12 +61,15 @@ class UiDslParser extends BuilderSupport{
        {
           //if only one ui object in the registry, i.e., user only defined one UI module
           //in this case, the top id can be omitted, here we need to put it back
-          if(registry.size() == 1){
+/*          if(registry.size() == 1){
             UiObject topobj = registry.values().asList().get(0)
-            if(!id.startsWith("${topobj.uid}")){
+            UiID tid = UiID.convertToUiID(id)
+            String root = tid.pop()
+ //           if(!id.startsWith("${topobj.uid}")){
+            if(!"${topobj.uid}".equals(root)){
               id = "${topobj.uid}.${id}"
             }
-          }
+          }*/
 
           UiID uiid = UiID.convertToUiID(id)
 
