@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<appendix version="5.0" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns5="http://www.w3.org/2000/svg"
+         xmlns:ns4="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns3="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+
+      <title>Resources</title>
+      <section>
+          <title>Tellurium Community</title>
+          <itemizedlist>
+              <listitem>
+                  <para>
+                      <link xlink:href="http://code.google.com/p/aost/">Tellurium Project website</link>
+                  </para>
+              </listitem>
+              <listitem>
+                  <para>
+                      <link xlink:href="http://groups.google.com/group/tellurium-users">Tellurium User Group
+                      </link>
+                  </para>
+              </listitem>
+              <listitem>
+                  <para>
+                      <link xlink:href="http://groups.google.com/group/tellurium-developers">Tellurium
+                          Developer Group
+                      </link>
+                  </para>
+              </listitem>
+              <listitem>
+                  <para>
+                      <link xlink:href="http://twitter.com/TelluriumSource">Tellurium on Twitter</link>
+                  </para>
+              </listitem>
+              <listitem>
+                  <para>
+                      <link xlink:href="http://github.com/telluriumsource/tellurium">Tellurium on GitHub
+                      </link>
+                  </para>
+              </listitem>
+              <listitem>
+                  <para>
+                      <link xlink:href="http://telluriumsource.org/">TelluriumSource</link>
+                  </para>
+              </listitem>
+              <listitem>
+                  <para>
+                      <link xlink:href="http://www.linkedin.com/groups?gid=1900807">Tellurium LinkedIn Group
+                      </link>
+                  </para>
+              </listitem>
+              <listitem>
+                  <para>
+                      <link xlink:href="http://www.facebook.com/group.php?gid=298577410337&amp;ref=mf">
+                          Tellurium Facebook Group
+                      </link>
+                  </para>
+              </listitem>
+              <listitem>
+                  <para>
+                      <link xlink:href="http://www.reddit.com/r/Tellurium/">Tellurium on Reddit</link>
+                  </para>
+              </listitem>
+              <listitem>
+                  <para>
+                      <link xlink:href="http://en.wikipedia.org/wiki/Tellurium_%28software%29">Tellurium on
+                          Wikipedia
+                      </link>
+                  </para>
+              </listitem>
+          </itemizedlist>
+
+      </section>
+
+    <section>
+        <title>Users&apos; Experiences</title>
+        <para>Here is the list of experiences provided by Tellurium developers and users
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <link xlink:href="http://notetodogself.blogspot.com/2009/02/functional-testing-with-tellurium.html">
+                        Fuctional Testing with Tellurium by Mikhail Koryak
+                    </link>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="http://epyramid.wordpress.com/2009/06/02/tellurium-automation-process/">
+                        Tellurium and test automation process by Haroon Rasheed
+                    </link>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="http://notetodogself.blogspot.com/2009/06/tellurium-better-functional-test.html">
+                        Tellurium: A Better Functional Test by Mikhail Koryak
+                    </link>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="http://startupmusings.blogspot.com/2009/06/experience-with-web-testing-frameworks.html">
+                        Experience with Web Testing Frameworks by Harihara Vinayakaram
+                    </link>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="http://domsqablog.blogspot.com/2009/06/browser-based-testing-qa-perspective.html">
+                        Why I use the Tellurium framework - an Automation QA perspective by Dominic
+                        Mooney
+                    </link>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="http://blog.testlabs.com/2009/09/introduction-to-tellurium-for-web.html">
+                        An Introduction to Tellurium For Web Testing by TestLabs.com
+                    </link>
+                </para>
+            </listitem>
+        </itemizedlist>
+    </section>
+
+    <section>
+        <title>Interviews</title>
+        <itemizedlist>
+            <listitem>
+                <para>Interview with Tellurium creator, Dr. Jian Fang, by Kevin Zhang from
+                    <link xlink:href="http://www.infoq.com/cn/articles/tellurium-testing-framework">InfoQ
+                        China
+                    </link>
+                    .
+                </para>
+            </listitem>
+        </itemizedlist>
+
+    </section>
+
+    <section>
+        <title>Presentations and Videos</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <link xlink:href="http://vimeo.com/9305675">Tellurium UI Module Visual Demo at
+                        Vimeo
+                    </link>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="http://aost.googlecode.com/files/TelluriumPresentation.pdf">Tellurium
+                        at Rich Web Experience 2009 by Jian Fang and Vivek Mongolu
+                    </link>
+                    (<link
+                        xlink:href="http://www.slideshare.net/John.Jian.Fang/tellurium-at-rich-web-experience2009-2806967">
+                    online version</link>)
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="http://www.slideshare.net/paulk_asert/groovy-testing-aug2009-1945995">
+                        Tellurium was covered in the presentation Groovy Testing in Agile 2009 by Paul
+                        King and Craig Smith
+                    </link>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="http://wiki.codestock.org/Home/2009-slides-and-code">Tellurium at
+                        CodeStock 2009
+                    </link>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="http://aost.googlecode.com/files/tellurium_video_1.avi">Tellurium
+                        video tutorial
+                    </link>
+                    (<link xlink:href="http://vimeo.com/8601173">Online Version</link>)
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="http://code.google.com/p/aost/downloads/list">How to use TrUMP to
+                        Create Tellurium Test Cases
+                    </link>
+                    (<link xlink:href="http://programmingdrunk.com/flv/">Flash Version</link>)
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="http://code.google.com/p/aost/downloads/list">Tellurium Demo Video
+                    </link>
+                    (Online Version<link xlink:href="http://vimeo.com/8598478">Part I</link>) (<link
+                        xlink:href="http://vimeo.com/8599445">Part II</link>)
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="http://www.slideshare.net/John.Jian.Fang/telluriumanewapproachforwebtesting">
+                        Online Presentation: Tellurium - A New Approach For Web Testing
+                    </link>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="http://www.slideshare.net/John.Jian.Fang/ten-minutes-to-tellurium">
+                        Online Presentation: 10 Minutes to Tellurium
+                    </link>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="http://aost.googlecode.com/files/TenMinutesToTellurium.ogg">
+                        Screencast video: 10 Minutes to Tellurium
+                    </link>
+                    (<link xlink:href="http://vimeo.com/8600410">online version</link>)
+                </para>
+            </listitem>
+        </itemizedlist>
+
+    </section>
+
+    <section>
+        <title>IDEs</title>
+
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <link xlink:href="http://www.jetbrains.com/idea/">IntelliJ</link>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="http://www.netbeans.org/">NetBeans</link>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="http://www.eclipse.org/">Eclipse</link>
+                </para>
+            </listitem>
+        </itemizedlist>
+    </section>
+
+    <section>
+        <title>Build</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <link xlink:href="http://ant.apache.org/">Ant</link>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="http://maven.apache.org/">Maven</link>
+                </para>
+            </listitem>
+        </itemizedlist>
+    </section>
+
+    <section>
+        <title>Related</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <link xlink:href="http://groovy.codehaus.org/">Groovy</link>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="http://jquery.com/">JQuery</link>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="http://www.dojotoolkit.org/">Dojo</link>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="http://extjs.com/products/extjs/">Ext JS</link>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="http://seleniumhq.org/">Selenium</link>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="http://selenium-grid.seleniumhq.org/">Selenium Grid</link>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="http://clearspace.openqa.org/community/selenium">Selenium Community
+                    </link>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="http://webtest.canoo.com/">Canoo WebTest</link>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="http://twill.idyll.org/">Twill</link>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="http://www.junit.org/">JUnit</link>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="http://testng.org/">TestNG</link>
+                </para>
+            </listitem>
+        </itemizedlist>
+
+    </section>
+</appendix>
