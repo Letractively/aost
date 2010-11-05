@@ -231,7 +231,7 @@ abstract class TelluriumDataDrivenTest extends BaseTelluriumGroovyTestCase {
             //if the field set includes action
             //get the pre-defined action and run it
 
-            Closure closure = testreg.getTest(action)
+            Closure closure =  getTestRegistry().getTest(action)
             closure()
 /*
                     //use the proxy so that we can intercept calls for connectUrl and compareResult

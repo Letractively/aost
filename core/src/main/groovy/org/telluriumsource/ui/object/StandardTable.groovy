@@ -979,6 +979,10 @@ class StandardTable extends Container{
     return c(this.locator, null)
   }
 
+  int getTableMaxColumnNum(Closure c){
+    return c(this.locator)
+  }
+
   int getTableMaxColumnNumByXPath(Closure c) {
 
         String rl = c(this.locator)
