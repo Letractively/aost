@@ -1027,3 +1027,11 @@ function diff( a, b ) {
 	}
 	return result;
 }
+
+function arrayToString(array){
+    if(array != null && array.length > 0){
+        return array.join(", ");
+    }
+
+    return "";
+}
