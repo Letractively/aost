@@ -15,14 +15,14 @@ Selenium.prototype.getAllText = function(locator) {
 
 Selenium.prototype.getCssSelectorCount = function(locator) {
     !tellurium.logManager.isUseLog || fbLog("GetCssSelectorCount for Locator", locator);
-    if(locator.startsWith("jquery=")){
+/*    if(locator.startsWith("jquery=")){
         locator = locator.substring(7);
     }else if(locator.startsWith("uimcal=")){
         var cal = JSON.parse(locator.substring(7), null);
          locator = cal.locator;
-    }
+    }*/
     !tellurium.logManager.isUseLog || fbLog("Parsed locator", locator);
-    var $e = teJQuery(this.browserbot.findElement(locator));
+    var $e = teJQuery(this.browserbot.findElementOrNull(locator));
     !tellurium.logManager.isUseLog || fbLog("Found elements for CSS Selector", $e.get());
     if ($e == null)
         return 0;
