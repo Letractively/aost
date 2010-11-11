@@ -917,6 +917,10 @@ class StandardTable extends Container{
     return c(this.locator, " > ${this.bodyTag}:eq(${index - 1}) > ${this.bodyRowTag} > ${this.bodyColumnTag}")
   }
 
+  int getTableMaxRowNum(Closure c){
+    return c(this.locator)
+  }
+  
   int getTableHeaderColumnNumByXPath(Closure c) {
     String rl = c(this.locator)
     Accessor accessor = new Accessor()
