@@ -705,9 +705,9 @@ A StandardTable is a table in the following format
 table
       thead
          tr
-           td
+           th
            ...
-           td
+           th
       tbody
          tr
            td
