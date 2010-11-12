@@ -39,7 +39,7 @@ function Editor(window) {
 
 //    this.checker = new UiChecker();
 
-    this.command = new TelluriumCommandExecutor();
+//    this.command = new TelluriumCommandExecutor();
 
     //Map the command, because some command needs to convert the format for display, for example, array to String
     this.commandMap = new Hashtable();
@@ -421,7 +421,8 @@ Editor.prototype.clearButton = function(){
     this.clearMessageBox();
     this.workspace.clear();
     this.cleanCommandView();
-    this.command.clearCache();
+//    this.command.clearCache();
+    tellurium.clearCache();
     this.cleanupAutoComplete();   
     document.getElementById("windowURL").value = null;
     browserBot.clear();
@@ -771,7 +772,8 @@ Editor.prototype.processCustomizeEvent = function(event){
 };
 
 Editor.prototype.updateUiModuleName = function(uid) {
-    var uids = this.command.getUids(uid);
+//    var uids = this.command.getUids(uid);
+    var uids = tellurium.getUids(uid);
     if (uids != null && uids.length > 0) {
         Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("commandUID")),
                 XulUtils.toXPCOMArray(uids));

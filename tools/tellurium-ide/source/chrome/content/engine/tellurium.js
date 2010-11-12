@@ -43,12 +43,11 @@ function TelluriumError(type, message) {
 
 var tellurium = null;
 
-teJQuery(document).ready(function() {
+/*teJQuery(document).ready(function() {
     tellurium = new Tellurium();
     fbLog("Start tellurium instance", tellurium);
     tellurium.initialize();
     !tellurium.logManager.isUseLog || fbLog("Tellurium initialized after document ready", tellurium);
-//    document.body.appendChild(firebug);
     (function() {
         if (window.firebug != undefined && window.firebug.version) {
             firebug.init();
@@ -58,7 +57,7 @@ teJQuery(document).ready(function() {
     })();
     if(typeof (firebug) != "undefined")
         void(firebug);
-});
+});*/
 
 
 function Identifier(sn){
@@ -390,7 +389,7 @@ Tellurium.prototype.registerCommands = function(){
     this.registerCommand("getUiByTag", CommandType.NoUid, ReturnType.OBJECT, this.getUiByTag);
     this.registerCommand("removeMarkedUids", CommandType.NoUid, ReturnType.VOID, this.removeMarkedUids);
     this.registerCommand("isUseCache", CommandType.NoUid, ReturnType.BOOLEAN, this.isUseCache);
-
+    this.registerCommand("clearCache", CommandType.NoUid, ReturnType.VOID, this.clearCache);
     this.registerCommand("getCacheState", CommandType.NoUid, ReturnType.BOOLEAN, this.getCacheState);
     this.registerCommand("getCacheSize", CommandType.NoUid, ReturnType.NUMBER, this.getCacheSize);
     this.registerCommand("enableCache", CommandType.NoUid, ReturnType.VOID, this.enableCache);
@@ -643,6 +642,27 @@ Tellurium.prototype.dispatchMacroCmd = function(){
     }
 
     return response.toJSon();
+};
+
+Tellurium.prototype.run = function(name, uid, param){
+//    var api = this[name];
+    var cmd = this.cmdMap.get(name);
+    if(cmd != null){
+        var api = cmd.handler;
+        if (typeof(api) == 'function') {
+            var params = [];
+            params.push(uid);
+            params.push(param);
+            return api.apply(this, params);
+        }else{
+            logger.error("Invalid Tellurium command " + name);
+            throw new TelluriumError(ErrorCodes.INVALID_TELLURIUM_COMMAND, "Invalid Tellurium command " + name);
+         }
+    }else{
+        logger.error("Cannot find Tellurium command " + name);
+        throw new TelluriumError(ErrorCodes.INVALID_TELLURIUM_COMMAND, "Invalid Tellurium command " + name);
+    }
+
 };
 
 Tellurium.prototype.locateElementByCurrentDom = function(locator, inDocument, inWindow){
