@@ -1109,7 +1109,7 @@ Editor.prototype.pasteFromClipboard = function() {
 };
 
 Editor.prototype.updateOptions = function(){
-    window.openDialog("chrome://trump/content/preferences.xul", "options", "chrome,modal,resizable", this.os);
+    window.openDialog("chrome://source/content/preferences.xul", "options", "chrome,modal,resizable", this.os);
     var jslog = Preferences.getPref("extensions.trump.jslog");
     if(jslog ==undefined){
         jslog = true;

@@ -5,7 +5,7 @@ var getStackTrace = function() {
 };
 
 var getLogDetails = function(line){
-     //{anon}()@chrome://trump/content/editor.js:85
+     //{anon}()@chrome://source/content/editor.js:85
     var re1='(\\(.*\\))';	// Round Braces 1
     var re2='.*?';	// Non-greedy match on filler
     var re3='((?:\\/[\\w\\.\\-]+)+)';	// Unix Path 1
@@ -27,7 +27,7 @@ var getLogDetails = function(line){
 var addLineNumber = function(loggingEvent){
     var stack = getStackTrace()[6];  //assuming that this is called from the appender this 6 is what we want!
     getLogDetails(stack);
-    stack = stack.substring(stack.indexOf("chrome://trump/content/") + "chrome://trump/content/".length, stack.length);
+    stack = stack.substring(stack.indexOf("chrome://source/content/") + "chrome://source/content/".length, stack.length);
     //we need to clone the event because otherwise the same event will be used in all appenders and we wont know if the line number
     //was added to it or not, and we dont want to use an expando.
     var clonedEvent = new Log4js.LoggingEvent(loggingEvent.categoryName, loggingEvent.level, "["+stack+"] " + loggingEvent.message, loggingEvent.exception, loggingEvent.logger);
@@ -101,7 +101,7 @@ Log4js.TrumpLogAppender.prototype = Log4js.extend(new Log4js.Appender(), {
 var logWindow;
 var logText = "";
 var showLogWindow = function(){
-    logWindow = window.open("chrome://trump/content/telluriumIdeLogger.xul","logWindow","chrome,centerscreen,alwaysRaised=true,resizable");
+    logWindow = window.open("chrome://source/content/telluriumIdeLogger.xul","logWindow","chrome,centerscreen,alwaysRaised=true,resizable");
     //TODO: pass logText into window using XUL
 };
 

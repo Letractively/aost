@@ -1,7 +1,7 @@
 <project name="tellurium-ide" default="xpi" basedir=".">
     
     <property file="build.properties" />
-	<property name="src" location="trump"/>
+	<property name="src" location="source"/>
 	<property name="dst" location="dist"/>
 	<tstamp>
 		<format property="time" pattern="yy.MM.dd_HHmm"/>

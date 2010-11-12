@@ -8,5 +8,5 @@
 	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
 	xmlns:html="http://www.w3.org/1999/xhtml"
 	width="450" height="400">
-    <iframe id="content-body" type="content" src="chrome://trump/content/about.html" flex="1"/>
+    <iframe id="content-body" type="content" src="chrome://source/content/about.html" flex="1"/>
 </window>

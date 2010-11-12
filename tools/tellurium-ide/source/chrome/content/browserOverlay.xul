@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 
-<?xml-stylesheet href="chrome://trump/skin/telluriumide.css" type="text/css"?>
+<?xml-stylesheet href="chrome://source/skin/telluriumide.css" type="text/css"?>
         
 <overlay id="aostBroswerOverlay"
           xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-    <script type="application/x-javascript" src="chrome://trump/content/tellurium-ide.js"/>
+    <script type="application/x-javascript" src="chrome://source/content/tellurium-ide.js"/>
     <script type="application/x-javascript"><![CDATA[
 
         var nodeState = {
