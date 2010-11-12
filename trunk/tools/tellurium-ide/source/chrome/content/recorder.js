@@ -16,7 +16,7 @@ function Recorder(window) {
 
     this.treeView = TreeView;
     this.tree = document.getElementById('recordTree');
-    this.tree.view=this.treeView;
+    this.tree.view = this.treeView;
 
     this.recordCommandList = new Array();
     this.cmdListView = CommandList;

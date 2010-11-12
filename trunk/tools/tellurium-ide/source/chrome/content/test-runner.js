@@ -101,7 +101,7 @@ var TestResultObserver = TestObserver.extend({
 var TestRunner = Class.extend({
     init: function() {
         this.running = false;
-        this.cmdExecutor = new TelluriumCommandExecutor();
+        this.cmdExecutor = tellurium; //new TelluriumCommandExecutor();
         this.commandList = null;
         this.app = null;
         this.uimMap = null;
@@ -118,7 +118,7 @@ var TestRunner = Class.extend({
     },
 
     updateDom: function(){
-        this.cmdExecutor.updateCurrentDom();    
+        this.cmdExecutor.updateCurrentDom();
     },
 
     prepareFor: function(app) {
