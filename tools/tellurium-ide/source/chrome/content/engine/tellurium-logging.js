@@ -109,6 +109,6 @@ jslogger.setLevel(Log4js.Level.ALL);
 //jslogger.addAppender(new Log4js.MozillaJSConsoleAppender());
 jslogger.addAppender(new Log4js.ConsoleAppender());
 */
-
+var logger = new Log4js.getLogger("TeEngine");
 
 var jslogger = new DummyLogger();

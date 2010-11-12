@@ -67,7 +67,7 @@ Copyright 2008 Vivek Mongolu
     <script type="application/x-javascript" src="chrome://source/content/engine/selenium-mock.js"/>
     <script type="application/x-javascript" src="chrome://source/content/engine/tellurium-browserbot.js"/>
     <script type="application/x-javascript" src="chrome://source/content/engine/tellurium.js"/>
-    <script type="application/x-javascript" src="chrome://source/content/engine/tellurium-cache.js"/>
+   <!-- <script type="application/x-javascript" src="chrome://source/content/engine/tellurium-cache.js"/>-->
     <script type="application/x-javascript" src="chrome://source/content/engine/tellurium-api.js"/>
     <script type="application/x-javascript" src="chrome://source/content/engine/tellurium-logging.js"/>
     <script type="application/x-javascript" src="chrome://source/content/engine/tellurium-selector.js"/>

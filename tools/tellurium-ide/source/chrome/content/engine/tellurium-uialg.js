@@ -738,15 +738,26 @@ UiAlg.prototype.relax = function(clocator, pref) {
 
     var id = null;
     if (clocator.attributes != null && clocator.attributes != undefined) {
-        var keyset = clocator.attributes.keySet();
-        for(var i=0; i<keyset.length; i++){
-            var key = keyset[i];
-            if (!this.cssbuilder.inBlackList(key)) {
-                attrs.put(key, clocator.attributes.get(key));
+        if (clocator.attributes["keySet"] != undefined) {
+            var keyset = clocator.attributes.keySet();
+            for (var i = 0; i < keyset.length; i++) {
+                var key = keyset[i];
+                if (!this.cssbuilder.inBlackList(key)) {
+                    attrs.put(key, clocator.attributes.get(key));
+                }
             }
-        }
 
-        id = clocator.attributes.get("id");
+            id = clocator.attributes.get("id");
+
+        } else {
+            for (var akey in clocator.attributes) {
+                if (!this.cssbuilder.inBlackList(akey)) {
+                    attrs.put(akey, clocator.attributes[akey]);
+                }
+            }
+
+            id = clocator.attributes["id"];
+        }
     }
     var jqs = "";
     var tag = clocator.tag;
