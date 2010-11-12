@@ -614,10 +614,10 @@ Workspace.prototype.validate = function(){
 };
 
 Workspace.prototype.validateUiModule = function() {
-    if(tellurium == null){
+/*    if(tellurium == null){
         tellurium = new Tellurium();
         tellurium.initialize();
-    }    
+    }   */
     logger.debug("Start validating UI Module");
     //validate UI object's XPath
     if (this.innerTree.root != null) {

@@ -59,10 +59,10 @@ function Editor(window) {
     BrowserDetect.init();
     this.os = BrowserDetect.OS;
 
-    if(tellurium == null){
+/*    if(tellurium == null){
         tellurium = new Tellurium();
         tellurium.initialize();        
-    }
+    }*/
 
 }
 
@@ -287,10 +287,10 @@ function suggestName(tagObject){
 }
 
 Editor.prototype.validateOneUiModule = function(uim){
-    if(tellurium == null){
+/*    if(tellurium == null){
         tellurium = new Tellurium();
         tellurium.initialize();
-    }
+    }*/
     var glf = Preferences.getPref("extensions.teide.grouplocating");
     if(glf == undefined){
         glf = true;
@@ -314,10 +314,10 @@ Editor.prototype.validateOneUiModule = function(uim){
 };
 
 Editor.prototype.validateUI = function(){
-    if(tellurium == null){
+/*    if(tellurium == null){
         tellurium = new Tellurium();
         tellurium.initialize();
-    }
+    }*/
     var glf = Preferences.getPref("extensions.teide.grouplocating");
     if(glf == undefined){
         glf = true;

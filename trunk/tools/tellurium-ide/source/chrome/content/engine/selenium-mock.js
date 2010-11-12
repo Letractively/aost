@@ -14,6 +14,14 @@ BrowserBot.prototype.findElement = function(locator){
     return null;
 };
 
+BrowserBot.prototype.findElementOrNull = function(locator){
+    if(locator.startsWith("jquery=")){
+        return teJQuery(locator.substring(7));
+    }
+
+    return null;
+};
+
 function SeleniumError(message) {
     var error = new Error(message);
     if (typeof(arguments.caller) != 'undefined') { // IE, not ECMA
