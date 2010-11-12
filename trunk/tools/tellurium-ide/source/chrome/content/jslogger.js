@@ -46,7 +46,7 @@ Log4js.MozillaLineNumberJSConsoleAppender.prototype = Log4js.extend(new Log4js.A
 	 */
 
     doAppend: function(loggingEvent) {
-        loggingEvent.message = TRUMP_LOG_ID + loggingEvent.message;
+        loggingEvent.message = IDE_LOG_ID + loggingEvent.message;
 
         var pl = getLogDetails(getStackTrace()[6]);
         var consoleService = Components.classes["@mozilla.org/consoleservice;1"]
@@ -54,7 +54,7 @@ Log4js.MozillaLineNumberJSConsoleAppender.prototype = Log4js.extend(new Log4js.A
         var scriptError = Components.classes["@mozilla.org/scripterror;1"]
                                      .createInstance(Components.interfaces.nsIScriptError);
 
-        scriptError.init(loggingEvent.message, pl[0], null, pl[1], 0, this.getFlag(loggingEvent), "trump");
+        scriptError.init(loggingEvent.message, pl[0], null, pl[1], 0, this.getFlag(loggingEvent), "TelluriumIDE");
         consoleService.logMessage(scriptError);
     },
 	toString: function() {
@@ -81,21 +81,21 @@ Log4js.MozillaLineNumberJSConsoleAppender.prototype = Log4js.extend(new Log4js.A
 		return retval;
 	}
 });
-Log4js.TrumpLogAppender = function() {
+Log4js.IdeLogAppender = function() {
 	this.currentLine = 0;
 };
-Log4js.TrumpLogAppender.prototype = Log4js.extend(new Log4js.Appender(), {
+Log4js.IdeLogAppender.prototype = Log4js.extend(new Log4js.Appender(), {
 	doAppend: function(loggingEvent) {
 
         if(logWindow && logWindow.document){
             loggingEvent = addLineNumber(loggingEvent);
             var textbox = logWindow.document.getElementById("uiModelText");
-            logText += TRUMP_LOG_ID + loggingEvent.message +"\n";
+            logText += IDE_LOG_ID + loggingEvent.message +"\n";
             textbox.value = logText;
         }
     },
 	toString: function() {
-	    return "Log4js.TrumpLogAppender";
+	    return "Log4js.IdeLogAppender";
 	}
 });
 var logWindow;
@@ -109,7 +109,7 @@ var showLogWindow = function(){
 var jslogger = new Log4js.getLogger("root");
 jslogger.setLevel(Log4js.Level.ALL);
 jslogger.addAppender(new Log4js.MozillaLineNumberJSConsoleAppender());
-//jslogger.addAppender(new Log4js.TrumpLogAppender());
+//jslogger.addAppender(new Log4js.IdeLogAppender());
 
-//TRUMP log Identifier to make it easier to parse
-const TRUMP_LOG_ID = "[Trump 0.8.0] ";
+//Tellurium IDE log Identifier to make it easier to parse
+const IDE_LOG_ID = "[Tellurium IDE 0.8.0] ";

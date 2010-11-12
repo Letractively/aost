@@ -3,8 +3,8 @@
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
 
 
-<window id="trumpAboutWindow"
-	title="About Trump"
+<window id="ideAboutWindow"
+	title="About Tellurium IDE"
 	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
 	xmlns:html="http://www.w3.org/1999/xhtml"
 	width="450" height="400">

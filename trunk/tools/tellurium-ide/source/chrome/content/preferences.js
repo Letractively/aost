@@ -1,6 +1,6 @@
 var Preferences = {
     initialize: function() {
-        this.prefs = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefService).getBranch('extensions.trump.');
+        this.prefs = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefService).getBranch('extensions.teide.');
 
         this.prefs.QueryInterface(Components.interfaces.nsIPrefBranch2);
     },

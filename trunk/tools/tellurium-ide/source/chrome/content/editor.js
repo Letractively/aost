@@ -291,8 +291,8 @@ Editor.prototype.validateOneUiModule = function(uim){
         tellurium = new Tellurium();
         tellurium.initialize();
     }
-    var glf = Preferences.getPref("extensions.trump.grouplocating");
-//    alert("extensions.trump.grouplocating: " + glf);
+    var glf = Preferences.getPref("extensions.teide.grouplocating");
+//    alert("extensions.teide.grouplocating: " + glf);
     if(glf == undefined){
         glf = true;
     }
@@ -319,8 +319,8 @@ Editor.prototype.validateUI = function(){
         tellurium = new Tellurium();
         tellurium.initialize();
     }
-    var glf = Preferences.getPref("extensions.trump.grouplocating");
-//    alert("extensions.trump.grouplocating: " + glf);
+    var glf = Preferences.getPref("extensions.teide.grouplocating");
+//    alert("extensions.teide.grouplocating: " + glf);
     if(glf == undefined){
         glf = true;
     }
@@ -958,7 +958,7 @@ Editor.prototype.exportGroovyDsl = function(){
         if (this.recorder.app != null && this.recorder.app.notEmpty()) {
             var txt = this.recorder.app.toGroovyDsl();
 
-            var dir = Preferences.getPref("extensions.trump.exportdirectory");
+            var dir = Preferences.getPref("extensions.teide.exportdirectory");
             if (dir == undefined || dir == null) {
                 if (this.os == "Windows") {
                     dir = Preferences.DEFAULT_OPTIONS.defaultWinDirectory;
@@ -980,7 +980,7 @@ Editor.prototype.exportUiModule = function() {
         if (this.recorder.app != null && this.recorder.app.notEmpty()) {
             var txt = this.recorder.app.toUiModule();
 
-            var dir = Preferences.getPref("extensions.trump.exportdirectory");
+            var dir = Preferences.getPref("extensions.teide.exportdirectory");
             if (dir == undefined || dir == null) {
                 if (this.os == "Windows") {
                     dir = Preferences.DEFAULT_OPTIONS.defaultWinDirectory;
@@ -1002,7 +1002,7 @@ Editor.prototype.exportJavaCode = function(){
         if (this.recorder.app != null && this.recorder.app.notEmpty()) {
             var txt = this.recorder.app.toJavaCode();
 
-            var dir = Preferences.getPref("extensions.trump.exportdirectory");
+            var dir = Preferences.getPref("extensions.teide.exportdirectory");
             if (dir == undefined || dir == null) {
                 if (this.os == "Windows") {
                     dir = Preferences.DEFAULT_OPTIONS.defaultWinDirectory;
@@ -1110,7 +1110,7 @@ Editor.prototype.pasteFromClipboard = function() {
 
 Editor.prototype.updateOptions = function(){
     window.openDialog("chrome://source/content/preferences.xul", "options", "chrome,modal,resizable", this.os);
-    var jslog = Preferences.getPref("extensions.trump.jslog");
+    var jslog = Preferences.getPref("extensions.teide.jslog");
     if(jslog ==undefined){
         jslog = true;
     }
@@ -1118,7 +1118,7 @@ Editor.prototype.updateOptions = function(){
 
     var elem = window.frames["logViewFrame"].document.getElementById("logging-console");
     if (elem != null) {
-        var logWrap = Preferences.getPref("extensions.trump.logwrap");
+        var logWrap = Preferences.getPref("extensions.teide.logwrap");
         if(logWrap == undefined){
             logWrap = true;
         }

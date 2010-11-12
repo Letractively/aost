@@ -104,21 +104,10 @@
     </script>
 
     <!-- Extending Firefox Tools menu  -->
-    <!-- Adding Trump IDE to the tools menu -->
+    <!-- Adding Tellurium IDE to the tools menu -->
     <menupopup id="menu_ToolsPopup">
         <menuitem label="Tellurium IDE" oncommand="showTelluriumIDE();"
                   insertbefore="sanitizeSeparator,prefSep" accesskey="T" />
     </menupopup>
-
-    <!-- Adding Trump to right click pop up menu -->
-<!--
-    <popup id="contentAreaContextMenu">
-        <menuitem id="miShowTrump"
-                  oncommand="showUIWindow()"
-                  label="Show in Trump"
-                  tooltiptext="Show in Tellurium Ui Model Plugin (Trump)"
-                  accesskey="t"/>
-    </popup>
-    -->
 
 </overlay>

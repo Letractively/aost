@@ -1,4 +1,4 @@
-function TrumpLogger() {
+function IdeLogger() {
 	var self = this;
 	var levels = ["log","debug","info","warn","error"];
     this.maxEntries = 2000;
@@ -57,4 +57,4 @@ function TrumpLogger() {
     }
 }
 
-var logger = new TrumpLogger();
+var logger = new IdeLogger();

@@ -7,23 +7,23 @@
         %telluriumIdeDTD;
 ]>
 
-<!-- Trump Preferences Window -->
-<prefwindow id="TrumpPreferences" buttons="accept,cancel" defaultButton="accept,cancel"
+<!-- Tellurium IDE Preferences Window -->
+<prefwindow id="IdePreferences" buttons="accept,cancel" defaultButton="accept,cancel"
             ondialogaccept="return saveOptions()"
             onload="loadOptions()"
-            title="Trump IDE Options"
+            title="Tellurium IDE Options"
             width="400"
             height="450"
             xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-    <!-- Create a new pane (tab) for Trump. -->
-    <prefpane id="trumpPrefPane" label="&options.general.label;">
-        <!--prefpane id="trumpPrefPane" label="&options.general.label;" onpaneload="populateTrump()"-->
+    <!-- Create a new pane (tab) for Tellurium IDE. -->
+    <prefpane id="idePrefPane" label="&options.general.label;">
+        <!--prefpane id="idePrefPane" label="&options.general.label;" onpaneload="populateIDE()"-->
 
         <preferences>
-            <preference id="trumpExportDirectory" name="extensions.trump.exportdirectory" type="string"/>
-            <preference id="trumpJSLog" name="extensions.extensions.trump.jslog" type="bool"/>
-            <preference id="trumpLogWrap" name="extensions.extensions.trump.logWrap" type="bool"/>
+            <preference id="ideExportDirectory" name="extensions.teide.exportdirectory" type="string"/>
+            <preference id="ideJSLog" name="extensions.teide.jslog" type="bool"/>
+            <preference id="ideLogWrap" name="extensions.teide.logWrap" type="bool"/>
         </preferences>
         
         <script type="application/x-javascript" src="chrome://source/content/options.js"/>
@@ -35,26 +35,26 @@
         <stringbundle id="strings" src="chrome://source/locale/string.properties"/>
 
         <hbox align="center">
-            <textbox id="trump-options-directory" preference="trumpExportDirectory" multiline="false" oninput=""/>
+            <textbox id="teide-options-directory" preference="ideExportDirectory" multiline="false" oninput=""/>
         </hbox>
 
         <separator class="thin"/>
 
         <description>&options.jslog.description;</description>
         <hbox align="center">
-            <checkbox id="trump-option-jslog" preference="trumpJSLog" disabled="false" checked="true"/>
+            <checkbox id="teide-option-jslog" preference="ideJSLog" disabled="false" checked="true"/>
         </hbox>
 
         <separator class="thin"/>
 
         <description>&options.logwrap.description;</description>
         <hbox align="center">
-            <checkbox id="trump-option-logwrap" preference="trumpLogWrap" disabled="false" checked="false"/>
+            <checkbox id="teide-option-logwrap" preference="ideLogWrap" disabled="false" checked="false"/>
         </hbox>
 
          <description>&options.grouplocating;</description>
         <hbox align="center">
-            <checkbox id="trump-option-grouplocating" preference="trumpGroupLocating" disabled="false" checked="true"/>
+            <checkbox id="teide-option-grouplocating" preference="ideGroupLocating" disabled="false" checked="true"/>
         </hbox>
         
         <hbox pack="center">

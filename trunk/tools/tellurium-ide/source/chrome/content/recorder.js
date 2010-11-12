@@ -36,7 +36,7 @@ function Recorder(window) {
 //    this.registerUnloadListener();
 }
 
-Recorder.WINDOW_RECORDER_PROPERTY = "_Trump_IDE_Recorder";
+Recorder.WINDOW_RECORDER_PROPERTY = "_Tellurium_IDE_Recorder";
 
 Recorder.prototype.attachActionListeners = function(window){
     logger.debug("Attaching listeners for action...");

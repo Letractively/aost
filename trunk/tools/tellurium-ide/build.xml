@@ -19,7 +19,7 @@
 		<zip update="true" compress="true"
 			comment="MyExtension development build"
 			destfile="${dstFile}"
-			basedir="${src}" excludes="trump.kpf"/>
+			basedir="${src}" excludes="source.kpf"/>
 	</target>
 
 	<target name="dist" depends="xpi">
