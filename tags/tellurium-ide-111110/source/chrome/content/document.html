@@ -1,0 +1,140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Tellurium Documents</title>
+    <link href="chrome://source/content/extlib/style.css" rel="stylesheet" type="text/css" />
+
+    <!--
+      jQuery library
+    -->
+    <script type="text/javascript" src="chrome://source/content/extlib/jquery-1.4.2.js"></script>
+
+    <!--
+      jCarousel library
+    -->
+    <script type="text/javascript" src="chrome://source/content/extlib/jquery.jcarousel.js"></script>
+
+    <!--
+      jCarousel skin stylesheet
+    -->
+   <!-- <link rel="stylesheet" type="text/css" href="chrome://source/content/extlib/skin.css" />-->
+
+    <script type="text/javascript">
+
+    teJQuery(document).ready(function() {
+        teJQuery('#mycarousel').jcarousel({
+            vertical: true,
+            visible: 4,
+            auto: 1,
+            wrap: 'circular'
+        });
+    });
+
+    </script>
+ <style type="text/css">
+
+.jcarousel-container-vertical {
+    width: 320px;
+        height: 250px;
+    background: #e8e8e8;
+    border: 1px solid #fff;
+}
+
+.jcarousel-clip-vertical {
+    top: 15px;
+    width: 320px;
+    height: 250px;
+    margin: 0 5px;
+    z-index: 20;
+}
+
+#mycarousel li,
+.jcarousel-item-vertical,
+.jcarousel-item-placeholder-vertical {
+    width: 320px;
+    height: auto;
+    margin: 5px 0;
+}
+
+.jcarousel-item h3,
+.jcarousel-item p {
+    margin: 0;
+    font-size: 90%;
+}
+
+.jcarousel-next-vertical {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 320px;
+    height: 14px;
+    cursor: pointer;
+    border-top: 1px solid #fff;
+    background: #4088b8 url(chrome://source/content/extlib/images/arrow-down.gif) no-repeat center;
+}
+
+.jcarousel-next-disabled-vertical {
+    cursor: default;
+    opacity: .5;
+    -moz-opacity: .5;
+    filter: alpha(opacity=50);
+}
+
+.jcarousel-prev-vertical {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 320px;
+    height: 14px;
+    cursor: pointer;
+    border-bottom: 1px solid #fff;
+    background: #4088b8 url(chrome://source/content/extlib/images/arrow-up.gif) no-repeat center;
+}
+
+.jcarousel-prev-disabled-vertical {
+    cursor: default;
+    opacity: .5;
+    -moz-opacity: .5;
+    filter: alpha(opacity=50);
+}
+
+.loading {
+    background: transparent url(chrome://source/content/extlib/images/loading.gif) 50% 50% no-repeat;
+}
+
+</style>
+    </head>
+    <body>
+    <div id="wrap">
+      <h2>Tellurium Document</h2>
+      <p>Tellurium Resources: (For more, please visit <a href="http://code.google.com/p/aost/wiki/">Tellurium wiki documents</a>)
+      </p>
+        <div id="mycarousel">
+        <ul>
+          <li><a href="http://code.google.com/p/aost/wiki/Tellurium070Update">What's New in Tellurium 0.7.0</a></li>
+          <li><a href="http://code.google.com/p/aost/wiki/tellurium070referencedoc">Tellurium 0.7.0 Reference</a></li>
+          <li><a href="http://code.google.com/p/aost/wiki/WhatsNewInTellurium080">What's New in Tellurium 0.8.0</a></li>
+          <li><a href="http://code.google.com/p/aost/wiki/UserGuide070TelluriumBasics#Run_DSL_Script">How to Run Tellurium DSL Script</a></li>  
+          <li><a href="http://code.google.com/p/aost/wiki/TelluriumAWrapOfSelenium">Tellurium VS. Selenium</a> </li>
+          <li><a href="http://code.google.com/p/aost/wiki/UserGuide070Introduction">Tellurium Introduction</a></li>
+          <li><a href="http://code.google.com/p/aost/wiki/UserGuide070GettingStarted">Tellurium Get Started</a></li>
+          <li><a href="http://code.google.com/p/aost/wiki/UserGuide070TelluriumArchitecture">Tellurium Architecture</a></li>
+          <li><a href="http://code.google.com/p/aost/wiki/UserGuide070TelluriumBasics">Tellurium Basic</a></li>
+          <li><a href="http://code.google.com/p/aost/wiki/UserGuide070UIObjects">Tellurium UI Objects</a></li>
+          <li><a href="http://code.google.com/p/aost/wiki/UserGuide070TelluriumAPIs">Tellurium APIs</a></li>
+          <li><a href="http://code.google.com/p/aost/wiki/UserGuide070TelluriumAdvancedTopics">Tellurium Advanced Topics</a></li>
+          <li><a href="http://code.google.com/p/aost/wiki/UserGuide070TelluriumSubprojects">Tellurium Subprojects</a></li>
+          <li><a href="http://code.google.com/p/aost/wiki/UserGuide070AppendixB">Tellurium FAQs</a></li>
+          <li><a href="http://code.google.com/p/aost/wiki/UserGuide070AppendixD">Tellurium Resources</a></li>  
+          <li><a href="http://code.google.com/p/aost/wiki/Telluriumi18nBlogPost">Tellurium Internationalization</a></li>
+          <li><a href="http://code.google.com/p/aost/wiki/TelluriumjQueryUiWidgets">Tellurium Widgets</a></li>
+          <li><a href="http://code.google.com/p/aost/wiki/SantaUiModuleGroupLocatingAlgorithm">Santa Algorithm</a></li>
+          <li><a href="http://code.google.com/p/aost/wiki/TelluriumUIDDescriptionLanguage">Tellurium UID Description Language</a></li>
+          <li><a href="http://code.google.com/p/aost/wiki/PracticalUseOfDiagnose">Tellurium Diagnose</a></li>
+          <li><a href="http://code.google.com/p/aost/wiki/CustomTelluriumIntelliJProject">IntelliJ 9.0 IDEA</a></li>
+        </ul>
+       </div>
+    </div>
+    </body>
+</html>

@@ -1,0 +1,140 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <groupId>org.telluriumsource</groupId>
+        <artifactId>tellurium-tools</artifactId>
+        <version>0.8.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.telluriumsource</groupId>
+    <artifactId>tellurium-ide</artifactId>
+    <version>0.8.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>Tellurium IDE</name>
+    <description>A Tellurium Firefox Plugin for Test Recording and Replaying</description>
+    <scm>
+        <connection>scm:svn:http://aost.google.code.com/svn/trunk/tools/tellurium-ide</connection>
+        <developerConnection>scm:svn:https://aost.googlecode.com/svn/trunk/tools/tellurium-ide</developerConnection>
+        <url>http://aost.google.code.com/svn/trunk/tools/tellurium-ide</url>
+    </scm>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.3</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.ant</groupId>
+                        <artifactId>ant</artifactId>
+                        <version>1.7.1</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.ant</groupId>
+                        <artifactId>ant-launcher</artifactId>
+                        <version>1.7.1</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.ant</groupId>
+                        <artifactId>ant-nodeps</artifactId>
+                        <version>1.7.1</version>
+                    </dependency>
+                    <!--
+                                        <dependency>
+                                            <groupId>sun.jdk</groupId>
+                                            <artifactId>tools</artifactId>
+                                            <version>1.5.0</version>
+                                            <scope>system</scope>
+                                            <systemPath>${java.home}/../lib/tools.jar</systemPath>
+                                        </dependency>
+                    -->
+                          
+                </dependencies>
+
+                <executions>
+                    <execution>
+                        <id>package-xpi</id>
+                        <phase>package</phase>
+                        <configuration>
+                            <tasks>
+                                <mkdir dir="${basedir}/target"/>
+                                <zip update="true" compress="true" comment="Tellurium IDE development build"
+                                     destfile="${basedir}/target/TelluriumIDE-${project.version}.xpi"
+                                     basedir="${basedir}/source" excludes="source.kpf"/>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>jsLint-test</id>
+                        <phase>test</phase>
+                        <configuration>
+                            <tasks>
+
+                                <!--<mkdir dir="${basedir}/target/test-reports"/>-->
+                                <mkdir dir="${basedir}/target"/>
+<!--                                <touch file="${basedir}/target/jslint.txt" />-->
+                                <path id="project.testcompile.classpath">
+                                    <path refid="maven.test.classpath"/>
+                                </path>
+
+                                <taskdef name="jslint" classname="com.googlecode.jslint4java.ant.JSLintTask" classpathref="project.testcompile.classpath"/>
+                                <jslint options="browser,cap,debug,devel,evil,fragment,laxbreak,on">
+                                    <formatter type="plain" destfile="${basedir}/target/jslint.txt" />
+                                    <!--<formatter type="junit" destfile="${basedir}/target/test-reports" /> -->                              
+                                    <fileset dir="source/chrome/content" includes="**/*.js"/>
+                                </jslint>
+
+                            </tasks>
+
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
+              
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-artifacts</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>attach-artifact</goal>
+                        </goals>
+                        <configuration>
+                            <artifacts>
+                                <artifact>
+                                    <file>target/TelluriumIDE-${project.version}.xpi</file>
+                                    <type>xpi</type>
+                                </artifact>
+                            </artifacts>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.googlecode.jslint4java</groupId>
+            <artifactId>jslint4java</artifactId>
+            <version>1.4.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.jslint4java</groupId>
+            <artifactId>jslint4java-ant</artifactId>
+            <version>1.4.2</version>
+        </dependency>        
+    </dependencies>
+    
+</project>
