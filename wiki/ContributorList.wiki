@@ -16,15 +16,9 @@ Tellurium Contributors are categorized into development team, support team, evan
 
   * *Mikhail Koryak*: TrUMP 0.1.0 and jQuery support for Tellurium
 
-  * *Jeff Xiong*: 
-
   * *Ajay Ravichandran*: Internationalization, Excel data reader
 
-  * *Mahendra Kariya*: User Guide Wiki
-  
-  * *Harihara Vinayakaram*:
-
-  * *Rajan Pokhrel*: Rajan Pokhrel is graduating from Maharishi University of Management from Fairfield, Iowa with MS in Computer Science. He worked as a Software Engineer for several years and currently occupied a Senior Software Engineer position in a company based in Silicon Valley. Tellurium Core Engine, Tellurium-Reference Guide.    
+  * *Rajan Pokhrel*: Rajan Pokhrel is graduating from Maharishi University of Management from Fairfield, Iowa with MS in Computer Science. He worked as a Software Engineer for several years and currently occupied a Senior Software Engineer position in a company based in Silicon Valley. Tellurium-Reference Guide.    
 
 === Build and Release ===
 
@@ -37,8 +31,6 @@ Tellurium Contributors are categorized into development team, support team, evan
 === Documentation ===
 
   * *Davlyn Jones*: User Guide 0.6.0
-
-  * *Ramesh Ramamurthy*: Article revision
 
 === Evangelism Team ===
 
@@ -71,6 +63,8 @@ Jared Rawlinson ([http://citystormmedia.com City Storm Media]): Tellurium Projec
    * *Quan Bui*: Quan worked on Tellurium reference projects and proposed the ExtJs widget project.
 
   * *Adrian Carr*: Adrian used Tellurium prototype for an internal project and provided us many good suggestions. He also proposed the full name "Tellurium Automated Testing Framework".
+
+  * *Mahendra Kariya*: User Guide Wiki
 
 == Want to Contribute ? ==
 
