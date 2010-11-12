@@ -1,10 +1,10 @@
-                        README
+                                    README
 
-----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------
 
              Tellurium Team (TelluriumSource@Gmail.com)
 
-----------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------
  Tellurium is an expressive testing framework and it uses UI modules to define the web UIs under testing.
  UIDs are used to reference UI elements instead of hardcoded locators. About two months ago, it was still a dream
  to automatically generate Tellurium DSL script like Selenium IDE does, but now, the dream came true.
@@ -40,3 +40,4 @@ http://twitter.com/TelluriumSource
 
 TelluriumSource
 http://telluriumsource.org
+

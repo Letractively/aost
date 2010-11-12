@@ -1,8 +1,4 @@
 <?xml version="1.0"?>
-<!--
-Copyright 2008 Vivek Mongolu
-
--->
 
 <!DOCTYPE window [
 <!ENTITY % telluriumIdeDTD SYSTEM "chrome://source/locale/tellurium-ide.dtd">
@@ -13,14 +9,10 @@ Copyright 2008 Vivek Mongolu
 
     <script type="application/x-javascript" src="chrome://source/content/extlib/log4js.js"/>
     <script type="application/x-javascript" src="chrome://source/content/extlib/json2.js"/>
-    <script type="application/x-javascript" src="chrome://source/content/extlib/jquery-1.4.2.js "/>
+    <script type="application/x-javascript" src="chrome://source/content/extlib/jquery-1.4.4.js "/>
     <script type="application/x-javascript" src="chrome://source/content/extlib/jquery-simpletip-1.3.1.js"/>
     <script type="application/x-javascript" src="chrome://source/content/extlib/syn.js"/>
     <script type="application/x-javascript" src="chrome://source/content/extlib/jsUnitCore.js"/>
-<!--    <script type="application/x-javascript" src="chrome://source/content/extlib/jquery.ui.core.js"/>
-    <script type="application/x-javascript" src="chrome://source/content/extlib/jquery.ui.widget.js"/>
-    <script type="application/x-javascript" src="chrome://source/content/extlib/jquery.ui.position.js"/>
-    <script type="application/x-javascript" src="chrome://source/content/extlib/jquery.ui.autocomplete.js"/>-->
     <script type="application/x-javascript" src="chrome://source/content/engine/tellurium-utils.js"/>
     <script type="application/x-javascript" src="chrome://source/content/util.js"/>
     <script type="application/x-javascript" src="chrome://source/content/editor.js"/>
@@ -55,11 +47,9 @@ Copyright 2008 Vivek Mongolu
     <script type="application/x-javascript" src="chrome://source/content/uicreator/xpathBuilder.js"/>
     <script type="application/x-javascript" src="chrome://source/content/uicreator/xpathDom.js"/>
     <script type="application/x-javascript" src="chrome://source/content/uicreator/uimodule-alg.js"/>
-    <!--<script type="application/x-javascript" src="chrome://source/content/uicreator/command-view.js"/>-->
     <script type="application/x-javascript" src="chrome://source/content/uicreator/command-list.js"/>
     <script type="application/x-javascript" src="chrome://source/content/uicreator/command-view.js"/>
 
-    <!--<script type="application/x-javascript" src="chrome://source/content/utils/xmlUtil.js"/>-->
     <script type="application/x-javascript" src="chrome://source/content/utils/fileUtil.js"/>
     <script type="application/x-javascript" src="chrome://source/content/utils/browserDetect.js"/>
 
@@ -67,7 +57,6 @@ Copyright 2008 Vivek Mongolu
     <script type="application/x-javascript" src="chrome://source/content/engine/selenium-mock.js"/>
     <script type="application/x-javascript" src="chrome://source/content/engine/tellurium-browserbot.js"/>
     <script type="application/x-javascript" src="chrome://source/content/engine/tellurium.js"/>
-   <!-- <script type="application/x-javascript" src="chrome://source/content/engine/tellurium-cache.js"/>-->
     <script type="application/x-javascript" src="chrome://source/content/engine/tellurium-api.js"/>
     <script type="application/x-javascript" src="chrome://source/content/engine/tellurium-logging.js"/>
     <script type="application/x-javascript" src="chrome://source/content/engine/tellurium-selector.js"/>

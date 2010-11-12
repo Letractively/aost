@@ -292,7 +292,6 @@ Editor.prototype.validateOneUiModule = function(uim){
         tellurium.initialize();
     }
     var glf = Preferences.getPref("extensions.teide.grouplocating");
-//    alert("extensions.teide.grouplocating: " + glf);
     if(glf == undefined){
         glf = true;
     }
@@ -320,7 +319,6 @@ Editor.prototype.validateUI = function(){
         tellurium.initialize();
     }
     var glf = Preferences.getPref("extensions.teide.grouplocating");
-//    alert("extensions.teide.grouplocating: " + glf);
     if(glf == undefined){
         glf = true;
     }
@@ -366,7 +364,6 @@ Editor.prototype.updateSource = function(){
         logger.error("uiModelArray is not defined, cannot generate source!");
     }
 
-//    logger.debug("ui model generated:\n"+uiModel);
     sourceTextNode.value = uiModel;
 };
 
