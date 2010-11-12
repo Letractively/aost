@@ -148,7 +148,7 @@ Tellurium.prototype.useClosestMatch = function(isUse){
     !tellurium.logManager.isUseLog || fbLog("Call useClosestMatch(" + isUse + ") to set allowRelax to ", this.uiAlg.allowRelax);
 };
 
-Tellurium.prototype.run = function(name, uid, param){
+/*Tellurium.prototype.run = function(name, uid, param){
 //    var api = this[name];
     var cmd = this.cmdMap.get(name);
     if(cmd != null){
@@ -167,7 +167,7 @@ Tellurium.prototype.run = function(name, uid, param){
         throw new TelluriumError(ErrorCodes.INVALID_TELLURIUM_COMMAND, "Invalid Tellurium command " + name);
     }
 
-};
+};*/
 
 Tellurium.prototype.locateUI = function(uid){
     var uim = this.cache.get(uid);

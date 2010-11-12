@@ -41,7 +41,7 @@ function TelluriumError(type, message) {
     !tellurium.logManager.isUseLog || fbLog("Tellurium initialized after document ready", tellurium);
 });*/
 
-var tellurium = null;
+//var tellurium = null;
 
 /*teJQuery(document).ready(function() {
     tellurium = new Tellurium();
@@ -718,3 +718,8 @@ Tellurium.prototype.decorateFunctionWithTimeout = function(f, timeout) {
         return f();
     };
 };
+
+var tellurium = new Tellurium();
+tellurium.initialize();
+
+
