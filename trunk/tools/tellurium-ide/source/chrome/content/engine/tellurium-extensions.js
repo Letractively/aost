@@ -45,16 +45,6 @@ Selenium.prototype.getCSS = function(locator, cssName) {
     }
 
     return out;
-/*    $e.each(function() {
-        var val = teJQuery(this).css(cssName);
-        //need to walk up the tree if the color is transparent
-        if(val == "transparent" && (cssName == "background-color" || cssName == "backgroundColor" || cssName == "color")){
-            val = getColor(this, cssName);
-        }
-        out.push(val);        
-//        out.push(teJQuery(this).css(cssName));
-    });*/
-//    return JSON.stringify(out);
 };
 
 Selenium.prototype.isDisabled = function(locator) {
@@ -95,7 +85,19 @@ Selenium.prototype.doDisableCache = function(){
 };
 
 Selenium.prototype.doCleanCache = function(){
-    tellurium.cache.cleanCache();
+    tellurium.cache.clear();
+};
+
+Selenium.prototype.enableCache = function(){
+    tellurium.cache.cacheOption = true;
+};
+
+Selenium.prototype.disableCache = function(){
+    tellurium.cache.cacheOption = false;
+};
+
+Selenium.prototype.cleanCache = function(){
+    tellurium.cache.clear();
 };
 
 Selenium.prototype.doSetCacheMaxSize = function(size){
@@ -103,7 +105,7 @@ Selenium.prototype.doSetCacheMaxSize = function(size){
 };
 
 Selenium.prototype.getCacheSize = function(){
-    return tellurium.cache.getCacheSize();
+    return tellurium.cache.size();
 };
 
 Selenium.prototype.getCacheMaxSize = function(){
@@ -339,23 +341,27 @@ Selenium.prototype.getBundleResponse = function(bundle){
 };
 
 Selenium.prototype.getUseUiModule = function(jsonarray){
-    return tellurium.cache.useUiModule(jsonarray);
+    return tellurium.useUiModule(jsonarray);
 };
 
 Selenium.prototype.getValidateUiModule = function(jsonarray){
-    return tellurium.cache.validateUiModule(jsonarray);
+    return tellurium.validateUiModule(jsonarray);
 };
 
 Selenium.prototype.isUiModuleCached = function(id){
-    return tellurium.cache.isUiModuleCached(id);
+    return tellurium.isUiModuleCached(id);
 };
 
 Selenium.prototype.doUseTeApi = function(isUse){
     tellurium.useTeApi(isUse);
 };
 
+Selenium.prototype.useTeApi = function(isUse){
+    tellurium.useTeApi(isUse);
+};
+
 Selenium.prototype.doUseClosestMatch = function(isUse){
-     tellurium.cache.useClosestMatch(isUse);
+     tellurium.useClosestMatch(isUse);
 };
 
 Selenium.prototype.doToggle = function(locator){
@@ -385,19 +391,19 @@ Selenium.prototype.getCookieByJQuery = function(cookieName){
 };
 
 Selenium.prototype.doUseClosestMatch = function(isUse){
-    tellurium.cache.useClosestMatch(isUse);
+    tellurium.useClosestMatch(isUse);
 };
 
 Selenium.prototype.doUpdateEngineState = function(state){
 //    var state = JSON.parse(json, null);
-    tellurium.cache.useClosestMatch(state.relax);
+    tellurium.useClosestMatch(state.relax);
     tellurium.useTeApi(state.teApi);
     tellurium.cache.cacheOption = state.cache;
 };
 
 Selenium.prototype.getEngineState = function(){
     var state = new EngineState();
-    state.relax = tellurium.cache.uiAlg.allowRelax;
+    state.relax = tellurium.uiAlg.allowRelax;
     state.teApi = tellurium.isUseTeApi;
     state.cache = tellurium.cache.cacheOption;
 
@@ -485,4 +491,11 @@ Selenium.prototype.getSelectValues = function(selectLocator) {
     }
 
     return selectValues;
+};
+
+Selenium.prototype.doReset = function(locator){
+    var elem = this.browserbot.findElement(locator);
+    if(elem.reset != undefined){
+        elem.reset();
+    }
 };

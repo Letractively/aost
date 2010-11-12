@@ -2,7 +2,7 @@ const PageLoadError = {
     TIMEOUT: "timeout"
 };
 
-var BrowserBot = Class.extend({
+var TelluriumBrowserBot = Class.extend({
     init: function() {
         this.currentWindow = null;
         this.currentWindowName = null;
@@ -28,7 +28,7 @@ var BrowserBot = Class.extend({
     },
 
     getCurrentWindow: function(){
-        return this.currentWindow;    
+        return this.currentWindow;
     },
 
     setCurrentWindow: function(window){
@@ -52,7 +52,7 @@ var BrowserBot = Class.extend({
                 this.pagePollTimerId = null;
                 this.newPageLoaded = true;
                 this.pageLoadError = null;
-            }            
+            }
         }catch(error) {
             logger.error("Error:\n" + describeErrorStack(error));
         }
@@ -95,12 +95,14 @@ var BrowserBot = Class.extend({
     },
 
     getMainWindow: function() {
-        return window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+        var mainWindow = window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
                 .getInterface(Components.interfaces.nsIWebNavigation)
                 .QueryInterface(Components.interfaces.nsIDocShellTreeItem)
                 .rootTreeItem
                 .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-                .getInterface(Components.interfaces.nsIDOMWindow);       
+                .getInterface(Components.interfaces.nsIDOMWindow);
+
+        return mainWindow;
     },
 
     getAllWindows: function() {
@@ -118,5 +120,3 @@ var BrowserBot = Class.extend({
         return wins;
     }
 });
-
-var browserBot = new BrowserBot();

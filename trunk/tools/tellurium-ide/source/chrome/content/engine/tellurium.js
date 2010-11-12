@@ -1,7 +1,9 @@
 var ErrorCodes = {
     UI_OBJ_NOT_FOUND: "UI object not found",
     INVALID_TELLURIUM_COMMAND : "Invalid Tellurium command",
+    INVALID_SELENIUM_COMMAND: "Invalid Selenium command",
     INVALID_CALL_ON_UI_OBJ : "Invalid call on UI object",
+    INVALID_NUMBER_OF_PARAMETERS: "Invalid number of parameters",
     UI_OBJ_CANNOT_BE_LOCATED: "UI object cannot be located",
     UI_MODULE_IS_NULL: "UI module is null",
     DOM_NOT_SPECIFIED: "DOM is not specified",
@@ -13,7 +15,7 @@ var ErrorCodes = {
 
 
 function TelluriumError(type, message) {
-    var error = new Error(message);
+    var error = new SeleniumError(message);
     if (typeof(arguments.caller) != 'undefined') { // IE, not ECMA
         var result = '';
         for (var a = arguments.caller; a != null; a = a.caller) {
@@ -28,60 +30,22 @@ function TelluriumError(type, message) {
 
     error.isTelluriumError = true;
     error.type = type;
-    
+
     return error;
 }
 
-var getEvent = function(name, key , objRef){
-    var e = teJQuery.Event(name);
-    e.which = key.charCodeAt(0);
-    e.ctrlKey = objRef.ctrl;
-    e.shiftKey = objRef.shift;
-    e.altKey = objRef.alt;
-    e.metaKey = objRef.metaKey;
-    return e;
-};
 
-function Outlines(){
-    this.defaultOutline = null;
-    this.outlines = new Array();
-}
-
-Outlines.prototype.init = function(){
-//    this.defaultOutLine = "2px solid #0000FF";
-    //Green
-    this.defaultOutLine = "2px solid #00FF00";
-    //Red
-    this.outlines.push("2px solid #FF0000");
-    //Yellow
-    this.outlines.push("2px solid #FFFF00");
-    //Blue
-    this.outlines.push("2px solid #0000FF");
-    //Pink
-    this.outlines.push("2px solid #FF00FF");
-    //Brown
-    this.outlines.push("2px solid #804000");
-};
-
-Outlines.prototype.getDefaultOutline = function(){
-    return this.defaultOutLine;
-};
-
-Outlines.prototype.getOutline = function(index){
-    var i = index % this.outlines.length;
-
-    return this.outlines[i];
-};
-
-teJQuery(document).ready(function() {
+/*teJQuery(document).ready(function() {
     tellurium = new Tellurium();
     tellurium.initialize();
     !tellurium.logManager.isUseLog || fbLog("Tellurium initialized after document ready", tellurium);
-});
+});*/
 
-/*
+var tellurium = null;
+
 teJQuery(document).ready(function() {
     tellurium = new Tellurium();
+    fbLog("Start tellurium instance", tellurium);
     tellurium.initialize();
     !tellurium.logManager.isUseLog || fbLog("Tellurium initialized after document ready", tellurium);
 //    document.body.appendChild(firebug);
@@ -95,141 +59,7 @@ teJQuery(document).ready(function() {
     if(typeof (firebug) != "undefined")
         void(firebug);
 });
-*/
 
-//add custom jQuery Selector :te_text()
-//
-
-teJQuery.extend(teJQuery.expr[':'], {
-    te_text: function(a, i, m) {
-        if(m[3] != null && m[3].startsWith("regexp:")){
-            var pattern = m[3].substring(7);
-            return teJQuery(a).text().match(pattern);
-        }
-        return teJQuery.trim(teJQuery(a).text()) === teJQuery.trim(m[3]);
-    }
-});
-
-teJQuery.expr[':'].group = function(obj, index, m){
-      var $this = teJQuery(obj);
-
-      var splitted = m[3].split(",");
-      var result = true;
-
-      for(var i=0; i<splitted.length; i++){
-         result = result && ($this.find(splitted[i]).length > 0);
-      }
-
-      return result;
-};
-
-teJQuery.expr[':'].styles = function(obj, index, m){
-      var $this = teJQuery(obj);
-
-      var splitted = new Array();
-
-      var fs = m[3].split(/:|;/);
-      for(var i=0; i<fs.length; i++){
-          var trimed = teJQuery.trim(fs[i]);
-          if(trimed.length > 0){
-              splitted.push(trimed);
-          }
-      }
-
-      var result = true;
-
-      var l=0;
-      while(l < splitted.length){
-         result = result && (teJQuery.trim($this.css(splitted[l])) == splitted[l+1]);
-         l=l+2;
-      }
-
-      return result;
-};
-
-/*
-teJQuery.expr[':'].nextToLast = function(obj, index, m){
-    var $this = teJQuery(obj);
-
-    //      return $this.find(m[3]).last().prev();
-//    return $this.find(m[3]).slice(-2, -1);
-    if ($this.index() == $this.siblings().length - 1) {
-        return true;
-    } else {
-        return false;
-    }
-};
-*/
-
-// this is a selector called nextToLast. its sole purpose is to return the next to last
-// element of the array of elements supplied to it.
-// the parameters in the function below are as follows;
-// obj => the current node being checked
-// ind => the index of obj in the array of objects being checked
-// prop => the properties passed in with the expression
-// node => the array of nodes being checked
-teJQuery.expr[':'].nextToLast = function(obj, ind, prop, node){
-
-     // if ind is 2 less than the length of the array of nodes, keep it
-     return ind == node.length - 2;
-};
-
-teJQuery.expr[':'].regex = function(elem, index, match) {
-    var matchParams = match[3].split(','),
-        validLabels = /^(data|css):/,
-        attr = {
-            method: matchParams[0].match(validLabels) ?
-                        matchParams[0].split(':')[0] : 'attr',
-            property: matchParams.shift().replace(validLabels,'')
-        },
-        regexFlags = 'ig',
-        regex = new RegExp(matchParams.join('').replace(/^\s+|\s+$/g,''), regexFlags);
-    return regex.test(teJQuery(elem)[attr.method](attr.property));
-};
-
-teJQuery.expr[':'].data = function(elem, index, m) {
-
-    m[0] = m[0].replace(/:data\(|\)$/g, '');
-
-    var regex = new RegExp('([\'"]?)((?:\\\\\\1|.)+?)\\1(,|$)', 'g'),
-        key = regex.exec( m[0] )[2],
-        val = regex.exec( m[0] )[2];
-
-    return val ? teJQuery(elem).data(key) == val : !!teJQuery(elem).data(key);
-};
-
-teJQuery.fn.outerHTML = function() {
-//    var $me = teJQuery("<div/>").append( teJQuery(this[0]).clone() );
-
-//    return teJQuery("<div/>").append( teJQuery(this[0]).clone() ).html();
-    try{
-        var doc = this[0] ? this[0].ownerDocument : document;
-        return teJQuery('<div/>', doc).append( this.eq(0).clone() ).html();
-    }catch(error){
-        fbWarn("Error getting outHTML: " + error.message, error);
-        return "";
-    }
-
-};
-
-function getColor(elem, cssName){
-   var color = null;
-
-   if (elem != null) {
-        var parent = elem.parentNode;
-
-        while (parent != null) {
-//            color = teJQuery(parent).css(cssName);
-            color = teJQuery.curCSS(parent, cssName);
-            !tellurium.logManager.isUseLog || fbLog(cssName + " is " + color + " for ", parent);
-            if (color != '' && color != 'transparent' || teJQuery.nodeName(parent, "body"))
-                break;
-            parent = parent.parentNode;
-        }
-    }
-
-   return color;
-}
 
 function Identifier(sn){
     if(sn != undefined){
@@ -333,6 +163,7 @@ MacroCmd.prototype.parse = function(json){
     }
 };
 
+/*
 function TelluriumCommandHandler(api, requireElement, returnType) {
     //api method
     this.api = api;
@@ -341,6 +172,7 @@ function TelluriumCommandHandler(api, requireElement, returnType) {
     //return type
     this.returnType = returnType;
 }
+*/
 
 function EngineState(){
     this.cache = null;
@@ -348,52 +180,105 @@ function EngineState(){
     this.relax = null;
 }
 
-function Tellurium (){
-    this.cache = new TelluriumCache();
+const ValueType = {
+    NUMBER: "number",
+    STRING: 'string',
+    BOOLEAN: 'boolean',
+    OBJECT: 'object',
+    VARIABLE: "var",
+    NIL: "nil"
+};
+
+const CommandType = {
+    HasUid: "hasUid",
+    NoUid: "noUid",
+    ACTION: "action",
+    ACCESSOR: "accessor",
+    DIRECT: "direct",
+    ASSERTION: "assertion"
+};
+
+const ReturnType = {
+    VOID: "void",
+    BOOLEAN: "boolean",
+    STRING: "string",
+    ARRAY: "Array",
+    NUMBER: "number",
+    OBJECT: "object"
+};
+
+function TelluriumCommand(name, type, returnType, handler){
+    this.name = name;
+    this.type = type;
+    this.returnType = returnType;
+    this.handler = handler;
+}
+
+function Tellurium(){
 
     this.currentWindow = null;
 
     this.currentDocument = null;
 
-    //Macro command for Tellurium
-    this.macroCmd = new MacroCmd();
-
     //whether to use Tellurium new jQuery selector based APIs
     this.isUseTeApi = false;
 
-    //cache to hold the element corresponding to a UID in command bundle
-//    this.cbCache = new Hashtable();
+    //Macro command for Tellurium
+    this.macroCmd = new MacroCmd();
 
-    this.teApi = new TelluriumApi(this.cache);
+    this.browserBot = new TelluriumBrowserBot();
 
-    //api name to method mapping for command bundle processing
-    this.apiMap = new Hashtable();
+    this.dom = null;
 
-    //identifier generator
-    this.idGen = new Identifier();
+    this.cache = new TelluriumUiCache();
+
+    this.uiAlg = new UiAlg();
+
+    this.textWorker = new TextUiWorker();
+
+    this.cssBuilder = new JQueryBuilder();
+
+    this.cmdMap = new Hashtable();
+
+    //UI object name to Javascript object builder mapping
+    this.uiBuilderMap = new Hashtable();
 
     //JQuery Builder
     this.jqbuilder = new JQueryBuilder();
 
-    //UI object name to Javascript object builder mapping
-    this.uiBuilderMap = new Hashtable();
+    //identifier generator
+    this.idGen = new Identifier(100);
 
     //log manager for Tellurium
     this.logManager = new LogManager();
 
     //outlines
     this.outlines = new Outlines();
+
+    this.currentDom = null;
+
+    this.jqExecutor = new JQueryCmdExecutor();
+    this.synExecutor = new SynCmdExecutor();
+    this.selExecutor = new SeleniumCmdExecutor();
+    
+//    this.cmdExecutor = this.synExecutor;
+    this.cmdExecutor = this.selExecutor;
+
+    //Proxy object
+    this.proxyObject = new UiProxyObject();
 }
 
-Tellurium.prototype.isUseCache = function(){
-    return this.cache.cacheOption;    
+Tellurium.prototype.setCurrentDom = function(dom){
+    this.currentDom = dom;
 };
 
-//TODO: Refactor --> use Javascript itself to do automatically discovery like selenium does instead of manually registering them
 Tellurium.prototype.initialize = function(){
     this.outlines.init();
-    this.registerTeApis();
     this.registerDefaultUiBuilders();
+    this.registerCommands();
+    if(typeof(this["customize"]) != "undefined"){
+        this["customize"].apply(this, []);
+    }
 };
 
 Tellurium.prototype.registerDefaultUiBuilders = function(){
@@ -425,290 +310,343 @@ Tellurium.prototype.registerUiBuilder = function(name, builder){
     this.uiBuilderMap.put(name, builder);
 };
 
-Tellurium.prototype.getRegisteredUiTypes = function(){
-    return this.uiBuilderMap.keySet();
+Tellurium.prototype.registerCommand = function(name, type, returnType, handler){
+    var cmd = new TelluriumCommand(name, type, returnType, handler);
+    this.cmdMap.put(name, cmd);
 };
 
-Tellurium.prototype.registerTeApis = function(){
-    this.registerApi("isElementPresent", true, "BOOLEAN");
-    this.registerApi("blur", true, "VOID");
-//    this.registerApi("click", true, "VOID");
-    this.registerApi("doubleClick", true, "VOID");
-    this.registerApi("fireEvent", true, "VOID");
-    this.registerApi("focus", true, "VOID");
-    this.registerApi("type", true, "VOID");
-    this.registerApi("typeKey", true, "VOID");
-    this.registerApi("keyDown", true, "VOID");
-    this.registerApi("keyPress", true, "VOID");
-    this.registerApi("keyUp", true, "VOID");
-    this.registerApi("altKeyUp", false, "VOID");
-    this.registerApi("altKeydown", false, "VOID");
-    this.registerApi("ctrlKeyUp", false, "VOID");
-    this.registerApi("ctrlKeydown", false, "VOID");
-    this.registerApi("shiftKeyUp", false, "VOID");
-    this.registerApi("shiftKeydown", false, "VOID");
-    this.registerApi("metaKeyUp", false, "VOID");
-    this.registerApi("metaKeydown", false, "VOID");
-    this.registerApi("mouseOver", true, "VOID");
-    this.registerApi("mouseDown", true, "VOID");
-    this.registerApi("mouseEnter", true, "VOID");
-    this.registerApi("mouseOut", true, "VOID");
-    this.registerApi("mouseLeave", true, "VOID");
-    this.registerApi("submit", true, "VOID");
-    this.registerApi("check", true, "VOID");
-    this.registerApi("uncheck", true, "VOID");
-    this.registerApi("waitForPageToLoad", false, "VOID");
-    this.registerApi("getAttribute", true, "STRING");
-    this.registerApi("getSelectOptions", true, "ARRAY");
-    this.registerApi("getSelectValues", true, "ARRAY");
-    this.registerApi("select", true, "VOID");
-    this.registerApi("addSelection", true, "VOID");
-    this.registerApi("removeSelection", true, "VOID");
-    this.registerApi("removeAllSelections", true, "VOID");
-    this.registerApi("getSelectedLabel", true, "STRING");
-    this.registerApi("getSelectedLabels", true, "ARRAY");
-    this.registerApi("getSelectedValue", true, "STRING");
-    this.registerApi("getSelectedValues", true, "ARRAY");    
-    this.registerApi("open", false, "VOID");
-    this.registerApi("getText", true, "STRING");
-    this.registerApi("isChecked", true, "BOOLEAN");
-    this.registerApi("isVisible", true, "BOOLEAN");
-    this.registerApi("isEditable", true, "BOOLEAN");
-    this.registerApi("getXpathCount", false, "NUMBER");
+Tellurium.prototype.registerCommands = function(){
+    this.registerCommand("useTeApi", CommandType.NoUid, ReturnType.VOID, this.useTeApi);
+    this.registerCommand("isUseLog", CommandType.NoUid, ReturnType.BOOLEAN, this.isUseLog);
+    this.registerCommand("open", CommandType.NoUid, ReturnType.VOID, this.open);
+    this.registerCommand("toggle", CommandType.HasUid, ReturnType.VOID, this.toggle);
+    this.registerCommand("blur", CommandType.HasUid, ReturnType.VOID, this.blur);
+    this.registerCommand("click", CommandType.HasUid, ReturnType.VOID, this.click);
+    this.registerCommand("clickAt", CommandType.HasUid, ReturnType.VOID, this.clickAt);
+    this.registerCommand("doubleClick", CommandType.HasUid, ReturnType.VOID, this.doubleClick);
+    this.registerCommand("fireEvent", CommandType.HasUid, ReturnType.VOID, this.fireEvent);
+    this.registerCommand("focus", CommandType.HasUid, ReturnType.VOID, this.focus);
+    this.registerCommand("type", CommandType.HasUid, ReturnType.VOID, this.type);
+    this.registerCommand("typeKey", CommandType.HasUid, ReturnType.VOID, this.typeKey);
+    this.registerCommand("keyDown", CommandType.HasUid, ReturnType.VOID, this.keyDown);
+    this.registerCommand("keyPress", CommandType.HasUid, ReturnType.VOID, this.keyPress);
+    this.registerCommand("keyUp", CommandType.HasUid, ReturnType.VOID, this.keyUp);
+    this.registerCommand("mouseOver", CommandType.HasUid, ReturnType.VOID, this.mouseOver);
+    this.registerCommand("mouseDown", CommandType.HasUid, ReturnType.VOID, this.mouseDown);
+    this.registerCommand("mouseEnter", CommandType.HasUid, ReturnType.VOID, this.mouseEnter);
+    this.registerCommand("mouseLeave", CommandType.HasUid, ReturnType.VOID, this.mouseLeave);
+    this.registerCommand("mouseOut", CommandType.HasUid, ReturnType.VOID, this.mouseOut);
+    this.registerCommand("submit", CommandType.HasUid, ReturnType.VOID, this.submit);
+    this.registerCommand("check", CommandType.HasUid, ReturnType.VOID, this.check);
+    this.registerCommand("uncheck", CommandType.HasUid, ReturnType.VOID, this.uncheck);
+    this.registerCommand("select", CommandType.HasUid, ReturnType.VOID, this.select);
+    this.registerCommand("selectByLabel", CommandType.HasUid, ReturnType.VOID, this.selectByLabel);
+    this.registerCommand("selectByIndex", CommandType.HasUid, ReturnType.VOID, this.selectByIndex);
+    this.registerCommand("selectByValue", CommandType.HasUid, ReturnType.VOID, this.selectByValue);
 
-    //converted from custom selenium apis, tellurium-extensions.js
-    this.registerApi("getAllText", true, "ARRAY");
-    this.registerApi("getCssSelectorCount", true, "NUMBER");
-    this.registerApi("getCSS", true, "Array");
-    this.registerApi("isDisable", true, "BOOLEAN");
-    this.registerApi("getListSize", true, "NUMBER");
-    this.registerApi("getCacheState", false, "STRING");
-    this.registerApi("enableCache", false, "VOID");
-    this.registerApi("disableCache", false, "VOID");
-    this.registerApi("cleanCache", false, "VOID");
-    this.registerApi("setCacheMaxSize", false, "VOID");
-    this.registerApi("getCacheSize", false, "NUMBER");
-    this.registerApi("getCacheMaxSize", false, "NUMBER");
-    this.registerApi("getCacheUsage", false, "ARRAY");
-    this.registerApi("addNamespace", false, "VOID");
-    this.registerApi("getNamespace", false, "STRING");
-    this.registerApi("useDiscardNewCachePolicy", false, "VOID");
-    this.registerApi("useDiscardOldCachePolicy", false, "VOID");
-    this.registerApi("useDiscardLeastUsedCachePolicy", false, "VOID");
-    this.registerApi("useDiscardInvalidCachePolicy", false, "VOID");
-    this.registerApi("getCachePolicyName", false, "STRING");
+    this.registerCommand("getSelectOptions", CommandType.HasUid, ReturnType.ARRAY, this.getSelectOptions);
+    this.registerCommand("getSelectValues", CommandType.HasUid, ReturnType.ARRAY, this.getSelectValues);
+    this.registerCommand("getSelectedLabel", CommandType.HasUid, ReturnType.STRING, this.getSelectedLabel);
+    this.registerCommand("getSelectedLabels", CommandType.HasUid, ReturnType.ARRAY, this.getSelectedLabels);
+    this.registerCommand("getSelectedValue", CommandType.HasUid, ReturnType.STRING, this.getSelectedValue);
+    this.registerCommand("getSelectedValues", CommandType.HasUid, ReturnType.ARRAY, this.getSelectedValues);
+    this.registerCommand("getSelectedIndex", CommandType.HasUid, ReturnType.NUMBER, this.getSelectedIndex);
+    this.registerCommand("getSelectedIndexes", CommandType.HasUid, ReturnType.ARRAY, this.getSelectedIndexes);
+    this.registerCommand("addSelection", CommandType.HasUid, ReturnType.VOID, this.addSelection);
+    this.registerCommand("removeSelection", CommandType.HasUid, ReturnType.VOID, this.removeSelection);
+    this.registerCommand("removeAllSelections", CommandType.HasUid, ReturnType.VOID, this.removeAllSelections);
 
-    this.registerApi("getUseUiModule", false, "STRING");
-    this.registerApi("getValidateUiModule", false, "STRING");
-    this.registerApi("useClosestMatch", false, "VOID");
-    this.registerApi("useTeApi", false, "VOID");
-    this.registerApi("isUiModuleCached", false, "BOOLEAN");
-    this.registerApi("toggle", true, "VOID");
-    this.registerApi("showUi", false, "VOID");
-    this.registerApi("cleanUi", false, "VOID");
-    this.registerApi("deleteAllCookiesByJQuery", false, "VOID");
-    this.registerApi("deletelCookieByJQuery", false, "VOID");
-    this.registerApi("setCookieByJQuery", false, "VOID");
-    this.registerApi("getCookieByJQuery", false, "STRING");
-    this.registerApi("updateEngineState", false, "VOID");
-    this.registerApi("getEngineState", false, "OBJECT");
-    this.registerApi("useEngineLog", false, "VOID");
-    this.registerApi("getAllTableBodyText", true, "ARRAY");
-    this.registerApi("getTeListSize", true, "NUMBER");
-    this.registerApi("getTeTableTbodyNum", true, "NUMBER");
-    this.registerApi("getTeTableColumnNumForTbody", true, "NUMBER");
-    this.registerApi("getTeTableRowNumForTbody", true, "NUMBER");
-    this.registerApi("getTeTableColumnNum", true, "NUMBER");
-    this.registerApi("getTeTableRowNum", true, "NUMBER");
-    this.registerApi("getTeTableFootColumnNum", true, "NUMBER");
-    this.registerApi("getTeTableHeaderColumnNum", true, "NUMBER");
-    this.registerApi("getHTMLSource", true, "ARRAY");
-    this.registerApi("getRepeatNum", true, "NUMBER");
-    this.registerApi("getUiByTag", false, "ARRAY");
-    this.registerApi("removeMarkedUids", false, "ARRAY");
-    this.registerApi("getIndex", true, "NUMBER");
+    this.registerCommand("getAttribute", CommandType.HasUid, ReturnType.STRING, this.getAttribute);
+    this.registerCommand("getText", CommandType.HasUid, ReturnType.STRING, this.getText);
+
+    this.registerCommand("getAllText", CommandType.NoUid, ReturnType.ARRAY, this.getAllText);
+
+    this.registerCommand("getValue", CommandType.HasUid, ReturnType.STRING, this.getValue);
+    this.registerCommand("isElementPresent", CommandType.HasUid, ReturnType.BOOLEAN, this.isElementPresent);
+    this.registerCommand("isChecked", CommandType.HasUid, ReturnType.BOOLEAN, this.isChecked);
+    this.registerCommand("isVisible", CommandType.HasUid, ReturnType.BOOLEAN, this.isVisible);
+    this.registerCommand("isEditable", CommandType.HasUid, ReturnType.BOOLEAN, this.isEditable);
+    this.registerCommand("getCSS", CommandType.HasUid, ReturnType.ARRAY, this.getCSS);
+    this.registerCommand("getCSSAsString", CommandType.HasUid, ReturnType.STRING, this.getCSSAsString);
+    this.registerCommand("isDisable",  CommandType.HasUid, ReturnType.BOOLEAN, this.isDisabled);
+    this.registerCommand("reset", CommandType.HasUid, ReturnType.VOID, this.reset);
+    this.registerCommand("showUi", CommandType.HasUid, ReturnType.VOID, this.showUi);
+    this.registerCommand("cleanUi", CommandType.HasUid, ReturnType.VOID, this.cleanUi);
+    this.registerCommand("getHTMLSource", CommandType.HasUid, ReturnType.ARRAY, this.getHTMLSource);
+    this.registerCommand("getHTMLSourceAsString", CommandType.HasUid, ReturnType.STRING, this.getHTMLSourceAsString);
+    this.registerCommand("getUids", CommandType.HasUid, ReturnType.ARRAY, this.getUids);
+    this.registerCommand("getUidsAsString", CommandType.HasUid, ReturnType.STRING, this.getUidsAsString);
+    this.registerCommand("getCssSelectorCount", CommandType.NoUid, ReturnType.NUMBER, this.getCssSelectorCount);
+    this.registerCommand("getCssSelectorMatch", CommandType.NoUid, ReturnType.ARRAY, this.getCssSelectorMatch);
+    this.registerCommand("getCssSelectorMatchAsString", CommandType.NoUid, ReturnType.STRING, this.getCssSelectorMatchAsString);
+    this.registerCommand("useUiModule", CommandType.NoUid, ReturnType.OBJECT, this.useUiModule);
+    this.registerCommand("useDirectUiModule", CommandType.NoUid, ReturnType.VOID, this.useDirectUiModule);
+    this.registerCommand("validateUiModule", CommandType.NoUid, ReturnType.OBJECT, this.validateUiModule);
+    this.registerCommand("validateDirectUiModule", CommandType.NoUid, ReturnType.OBJECT, this.validateDirectUiModule);
+    this.registerCommand("validateUiModuleAsString", CommandType.NoUid, ReturnType.STRING, this.validateUiModuleAsString);
+    this.registerCommand("toJSON", CommandType.HasUid, ReturnType.OBJECT, this.toJSON);
+    this.registerCommand("toJSONString", CommandType.HasUid, ReturnType.STRING, this.toJSONString);
+//    this.registerCommand("waitForPageToLoad", CommandType.ACTION, ReturnType.VOID, this.waitForPageToLoad);
+    this.registerCommand("getUiByTag", CommandType.NoUid, ReturnType.OBJECT, this.getUiByTag);
+    this.registerCommand("removeMarkedUids", CommandType.NoUid, ReturnType.VOID, this.removeMarkedUids);
+    this.registerCommand("isUseCache", CommandType.NoUid, ReturnType.BOOLEAN, this.isUseCache);
+
+    this.registerCommand("getCacheState", CommandType.NoUid, ReturnType.BOOLEAN, this.getCacheState);
+    this.registerCommand("getCacheSize", CommandType.NoUid, ReturnType.NUMBER, this.getCacheSize);
+    this.registerCommand("enableCache", CommandType.NoUid, ReturnType.VOID, this.enableCache);
+    this.registerCommand("disableCache", CommandType.NoUid, ReturnType.VOID, this.disableCache);
+    this.registerCommand("isUiModuleCached", CommandType.HasUid, ReturnType.BOOLEAN, this.isUiModuleCached);
+    this.registerCommand("useClosestMatch", CommandType.NoUid, ReturnType.VOID, this.useClosestMatch);
+    
+    this.registerCommand("assertTrue", CommandType.NoUid, ReturnType.VOID, this.assertTrue);
+    this.registerCommand("assertFalse", CommandType.NoUid, ReturnType.VOID, this.assertFalse);
+    this.registerCommand("assertEquals", CommandType.NoUid, ReturnType.VOID, this.assertEquals);
+    this.registerCommand("assertNotEquals", CommandType.NoUid, ReturnType.VOID, this.assertNotEquals);
+    this.registerCommand("assertNull", CommandType.NoUid, ReturnType.VOID, this.assertNull);
+    this.registerCommand("assertNotNull", CommandType.NoUid, ReturnType.VOID, this.assertNotNull);
+
+    this.registerCommand("getListSize", CommandType.HasUid, ReturnType.NUMBER, this.getListSize);
+    this.registerCommand("getTableHeaderColumnNum", CommandType.HasUid, ReturnType.NUMBER, this.getTableHeaderColumnNum);
+    this.registerCommand("getTableFootColumnNum", CommandType.HasUid, ReturnType.NUMBER, this.getTableFootColumnNum);
+    this.registerCommand("getTableRowNum", CommandType.HasUid, ReturnType.NUMBER, this.getTableRowNum);
+    this.registerCommand("getTableColumnNum", CommandType.HasUid, ReturnType.NUMBER, this.getTableColumnNum);
+    this.registerCommand("getTableRowNumForTbody", CommandType.HasUid, ReturnType.NUMBER, this.getTableRowNumForTbody);
+    this.registerCommand("getTableColumnNumForTbody", CommandType.HasUid, ReturnType.NUMBER, this.getTableColumnNumForTbody);
+    this.registerCommand("getTableTbodyNum", CommandType.HasUid, ReturnType.NUMBER, this.getTableTbodyNum);
+    this.registerCommand("getAllTableBodyText", CommandType.HasUid, ReturnType.STRING, this.getAllTableBodyText);
+    this.registerCommand("getRepeatNum", CommandType.HasUid, ReturnType.NUMBER, this.getRepeatNum);
+    
+    this.registerCommand("getTeListSize", CommandType.HasUid, ReturnType.NUMBER, this.getListSize);
+    this.registerCommand("getTeTableHeaderColumnNum", CommandType.HasUid, ReturnType.NUMBER, this.getTableHeaderColumnNum);
+    this.registerCommand("getTeTableFootColumnNum", CommandType.HasUid, ReturnType.NUMBER, this.getTableFootColumnNum);
+    this.registerCommand("getTeTableRowNum", CommandType.HasUid, ReturnType.NUMBER, this.getTableRowNum);
+    this.registerCommand("getTeTableColumnNum", CommandType.HasUid, ReturnType.NUMBER, this.getTableColumnNum);
+    this.registerCommand("getTeTableRowNumForTbody", CommandType.HasUid, ReturnType.NUMBER, this.getTableRowNumForTbody);
+    this.registerCommand("getTeTableColumnNumForTbody", CommandType.HasUid, ReturnType.NUMBER, this.getTableColumnNumForTbody);
+    this.registerCommand("getTeTableTbodyNum", CommandType.HasUid, ReturnType.NUMBER, this.getTableTbodyNum);
+    this.registerCommand("helpTest", CommandType.NoUid, ReturnType.VOID, this.helpTest);
+    this.registerCommand("noTest", CommandType.NoUid, ReturnType.VOID, this.noTest);
+};
+
+Tellurium.prototype.helpTest = function(){
+    this.cmdExecutor = this.synExecutor;
+};
+
+Tellurium.prototype.noTest = function(){
+    this.cmdExecutor = this.selExecutor;
+};
+
+Tellurium.prototype.getCommandList = function(){
+    return this.cmdMap.keySet().sort();
+};
+
+Tellurium.prototype.getCommand = function(name){
+    return this.cmdMap.get(name);
+};
+
+Tellurium.prototype.getCommandType = function(name){
+    var cmd = this.cmdMap.get(name);
+    return cmd.type;
+};
+
+Tellurium.prototype.cachedUiModuleNum = function(){
+    return this.cache.size();
+};
+
+Tellurium.prototype.cacheUiModule = function(uim){
+    if(uim != null)
+        this.cache.put(uim.id, uim);
+};
+
+Tellurium.prototype.getCachedUiModuleList = function(){
+    return this.cache.keySet();
+};
+
+Tellurium.prototype.getCachedUiModule = function(id){
+    return this.cache.get(id);
+};
+
+Tellurium.prototype.getRegisteredUiTypes = function(){
+    return this.uiBuilderMap.keySet();
 };
 
 Tellurium.prototype.flipLog = function(){
     this.logManager.isUseLog = !this.logManager.isUseLog;
     if(firebug != undefined)
-        firebug.env.debug = this.logManager.isUseLog;  
+        firebug.env.debug = this.logManager.isUseLog;
 };
 
-Tellurium.prototype.isUseLog = function(){
-    return this.logManager.isUseLog;
-};
+Tellurium.prototype.isApiMissing = function(apiName){
 
-Tellurium.prototype.useTeApi = function(isUse){
-    if (typeof(isUse) == "boolean") {
-        tellurium.isUseTeApi = isUse;
-    } else {
-        tellurium.isUseTeApi = ("true" == isUse || "TRUE" == isUse);
-    }
-};
-
-Tellurium.prototype.registerApi = function(apiName, requireElement, returnType){
-    var api =  this.teApi[apiName];
-
-    if (typeof(api) == 'function') {
-        this.apiMap.put(apiName, new TelluriumCommandHandler(api, requireElement, returnType));
-    }
-};
-
-Tellurium.prototype.isApiMissing =function(apiName){
-
-    return this.apiMap.get(apiName) == null;
+    return this.getCommand(apiName) == null;
 };
 
 Tellurium.prototype.parseMacroCmd = function(json){
     this.macroCmd.parse(json);
 };
 
-Tellurium.prototype.prepareArgumentList = function(handler, args, element){
-    if(args == null)
-        return [];
+Tellurium.prototype.camelizeApiName = function(apiName){
+    return "do" + apiName.charAt(0).toUpperCase() + apiName.substring(1);
+};
 
-    var params = [];
+Tellurium.prototype.delegateToSelenium = function(response, cmd) {
+    // need to use selenium api name conversion to find the api
+    var apiName = cmd.name;
+    var result = null;
+    !tellurium.logManager.isUseLog || fbLog("Delegate Call " + cmd.name + " to Selenium", cmd);
 
-    if (handler.requireElement) {
-        params.push(element);
-        for (var i = 1; i < args.length; i++) {
-            params.push(args[i]);
+    var returnType = null;
+
+    //Try to get back the return type by looking at Tellurium API counterpart
+//    var handler = this.apiMap.get(cmd.name);
+    var command = this.getCommand(cmd.name);
+    if(command != null){
+        returnType = command.returnType;
+    }
+
+    if (apiName.startsWith("is")) {
+
+        if(selenium[apiName] == undefined){
+            throw new TelluriumError(ErrorCodes.INVALID_SELENIUM_COMMAND, "Invalid selenium command " + apiName);
+        }
+
+        result = selenium[apiName].apply(selenium, cmd.args);
+        if(returnType == null)
+            returnType = "BOOLEAN";
+        response.addResponse(cmd.sequ, apiName, returnType, result);
+    } else if (apiName.startsWith("get")) {
+
+        if(selenium[apiName] == undefined){
+            throw new TelluriumError(ErrorCodes.INVALID_SELENIUM_COMMAND, "Invalid selenium command " + apiName);
+        }
+        result = selenium[apiName].apply(selenium, cmd.args);
+        if(apiName.indexOf("All") != -1){
+            //api Name includes "All" should return an array
+            if(returnType == null)
+                returnType = "ARRAY";
+            response.addResponse(cmd.sequ, apiName, returnType, result);
+        }else{
+            //assume the rest return "String"
+            if(returnType == null)
+                returnType = "STRING";
+            response.addResponse(cmd.sequ, apiName, returnType, result);
         }
     } else {
+        apiName = this.camelizeApiName(apiName);
+
+        if(selenium[apiName] == undefined){
+            throw new TelluriumError(ErrorCodes.INVALID_SELENIUM_COMMAND, "Invalid selenium command " + apiName);
+        }
+        
+        !tellurium.logManager.isUseLog || fbLog("Call Selenium method " + apiName, selenium);
+        selenium[apiName].apply(selenium, cmd.args);
+    }
+};
+
+Tellurium.prototype.parseAttributeFromLocator = function(locator){
+    var attribute = null;
+    var inx = locator.lastIndexOf('@');
+    if (inx != -1) {
+       attribute = locator.substring(inx + 1);
+    }
+
+    return attribute;
+};
+
+Tellurium.prototype.prepareArgumentList = function(args){
+    if(args == null)
+        return [];
+    var params = [];
+    if(this.isLocator(args[0])){
+        for(var i=1; i< args.length; i++){
+            params.push(args[i]);
+        }
+    }else{
         params = args;
     }
 
     return params;
 };
 
-function validateDomRef(domref){
-    try{
-        return teJQuery(domref).is(':visible');
-    }catch(e){
-        fbError("Dom reference is not valid", e);
-        return false;
-    }
-}
+Tellurium.prototype.delegateToTellurium = function(response, cmd) {
 
-Tellurium.prototype.getUiElementAndDescendant = function(uid){
-    //TODO: need to change it to getSubtree(uid) after implement that
-    var context = new WorkflowContext();
-    return this.cache.getIndexedTree(context, uid);
-};
+    var command = this.getCommand(cmd.name);
 
-Tellurium.prototype.getUiElementFromCache = function(uid){
-
-    return this.cache.getCachedUiElement(uid);
-};
-
-Tellurium.prototype.dispatchCommand = function(response, cmd, element){
-    var result = null;
-
-    var handler = this.apiMap.get(cmd.name);
-
-    if(handler != null){
-        var api = handler.api;
-        //prepare the argument list
-        var params = this.prepareArgumentList(handler, cmd.args, element);
-        if(params != null && params.length > 0){
-            if(handler.returnType == "VOID"){
-                api.apply(this, params);
+    if(command != null){
+//        fbLog("Command ", command);
+//        fbLog("cmd.arg ", cmd.args);
+        var result = command.handler.apply(this, cmd.args);
+/*        var result;
+        if(command.type == CommandType.HasUid){
+            if(cmd.name == "getAttribute"){
+                var attr = this.parseAttributeFromLocator(cmd.args[0]);
+                result = command.handler.apply(this, [cmd.uid, attr]);
             }else{
-                result = api.apply(this, params);
-                response.addResponse(cmd.sequ, cmd.name, handler.returnType, result);
+                var params = this.prepareArgumentList(cmd.args);
+                params.splice(0, 0, cmd.uid);
+                result = command.handler.apply(this, params);
             }
         }else{
-            if(handler.returnType == "VOID"){
-                api.apply(this, params);
-            }else{
-                result = api.apply(this, params);
-                response.addResponse(cmd.sequ, cmd.name, handler.returnType, result);
-            }
-        }
+            result = this[cmd.name].apply(this, cmd.args);
+        }*/
 
-    }else{
-        throw SeleniumError("Unknown command " + cmd.name + " in Command Bundle.");
+/*        if(command.type == CommandType.ASSERTION){
+            result = this[cmd.name].apply(this, cmd.args);
+        }else{
+            if(cmd.name == "getAttribute"){
+                var attr = this.parseAttributeFromLocator(cmd.args[0]);
+//                result = this[cmd.name].apply(this, [cmd.uid, attr]);
+                result = command.handler.apply(this, [cmd.uid, attr]);
+            } else {
+                var params = this.prepareArgumentList(cmd.args);
+                params.splice(0, 0, cmd.uid);
+//                result = this[cmd.name].apply(this, params);
+                result = command.handler.apply(this, params);
+            }
+        }*/
+
+        if(command.returnType == "VOID"){
+            response.addResponse(cmd.sequ, cmd.name, command.returnType, result);
+        }else {
+//            alert("Add response " + cmd.sequ + ", " + cmd.name + ", " + command.returnType + ", " + result);
+            response.addResponse(cmd.sequ, cmd.name, command.returnType, result);
+        }
+    } else {
+        throw TelluriumError(ErrorCodes.INVALID_TELLURIUM_COMMAND, "Invalid Tellurium command " + cmd.name + " in Command Bundle.");
     }
 };
 
-Tellurium.prototype.locate = function(locator){
-
-    return selenium.browserbot.findElementOrNull(locator);
-};
-
-Tellurium.prototype.isLocator = function(locator){
-    if(typeof(locator) != "string")
-        return false;
-    
-    return locator.startsWith('//') || locator.startsWith('jquery=') || locator.startsWith('jquerycache=') || locator.startsWith('document.');
-};
-
-Tellurium.prototype.camelizeApiName = function(apiName){
-    return "do" + apiName.charAt(0).toUpperCase() + apiName.substring(1);
-};
-
-Tellurium.prototype.processMacroCmd = function(){
-
+Tellurium.prototype.dispatchMacroCmd = function(){
     var response = new BundleResponse();
 
     while (this.macroCmd.size() > 0) {
         var cmd = this.macroCmd.first();
-        //If don't want to use Tellurium APIs
-        //or could not find the appropriate API from Tellurium APIs, delegate it to selenium directly
-        //TODO: pay attention to tellurium only APIs, should not delegate to selenium if they are Tellurium only
-        //should be fine if the same methods are duplicated in Selenium as well
-        if ((!this.isUseTeApi) || this.isApiMissing(cmd.name)) {
-            this.delegateToSelenium(response, cmd);
-        } else {
-            var element = null;
-            !tellurium.logManager.isUseLog || fbLog("Process Macro Command: ", cmd);
-            var locator = cmd.args[0];
-            //some commands do not have any arguments, null guard args
-            if (locator != null) {
-                var isLoc = this.isLocator(locator);
-                //if the first argument is a locator
-                if (isLoc) {
-                    //handle attribute locator for the getAttribute call
-                    //pay attention to the xpath such as
-                    // //descendant-or-self::table/descendant-or-self::input[@title="Google Search" and @name="q"]/self::node()[@disabled]
-                    if (cmd.name == "getAttribute" || cmd.name == "isElementPresent") {
-                        var attributePos = locator.lastIndexOf("@");
-                        var attributeName = locator.slice(attributePos + 1);
-                        if(attributeName.endsWith("]")){
-                            attributeName = attributeName.substr(0, attributeName.length-1);
-                        }
-                        cmd.args.push(attributeName);
-                        locator = locator.slice(0, attributePos);
-                        if(locator.endsWith("[")){
-                            locator = locator.substr(0, locator.length-1);
-                        }
-                    }
-
-                    if (cmd.uid == null) {
-                        element = this.locate(locator);
-                    } else {
-                        !tellurium.logManager.isUseLog || fbLog("Tellurium Cache option: ", this.isUseCache());
-                        if(this.isUseCache()){
-                            element = this.getUiElementFromCache(cmd.uid);
-                            !tellurium.logManager.isUseLog || fbLog("Got UI element " + cmd.uid + " from Cache.", element);
-                        }
-                        
-                        if (element == null) {
-                            element = this.locate(locator);
-                            if(element == null)
-                               throw SeleniumError("Cannot locate element for uid " + cmd.uid + " in Command " + cmd.name + ".");
-                        }
-
-                    }
-                }
+        if(cmd.name == "getUseUiModule"){
+            //do UI module locating
+            var result = this.useUiModule(cmd.args[0]);
+            response.addResponse(cmd.sequ, cmd.name, ReturnType.OBJECT, result);
+        }else{
+            //for other commands
+            !tellurium.logManager.isUseLog || fbLog("Dispatching command: ", cmd);
+            fbLog("isUseTeApi", this);
+            fbLog("isApiMissing(" + cmd.name + ")" + this.isApiMissing(cmd.name), this);
+//            this.updateArgumentList(cmd);
+//            !tellurium.logManager.isUseLog || fbLog("Command after updating argument list: ", cmd);
+            if ((!this.isUseTeApi) || this.isApiMissing(cmd.name)) {
+                !tellurium.logManager.isUseLog || fbLog("delegate command to Selenium", cmd);
+                this.delegateToSelenium(response, cmd);
+            }else{
+                !tellurium.logManager.isUseLog || fbLog("delegate command to Tellurium", cmd);
+                this.delegateToTellurium(response, cmd);
             }
-
-            this.dispatchCommand(response, cmd, element);
         }
     }
 
     return response.toJSon();
+};
+
+Tellurium.prototype.locateElementByCurrentDom = function(locator, inDocument, inWindow){
+    return this.currentDom;
 };
 
 Tellurium.prototype.locateElementByCSSSelector = function(locator, inDocument, inWindow){
@@ -739,331 +677,24 @@ Tellurium.prototype.locateElementByCSSSelector = function(locator, inDocument, i
     }
 };
 
-Tellurium.prototype.getDOMElement = function($found){
-    if ($found.length == 1) {
-        return $found[0];
-    } else if ($found.length > 1) {
-        return $found.get();
-    } else {
+Tellurium.prototype.isLocator = function(locator){
+    if(typeof(locator) != "string")
+        return false;
+
+    return locator.startsWith('//') || locator.startsWith('jquery=') || locator.startsWith('jquerycache=') || locator.startsWith('document.');
+};
+
+Tellurium.prototype.decorateFunctionWithTimeout = function(f, timeout) {
+    if (f == null) {
         return null;
     }
-};
 
-Tellurium.prototype.getDOMAttributeNode = function($found, attr) {
-    if ($found.length == 1) {
-        return $found[0].getAttributeNode(attr);
-
-    } else if ($found.length > 1) {
-        return $found.get().getAttributeNode(attr);
-    } else {
-        return null;
-    }
-};
-
-//convert jQuery result to DOM reference
-Tellurium.prototype.convResult = function($result, input){
-    if(input.isAttribute){
-        return this.getDOMAttributeNode($result, input.attribute);
-    }
-
-    return this.getDOMElement($result);
-};
-
-function MetaCmd(){
-    this.uid = null;
-    this.cacheable = true;
-    this.unique = true;
-}
-
-function TeInput(){
-    this.metaCmd = null;
-    this.selector = null;
-    this.optimized = null;
-    this.isAttribute = false;
-    this.attribute = null;
-}
-
-Tellurium.prototype.parseLocator = function(locator){
-    var input = new TeInput();
-    
-    var purged = locator;
-    var inx = locator.lastIndexOf('@');
-    if (inx != -1) {
-        purged = locator.substring(0, inx);
-        input.attribute = locator.substring(inx + 1);
-        input.isAttribute = true;
-    }
-//    alert("Pured locator " + purged);
-    var tecmd = JSON.parse(purged, null);
-
-    input.selector = tecmd.locator;
-    input.optimized = tecmd.optimized;
-    var metaCmd = new MetaCmd();
-    metaCmd.uid = tecmd.uid;
-    metaCmd.cacheable = tecmd.cacheable;
-    metaCmd.unique = tecmd.unique;
-    input.metaCmd = metaCmd;
-
-    return input;
-};
-
-Tellurium.prototype.validateResult = function($result, unique, selector){
-    if(unique){
-        if($result != null && $result.length > 1){
-            throw new SeleniumError("Element is not unique, Found " + $result.length + " elements for " + selector);
+    var now = new Date().getTime();
+    var timeoutTime = now + timeout;
+    return function() {
+        if (new Date().getTime() > timeoutTime) {
+            throw new TelluriumError(ErrorCodes.TIME_OUT, "Timed out after " + timeout + "ms");
         }
-    }
+        return f();
+    };
 };
-
-/*
-Tellurium.prototype.locateElementByCacheAwareCSSSelector = function(locator, inDocument, inWindow){
-    var input = this.parseLocator(locator);
-    var $found = null;
-    
-    //If do not cache selector or meta command without UID, directly find CSS selector
-    if((!this.cacheOption) || input.metaCmd.uid == null || trimString(input.metaCmd.uid).length == 0){
-        //cannot cache without uid, thus, go directly to find the element using jQuery
-         $found = teJQuery(inDocument).find(input.optimized);
-         this.validateResult($found);
-         return this.convResult($found, input);
-    }else{
-        var sid = new Uiid();
-        sid.convertToUiid(input.metaCmd.uid);
-        var key = sid.getUid();
-        //if this selector is cacheable, need to check the cache first
-        if(input.metaCmd.cacheable){
-            $found = this.cache.checkSelectorFromCache(key);
-            
-            if($found == null){
-                //could not find from cache or the cached one is invalid
-                while(sid.size() > 1){
-                    //try to find from its ancestor
-                    sid.pop();
-                    var akey = sid.getUid();
-                    var ancestor = this.cache.checkAncestorSelector(akey);
-                    if(ancestor != null){
-                        $found = this.cache.findFromAncestor(ancestor, input.selector);
-                        break;
-                    }
-                }
-
-                //if still could not find do jQuery select
-                if($found == null){
-                    $found = teJQuery(inDocument).find(input.optimized);
-                }
-
-                //validate the result before storing it
-                this.validateResult($found);
-
-                //If find valid selector, update to cache
-                if($found != null && $found.length > 0){
-                    var cachedata = new CacheData();
-                    cachedata.selector = input.selector;
-                    cachedata.optimized = input.optimized;
-                    cachedata.reference = $found;
-                    this.cache.addSelectorToCache(key, cachedata);
-                }
-            }
-
-            return this.convResult($found, input);
-        } else {
-            //cannot cache the selector directly, try to find the DOM elements using ancestor first
-            while (sid.size() > 1) {
-                //try to find from its ancestor
-                sid.pop();
-                var ckey = sid.getUid();
-                var ancester = this.cache.checkAncestorSelector(ckey);
-                if (ancester != null) {
-                    $found = this.cache.findFromAncestor(ancester, input.selector);
-                    break;
-                }
-            }
-            
-            //if still could not find do jQuery select
-            if ($found == null) {
-                $found = teJQuery(inDocument).find(input.optimized);
-            }
-
-            //validate the result before storing it
-            this.validateResult($found);
-
-            return this.convResult($found, input);
-        }
-    }   
-};
-*/
-
-function CacheAwareLocator(){
-    //runtime id
-    this.rid = null;
-
-    //original locator
-    this.locator = null;
-}
-
-Tellurium.prototype.locateElementWithCacheAware = function(json, inDocument, inWindow){
-    var element = null;
-    
-//    var json = locator.substring(7);
-//    var json = locator;
-    !tellurium.logManager.isUseLog || fbLog("JSON presentation of the cache aware locator: ", json);
-    var cal = JSON.parse(json, null);
-    !tellurium.logManager.isUseLog || fbLog("Parsed cache aware locator: ", cal);
-    
-    !tellurium.logManager.isUseLog || fbLog("Tellurium Cache option: ", this.isUseCache());
-    if (this.isUseCache()) {
-        //if Cache is used, try to get the UI element from the cache first
-        element = this.getUiElementFromCache(cal.rid);
-        !tellurium.logManager.isUseLog || fbLog("Got UI element " + cal.rid + " from Cache.", element);
-        
-        if (element != null) {
-            //need to validate the result from the cache
-            !tellurium.logManager.isUseLog || fbLog("Trying to validate the found UI element " + cal.rid, element);
-            if (!validateDomRef(element)) {
-                fbError("The UI element " + cal.rid + " from cache is not valid", element);
-                this.cache.relocateUiModule(cal.rid);
-                //after relocating the UI module, retry to get the UI element from the cache
-                element = this.getUiElementFromCache(cal.rid);
-                !tellurium.logManager.isUseLog || fbLog("After relocating UI module, found ui element" + cal.rid, element);
-            }
-        }else{
-            if(cal.locator != null && cal.locator.trim().length > 0){
-                //If cannot find the UI element from the cache, locate it as the last resort
-                !tellurium.logManager.isUseLog || fbLog("Trying to locate the UI element " + cal.rid + " with its locator " + cal.locator + " because cannot find vaild one from cache", cal);
-                element = this.locate(cal.locator);
-            }
-        }
-    }else{
-        !tellurium.logManager.isUseLog || fbLog("Trying to locate the UI element " + cal.rid + " with its locator " + cal.locator + " because cache option is off", cal);
-        element = this.locate(cal.locator);
-    } 
-
-    if(element == null){
-        fbError("Cannot locate element for uid " + cal.rid + " with locator " + cal.locator, element);
-        
-        //Disable this and let the caller to decide whether to throw exception or not
-//        throw SeleniumError("Cannot locate element for uid " + cal.rid + " with locator " + cal.locator);
-    }
-
-    !tellurium.logManager.isUseLog || fbLog("Returning found UI element ", element);
-    return element;
-};
-
-Tellurium.prototype.dispatchMacroCmd = function(){
-    var response = new BundleResponse();
-
-    while (this.macroCmd.size() > 0) {
-        var cmd = this.macroCmd.first();
-        if(cmd.name == "getUseUiModule"){
-            //do UI module locating
-            this.delegateToTellurium(response, cmd);
-        }else{
-            //for other commands
-            !tellurium.logManager.isUseLog || fbLog("Dispatching command: ", cmd);
-            this.updateArgumentList(cmd);
-            !tellurium.logManager.isUseLog || fbLog("Command after updating argument list: ", cmd);
-            if ((!this.isUseTeApi) || this.isApiMissing(cmd.name)) {
-                !tellurium.logManager.isUseLog || fbLog("delegate command to Selenium", cmd);
-                this.delegateToSelenium(response, cmd);
-            }else{
-                !tellurium.logManager.isUseLog || fbLog("delegate command to Tellurium", cmd);
-                this.delegateToTellurium(response, cmd);
-            }
-        }
-    }
-
-    return response.toJSon();
-};
-
-Tellurium.prototype.delegateToSelenium = function(response, cmd) {
-    // need to use selenium api name conversion to find the api
-    var apiName = cmd.name;
-    var result = null;
-    !tellurium.logManager.isUseLog || fbLog("Delegate Call " + cmd.name + " to Selenium", cmd);
-
-    var returnType = null;
-
-    //Try to get back the return type by looking at Tellurium API counterpart
-    var handler = this.apiMap.get(cmd.name);
-    if(handler != null){
-        returnType = handler.returnType;
-    }
-    
-    if (apiName.startsWith("is")) {
-        result = selenium[apiName].apply(selenium, cmd.args);
-        if(returnType == null)
-            returnType = "BOOLEAN";
-        response.addResponse(cmd.sequ, apiName, returnType, result);
-    } else if (apiName.startsWith("get")) {
-        result = selenium[apiName].apply(selenium, cmd.args);
-        if(apiName.indexOf("All") != -1){
-            //api Name includes "All" should return an array
-            if(returnType == null)
-                returnType = "ARRAY";
-            response.addResponse(cmd.sequ, apiName, returnType, result);
-        }else{
-            //assume the rest return "String"
-            if(returnType == null)
-                returnType = "STRING";
-            response.addResponse(cmd.sequ, apiName, returnType, result);
-        }
-    } else {
-        apiName = this.camelizeApiName(apiName);
-        !tellurium.logManager.isUseLog || fbLog("Call Selenium method " + apiName, selenium);
-        selenium[apiName].apply(selenium, cmd.args);
-    }
-};
-
-Tellurium.prototype.delegateToTellurium = function(response, cmd) {
-    var result = null;
-
-    var handler = this.apiMap.get(cmd.name);
-
-    if (handler != null) {
-        var api = handler.api;
-        //the argument list
-        var params = cmd.args;
-        if (params != null && params.length > 0) {
-            if (handler.returnType == "VOID") {
-                api.apply(this.teApi, params);
-            } else {
-                result = api.apply(this.teApi, params);
-                response.addResponse(cmd.sequ, cmd.name, handler.returnType, result);
-            }
-        } else {
-            if (handler.returnType == "VOID") {
-                api.apply(this.teApi, params);
-            } else {
-                result = api.apply(this.teApi, params);
-                response.addResponse(cmd.sequ, cmd.name, handler.returnType, result);
-            }
-        }
-
-    } else {
-        throw SeleniumError("Unknown command " + cmd.name + " in Command Bundle.");
-    }
-};
-
-Tellurium.prototype.updateArgumentList = function(cmd){
-    if (cmd.args != null) {
-
-        //check the first argument to see if it is a locator or not
-        var locator = cmd.args[0];
-
-        if (this.isLocator(locator)) {
-            //if it is a locator
-            var cal = new CacheAwareLocator();
-            cal.rid = cmd.uid;
-            cal.locator = locator;
-
-            //convert to locator string so that selenium could use it
-            cmd.args[0] = "uimcal=" + JSON.stringify(cal);              
-            !tellurium.logManager.isUseLog || fbLog("Update argument list for command " + cmd.name, cmd);
-        }
-        //otherwise, no modification, use the original argument list
-    }
-};
-
-//var tellurium = null;
-var tellurium = new Tellurium();
-tellurium.initialize();
