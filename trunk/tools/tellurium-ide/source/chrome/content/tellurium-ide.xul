@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://trump/skin/telluriumide.css" type="text/css"?>
-<?xml-stylesheet href="chrome://trump/content/extlib/jquery-ui.css" type="text/css"?>
-<?xul-overlay href="chrome://trump/content/tellurium-ide-common.xul"?>
+<?xml-stylesheet href="chrome://source/skin/telluriumide.css" type="text/css"?>
+<?xml-stylesheet href="chrome://source/content/extlib/jquery-ui.css" type="text/css"?>
+<?xul-overlay href="chrome://source/content/tellurium-ide-common.xul"?>
 
 <!DOCTYPE window [
-<!ENTITY % telluriumIdeDTD SYSTEM "chrome://trump/locale/tellurium-ide.dtd">
+<!ENTITY % telluriumIdeDTD SYSTEM "chrome://source/locale/tellurium-ide.dtd">
 %telluriumIdeDTD;
 ]>
 
@@ -47,12 +47,12 @@
         </menu>
         <menu id="menu-help" label="Help">
           <menupopup id="edit-popup">
-            <menuitem label="Document"  oncommand="window.open('chrome://trump/content/telluriumDocument.xul','tellurium_document','chrome,centerscreen,resizable')" />
+            <menuitem label="Document"  oncommand="window.open('chrome://source/content/telluriumDocument.xul','tellurium_document','chrome,centerscreen,resizable')" />
             <menuitem label="Update"  oncommand="window.open('http://code.google.com/p/aost/downloads/list')" />
-            <menuitem label="Follow"  oncommand="window.open('chrome://trump/content/telluriumTwitterWindow.xul','tellurium_on_twitter','chrome,centerscreen,resizable')" />
-            <menuitem label="Support"  oncommand="window.open('chrome://trump/content/telluriumUserGroup.xul','tellurium_user_group','chrome,centerscreen,resizable')" />
+            <menuitem label="Follow"  oncommand="window.open('chrome://source/content/telluriumTwitterWindow.xul','tellurium_on_twitter','chrome,centerscreen,resizable')" />
+            <menuitem label="Support"  oncommand="window.open('chrome://source/content/telluriumUserGroup.xul','tellurium_user_group','chrome,centerscreen,resizable')" />
             <menuseparator/>
-            <menuitem label="About" oncommand="window.open('chrome://trump/content/telluriumIdeAbout.xul','trump_about','chrome,centerscreen,resizable')"/>
+            <menuitem label="About" oncommand="window.open('chrome://source/content/telluriumIdeAbout.xul','trump_about','chrome,centerscreen,resizable')"/>
           </menupopup>
         </menu>
       </menubar>

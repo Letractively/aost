@@ -1,55 +1,55 @@
 /*
 #record-button.record {
-    list-style-image: url("chrome://trump/skin/record.png");
+    list-style-image: url("chrome://source/skin/record.png");
 }
 
 #record-button.pause {
-    list-style-image: url("chrome://trump/skin/pause.png");
+    list-style-image: url("chrome://source/skin/pause.png");
 }
 
 #record-button.stop {
-    list-style-image: url("chrome://trump/skin/rstop.png");
+    list-style-image: url("chrome://source/skin/rstop.png");
 }
 
 #generate-button {
-    list-style-image: url("chrome://trump/skin/generate.png");
+    list-style-image: url("chrome://source/skin/generate.png");
 }
 
 #customize-button {
-   list-style-image: url("chrome://trump/skin/user.png");
+   list-style-image: url("chrome://source/skin/user.png");
 }
 
 #saveui-button {
-   list-style-image: url("chrome://trump/skin/add.png");
+   list-style-image: url("chrome://source/skin/add.png");
 }
 
 #test-button {
-   list-style-image: url("chrome://trump/skin/apply.png");
+   list-style-image: url("chrome://source/skin/apply.png");
 }
 */
 #record-button{
-    list-style-image: url("chrome://trump/skin/Record.png");
+    list-style-image: url("chrome://source/skin/Record.png");
 }
 
 #stop-button {
-    list-style-image: url("chrome://trump/skin/Stop.png");
+    list-style-image: url("chrome://source/skin/Stop.png");
 }
 
 #run-button.run {
-   list-style-image: url("chrome://trump/skin/Play.png");
+   list-style-image: url("chrome://source/skin/Play.png");
 }
 
 #run-button.pause {
-   list-style-image: url("chrome://trump/skin/Pause.png");
+   list-style-image: url("chrome://source/skin/Pause.png");
 }
 
 #step-button {
-   list-style-image: url("chrome://trump/skin/Step.png");
+   list-style-image: url("chrome://source/skin/Step.png");
 }
 
 
 #clear-button {
-   list-style-image: url("chrome://trump/skin/delete.png");
+   list-style-image: url("chrome://source/skin/delete.png");
 }
 
 #source Pre {
