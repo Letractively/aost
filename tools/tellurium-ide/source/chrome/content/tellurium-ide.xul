@@ -52,7 +52,7 @@
             <menuitem label="Follow"  oncommand="window.open('chrome://source/content/telluriumTwitterWindow.xul','tellurium_on_twitter','chrome,centerscreen,resizable')" />
             <menuitem label="Support"  oncommand="window.open('chrome://source/content/telluriumUserGroup.xul','tellurium_user_group','chrome,centerscreen,resizable')" />
             <menuseparator/>
-            <menuitem label="About" oncommand="window.open('chrome://source/content/telluriumIdeAbout.xul','trump_about','chrome,centerscreen,resizable')"/>
+            <menuitem label="About" oncommand="window.open('chrome://source/content/telluriumIdeAbout.xul','ide_about','chrome,centerscreen,resizable')"/>
           </menupopup>
         </menu>
       </menubar>

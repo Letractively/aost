@@ -60,7 +60,7 @@
                                 <mkdir dir="${basedir}/target"/>
                                 <zip update="true" compress="true" comment="Tellurium IDE development build"
                                      destfile="${basedir}/target/TelluriumIDE-${project.version}.xpi"
-                                     basedir="${basedir}/trump" excludes="trump.kpf"/>
+                                     basedir="${basedir}/source" excludes="source.kpf"/>
                             </tasks>
                         </configuration>
                         <goals>
@@ -84,7 +84,7 @@
                                 <jslint options="browser,cap,debug,devel,evil,fragment,laxbreak,on">
                                     <formatter type="plain" destfile="${basedir}/target/jslint.txt" />
                                     <!--<formatter type="junit" destfile="${basedir}/target/test-reports" /> -->                              
-                                    <fileset dir="trump/chrome/content" includes="**/*.js"/>
+                                    <fileset dir="source/chrome/content" includes="**/*.js"/>
                                 </jslint>
 
                             </tasks>

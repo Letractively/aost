@@ -1,4 +1,4 @@
-pref("extensions.trump.exportdirectory", "c:\\");
-pref("extensions.trump.jslog", "true");
-pref("extensions.trump.logwrap", "true");
-pref("extensions.trump.grouplocating", "true");
+pref("extensions.teide.exportdirectory", "c:\\");
+pref("extensions.teide.jslog", "true");
+pref("extensions.teide.logwrap", "true");
+pref("extensions.teide.grouplocating", "true");
