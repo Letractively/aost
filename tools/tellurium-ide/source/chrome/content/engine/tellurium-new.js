@@ -365,9 +365,13 @@ function TelluriumCommand(name, type, returnType, handler) {
         };
 
         this.initialize = function() {
+            alert("init 1");
             this.outlines.init();
+            alert("init 2");
             this.registerDefaultUiBuilders();
+            alert("init 3");
             this.registerCommands();
+            alert("init 4");
             if (typeof(this["customize"]) != "undefined") {
                 this["customize"].apply(this, []);
             }
@@ -1647,9 +1651,11 @@ function TelluriumCommand(name, type, returnType, handler) {
         };
     });
     
-    alert("tellurium " + tellurium);
+//    alert("tellurium " + tellurium);
 
-    tellurium.initialize();
+//    debugger;
+
+//    tellurium.initialize();
 
     window.tellurium = tellurium;
 

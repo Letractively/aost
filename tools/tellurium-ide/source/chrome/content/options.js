@@ -73,4 +73,4 @@ function loadOptions() {
         }
         elem.checked = glocating;
     }
-};
+}

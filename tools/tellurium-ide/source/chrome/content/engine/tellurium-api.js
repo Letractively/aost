@@ -69,8 +69,9 @@ Tellurium.prototype.useUiModule = function(jsonarray){
 
         response.id = id;
         response.relaxed = uim.relaxed;
-        if (!response.relaxed)
-            response.found = true;
+        if (!response.relaxed){
+            response.found = true;            
+        }
         response.relaxDetails = uim.relaxDetails;
         response.matches = uim.matches;
         response.score = uim.score;
@@ -445,7 +446,7 @@ Tellurium.prototype.getOptionSelector = function(optionLocator){
         sel = this.cssBuilder.buildAttribute(split[0], split[1]);
     }else if(split[0] == "index"){
         var inx = parseInt(split[1]) - 1;
-        sel = ":eq(" + inx + ")"
+        sel = ":eq(" + inx + ")";
     }else if(split[0] == "id"){
         sel = this.cssBuilder.buildId(split[1]);
     }else{
