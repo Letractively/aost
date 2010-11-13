@@ -1,9 +1,10 @@
-function Selenium(){
-    this.browserbot = new BrowserBot();
-}
 
 function BrowserBot(){
 
+}
+
+function Selenium(){
+    this.browserbot = new BrowserBot();
 }
 
 BrowserBot.prototype.findElement = function(locator){
