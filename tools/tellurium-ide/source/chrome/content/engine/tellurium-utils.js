@@ -1035,3 +1035,5 @@ function arrayToString(array){
 
     return "";
 }
+
+var tellurium = null;

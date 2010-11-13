@@ -188,9 +188,9 @@ function TelluriumCommand(name, type, returnType, handler) {
 }
 
 
-(function(window, undefined) {
+tellurium = (function(window, undefined) {
     var document = window.document;
-    var tellurium = (function() {
+    var _tellurium = (function() {
         this.currentWindow = null;
 
         this.currentDocument = null;
@@ -1650,15 +1650,11 @@ function TelluriumCommand(name, type, returnType, handler) {
             this.execCommand("reset", uid);
         };
     });
-    
-//    alert("tellurium " + tellurium);
+
+    return _tellurium;
+})(window);
 
 //    debugger;
-
-//    tellurium.initialize();
-
-    window.tellurium = tellurium;
-
-    alert("tellurium " + tellurium);
-
-})(window);
+alert("tellurium " + tellurium);
+tellurium.initialize();
+alert("tellurium " + tellurium);

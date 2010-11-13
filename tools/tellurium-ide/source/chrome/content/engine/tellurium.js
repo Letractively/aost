@@ -34,14 +34,16 @@ function TelluriumError(type, message) {
     return error;
 }
 
+//var tellurium = null;
 
-/*teJQuery(document).ready(function() {
+/*
+teJQuery(document).ready(function() {
     tellurium = new Tellurium();
     tellurium.initialize();
     !tellurium.logManager.isUseLog || fbLog("Tellurium initialized after document ready", tellurium);
-});*/
+});
+*/
 
-//var tellurium = null;
 
 /*teJQuery(document).ready(function() {
     tellurium = new Tellurium();
@@ -265,6 +267,10 @@ function Tellurium(){
 
     //Proxy object
     this.proxyObject = new UiProxyObject();
+
+    alert("define tellurium");
+    this.initialize();
+    alert("tellurium " + tellurium);
 }
 
 Tellurium.prototype.setCurrentDom = function(dom){
@@ -720,6 +726,3 @@ Tellurium.prototype.decorateFunctionWithTimeout = function(f, timeout) {
 };
 
 var tellurium = new Tellurium();
-tellurium.initialize();
-
-
