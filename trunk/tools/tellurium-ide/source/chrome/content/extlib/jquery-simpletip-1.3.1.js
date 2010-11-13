@@ -269,7 +269,7 @@
             return self;
          }
       });
-   };
+   }
    
    teJQuery.fn.simpletip = function(conf)
    { 
