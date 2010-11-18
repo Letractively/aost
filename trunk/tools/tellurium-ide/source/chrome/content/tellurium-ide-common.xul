@@ -36,21 +36,6 @@
     <script type="application/x-javascript" src="chrome://source/content/engine/tellurium-factory.js"/>
 
     <script type="application/x-javascript" src="chrome://source/content/util.js"/>
-    <script type="application/x-javascript" src="chrome://source/content/editor.js"/>
-    <script type="application/x-javascript" src="chrome://source/content/recorder.js"/>
-    <script type="application/x-javascript" src="chrome://source/content/recorder-listener.js"/>
-    <script type="application/x-javascript" src="chrome://source/content/app.js"/>
-    <script type="application/x-javascript" src="chrome://source/content/builder.js"/>
-    <script type="application/x-javascript" src="chrome://source/content/tagObject.js"/>
-    <script type="application/x-javascript" src="chrome://source/content/xpather.js"/>
-    <script type="application/x-javascript" src="chrome://source/content/decorator.js"/>
-    <script type="application/x-javascript" src="chrome://source/content/treeView.js"/>
-    <script type="application/x-javascript" src="chrome://source/content/logView.js"/>
-    <script type="application/x-javascript" src="chrome://source/content/telluriumLogger.js"/>
-    <script type="application/x-javascript" src="chrome://source/content/jslogger.js"/>
-    <script type="application/x-javascript" src="chrome://source/content/preferences.js"/>
-    <script type="application/x-javascript" src="chrome://source/content/options.js"/>
-    <script type="application/x-javascript" src="chrome://source/content/test-runner.js"/>
 
     <script type="application/x-javascript" src="chrome://source/content/uicreator/element.js"/>
     <script type="application/x-javascript" src="chrome://source/content/uicreator/node.js"/>
@@ -73,5 +58,21 @@
 
     <script type="application/x-javascript" src="chrome://source/content/utils/fileUtil.js"/>
     <script type="application/x-javascript" src="chrome://source/content/utils/browserDetect.js"/>
+    
+    <script type="application/x-javascript" src="chrome://source/content/recorder.js"/>
+    <script type="application/x-javascript" src="chrome://source/content/recorder-listener.js"/>
+    <script type="application/x-javascript" src="chrome://source/content/app.js"/>
+    <script type="application/x-javascript" src="chrome://source/content/builder.js"/>
+    <script type="application/x-javascript" src="chrome://source/content/tagObject.js"/>
+    <script type="application/x-javascript" src="chrome://source/content/xpather.js"/>
+    <script type="application/x-javascript" src="chrome://source/content/decorator.js"/>
+    <script type="application/x-javascript" src="chrome://source/content/treeView.js"/>
+    <script type="application/x-javascript" src="chrome://source/content/logView.js"/>
+    <script type="application/x-javascript" src="chrome://source/content/telluriumLogger.js"/>
+    <script type="application/x-javascript" src="chrome://source/content/jslogger.js"/>
+    <script type="application/x-javascript" src="chrome://source/content/preferences.js"/>
+    <script type="application/x-javascript" src="chrome://source/content/options.js"/>
+    <script type="application/x-javascript" src="chrome://source/content/test-runner.js"/>
+    <script type="application/x-javascript" src="chrome://source/content/editor.js"/>
 
 </overlay>
