@@ -1036,4 +1036,4 @@ function arrayToString(array){
     return "";
 }
 
-var tellurium = null;
+//var tellurium = null;
