@@ -56,14 +56,14 @@ Tellurium.prototype.isUiModuleCached = function(id){
 
 Tellurium.prototype.useUiModule = function(jsonarray){
     var uim = new UiModule();
-    !tellurium.logManager.isUseLog || fbLog("Input JSON Array for UI Module: ", jsonarray);
+    !this.logManager.isUseLog || fbLog("Input JSON Array for UI Module: ", jsonarray);
     uim.parseUiModule(jsonarray);
     var response = new UiModuleLocatingResponse();
     var result = this.uiAlg.santa(uim, null);
     if(result){
         //set the UI Module to be valid after it is located
         uim.valid = true;
-        !tellurium.logManager.isUseLog || fbLog("Ui Module after Group Locating: ", uim);
+        !this.logManager.isUseLog || fbLog("Ui Module after Group Locating: ", uim);
         var id = uim.getId();
         this.cacheUiModule(uim);
 
@@ -75,7 +75,7 @@ Tellurium.prototype.useUiModule = function(jsonarray){
         response.relaxDetails = uim.relaxDetails;
         response.matches = uim.matches;
         response.score = uim.score;
-        !tellurium.logManager.isUseLog || fbLog("UseUiModule Response for " + id, response);
+        !this.logManager.isUseLog || fbLog("UseUiModule Response for " + id, response);
     }
 
     return response;
@@ -83,12 +83,12 @@ Tellurium.prototype.useUiModule = function(jsonarray){
 
 Tellurium.prototype.validateUiModule = function(jsonarray){
     var uim = new UiModule();
-    !tellurium.logManager.isUseLog || fbLog("Input JSON for UI Module: ", jsonarray);
+    !this.logManager.isUseLog || fbLog("Input JSON for UI Module: ", jsonarray);
     uim.parseUiModule(jsonarray);
     this.uiAlg.validate(uim, null);
     //set the UI Module to be valid after it is located
     uim.valid = true;
-    !tellurium.logManager.isUseLog || fbLog("Ui Module after Group Locating: ", uim);
+    !this.logManager.isUseLog || fbLog("Ui Module after Group Locating: ", uim);
     var id = uim.getId();
 
     var response = new UiModuleLocatingResponse();
@@ -100,7 +100,7 @@ Tellurium.prototype.validateUiModule = function(jsonarray){
     response.relaxDetails = uim.relaxDetails;
     response.matches = uim.matches;
     response.score = uim.score;
-    !tellurium.logManager.isUseLog || fbLog("UseUiModule Response for " + id, response);
+    !this.logManager.isUseLog || fbLog("UseUiModule Response for " + id, response);
 
     return response;
 };
@@ -139,14 +139,14 @@ Tellurium.prototype.describeUiModule = function(uiModelArray) {
 };
 
 Tellurium.prototype.useClosestMatch = function(isUse){
-    !tellurium.logManager.isUseLog || fbLog("call useClosestMatch", isUse);
+    !this.logManager.isUseLog || fbLog("call useClosestMatch", isUse);
     if (typeof(isUse) == "boolean") {
         this.uiAlg.allowRelax = isUse;
     } else {
         this.uiAlg.allowRelax = ("true" == isUse || "TRUE" == isUse);
     }
 
-    !tellurium.logManager.isUseLog || fbLog("Call useClosestMatch(" + isUse + ") to set allowRelax to ", this.uiAlg.allowRelax);
+    !this.logManager.isUseLog || fbLog("Call useClosestMatch(" + isUse + ") to set allowRelax to ", this.uiAlg.allowRelax);
 };
 
 /*Tellurium.prototype.run = function(name, uid, param){
@@ -262,7 +262,7 @@ Tellurium.prototype.getUiByTag = function(tag, attributes){
     var teuids = new Array();
     for(i=0; i<$found.size(); i++){
         var $e = $found.eq(i);
-        !tellurium.logManager.isUseLog || fbLog("Found element for getUiByTag " + tag, $e.get());
+        !this.logManager.isUseLog || fbLog("Found element for getUiByTag " + tag, $e.get());
         var teuid = "te-" + tellurium.idGen.next();
         $e.attr("teuid", teuid);
         this.proxyObject.addUiObject(teuid, $e.get(0));

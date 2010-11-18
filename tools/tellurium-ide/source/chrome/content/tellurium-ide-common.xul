@@ -30,10 +30,10 @@
     <script type="application/x-javascript" src="chrome://source/content/engine/tellurium-uisnapshot.js"/>
     <script type="application/x-javascript" src="chrome://source/content/engine/tellurium-cmd.js"/>
     <script type="application/x-javascript" src="chrome://source/content/engine/tellurium-uicache.js"/>
-    <!--script type="application/x-javascript" src="chrome://source/content/engine/tellurium-new.js"/-->
 
     <script type="application/x-javascript" src="chrome://source/content/engine/tellurium.js"/>
     <script type="application/x-javascript" src="chrome://source/content/engine/tellurium-api.js"/>
+    <script type="application/x-javascript" src="chrome://source/content/engine/tellurium-factory.js"/>
 
     <script type="application/x-javascript" src="chrome://source/content/util.js"/>
     <script type="application/x-javascript" src="chrome://source/content/editor.js"/>
