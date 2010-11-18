@@ -5,9 +5,9 @@ function TelluriumFactory() {
     var initialized = false;
 
     function initialize () {
-        alert("create Tellurium instance");
+//        alert("create Tellurium instance");
         _tellurium = new Tellurium();
-        alert("start initializing Tellurium");
+//        alert("start initializing Tellurium");
         _tellurium.initialize();
         initialized = true;
     }
@@ -34,6 +34,6 @@ function TelluriumFactory() {
 
 alert("tellurium before initalization " + tellurium);
 var tellurium = (new TelluriumFactory()).getInstance();
-alert("tellurium after initalization " + tellurium);
-alert(tellurium.uiBuilderMap.size());
+alert("tellurium after initalization, ui map size " + tellurium.uiBuilderMap.size());
 
+var browserBot = tellurium.browserBot;

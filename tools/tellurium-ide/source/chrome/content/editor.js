@@ -1,9 +1,11 @@
 function Editor(window) {
+    alert("tellurium before editor initialization " + tellurium);
     this.window = window;
     var self = this;
     
     window.editor = this;
-    window.browserBot = browserBot;
+//    window.browserBot = browserBot;
+    window.browserBot = tellurium.browserBot;
     
     this.document = document;
 //    this.init();
@@ -26,6 +28,7 @@ function Editor(window) {
     this.recorder = null;
 
     this.registerRecorder();
+    alert("tellurium after editor initialization " + tellurium);
 
     this.cmdHistory = new Array();
 
@@ -63,7 +66,6 @@ function Editor(window) {
         tellurium = new Tellurium();
         tellurium.initialize();        
     }*/
-
 }
 
 Editor.prototype.onDOMContentLoaded = function(event) {
@@ -117,10 +119,13 @@ Editor.prototype.updateUiType = function(value){
 };
 
 Editor.prototype.registerRecorder = function(){
+    alert("create recorder");
     this.recorder = new Recorder(this.window);
     this.recorder.refIdSetter = this.refIdSetter;
     this.recorder.workspace = this.workspace;
+    alert("register listener");
     this.recorder.registerListeners();
+    alert("populate window url");
     this.populateWindowUrl();
 };
 
