@@ -192,6 +192,7 @@ UiCommand.prototype.isEqual = function(cmd){
 };
 
 function Workspace(uiBuilder, uiChecker, refIdSetter){
+    alert("creating workspace " + this);
     //ID of the current UI Module
     this.id = null;
 
@@ -235,6 +236,7 @@ function Workspace(uiBuilder, uiChecker, refIdSetter){
     this.sequence = new Identifier(0);
 
     this.cmdExecutor = null;
+    alert("after create workspace");
 }
 
 Workspace.prototype.addNode = function(dom, frameName, ref){

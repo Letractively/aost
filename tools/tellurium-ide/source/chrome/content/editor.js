@@ -23,13 +23,17 @@ function Editor(window) {
 
     this.refIdSetter = new RefIdSetter();
 
+    alert("before create workspace");
+
     this.workspace = new Workspace(this.builder, new UiChecker(), this.refIdSetter);
 
     this.recorder = null;
 
-    this.registerRecorder();
-    alert("tellurium after editor initialization " + tellurium);
+    alert("before create recorder " + this.recorder);
 
+    this.registerRecorder();
+    alert("after create recorder " + this.recorder);
+    
     this.cmdHistory = new Array();
 
     this.cmdView = CommandView;
