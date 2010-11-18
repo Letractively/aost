@@ -267,10 +267,6 @@ function Tellurium(){
 
     //Proxy object
     this.proxyObject = new UiProxyObject();
-
-    alert("define tellurium");
-    this.initialize();
-    alert("tellurium " + tellurium);
 }
 
 Tellurium.prototype.setCurrentDom = function(dom){
@@ -731,7 +727,9 @@ function TelluriumFactory() {
     var initialized = false;
 
     function initialize () {
+        alert("create Tellurium instance");
         _tellurium = new Tellurium();
+        alert("start initializing Tellurium");
         _tellurium.initialize();
         initialized = true;
     }
@@ -756,8 +754,8 @@ function TelluriumFactory() {
   return TelluriumFactory(); // call the new function
 }
 
-alert("tellurium before initalization" + tellurium);
+alert("tellurium before initalization " + tellurium);
 var tellurium = (new TelluriumFactory()).getInstance();
-alert("tellurium after initalization" + tellurium);
+alert("tellurium after initalization " + tellurium);
 
 //var tellurium = new Tellurium();
