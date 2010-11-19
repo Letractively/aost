@@ -54,9 +54,9 @@
     <script type="application/x-javascript" src="chrome://source/content/recorder-listener.js"/>
     <script type="application/x-javascript" src="chrome://source/content/app.js"/>
     <script type="application/x-javascript" src="chrome://source/content/decorator.js"/>
-    <script type="application/x-javascript" src="chrome://source/content/treeView.js"/>
-    <script type="application/x-javascript" src="chrome://source/content/logView.js"/>
-    <script type="application/x-javascript" src="chrome://source/content/telluriumLogger.js"/>
+    <script type="application/x-javascript" src="chrome://source/content/tree-view.js"/>
+    <script type="application/x-javascript" src="chrome://source/content/log-view.js"/>
+    <script type="application/x-javascript" src="chrome://source/content/telluriumIdeLogger.js"/>
     <script type="application/x-javascript" src="chrome://source/content/jslogger.js"/>
     <script type="application/x-javascript" src="chrome://source/content/preferences.js"/>
     <script type="application/x-javascript" src="chrome://source/content/options.js"/>
