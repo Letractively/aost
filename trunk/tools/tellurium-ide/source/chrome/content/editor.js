@@ -11,6 +11,7 @@ const TargetType = {
     NIL: "nil"
 };
 
+/*
 const ValueType = {
     NUMBER: "number",
     STRING: 'string',
@@ -34,6 +35,7 @@ const ReturnType = {
     NUMBER: "number",
     OBJECT: "object"
 };
+*/
 
 function UiCommand(name, ref, value, valueType, uid, seq){
     //command type
