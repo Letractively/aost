@@ -7,9 +7,10 @@ function TelluriumFactory() {
     function initialize () {
 //        alert("create Tellurium instance");
         _tellurium = new Tellurium();
-//        alert("start initializing Tellurium");
+//        alert("start initializing Tellurium " + _tellurium);
         _tellurium.initialize();
         initialized = true;
+//        alert("after initializing Tellurium " + initialized);
     }
 
     return {
@@ -18,7 +19,7 @@ function TelluriumFactory() {
           if(!initialized){
               initialize();
           }
-
+//          alert("return getInstance " + _tellurium);
           return _tellurium;
       }
     };
@@ -33,7 +34,10 @@ function TelluriumFactory() {
 }
 
 alert("tellurium before initalization " + tellurium);
+
 var tellurium = (new TelluriumFactory()).getInstance();
 alert("tellurium after initalization, ui map size " + tellurium.uiBuilderMap.size());
 
 var browserBot = tellurium.browserBot;
+alert("browserBot " + browserBot);
+
