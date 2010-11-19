@@ -55,7 +55,6 @@ function UiCommand(name, ref, value, valueType, uid, seq){
 
 UiCommand.cmdMap = new Hashtable();
 UiCommand.isUseCmdMap = false;
-alert("UiCommand " + UiCommand.cmdMap + ", " + UiCommand.isUseCmdMap);
 
 UiCommand.prototype.strTarget = function(){
     if(this.targetType == TargetType.VARIABLE){
@@ -195,8 +194,8 @@ UiCommand.prototype.isEqual = function(cmd){
 };
 
 function Workspace(uiBuilder, uiChecker, refIdSetter){
-    alert("enter workspace");
-    alert("creating workspace with uiBuilder " + uiBuilder + ", uiChecker " + uiChecker + ", refIdSetter " + refIdSetter);
+//    alert("enter workspace");
+//    alert("creating workspace with uiBuilder " + uiBuilder + ", uiChecker " + uiChecker + ", refIdSetter " + refIdSetter);
     //ID of the current UI Module
     this.id = null;
 
@@ -240,7 +239,7 @@ function Workspace(uiBuilder, uiChecker, refIdSetter){
     this.sequence = new Identifier(0);
 
     this.cmdExecutor = null;
-    alert("after create workspace");
+//    alert("after create workspace");
 }
 
 Workspace.prototype.addNode = function(dom, frameName, ref){
@@ -673,22 +672,10 @@ UiModuleBuilder.prototype.visit = function(node){
 };
 
 function Editor(window) {
-    alert("tellurium before editor initialization " + tellurium);
+//    alert("tellurium before editor initialization " + tellurium);
     this.window = window;
     var self = this;
-
-/*
-    alert("tellurium before initalization " + tellurium);
-    var factory = new TelluriumFactory();
-    alert("tellurium factory " + factory);
-
-    var tellurium = factory.getInstance();
-    alert("tellurium after initalization, ui map size " + tellurium.uiBuilderMap.size());
-
-    var browserBot = tellurium.browserBot;
-    alert("browserBot " + browserBot);
-    */
-
+    
     window.editor = this;
 //    window.browserBot = browserBot;
     window.browserBot = tellurium.browserBot;
@@ -708,24 +695,15 @@ function Editor(window) {
 
     this.decorator = new Decorator();
 
-//    alert("decorator " + this.decorator);
-
     this.builder = new UiBuilder();
 
     this.refIdSetter = new RefIdSetter();
-
-    alert("before create workspace, builder " + this.builder + ", refIdSetter " + this.refIdSetter);
-    alert("UiChecker " + (new UiChecker()));
-    alert("workspace " + (new Workspace(null, null, null)));
 
     this.workspace = new Workspace(this.builder, new UiChecker(), this.refIdSetter);
 
     this.recorder = null;
 
-    alert("before create recorder " + this.recorder);
-
     this.registerRecorder();
-    alert("after create recorder " + this.recorder);
     
     this.cmdHistory = new Array();
 
@@ -736,10 +714,6 @@ function Editor(window) {
 
     this.currentSelectedCommand = null;
 //    this.currentCommandIndex = -1;
-
-//    this.checker = new UiChecker();
-
-//    this.command = new TelluriumCommandExecutor();
 
     //Map the command, because some command needs to convert the format for display, for example, array to String
     this.commandMap = new Hashtable();
@@ -758,11 +732,6 @@ function Editor(window) {
     //Detect the browser properties
     BrowserDetect.init();
     this.os = BrowserDetect.OS;
-
-/*    if(tellurium == null){
-        tellurium = new Tellurium();
-        tellurium.initialize();        
-    }*/
 }
 
 Editor.prototype.onDOMContentLoaded = function(event) {
@@ -816,13 +785,10 @@ Editor.prototype.updateUiType = function(value){
 };
 
 Editor.prototype.registerRecorder = function(){
-    alert("create recorder");
     this.recorder = new Recorder(this.window);
     this.recorder.refIdSetter = this.refIdSetter;
     this.recorder.workspace = this.workspace;
-    alert("register listener");
     this.recorder.registerListeners();
-    alert("populate window url");
     this.populateWindowUrl();
 };
 

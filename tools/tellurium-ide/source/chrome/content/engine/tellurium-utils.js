@@ -910,7 +910,6 @@ function escapeString(str){
 
     if(newstr.indexOf("&") != -1){
         newstr = newstr.replace(/\&/g, "&amp;");
-//        alert("Replace & in " + str + " as " + newstr);
     }
 
     if(newstr.indexOf("<") != -1){

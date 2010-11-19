@@ -285,32 +285,28 @@ Selenium.prototype.getDiagnosisResponse = function(locator, dreq){
                     //TODO: need to double check if this is correct or not in jQuery
                     tag = "*";
                 }
-//                alert("tag " + tag);
 //                var $closest = null;
                 //Use tag for the initial search
                 var $closest = $parents.find(tag);
                 if(id != null && id != undefined && (!builder.isPartial(id))){
                     jqs = builder.buildId(id);
-//                    alert("With ID jqs=" + jqs);
+
                     $closest = $parents.find(jqs);
-//                    alert("Found closest " + $closest.length);
+
                     $closest.each(function() {
 //                        response.closest.push(teJQuery('<div>').append(teJQuery(this).clone()).html());
                         response.closest.push(teJQuery(this).outerHTML());
                     });
                 }else{
                     jqs = tag;
-//                    alert("jqs=" + jqs);
                     for (var m = 0; m < keys.length; m++) {
                         var attr = keys[m];
                         var tsel = builder.buildSelector(attr, request.attributes[attr]);
                         var $mt = $parents.find(jqs + tsel);
-//                            alert("Found for attr=" + attr + " val=" + request.attributes[attr] + " jqs=" + jqs + " tsel=" + tsel + " is " + $mt.length);
                         if ($mt.length > 0) {
                             $closest = $mt;
                             jqs = jqs + tsel;
                         }
-//                            alert("jqs=" + jqs);
                     }
                     if ($closest != null && $closest.length > 0) {
                         $closest.each(function() {

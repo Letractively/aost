@@ -126,7 +126,6 @@ var BrowserDetect = {
  * @param node
  */
 function getNodeType(node){
-//    alert(node.nodeType)
     return node.nodeType;
 }
 
@@ -149,14 +148,11 @@ function getNodeValue(node){
 
 
 function getAttributeNameOrId(node){
-//    alert("getAttributeNameOrId()");
     var attributes = node.attributes;
     var val = "";
      for(var i=0; i < attributes.length; ++i){
-//         alert(attributes[i].name);
         if(attributes[i].name == 'name' || attributes[i].name == 'id'){
             val = attributes[i].value;
-//            alert(val);
             break;
         }
     }
@@ -165,10 +161,8 @@ function getAttributeNameOrId(node){
 
 function findAttributeInList(attributes, attr){
     for(var i=0; i < attributes.length; ++i){
-//         alert(attributes[i].name);
         if(attributes[i].name == attr ){
             val = attributes[i].value;
-//            alert(val);
             break;
         }
     }
