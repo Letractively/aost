@@ -29,7 +29,7 @@
         <script type="application/x-javascript" src="chrome://source/content/options.js"/>
         <script type="application/x-javascript" src="chrome://source/content/preferences.js"/>
         <script type="application/x-javascript" src="chrome://source/content/extlib/log4js.js"/>
-        <script type="application/x-javascript" src="chrome://source/content/telluriumLogger.js"/>
+        <script type="application/x-javascript" src="chrome://source/content/telluriumIdeLogger.js"/>
         <script type="application/x-javascript" src="chrome://source/content/jslogger.js"/>
 
         <stringbundle id="strings" src="chrome://source/locale/string.properties"/>
