@@ -466,7 +466,6 @@ Tellurium.prototype.select = function(uid, option){
 Tellurium.prototype.selectByLabel = function(uid, option){
 //    var optionSelector = this.getOptionSelector("label=" + option);
     var optionSelector = this.getOptionSelector(option);
-//    alert("selectByLabel option: " + optionSelector);
     this.execCommand("select", uid, optionSelector);
 };
 

@@ -609,7 +609,6 @@ Tellurium.prototype.delegateToTellurium = function(response, cmd) {
         if(command.returnType == "VOID"){
             response.addResponse(cmd.sequ, cmd.name, command.returnType, result);
         }else {
-//            alert("Add response " + cmd.sequ + ", " + cmd.name + ", " + command.returnType + ", " + result);
             response.addResponse(cmd.sequ, cmd.name, command.returnType, result);
         }
     } else {

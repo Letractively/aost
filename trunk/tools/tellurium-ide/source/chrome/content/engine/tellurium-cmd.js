@@ -223,7 +223,7 @@ var JQueryCmdExecutor = CmdExecutor.extend({
         $sel.find("option").removeAttr("selected");
         //construct the select option
         var opt = "option" + optionSelector;
-//        alert("option to select " + opt);
+
         //select the appropriate option
         $sel.find(opt).attr("selected", "selected");
         if (teJQuery.browser.msie) {

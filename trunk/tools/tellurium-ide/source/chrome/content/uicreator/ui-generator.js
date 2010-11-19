@@ -1018,7 +1018,6 @@ Filter.prototype.getWhiteListedAttributes = function(attributes){
         for(var i=0; i<keys.length; i++){
             if(whiteListAttributes.indexOf(keys[i]) != -1){
                 wantedAttributes.set(keys[i], attributes.get(keys[i]));
-//                alert("WhiteListAttribute: " + keys[i] + " " + attributes.get(keys[i]));
             }
         }
     }
@@ -1214,7 +1213,6 @@ Tree.prototype.addElement = function(element){
                     son.attributes = element.attributes;
                     son.domNode = element.domNode;
                     son.parent = this.root;
- //                   alert("son : " + son);
                     this.root.addChild(son);
                 }
             } else {

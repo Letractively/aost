@@ -68,7 +68,6 @@ function init(clickedNode){
  * @param node
  */
 function getNodeType(node){
-//    alert(node.nodeType)
     return node.nodeType;
 }
 
