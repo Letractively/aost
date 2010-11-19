@@ -13,6 +13,7 @@
     <script type="application/x-javascript" src="chrome://source/content/extlib/jquery-simpletip-1.3.1.js"/>
     <script type="application/x-javascript" src="chrome://source/content/extlib/syn.js"/>
     <script type="application/x-javascript" src="chrome://source/content/extlib/jsUnitCore.js"/>
+    <script type="application/x-javascript" src="chrome://source/content/extlib/xpather.js"/>
     <script type="application/x-javascript" src="chrome://source/content/engine/tellurium-utils.js"/>
 
     <script type="application/x-javascript" src="chrome://source/content/engine/constants.js"/>
@@ -35,21 +36,16 @@
     <script type="application/x-javascript" src="chrome://source/content/engine/tellurium-api.js"/>
     <script type="application/x-javascript" src="chrome://source/content/engine/tellurium-factory.js"/>
 
-    <script type="application/x-javascript" src="chrome://source/content/util.js"/>
-
-   <!-- <script type="application/x-javascript" src="chrome://source/content/uicreator/element.js"/>-->
-    <script type="application/x-javascript" src="chrome://source/content/uicreator/node.js"/>
-    <script type="application/x-javascript" src="chrome://source/content/uicreator/tree.js"/>
-    <script type="application/x-javascript" src="chrome://source/content/uicreator/uitype.js"/>
-    <script type="application/x-javascript" src="chrome://source/content/uicreator/uid.js"/>
-    <script type="application/x-javascript" src="chrome://source/content/uicreator/xpath-processor.js"/>
-    <script type="application/x-javascript" src="chrome://source/content/uicreator/tagState.js"/>
-    <script type="application/x-javascript" src="chrome://source/content/uicreator/filter.js"/>
+    <script type="application/x-javascript" src="chrome://source/content/utils/file-util.js"/>
+    <script type="application/x-javascript" src="chrome://source/content/utils/ide-util.js"/>
+    
+   <!-- 
     <script type="application/x-javascript" src="chrome://source/content/uicreator/locatorStrategy.js"/>
+    -->
+    <script type="application/x-javascript" src="chrome://source/content/uicreator/xpath-processor.js"/>
+    <script type="application/x-javascript" src="chrome://source/content/uicreator/ui-generator.js"/>
     <script type="application/x-javascript" src="chrome://source/content/uicreator/uimodule-alg.js"/>
 
-    <script type="application/x-javascript" src="chrome://source/content/utils/fileUtil.js"/>
-    <script type="application/x-javascript" src="chrome://source/content/utils/browserDetect.js"/>
 
     <script type="application/x-javascript" src="chrome://source/content/command-list.js"/>
     <script type="application/x-javascript" src="chrome://source/content/command-view.js"/>
@@ -57,9 +53,6 @@
     <script type="application/x-javascript" src="chrome://source/content/recorder.js"/>
     <script type="application/x-javascript" src="chrome://source/content/recorder-listener.js"/>
     <script type="application/x-javascript" src="chrome://source/content/app.js"/>
-    <script type="application/x-javascript" src="chrome://source/content/builder.js"/>
-    <script type="application/x-javascript" src="chrome://source/content/tagObject.js"/>
-    <script type="application/x-javascript" src="chrome://source/content/xpather.js"/>
     <script type="application/x-javascript" src="chrome://source/content/decorator.js"/>
     <script type="application/x-javascript" src="chrome://source/content/treeView.js"/>
     <script type="application/x-javascript" src="chrome://source/content/logView.js"/>

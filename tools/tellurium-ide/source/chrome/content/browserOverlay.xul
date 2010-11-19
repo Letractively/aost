@@ -91,11 +91,16 @@
 
         };
 
+        window.addEventListener("load", function() {
+            TelluriumIDE.onLoad();
+        }, false);
+
+        /*
         window.addEventListener("load", function(e) {
             TelluriumIDE.onLoad(e);
         }, false);
 
-        /*        teJQuery(window).load(function() {
+         teJQuery(window).load(function() {
          tellurium = new Tellurium();
          tellurium.initialize();
          });*/
