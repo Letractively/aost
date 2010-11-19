@@ -1,3 +1,4 @@
+alert("Come to UiCommand ");
 function NodeRef(dom, frameName, ref){
     this.dom = dom;
     this.frameName = frameName;
@@ -53,6 +54,7 @@ function UiCommand(name, ref, value, valueType, uid, seq){
 
 UiCommand.cmdMap = new Hashtable();
 UiCommand.isUseCmdMap = false;
+alert("UiCommand " + UiCommand.cmdMap + ", " + UiCommand.isUseCmdMap);
 
 UiCommand.prototype.strTarget = function(){
     if(this.targetType == TargetType.VARIABLE){
@@ -192,7 +194,8 @@ UiCommand.prototype.isEqual = function(cmd){
 };
 
 function Workspace(uiBuilder, uiChecker, refIdSetter){
-    alert("creating workspace " + this);
+    alert("enter workspace");
+    alert("creating workspace with uiBuilder " + uiBuilder + ", uiChecker " + uiChecker + ", refIdSetter " + refIdSetter);
     //ID of the current UI Module
     this.id = null;
 

@@ -2,28 +2,47 @@ function Editor(window) {
     alert("tellurium before editor initialization " + tellurium);
     this.window = window;
     var self = this;
-    
+
+/*
+    alert("tellurium before initalization " + tellurium);
+    var factory = new TelluriumFactory();
+    alert("tellurium factory " + factory);
+
+    var tellurium = factory.getInstance();
+    alert("tellurium after initalization, ui map size " + tellurium.uiBuilderMap.size());
+
+    var browserBot = tellurium.browserBot;
+    alert("browserBot " + browserBot);
+    */
+
     window.editor = this;
 //    window.browserBot = browserBot;
     window.browserBot = tellurium.browserBot;
-    
+//    alert("window browserBot" + window.browserBot);
+
     this.document = document;
 //    this.init();
     
     this.logView = new LogView(this);
     this.logView.setLog(logger);
 
+//    alert("logView " + this.logView);
+    
     this.buildCustomizeTree(DEFAULT_XML);
 
     this.currentUid = null;
 
     this.decorator = new Decorator();
 
+//    alert("decorator " + this.decorator);
+
     this.builder = new UiBuilder();
 
     this.refIdSetter = new RefIdSetter();
 
-    alert("before create workspace");
+    alert("before create workspace, builder " + this.builder + ", refIdSetter " + this.refIdSetter);
+    alert("UiChecker " + (new UiChecker()));
+    alert("workspace " + (new Workspace(null, null, null)));
 
     this.workspace = new Workspace(this.builder, new UiChecker(), this.refIdSetter);
 
