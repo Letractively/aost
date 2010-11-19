@@ -166,7 +166,7 @@ Log4js.bind = function(fn, object) {
  * Log4js.Level Enumeration. Do not use directly. Use static objects instead.
  * @constructor
  * @param {Number} level number of level
- * @param {String} levelString String representation of level
+ * @param {String} levelStr String representation of level
  * @private
  */
 Log4js.Level = function(level, levelStr) {

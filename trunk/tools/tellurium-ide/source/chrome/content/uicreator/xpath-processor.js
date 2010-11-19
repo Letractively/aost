@@ -390,16 +390,12 @@ XPathProcessor.prototype.reverseList = function (lst){
 };
 
 
-XPathProcessor.prototype.startWith = function(xpath, prefix){
-    if(xpath === null || prefix === null || xpath.length < prefix.length){
+XPathProcessor.prototype.startWith = function(xpath, prefix) {
+    if (xpath === null || prefix === null || xpath.length < prefix.length) {
         return false;
     }
 
-    if(xpath.substring(0, prefix.length-1) === prefix){
-        return true;
-    }
-
-    return false;
+    return xpath.substring(0, prefix.length - 1) === prefix;
 };
 
 XPathProcessor.prototype.checkXPathCount = function(doc, xpath) {

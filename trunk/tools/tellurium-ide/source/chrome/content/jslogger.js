@@ -18,8 +18,8 @@ var getLogDetails = function(line){
     {
       var rbraces1=m[1];
       var path="chrome:/"+m[2];
-      var line=m[3];
-      return [path, line];
+      var aline=m[3];
+      return [path, aline];
     }
     return ["", -1];
 

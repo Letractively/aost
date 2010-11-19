@@ -464,8 +464,8 @@ var TugAlg = Class.extend({
 
         this.builder = new Builder();
 
-        this.sequence = new Identifier();
-        this.sequence.sn = 0;
+        this.sequence = new Identifier(0);
+//        this.sequence.sn = 0;
     },
 
     prepare: function(tagObjects){
