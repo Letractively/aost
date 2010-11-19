@@ -37,7 +37,7 @@
 
     <script type="application/x-javascript" src="chrome://source/content/util.js"/>
 
-    <script type="application/x-javascript" src="chrome://source/content/uicreator/element.js"/>
+   <!-- <script type="application/x-javascript" src="chrome://source/content/uicreator/element.js"/>-->
     <script type="application/x-javascript" src="chrome://source/content/uicreator/node.js"/>
     <script type="application/x-javascript" src="chrome://source/content/uicreator/tree.js"/>
     <script type="application/x-javascript" src="chrome://source/content/uicreator/uitype.js"/>
@@ -47,12 +47,13 @@
     <script type="application/x-javascript" src="chrome://source/content/uicreator/filter.js"/>
     <script type="application/x-javascript" src="chrome://source/content/uicreator/locatorStrategy.js"/>
     <script type="application/x-javascript" src="chrome://source/content/uicreator/uimodule-alg.js"/>
-    <script type="application/x-javascript" src="chrome://source/content/uicreator/command-list.js"/>
-    <script type="application/x-javascript" src="chrome://source/content/uicreator/command-view.js"/>
 
     <script type="application/x-javascript" src="chrome://source/content/utils/fileUtil.js"/>
     <script type="application/x-javascript" src="chrome://source/content/utils/browserDetect.js"/>
-    
+
+    <script type="application/x-javascript" src="chrome://source/content/command-list.js"/>
+    <script type="application/x-javascript" src="chrome://source/content/command-view.js"/>
+
     <script type="application/x-javascript" src="chrome://source/content/recorder.js"/>
     <script type="application/x-javascript" src="chrome://source/content/recorder-listener.js"/>
     <script type="application/x-javascript" src="chrome://source/content/app.js"/>
