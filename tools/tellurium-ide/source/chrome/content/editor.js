@@ -1313,6 +1313,7 @@ Editor.prototype.insertBeforeUiCommand = function(){
         //update commands in the app
         var sourceTextNode = document.getElementById("exportSource");
         sourceTextNode.value = this.recorder.app.toSource();
+        this.selectUiCommand();
     }catch(error) {
         logger.error("Error insertBefore command:\n" + describeErrorStack(error));
     }
@@ -1333,6 +1334,12 @@ Editor.prototype.insertAfterUiCommand = function(){
         //update commands in the app
         var sourceTextNode = document.getElementById("exportSource");
         sourceTextNode.value = this.recorder.app.toSource();
+
+        //also ensure the newly inserted row is the currentIndex
+        this.cmdTree.currentIndex=index+1;
+
+        //ensure the update propogates
+        this.selectUiCommand();
     }catch(error) {
         logger.error("Error insertBefore command:\n" + describeErrorStack(error));
     }
