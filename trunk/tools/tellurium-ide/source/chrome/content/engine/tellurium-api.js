@@ -149,27 +149,6 @@ Tellurium.prototype.useClosestMatch = function(isUse){
     !this.logManager.isUseLog || fbLog("Call useClosestMatch(" + isUse + ") to set allowRelax to ", this.uiAlg.allowRelax);
 };
 
-/*Tellurium.prototype.run = function(name, uid, param){
-//    var api = this[name];
-    var cmd = this.cmdMap.get(name);
-    if(cmd != null){
-        var api = cmd.handler;
-        if (typeof(api) == 'function') {
-            var params = [];
-            params.push(uid);
-            params.push(param);
-            return api.apply(this, params);
-        }else{
-            logger.error("Invalid Tellurium command " + name);
-            throw new TelluriumError(ErrorCodes.INVALID_TELLURIUM_COMMAND, "Invalid Tellurium command " + name);
-         }
-    }else{
-        logger.error("Cannot find Tellurium command " + name);
-        throw new TelluriumError(ErrorCodes.INVALID_TELLURIUM_COMMAND, "Invalid Tellurium command " + name);
-    }
-
-};*/
-
 Tellurium.prototype.locateUI = function(uid){
     var uim = this.cache.get(uid);
     if(uim != null && this.dom != null){
@@ -438,20 +417,25 @@ Tellurium.prototype.getAttribute = function(uid, attribute){
 Tellurium.prototype.getOptionSelector = function(optionLocator){
     var split = optionLocator.split("=");
     var sel = "";
-    split[0] = split[0].trim();
-    split[1] = split[1].trim();
-    if(split[0] == "label" || split[0] == "text"){
-        sel = this.cssBuilder.buildText(split[1]);
-    }else if(split[0] == "value"){
-        sel = this.cssBuilder.buildAttribute(split[0], split[1]);
-    }else if(split[0] == "index"){
-        var inx = parseInt(split[1]) - 1;
-        sel = ":eq(" + inx + ")";
-    }else if(split[0] == "id"){
-        sel = this.cssBuilder.buildId(split[1]);
+    if(split.length > 1){
+        split[0] = split[0].trim();
+        split[1] = split[1].trim();
+        if(split[0] == "label" || split[0] == "text"){
+            sel = this.cssBuilder.buildText(split[1]);
+        }else if(split[0] == "value"){
+            sel = this.cssBuilder.buildAttribute(split[0], split[1]);
+        }else if(split[0] == "index"){
+            var inx = parseInt(split[1]) - 1;
+            sel = ":eq(" + inx + ")";
+        }else if(split[0] == "id"){
+            sel = this.cssBuilder.buildId(split[1]);
+        }else{
+            logger.error("Invalid Selector optionLocator " + optionLocator);
+            return null;
+        }
     }else{
-        logger.error("Invalid Selector optionLocator " + optionLocator);
-        return null;
+        //use label or text as default if no prefix
+        sel = this.cssBuilder.buildText(split[0].trim());
     }
 
     return sel;

@@ -262,8 +262,8 @@ function Tellurium(){
     this.synExecutor = new SynCmdExecutor();
     this.selExecutor = new SeleniumCmdExecutor();
     
-//    this.cmdExecutor = this.synExecutor;
-    this.cmdExecutor = this.selExecutor;
+    this.cmdExecutor = this.synExecutor;
+//    this.cmdExecutor = this.selExecutor;
 
     //Proxy object
     this.proxyObject = new UiProxyObject();
@@ -569,6 +569,17 @@ Tellurium.prototype.prepareArgumentList = function(args){
     return params;
 };
 
+Tellurium.prototype.runCmd = function(name, args){
+//    alert("Run command " + name + " with args " + args);
+    var cmd = this.getCommand(name);
+    logger.debug("Run command " + name + ", cmd " + strObject(cmd) + ", args " + strObject(args));
+    if(cmd != null){
+        return cmd.handler.apply(this, args);
+    }else {
+        throw TelluriumError(ErrorCodes.INVALID_TELLURIUM_COMMAND, "Invalid Tellurium command " + cmd.name);
+    }
+};
+
 Tellurium.prototype.delegateToTellurium = function(response, cmd) {
 
     var command = this.getCommand(cmd.name);
@@ -644,8 +655,9 @@ Tellurium.prototype.dispatchMacroCmd = function(){
 
     return response.toJSon();
 };
-
+            
 Tellurium.prototype.run = function(name, uid, param){
+//    alert("Run tellurium command (name: " + name + ", uid: " + uid + ", param: " + param);
 //    var api = this[name];
     var cmd = this.cmdMap.get(name);
     if(cmd != null){
