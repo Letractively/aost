@@ -207,7 +207,12 @@ var TestRunner = Class.extend({
             this.observers.cmdStart(cmd);
             var tcmd = this.cmdExecutor.getCommand(cmd.name);
 
+            var value = cmd.value;
+            if(cmd.value != null && cmd.valueType == ValueType.VARIABLE){
+                value = this.getVariableValue(cmd.value);
+            }
             var target;
+            var args = [];
             //only allow assertions to use variables
             if (tcmd.type == CommandType.ASSERTION) {
                 //replace the variable with its value
@@ -216,17 +221,28 @@ var TestRunner = Class.extend({
                 }else{
                     target = cmd.target;
                 }
+                args.push(target);
+                args.push(value);
+            }else if(tcmd.type == CommandType.NoUid){
+                if(cmd.targetType != TargetType.NIL){
+                    args.push(target);
+                }
+                if(cmd.valueType != ValueType.NIL){
+                    args.push(value);
+                }
             }else {
                 if (cmd.target != null && cmd.targetType == TargetType.UID) {
                     this.useUiModule(cmd.target);
                 }
                 target = cmd.target;
+                args.push(target);
+                if(cmd.valueType != ValueType.NIL){
+                    args.push(value);
+                }
             }
-            var value = cmd.value;
-            if(cmd.value != null && cmd.valueType == ValueType.VARIABLE){
-                value = this.getVariableValue(cmd.value);    
-            }
-            var result = this.cmdExecutor.run(cmd.name, target, value);
+//            var result = this.cmdExecutor.run(cmd.name, target, value);
+            var result = this.cmdExecutor.runCmd(cmd.name, args);
+
             if(result != undefined){
                 logger.debug("Command Result: " + result);
                 cmd.returnValue = result;

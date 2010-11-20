@@ -9,6 +9,22 @@ function dumpObject(obj) {
     }
 }
 
+function strObject(obj){
+    if(obj == null){
+        return "null";    
+    }
+
+    if(obj == undefined){
+        return "undefined";
+    }
+    var output = "";
+    for(var p in obj){
+        output += p + ": " + obj[p] + ", "
+    }
+
+    return output;
+}
+
 function fbLog(msg, obj){
     logger.debug(msg);
     if (typeof(console) != "undefined") {
