@@ -184,8 +184,8 @@ UiCommand.prototype.parseValue = function(value){
 
 UiCommand.prototype.toString = function(){
     var sb = new StringBuffer();
-    sb.append("[seq: ").append(this.seq).append(", name: ").append(this.name).append(", value").append(this.value)
-            .append(", value: ").append(this.value).append(", ref:").append(this.ref).append("]");
+    sb.append("[seq: ").append(this.seq).append(", name: ").append(this.name).append(", type: ").append(this.type)
+            .append(", value: ").append(this.value).append(", ref: ").append(this.ref).append("]");
     return sb.toString();
 };
 

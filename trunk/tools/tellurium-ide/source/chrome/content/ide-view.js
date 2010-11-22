@@ -1,3 +1,93 @@
+var CommandList  = {
+    rowCount : 0,
+    recordIndex : 0,
+    testCommands : null,
+
+    rowInserted: function() {
+        this.treebox.rowCountChanged(this.rowCount, 1);
+        this.rowCount++;
+        this.treebox.ensureRowIsVisible(this.recordIndex);
+        this.recordIndex++;
+    },
+
+    getRecordIndex: function() {
+        return this.recordIndex;
+    },
+
+    setTestCommands : function(elements){
+        this.testCommands = elements;
+    },
+
+    deleteRow : function(index){
+        this.treebox.rowCountChanged(index, -1);
+        this.rowCount--;
+        this.recordIndex--;
+    },
+
+    clearAll : function(){
+        this.treebox.rowCountChanged(this.rowCount, -this.rowCount);
+        this.rowCount = 0;
+        this.recordIndex = 0;
+    },
+
+    getCellText : function(row, aColumn){
+        var column = (aColumn.id) ? aColumn.id : aColumn; //Firefox pre1.5 compatibility
+        var command = this.testCommands[row];
+
+        if(column == "listCommandName" ){
+            return command.name;
+        }
+
+        if(column == "listCommandRef"){
+            return command.target;
+        }
+
+        if(column == "listCommandValue"){
+            if(command.param == null || command.param == undefined){
+                return "";
+            }else{
+                return command.param;
+            }
+        }
+
+        return "todo.."
+    },
+    setTree: function(treebox){
+        this.treebox = treebox;
+    },
+    isContainer: function(row){
+        return false;
+    },
+    isSeparator: function(row){
+        return false;
+    },
+    isSorted: function(){
+        return false;
+    },
+    getLevel: function(row){
+        return 0;
+    },
+    getImageSrc: function(row,col){
+        return null;
+    },
+    getRowProperties: function(row,props){
+
+    },
+    getCellProperties: function(row,col,props){
+
+    },
+    getColumnProperties: function(colid,col,props){
+
+    },
+
+    cycleHeader: function(colid,elt){
+
+    },
+    cycleCell: function(rowid,colid){
+
+    }
+};
+
 var CommandView  = {
     init: function() {
         this.rowCount = 0;
@@ -9,7 +99,7 @@ var CommandView  = {
         var index = this.getIndex(cmd);
         if(index != -1){
             this.testCommands[index].status = TestState.RUNNING;
-            this.treebox.invalidateRow(index); 
+            this.treebox.invalidateRow(index);
         }
     },
 
@@ -62,7 +152,7 @@ var CommandView  = {
         this.treebox.rowCountChanged(this.rowCount, 1);
         this.rowCount++;
         this.treebox.ensureRowIsVisible(index);
-        this.recordIndex++;        
+        this.recordIndex++;
     },
 
     updateCommands: function(refUidMap){
@@ -72,7 +162,7 @@ var CommandView  = {
                 var uid = refUidMap.get(cmd.ref);
                 if(uid != null){
                     cmd.target = uid;
-                    this.treebox.invalidateRow(i); 
+                    this.treebox.invalidateRow(i);
                 }
             }
         }
@@ -97,13 +187,13 @@ var CommandView  = {
         this.recordIndex = this.recordIndex + this.testCommands.length;
         this.treebox.ensureRowIsVisible(this.recordIndex);
     },
-    
+
     deleteFromTestCommand : function(cmd) {
     	var index = this.getIndex(cmd);
     	if (this.testCommands != null && this.testCommands.length > 0 && index < this.testCommands.length) {
             this.testCommands.splice(index , 1);
             this.deleteRow(index);
-    	}	
+    	}
     },
 
     deleteRow : function(index){
@@ -155,6 +245,97 @@ var CommandView  = {
         throw Error("Invalid pass in value: row= " + row + ", aColumn=" + aColumn + ", column=" + column + ", command=" + command.name);
     },
 
+    setTree: function(treebox){
+        this.treebox = treebox;
+    },
+    isContainer: function(row){
+        return false;
+    },
+    isSeparator: function(row){
+        return false;
+    },
+    isSorted: function(){
+        return false;
+    },
+    getLevel: function(row){
+        return 0;
+    },
+    getImageSrc: function(row,col){
+        return null;
+    },
+    getRowProperties: function(row,props){
+
+    },
+    getCellProperties: function(row,col,props){
+
+    },
+    getColumnProperties: function(colid,col,props){
+
+    },
+
+    cycleHeader: function(colid,elt){
+
+    },
+    cycleCell: function(rowid,colid){
+
+    }
+};
+
+
+var TreeView  = {
+    rowCount : 0,
+    recordIndex : 0,
+    tagObjects : null,
+
+    rowInserted: function() {
+        this.treebox.rowCountChanged(this.rowCount, 1);
+        this.rowCount++;
+        this.treebox.ensureRowIsVisible(this.recordIndex);
+        this.recordIndex++;
+    },
+
+    getRecordIndex: function() {
+        return this.recordIndex;
+    },
+
+    setTagObjects : function(elements){
+        this.tagObjects = elements;
+    },
+
+    deleteRow : function(index){
+        this.treebox.rowCountChanged(index, -1);
+        this.rowCount--;
+        this.recordIndex--;
+    },
+
+    clearAll : function(){
+        this.treebox.rowCountChanged(this.rowCount, -this.rowCount);
+        this.rowCount = 0;
+        this.recordIndex = 0;
+    },
+
+    getCellText : function(row, aColumn){
+        var column = (aColumn.id) ? aColumn.id : aColumn; //Firefox pre1.5 compatibility
+        var tagObject = this.tagObjects[row];
+
+        if(column == "selectedElement" ){
+            return tagObject.tag;
+        }
+
+        if(column == "selecetedElementName"){
+            return tagObject.refId;
+        }
+
+        if(column == "selecetedElementFrameName"){
+            if(tagObject.frameName == null || tagObject.frameName == undefined){
+                return "";
+            }else{
+                return tagObject.frameName;
+            }
+        }
+
+        return "todo.."
+    },
     setTree: function(treebox){
         this.treebox = treebox;
     },
