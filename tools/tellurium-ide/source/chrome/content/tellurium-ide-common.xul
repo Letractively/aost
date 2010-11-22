@@ -43,16 +43,12 @@
     <script type="application/x-javascript" src="chrome://source/content/uicreator/ui-generator.js"/>
     <script type="application/x-javascript" src="chrome://source/content/uicreator/uimodule-alg.js"/>
 
-
-    <script type="application/x-javascript" src="chrome://source/content/command-list.js"/>
-    <script type="application/x-javascript" src="chrome://source/content/command-view.js"/>
+    <script type="application/x-javascript" src="chrome://source/content/ide-view.js"/>
 
     <script type="application/x-javascript" src="chrome://source/content/recorder.js"/>
     <script type="application/x-javascript" src="chrome://source/content/recorder-listener.js"/>
     <script type="application/x-javascript" src="chrome://source/content/app.js"/>
     <script type="application/x-javascript" src="chrome://source/content/workspace.js"/>
-    <script type="application/x-javascript" src="chrome://source/content/decorator.js"/>
-    <script type="application/x-javascript" src="chrome://source/content/tree-view.js"/>
     <script type="application/x-javascript" src="chrome://source/content/log-view.js"/>
     <script type="application/x-javascript" src="chrome://source/content/telluriumIdeLogger.js"/>
     <script type="application/x-javascript" src="chrome://source/content/jslogger.js"/>
