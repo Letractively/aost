@@ -39,9 +39,6 @@
     <script type="application/x-javascript" src="chrome://source/content/utils/file-util.js"/>
     <script type="application/x-javascript" src="chrome://source/content/utils/ide-util.js"/>
     
-   <!-- 
-    <script type="application/x-javascript" src="chrome://source/content/uicreator/locatorStrategy.js"/>
-    -->
     <script type="application/x-javascript" src="chrome://source/content/uicreator/xpath-processor.js"/>
     <script type="application/x-javascript" src="chrome://source/content/uicreator/ui-generator.js"/>
     <script type="application/x-javascript" src="chrome://source/content/uicreator/uimodule-alg.js"/>
@@ -53,6 +50,7 @@
     <script type="application/x-javascript" src="chrome://source/content/recorder.js"/>
     <script type="application/x-javascript" src="chrome://source/content/recorder-listener.js"/>
     <script type="application/x-javascript" src="chrome://source/content/app.js"/>
+    <script type="application/x-javascript" src="chrome://source/content/workspace.js"/>
     <script type="application/x-javascript" src="chrome://source/content/decorator.js"/>
     <script type="application/x-javascript" src="chrome://source/content/tree-view.js"/>
     <script type="application/x-javascript" src="chrome://source/content/log-view.js"/>
