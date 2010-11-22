@@ -62,6 +62,14 @@ Recorder.prototype.attachActionListeners = function(window){
     teJQuery(window.document).find("select, option").live("focus", {recorder: this}, this.selectFocusListener);
     teJQuery(window.document).find("select, option").live("mousedown", {recorder: this}, this.selectMousedownListener);
     teJQuery(window.document).find("select, option").live("change", {recorder: this}, this.selectListener);
+/*
+    teJQuery(window.document).delegate("input, a, p, link, select, textarea, button, table, tr, td, th, div, span, label", "change", {recorder: this}, this.typeListener);
+    teJQuery(window.document).delegate("input, a, p, link, select, textarea, button, table, tr, td, th, div, span, label", "click", {recorder: this}, this.clickListener);
+    teJQuery(window.document).delegate("input, a, p, link, textarea, button, table, tr, td, th, div, span, label", "mousedown", {recorder: this}, this.rememberClickedListener);
+    teJQuery(window.document).delegate("select, option", "focus", {recorder: this}, this.selectFocusListener);
+    teJQuery(window.document).delegate("select, option", "mousedown", {recorder: this}, this.selectMousedownListener);
+    teJQuery(window.document).delegate("select, option", "change", {recorder: this}, this.selectListener);
+*/
 };
 
 Recorder.prototype.detachActionListeners = function(window){
