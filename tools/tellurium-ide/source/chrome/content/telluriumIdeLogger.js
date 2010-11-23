@@ -1,7 +1,8 @@
 function IdeLogger() {
 	var self = this;
 	var levels = ["log","debug","info","warn","error"];
-    this.maxEntries = 2000;
+//    this.maxEntries = 2000;
+    this.maxEntries = 250;
 	this.entries = [];
     this.jslog = true;
 
