@@ -914,14 +914,20 @@ function WaitPageLoad(scope){
     scope.onPageLoad();
 }
 
-Tellurium.prototype.open = function(url){
-    this.browserBot.showInBrowser(url);
-    var self = this;
-    this.browserBot.newPageLoaded = false;
-    this.browserBot.pageLoadError = null;
-    this.browserBot.pageTimeoutTimerId = null;
-    //Strange, change the timeout value to 3000, got the error that the dom is not set.
-    setTimeout(WaitPageLoad, 1000, self);
+Tellurium.prototype.open = function(url) {
+//    logger.debug("url " + url + ", browserBot current url " + this.browserBot.getCurrentUrl());
+    if (url == this.browserBot.getCurrentUrl()) {
+        this.onPageLoad();
+    } else {
+        this.browserBot.showInBrowser(url);
+        var self = this;
+        this.browserBot.newPageLoaded = false;
+        this.browserBot.pageLoadError = null;
+        this.browserBot.pageTimeoutTimerId = null;
+        //Strange, change the timeout value to 3000, got the error that the dom is not set.
+        setTimeout(WaitPageLoad, 1000, self);
+    }
+
     this.clearCache();
 };
 
