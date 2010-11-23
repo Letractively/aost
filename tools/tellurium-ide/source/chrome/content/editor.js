@@ -32,7 +32,7 @@ function Editor(window) {
     this.recorder = null;
 
     this.registerRecorder();
-    
+
     this.cmdHistory = new Array();
 
     this.cmdView = CommandView;
