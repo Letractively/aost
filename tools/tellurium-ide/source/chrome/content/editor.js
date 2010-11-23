@@ -31,6 +31,8 @@ function Editor(window) {
 
     this.recorder = null;
 
+    this.recordingEnabled = true;
+
     this.registerRecorder();
 
     this.cmdHistory = new Array();
@@ -63,7 +65,7 @@ function Editor(window) {
 }
 
 Editor.prototype.onDOMContentLoaded = function(event) {
-    try {
+    try {       
         var recordToolbarButton = document.getElementById("record-button");
         if (recordToolbarButton.getAttribute("checked")) {
             logger.debug("Register window on DOMContentLoaded");
@@ -116,6 +118,7 @@ Editor.prototype.registerRecorder = function(){
     this.recorder = new Recorder(this.window);
     this.recorder.refIdSetter = this.refIdSetter;
     this.recorder.workspace = this.workspace;
+    this.recorder.observers.push(this);
     this.recorder.registerListeners();
     this.populateWindowUrl();
 };
@@ -148,10 +151,12 @@ Editor.prototype.toggleRecordButton = function(){
         broadcaster.setAttribute("disabled", "true");
         document.getElementById("editorTabs").selectedItem = document.getElementById("recordTab");
         this.startRecord();
+        this.recordingEnabled = enabled;
     }else{
         recordToolbarButton.removeAttribute("checked");
         broadcaster.setAttribute("disabled", "false");
         this.endRecord();
+        this.recordingEnabled = false;
     }
 };
 
