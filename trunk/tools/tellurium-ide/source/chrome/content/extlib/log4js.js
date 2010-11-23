@@ -1,3 +1,51 @@
+
+//A round array holding a limited size of data, data are added from the tail,
+//may overwrite the existing data
+function RoundArray(max){
+    this.maxLines = 200;
+    if(max != undefined){
+        this.maxLines = max;
+    }
+
+    this.buffer = [];
+
+    this.tail = 0;
+    this.header = 0;
+}
+
+RoundArray.prototype.add = function(info){
+    var x = this.tail % this.maxLines;
+    this.buffer[x] = info;
+    this.tail++;
+
+    if(this.tail - this.header >= this.maxLines){
+      this.header++;
+    }
+};
+
+RoundArray.prototype.clear = function(){
+    this.header = 0;
+    this.tail = 0;
+};
+
+/*RoundArray.prototype.toString = function() {
+    var sb = new StringBuffer();
+    for (var i = this.header; i < this.tail; i++) {
+        sb.append(this.buffer[i]).append("\n")
+    }
+
+    return sb.toString();
+};*/
+
+RoundArray.prototype.toArray = function() {
+    var array = [];
+    for (var i = this.header; i < this.tail; i++) {
+        array.push(this.buffer[i]);
+    }
+
+    return array;
+};
+
 /*
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -448,7 +496,8 @@ Log4js.LoggingEvent.prototype = {
  * @author Stephan Strittmatter
  */
 Log4js.Logger = function(name) {
-	this.loggingEvents = [];
+//	this.loggingEvents = [];
+    this.loggingEvents = new RoundArray(50);
 	this.appenders = [];
 	/** category of logger */
 	this.category = name || "";
@@ -521,14 +570,17 @@ Log4js.Logger.prototype = {
 	log: function(logLevel, message, exception) {
 		var loggingEvent = new Log4js.LoggingEvent(this.category, logLevel, 
 			message, exception, this);
-		this.loggingEvents.push(loggingEvent);
+//		this.loggingEvents.push(loggingEvent);
+        this.loggingEvents.add(loggingEvent);
+        
 		this.onlog.dispatch(loggingEvent);
 	},
 	
 	/** clear logging */
 	clear : function () {
 		try{
-			this.loggingEvents = [];
+//			this.loggingEvents = [];
+            this.loggingEvents.clear();
 			this.onclear.dispatch();
 		} catch(e){}
 	},
@@ -1083,9 +1135,15 @@ Log4js.ConsoleAppender.prototype = Log4js.extend(new Log4js.Appender(), {
 		
 		// Go through each log entry again
 		this.outputCount = 0;
-		for (var i = 0; i < this.logger.loggingEvents.length; i++) {
+
+/*		for (var i = 0; i < this.logger.loggingEvents.length; i++) {
   			this.doAppend(this.logger.loggingEvents[i]);
-		}  
+		}  */
+        var logArray = this.logger.loggingEvents.toArray();
+        for (var i = 0; i < logArray.length; i++) {
+  			this.doAppend(logArray[i]);
+		}
+        
 	},
 
 	/**
