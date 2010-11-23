@@ -346,7 +346,7 @@ Recorder.prototype.attach = function(window) {
 	logger.debug("attaching");
 
 	this.eventListeners = {};
-	this.reattachWindowMethods(window);
+//	this.reattachWindowMethods(window);
 	var self = this;
 	for (var eventKey in Recorder.eventHandlers) {
 		var eventInfo = this.parseEventKey(eventKey);
@@ -389,9 +389,9 @@ Recorder.prototype.detach = function(window) {
 		window.document.removeEventListener(eventInfo.eventName, this.eventListeners[eventKey], eventInfo.capture);
 	}
 	delete this.eventListeners;
-	for (var method in this.windowMethods) {
+/*	for (var method in this.windowMethods) {
 		this.getWrappedWindowFor(window)[method] = this.windowMethods[method];
-	}
+	}*/
 };
 
 Recorder.prototype.stopRecording = function(){
