@@ -31,12 +31,79 @@ function Recorder(window) {
 
     this.first = true;
 
-//    this.observers = [];
+    this.observers = [];
+    
 //	this.attach();
 //    this.registerUnloadListener();
 }
 
 Recorder.WINDOW_RECORDER_PROPERTY = "_Tellurium_IDE_Recorder";
+
+Recorder.get = function(window) {
+	return window[Recorder.WINDOW_RECORDER_PROPERTY] || null;
+};
+
+Recorder.addEventHandler = function(handlerName, eventName, handler, options) {
+	handler.handlerName = handlerName;
+	if (!options) options = {};
+	var key = options['capture'] ? ('C_' + eventName) : eventName;
+	if (!this.eventHandlers[key]) {
+		this.eventHandlers[key] = [];
+	}
+	if (options['alwaysRecord']) handler.alwaysRecord = true;
+	this.eventHandlers[key].push(handler);
+};
+
+Recorder.removeEventHandler = function(handlerName) {
+	for (eventKey in this.eventHandlers) {
+		var handlers = this.eventHandlers[eventKey];
+		for (var i = 0; i < handlers.length; i++) {
+			if (handlers[i].handlerName == handlerName) {
+				handlers.splice(i, 1);
+				break;
+			}
+		}
+	}
+};
+
+Recorder.decorateEventHandler = function(handlerName, eventName, decorator, options) {
+   var eventKey = (options && options.capture)
+       ? ('C_' + eventName) : eventName;
+   var handlers = this.eventHandlers[eventKey];
+   for (var i = 0; i < handlers.length; ++i) {
+       if (handlers[i].handlerName == handlerName) {
+           handlers[i] = decorator(handlers[i]);
+           handlers[i].handlerName = handlerName;
+       }
+   }
+};
+
+Recorder.register = function(observer, window) {
+    logger.debug("register: window=" + window);
+	var recorder = Recorder.get(window);
+	if (!recorder) {
+		recorder = new Recorder(window);
+		window[Recorder.WINDOW_RECORDER_PROPERTY] = recorder;
+        if (window.wrappedJSObject) {
+            // adding recorder to wrappedJSObject to make it visible from functional test of Selenium IDE itself
+            window.wrappedJSObject[Recorder.WINDOW_RECORDER_PROPERTY] = recorder;
+        }
+	}
+	recorder.observers.push(observer);
+	logger.debug("register: observers.length=" + recorder.observers.length);
+	return recorder;
+};
+
+Recorder.deregister = function(observer, window) {
+    logger.debug("deregister: window=" + window);
+	var recorder = Recorder.get(window);
+	if (recorder) {
+		recorder.deregister(observer);
+		logger.debug("deregister: observers.length=" + recorder.observers.length);
+	} else {
+		logger.warn("deregister: recorder not found");
+	}
+};
 
 Recorder.prototype.attachActionListeners = function(window){
     logger.debug("Attaching listeners for action...");
@@ -56,7 +123,7 @@ Recorder.prototype.attachActionListeners = function(window){
                 }
             },
     false);
-    this.attach();
+    this.attach(window);
 /*
     window.document.addEventListener("change", this.typeListener, true);
     window.document.addEventListener("click", this.clickListener, true);
@@ -82,7 +149,7 @@ Recorder.prototype.attachActionListeners = function(window){
 
 Recorder.prototype.detachActionListeners = function(window){
     logger.debug("Detaching listeners for action...");
-    this.detach();
+    this.detach(window);
 
 /*
     teJQuery(window.document).find("input, a, p, link, select, textarea, button, table, tr, td, th, div, span, label").die("change", this.typeListener);
@@ -108,10 +175,11 @@ Recorder.prototype.registerListeners = function(){
     this.registerForAllWindows();
 };
 
-Recorder.prototype.registerForWindow = function(window) {
-    this.attachActionListeners(window);
+Recorder.prototype.registerForWindow = function(contentWindow) {
+ 	logger.debug("Register for window: " + contentWindow);
+    this.attachActionListeners(contentWindow);
 
-    var frames = window.frames;
+    var frames = contentWindow.frames;
     for (var j = 0; j < frames.length; j++) {
         this.attachActionListeners(frames[j]);
     }
@@ -192,8 +260,16 @@ Recorder.prototype.getWrappedWindow = function() {
     }
 };
 
-Recorder.prototype.reattachWindowMethods = function() {
-    var window = this.getWrappedWindow();
+Recorder.prototype.getWrappedWindowFor = function(window) {
+    if (window.wrappedJSObject) {
+        return window.wrappedJSObject;
+    } else {
+        return window;
+    }
+};
+
+Recorder.prototype.reattachWindowMethods = function(contentWindow) {
+    var window = this.getWrappedWindowFor(contentWindow);
     logger.debug("reattach");
 	if (!this.windowMethods) {
 		this.originalOpen = window.open;
@@ -266,14 +342,13 @@ Recorder.prototype.registerUnloadListener = function() {
         }, false);
 };
 
-Recorder.prototype.attach = function() {
+Recorder.prototype.attach = function(window) {
 	logger.debug("attaching");
-//	this.locatorBuilders = new LocatorBuilders(this.window);
 
 	this.eventListeners = {};
-	this.reattachWindowMethods();
+	this.reattachWindowMethods(window);
 	var self = this;
-	for (eventKey in Recorder.eventHandlers) {
+	for (var eventKey in Recorder.eventHandlers) {
 		var eventInfo = this.parseEventKey(eventKey);
 		var eventName = eventInfo.eventName;
 		var capture = eventInfo.capture;
@@ -283,59 +358,35 @@ Recorder.prototype.attach = function() {
             logger.debug('eventName=' + eventName + ' / handlers.length=' + handlers.length);
 			var listener = function(event) {
 				logger.debug('listener: event.type=' + event.type + ', target=' + event.target);
-				//self.log.debug('title=' + self.window.document.title);
-/*				var recording = false;
+				logger.debug('title=' + self.window.document.title);
+				var recording = false;
 				for (var i = 0; i < self.observers.length; i++) {
 					if (self.observers[i].recordingEnabled) recording = true;
-				}*/
-                var recording = true;
+				}
 				for (var i = 0; i < handlers.length; i++) {
 					if (recording || handlers[i].alwaysRecord) {
 						handlers[i].call(self, event);
 					}
 				}
-			}
-			this.window.document.addEventListener(eventName, listener, capture);
+			};
+			window.document.addEventListener(eventName, listener, capture);
 			this.eventListeners[eventKey] = listener;
 		}
 		register.call(this);
 	}
 };
 
-Recorder.prototype.detach = function() {
+Recorder.prototype.detach = function(window) {
 	logger.debug("detaching");
-//	this.locatorBuilders.detach();
-	for (eventKey in this.eventListeners) {
+
+	for (var eventKey in this.eventListeners) {
 		var eventInfo = this.parseEventKey(eventKey);
 		logger.debug("removeEventListener: " + eventInfo.eventName + ", " + eventKey + ", " + eventInfo.capture);
-		this.window.document.removeEventListener(eventInfo.eventName, this.eventListeners[eventKey], eventInfo.capture);
+		window.document.removeEventListener(eventInfo.eventName, this.eventListeners[eventKey], eventInfo.capture);
 	}
 	delete this.eventListeners;
-	for (method in this.windowMethods) {
-		this.getWrappedWindow()[method] = this.windowMethods[method];
-	}
-};
-
-Recorder.addEventHandler = function(handlerName, eventName, handler, options) {
-	handler.handlerName = handlerName;
-	if (!options) options = {};
-	var key = options['capture'] ? ('C_' + eventName) : eventName;
-	if (!this.eventHandlers[key]) {
-		this.eventHandlers[key] = [];
-	}
-	if (options['alwaysRecord']) handler.alwaysRecord = true;
-	this.eventHandlers[key].push(handler);
-};
-
-Recorder.removeEventHandler = function(handlerName) {
-	for (eventKey in this.eventHandlers) {
-		var handlers = this.eventHandlers[eventKey];
-		for (var i = 0; i < handlers.length; i++) {
-			if (handlers[i].handlerName == handlerName) {
-				handlers.splice(i, 1);
-				break;
-			}
-		}
+	for (var method in this.windowMethods) {
+		this.getWrappedWindowFor(window)[method] = this.windowMethods[method];
 	}
 };
 
