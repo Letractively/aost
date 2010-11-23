@@ -45,8 +45,11 @@
 
     <script type="application/x-javascript" src="chrome://source/content/ide-view.js"/>
 
+<!--
     <script type="application/x-javascript" src="chrome://source/content/recorder.js"/>
     <script type="application/x-javascript" src="chrome://source/content/recorder-listener.js"/>
+-->
+    <script type="application/x-javascript" src="chrome://source/content/recorder-new.js"/>
     <script type="application/x-javascript" src="chrome://source/content/app.js"/>
     <script type="application/x-javascript" src="chrome://source/content/workspace.js"/>
     <script type="application/x-javascript" src="chrome://source/content/log-view.js"/>
