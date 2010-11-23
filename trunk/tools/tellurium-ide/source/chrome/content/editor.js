@@ -151,7 +151,7 @@ Editor.prototype.toggleRecordButton = function(){
         broadcaster.setAttribute("disabled", "true");
         document.getElementById("editorTabs").selectedItem = document.getElementById("recordTab");
         this.startRecord();
-        this.recordingEnabled = enabled;
+        this.recordingEnabled = true;
     }else{
         recordToolbarButton.removeAttribute("checked");
         broadcaster.setAttribute("disabled", "false");

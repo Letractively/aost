@@ -55,7 +55,7 @@ Recorder.addEventHandler = function(handlerName, eventName, handler, options) {
 };
 
 Recorder.removeEventHandler = function(handlerName) {
-	for (eventKey in this.eventHandlers) {
+	for (var eventKey in this.eventHandlers) {
 		var handlers = this.eventHandlers[eventKey];
 		for (var i = 0; i < handlers.length; i++) {
 			if (handlers[i].handlerName == handlerName) {
@@ -360,8 +360,12 @@ Recorder.prototype.attach = function(window) {
 				logger.debug('listener: event.type=' + event.type + ', target=' + event.target);
 				logger.debug('title=' + self.window.document.title);
 				var recording = false;
+                logger.debug("Observers size: " + self.observers.length);
 				for (var i = 0; i < self.observers.length; i++) {
-					if (self.observers[i].recordingEnabled) recording = true;
+					if (self.observers[i].recordingEnabled){
+                       recording = true;
+                    }
+                    logger.debug("recording: " + recording);
 				}
 				for (var i = 0; i < handlers.length; i++) {
 					if (recording || handlers[i].alwaysRecord) {
