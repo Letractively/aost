@@ -37,7 +37,7 @@ const ReturnType = {
 };
 */
 
-function UiCommand(name, ref, value, valueType, uid, seq){
+function UiCommand(name, refId, value, valueType, uid, seq){
     //command type
     this.type = null;
     this.name = name;
@@ -48,9 +48,14 @@ function UiCommand(name, ref, value, valueType, uid, seq){
     this.returnValue = null;
     this.returnType = null;
     this.returnVariable = null;
-    this.ref = ref;
+    this.ref = refId;
     this.seq = seq;
     this.status = "";
+    
+/*    var ref = refId;
+    this.__defineGetter__("ref", function(){
+        return ref;
+    });*/
 }
 
 UiCommand.cmdMap = new Hashtable();
