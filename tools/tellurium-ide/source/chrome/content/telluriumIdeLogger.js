@@ -2,7 +2,7 @@ function IdeLogger() {
 	var self = this;
 	var levels = ["log","debug","info","warn","error"];
 //    this.maxEntries = 2000;
-    this.maxEntries = 250;
+    this.maxEntries = 200;
 	this.entries = [];
     this.jslog = true;
 
@@ -11,9 +11,9 @@ function IdeLogger() {
 						   self.log(message, level);
                            //check if we also log to Javascript Console
 
-                           if (this.jslog) {
+/*                           if (this.jslog) {
                                self.logToJsConsole(message, level);
-                           }
+                           }*/
 					   }
 				   });
 
@@ -42,7 +42,7 @@ function IdeLogger() {
 		this.observers.forEach(function(o) { o.onClear() });
 	};
 
-    this.logToJsConsole = function(message, level){
+/*    this.logToJsConsole = function(message, level){
         if(level == "debug"){
             jslogger.debug(message);
         }
@@ -55,7 +55,7 @@ function IdeLogger() {
         if(level == "error"){
             jslogger.error(message);
         }
-    }
+    }*/
 }
 
 var logger = new IdeLogger();
