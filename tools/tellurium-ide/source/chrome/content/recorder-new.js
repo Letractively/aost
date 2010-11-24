@@ -283,24 +283,19 @@ Recorder.prototype.reattachWindowMethods = function(contentWindow) {
 	var self = this;
 	window.alert = function(alert) {
 		self.windowMethods['alert'].call(self.window, alert);
-//        self.record('assertAlert', alert);
         self.recordCommand("assertAlert", null, alert, ValueType.STRING);
 	};
 	window.confirm = function(message) {
 		var result = self.windowMethods['confirm'].call(self.window, message);
 		if (!result) {
-//			self.record('chooseCancelOnNextConfirmation', null, null, true);
             self.recordCommand("chooseCancelOnNextConfirmation", null, null, null);
 		}
-//        self.record('assertConfirmation', message);
         self.recordCommand("assertConfirmation", null, message, ValueType.STRING);
 		return result;
 	};
 	window.prompt = function(message) {
 		var result = self.windowMethods['prompt'].call(self.window, message);
 
-//		self.record('answerOnNextPrompt', result, null, true);
-//      self.record('assertPrompt', message);
         self.recordCommand("answerOnNextPrompt", null, result, ValueType.STRING);
         self.recordCommand("assertPrompt", null, message, ValueType.STRING);
 		return result;
@@ -458,7 +453,6 @@ Recorder.prototype.recordDomNode = function (element){
             this.selectedElements.push(element);
 
             refId = this.refIdSetter.getRefId();
-            // "T" + this.timestamp + "S" + this.sequence.next();
             var tagObject = this.builder.createTagObject(element, refId, this.frameName);
             teJQuery(element).data("sid", refId);
             teJQuery(element).data("count", "0");
@@ -620,7 +614,6 @@ Recorder.addEventHandler('type', 'change', function(event) {
 		var type = event.target.type;
 		if (('input' == tagName && ('text' == type || 'password' == type || 'file' == type)) ||
 			'textarea' == tagName) {
-//			this.record("type", this.findLocators(event.target), event.target.value);
             this.recordCommand("type", event.target, event.target.value, ValueType.STRING);
 		}
 	});
@@ -778,7 +771,6 @@ Recorder.prototype.findClickableElement = function(e) {
 Recorder.addEventHandler('rememberClickedElement', 'mousedown', function(event) {
 		this.clickedElement = event.target;
     //TODO: need to remember the dom node, not the locator!!
-//		this.clickedElementLocators = this.findLocators(event.target);
         this.clickedElementLocators = event.target;
 	}, { alwaysRecord: true, capture: true });
 
