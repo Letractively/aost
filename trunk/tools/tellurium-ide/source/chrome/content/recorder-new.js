@@ -500,7 +500,12 @@ Recorder.prototype.recordCommand = function(name, element, value, valueType){
         }
         var uid = this.recordDomNode(element);
         var count = teJQuery(element).data("count");
-        teJQuery(element).data("count", count + 1);
+        if(count == undefined){
+            logger.warn("Element count is undefined for command " + name);
+            teJQuery(element).data("count", "1");
+        }else{
+            teJQuery(element).data("count", count + 1);
+        }
         var result = this.workspace.addCommand(name, uid, value, valueType);
         if (result) {
             var cmd = new TestCmd(name, uid, value);

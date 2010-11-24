@@ -697,11 +697,14 @@ Editor.prototype.buildUiCommand = function(){
     var cmdDef = this.getCommandDef(name);
     cmd.type = cmdDef.type;
     cmd.returnType = cmdDef.returnType;
-    if(cmd.type == CommandType.ACTION || cmd.type == CommandType.ACCESSOR){
+//    if(cmd.type == CommandType.ACTION || cmd.type == CommandType.ACCESSOR){
+    if(cmd.type == CommandType.HasUid){
         if(target != null){
             this.recorder.app.getRefUidMapFor(target);
             cmd.ref = this.recorder.app.findRefFromUid(target);
             cmd.targetType = TargetType.UID;
+        }else{
+            logger.warn("Target is null for command " + name);
         }
     }else{
         cmd.targetType = TargetType.DATA;
