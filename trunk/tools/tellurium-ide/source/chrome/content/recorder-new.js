@@ -42,6 +42,19 @@ Recorder.get = function(window) {
 	return window[Recorder.WINDOW_RECORDER_PROPERTY] || null;
 };
 
+Recorder._isSameWindow = function(w1, w2) {
+    if (w1 == null || w2 == null) return false;
+    if (w1 == w1.parent && w2 == w2.parent) {
+        // top level window
+        return w1.name == w2.name;
+    } else if (w1.parent == w2.parent) {
+        // frame
+        return w1.name == w2.name;
+    } else {
+        return false;
+    }
+};
+
 Recorder.addEventHandler = function(handlerName, eventName, handler, options) {
 	handler.handlerName = handlerName;
 	if (!options) options = {};
@@ -87,7 +100,11 @@ Recorder.prototype.attachActionListeners = function(window){
                     var recordToolbarButton = document.getElementById("record-button");
                     if (recordToolbarButton.getAttribute("checked")) {
                         var url = event.target.URL || event.target.baseURI;
-                        if (self.lastWindow == url) {
+//                        if (self.lastWindow == url) {
+                        if(self.lastWindow == null || url == null){
+                            return;
+                        }
+                        if(self.lastWindow.indexOf(url) != -1 || url.indexOf(self.lastWindow) != -1){    
                             logger.debug("Unloading Window " + url);
                             self.recordCommand("waitForPageToLoad", null, 30000, ValueType.NUMBER);
                             self.generateSource();
@@ -287,7 +304,7 @@ Recorder.prototype.registerUnloadListener = function() {
 */
 
 Recorder.prototype.attach = function(window) {
-	logger.debug("attaching");
+	logger.debug("Attaching event handlers");
 
 	this.eventListeners = {};
 //	this.reattachWindowMethods(window);
@@ -325,11 +342,11 @@ Recorder.prototype.attach = function(window) {
 };
 
 Recorder.prototype.detach = function(window) {
-	logger.debug("detaching");
+	logger.debug("Detaching event handlers");
 
 	for (var eventKey in this.eventListeners) {
 		var eventInfo = this.parseEventKey(eventKey);
-		logger.debug("removeEventListener: " + eventInfo.eventName + ", " + eventKey + ", " + eventInfo.capture);
+//		logger.debug("removeEventListener: " + eventInfo.eventName + ", " + eventKey + ", " + eventInfo.capture);
 		window.document.removeEventListener(eventInfo.eventName, this.eventListeners[eventKey], eventInfo.capture);
 	}
 	delete this.eventListeners;
@@ -688,17 +705,17 @@ Recorder.addEventHandler('rememberClickedElement', 'mousedown', function(event) 
 	}, { alwaysRecord: true, capture: true });
 
 Recorder.addEventHandler('attrModified', 'DOMAttrModified', function(event) {
-        logger.debug('attrModified');
+//        logger.debug('attrModified');
         this.domModified();
     }, {capture: true});
 
 Recorder.addEventHandler('nodeInserted', 'DOMNodeInserted', function(event) {
-        logger.debug('nodeInserted');
+//        logger.debug('nodeInserted');
         this.domModified();
     }, {capture: true});
 
 Recorder.addEventHandler('nodeRemoved', 'DOMNodeRemoved', function(event) {
-        logger.debug('nodeRemoved');
+//        logger.debug('nodeRemoved');
         this.domModified();
     }, {capture: true});
 
@@ -713,11 +730,11 @@ Recorder.prototype.domModified = function() {
 };
 
 Recorder.prototype.callIfMeaningfulEvent = function(handler) {
-    logger.debug("callIfMeaningfulEvent");
+//    logger.debug("callIfMeaningfulEvent");
     this.delayedRecorder = handler;
     var self = this;
     this.domModifiedTimeout = setTimeout(function() {
-            logger.debug("clear event");
+//            logger.debug("clear event");
             self.delayedRecorder = null;
             self.domModifiedTimeout = null;
         }, 50);

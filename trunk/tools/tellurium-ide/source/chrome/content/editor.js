@@ -82,19 +82,6 @@ Editor.prototype.setWindowURL = function(url){
 //    this.recorder.updateListenerForWindow(url);
 };
 
-Editor.prototype._isSameWindow = function(w1, w2) {
-    if (w1 == null || w2 == null) return false;
-    if (w1 == w1.parent && w2 == w2.parent) {
-        // top level window
-        return w1.name == w2.name;
-    } else if (w1.parent == w2.parent) {
-        // frame
-        return w1.name == w2.name;
-    } else {
-        return false;
-    }
-};
-
 Editor.prototype.getAutoCompleteSearchParam = function(id) {
     var textbox = document.getElementById(id);
     if (!this.autoCompleteSearchParams)
