@@ -159,6 +159,7 @@ var TestRunner = Class.extend({
         this.currentIndex = -1;
         this.cmdExecutor.clearCache();
         this.observers.clear();
+        browserBot.clear();
     },
 
     step: function() {
