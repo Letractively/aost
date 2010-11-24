@@ -230,7 +230,7 @@ UiModule.prototype.addUiObject = function(uid, obj){
             this.root = obj;
             this.id = this.root.uid;
         } else {
-            fbError("Invalid uid " + uiid, this);
+            fbError("Invalid uid " + uid, this);
             succeed = false;
         }
     }else{
@@ -238,7 +238,7 @@ UiModule.prototype.addUiObject = function(uid, obj){
         if(key == this.root.uid){
             this.root.insertChild(uiid, obj);
         }else{
-            fbError("Invalid uid " + uiid, this);
+            fbError("Invalid uid " + uid, this);
             succeed = false;
         }
     }

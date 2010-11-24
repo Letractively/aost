@@ -292,17 +292,6 @@ Recorder.prototype.parseEventKey = function(eventKey) {
 	}
 };
 
-/*
-Recorder.prototype.registerUnloadListener = function() {
-    var self = this;
-    this.window.addEventListener("beforeunload", function() {
-            for (var i = 0; i < self.observers.length; i++) {
-                self.observers[i].onUnloadDocument(self.window.document);
-            }
-        }, false);
-};
-*/
-
 Recorder.prototype.attach = function(window) {
 	logger.debug("Attaching event handlers");
 
@@ -695,7 +684,7 @@ Recorder.prototype.findClickableElement = function(e) {
 			return null;
 		}
 	}
-}
+};
 
 // remember clicked element to be used in CommandBuilders
 Recorder.addEventHandler('rememberClickedElement', 'mousedown', function(event) {

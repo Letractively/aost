@@ -248,7 +248,8 @@ UimAlg.prototype.mark = function(tagObject) {
         var tag = $parent.get(0).tagName.toLowerCase();
         while (tag != "html" && tag != "body") {
             var pNode = $parent.get(0);
-            var pcnt = teJQuery(pNode).data(UimConst.PARENT_COUNT);
+
+/*            var pcnt = teJQuery(pNode).data(UimConst.PARENT_COUNT);
             if (pcnt == undefined || pcnt == null) {
                 pcnt = 1;
             } else {
@@ -259,6 +260,19 @@ UimAlg.prototype.mark = function(tagObject) {
 
             if (pcnt == this.tagObjectArray.length
                     || ContainerTagSet.indexOf(tag) != -1
+                    || ((tag == "div" || tag == "span") && (pNode.getAttribute("id") != null
+                        || pNode.getAttribute("onclick") != null
+                        || pNode.getAttribute("ondblclick") != null
+                        || pNode.getAttribute("onchange") != null
+                        || pNode.getAttribute("onkeydown") != null
+                        || pNode.getAttribute("onkeypress") != null
+                        || pNode.getAttribute("onkeyup") != null
+                        || pNode.getAttribute("onmousedown") != null
+                        || pNode.getAttribute("onmouseout") != null
+                        || pNode.getAttribute("onmouseover") != null
+                        || pNode.getAttribute("onblur") != null )
+                    )) {*/
+            if (ContainerTagSet.indexOf(tag) != -1
                     || ((tag == "div" || tag == "span") && (pNode.getAttribute("id") != null
                         || pNode.getAttribute("onclick") != null
                         || pNode.getAttribute("ondblclick") != null
