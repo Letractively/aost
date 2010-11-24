@@ -32,9 +32,8 @@ function Recorder(window) {
     this.first = true;
 
     this.observers = [];
-    
-//	this.attach();
-//    this.registerUnloadListener();
+
+    this.lastWindow = null;
 }
 
 Recorder.WINDOW_RECORDER_PROPERTY = "_Tellurium_IDE_Recorder";
@@ -78,89 +77,35 @@ Recorder.decorateEventHandler = function(handlerName, eventName, decorator, opti
    }
 };
 
-/*
-Recorder.register = function(observer, window) {
-    logger.debug("register: window=" + window);
-	var recorder = Recorder.get(window);
-	if (!recorder) {
-		recorder = new Recorder(window);
-		window[Recorder.WINDOW_RECORDER_PROPERTY] = recorder;
-        if (window.wrappedJSObject) {
-            // adding recorder to wrappedJSObject to make it visible from functional test of Selenium IDE itself
-            window.wrappedJSObject[Recorder.WINDOW_RECORDER_PROPERTY] = recorder;
-        }
-	}
-	recorder.observers.push(observer);
-	logger.debug("register: observers.length=" + recorder.observers.length);
-	return recorder;
-};
-
-Recorder.deregister = function(observer, window) {
-    logger.debug("deregister: window=" + window);
-	var recorder = Recorder.get(window);
-	if (recorder) {
-		recorder.deregister(observer);
-		logger.debug("deregister: observers.length=" + recorder.observers.length);
-	} else {
-		logger.warn("deregister: recorder not found");
-	}
-};
-*/
-
 Recorder.prototype.attachActionListeners = function(window){
     logger.debug("Attaching listeners for action...");
     var self = this;
+
     window.addEventListener("beforeunload",
             function(event) {
                 try {
                     var recordToolbarButton = document.getElementById("record-button");
                     if (recordToolbarButton.getAttribute("checked")) {
-                        self.recordCommand("waitForPageToLoad", null, 30000, ValueType.NUMBER);
                         var url = event.target.URL || event.target.baseURI;
-                        logger.debug("Unloading Window " + url);
-                        self.generateSource();
+                        if (self.lastWindow == url) {
+                            logger.debug("Unloading Window " + url);
+                            self.recordCommand("waitForPageToLoad", null, 30000, ValueType.NUMBER);
+                            self.generateSource();
+                        }else{
+                            logger.debug("Window " + url + " is not the current window " + url);
+                        }
                     }
                 } catch(error) {
                     logger.error("Error processing beforeunload event:\n" + describeErrorStack(error));
                 }
             },
-    false);
+            false);
     this.attach(window);
-/*
-    window.document.addEventListener("change", this.typeListener, true);
-    window.document.addEventListener("click", this.clickListener, true);
-    window.document.addEventListener("focus", this.selectFocusListener, true);
-    window.document.addEventListener("mousedown", this.selectMousedownListener, true);
-
-
-    teJQuery(window.document).find("input, a, p, link, select, textarea, button, table, tr, td, th, div, span, label").live("change", {recorder: this}, this.typeListener);
-    teJQuery(window.document).find("input, a, p, link, select, textarea, button, table, tr, td, th, div, span, label").live("click", {recorder: this}, this.clickListener);
-    teJQuery(window.document).find("input, a, p, link, textarea, button, table, tr, td, th, div, span, label").live("mousedown", {recorder: this}, this.rememberClickedListener);
-    teJQuery(window.document).find("select, option").live("focus", {recorder: this}, this.selectFocusListener);
-    teJQuery(window.document).find("select, option").live("mousedown", {recorder: this}, this.selectMousedownListener);
-    teJQuery(window.document).find("select, option").live("change", {recorder: this}, this.selectListener);
-
-    teJQuery(window.document).delegate("input, a, p, link, select, textarea, button, table, tr, td, th, div, span, label", "change", {recorder: this}, this.typeListener);
-    teJQuery(window.document).delegate("input, a, p, link, select, textarea, button, table, tr, td, th, div, span, label", "click", {recorder: this}, this.clickListener);
-    teJQuery(window.document).delegate("input, a, p, link, textarea, button, table, tr, td, th, div, span, label", "mousedown", {recorder: this}, this.rememberClickedListener);
-    teJQuery(window.document).delegate("select, option", "focus", {recorder: this}, this.selectFocusListener);
-    teJQuery(window.document).delegate("select, option", "mousedown", {recorder: this}, this.selectMousedownListener);
-    teJQuery(window.document).delegate("select, option", "change", {recorder: this}, this.selectListener);
-*/
 };
 
 Recorder.prototype.detachActionListeners = function(window){
     logger.debug("Detaching listeners for action...");
     this.detach(window);
-
-/*
-    teJQuery(window.document).find("input, a, p, link, select, textarea, button, table, tr, td, th, div, span, label").die("change", this.typeListener);
-    teJQuery(window.document).find("input, a, p, link, select, textarea, button, table, tr, td, th, div, span, label").die("click", this.clickListener);
-    teJQuery(window.document).find("input, a, p, link, textarea, button, table, tr, td, th, div, span, label").die("mousedown", this.rememberClickedListener);
-    teJQuery(window.document).find("select, option").die("focus", this.selectFocusListener);
-    teJQuery(window.document).find("select, option").die("mousedown", this.selectMousedownListener);
-    teJQuery(window.document).find("select, option").die("change", this.selectListener);
-*/
 };
 
 Recorder.prototype.attachSelectListeners = function(window){
@@ -354,17 +299,17 @@ Recorder.prototype.attach = function(window) {
 		// create new function so that the variables have new scope.
 		function register() {
 			var handlers = Recorder.eventHandlers[eventKey];
-            logger.debug('eventName=' + eventName + ' / handlers.length=' + handlers.length);
+//            logger.debug('eventName=' + eventName + ' / handlers.length=' + handlers.length);
 			var listener = function(event) {
-				logger.debug('listener: event.type=' + event.type + ', target=' + event.target);
-				logger.debug('title=' + self.window.document.title);
+//				logger.debug('listener: event.type=' + event.type + ', target=' + event.target);
+//				logger.debug('title=' + self.window.document.title);
 				var recording = false;
-                logger.debug("Observers size: " + self.observers.length);
+//                logger.debug("Observers size: " + self.observers.length);
 				for (var i = 0; i < self.observers.length; i++) {
 					if (self.observers[i].recordingEnabled){
                        recording = true;
                     }
-                    logger.debug("recording: " + recording);
+//                    logger.debug("recording: " + recording);
 				}
 				for (var i = 0; i < handlers.length; i++) {
 					if (recording || handlers[i].alwaysRecord) {
@@ -513,6 +458,7 @@ Recorder.prototype.recordCommand = function(name, element, value, valueType){
             this.cmdListView.setTestCommands(this.recordCommandList);
             this.cmdListView.rowInserted();
             this.updateWindowUrl(element);
+            this.lastWindow = element.ownerDocument.location.href;
         }
     } else {
         var result = this.workspace.addCommand(name, null, value, valueType);
@@ -524,44 +470,6 @@ Recorder.prototype.recordCommand = function(name, element, value, valueType){
         }
     }
 };
-/*
-Recorder.prototype.findClickableElement = function(e) {
-	if (!e.tagName) return null;
-	var tagName = e.tagName.toLowerCase();
-	var type = e.type;
-	if (e.hasAttribute("onclick") || e.hasAttribute("href") || tagName == "button" ||
-		(tagName == "input" &&
-		 (type == "submit" || type == "button" || type == "image" || type == "radio" || type == "checkbox" || type == "reset"))) {
-		return e;
-	} else {
-		if (e.parentNode != null) {
-			return this.findClickableElement(e.parentNode);
-		} else {
-			return null;
-		}
-	}
-};
-
-Recorder.prototype.domModified = function() {
-    if (this.delayedRecorder) {
-        this.delayedRecorder.apply(this);
-        this.delayedRecorder = null;
-        if (this.domModifiedTimeout) {
-            clearTimeout(this.domModifiedTimeout);
-        }
-    }
-};
-
-Recorder.prototype.callIfMeaningfulEvent = function(handler) {
-    logger.debug("callIfMeaningfulEvent");
-    this.delayedRecorder = handler;
-    var self = this;
-    this.domModifiedTimeout = setTimeout(function() {
-//        logger.debug("clear event");
-        self.delayedRecorder = null;
-        self.domModifiedTimeout = null;
-    }, 50);
-};*/
 
 Recorder.prototype.getTextReg = function(option) {
     var label = option.text.replace(/^ *(.*?) *$/, "$1");
