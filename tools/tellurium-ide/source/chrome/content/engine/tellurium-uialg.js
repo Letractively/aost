@@ -951,7 +951,7 @@ UiAlg.prototype.buildSTree = function(uimodule){
     this.oqueue.push(first);
     while(this.oqueue.size() > 0){
         var sdata = this.oqueue.pop();
-        !tellurium.logManager.isUseLog || fbLog("Traverse for Object " + sdata.rid + ": ", sdata);
+//        !tellurium.logManager.isUseLog || fbLog("Traverse for Object " + sdata.rid + ": ", sdata);
         var context = new WorkflowContext();
         context.alg = this;
         context.domRef = sdata.domRef;
