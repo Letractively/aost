@@ -78,6 +78,7 @@ Recorder.decorateEventHandler = function(handlerName, eventName, decorator, opti
    }
 };
 
+/*
 Recorder.register = function(observer, window) {
     logger.debug("register: window=" + window);
 	var recorder = Recorder.get(window);
@@ -104,6 +105,7 @@ Recorder.deregister = function(observer, window) {
 		logger.warn("deregister: recorder not found");
 	}
 };
+*/
 
 Recorder.prototype.attachActionListeners = function(window){
     logger.debug("Attaching listeners for action...");
@@ -333,6 +335,7 @@ Recorder.prototype.parseEventKey = function(eventKey) {
 	}
 };
 
+/*
 Recorder.prototype.registerUnloadListener = function() {
     var self = this;
     this.window.addEventListener("beforeunload", function() {
@@ -341,6 +344,7 @@ Recorder.prototype.registerUnloadListener = function() {
             }
         }, false);
 };
+*/
 
 Recorder.prototype.attach = function(window) {
 	logger.debug("attaching");
@@ -678,7 +682,6 @@ Recorder.addEventHandler('select', 'change', function(event) {
 			if (!event.target.multiple) {
                 var option = event.target.options[event.target.selectedIndex];
 				logger.debug('selectedIndex=' + event.target.selectedIndex);
-//				this.record("select", this.findLocators(event.target), this.getOptionLocator(option));
                 var optionLocator = this.getTextReg(option);
                 var cmdName;
                 var target;
@@ -708,10 +711,8 @@ Recorder.addEventHandler('select', 'change', function(event) {
 					if (options[i]._wasSelected != options[i].selected) {
                         var value = this.getOptionLocator(options[i]);
 						if (options[i].selected) {
-//							this.record("addSelection", this.findLocators(event.target), value);
                             this.recordCommand("addSelection", event.target, value, ValueType.STRING);
 						} else {
-//							this.record("removeSelection", this.findLocators(event.target), value);
                             this.recordCommand("removeSelection", event.target, value, ValueType.STRING);
 						}
 						options[i]._wasSelected = options[i].selected;
@@ -746,12 +747,10 @@ Recorder.addEventHandler('clickLocator', 'click', function(event) {
                     delete this.mouseoverLocator;
                 }*/
 
-//                this.record("click", this.findLocators(event.target), '');
                 this.recordCommand("click", event.target, null, null);
             } else {
                 var target = event.target;
                 this.callIfMeaningfulEvent(function() {
-//                        this.record("click", this.findLocators(target), '');
                         this.recordCommand("click", target, null);
                     });
             }
