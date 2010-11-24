@@ -16,6 +16,7 @@ function UimAlg(tagObjectArray, refIdSetter){
     this.markedNodeArray = new Array();
     this.refIdSetter = refIdSetter;
     this.builder = new Builder();
+    this.max = 5;
 }
 
 UimAlg.prototype.build = function(){
@@ -62,12 +63,39 @@ ExtraTextNodeVisitor.prototype.visit = function(node){
 
 };
 
+UimAlg.prototype.addExtraFor = function(root, sel){
+    var $ems = teJQuery(root.domNode).find(sel).filter(":visible");
+    if($ems.length >0){
+        var count = 0;
+        for(var i=0; i<$ems.length; i++){
+            var $em = $ems.eq(i);
+            if($em.data("sid") != null && count < this.max){
+                count++;
+                this.markNode($em.get(0));
+            }
+        }
+    }
+
+};
+
 UimAlg.prototype.addExtra = function(root){
+    this.addExtraFor(root, "input");
+    this.addExtraFor(root, "form");
+    this.addExtraFor(root, "select");
+    this.addExtraFor(root, "button");
+    this.addExtraFor(root, "table");
+    this.addExtraFor(root, "link");
+    this.addExtraFor(root, "a");
+};
+
+/*UimAlg.prototype.addExtra = function(root){
+
 //    var $extras = teJQuery(root.domNode).find("input, a, link, form, select, button, table").filter(":visible");
 //    if($extras.length > 15){
 //        $extras = $extras.filter(":not(a)");
 //    }
-    
+
+
     var $extras = teJQuery(root.domNode).find("input, link, form, select, button, table").filter(":visible");
 
     for (var i = 0; i < $extras.length; i++) {
@@ -77,7 +105,7 @@ UimAlg.prototype.addExtra = function(root){
         }
     }
 //    var $textNodes = teJQuery(root.domNode).find("div, span").filter(function(){return /[^\s]+/.test(teJQuery(this).text());});
-/*    
+*//*
     var $textNodes = teJQuery(root.domNode).find("div, span").filter(":visible").filter(TestText);
     for(var j=0; j<$textNodes.length; j++){
         var $textNode = $textNodes.eq(j);
@@ -86,8 +114,8 @@ UimAlg.prototype.addExtra = function(root){
             this.markNode($textNode.get(0));
         }
     }
-    */
-};
+    *//*
+};*/
 
 function TestText(){
     return /[^\s]+/.test(teJQuery(this).text());
