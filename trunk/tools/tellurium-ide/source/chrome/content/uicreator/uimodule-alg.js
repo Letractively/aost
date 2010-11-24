@@ -8,7 +8,8 @@ const UimConst = {
     CHILDREN: "children",
     PARENT: "parent",
     SID: "sid",
-    EXCLUDE: "exclude"
+    EXCLUDE: "exclude",
+    PARENT_COUNT: "pcount"
 };
 
 function UimAlg(tagObjectArray, refIdSetter){
@@ -153,7 +154,7 @@ UimAlg.prototype.chooseRoot = function(top){
 UimAlg.prototype.markNode = function(node) {
     var $current = teJQuery(node);
     var nodeObject = $current.data(UimConst.NODE_OBJECT);
-    if (nodeObject == null) {
+    if (nodeObject == undefined || nodeObject == null) {
         nodeObject = new NodeObject();
         nodeObject.buildFromDomNode(node);
         nodeObject.refId = this.refIdSetter.getRefId();
@@ -167,18 +168,22 @@ UimAlg.prototype.markNode = function(node) {
         var tag = $parent.get(0).tagName.toLowerCase();
         while (tag != "html" && tag != "body") {
             var pNode = $parent.get(0);
+
             if (ContainerTagSet.indexOf(tag) != -1
-                || (tag == "div" && (pNode.getAttribute("onclick") != null || pNode.getAttribute("ondblclick") != null
-                || pNode.getAttribute("onchange") != null
-                || pNode.getAttribute("onkeydown") != null
-                || pNode.getAttribute("onkeypress") != null
-                || pNode.getAttribute("onkeyup") != null
-                || pNode.getAttribute("onmousedown") != null
-                || pNode.getAttribute("onmouseout") != null
-                || pNode.getAttribute("onmouseover") != null
-                || pNode.getAttribute("onblur") != null ))) {            
+                    || ((tag == "div" || tag == "span") && (pNode.getAttribute("id") != null
+                        || pNode.getAttribute("onclick") != null
+                        || pNode.getAttribute("ondblclick") != null
+                        || pNode.getAttribute("onchange") != null
+                        || pNode.getAttribute("onkeydown") != null
+                        || pNode.getAttribute("onkeypress") != null
+                        || pNode.getAttribute("onkeyup") != null
+                        || pNode.getAttribute("onmousedown") != null
+                        || pNode.getAttribute("onmouseout") != null
+                        || pNode.getAttribute("onmouseover") != null
+                        || pNode.getAttribute("onblur") != null )
+                    )) {
                 var sid = $parent.data(UimConst.SID);
-                if (sid == null) {
+                if (sid == undefined || sid == null) {
                     var pNodeObject = new NodeObject();
                     pNodeObject.buildFromDomNode($parent.get(0));
                     pNodeObject.refId = this.refIdSetter.getRefId();
@@ -228,7 +233,7 @@ UimAlg.prototype.mark = function(tagObject) {
     var node = tagObject.node;
     var $current = teJQuery(node);
     var nodeObject = $current.data(UimConst.NODE_OBJECT);
-    if (nodeObject == null) {
+    if (nodeObject == undefined || nodeObject == null) {
         nodeObject = new NodeObject();
         nodeObject.domNode = node;
         nodeObject.refId = tagObject.refId;
@@ -243,18 +248,31 @@ UimAlg.prototype.mark = function(tagObject) {
         var tag = $parent.get(0).tagName.toLowerCase();
         while (tag != "html" && tag != "body") {
             var pNode = $parent.get(0);
-            if (ContainerTagSet.indexOf(tag) != -1
-                || (tag == "div" && (pNode.getAttribute("onclick") != null || pNode.getAttribute("ondblclick") != null
-                || pNode.getAttribute("onchange") != null
-                || pNode.getAttribute("onkeydown") != null
-                || pNode.getAttribute("onkeypress") != null
-                || pNode.getAttribute("onkeyup") != null
-                || pNode.getAttribute("onmousedown") != null
-                || pNode.getAttribute("onmouseout") != null
-                || pNode.getAttribute("onmouseover") != null
-                || pNode.getAttribute("onblur") != null ))) {
+            var pcnt = teJQuery(pNode).data(UimConst.PARENT_COUNT);
+            if (pcnt == undefined || pcnt == null) {
+                pcnt = 1;
+            } else {
+                pcnt++;
+            }
+            teJQuery(pNode).data(UimConst.PARENT_COUNT, pcnt);
+            logger.debug("pcnt: " + pcnt + " tagObjectArray: " + this.tagObjectArray.length);
+
+            if (pcnt == this.tagObjectArray.length
+                    || ContainerTagSet.indexOf(tag) != -1
+                    || ((tag == "div" || tag == "span") && (pNode.getAttribute("id") != null
+                        || pNode.getAttribute("onclick") != null
+                        || pNode.getAttribute("ondblclick") != null
+                        || pNode.getAttribute("onchange") != null
+                        || pNode.getAttribute("onkeydown") != null
+                        || pNode.getAttribute("onkeypress") != null
+                        || pNode.getAttribute("onkeyup") != null
+                        || pNode.getAttribute("onmousedown") != null
+                        || pNode.getAttribute("onmouseout") != null
+                        || pNode.getAttribute("onmouseover") != null
+                        || pNode.getAttribute("onblur") != null )
+                    )) {
                 var sid = $parent.data(UimConst.SID);
-                if (sid == null) {
+                if (sid == undefined || sid == null) {
                     var pNodeObject = new NodeObject();
                     pNodeObject.buildFromDomNode($parent.get(0));
                     pNodeObject.refId = this.refIdSetter.getRefId();
