@@ -297,8 +297,9 @@ Workspace.prototype.convertCommand = function(){
             var uid = null;
             if(cmd.ref != null){
                 uid = this.refUidMap.get(cmd.ref);
-                if(uid == null)
+                if(uid == null){
                     logger.warn("Cannot find UID for reference ID " + cmd.ref + " for command " + cmd.name);
+                }
             }
             cmd.target = uid;
         }
