@@ -9,7 +9,8 @@ const UimConst = {
     PARENT: "parent",
     SID: "sid",
     EXCLUDE: "exclude",
-    PARENT_COUNT: "pcount"
+    PARENT_COUNT: "pcount",
+    HEIGHT: "height"
 };
 
 function UimAlg(tagObjectArray, refIdSetter){
@@ -19,6 +20,45 @@ function UimAlg(tagObjectArray, refIdSetter){
     this.builder = new Builder();
     this.max = 5;
 }
+
+UimAlg.prototype.findRoot = function($node1, $node2){
+    var queue = new FifoQueue();
+    queue.push($node1, $node2);
+    var $nodeList = [];
+    var $result = null;
+    while(queue.size() > 0){
+        var $node = queue.pop();
+        var $parent = $node.parent();
+        if($parent != null){
+            var cHeight = $node.data(UimConst.HEIGHT);
+            if(cHeight == null){
+                throw new TelluriumError("Height is not set");
+            }
+            var height = $parent.data(UimConst.HEIGHT);
+            if(height == null){
+                $parent.data(UimConst.HEIGHT, cHeight + 1);
+                $nodeList.push($parent);
+                queue.push($parent);
+            }else{
+                height = (height + cHeight)/2;
+                $parent.data(UimConst.HEIGHT, height);
+                $result = $parent;
+                break;
+            }
+        }else{
+            break;
+        }
+    }
+
+    if($nodeList.length > 0){
+        for(var i=0; i<$nodeList.length; i++){
+            $nodeList[i].removeData(UimConst.HEIGHT);
+        }
+    }
+
+    return $result;
+};
+
 
 UimAlg.prototype.build = function(){
     if(this.tagObjectArray && this.tagObjectArray.length > 0){
