@@ -10,6 +10,7 @@ var ErrorCodes = {
     ELEMENT_HAS_NO_VALUE: "No value attribute in element",
     TIME_OUT: "Command Timeouts",
     ASSERTION_ERROR: "Assertion Error",
+    MAX_HEIGHT_NOT_SET: "Maximum height of the UI module is not set",
     UNKNOWN: "Unknown"
 };
 

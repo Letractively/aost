@@ -11,32 +11,6 @@ const TargetType = {
     NIL: "nil"
 };
 
-/*
-const ValueType = {
-    NUMBER: "number",
-    STRING: 'string',
-    BOOLEAN: 'boolean',
-    OBJECT: 'object',
-    VARIABLE: "var",
-    NIL: "nil"
-};
-
-const CommandType = {
-    ACTION: "action",
-    ACCESSOR: "accessor",
-    ASSERTION: "assertion"
-};
-
-const ReturnType = {
-    VOID: "void",
-    BOOLEAN: "boolean",
-    STRING: "string",
-    ARRAY: "Array",
-    NUMBER: "number",
-    OBJECT: "object"
-};
-*/
-
 function UiCommand(name, refId, value, valueType, uid, seq){
     //command type
     this.type = null;
@@ -51,11 +25,6 @@ function UiCommand(name, refId, value, valueType, uid, seq){
     this.ref = refId;
     this.seq = seq;
     this.status = "";
-    
-/*    var ref = refId;
-    this.__defineGetter__("ref", function(){
-        return ref;
-    });*/
 }
 
 UiCommand.cmdMap = new Hashtable();
@@ -199,8 +168,6 @@ UiCommand.prototype.isEqual = function(cmd){
 };
 
 function Workspace(uiBuilder, uiChecker, refIdSetter){
-//    alert("enter workspace");
-//    alert("creating workspace with uiBuilder " + uiBuilder + ", uiChecker " + uiChecker + ", refIdSetter " + refIdSetter);
     //ID of the current UI Module
     this.id = null;
 
@@ -244,8 +211,78 @@ function Workspace(uiBuilder, uiChecker, refIdSetter){
     this.sequence = new Identifier(0);
 
     this.cmdExecutor = null;
-//    alert("after create workspace");
+
+    this.ancestor = null;
+
+    this.maxHeight = 5;
 }
+
+Workspace.prototype.needNewUiModule = function(element){
+    this.findAncestor(element);
+    if(this.ancestor == null){
+        return true;
+    }
+
+    var height = this.ancestor.data(UimConst.HEIGHT);
+    logger.debug("Current UI module height " + height);
+
+    return height > this.maxHeight;
+};
+
+Workspace.prototype.findAncestor = function(element){
+    if(this.ancestor == null){
+        this.ancestor = teJQuery(element);
+        this.ancestor.data(UimConst.HEIGHT, 1);
+    } else {
+        var queue = new FifoQueue();
+        var $newNode = teJQuery(element);
+        $newNode.data(UimConst.HEIGHT, 1);
+        queue.push($newNode);
+        queue.push(this.ancestor);
+        var nodes = [];
+        var $result = null;
+        while (queue.size() > 0) {
+            var $node = queue.pop();
+            var $parent = $node.parent();
+            if ($parent != null && $parent.size() > 0) {
+                logger.debug("Data for the node " + $node.data());
+                var cHeight = $node.data(UimConst.HEIGHT);
+                if (cHeight == undefined || cHeight == null) {
+                    logger.error("Node height is not set");
+                    this.ancester = null;
+                    break;
+//                    cHeight = 1;
+                    //XXX: This may occur if the web has been refreshed, i.e., Ajax calls
+//                    $node.data(UimConst.HEIGHT, 1);
+//                    throw new TelluriumError(ErrorCodes.MAX_HEIGHT_NOT_SET, "Height is not set");
+                }
+                var height = $parent.data(UimConst.HEIGHT);
+                if (height == undefined || height == null) {
+                    $parent.data(UimConst.HEIGHT, cHeight + 1);
+                    nodes.push($parent);
+                    queue.push($parent);
+                } else {
+                    height = (height + cHeight) / 2;
+                    $parent.data(UimConst.HEIGHT, height);
+                    $result = $parent;
+                    break;
+                }
+            } else {
+                break;
+            }
+        }
+
+        if (nodes.length > 0) {
+            for (var i = 0; i < nodes.length; i++) {
+                nodes[i].removeData(UimConst.HEIGHT);
+            }
+        }
+
+        this.ancestor = $result;
+
+        return $result;
+    }
+};
 
 Workspace.prototype.addNode = function(dom, frameName, ref){
     var node = new NodeRef(dom, frameName, ref);
@@ -286,10 +323,14 @@ Workspace.prototype.clear = function(){
     this.commandList = new Array();
     this.convertedCommandList = null;
     this.refUidMap = null;
+    
+    if(this.ancestor != null){
+        this.ancestor.removeData(UimConst.HEIGHT);
+        this.ancestor = null;
+    }
 };
 
 Workspace.prototype.convertCommand = function(){
-//    this.convertedCommandList = new Array();
     if(this.commandList != null && this.commandList.length > 0){
         for(var i=0; i<this.commandList.length; i++){
             var cmd = this.commandList[i];

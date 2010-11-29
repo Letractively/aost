@@ -100,10 +100,11 @@ Recorder.prototype.attachActionListeners = function(window){
                     var recordToolbarButton = document.getElementById("record-button");
                     if (recordToolbarButton.getAttribute("checked")) {
                         var url = event.target.URL || event.target.baseURI;
-//                        if (self.lastWindow == url) {
+
                         if(self.lastWindow == null || url == null){
                             return;
                         }
+                        //TODO: this mechanism has some potential problems and should be replaced with window comparison
                         if(self.lastWindow.indexOf(url) != -1 || url.indexOf(self.lastWindow) != -1){    
                             logger.debug("Unloading Window " + url);
                             self.recordCommand("waitForPageToLoad", null, 30000, ValueType.NUMBER);
@@ -318,9 +319,9 @@ Recorder.prototype.attach = function(window) {
                     }
 //                    logger.debug("recording: " + recording);
 				}
-				for (var i = 0; i < handlers.length; i++) {
-					if (recording || handlers[i].alwaysRecord) {
-						handlers[i].call(self, event);
+				for (var j = 0; j < handlers.length; j++) {
+					if (recording || handlers[j].alwaysRecord) {
+						handlers[j].call(self, event);
 					}
 				}
 			};
@@ -395,6 +396,10 @@ Recorder.prototype.clearAll = function(){
     this.first = true;
 };
 
+Recorder.prototype.alreadyRecorded = function (element){
+    return this.selectedElements.indexOf(element) != -1;
+};
+
 Recorder.prototype.recordDomNode = function (element){
     var refId;
     try {
@@ -407,7 +412,7 @@ Recorder.prototype.recordDomNode = function (element){
             refId = this.refIdSetter.getRefId();
             var tagObject = this.builder.createTagObject(element, refId, this.frameName);
             teJQuery(element).data("sid", refId);
-            teJQuery(element).data("count", "0");
+            teJQuery(element).data("count", 0);
             this.tagObjectArray.push(tagObject);
 
             this.treeView.setTagObjects(this.tagObjectArray);
@@ -441,6 +446,69 @@ Recorder.prototype.updateWindowUrl = function(element){
     }
 };
 
+Recorder.prototype.needNewUiModule = function(element){
+    if(this.selectedElements.indexOf(element) != -1){
+        return false;
+    }
+
+    return this.workspace.needNewUiModule(element);
+};
+
+Recorder.prototype.recordCommand = function(name, element, value, valueType){
+    logger.debug("Recording command (name: " + name + ", element: " + element + ", value: " + value + ", type: " + valueType + ")");
+    var result, cmd;
+
+    if (element != null && element != undefined) {
+        var needNewUim = false;
+
+        if (this.first) {
+            this.workspace.addCommand("open", null, element.ownerDocument.location.href, ValueType.STRING);
+            var ocmd = new TestCmd("open", null, element.ownerDocument.location.href);
+            this.recordCommandList.push(ocmd);
+            this.first = false;
+        }
+        
+        if (this.needNewUiModule(element)) {
+            needNewUim = true;
+            logger.debug("Generate UI module because we need a new one");
+            this.generateSource();
+        }
+
+        if(needNewUim){
+            //This is a new UI module, re-find the ancestor
+            this.workspace.findAncestor(element);
+        }
+        
+        var uid = this.recordDomNode(element);
+        var count = teJQuery(element).data("count");
+        if (count == undefined) {
+            logger.warn("Element count is undefined for command " + name);
+            teJQuery(element).data("count", 1);
+        } else {
+            teJQuery(element).data("count", count + 1);
+        }
+        result = this.workspace.addCommand(name, uid, value, valueType);
+        if (result) {
+            cmd = new TestCmd(name, uid, value);
+            this.recordCommandList.push(cmd);
+            this.cmdListView.setTestCommands(this.recordCommandList);
+            this.cmdListView.rowInserted();
+            this.updateWindowUrl(element);
+            this.lastWindow = element.ownerDocument.location.href;
+        }
+
+    } else {
+        result = this.workspace.addCommand(name, null, value, valueType);
+        if (result) {
+            cmd = new TestCmd(name, null, value);
+            this.recordCommandList.push(cmd);
+            this.cmdListView.setTestCommands(this.recordCommandList);
+            this.cmdListView.rowInserted();
+        }
+    }
+};
+
+/*
 Recorder.prototype.recordCommand = function(name, element, value, valueType){
     logger.debug("Recording command (name: " + name + ", element: " + element + ", value: " + value + ", type: " + valueType + ")");
     if (element != null && element != undefined) {
@@ -477,6 +545,7 @@ Recorder.prototype.recordCommand = function(name, element, value, valueType){
         }
     }
 };
+*/
 
 Recorder.prototype.getTextReg = function(option) {
     var label = option.text.replace(/^ *(.*?) *$/, "$1");
@@ -513,7 +582,7 @@ Recorder.prototype.reloadRecorder = function(){
 
 Recorder.prototype.generateSource = function(){
     try {
-        logger.debug("Generating UI module before page load...");
+        logger.debug("Generating UI module for new UI module or before page load...");
         this.workspace.generate();
         this.savePage();
         this.reloadRecorder();
@@ -532,6 +601,7 @@ Recorder.eventHandlers = {};
 Recorder.addEventHandler('type', 'change', function(event) {
 		var tagName = event.target.tagName.toLowerCase();
 		var type = event.target.type;
+        logger("Type event " + type + ", tag name " + tagName);
 		if (('input' == tagName && ('text' == type || 'password' == type || 'file' == type)) ||
 			'textarea' == tagName) {
             this.recordCommand("type", event.target, event.target.value, ValueType.STRING);
