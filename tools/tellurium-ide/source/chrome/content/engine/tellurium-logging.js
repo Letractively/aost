@@ -119,11 +119,12 @@ DummyLogger.prototype.trace = function(msg){
  //uncomment this and comment the next line if you want to see the logging message in window
  //but it would slow down the testing dramatically, for debugging purpose only.
 
+/*
 var jslogger = new Log4js.getLogger("TeEngine");
 jslogger.setLevel(Log4js.Level.ALL);
 //jslogger.addAppender(new Log4js.MozillaJSConsoleAppender());
 jslogger.addAppender(new Log4js.ConsoleAppender());
+*/
 
 //var logger = new Log4js.getLogger("TeEngine");
-
-//var jslogger = new DummyLogger();
+var jslogger = new DummyLogger();
