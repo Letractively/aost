@@ -1,21 +1,16 @@
 
 function Editor(window) {
-//    alert("tellurium before editor initialization " + tellurium);
     this.window = window;
     var self = this;
     
     window.editor = this;
 //    window.browserBot = browserBot;
     window.browserBot = tellurium.browserBot;
-//    alert("window browserBot" + window.browserBot);
 
     this.document = document;
-//    this.init();
     
     this.logView = new LogView(this);
     this.logView.setLog(logger);
-
-//    alert("logView " + this.logView);
     
     this.buildCustomizeTree(DEFAULT_XML);
 
@@ -38,7 +33,6 @@ function Editor(window) {
     this.cmdHistory = new Array();
 
     this.cmdView = CommandView;
-//    this.cmdTree = document.getElementById('commandHistoryTree');
     this.cmdTree = document.getElementById('recordedCommandListTree');
     this.cmdTree.view = this.cmdView;
 
@@ -696,7 +690,7 @@ Editor.prototype.buildUiCommand = function(){
     var cmdDef = this.getCommandDef(name);
     cmd.type = cmdDef.type;
     cmd.returnType = cmdDef.returnType;
-//    if(cmd.type == CommandType.ACTION || cmd.type == CommandType.ACCESSOR){
+
     if(cmd.type == CommandType.HasUid){
         if(target != null){
             this.recorder.app.getRefUidMapFor(target);
@@ -776,7 +770,6 @@ Editor.prototype.processCustomizeEvent = function(event){
 };
 
 Editor.prototype.updateUiModuleName = function(uid) {
-//    var uids = this.command.getUids(uid);
     var uids = tellurium.getUids(uid);
     if (uids != null && uids.length > 0) {
         Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("commandUID")),

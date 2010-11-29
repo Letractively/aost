@@ -259,7 +259,9 @@ Tellurium.prototype.removeMarkedUids = function(tag){
 };
 
 Tellurium.prototype.assertTrue = function(variable){
-    try{
+    return true === variable;
+
+/*    try{
         assertTrue(variable);
     }catch(error){
         if(error.isJsUnitFailure){
@@ -267,11 +269,13 @@ Tellurium.prototype.assertTrue = function(variable){
             throw new TelluriumError(ErrorCodes.ASSERTION_ERROR, message);
         }
         throw error;
-    }
+    }*/
 };
 
 Tellurium.prototype.assertFalse = function(variable){
-    try{
+    return false === variable;
+
+/*    try{
         assertFalse(variable);
     }catch(error){
         if(error.isJsUnitFailure){
@@ -279,11 +283,13 @@ Tellurium.prototype.assertFalse = function(variable){
             throw new TelluriumError(ErrorCodes.ASSERTION_ERROR, message);
         }
         throw error;
-    }
+    }*/
 };
 
 Tellurium.prototype.assertEquals = function(variable1, variable2){
-    try{
+    return variable1 == variable2;
+
+/*    try{
         assertEquals(variable1, variable2);
     }catch(error){
         if(error.isJsUnitFailure){
@@ -291,11 +297,13 @@ Tellurium.prototype.assertEquals = function(variable1, variable2){
             throw new TelluriumError(ErrorCodes.ASSERTION_ERROR, message);
         }
         throw error;
-    }
+    }*/
 };
 
 Tellurium.prototype.assertNotEquals = function(variable1, variable2){
-    try{
+    return variable1 != variable2;
+
+/*    try{
         assertNotEquals(variable1, variable2);
     }catch(error){
         if(error.isJsUnitFailure){
@@ -303,11 +311,13 @@ Tellurium.prototype.assertNotEquals = function(variable1, variable2){
             throw new TelluriumError(ErrorCodes.ASSERTION_ERROR, message);
         }
         throw error;
-    }
+    }*/
 };
 
 Tellurium.prototype.assertNull = function(variable){
-    try{
+    return variable === null;
+
+/*    try{
         assertNull(variable);
     }catch(error){
         if(error.isJsUnitFailure){
@@ -315,11 +325,13 @@ Tellurium.prototype.assertNull = function(variable){
             throw new TelluriumError(ErrorCodes.ASSERTION_ERROR, message);
         }
         throw error;
-    }
+    }*/
 };
 
 Tellurium.prototype.assertNotNull = function(variable){
-    try{
+    return null !== variable;
+
+/*    try{
         assertNotNull(variable);
     }catch(error){
         if(error.isJsUnitFailure){
@@ -327,7 +339,7 @@ Tellurium.prototype.assertNotNull = function(variable){
             throw new TelluriumError(ErrorCodes.ASSERTION_ERROR, message);
         }
         throw error;
-    }
+    }*/
 };
 
 Tellurium.prototype.toggle = function(uid) {
