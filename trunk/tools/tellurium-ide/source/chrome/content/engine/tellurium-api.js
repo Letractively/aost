@@ -612,6 +612,7 @@ Tellurium.prototype.isDisabled = function(uid) {
     return this.execCommand("isDisabled", uid);
 };
 
+/*
 Tellurium.prototype.showUi = function(uid) {
     var context = new WorkflowContext();
     context.alg = this.uiAlg;
@@ -682,6 +683,7 @@ Tellurium.prototype.cleanUi = function(uid) {
         throw new TelluriumError(ErrorCodes.UI_MODULE_IS_NULL, "Cannot find UI Module " + uid);
     }
 };
+*/
 
 Tellurium.prototype.getHTMLSource = function(uid) {
     var context = new WorkflowContext();
