@@ -601,7 +601,7 @@ Recorder.eventHandlers = {};
 Recorder.addEventHandler('type', 'change', function(event) {
 		var tagName = event.target.tagName.toLowerCase();
 		var type = event.target.type;
-        logger("Type event " + type + ", tag name " + tagName);
+//        logger.debug("Type event " + type + ", tag name " + tagName);
 		if (('input' == tagName && ('text' == type || 'password' == type || 'file' == type)) ||
 			'textarea' == tagName) {
             this.recordCommand("type", event.target, event.target.value, ValueType.STRING);
