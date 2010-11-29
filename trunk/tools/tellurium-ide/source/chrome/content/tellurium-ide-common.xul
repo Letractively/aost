@@ -7,12 +7,9 @@
 <overlay id="tellurium-ide-common"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-    <!--<script type="application/x-javascript" src="chrome://source/content/extlib/log4js.js"/>-->
     <script type="application/x-javascript" src="chrome://source/content/extlib/json2.js"/>
     <script type="application/x-javascript" src="chrome://source/content/extlib/jquery-1.4.4.js "/>
-    <!--<script type="application/x-javascript" src="chrome://source/content/extlib/jquery-simpletip-1.3.1.js"/>-->
     <script type="application/x-javascript" src="chrome://source/content/extlib/syn.js"/>
-    <!--<script type="application/x-javascript" src="chrome://source/content/extlib/jsUnitCore.js"/>-->
     <script type="application/x-javascript" src="chrome://source/content/extlib/xpather.js"/>
     <script type="application/x-javascript" src="chrome://source/content/engine/tellurium-utils.js"/>
 
@@ -44,17 +41,11 @@
     <script type="application/x-javascript" src="chrome://source/content/uicreator/uimodule-alg.js"/>
 
     <script type="application/x-javascript" src="chrome://source/content/ide-view.js"/>
-
-<!--
     <script type="application/x-javascript" src="chrome://source/content/recorder.js"/>
-    <script type="application/x-javascript" src="chrome://source/content/recorder-listener.js"/>
--->
-    <script type="application/x-javascript" src="chrome://source/content/recorder-new.js"/>
     <script type="application/x-javascript" src="chrome://source/content/app.js"/>
     <script type="application/x-javascript" src="chrome://source/content/workspace.js"/>
     <script type="application/x-javascript" src="chrome://source/content/log-view.js"/>
     <script type="application/x-javascript" src="chrome://source/content/telluriumIdeLogger.js"/>
-    <!--<script type="application/x-javascript" src="chrome://source/content/jslogger.js"/>-->
     <script type="application/x-javascript" src="chrome://source/content/preferences.js"/>
     <script type="application/x-javascript" src="chrome://source/content/options.js"/>
     <script type="application/x-javascript" src="chrome://source/content/test-runner.js"/>
