@@ -21,10 +21,10 @@ function UimAlg(tagObjectArray, refIdSetter){
     this.max = 5;
 }
 
-UimAlg.prototype.findRoot = function($node1, $node2){
+UimAlg.prototype.findAncestor = function($node1, $node2){
     var queue = new FifoQueue();
     queue.push($node1, $node2);
-    var $nodeList = [];
+    var nodeList = [];
     var $result = null;
     while(queue.size() > 0){
         var $node = queue.pop();
@@ -37,7 +37,7 @@ UimAlg.prototype.findRoot = function($node1, $node2){
             var height = $parent.data(UimConst.HEIGHT);
             if(height == null){
                 $parent.data(UimConst.HEIGHT, cHeight + 1);
-                $nodeList.push($parent);
+                nodeList.push($parent);
                 queue.push($parent);
             }else{
                 height = (height + cHeight)/2;
@@ -50,9 +50,9 @@ UimAlg.prototype.findRoot = function($node1, $node2){
         }
     }
 
-    if($nodeList.length > 0){
-        for(var i=0; i<$nodeList.length; i++){
-            $nodeList[i].removeData(UimConst.HEIGHT);
+    if(nodeList.length > 0){
+        for(var i=0; i<nodeList.length; i++){
+            nodeList[i].removeData(UimConst.HEIGHT);
         }
     }
 
