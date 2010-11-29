@@ -371,8 +371,8 @@ Tellurium.prototype.registerCommands = function(){
     this.registerCommand("getCSSAsString", CommandType.HasUid, ReturnType.STRING, this.getCSSAsString);
     this.registerCommand("isDisable",  CommandType.HasUid, ReturnType.BOOLEAN, this.isDisabled);
     this.registerCommand("reset", CommandType.HasUid, ReturnType.VOID, this.reset);
-    this.registerCommand("showUi", CommandType.HasUid, ReturnType.VOID, this.showUi);
-    this.registerCommand("cleanUi", CommandType.HasUid, ReturnType.VOID, this.cleanUi);
+//    this.registerCommand("showUi", CommandType.HasUid, ReturnType.VOID, this.showUi);
+//    this.registerCommand("cleanUi", CommandType.HasUid, ReturnType.VOID, this.cleanUi);
     this.registerCommand("getHTMLSource", CommandType.HasUid, ReturnType.ARRAY, this.getHTMLSource);
     this.registerCommand("getHTMLSourceAsString", CommandType.HasUid, ReturnType.STRING, this.getHTMLSourceAsString);
     this.registerCommand("getUids", CommandType.HasUid, ReturnType.ARRAY, this.getUids);
