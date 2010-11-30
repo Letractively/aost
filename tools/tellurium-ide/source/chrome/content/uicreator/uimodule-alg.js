@@ -1,6 +1,6 @@
 //New UI Module generation Algorithm
 
-var ContainerTagSet = ["input", "select", "table", "form", "ul", "ol", "dl", "button", "a", "label"];
+var ContainerTagSet = ["input", "select", "table", "form", "ul", "ol", "dl", "li", "button", "a", "label"];
 var TableTagSet = ["tr", "th", "td", "tfoot", "tbody"];
 
 const UimConst = {
@@ -71,7 +71,7 @@ UimAlg.prototype.addExtraFor = function(root, sel){
         var count = 0;
         for(var i=0; i<$ems.length; i++){
             var $em = $ems.eq(i);
-            if($em.data("sid") != null && count < this.max){
+            if($em.data(UimConst.SID) != undefined && count < this.max){
                 count++;
                 this.markNode($em.get(0));
             }
@@ -86,8 +86,18 @@ UimAlg.prototype.addExtra = function(root){
     this.addExtraFor(root, "select");
     this.addExtraFor(root, "button");
     this.addExtraFor(root, "table");
-    this.addExtraFor(root, "link");
+    this.addExtraFor(root, "tbody");
+    this.addExtraFor(root, "tfoot");
+    this.addExtraFor(root, "tr");
+    this.addExtraFor(root, "td");
+    this.addExtraFor(root, "ol");
+    this.addExtraFor(root, "li");
+    this.addExtraFor(root, "ul");
+    this.addExtraFor(root, "dl");
+    this.addExtraFor(root, "div");
+    this.addExtraFor(root, "span");
     this.addExtraFor(root, "a");
+    this.addExtraFor(root, "link");
 };
 
 /*UimAlg.prototype.addExtra = function(root){
@@ -184,13 +194,16 @@ UimAlg.prototype.markNode = function(node) {
                         || pNode.getAttribute("onblur") != null )
                     )) {
                 var sid = $parent.data(UimConst.SID);
+
+                var pNodeObject, cNodeObject;
+
                 if (sid == undefined || sid == null) {
-                    var pNodeObject = new NodeObject();
+                    pNodeObject = new NodeObject();
                     pNodeObject.buildFromDomNode($parent.get(0));
                     pNodeObject.refId = this.refIdSetter.getRefId();
                     pNodeObject.newNode = true;
                     pNodeObject.id = this.suggestName(pNodeObject.tag, pNodeObject.attributes);
-                    var cNodeObject = $current.data(UimConst.NODE_OBJECT);
+                    cNodeObject = $current.data(UimConst.NODE_OBJECT);
                     pNodeObject.addChild(cNodeObject);
                     $parent.data(UimConst.NODE_OBJECT, pNodeObject);
                     $parent.data(UimConst.SID, pNodeObject.refId);
@@ -204,7 +217,7 @@ UimAlg.prototype.markNode = function(node) {
                         tag = $parent.get(0).tagName.toLowerCase();
                     }
                 } else {
-                    var pNodeObject = $parent.data(UimConst.NODE_OBJECT);
+                    pNodeObject = $parent.data(UimConst.NODE_OBJECT);
                     if (pNodeObject == null) {
                         pNodeObject.buildFromDomNode($parent.get(0));
                         pNodeObject.refId = sid;
@@ -212,7 +225,7 @@ UimAlg.prototype.markNode = function(node) {
                         $parent.data(UimConst.NODE_OBJECT, pNodeObject);
                         this.markedNodeArray.push($parent);
                     }
-                    var cNodeObject = $current.data(UimConst.NODE_OBJECT);
+                    cNodeObject = $current.data(UimConst.NODE_OBJECT);
                     pNodeObject.addChild(cNodeObject);
                     cNodeObject.parent = pNodeObject;
 
@@ -287,13 +300,16 @@ UimAlg.prototype.mark = function(tagObject) {
                         || pNode.getAttribute("onblur") != null )
                     )) {
                 var sid = $parent.data(UimConst.SID);
+
+                var pNodeObject, cNodeObject;
+
                 if (sid == undefined || sid == null) {
-                    var pNodeObject = new NodeObject();
+                    pNodeObject = new NodeObject();
                     pNodeObject.buildFromDomNode($parent.get(0));
                     pNodeObject.refId = this.refIdSetter.getRefId();
                     pNodeObject.newNode = true;
                     pNodeObject.id = this.suggestName(pNodeObject.tag, pNodeObject.attributes);
-                    var cNodeObject = $current.data(UimConst.NODE_OBJECT);
+                    cNodeObject = $current.data(UimConst.NODE_OBJECT);
                     pNodeObject.addChild(cNodeObject);
                     $parent.data(UimConst.NODE_OBJECT, pNodeObject);
                     $parent.data(UimConst.SID, pNodeObject.refId);
@@ -307,7 +323,7 @@ UimAlg.prototype.mark = function(tagObject) {
                         tag = $parent.get(0).tagName.toLowerCase();
                     }
                 } else {
-                    var pNodeObject = $parent.data(UimConst.NODE_OBJECT);
+                    pNodeObject = $parent.data(UimConst.NODE_OBJECT);
                     if (pNodeObject == null) {
                         pNodeObject.buildFromDomNode($parent.get(0));
                         pNodeObject.refId = sid;
@@ -315,7 +331,7 @@ UimAlg.prototype.mark = function(tagObject) {
                         $parent.data(UimConst.NODE_OBJECT, pNodeObject);
                         this.markedNodeArray.push($parent);
                     }
-                    var cNodeObject = $current.data(UimConst.NODE_OBJECT);
+                    cNodeObject = $current.data(UimConst.NODE_OBJECT);
                     pNodeObject.addChild(cNodeObject);
                     cNodeObject.parent = pNodeObject;
 

@@ -214,7 +214,7 @@ function Workspace(uiBuilder, uiChecker, refIdSetter){
 
     this.ancestor = null;
 
-    this.maxHeight = 5;
+    this.maxHeight = 8;
 }
 
 Workspace.prototype.needNewUiModule = function(element){
