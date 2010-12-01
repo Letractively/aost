@@ -232,11 +232,11 @@ Workspace.prototype.needNewUiModule = function(element){
 Workspace.prototype.findAncestor = function(element){
     if(this.ancestor == null){
         this.ancestor = teJQuery(element);
-        this.ancestor.data(UimConst.HEIGHT, 1);
+        this.ancestor.data(UimConst.HEIGHT, 0);
     } else {
         var queue = new FifoQueue();
         var $newNode = teJQuery(element);
-        $newNode.data(UimConst.HEIGHT, 1);
+        $newNode.data(UimConst.HEIGHT, 0);
         queue.push($newNode);
         queue.push(this.ancestor);
         var nodes = [];
