@@ -882,7 +882,8 @@ Tellurium.prototype.toJSONString = function(uid){
     return JSON.stringify(json);
 };
 
-Tellurium.prototype.waitForPageToLoad = function(uid, timeout){
+//Tellurium.prototype.waitForPageToLoad = function(uid, timeout){
+Tellurium.prototype.waitForPageToLoad = function(timeout){
     var self = this;
     logger.debug("Set up page load timeout timer at " + (new Date()).getTime() + ": timeout=" + timeout);
     this.browserBot.pageTimeoutTimerId = setTimeout(function() {
