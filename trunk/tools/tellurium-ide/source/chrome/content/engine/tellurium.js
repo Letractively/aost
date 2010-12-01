@@ -388,7 +388,6 @@ Tellurium.prototype.registerCommands = function(){
     this.registerCommand("validateUiModuleAsString", CommandType.NoUid, ReturnType.STRING, this.validateUiModuleAsString);
     this.registerCommand("toJSON", CommandType.HasUid, ReturnType.OBJECT, this.toJSON);
     this.registerCommand("toJSONString", CommandType.HasUid, ReturnType.STRING, this.toJSONString);
-//    this.registerCommand("waitForPageToLoad", CommandType.ACTION, ReturnType.VOID, this.waitForPageToLoad);
     this.registerCommand("waitForPageToLoad", CommandType.NoUid, ReturnType.VOID, this.waitForPageToLoad);
     this.registerCommand("getUiByTag", CommandType.NoUid, ReturnType.OBJECT, this.getUiByTag);
     this.registerCommand("removeMarkedUids", CommandType.NoUid, ReturnType.VOID, this.removeMarkedUids);
