@@ -214,6 +214,8 @@ function Workspace(uiBuilder, uiChecker, refIdSetter){
 
     this.ancestor = null;
 
+    this.optionNodes = [];
+
     this.maxHeight = 8;
 }
 
@@ -227,6 +229,14 @@ Workspace.prototype.needNewUiModule = function(element){
     logger.debug("Current UI module height " + height);
 
     return height > this.maxHeight;
+};
+
+Workspace.prototype.findOptionalNode = function($node){
+
+};
+
+Workspace.prototype.selectOptionalNodes = function(){
+    
 };
 
 Workspace.prototype.findAncestor = function(element){
@@ -259,6 +269,7 @@ Workspace.prototype.findAncestor = function(element){
                 var height = $parent.data(UimConst.HEIGHT);
                 if (height == undefined || height == null) {
                     $parent.data(UimConst.HEIGHT, cHeight + 1);
+                    //TODO: call find optional node, if the node is optional, do not push to nodes array
                     nodes.push($parent);
                     queue.push($parent);
                 } else {
@@ -328,6 +339,7 @@ Workspace.prototype.clear = function(){
         this.ancestor.removeData(UimConst.HEIGHT);
         this.ancestor = null;
     }
+    this.optionNodes = [];
 };
 
 Workspace.prototype.convertCommand = function(){
