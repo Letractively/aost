@@ -323,6 +323,7 @@ Workspace.prototype.findAncestor = function(element){
     if(this.ancestor == null){
         this.ancestor = teJQuery(element);
         this.ancestor.data(UimConst.HEIGHT, 0);
+        logger.debug("After set the ancestor height, the value is " + this.ancestor.data(UimConst.HEIGHT));
     } else {
         var queue = new FifoQueue();
         var $newNode = teJQuery(element);
@@ -335,16 +336,12 @@ Workspace.prototype.findAncestor = function(element){
             var $node = queue.pop();
             var $parent = $node.parent();
             if ($parent != null && $parent.size() > 0) {
-                logger.debug("Data for the node " + $node.data());
+//                logger.debug("Data for the node " + $node.data());
                 var cHeight = $node.data(UimConst.HEIGHT);
                 if (cHeight == undefined || cHeight == null) {
                     logger.error("Node height is not set");
-                    this.ancester = null;
+                    this.ancestor = null;
                     break;
-//                    cHeight = 1;
-                    //XXX: This may occur if the web has been refreshed, i.e., Ajax calls
-//                    $node.data(UimConst.HEIGHT, 1);
-//                    throw new TelluriumError(ErrorCodes.MAX_HEIGHT_NOT_SET, "Height is not set");
                 }
                 var height = $parent.data(UimConst.HEIGHT);
                 if (height == undefined || height == null) {
