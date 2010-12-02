@@ -421,7 +421,7 @@ Recorder.prototype.recordDomNode = function (element){
         }else {
             refId = teJQuery(element).data("sid");
             var count = teJQuery(element).data("count");
-            if (count == "0") {
+            if (count == 0) {
                 //we are assuming to remove the element
                 this.decorator.removeBackground(element);
                 this.selectedElements.splice(index, 1);

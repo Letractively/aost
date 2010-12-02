@@ -231,12 +231,79 @@ Workspace.prototype.needNewUiModule = function(element){
     return height > this.maxHeight;
 };
 
-Workspace.prototype.findOptionalNode = function($node){
+Workspace.prototype.findOptionalNode = function($node) {
+    if ($node.data(UimConst.SID) == undefined) {
+        return false;
+    }
+    var pNode = $node.get(0);
+    var tag = pNode.tagName.toLowerCase();
 
+    return (ContainerTagSet.indexOf(tag) != -1
+            || pNode.getAttribute("id") != null
+            || pNode.getAttribute("onclick") != null
+            || pNode.getAttribute("ondblclick") != null
+            || pNode.getAttribute("onchange") != null
+            || pNode.getAttribute("onkeydown") != null
+            || pNode.getAttribute("onkeypress") != null
+            || pNode.getAttribute("onkeyup") != null
+            || pNode.getAttribute("onmousedown") != null
+            || pNode.getAttribute("onmouseout") != null
+            || pNode.getAttribute("onmouseover") != null
+            || pNode.getAttribute("onblur") != null);
 };
 
-Workspace.prototype.selectOptionalNodes = function(){
-    
+Workspace.prototype.selectOptionalNodes = function(frameName){
+    var mxHeight = this.ancestor.data(UimConst.HEIGHT);
+    var optNodes = [];
+    if(mxHeight != undefined && mxHeight > 0){
+        for(var i=0; i<this.optionNodes.length; i++){
+            var $node = this.optionNodes[i];
+            var height = $node.data(UimConst.HEIGHT);
+            if(height <= mxHeight){
+                if($node.data(UimConst.SID) == undefined){
+                    var refId = this.refIdSetter.getRefId();
+                    $node.data(UimConst.SID, refId);
+                    $node.data(UimConst.COUNT, 0);
+                    var tagObject = this.builder.createTagObject($node.get(0), refId, frameName);
+
+                    optNodes.push(tagObject);
+                }
+            }
+            
+            $node.removeData(UimConst.HEIGHT);
+        }
+    }
+
+
+
+    return optNodes;
+};
+
+Workspace.prototype.selectAncestorNode = function(frameName){
+    var mxHeight = this.ancestor.data(UimConst.HEIGHT);
+    if(mxHeight != undefined && mxHeight > 0){
+        if(this.ancestor.data(UimConst.SID) == undefined){
+            var refId = this.refIdSetter.getRefId();
+            this.ancestor.data(UimConst.SID, refId);
+            this.ancestor.data(UimConst.COUNT, 0);
+            
+            return this.builder.createTagObject(this.ancestor.get(0), refId, frameName);
+        }
+
+        this.ancestor.removeData(UimConst.HEIGHT);
+    }
+
+    return null;
+};
+
+Workspace.prototype.selectAdditionalNodes = function(frameName){
+    var nodes = this.selectOptionalNodes(frameName);
+    var anNode = this.selectAncestorNode(frameName);
+    if(anNode != null){
+        nodes.push(anNode);
+    }
+
+    return nodes;
 };
 
 Workspace.prototype.findAncestor = function(element){
@@ -269,8 +336,12 @@ Workspace.prototype.findAncestor = function(element){
                 var height = $parent.data(UimConst.HEIGHT);
                 if (height == undefined || height == null) {
                     $parent.data(UimConst.HEIGHT, cHeight + 1);
-                    //TODO: call find optional node, if the node is optional, do not push to nodes array
-                    nodes.push($parent);
+                    var optional = this.findOptionalNode($parent);
+                    if(optional){
+                        this.optionNodes.push($parent);
+                     }else{
+                        nodes.push($parent);
+                    }
                     queue.push($parent);
                 } else {
                     height = (height + cHeight) / 2;
@@ -368,6 +439,12 @@ Workspace.prototype.generate = function(){
     if (this.tagObjectArray != null && this.tagObjectArray.length > 0) {
 //        this.preBuild(this.tagObjectArray);
 //        this.generateUiModule(this.tagObjectArray);
+        var frameName = this.tagObjectArray[0].frameName;
+        var nodes = this.selectAdditionalNodes(frameName);
+        for(var i=0; i<nodes.length; i++){
+            this.tagObjectArray.push(nodes[i]);
+        }
+
         this.buildUiModule();
         this.validateUiModule();
         this.buildRefUidMap();
