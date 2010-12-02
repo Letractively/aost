@@ -3,7 +3,8 @@
 var ContainerTagSet = ["input", "select", "table", "form", "ul", "ol", "dl", "li", "button", "a", "label", "div", "span"];
 var TableTagSet = ["tr", "th", "td", "tfoot", "tbody"];
 
-const UimConst = {
+//const UimConst = {
+var UimConst = {
     NODE_OBJECT: "nodeObject",
     CHILDREN: "children",
     PARENT: "parent",
@@ -12,6 +13,102 @@ const UimConst = {
     EXCLUDE: "exclude",
     PARENT_COUNT: "pcount",
     HEIGHT: "UimHeight"
+};
+
+function DomMetaData(){
+    this.elements = [];
+    this.index = {};
+    this.reverseIndex = {};
+    this.dataIndex = {};
+}
+
+DomMetaData.prototype.addElement = function(refId, element){
+    var index = this.elements.indexOf(element);
+    if(index == -1){
+        this.elements.push(element);
+        index = this.elements.length - 1;
+        this.index[refId] = element;
+        this.reverseIndex[index] = refId;
+    }else{
+        logger.warn("Element already existed and its index is " + index);
+    }
+};
+
+DomMetaData.prototype.getRefId = function(element){
+    var index = this.elements.indexOf(element);
+    if(index != -1){
+        return this.reverseIndex[index];
+    }else{
+        logger.warn("Element does not exist");
+        return null;
+    }
+};
+
+DomMetaData.prototype.getElement = function(refId){
+    var element = this.index[refId];
+    if(element == undefined){
+        logger.warn("Cannot find element associated with RefId " + refId);
+        return null;
+    }else{
+        return element;
+    }
+};
+
+DomMetaData.prototype.putData = function(element, key, val){
+    var index = this.elements.indexOf(element);
+    if(index != -1){
+        var refId = this.reverseIndex[index];
+        var data = this.dataIndex[refId];
+        if(data == undefined){
+            data = {};
+            data[key] = val;
+            this.dataIndex[refId] = data;
+        }else{
+            data[key] = val;
+        }
+    }else{
+        logger.warn("Element does not exist");
+    }
+};
+
+DomMetaData.prototype.getData = function(element, key){
+    var index = this.elements.indexOf(element);
+    if(index != -1){
+        var refId = this.reverseIndex[index];
+        var data = this.dataIndex[refId];
+        if(data == undefined || data == null){
+            return null;
+        }else{
+            return data[key];
+        }
+    }else{
+        logger.warn("Element does not exist");
+        return null;
+    }
+
+};
+
+DomMetaData.prototype.removeData = function(element, key){
+    var index = this.elements.indexOf(element);
+    if(index != -1){
+        var refId = this.reverseIndex[index];
+        var data = this.dataIndex[refId];
+        if(data != undefined && data != null){
+            delete data[key];
+        }
+    }else{
+        logger.warn("Element does not exist");
+    }
+};
+
+DomMetaData.prototype.removeAllData = function(element){
+    var index = this.elements.indexOf(element);
+    if(index != -1){
+        var refId = this.reverseIndex[index];
+        this.dataIndex[refId] = null;
+    }else{
+        logger.warn("Element does not exist");
+    }
 };
 
 function UimAlg(tagObjectArray, refIdSetter){
