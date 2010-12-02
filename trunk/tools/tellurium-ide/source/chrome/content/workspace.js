@@ -253,8 +253,15 @@ Workspace.prototype.findOptionalNode = function($node) {
 };
 
 Workspace.prototype.selectOptionalNodes = function(frameName){
-    var mxHeight = this.ancestor.data(UimConst.HEIGHT);
     var optNodes = [];
+
+    var mxHeight;
+    if(this.ancestor == null){
+        mxHeight = this.maxHeight;
+    }else{
+        mxHeight = this.ancestor.data(UimConst.HEIGHT);
+    }
+
     if(mxHeight != undefined && mxHeight > 0){
         for(var i=0; i<this.optionNodes.length; i++){
             var $node = this.optionNodes[i];
@@ -280,6 +287,10 @@ Workspace.prototype.selectOptionalNodes = function(frameName){
 };
 
 Workspace.prototype.selectAncestorNode = function(frameName){
+    if(this.ancestor == null){
+        return null;
+    }
+
     var mxHeight = this.ancestor.data(UimConst.HEIGHT);
     if(mxHeight != undefined && mxHeight > 0){
         if(this.ancestor.data(UimConst.SID) == undefined){
@@ -302,6 +313,8 @@ Workspace.prototype.selectAdditionalNodes = function(frameName){
     if(anNode != null){
         nodes.push(anNode);
     }
+
+    logger.debug("Add additional " + nodes.length + " nodes");
 
     return nodes;
 };
