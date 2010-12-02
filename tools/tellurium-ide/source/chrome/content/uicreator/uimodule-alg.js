@@ -85,7 +85,6 @@ DomMetaData.prototype.getData = function(element, key){
         logger.warn("Element does not exist");
         return null;
     }
-
 };
 
 DomMetaData.prototype.removeData = function(element, key){
