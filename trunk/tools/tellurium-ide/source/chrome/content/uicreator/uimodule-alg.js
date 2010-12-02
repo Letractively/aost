@@ -1,6 +1,6 @@
 //New UI Module generation Algorithm
 
-var ContainerTagSet = ["input", "select", "table", "form", "ul", "ol", "dl", "li", "button", "a", "label"];
+var ContainerTagSet = ["input", "select", "table", "form", "ul", "ol", "dl", "li", "button", "a", "label", "div", "span"];
 var TableTagSet = ["tr", "th", "td", "tfoot", "tbody"];
 
 const UimConst = {
@@ -8,6 +8,7 @@ const UimConst = {
     CHILDREN: "children",
     PARENT: "parent",
     SID: "sid",
+    COUNT: "count",
     EXCLUDE: "exclude",
     PARENT_COUNT: "pcount",
     HEIGHT: "UimHeight"
