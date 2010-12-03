@@ -1,6 +1,7 @@
 //New UI Module generation Algorithm
 
-var ContainerTagSet = ["input", "select", "table", "form", "ul", "ol", "dl", "li", "button", "a", "label", "div", "span"];
+//var ContainerTagSet = ["input", "select", "table", "form", "ul", "ol", "dl", "li", "button", "a", "label", "div", "span"];
+var ContainerTagSet = ["input", "select", "table", "form", "ul", "ol", "dl", "li", "button", "a", "label"];
 var TableTagSet = ["tr", "th", "td", "tfoot", "tbody"];
 
 //const UimConst = {
@@ -347,8 +348,11 @@ UimAlg.prototype.markNode = function(node) {
             var pNode = $parent.get(0);
 
             //TODO: need to count the number of children
+            var childrenSize = $parent.children().size();
+            
             if (ContainerTagSet.indexOf(tag) != -1
-                    || ((tag == "div" || tag == "span") && (pNode.getAttribute("id") != null
+                    || ((tag == "div" || tag == "span") && (childrenSize > 1
+                        || pNode.getAttribute("id") != null
                         || pNode.getAttribute("onclick") != null
                         || pNode.getAttribute("ondblclick") != null
                         || pNode.getAttribute("onchange") != null
@@ -433,18 +437,23 @@ UimAlg.prototype.mark = function(tagObject) {
         var tag = $parent.get(0).tagName.toLowerCase();
         while (tag != "html" && tag != "body") {
             var pNode = $parent.get(0);
+            var childrenSize = $parent.children().size();
 
-/*            var pcnt = teJQuery(pNode).data(UimConst.PARENT_COUNT);
-            if (pcnt == undefined || pcnt == null) {
-                pcnt = 1;
-            } else {
-                pcnt++;
-            }
-            teJQuery(pNode).data(UimConst.PARENT_COUNT, pcnt);
-            logger.debug("pcnt: " + pcnt + " tagObjectArray: " + this.tagObjectArray.length);
-
-            if (pcnt == this.tagObjectArray.length
-                    || ContainerTagSet.indexOf(tag) != -1
+            if (ContainerTagSet.indexOf(tag) != -1
+                    || ((tag == "div" || tag == "span") && (childrenSize > 1
+                        || pNode.getAttribute("id") != null
+                        || pNode.getAttribute("onclick") != null
+                        || pNode.getAttribute("ondblclick") != null
+                        || pNode.getAttribute("onchange") != null
+                        || pNode.getAttribute("onkeydown") != null
+                        || pNode.getAttribute("onkeypress") != null
+                        || pNode.getAttribute("onkeyup") != null
+                        || pNode.getAttribute("onmousedown") != null
+                        || pNode.getAttribute("onmouseout") != null
+                        || pNode.getAttribute("onmouseover") != null
+                        || pNode.getAttribute("onblur") != null )
+                    )) {
+/*            if (ContainerTagSet.indexOf(tag) != -1
                     || ((tag == "div" || tag == "span") && (pNode.getAttribute("id") != null
                         || pNode.getAttribute("onclick") != null
                         || pNode.getAttribute("ondblclick") != null
@@ -457,19 +466,6 @@ UimAlg.prototype.mark = function(tagObject) {
                         || pNode.getAttribute("onmouseover") != null
                         || pNode.getAttribute("onblur") != null )
                     )) {*/
-            if (ContainerTagSet.indexOf(tag) != -1
-                    || ((tag == "div" || tag == "span") && (pNode.getAttribute("id") != null
-                        || pNode.getAttribute("onclick") != null
-                        || pNode.getAttribute("ondblclick") != null
-                        || pNode.getAttribute("onchange") != null
-                        || pNode.getAttribute("onkeydown") != null
-                        || pNode.getAttribute("onkeypress") != null
-                        || pNode.getAttribute("onkeyup") != null
-                        || pNode.getAttribute("onmousedown") != null
-                        || pNode.getAttribute("onmouseout") != null
-                        || pNode.getAttribute("onmouseover") != null
-                        || pNode.getAttribute("onblur") != null )
-                    )) {
                 var sid = $parent.data(UimConst.SID);
 
                 var pNodeObject, cNodeObject;

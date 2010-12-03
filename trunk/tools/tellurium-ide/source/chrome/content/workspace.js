@@ -234,12 +234,15 @@ Workspace.prototype.needNewUiModule = function(element){
 };
 
 Workspace.prototype.findOptionalNode = function(node) {
-    if (teJQuery(node).data(UimConst.SID) == undefined) {
+    var $node = teJQuery(node);
+    if ($node.data(UimConst.SID) == undefined) {
         return false;
     }
     var tag = node.tagName.toLowerCase();
+    var childrenSize = $node.children().size();
 
     return (ContainerTagSet.indexOf(tag) != -1
+            || ((tag == "div" || tag == "span") && (childrenSize > 1
             || node.getAttribute("id") != null
             || node.getAttribute("onclick") != null
             || node.getAttribute("ondblclick") != null
@@ -250,7 +253,7 @@ Workspace.prototype.findOptionalNode = function(node) {
             || node.getAttribute("onmousedown") != null
             || node.getAttribute("onmouseout") != null
             || node.getAttribute("onmouseover") != null
-            || node.getAttribute("onblur") != null);
+            || node.getAttribute("onblur") != null)));
 };
 
 Workspace.prototype.selectOptionalNodes = function(frameName){
