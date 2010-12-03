@@ -425,27 +425,35 @@ Recorder.prototype.recordDomNode = function (element){
             this.decorator.addBackground(element);
             this.selectedElements.push(element);
 
+/*
             refId = this.refIdSetter.getRefId();
             var tagObject = this.builder.createTagObject(element, refId, this.frameName);
             teJQuery(element).data("sid", refId);
             teJQuery(element).data("count", 0);
+*/
+            var tagObject = this.workspace.recordDomNode(element, this.frameName);
+            //TODO: remove duplicated tagObjectArray (workspace and recorder)
             this.tagObjectArray.push(tagObject);
 
             this.treeView.setTagObjects(this.tagObjectArray);
             this.treeView.rowInserted();
-            this.workspace.addNode(element, this.frameName, refId);
+//            this.workspace.addNode(element, this.frameName, refId);
         }else {
-            refId = teJQuery(element).data("sid");
-            var count = teJQuery(element).data("count");
-            if (count == 0) {
+            var succeed = this.workspace.unRecordDomNode(index, element);
+            if(succeed){
                 //we are assuming to remove the element
                 this.decorator.removeBackground(element);
                 this.selectedElements.splice(index, 1);
                 this.tagObjectArray.splice(index, 1);
                 this.treeView.deleteRow(index);
+            }
+
+/*            refId = teJQuery(element).data("sid");
+            var count = teJQuery(element).data("count");
+            if (count == 0) {
                 teJQuery(element).removeData("sid");
                 teJQuery(element).removeData("count");
-            }
+            }*/
         }
     } catch(error) {
         logger.error("Record node " + element.tagName + " failed:\n" + describeErrorStack(error));
@@ -480,13 +488,16 @@ Recorder.prototype.recordCommand = function(name, element, value, valueType){
         }
         
         var uid = this.recordDomNode(element);
-        var count = teJQuery(element).data("count");
+        this.workspace.increaseCount(element);
+
+/*        var count = teJQuery(element).data("count");
         if (count == undefined) {
             logger.warn("Element count is undefined for command " + name);
             teJQuery(element).data("count", 1);
         } else {
             teJQuery(element).data("count", count + 1);
-        }
+        }*/
+        
         result = this.workspace.addCommand(name, uid, value, valueType);
         if (result) {
             cmd = new TestCmd(name, uid, value);

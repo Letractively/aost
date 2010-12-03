@@ -1,7 +1,7 @@
 
 function Editor(window) {
     this.window = window;
-    var self = this;
+//    var self = this;
     
     window.editor = this;
 //    window.browserBot = browserBot;

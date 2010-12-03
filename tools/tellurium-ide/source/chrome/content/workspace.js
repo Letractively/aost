@@ -214,6 +214,8 @@ function Workspace(uiBuilder, uiChecker, refIdSetter){
 
     this.cmdExecutor = null;
 
+    this.prevAncestor = null;
+
     this.ancestor = null;
 
     this.optionNodes = [];
@@ -235,9 +237,14 @@ Workspace.prototype.needNewUiModule = function(element){
 
 Workspace.prototype.findOptionalNode = function(node) {
     var $node = teJQuery(node);
-    if ($node.data(UimConst.SID) == undefined) {
+/*    if ($node.data(UimConst.SID) == undefined) {
+        return false;
+    }*/
+
+    if(this.domCache.getData(node, UimConst.SID) == undefined){
         return false;
     }
+
     var tag = node.tagName.toLowerCase();
     var childrenSize = $node.children().size();
 
@@ -271,11 +278,17 @@ Workspace.prototype.selectOptionalNodes = function(frameName){
             var node = this.optionNodes[i];
             var height = this.domCache.getData(node, UimConst.HEIGHT);
             if(height <= mxHeight){
-                var $node = teJQuery(node);
-                if($node.data(UimConst.SID) == undefined){
-                    var refId = this.refIdSetter.getRefId();
+//                var $node = teJQuery(node);
+                if(this.domCache.getData(node, UimConst.SID) == undefined){
+/*                    var refId = this.refIdSetter.getRefId();
                     $node.data(UimConst.SID, refId);
-                    $node.data(UimConst.COUNT, 0);
+                    $node.data(UimConst.COUNT, 0);*/
+                    var refId = this.domCache.getRefId(node);
+                    this.domCache.setData(node, UimConst.SID, refId);
+                    var count = this.domCache.getData(node, UimConst.COUNT);
+                    if(count == undefined){
+                       this.domCache.setData(node, UimConst.COUNT, 0); 
+                    }
                     var tagObject = this.builder.createTagObject(node, refId, frameName);
 
                     optNodes.push(tagObject);
@@ -290,23 +303,37 @@ Workspace.prototype.selectOptionalNodes = function(frameName){
 };
 
 Workspace.prototype.selectAncestorNode = function(frameName) {
+    if(this.ancestor == null && this.prevAncestor != null){
+        this.ancestor = this.prevAncestor;
+    }
+    
     if (this.ancestor != null) {
         var mxHeight = this.domCache.getData(this.ancestor, UimConst.HEIGHT);
         var $ancestor = teJQuery(this.ancestor);
         if (mxHeight == undefined || mxHeight == 0) {
             $ancestor = $ancestor.parent();
+            this.ancestor = $ancestor.get(0);
+            this.domCache.addElement(this.ancestor);
         }
+
         this.domCache.removeData(this.ancestor, UimConst.HEIGHT);
-        var refId;
-        if ($ancestor.data(UimConst.SID) == undefined) {
+
+        var refId = this.domCache.getRefId(this.ancestor);
+        if(this.domCache.getData(this.ancestor, UimConst.SID)  == undefined){
+            this.domCache.setData(this.ancestor, UimConst.SID, refId);
+            this.domCache.setData(this.ancestor, UimConst.COUNT, 0);
+        }
+
+/*        if ($ancestor.data(UimConst.SID) == undefined) {
             refId = this.refIdSetter.getRefId();
             $ancestor.data(UimConst.SID, refId);
             $ancestor.data(UimConst.COUNT, 0);
         }else{
             refId = $ancestor.data(UimConst.SID);
-        }
+        }*/
         
-        return this.builder.createTagObject($ancestor.get(0), refId, frameName);
+//        return this.builder.createTagObject($ancestor.get(0), refId, frameName);
+        return this.builder.createTagObject(this.ancestor, refId, frameName);
     }
 };
 
@@ -316,6 +343,7 @@ Workspace.prototype.findAncestor = function(element){
 
         this.domCache.addElement(element);
         this.domCache.setData(element, UimConst.HEIGHT, 0);
+        this.prevAncestor = this.ancestor;
 //        logger.debug("After set the ancestor height, the value is " + this.domCache.getData(element, UimConst.HEIGHT));
     } else {
         var queue = new FifoQueue();
@@ -365,9 +393,46 @@ Workspace.prototype.findAncestor = function(element){
         }
 
         this.ancestor = result;
+        if(result != null){
+            this.prevAncestor = this.ancestor;
+        }
 
         return result;
     }
+};
+
+Workspace.prototype.recordDomNode = function(element, frameName){
+    var refId = this.domCache.addElement(element);
+    var node = new NodeRef(element, frameName, refId);
+    this.nodeList.push(node);
+    var tagObject = this.builder.createTagObject(element, refId, frameName);
+    this.tagObjectArray.push(tagObject);
+    this.domCache.setData(element, UimConst.SID, refId);
+    this.domCache.setData(element, UimConst.COUNT, 0);
+
+    return tagObject;
+};
+
+Workspace.prototype.unRecordDomNode = function(index, element){
+    var count = this.domCache.getData(element, UimConst.COUNT);
+    if(count == 0){
+        this.tagObjectArray.splice(index, 1);
+        this.domCache.removeData(element, UimConst.SID);
+        this.domCache.removeData(element, UimConst.COUNT);
+        return true;
+    }
+
+    return false;
+};
+
+Workspace.prototype.increaseCount = function(element){
+    var count = this.domCache.getData(element, UimConst.COUNT);
+    if(count == undefined){
+        count = 0;
+    }
+    count++;
+
+    this.domCache.setData(element, UimConst.COUNT, count);       
 };
 
 Workspace.prototype.addNode = function(dom, frameName, ref){
@@ -442,8 +507,6 @@ Workspace.prototype.isEmpty = function(){
 
 Workspace.prototype.generate = function(){
     if (this.tagObjectArray != null && this.tagObjectArray.length > 0) {
-//        this.preBuild(this.tagObjectArray);
-//        this.generateUiModule(this.tagObjectArray);
         var frameName = this.tagObjectArray[0].frameName;
         var nodes = this.selectOptionalNodes(frameName);
         var root = this.selectAncestorNode(frameName);
@@ -453,11 +516,13 @@ Workspace.prototype.generate = function(){
             this.tagObjectArray.push(nodes[i]);
         }
 
-        if(root != null){
+        this.buildUiModule(root);
+
+/*        if(root != null){
             this.buildUiModuleWithRoot(root);
         }else{
             this.buildUiModule();
-        }
+        }*/
 
         this.validateUiModule();
         this.buildRefUidMap();
@@ -700,21 +765,21 @@ Workspace.prototype.generateUiModule = function(tagArrays){
     }
 };
 
-Workspace.prototype.buildUiModule = function(){
-    var alg = new UimAlg(this.tagObjectArray, this.refIdSetter);
+Workspace.prototype.buildUiModule = function(root){
+    var alg = new UimAlg(this.tagObjectArray, root, this.refIdSetter, this.domCache);
     this.innerTree = alg.build();
     this.innerTree.postProcess();
     this.innerTree.buildUiObject(this.uiBuilder, this.checker);
     this.innerTree.buildIndex();
 };
 
-Workspace.prototype.buildUiModuleWithRoot = function(root){
-    var alg = new UimAlg(this.tagObjectArray, this.refIdSetter);
-    this.innerTree = alg.buildWithRoot(root);
+/*Workspace.prototype.buildUiModuleWithRoot = function(root){
+    var alg = new UimAlg(this.tagObjectArray, root, this.refIdSetter, this.domCache);
+    this.innerTree = alg.build(root);
     this.innerTree.postProcess();
     this.innerTree.buildUiObject(this.uiBuilder, this.checker);
     this.innerTree.buildIndex();
-};
+};*/
 
 Workspace.prototype.buildRefUidMap = function(){
     var visitor = new UiRefMapper();
