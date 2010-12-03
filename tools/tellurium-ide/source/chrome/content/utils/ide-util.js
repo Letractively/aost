@@ -211,6 +211,7 @@ var XulUtils = {
             getService(Components.interfaces.nsIAtomService)
 };
 
+/*
 XulUtils.TreeViewHelper = classCreate();
 objectExtend(XulUtils.TreeViewHelper.prototype, {
     initialize: function(tree) {
@@ -253,6 +254,7 @@ objectExtend(XulUtils.TreeViewHelper.prototype, {
     cycleHeader: function(colID, elt) {
     }
 });
+*/
 
 function getAvailableContentDocumentUrls(aChrome){
     var ww = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces["nsIWindowMediator"]);
