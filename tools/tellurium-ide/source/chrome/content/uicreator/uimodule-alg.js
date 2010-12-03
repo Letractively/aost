@@ -370,7 +370,9 @@ UimAlg.prototype.markNode = function(node) {
                     pNodeObject.newNode = true;
                     pNodeObject.id = this.suggestName(pNodeObject.tag, pNodeObject.attributes);
                     cNodeObject = $current.data(UimConst.NODE_OBJECT);
-                    pNodeObject.addChild(cNodeObject);
+                    if(!pNodeObject.exist(cNodeObject)){
+                        pNodeObject.addChild(cNodeObject);
+                    }
                     $parent.data(UimConst.NODE_OBJECT, pNodeObject);
                     $parent.data(UimConst.SID, pNodeObject.refId);
                     cNodeObject.parent = pNodeObject;
@@ -392,7 +394,9 @@ UimAlg.prototype.markNode = function(node) {
                         this.markedNodeArray.push($parent);
                     }
                     cNodeObject = $current.data(UimConst.NODE_OBJECT);
-                    pNodeObject.addChild(cNodeObject);
+                    if(!pNodeObject.exist(cNodeObject)){
+                        pNodeObject.addChild(cNodeObject);
+                    }
                     cNodeObject.parent = pNodeObject;
 
                     break;
@@ -476,7 +480,9 @@ UimAlg.prototype.mark = function(tagObject) {
                     pNodeObject.newNode = true;
                     pNodeObject.id = this.suggestName(pNodeObject.tag, pNodeObject.attributes);
                     cNodeObject = $current.data(UimConst.NODE_OBJECT);
-                    pNodeObject.addChild(cNodeObject);
+                    if(!pNodeObject.exist(cNodeObject)){
+                        pNodeObject.addChild(cNodeObject);
+                    }
                     $parent.data(UimConst.NODE_OBJECT, pNodeObject);
                     $parent.data(UimConst.SID, pNodeObject.refId);
                     cNodeObject.parent = pNodeObject;
@@ -499,7 +505,9 @@ UimAlg.prototype.mark = function(tagObject) {
                         this.markedNodeArray.push($parent);
                     }
                     cNodeObject = $current.data(UimConst.NODE_OBJECT);
-                    pNodeObject.addChild(cNodeObject);
+                    if(!pNodeObject.exist(cNodeObject)){
+                        pNodeObject.addChild(cNodeObject);
+                    }
                     cNodeObject.parent = pNodeObject;
 
                     break;
