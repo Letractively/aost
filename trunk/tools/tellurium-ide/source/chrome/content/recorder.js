@@ -400,6 +400,22 @@ Recorder.prototype.alreadyRecorded = function (element){
     return this.selectedElements.indexOf(element) != -1;
 };
 
+Recorder.prototype.updateWindowUrl = function(element){
+    var baseUrl = document.getElementById("windowURL").value;
+    var actualUrl = element.ownerDocument.location.href;
+    if (baseUrl.trim().length == 0 || baseUrl != actualUrl) {
+        document.getElementById("windowURL").value = actualUrl;
+    }
+};
+
+Recorder.prototype.needNewUiModule = function(element){
+    if(this.selectedElements.indexOf(element) != -1){
+        return false;
+    }
+
+    return this.workspace.needNewUiModule(element);
+};
+
 Recorder.prototype.recordDomNode = function (element){
     var refId;
     try {
@@ -436,22 +452,6 @@ Recorder.prototype.recordDomNode = function (element){
     }
 
     return refId;
-};
-
-Recorder.prototype.updateWindowUrl = function(element){
-    var baseUrl = document.getElementById("windowURL").value;
-    var actualUrl = element.ownerDocument.location.href;
-    if (baseUrl.trim().length == 0 || baseUrl != actualUrl) {
-        document.getElementById("windowURL").value = actualUrl;
-    }
-};
-
-Recorder.prototype.needNewUiModule = function(element){
-    if(this.selectedElements.indexOf(element) != -1){
-        return false;
-    }
-
-    return this.workspace.needNewUiModule(element);
 };
 
 Recorder.prototype.recordCommand = function(name, element, value, valueType){

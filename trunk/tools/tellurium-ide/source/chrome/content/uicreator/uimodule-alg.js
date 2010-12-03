@@ -15,14 +15,21 @@ var UimConst = {
     HEIGHT: "UimHeight"
 };
 
-function DomMetaData(){
+function TelluriumDomCache(){
     this.elements = [];
     this.index = {};
     this.reverseIndex = {};
     this.dataIndex = {};
 }
 
-DomMetaData.prototype.addElement = function(refId, element){
+TelluriumDomCache.prototype.clear = function(){
+    this.elements = [];
+    this.index = {};
+    this.reverseIndex = {};
+    this.dataIndex = {};
+};
+
+TelluriumDomCache.prototype.addElement = function(refId, element){
     var index = this.elements.indexOf(element);
     if(index == -1){
         this.elements.push(element);
@@ -34,7 +41,7 @@ DomMetaData.prototype.addElement = function(refId, element){
     }
 };
 
-DomMetaData.prototype.getRefId = function(element){
+TelluriumDomCache.prototype.getRefId = function(element){
     var index = this.elements.indexOf(element);
     if(index != -1){
         return this.reverseIndex[index];
@@ -44,7 +51,7 @@ DomMetaData.prototype.getRefId = function(element){
     }
 };
 
-DomMetaData.prototype.getElement = function(refId){
+TelluriumDomCache.prototype.getElement = function(refId){
     var element = this.index[refId];
     if(element == undefined){
         logger.warn("Cannot find element associated with RefId " + refId);
@@ -54,7 +61,7 @@ DomMetaData.prototype.getElement = function(refId){
     }
 };
 
-DomMetaData.prototype.putData = function(element, key, val){
+TelluriumDomCache.prototype.putData = function(element, key, val){
     var index = this.elements.indexOf(element);
     if(index != -1){
         var refId = this.reverseIndex[index];
@@ -71,7 +78,7 @@ DomMetaData.prototype.putData = function(element, key, val){
     }
 };
 
-DomMetaData.prototype.getData = function(element, key){
+TelluriumDomCache.prototype.getData = function(element, key){
     var index = this.elements.indexOf(element);
     if(index != -1){
         var refId = this.reverseIndex[index];
@@ -87,7 +94,7 @@ DomMetaData.prototype.getData = function(element, key){
     }
 };
 
-DomMetaData.prototype.removeData = function(element, key){
+TelluriumDomCache.prototype.removeData = function(element, key){
     var index = this.elements.indexOf(element);
     if(index != -1){
         var refId = this.reverseIndex[index];
@@ -100,7 +107,7 @@ DomMetaData.prototype.removeData = function(element, key){
     }
 };
 
-DomMetaData.prototype.removeAllData = function(element){
+TelluriumDomCache.prototype.removeAllData = function(element){
     var index = this.elements.indexOf(element);
     if(index != -1){
         var refId = this.reverseIndex[index];
