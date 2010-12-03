@@ -278,6 +278,19 @@ function NodeObject(){
 //    this.xmlutil = new XmlUtil();
 }
 
+NodeObject.prototype.exist = function(child){
+
+    if(child != null && this.children.length > 0){
+        for(var i=0; i<this.children.length; i++){
+            if(this.children[i].refId == child.refId){
+                return true;
+            }
+        }
+    }
+
+    return false;
+};
+
 NodeObject.prototype.buildFromDomNode = function(domNode){
     var lowerCaseNodeName ;
     var attributes;
