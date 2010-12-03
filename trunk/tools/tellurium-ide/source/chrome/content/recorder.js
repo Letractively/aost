@@ -175,10 +175,10 @@ Recorder.prototype.registerForAllWindows = function() {
     var window;
     while (e.hasMoreElements()) {
         window = e.getNext();
-        logger.debug("window=" + window);
+//        logger.debug("window=" + window);
         var browsers = window.getBrowser().browsers;
         for (var i = 0; i < browsers.length; i++) {
-            logger.debug("browser=" + browsers[i]);
+//            logger.debug("browser=" + browsers[i]);
             this.attachActionListeners(browsers[i].contentWindow);
 
             var frames = browsers[i].contentWindow.frames;
@@ -195,10 +195,10 @@ Recorder.prototype.deregisterForAllWindows = function() {
     var window;
     while (e.hasMoreElements()) {
         window = e.getNext();
-        logger.debug("window=" + window);
+//        logger.debug("window=" + window);
         var browsers = window.getBrowser().browsers;
         for (var i = 0; i < browsers.length; i++) {
-            logger.debug("browser=" + browsers[i]);
+//            logger.debug("browser=" + browsers[i]);
             this.detachActionListeners(browsers[i].contentWindow);
 
             var frames = browsers[i].contentWindow.frames;

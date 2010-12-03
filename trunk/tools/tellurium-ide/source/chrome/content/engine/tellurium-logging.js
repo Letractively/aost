@@ -81,8 +81,8 @@ function fbDir(obj){
 
 
 function LogManager(){
-//    this.isUseLog = false;
-    this.isUseLog = true;
+    this.isUseLog = false;
+//    this.isUseLog = true;
     this.logLevel = "info";
 }
 

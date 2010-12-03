@@ -227,7 +227,7 @@ Workspace.prototype.needNewUiModule = function(element){
         return true;
     }
 
-    var height = this.ancestor.data(UimConst.HEIGHT);
+    var height = this.domCache.getData(this.ancestor, UimConst.HEIGHT);
     logger.debug("Current UI module height " + height);
 
     return height > this.maxHeight;
@@ -482,7 +482,7 @@ Workspace.prototype.clear = function(){
     this.refUidMap = null;
     
     if(this.ancestor != null){
-        this.ancestor.removeData(UimConst.HEIGHT);
+        this.domCache.removeData(this.ancestor, UimConst.HEIGHT);
         this.ancestor = null;
     }
     this.optionNodes = [];
@@ -830,10 +830,6 @@ Workspace.prototype.validate = function(){
 };
 
 Workspace.prototype.validateUiModule = function() {
-/*    if(tellurium == null){
-        tellurium = new Tellurium();
-        tellurium.initialize();
-    }   */
     logger.debug("Start validating UI Module");
     //validate UI object's XPath
     if (this.innerTree.root != null) {
