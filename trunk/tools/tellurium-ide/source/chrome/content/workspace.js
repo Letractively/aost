@@ -288,35 +288,30 @@ Workspace.prototype.selectOptionalNodes = function(frameName){
     return optNodes;
 };
 
-Workspace.prototype.selectAncestorNode = function(frameName){
-    if(this.ancestor == null){
-        return null;
-    }
-
-    var mxHeight = this.domCache.getData(this.ancestor, UimConst.HEIGHT);
-    if(mxHeight != undefined && mxHeight > 0){
+Workspace.prototype.selectAncestorNode = function(frameName) {
+    if (this.ancestor != null) {
+        var mxHeight = this.domCache.getData(this.ancestor, UimConst.HEIGHT);
         var $ancestor = teJQuery(this.ancestor);
-        if($ancestor.data(UimConst.SID) == undefined){
-            var refId = this.refIdSetter.getRefId();
+        if (mxHeight == undefined || mxHeight == 0) {
+            $ancestor = $ancestor.parent();
+        }
+        this.domCache.removeData(this.ancestor, UimConst.HEIGHT);
+        var refId;
+        if ($ancestor.data(UimConst.SID) == undefined) {
+            refId = this.refIdSetter.getRefId();
             $ancestor.data(UimConst.SID, refId);
             $ancestor.data(UimConst.COUNT, 0);
-            
-            return this.builder.createTagObject(this.ancestor, refId, frameName);
+        }else{
+            refId = $ancestor.data(UimConst.SID);
         }
-
-        this.domCache.removeData(this.ancestor, UimConst.HEIGHT);
+        
+        return this.builder.createTagObject($ancestor.get(0), refId, frameName);
     }
-
-    return null;
 };
 
 Workspace.prototype.selectAdditionalNodes = function(frameName){
     var nodes = this.selectOptionalNodes(frameName);
-    var anNode = this.selectAncestorNode(frameName);
-    if(anNode != null){
-        nodes.push(anNode);
-    }
-
+    var root = this.selectAncestorNode(frameName);
     logger.debug("Add additional " + nodes.length + " nodes");
 
     return nodes;
@@ -515,7 +510,11 @@ Workspace.prototype.generate = function(){
 //        this.preBuild(this.tagObjectArray);
 //        this.generateUiModule(this.tagObjectArray);
         var frameName = this.tagObjectArray[0].frameName;
-        var nodes = this.selectAdditionalNodes(frameName);
+        var nodes = this.selectOptionalNodes(frameName);
+        var root = this.selectAncestorNode(frameName);
+        logger.debug("Add additional " + nodes.length + " nodes");
+
+//        var nodes = this.selectAdditionalNodes(frameName);
         for(var i=0; i<nodes.length; i++){
             this.tagObjectArray.push(nodes[i]);
         }
@@ -767,6 +766,15 @@ Workspace.prototype.generateUiModule = function(tagArrays){
 Workspace.prototype.buildUiModule = function(){
     var alg = new UimAlg(this.tagObjectArray, this.refIdSetter);
     this.innerTree = alg.build();
+    this.innerTree.postProcess();
+    this.innerTree.buildUiObject(this.uiBuilder, this.checker);
+    this.innerTree.buildIndex();
+};
+
+Workspace.prototype.buildUiModuleWithRoot = function(root){
+    var alg = new UimAlg(this.tagObjectArray, this.refIdSetter);
+//    this.innerTree = alg.build();
+    this.innerTree = alg.buildWithRoot(root);
     this.innerTree.postProcess();
     this.innerTree.buildUiObject(this.uiBuilder, this.checker);
     this.innerTree.buildIndex();
