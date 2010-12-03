@@ -15,7 +15,8 @@ var UimConst = {
     HEIGHT: "UimHeight"
 };
 
-function TelluriumDomCache(){
+function TelluriumDomCache(refIdSetter){
+    this.refIdSetter = refIdSetter;
     this.elements = [];
     this.index = {};
     this.reverseIndex = {};
@@ -34,6 +35,19 @@ TelluriumDomCache.prototype.addElement = function(refId, element){
     if(index == -1){
         this.elements.push(element);
         index = this.elements.length - 1;
+        this.index[refId] = element;
+        this.reverseIndex[index] = refId;
+    }else{
+        logger.warn("Element already existed and its index is " + index);
+    }
+};
+
+TelluriumDomCache.prototype.addElement = function(element){
+    var index = this.elements.indexOf(element);
+    if(index == -1){
+        this.elements.push(element);
+        index = this.elements.length - 1;
+        var refId = this.refIdSetter.getRefId();
         this.index[refId] = element;
         this.reverseIndex[index] = refId;
     }else{
@@ -61,7 +75,7 @@ TelluriumDomCache.prototype.getElement = function(refId){
     }
 };
 
-TelluriumDomCache.prototype.putData = function(element, key, val){
+TelluriumDomCache.prototype.setData = function(element, key, val){
     var index = this.elements.indexOf(element);
     if(index != -1){
         var refId = this.reverseIndex[index];
@@ -75,6 +89,17 @@ TelluriumDomCache.prototype.putData = function(element, key, val){
         }
     }else{
         logger.warn("Element does not exist");
+    }
+};
+
+TelluriumDomCache.prototype.setDataByRefId = function(refId, key, val) {
+    var data = this.dataIndex[refId];
+    if (data == undefined) {
+        data = {};
+        data[key] = val;
+        this.dataIndex[refId] = data;
+    } else {
+        data[key] = val;
     }
 };
 
@@ -94,6 +119,15 @@ TelluriumDomCache.prototype.getData = function(element, key){
     }
 };
 
+TelluriumDomCache.prototype.getDataByRefId = function(refId, key) {
+    var data = this.dataIndex[refId];
+    if (data == undefined || data == null) {
+        return null;
+    } else {
+        return data[key];
+    }
+};
+
 TelluriumDomCache.prototype.removeData = function(element, key){
     var index = this.elements.indexOf(element);
     if(index != -1){
@@ -107,6 +141,13 @@ TelluriumDomCache.prototype.removeData = function(element, key){
     }
 };
 
+TelluriumDomCache.prototype.removeDataByRefId = function(refId, key) {
+    var data = this.dataIndex[refId];
+    if (data != undefined && data != null) {
+        delete data[key];
+    }
+};
+
 TelluriumDomCache.prototype.removeAllData = function(element){
     var index = this.elements.indexOf(element);
     if(index != -1){
@@ -115,6 +156,10 @@ TelluriumDomCache.prototype.removeAllData = function(element){
     }else{
         logger.warn("Element does not exist");
     }
+};
+
+TelluriumDomCache.prototype.removeAllDataByRefId = function(refId) {
+    this.dataIndex[refId] = null;
 };
 
 function UimAlg(tagObjectArray, refIdSetter){
