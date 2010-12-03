@@ -346,6 +346,7 @@ UimAlg.prototype.markNode = function(node) {
         while (tag != "html" && tag != "body") {
             var pNode = $parent.get(0);
 
+            //TODO: need to count the number of children
             if (ContainerTagSet.indexOf(tag) != -1
                     || ((tag == "div" || tag == "span") && (pNode.getAttribute("id") != null
                         || pNode.getAttribute("onclick") != null
