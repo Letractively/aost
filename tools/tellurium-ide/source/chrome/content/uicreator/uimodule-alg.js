@@ -170,6 +170,23 @@ function UimAlg(tagObjectArray, refIdSetter){
     this.max = 5;
 }
 
+UimAlg.prototype.buildWithRoot = function(root){
+    if(this.tagObjectArray && this.tagObjectArray.length > 0){
+        for(var i=0; i<this.tagObjectArray.length; i++){
+            this.mark(this.tagObjectArray[i]);
+        }
+
+        var tree = new Tree();
+        tree.root = root;
+        tree.document = this.tagObjectArray[0].node.ownerDocument;
+        this.addExtra(root);
+
+        return tree;
+    }
+
+    return null;
+};
+
 UimAlg.prototype.build = function(){
     if(this.tagObjectArray && this.tagObjectArray.length > 0){
         for(var i=0; i<this.tagObjectArray.length; i++){
@@ -474,6 +491,7 @@ UimAlg.prototype.mark = function(tagObject) {
                 } else {
                     pNodeObject = $parent.data(UimConst.NODE_OBJECT);
                     if (pNodeObject == null) {
+                        pNodeObject = new NodeObject();
                         pNodeObject.buildFromDomNode($parent.get(0));
                         pNodeObject.refId = sid;
                         pNodeObject.id = this.suggestName(pNodeObject.tag, pNodeObject.attributes);
