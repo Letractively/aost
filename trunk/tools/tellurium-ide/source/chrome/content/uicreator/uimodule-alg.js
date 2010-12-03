@@ -29,7 +29,7 @@ TelluriumDomCache.prototype.clear = function(){
     this.dataIndex = {};
 };
 
-TelluriumDomCache.prototype.addElement = function(refId, element){
+TelluriumDomCache.prototype.addElementByRefId = function(refId, element){
     var index = this.elements.indexOf(element);
     if(index == -1){
         this.elements.push(element);
@@ -49,8 +49,12 @@ TelluriumDomCache.prototype.addElement = function(element){
         var refId = this.refIdSetter.getRefId();
         this.index[refId] = element;
         this.reverseIndex[index] = refId;
+
+        return refId;
     }else{
         logger.warn("Element already existed and its index is " + index);
+
+        return this.reverseIndex[index];
     }
 };
 
