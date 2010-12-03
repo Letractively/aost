@@ -167,7 +167,7 @@ TelluriumDomCache.prototype.removeAllDataByRefId = function(refId) {
 
 function UimAlg(tagObjectArray, root, refIdSetter, domCache){
     this.tagObjectArray = tagObjectArray;
-    this.markedNodeArray = new Array();
+//    this.markedNodeArray = new Array();
     this.refIdSetter = refIdSetter;
     this.domCache = domCache;
     this.builder = new Builder();
@@ -185,7 +185,8 @@ function UimAlg(tagObjectArray, root, refIdSetter, domCache){
 }
 
 UimAlg.prototype.findRoot = function(){
-
+    //TODO: implement this!
+    return null;
 };
 
 /*
@@ -282,7 +283,7 @@ UimAlg.prototype.build = function(){
     this.preBuild();
     this.buildTree();
     var tree = new Tree();
-    tree.root = this.root;
+    tree.root = this.domCache.getData(this.root.node, UimConst.NODE_OBJECT);
     tree.document = this.tagObjectArray[0].node.ownerDocument;
 
     return tree;
@@ -324,10 +325,6 @@ UimAlg.prototype.addExtra = function(root){
     this.addExtraFor(root, "link");
 };
 */
-
-function TestText(){
-    return /[^\s]+/.test(teJQuery(this).text());
-}
 
 UimAlg.prototype.suggestName = function(tag, attributes){
 
