@@ -210,6 +210,8 @@ function Workspace(uiBuilder, uiChecker, refIdSetter){
 
     this.sequence = new Identifier(0);
 
+    this.domCache = new TelluriumDomCache(refIdSetter);
+
     this.cmdExecutor = null;
 
     this.ancestor = null;
@@ -231,25 +233,24 @@ Workspace.prototype.needNewUiModule = function(element){
     return height > this.maxHeight;
 };
 
-Workspace.prototype.findOptionalNode = function($node) {
-    if ($node.data(UimConst.SID) == undefined) {
+Workspace.prototype.findOptionalNode = function(node) {
+    if (teJQuery(node).data(UimConst.SID) == undefined) {
         return false;
     }
-    var pNode = $node.get(0);
-    var tag = pNode.tagName.toLowerCase();
+    var tag = node.tagName.toLowerCase();
 
     return (ContainerTagSet.indexOf(tag) != -1
-            || pNode.getAttribute("id") != null
-            || pNode.getAttribute("onclick") != null
-            || pNode.getAttribute("ondblclick") != null
-            || pNode.getAttribute("onchange") != null
-            || pNode.getAttribute("onkeydown") != null
-            || pNode.getAttribute("onkeypress") != null
-            || pNode.getAttribute("onkeyup") != null
-            || pNode.getAttribute("onmousedown") != null
-            || pNode.getAttribute("onmouseout") != null
-            || pNode.getAttribute("onmouseover") != null
-            || pNode.getAttribute("onblur") != null);
+            || node.getAttribute("id") != null
+            || node.getAttribute("onclick") != null
+            || node.getAttribute("ondblclick") != null
+            || node.getAttribute("onchange") != null
+            || node.getAttribute("onkeydown") != null
+            || node.getAttribute("onkeypress") != null
+            || node.getAttribute("onkeyup") != null
+            || node.getAttribute("onmousedown") != null
+            || node.getAttribute("onmouseout") != null
+            || node.getAttribute("onmouseover") != null
+            || node.getAttribute("onblur") != null);
 };
 
 Workspace.prototype.selectOptionalNodes = function(frameName){
@@ -259,25 +260,26 @@ Workspace.prototype.selectOptionalNodes = function(frameName){
     if(this.ancestor == null){
         mxHeight = this.maxHeight;
     }else{
-        mxHeight = this.ancestor.data(UimConst.HEIGHT);
+        mxHeight = this.domCache.getData(this.ancestor, UimConst.HEIGHT);
     }
 
     if(mxHeight != undefined && mxHeight > 0){
         for(var i=0; i<this.optionNodes.length; i++){
-            var $node = this.optionNodes[i];
-            var height = $node.data(UimConst.HEIGHT);
+            var node = this.optionNodes[i];
+            var height = this.domCache.getData(node, UimConst.HEIGHT);
             if(height <= mxHeight){
+                var $node = teJQuery(node);
                 if($node.data(UimConst.SID) == undefined){
                     var refId = this.refIdSetter.getRefId();
                     $node.data(UimConst.SID, refId);
                     $node.data(UimConst.COUNT, 0);
-                    var tagObject = this.builder.createTagObject($node.get(0), refId, frameName);
+                    var tagObject = this.builder.createTagObject(node, refId, frameName);
 
                     optNodes.push(tagObject);
                 }
             }
             
-            $node.removeData(UimConst.HEIGHT);
+            this.domCache.removeData(node, UimConst.HEIGHT);
         }
     }
 
@@ -291,17 +293,18 @@ Workspace.prototype.selectAncestorNode = function(frameName){
         return null;
     }
 
-    var mxHeight = this.ancestor.data(UimConst.HEIGHT);
+    var mxHeight = this.domCache.getData(this.ancestor, UimConst.HEIGHT);
     if(mxHeight != undefined && mxHeight > 0){
-        if(this.ancestor.data(UimConst.SID) == undefined){
+        var $ancestor = teJQuery(this.ancestor);
+        if($ancestor.data(UimConst.SID) == undefined){
             var refId = this.refIdSetter.getRefId();
-            this.ancestor.data(UimConst.SID, refId);
-            this.ancestor.data(UimConst.COUNT, 0);
+            $ancestor.data(UimConst.SID, refId);
+            $ancestor.data(UimConst.COUNT, 0);
             
-            return this.builder.createTagObject(this.ancestor.get(0), refId, frameName);
+            return this.builder.createTagObject(this.ancestor, refId, frameName);
         }
 
-        this.ancestor.removeData(UimConst.HEIGHT);
+        this.domCache.removeData(this.ancestor, UimConst.HEIGHT);
     }
 
     return null;
@@ -319,6 +322,67 @@ Workspace.prototype.selectAdditionalNodes = function(frameName){
     return nodes;
 };
 
+Workspace.prototype.findAncestor = function(element){
+    if(this.ancestor == null){
+        this.ancestor = element;
+
+        this.domCache.addElement(element);
+        this.domCache.setData(element, UimConst.HEIGHT, 0);
+        logger.debug("After set the ancestor height, the value is " + this.domCache.getData(element, UimConst.HEIGHT));
+    } else {
+        var queue = new FifoQueue();
+        this.domCache.addElement(element);
+        this.domCache.setData(element, UimConst.HEIGHT, 0);
+        queue.push(element);
+        queue.push(this.ancestor);
+        var nodes = [];
+        var result = null;
+        while (queue.size() > 0) {
+            var node = queue.pop();
+            var parent = node.parentNode;
+            if (parent != null) {
+                this.domCache.addElement(parent);
+                
+                var cHeight = this.domCache.getData(node, UimConst.HEIGHT);
+                if (cHeight == undefined || cHeight == null) {
+                    logger.error("Node height is not set");
+                    this.ancestor = null;
+                    break;
+                }
+                var height = this.domCache.getData(parent, UimConst.HEIGHT);
+                if (height == undefined || height == null) {
+                    this.domCache.setData(parent, UimConst.HEIGHT, cHeight + 1);
+                    var optional = this.findOptionalNode(parent);
+                    if(optional){
+                        this.optionNodes.push(parent);
+                     }else{
+                        nodes.push(parent);
+                    }
+                    queue.push(parent);
+                } else {
+                    height = (height + cHeight) / 2;
+                    this.domCache.setData(parent, UimConst.HEIGHT, height);
+                    result = parent;
+                    break;
+                }
+            } else {
+                break;
+            }
+        }
+
+        if (nodes.length > 0) {
+            for (var i = 0; i < nodes.length; i++) {
+                this.domCache.removeData(nodes[i], UimConst.HEIGHT);
+            }
+        }
+
+        this.ancestor = result;
+
+        return result;
+    }
+};
+
+/*
 Workspace.prototype.findAncestor = function(element){
     if(this.ancestor == null){
         this.ancestor = teJQuery(element);
@@ -375,6 +439,7 @@ Workspace.prototype.findAncestor = function(element){
         return $result;
     }
 };
+*/
 
 Workspace.prototype.addNode = function(dom, frameName, ref){
     var node = new NodeRef(dom, frameName, ref);
