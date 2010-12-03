@@ -1,10 +1,8 @@
 //New UI Module generation Algorithm
 
-//var ContainerTagSet = ["input", "select", "table", "form", "ul", "ol", "dl", "li", "button", "a", "label", "div", "span"];
 var ContainerTagSet = ["input", "select", "table", "form", "ul", "ol", "dl", "li", "button", "a", "label"];
 var TableTagSet = ["tr", "th", "td", "tfoot", "tbody"];
 
-//const UimConst = {
 var UimConst = {
     NODE_OBJECT: "nodeObject",
     CHILDREN: "children",
@@ -267,35 +265,6 @@ UimAlg.prototype.addExtra = function(root){
     this.addExtraFor(root, "link");
 };
 
-/*UimAlg.prototype.addExtra = function(root){
-
-//    var $extras = teJQuery(root.domNode).find("input, a, link, form, select, button, table").filter(":visible");
-//    if($extras.length > 15){
-//        $extras = $extras.filter(":not(a)");
-//    }
-
-
-    var $extras = teJQuery(root.domNode).find("input, link, form, select, button, table").filter(":visible");
-
-    for (var i = 0; i < $extras.length; i++) {
-        var $extra = $extras.eq(i);
-        if (!$extra.data("sid")) {
-            this.markNode($extra.get(0));
-        }
-    }
-//    var $textNodes = teJQuery(root.domNode).find("div, span").filter(function(){return /[^\s]+/.test(teJQuery(this).text());});
-*//*
-    var $textNodes = teJQuery(root.domNode).find("div, span").filter(":visible").filter(TestText);
-    for(var j=0; j<$textNodes.length; j++){
-        var $textNode = $textNodes.eq(j);
-        if(!$textNode.data("sid")){
-            var node = $textNode.get(0);
-            this.markNode($textNode.get(0));
-        }
-    }
-    *//*
-};*/
-
 function TestText(){
     return /[^\s]+/.test(teJQuery(this).text());
 }
@@ -347,7 +316,6 @@ UimAlg.prototype.markNode = function(node) {
         while (tag != "html" && tag != "body") {
             var pNode = $parent.get(0);
 
-            //TODO: need to count the number of children
             var childrenSize = $parent.children().size();
             
             if (ContainerTagSet.indexOf(tag) != -1
@@ -453,19 +421,6 @@ UimAlg.prototype.mark = function(tagObject) {
                         || pNode.getAttribute("onmouseover") != null
                         || pNode.getAttribute("onblur") != null )
                     )) {
-/*            if (ContainerTagSet.indexOf(tag) != -1
-                    || ((tag == "div" || tag == "span") && (pNode.getAttribute("id") != null
-                        || pNode.getAttribute("onclick") != null
-                        || pNode.getAttribute("ondblclick") != null
-                        || pNode.getAttribute("onchange") != null
-                        || pNode.getAttribute("onkeydown") != null
-                        || pNode.getAttribute("onkeypress") != null
-                        || pNode.getAttribute("onkeyup") != null
-                        || pNode.getAttribute("onmousedown") != null
-                        || pNode.getAttribute("onmouseout") != null
-                        || pNode.getAttribute("onmouseover") != null
-                        || pNode.getAttribute("onblur") != null )
-                    )) {*/
                 var sid = $parent.data(UimConst.SID);
 
                 var pNodeObject, cNodeObject;

@@ -286,8 +286,6 @@ Workspace.prototype.selectOptionalNodes = function(frameName){
         }
     }
 
-
-
     return optNodes;
 };
 
@@ -312,21 +310,13 @@ Workspace.prototype.selectAncestorNode = function(frameName) {
     }
 };
 
-Workspace.prototype.selectAdditionalNodes = function(frameName){
-    var nodes = this.selectOptionalNodes(frameName);
-    var root = this.selectAncestorNode(frameName);
-    logger.debug("Add additional " + nodes.length + " nodes");
-
-    return nodes;
-};
-
 Workspace.prototype.findAncestor = function(element){
     if(this.ancestor == null){
         this.ancestor = element;
 
         this.domCache.addElement(element);
         this.domCache.setData(element, UimConst.HEIGHT, 0);
-        logger.debug("After set the ancestor height, the value is " + this.domCache.getData(element, UimConst.HEIGHT));
+//        logger.debug("After set the ancestor height, the value is " + this.domCache.getData(element, UimConst.HEIGHT));
     } else {
         var queue = new FifoQueue();
         this.domCache.addElement(element);
@@ -380,65 +370,6 @@ Workspace.prototype.findAncestor = function(element){
     }
 };
 
-/*
-Workspace.prototype.findAncestor = function(element){
-    if(this.ancestor == null){
-        this.ancestor = teJQuery(element);
-        this.ancestor.data(UimConst.HEIGHT, 0);
-        logger.debug("After set the ancestor height, the value is " + this.ancestor.data(UimConst.HEIGHT));
-    } else {
-        var queue = new FifoQueue();
-        var $newNode = teJQuery(element);
-        $newNode.data(UimConst.HEIGHT, 0);
-        queue.push($newNode);
-        queue.push(this.ancestor);
-        var nodes = [];
-        var $result = null;
-        while (queue.size() > 0) {
-            var $node = queue.pop();
-            var $parent = $node.parent();
-            if ($parent != null && $parent.size() > 0) {
-//                logger.debug("Data for the node " + $node.data());
-                var cHeight = $node.data(UimConst.HEIGHT);
-                if (cHeight == undefined || cHeight == null) {
-                    logger.error("Node height is not set");
-                    this.ancestor = null;
-                    break;
-                }
-                var height = $parent.data(UimConst.HEIGHT);
-                if (height == undefined || height == null) {
-                    $parent.data(UimConst.HEIGHT, cHeight + 1);
-                    var optional = this.findOptionalNode($parent);
-                    if(optional){
-                        this.optionNodes.push($parent);
-                     }else{
-                        nodes.push($parent);
-                    }
-                    queue.push($parent);
-                } else {
-                    height = (height + cHeight) / 2;
-                    $parent.data(UimConst.HEIGHT, height);
-                    $result = $parent;
-                    break;
-                }
-            } else {
-                break;
-            }
-        }
-
-        if (nodes.length > 0) {
-            for (var i = 0; i < nodes.length; i++) {
-                nodes[i].removeData(UimConst.HEIGHT);
-            }
-        }
-
-        this.ancestor = $result;
-
-        return $result;
-    }
-};
-*/
-
 Workspace.prototype.addNode = function(dom, frameName, ref){
     var node = new NodeRef(dom, frameName, ref);
     this.nodeList.push(node);
@@ -480,7 +411,8 @@ Workspace.prototype.clear = function(){
     this.refUidMap = null;
     
     if(this.ancestor != null){
-        this.domCache.removeData(this.ancestor, UimConst.HEIGHT);
+//        this.domCache.removeData(this.ancestor, UimConst.HEIGHT);
+        this.domCache.clear();
         this.ancestor = null;
     }
     this.optionNodes = [];
@@ -517,12 +449,16 @@ Workspace.prototype.generate = function(){
         var root = this.selectAncestorNode(frameName);
         logger.debug("Add additional " + nodes.length + " nodes");
 
-//        var nodes = this.selectAdditionalNodes(frameName);
         for(var i=0; i<nodes.length; i++){
             this.tagObjectArray.push(nodes[i]);
         }
 
-        this.buildUiModule();
+        if(root != null){
+            this.buildUiModuleWithRoot(root);
+        }else{
+            this.buildUiModule();
+        }
+
         this.validateUiModule();
         this.buildRefUidMap();
     }
@@ -634,7 +570,6 @@ Workspace.prototype.preBuild = function(tagArrays){
         for (i = 0; i < tagArrays.length; ++i) {
             var tagObject = tagArrays[i];
             element = new ElementObject();
-//          element.uid = tagObject.tag+i;
             element.uid = suggestName(tagObject);
             element.refId = tagObject.refId;
             element.xpath = tagObject.xpath;
@@ -748,7 +683,6 @@ Workspace.prototype.generateUiModule = function(tagArrays){
         for (i = 0; i < tagArrays.length; ++i) {
             var tagObject = tagArrays[i];
             element = new ElementObject();
-//          element.uid = tagObject.tag+i;
             element.uid = suggestName(tagObject);
             element.refId = tagObject.refId;
             element.xpath = tagObject.xpath;
@@ -776,7 +710,6 @@ Workspace.prototype.buildUiModule = function(){
 
 Workspace.prototype.buildUiModuleWithRoot = function(root){
     var alg = new UimAlg(this.tagObjectArray, this.refIdSetter);
-//    this.innerTree = alg.build();
     this.innerTree = alg.buildWithRoot(root);
     this.innerTree.postProcess();
     this.innerTree.buildUiObject(this.uiBuilder, this.checker);
