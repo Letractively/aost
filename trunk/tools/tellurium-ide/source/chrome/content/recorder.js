@@ -437,8 +437,10 @@ Recorder.prototype.recordDomNode = function (element){
 
             this.treeView.setTagObjects(this.tagObjectArray);
             this.treeView.rowInserted();
+            refId = this.workspace.domCache.getRefId(element);
 //            this.workspace.addNode(element, this.frameName, refId);
         }else {
+            refId = this.workspace.domCache.getRefId(element);
             var succeed = this.workspace.unRecordDomNode(index, element);
             if(succeed){
                 //we are assuming to remove the element
