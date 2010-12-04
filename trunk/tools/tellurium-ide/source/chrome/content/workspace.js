@@ -235,11 +235,8 @@ Workspace.prototype.needNewUiModule = function(element){
     return height > this.maxHeight;
 };
 
-Workspace.prototype.findOptionalNode = function(node) {
+Workspace.prototype.isMeaningful = function(node) {
     var $node = teJQuery(node);
-/*    if ($node.data(UimConst.SID) == undefined) {
-        return false;
-    }*/
 
     if(this.domCache.getData(node, UimConst.SID) == undefined){
         return false;
@@ -278,11 +275,7 @@ Workspace.prototype.selectOptionalNodes = function(frameName){
             var node = this.optionNodes[i];
             var height = this.domCache.getData(node, UimConst.HEIGHT);
             if(height <= mxHeight){
-//                var $node = teJQuery(node);
                 if(this.domCache.getData(node, UimConst.SID) == undefined){
-/*                    var refId = this.refIdSetter.getRefId();
-                    $node.data(UimConst.SID, refId);
-                    $node.data(UimConst.COUNT, 0);*/
                     var refId = this.domCache.getRefId(node);
                     this.domCache.setData(node, UimConst.SID, refId);
                     var count = this.domCache.getData(node, UimConst.COUNT);
@@ -324,15 +317,6 @@ Workspace.prototype.selectAncestorNode = function(frameName) {
             this.domCache.setData(this.ancestor, UimConst.COUNT, 0);
         }
 
-/*        if ($ancestor.data(UimConst.SID) == undefined) {
-            refId = this.refIdSetter.getRefId();
-            $ancestor.data(UimConst.SID, refId);
-            $ancestor.data(UimConst.COUNT, 0);
-        }else{
-            refId = $ancestor.data(UimConst.SID);
-        }*/
-        
-//        return this.builder.createTagObject($ancestor.get(0), refId, frameName);
         return this.builder.createTagObject(this.ancestor, refId, frameName);
     }
 };
@@ -368,7 +352,7 @@ Workspace.prototype.findAncestor = function(element){
                 var height = this.domCache.getData(parent, UimConst.HEIGHT);
                 if (height == undefined || height == null) {
                     this.domCache.setData(parent, UimConst.HEIGHT, cHeight + 1);
-                    var optional = this.findOptionalNode(parent);
+                    var optional = this.isMeaningful(parent);
                     if(optional){
                         this.optionNodes.push(parent);
                      }else{
@@ -476,7 +460,6 @@ Workspace.prototype.clear = function(){
     this.refUidMap = null;
     
     if(this.ancestor != null){
-//        this.domCache.removeData(this.ancestor, UimConst.HEIGHT);
         this.domCache.clear();
         this.ancestor = null;
     }
@@ -517,13 +500,6 @@ Workspace.prototype.generate = function(){
         }
 
         this.buildUiModule(root);
-
-/*        if(root != null){
-            this.buildUiModuleWithRoot(root);
-        }else{
-            this.buildUiModule();
-        }*/
-
         this.validateUiModule();
         this.buildRefUidMap();
     }

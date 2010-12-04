@@ -38,7 +38,7 @@
     
     <script type="application/x-javascript" src="chrome://source/content/uicreator/xpath-processor.js"/>
     <script type="application/x-javascript" src="chrome://source/content/uicreator/ui-generator.js"/>
-    <script type="application/x-javascript" src="chrome://source/content/uicreator/uimodule-alg-new.js"/>
+    <script type="application/x-javascript" src="chrome://source/content/uicreator/uimodule-alg.js"/>
 
     <script type="application/x-javascript" src="chrome://source/content/ide-view.js"/>
     <script type="application/x-javascript" src="chrome://source/content/recorder.js"/>
