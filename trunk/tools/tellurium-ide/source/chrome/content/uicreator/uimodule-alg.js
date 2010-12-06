@@ -63,7 +63,7 @@ TelluriumDomCache.prototype.getRefId = function(element){
     if(index != -1){
         return this.reverseIndex[index];
     }else{
-        logger.warn("Element does not exist");
+        logger.warn("Element does not exist when call getRefId()");
         return null;
     }
 };
@@ -91,7 +91,7 @@ TelluriumDomCache.prototype.setData = function(element, key, val){
             data[key] = val;
         }
     }else{
-        logger.warn("Element does not exist");
+        logger.warn("Element does not exist when call setData()");
     }
 };
 
@@ -117,7 +117,7 @@ TelluriumDomCache.prototype.getData = function(element, key){
             return data[key];
         }
     }else{
-        logger.warn("Element does not exist");
+        logger.warn("Element does not exist when call getData()");
         return null;
     }
 };
@@ -140,7 +140,7 @@ TelluriumDomCache.prototype.removeData = function(element, key){
             delete data[key];
         }
     }else{
-        logger.warn("Element does not exist");
+        logger.warn("Element does not exist when call removeData()");
     }
 };
 
@@ -157,7 +157,7 @@ TelluriumDomCache.prototype.removeAllData = function(element){
         var refId = this.reverseIndex[index];
         this.dataIndex[refId] = null;
     }else{
-        logger.warn("Element does not exist");
+        logger.warn("Element does not exist when call removeAllData()");
     }
 };
 
@@ -167,19 +167,12 @@ TelluriumDomCache.prototype.removeAllDataByRefId = function(refId) {
 
 function UimAlg(tagObjectArray, root, refIdSetter, domCache){
     this.tagObjectArray = tagObjectArray;
-//    this.markedNodeArray = new Array();
     this.refIdSetter = refIdSetter;
     this.domCache = domCache;
     this.builder = new Builder();
 
     //root node
     this.root = root;
-
-    //leaf nodes
-//    this.leaves = [];
-
-    //optional nodes
-//    this.options = [];
 
     this.max = 5;
 }
@@ -188,22 +181,6 @@ UimAlg.prototype.findRoot = function(){
     //TODO: implement this!
     return null;
 };
-
-/*
-UimAlg.prototype.classify = function(){
-    if(this.tagObjectArray != null && this.tagObjectArray.length > 0){
-        for(var i=0; i<this.tagObjectArray.length; i++){
-            var node = this.tagObjectArray[i].node;
-            var count = this.domCache.getData(node, UimConst.COUNT);
-            if(count > 0){
-                this.leaves.push(this.tagObjectArray[i]);
-            }else{
-                this.options.push(this.tagObjectArray[i]);
-            }
-        }
-    }
-};
-*/
 
 UimAlg.prototype.preBuild = function() {
     if (this.tagObjectArray != null && this.tagObjectArray.length > 0) {
