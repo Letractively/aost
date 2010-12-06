@@ -37,7 +37,7 @@ TelluriumDomCache.prototype.addElementByRefId = function(refId, element){
         this.index[refId] = element;
         this.reverseIndex[index] = refId;
     }else{
-        logger.warn("Element already existed and its index is " + index);
+//        logger.warn("Element already existed and its index is " + index);
     }
 };
 
@@ -52,7 +52,7 @@ TelluriumDomCache.prototype.addElement = function(element){
 
         return refId;
     }else{
-        logger.warn("Element already existed and its index is " + index);
+//        logger.warn("Element already existed and its index is " + index);
 
         return this.reverseIndex[index];
     }
@@ -63,7 +63,7 @@ TelluriumDomCache.prototype.getRefId = function(element){
     if(index != -1){
         return this.reverseIndex[index];
     }else{
-        logger.warn("Element does not exist when call getRefId()");
+//        logger.warn("Element does not exist when call getRefId()");
         return null;
     }
 };
@@ -71,7 +71,7 @@ TelluriumDomCache.prototype.getRefId = function(element){
 TelluriumDomCache.prototype.getElement = function(refId){
     var element = this.index[refId];
     if(element == undefined){
-        logger.warn("Cannot find element associated with RefId " + refId);
+//        logger.warn("Cannot find element associated with RefId " + refId);
         return null;
     }else{
         return element;
@@ -91,7 +91,7 @@ TelluriumDomCache.prototype.setData = function(element, key, val){
             data[key] = val;
         }
     }else{
-        logger.warn("Element does not exist when call setData()");
+//        logger.warn("Element does not exist when call setData()");
     }
 };
 
@@ -117,7 +117,7 @@ TelluriumDomCache.prototype.getData = function(element, key){
             return data[key];
         }
     }else{
-        logger.warn("Element does not exist when call getData()");
+//        logger.warn("Element does not exist when call getData()");
         return null;
     }
 };
@@ -140,7 +140,7 @@ TelluriumDomCache.prototype.removeData = function(element, key){
             delete data[key];
         }
     }else{
-        logger.warn("Element does not exist when call removeData()");
+//        logger.warn("Element does not exist when call removeData()");
     }
 };
 
@@ -157,7 +157,7 @@ TelluriumDomCache.prototype.removeAllData = function(element){
         var refId = this.reverseIndex[index];
         this.dataIndex[refId] = null;
     }else{
-        logger.warn("Element does not exist when call removeAllData()");
+//        logger.warn("Element does not exist when call removeAllData()");
     }
 };
 
