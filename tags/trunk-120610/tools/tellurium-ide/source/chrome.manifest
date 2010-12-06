@@ -1,0 +1,7 @@
+content     source   chrome/content/
+locale source en-US chrome/locale/en-US/
+overlay chrome://browser/content/browser.xul chrome://source/content/browserOverlay.xul
+
+skin source classic/1.0 chrome/skin/
+style chrome://browser/content/browser.xul chrome://source/skin/telluriumide.css
+style chrome://global/content/customizeToolbar.xul chrome://source/skin/telluriumide.css
