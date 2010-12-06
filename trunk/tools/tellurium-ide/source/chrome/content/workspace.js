@@ -231,18 +231,20 @@ Workspace.prototype.needNewUiModule = function(element){
         return true;
     }
 
-    var height = this.domCache.getData(this.ancestor, UimConst.HEIGHT);
+/*    var height = this.domCache.getData(this.ancestor, UimConst.HEIGHT);
     logger.debug("Current UI module height " + height);
 
-    return height > this.maxHeight;
+    return height > this.maxHeight;*/
+    
+    return this.currentHeight > this.maxHeight;
 };
 
 Workspace.prototype.isMeaningful = function(node) {
-    var $node = teJQuery(node);
+    if(node == null){
+        return null;
+    }
 
-/*    if(this.domCache.getData(node, UimConst.SID) == undefined){
-        return false;
-    }*/
+    var $node = teJQuery(node);
 
     var tag = node.tagName.toLowerCase();
     var childrenSize = $node.children().size();
@@ -330,10 +332,14 @@ Workspace.prototype.findMeaningfulParent = function(node) {
     var parent = node.parentNode;
     
     while (parent != null) {
-        if (this.isMeaningful(parent)) {
-            break;
-        } else {
+        if (parent.nodeType != 1) {
             parent = parent.parentNode;
+        } else {
+            if (this.isMeaningful(parent)) {
+                break;
+            } else {
+                parent = parent.parentNode;
+            }
         }
     }
 
@@ -362,7 +368,7 @@ Workspace.prototype.findAncestor = function(element){
         this.domCache.setData(element, UimConst.HEIGHT, 0);
         queue.push(element);
         nodes.push(element);
-        this.domCache.setData(element, UimConst.HEIGHT, this.currentHeight);
+        this.domCache.setData(this.ancestor, UimConst.HEIGHT, this.currentHeight);
         queue.push(this.ancestor);
         nodes.push(this.ancestor);
         var result = null;
