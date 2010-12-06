@@ -422,15 +422,9 @@ Recorder.prototype.recordDomNode = function (element){
         //check if the element is already selected
         var index = this.selectedElements.indexOf(element);
         if (index == -1) {
-            this.decorator.addBackground(element);
+//            this.decorator.addBackground(element);
             this.selectedElements.push(element);
 
-/*
-            refId = this.refIdSetter.getRefId();
-            var tagObject = this.builder.createTagObject(element, refId, this.frameName);
-            teJQuery(element).data("sid", refId);
-            teJQuery(element).data("count", 0);
-*/
             var tagObject = this.workspace.recordDomNode(element, this.frameName);
             //TODO: remove duplicated tagObjectArray (workspace and recorder)
             this.tagObjectArray.push(tagObject);
@@ -444,18 +438,11 @@ Recorder.prototype.recordDomNode = function (element){
             var succeed = this.workspace.unRecordDomNode(index, element);
             if(succeed){
                 //we are assuming to remove the element
-                this.decorator.removeBackground(element);
+//                this.decorator.removeBackground(element);
                 this.selectedElements.splice(index, 1);
                 this.tagObjectArray.splice(index, 1);
                 this.treeView.deleteRow(index);
             }
-
-/*            refId = teJQuery(element).data("sid");
-            var count = teJQuery(element).data("count");
-            if (count == 0) {
-                teJQuery(element).removeData("sid");
-                teJQuery(element).removeData("count");
-            }*/
         }
     } catch(error) {
         logger.error("Record node " + element.tagName + " failed:\n" + describeErrorStack(error));
