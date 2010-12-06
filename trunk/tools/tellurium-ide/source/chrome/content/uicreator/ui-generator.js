@@ -88,7 +88,7 @@ Builder.prototype.createTagObject = function(node, refId, frameName){
         parent = node.parentNode;
         name = getAttributeNameOrId(node);
         //TODO xpath creation
-        xpath = createXPath(node);
+//        xpath = createXPath(node);
         return this.buildTagObject(node, lowerCaseNodeName, name, attributes, parent, xpath, refId, frameName);
     }
 
@@ -199,9 +199,9 @@ Decorator.prototype.cleanShowNode = function(node){
     }
 };
 
-function createXPath(node){
+/*function createXPath(node){
     return generateXPath(node);
-}
+}*/
 
 
 /**

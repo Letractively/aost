@@ -10,7 +10,7 @@
     <script type="application/x-javascript" src="chrome://source/content/extlib/json2.js"/>
     <script type="application/x-javascript" src="chrome://source/content/extlib/jquery-1.4.4.js "/>
     <script type="application/x-javascript" src="chrome://source/content/extlib/syn.js"/>
-    <script type="application/x-javascript" src="chrome://source/content/extlib/xpather.js"/>
+    <!--<script type="application/x-javascript" src="chrome://source/content/extlib/xpather.js"/>-->
     <script type="application/x-javascript" src="chrome://source/content/engine/tellurium-utils.js"/>
 
     <script type="application/x-javascript" src="chrome://source/content/engine/constants.js"/>
