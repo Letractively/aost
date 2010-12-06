@@ -220,7 +220,7 @@ UimAlg.prototype.climbFrom = function(node) {
         var current = node;
         var parent = current.parentNode;
         var pNodeObject, cNodeObject;
-        while(parent != null) {
+        while (parent != null) {
             pNodeObject = this.domCache.getData(parent, UimConst.NODE_OBJECT);
             if (pNodeObject != null) {
                 cNodeObject = this.domCache.getData(current, UimConst.NODE_OBJECT);
@@ -230,13 +230,12 @@ UimAlg.prototype.climbFrom = function(node) {
                 cNodeObject.parent = pNodeObject;
                 this.domCache.setData(current, UimConst.PROCESSED, true);
                 current = parent;
-            }
-            isRoot = this.domCache.getData(parent, UimConst.ROOT);
-            processed = this.domCache.getData(parent, UimConst.PROCESSED);
-
-            if(isRoot || processed){
-                break;
-            }else{
+                isRoot = this.domCache.getData(parent, UimConst.ROOT);
+                processed = this.domCache.getData(parent, UimConst.PROCESSED);
+                if (isRoot || processed) {
+                    break;
+                }
+            } else {
                 parent = parent.parentNode;
             }
         }

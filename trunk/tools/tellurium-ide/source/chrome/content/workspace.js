@@ -218,6 +218,8 @@ function Workspace(uiBuilder, uiChecker, refIdSetter){
 
     this.ancestor = null;
 
+    this.currentHeight = 0;
+
     this.optionNodes = [];
 
     this.maxHeight = 5;
@@ -341,29 +343,31 @@ Workspace.prototype.findMeaningfulParent = function(node) {
 Workspace.prototype.findAncestor = function(element){
     var parent;
     if(this.ancestor == null){
-//        this.ancestor = element;
 
         this.domCache.addElement(element);
-        this.domCache.setData(element, UimConst.HEIGHT, 0);
+//        this.domCache.setData(element, UimConst.HEIGHT, 0);
         parent = this.findMeaningfulParent(element);
         if(parent != null){
             this.ancestor = parent;
             this.domCache.addElement(parent);
-            this.domCache.setData(parent, UimConst.HEIGHT, 1);
+//            this.domCache.setData(parent, UimConst.HEIGHT, 1);
+            this.currentHeight = 1;
         }
         this.prevAncestor = this.ancestor;
 //        logger.debug("After set the ancestor height, the value is " + this.domCache.getData(element, UimConst.HEIGHT));
     } else {
+        var nodes = [];
         var queue = new FifoQueue();
         this.domCache.addElement(element);
         this.domCache.setData(element, UimConst.HEIGHT, 0);
         queue.push(element);
+        nodes.push(element);
+        this.domCache.setData(element, UimConst.HEIGHT, this.currentHeight);
         queue.push(this.ancestor);
-//        var nodes = [];
+        nodes.push(this.ancestor);
         var result = null;
         while (queue.size() > 0) {
             var node = queue.pop();
-//            var parent = node.parentNode;
             parent = this.findMeaningfulParent(node);
 
             if (parent != null) {
@@ -378,12 +382,7 @@ Workspace.prototype.findAncestor = function(element){
                 var height = this.domCache.getData(parent, UimConst.HEIGHT);
                 if (height == undefined || height == null) {
                     this.domCache.setData(parent, UimConst.HEIGHT, cHeight + 1);
-/*                    var optional = this.isMeaningful(parent);
-                    if(optional){
-                        this.optionNodes.push(parent);
-                     }else{
-                        nodes.push(parent);
-                    }*/
+                    nodes.push(parent);
                     this.optionNodes.push(parent);
 
                     queue.push(parent);
@@ -391,6 +390,9 @@ Workspace.prototype.findAncestor = function(element){
                     height = (height + cHeight) / 2;
                     this.domCache.setData(parent, UimConst.HEIGHT, height);
                     result = parent;
+                    nodes.push(parent);
+                    this.currentHeight = height;
+                    logger.debug("Found ancestor with height " + height);
                     break;
                 }
             } else {
@@ -398,11 +400,11 @@ Workspace.prototype.findAncestor = function(element){
             }
         }
 
-/*        if (nodes.length > 0) {
+        if (nodes.length > 0) {
             for (var i = 0; i < nodes.length; i++) {
                 this.domCache.removeData(nodes[i], UimConst.HEIGHT);
             }
-        }*/
+        }
 
         this.ancestor = result;
         if(result != null){
@@ -491,6 +493,8 @@ Workspace.prototype.clear = function(){
         this.domCache.clear();
         this.ancestor = null;
     }
+    this.prevAncestor = null;
+    this.currentHeight = 0;
     this.optionNodes = [];
 };
 
@@ -776,14 +780,6 @@ Workspace.prototype.buildUiModule = function(root){
     this.innerTree.buildUiObject(this.uiBuilder, this.checker);
     this.innerTree.buildIndex();
 };
-
-/*Workspace.prototype.buildUiModuleWithRoot = function(root){
-    var alg = new UimAlg(this.tagObjectArray, root, this.refIdSetter, this.domCache);
-    this.innerTree = alg.build(root);
-    this.innerTree.postProcess();
-    this.innerTree.buildUiObject(this.uiBuilder, this.checker);
-    this.innerTree.buildIndex();
-};*/
 
 Workspace.prototype.buildRefUidMap = function(){
     var visitor = new UiRefMapper();
