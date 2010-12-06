@@ -220,7 +220,7 @@ function Workspace(uiBuilder, uiChecker, refIdSetter){
 
     this.optionNodes = [];
 
-    this.maxHeight = 8;
+    this.maxHeight = 5;
 }
 
 Workspace.prototype.needNewUiModule = function(element){
@@ -238,9 +238,9 @@ Workspace.prototype.needNewUiModule = function(element){
 Workspace.prototype.isMeaningful = function(node) {
     var $node = teJQuery(node);
 
-    if(this.domCache.getData(node, UimConst.SID) == undefined){
+/*    if(this.domCache.getData(node, UimConst.SID) == undefined){
         return false;
-    }
+    }*/
 
     var tag = node.tagName.toLowerCase();
     var childrenSize = $node.children().size();
@@ -301,7 +301,7 @@ Workspace.prototype.selectAncestorNode = function(frameName) {
     }
     
     if (this.ancestor != null) {
-        var mxHeight = this.domCache.getData(this.ancestor, UimConst.HEIGHT);
+/*        var mxHeight = this.domCache.getData(this.ancestor, UimConst.HEIGHT);
         var $ancestor = teJQuery(this.ancestor);
         if (mxHeight == undefined || mxHeight == 0) {
             $ancestor = $ancestor.parent();
@@ -312,21 +312,45 @@ Workspace.prototype.selectAncestorNode = function(frameName) {
         this.domCache.removeData(this.ancestor, UimConst.HEIGHT);
 
         var refId = this.domCache.getRefId(this.ancestor);
-        if(this.domCache.getData(this.ancestor, UimConst.SID)  == undefined){
+        if(this.domCache.getData(this.ancestor, UimConst.SID) == undefined){
             this.domCache.setData(this.ancestor, UimConst.SID, refId);
             this.domCache.setData(this.ancestor, UimConst.COUNT, 0);
-        }
+        }*/
+        var refId = this.domCache.getRefId(this.ancestor);
 
         return this.builder.createTagObject(this.ancestor, refId, frameName);
     }
+
+    return null;
+};
+
+Workspace.prototype.findMeaningfulParent = function(node) {
+    var parent = node.parentNode;
+    
+    while (parent != null) {
+        if (this.isMeaningful(parent)) {
+            break;
+        } else {
+            parent = parent.parentNode;
+        }
+    }
+
+    return parent;
 };
 
 Workspace.prototype.findAncestor = function(element){
+    var parent;
     if(this.ancestor == null){
-        this.ancestor = element;
+//        this.ancestor = element;
 
         this.domCache.addElement(element);
         this.domCache.setData(element, UimConst.HEIGHT, 0);
+        parent = this.findMeaningfulParent(element);
+        if(parent != null){
+            this.ancestor = parent;
+            this.domCache.addElement(parent);
+            this.domCache.setData(parent, UimConst.HEIGHT, 1);
+        }
         this.prevAncestor = this.ancestor;
 //        logger.debug("After set the ancestor height, the value is " + this.domCache.getData(element, UimConst.HEIGHT));
     } else {
@@ -335,11 +359,13 @@ Workspace.prototype.findAncestor = function(element){
         this.domCache.setData(element, UimConst.HEIGHT, 0);
         queue.push(element);
         queue.push(this.ancestor);
-        var nodes = [];
+//        var nodes = [];
         var result = null;
         while (queue.size() > 0) {
             var node = queue.pop();
-            var parent = node.parentNode;
+//            var parent = node.parentNode;
+            parent = this.findMeaningfulParent(node);
+
             if (parent != null) {
                 this.domCache.addElement(parent);
                 
@@ -352,12 +378,14 @@ Workspace.prototype.findAncestor = function(element){
                 var height = this.domCache.getData(parent, UimConst.HEIGHT);
                 if (height == undefined || height == null) {
                     this.domCache.setData(parent, UimConst.HEIGHT, cHeight + 1);
-                    var optional = this.isMeaningful(parent);
+/*                    var optional = this.isMeaningful(parent);
                     if(optional){
                         this.optionNodes.push(parent);
                      }else{
                         nodes.push(parent);
-                    }
+                    }*/
+                    this.optionNodes.push(parent);
+
                     queue.push(parent);
                 } else {
                     height = (height + cHeight) / 2;
@@ -370,11 +398,11 @@ Workspace.prototype.findAncestor = function(element){
             }
         }
 
-        if (nodes.length > 0) {
+/*        if (nodes.length > 0) {
             for (var i = 0; i < nodes.length; i++) {
                 this.domCache.removeData(nodes[i], UimConst.HEIGHT);
             }
-        }
+        }*/
 
         this.ancestor = result;
         if(result != null){
