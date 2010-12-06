@@ -351,12 +351,10 @@ Workspace.prototype.findAncestor = function(element){
     if(this.ancestor == null){
 
         this.domCache.addElement(element);
-//        this.domCache.setData(element, UimConst.HEIGHT, 0);
         parent = this.findMeaningfulParent(element);
         if(parent != null){
             this.ancestor = parent;
             this.domCache.addElement(parent);
-//            this.domCache.setData(parent, UimConst.HEIGHT, 1);
             this.currentHeight = 1;
         }
         this.prevAncestor = this.ancestor;
@@ -848,18 +846,14 @@ Workspace.prototype.validateUiModule = function() {
     logger.debug("Start validating UI Module");
     //validate UI object's XPath
     if (this.innerTree.root != null) {
-//        var uim = this.workspace.build();
         this.uim = this.uimBuilder.build(this.innerTree);
         this.uim.doc = this.innerTree.document;
         this.dom = this.innerTree.document;
         this.id = this.uim.getId();
-//        var result = this.validate();
         var result = this.uim.validate(this.uiAlg);
         if (result != null) {
 
             return result.toString();
-//            var msg = result.toString();
-//            this.showMessage(msg);
         }
         logger.debug("Done validating UI Module, please see detailed result on the message window");
     } else {
