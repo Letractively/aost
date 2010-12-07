@@ -21,7 +21,7 @@
     <!-- Front End MetaData -->
     <em:name>TelluriumIDE</em:name>
     <em:description>Tellurium IDE</em:description>
-    <em:creator>Tellurium Team</em:creator>
+    <em:creator>Jian Fang</em:creator>
     <em:homepageURL>http://code.google.com/p/aost</em:homepageURL>
   </Description>      
 </RDF>
