@@ -314,7 +314,7 @@ UimAlg.prototype.climbAndSelect = function(node) {
                 }
             } else {
 //                parent = parent.parentNode;
-                parent = this.findMeaningfulParent(node);
+                parent = this.findMeaningfulParent(parent);
             }
         }
     }
@@ -407,7 +407,8 @@ UimAlg.prototype.updateTreeForNodes = function(nodes) {
     if(nodes != null && nodes.length > 0){
         for(var i = 0; i < nodes.length; i++){
             var node = nodes[i];
-            this.climbFrom(node);
+//            this.climbFrom(node);
+            this.climbAndSelect(node);
         }
     }
 };
