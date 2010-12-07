@@ -23,6 +23,12 @@ function saveOptions(){
         logger.debug("Tellurium IDE group locating option " + elem.checked);
     }
 
+    elem = document.getElementById("teide-option-extranodes");
+    if(elem != null){
+        Preferences.setPref("extensions.teide.extranodes", elem.checked);
+        logger.debug("Tellurium IDE extra nodes option " + elem.checked);
+    }
+    
 	return true;
 }
 
@@ -72,5 +78,14 @@ function loadOptions() {
             glocating = Preferences.DEFAULT_OPTIONS.defaultGroupLocating;
         }
         elem.checked = glocating;
+    }
+
+    elem = document.getElementById("teide-option-extranodes");
+    if(elem != null){
+        var extra = Preferences.getPref("extensions.teide.extranodes");
+        if(extra == undefined){
+            extra = Preferences.DEFAULT_OPTIONS.defaultExtraNodes;
+        }
+        elem.checked = extra;
     }
 }
