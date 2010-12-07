@@ -292,31 +292,30 @@ UimAlg.prototype.climbAndSelect = function(node) {
     var processed = this.domCache.getData(node, UimConst.PROCESSED);
     var isRoot = this.domCache.getData(node, UimConst.ROOT);
 
-    if((!processed) && (!isRoot)){
+    if ((!processed) && (!isRoot)) {
         var current = node;
-//        var parent = current.parentNode;
         var parent = this.findMeaningfulParent(node);
 
         var pNodeObject, cNodeObject;
         while (parent != null) {
             pNodeObject = this.domCache.getData(parent, UimConst.NODE_OBJECT);
-            if (pNodeObject != null) {
-                cNodeObject = this.domCache.getData(current, UimConst.NODE_OBJECT);
-                if (!pNodeObject.exist(cNodeObject)) {
-                    pNodeObject.addChild(cNodeObject);
-                }
-                cNodeObject.parent = pNodeObject;
-                this.domCache.setData(current, UimConst.PROCESSED, true);
-                current = parent;
-                isRoot = this.domCache.getData(parent, UimConst.ROOT);
-                processed = this.domCache.getData(parent, UimConst.PROCESSED);
-                if (isRoot || processed) {
-                    break;
-                }
-            } else {
-//                parent = parent.parentNode;
-                parent = this.findMeaningfulParent(parent);
+            if (pNodeObject == null) {
+                pNodeObject = this.createNodeObject(parent);
             }
+            cNodeObject = this.domCache.getData(current, UimConst.NODE_OBJECT);
+            if (!pNodeObject.exist(cNodeObject)) {
+                pNodeObject.addChild(cNodeObject);
+            }
+            cNodeObject.parent = pNodeObject;
+            this.domCache.setData(current, UimConst.PROCESSED, true);
+            current = parent;
+            isRoot = this.domCache.getData(parent, UimConst.ROOT);
+            processed = this.domCache.getData(parent, UimConst.PROCESSED);
+            if (isRoot || processed) {
+                break;
+            }
+            current = parent;
+            parent = this.findMeaningfulParent(parent);
         }
     }
 };
@@ -345,6 +344,18 @@ UimAlg.prototype.isMeaningful = function(node) {
         return null;
     }
 
+    var tag = node.tagName.toLowerCase();
+
+    return (ParentTagSet.indexOf(tag) != -1
+            || ((tag == "div") && (node.getAttribute("id") != null)));
+};
+
+/*
+UimAlg.prototype.isMeaningful = function(node) {
+    if(node == null){
+        return null;
+    }
+
     var $node = teJQuery(node);
 
     var tag = node.tagName.toLowerCase();
@@ -365,7 +376,7 @@ UimAlg.prototype.isMeaningful = function(node) {
             || node.getAttribute("onmouseover") != null
             || node.getAttribute("onblur") != null)));
 };
-
+*/
 
 UimAlg.prototype.getExtraNodes = function(tree){
     var visitor = new UiExtraVisitor(this, this.domCache, 24, 8);
