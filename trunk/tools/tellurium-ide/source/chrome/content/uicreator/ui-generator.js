@@ -87,7 +87,6 @@ Builder.prototype.createTagObject = function(node, refId, frameName){
 
         parent = node.parentNode;
         name = getAttributeNameOrId(node);
-        //TODO xpath creation
 //        xpath = createXPath(node);
         return this.buildTagObject(node, lowerCaseNodeName, name, attributes, parent, xpath, refId, frameName);
     }
