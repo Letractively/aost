@@ -301,21 +301,7 @@ Workspace.prototype.selectAncestorNode = function(frameName) {
     }
     
     if (this.ancestor != null) {
-/*        var mxHeight = this.domCache.getData(this.ancestor, UimConst.HEIGHT);
-        var $ancestor = teJQuery(this.ancestor);
-        if (mxHeight == undefined || mxHeight == 0) {
-            $ancestor = $ancestor.parent();
-            this.ancestor = $ancestor.get(0);
-            this.domCache.addElement(this.ancestor);
-        }
 
-        this.domCache.removeData(this.ancestor, UimConst.HEIGHT);
-
-        var refId = this.domCache.getRefId(this.ancestor);
-        if(this.domCache.getData(this.ancestor, UimConst.SID) == undefined){
-            this.domCache.setData(this.ancestor, UimConst.SID, refId);
-            this.domCache.setData(this.ancestor, UimConst.COUNT, 0);
-        }*/
         var refId = this.domCache.getRefId(this.ancestor);
 
         return this.builder.createTagObject(this.ancestor, refId, frameName);

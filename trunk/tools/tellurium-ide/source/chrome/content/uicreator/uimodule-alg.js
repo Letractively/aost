@@ -181,44 +181,11 @@ UiExtraVisitor.prototype.visit = function(node){
     }
 };
 
-/*
-UiExtraVisitor.prototype.selectExtraNodes = function(node){
-    var $extras = teJQuery(node.domNode).siblings("input, a, link, form, table, th, tr, td, select, button, ol, li ul, dl").filter(":visible");
-    if($extras != null && $extras.size() > 0){
-        var count = 0;
-        for(var i=0; i<$extras.size(); i++){
-            var extra = $extras.get(i);
-            var nodeObject = this.domCache.getData(extra, UimConst.NODE_OBJECT);
-            if(nodeObject == null && count < this.nodeLimit){
-                this.nodes.push(extra);
-                this.alg.createNodeObject(extra);
-
-                count++;
-                this.extraCnt++;
-                if(count >= this.nodeLimit || this.extraCnt >= this.max){
-                    break;
-                }
-            }
-        }
-    }
-};
-
-UiExtraVisitor.prototype.shouldVisit = function(node){
-    if(node.parent == null){
-        return false;
-    }
-
-    return this.extraCnt < this.max;
-};
-*/
-
 UiExtraVisitor.prototype.selectExtraNodes = function(node){
 //    var $extras = teJQuery(node.domNode).find("input, a, img, link, form, select, button, ol, li, table, th, tr, td, ul, dl").filter(":visible");
     var $extras = teJQuery(node.domNode).find("input, a, img, link, select, button").filter(":visible");
 
     if($extras != null && $extras.size() > 0){
-//        var count = 0;
-//        for(var i=0; i<$extras.size(); i++){
         for(var i=0; i< this.nodeLimit; i++){
             var extra = $extras.get(i);
             var nodeObject = this.domCache.getData(extra, UimConst.NODE_OBJECT);
@@ -226,9 +193,7 @@ UiExtraVisitor.prototype.selectExtraNodes = function(node){
                 this.nodes.push(extra);
                 this.alg.createNodeObject(extra);
 
-//                count++;
                 this.extraCnt++;
-//                if(count >= this.nodeLimit || this.extraCnt >= this.max){
                 if(this.extraCnt >= this.max){
                     break;
                 }
@@ -322,8 +287,87 @@ UimAlg.prototype.climbFrom = function(node) {
     }       
 };
 
+UimAlg.prototype.climbAndSelect = function(node) {
+    var processed = this.domCache.getData(node, UimConst.PROCESSED);
+    var isRoot = this.domCache.getData(node, UimConst.ROOT);
+
+    if((!processed) && (!isRoot)){
+        var current = node;
+//        var parent = current.parentNode;
+        var parent = this.findMeaningfulParent(node);
+
+        var pNodeObject, cNodeObject;
+        while (parent != null) {
+            pNodeObject = this.domCache.getData(parent, UimConst.NODE_OBJECT);
+            if (pNodeObject != null) {
+                cNodeObject = this.domCache.getData(current, UimConst.NODE_OBJECT);
+                if (!pNodeObject.exist(cNodeObject)) {
+                    pNodeObject.addChild(cNodeObject);
+                }
+                cNodeObject.parent = pNodeObject;
+                this.domCache.setData(current, UimConst.PROCESSED, true);
+                current = parent;
+                isRoot = this.domCache.getData(parent, UimConst.ROOT);
+                processed = this.domCache.getData(parent, UimConst.PROCESSED);
+                if (isRoot || processed) {
+                    break;
+                }
+            } else {
+//                parent = parent.parentNode;
+                parent = this.findMeaningfulParent(node);
+            }
+        }
+    }
+};
+
+//TODO: duplicated code from workspace.js, should remove the duplication
+UimAlg.prototype.findMeaningfulParent = function(node) {
+    var parent = node.parentNode;
+
+    while (parent != null) {
+        if (parent.nodeType != 1) {
+            parent = parent.parentNode;
+        } else {
+            if (this.isMeaningful(parent)) {
+                break;
+            } else {
+                parent = parent.parentNode;
+            }
+        }
+    }
+
+    return parent;
+};
+
+UimAlg.prototype.isMeaningful = function(node) {
+    if(node == null){
+        return null;
+    }
+
+    var $node = teJQuery(node);
+
+    var tag = node.tagName.toLowerCase();
+    var childrenSize = $node.children().size();
+
+    return (ContainerTagSet.indexOf(tag) != -1
+//            || ((tag == "div" || tag == "span") && (childrenSize > 1
+            || ((tag == "div") && (childrenSize > 1
+            || node.getAttribute("id") != null
+            || node.getAttribute("onclick") != null
+            || node.getAttribute("ondblclick") != null
+            || node.getAttribute("onchange") != null
+            || node.getAttribute("onkeydown") != null
+            || node.getAttribute("onkeypress") != null
+            || node.getAttribute("onkeyup") != null
+            || node.getAttribute("onmousedown") != null
+            || node.getAttribute("onmouseout") != null
+            || node.getAttribute("onmouseover") != null
+            || node.getAttribute("onblur") != null)));
+};
+
+
 UimAlg.prototype.getExtraNodes = function(tree){
-    var visitor = new UiExtraVisitor(this, this.domCache, 20, 8);
+    var visitor = new UiExtraVisitor(this, this.domCache, 24, 8);
     tree.visitAfter(visitor);
 
     return visitor.nodes;
