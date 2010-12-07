@@ -84,6 +84,7 @@
 <!ENTITY options.jslog.description "Javascript Logging">
 <!ENTITY options.logwrap.description "Wrap Logging">
 <!ENTITY options.grouplocating "Group Locating">
+<!ENTITY options.extranodes "Extra Nodes">
 
 <!ENTITY logConsole.label "Log">
 <!ENTITY logFilter.debug.label "Debug">

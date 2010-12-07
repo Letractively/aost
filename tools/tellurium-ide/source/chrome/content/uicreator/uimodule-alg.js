@@ -1,4 +1,5 @@
 var ContainerTagSet = ["input", "select", "table", "form", "ul", "ol", "dl", "li", "button", "a", "label"];
+var ParentTagSet = ["table", "tr", "td", "th", "form", "ul", "ol", "dl", "li"];
 var TableTagSet = ["tr", "th", "td", "tfoot", "tbody"];
 
 var UimConst = {
@@ -349,7 +350,7 @@ UimAlg.prototype.isMeaningful = function(node) {
     var tag = node.tagName.toLowerCase();
     var childrenSize = $node.children().size();
 
-    return (ContainerTagSet.indexOf(tag) != -1
+    return (ParentTagSet.indexOf(tag) != -1
 //            || ((tag == "div" || tag == "span") && (childrenSize > 1
             || ((tag == "div") && (childrenSize > 1
             || node.getAttribute("id") != null
@@ -433,10 +434,15 @@ UimAlg.prototype.build = function(){
     tree.root = this.domCache.getData(this.root.node, UimConst.NODE_OBJECT);
     tree.document = this.tagObjectArray[0].node.ownerDocument;
 
-    var extraNodes = this.getExtraNodes(tree);
-    logger.debug("Found " + extraNodes.length + " extra nodes");
-    this.preBuildNodes(extraNodes);
-    this.updateTreeForNodes(extraNodes);
+    var useExtraNodes = Preferences.getPref("extensions.teide.extranodes");
+    if (useExtraNodes) {
+        var extraNodes = this.getExtraNodes(tree);
+        logger.debug("Found " + extraNodes.length + " extra nodes");
+        this.preBuildNodes(extraNodes);
+        this.updateTreeForNodes(extraNodes);
+    }else{
+        logger.debug("Not use extra nodes to construct UI module");
+    }
 
     return tree;
 };

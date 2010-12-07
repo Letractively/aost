@@ -28,9 +28,9 @@
         
         <script type="application/x-javascript" src="chrome://source/content/options.js"/>
         <script type="application/x-javascript" src="chrome://source/content/preferences.js"/>
-        <script type="application/x-javascript" src="chrome://source/content/extlib/log4js.js"/>
+        <!--<script type="application/x-javascript" src="chrome://source/content/extlib/log4js.js"/>-->
         <script type="application/x-javascript" src="chrome://source/content/telluriumIdeLogger.js"/>
-        <script type="application/x-javascript" src="chrome://source/content/jslogger.js"/>
+        <!--<script type="application/x-javascript" src="chrome://source/content/jslogger.js"/>-->
 
         <stringbundle id="strings" src="chrome://source/locale/string.properties"/>
 
@@ -56,7 +56,12 @@
         <hbox align="center">
             <checkbox id="teide-option-grouplocating" preference="ideGroupLocating" disabled="false" checked="true"/>
         </hbox>
-        
+
+        <description>&options.extranodes;</description>
+        <hbox align="center">
+            <checkbox id="teide-option-extranodes" preference="ideExtraNodes" disabled="false" checked="true"/>
+        </hbox>
+
         <hbox pack="center">
           <!--button id="saveButton" label="&save.label;" oncommand="saveOptions();" /-->
 	        <!--button id="cancelButton" label="&cancel.label;" oncommand="cancelOptions();" /-->
