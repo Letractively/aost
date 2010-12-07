@@ -165,6 +165,49 @@ TelluriumDomCache.prototype.removeAllDataByRefId = function(refId) {
     this.dataIndex[refId] = null;
 };
 
+
+function UiExtraVisitor(domCache, max, nodeLimit){
+    this.domCache = domCache;
+    this.max = max;
+    this.nodeLimit = nodeLimit;
+    this.nodes = [];
+    this.extraCnt = 0;
+}
+
+UiExtraVisitor.prototype.visit = function(node){
+    if(this.shouldVisit(node)){
+        this.selectExtraNodes(node);
+    }
+};
+
+UiExtraVisitor.prototype.selectExtraNodes = function(node){
+    var $extras = teJQuery(node.domNode).find("input, a, link, form, select, button, table, tr, td, ul, dl, ol").filter(":visible");
+    if($extras != null && $extras.size() > 0){
+        var count = 0;
+        for(var i=0; i<$extras.size(); i++){
+            var extra = $extras.get(i);
+            var nodeObject = this.domCache.getData(extra, UimConst.NODE_OBJECT);
+            if(nodeObject == null && count < this.nodeLimit){
+                this.nodes.push(extra);
+                count++;
+                this.extraCnt++;
+                this.domCache.addElement(extra);
+                if(count >= this.nodeLimit || this.extraCnt >= this.max){
+                    break;
+                }
+            }
+        }
+    }   
+};
+
+UiExtraVisitor.prototype.shouldVisit = function(node){
+    if(node.children == null || node.children.length == 0){
+        return false;
+    }
+
+    return this.extraCnt < this.max;
+};
+
 function UimAlg(tagObjectArray, root, refIdSetter, domCache){
     this.tagObjectArray = tagObjectArray;
     this.refIdSetter = refIdSetter;
@@ -242,6 +285,39 @@ UimAlg.prototype.climbFrom = function(node) {
     }       
 };
 
+UimAlg.prototype.getExtraNodes = function(tree){
+    var visitor = new UiExtraVisitor(this.domCache, 20, 4);
+    tree.visitAfter(visitor);
+
+    return visitor.nodes;
+};
+
+UimAlg.prototype.preBuildNodes = function(nodes){
+    if(nodes != null && nodes.length > 0){
+        for(var i = 0; i < nodes.length; i++){
+            var node = nodes[i];
+            var nodeObject = this.domCache.getData(node, UimConst.NODE_OBJECT);
+            if (nodeObject == undefined || nodeObject == null) {
+                nodeObject = new NodeObject();
+                nodeObject.buildFromDomNode(node);
+                nodeObject.refId = this.domCache.getRefId(node);
+                //        nodeObject.newNode = true;
+                nodeObject.id = this.suggestName(nodeObject.tag, nodeObject.attributes);
+                this.domCache.setData(node, UimConst.NODE_OBJECT, nodeObject);
+            }
+        }
+    }
+};
+
+UimAlg.prototype.updateTreeForNodes = function(nodes) {
+    if(nodes != null && nodes.length > 0){
+        for(var i = 0; i < nodes.length; i++){
+            var node = nodes[i];
+            this.climbFrom(node);
+        }
+    }
+};
+
 UimAlg.prototype.build = function(){
     if(this.tagObjectArray == null && this.root == null){
         return null;
@@ -262,45 +338,13 @@ UimAlg.prototype.build = function(){
     tree.root = this.domCache.getData(this.root.node, UimConst.NODE_OBJECT);
     tree.document = this.tagObjectArray[0].node.ownerDocument;
 
+    var extraNodes = this.getExtraNodes(tree);
+    logger.debug("Found " + extraNodes.length + " extra nodes");
+    this.preBuildNodes(extraNodes);
+    this.updateTreeForNodes(extraNodes);
+
     return tree;
 };
-
-/*
-UimAlg.prototype.addExtraFor = function(root, sel){
-    var $ems = teJQuery(root.domNode).find(sel).filter(":visible");
-    if($ems.length >0){
-        var count = 0;
-        for(var i=0; i<$ems.length; i++){
-            var $em = $ems.eq(i);
-            if($em.data(UimConst.SID) != undefined && count < this.max){
-                count++;
-                this.markNode($em.get(0));
-            }
-        }
-    }
-
-};
-
-UimAlg.prototype.addExtra = function(root){
-    this.addExtraFor(root, "input");
-    this.addExtraFor(root, "form");
-    this.addExtraFor(root, "select");
-    this.addExtraFor(root, "button");
-    this.addExtraFor(root, "table");
-    this.addExtraFor(root, "tbody");
-    this.addExtraFor(root, "tfoot");
-    this.addExtraFor(root, "tr");
-    this.addExtraFor(root, "td");
-    this.addExtraFor(root, "ol");
-    this.addExtraFor(root, "li");
-    this.addExtraFor(root, "ul");
-    this.addExtraFor(root, "dl");
-    this.addExtraFor(root, "div");
-    this.addExtraFor(root, "span");
-    this.addExtraFor(root, "a");
-    this.addExtraFor(root, "link");
-};
-*/
 
 UimAlg.prototype.suggestName = function(tag, attributes){
 
