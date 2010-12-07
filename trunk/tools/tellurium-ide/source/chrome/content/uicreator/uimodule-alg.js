@@ -166,7 +166,8 @@ TelluriumDomCache.prototype.removeAllDataByRefId = function(refId) {
 };
 
 
-function UiExtraVisitor(domCache, max, nodeLimit){
+function UiExtraVisitor(alg, domCache, max, nodeLimit){
+    this.alg = alg;
     this.domCache = domCache;
     this.max = max;
     this.nodeLimit = nodeLimit;
@@ -181,7 +182,7 @@ UiExtraVisitor.prototype.visit = function(node){
 };
 
 UiExtraVisitor.prototype.selectExtraNodes = function(node){
-    var $extras = teJQuery(node.domNode).find("input, a, link, form, select, button, table, tr, td, ul, dl, ol").filter(":visible");
+    var $extras = teJQuery(node.domNode).find("input, a, link, form, select, button, ol, li, th, tr, td, ul, dl").filter(":visible");
     if($extras != null && $extras.size() > 0){
         var count = 0;
         for(var i=0; i<$extras.size(); i++){
@@ -189,9 +190,10 @@ UiExtraVisitor.prototype.selectExtraNodes = function(node){
             var nodeObject = this.domCache.getData(extra, UimConst.NODE_OBJECT);
             if(nodeObject == null && count < this.nodeLimit){
                 this.nodes.push(extra);
+                this.alg.createNodeObject(extra);
+
                 count++;
                 this.extraCnt++;
-                this.domCache.addElement(extra);
                 if(count >= this.nodeLimit || this.extraCnt >= this.max){
                     break;
                 }
@@ -286,10 +288,23 @@ UimAlg.prototype.climbFrom = function(node) {
 };
 
 UimAlg.prototype.getExtraNodes = function(tree){
-    var visitor = new UiExtraVisitor(this.domCache, 20, 4);
+    var visitor = new UiExtraVisitor(this, this.domCache, 20, 4);
     tree.visitAfter(visitor);
 
     return visitor.nodes;
+};
+
+UimAlg.prototype.createNodeObject = function(node){
+    this.domCache.addElement(node);
+
+    var nodeObject = new NodeObject();
+    nodeObject.buildFromDomNode(node);
+    nodeObject.refId = this.domCache.getRefId(node);
+    //        nodeObject.newNode = true;
+    nodeObject.id = this.suggestName(nodeObject.tag, nodeObject.attributes);
+    this.domCache.setData(node, UimConst.NODE_OBJECT, nodeObject);
+
+    return nodeObject;
 };
 
 UimAlg.prototype.preBuildNodes = function(nodes){
