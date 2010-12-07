@@ -1046,7 +1046,7 @@ UiAlg.prototype.santa = function(uimodule, rootdom){
 UiAlg.prototype.validate = function(uimodule, rootdom){
     this.clear();
     var relaxflag = this.allowRelax;
-    this.allowRelax = true;
+//    this.allowRelax = true;
     if(rootdom != null){
         this.dom = rootdom;
     }else{
