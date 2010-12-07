@@ -24,6 +24,8 @@
             <preference id="ideExportDirectory" name="extensions.teide.exportdirectory" type="string"/>
             <preference id="ideJSLog" name="extensions.teide.jslog" type="bool"/>
             <preference id="ideLogWrap" name="extensions.teide.logWrap" type="bool"/>
+            <preference id="ideGroupLocating" name="extensions.teide.grouplocating" type="bool"/>
+            <preference id="ideExtraNodes" name="extensions.teide.extranodes" type="bool"/>
         </preferences>
         
         <script type="application/x-javascript" src="chrome://source/content/options.js"/>
@@ -42,24 +44,24 @@
 
         <description>&options.jslog.description;</description>
         <hbox align="center">
-            <checkbox id="teide-option-jslog" preference="ideJSLog" disabled="false" checked="true"/>
+            <checkbox id="teide-option-jslog" preference="ideJSLog"/>
         </hbox>
 
         <separator class="thin"/>
 
         <description>&options.logwrap.description;</description>
         <hbox align="center">
-            <checkbox id="teide-option-logwrap" preference="ideLogWrap" disabled="false" checked="false"/>
+            <checkbox id="teide-option-logwrap" preference="ideLogWrap"/>
         </hbox>
 
          <description>&options.grouplocating;</description>
         <hbox align="center">
-            <checkbox id="teide-option-grouplocating" preference="ideGroupLocating" disabled="false" checked="true"/>
+            <checkbox id="teide-option-grouplocating" preference="ideGroupLocating"/>
         </hbox>
 
         <description>&options.extranodes;</description>
         <hbox align="center">
-            <checkbox id="teide-option-extranodes" preference="ideExtraNodes" disabled="false" checked="true"/>
+            <checkbox id="teide-option-extranodes" preference="ideExtraNodes"/>
         </hbox>
 
         <hbox pack="center">

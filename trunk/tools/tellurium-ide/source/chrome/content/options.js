@@ -1,31 +1,36 @@
 function saveOptions(){
     var elem = document.getElementById("teide-options-directory");
     if(elem != null){
-        Preferences.setPref("extensions.teide.exportdirectory", elem.value);
+//        Preferences.setPref("extensions.teide.exportdirectory", elem.value);
+        Preferences.setPref("exportdirectory", elem.value);
         logger.debug("Tellurium IDE export Directory is updated to " + elem.value);
     }
 
     elem = document.getElementById("teide-option-jslog");
     if(elem != null){
-        Preferences.setPref("extensions.teide.jslog", elem.checked);
+//        Preferences.setPref("extensions.teide.jslog", elem.checked);
+        Preferences.setPref("jslog", elem.checked);
         logger.debug("Tellurium IDE Javascript logging option " + elem.checked);
     }
 
     elem = document.getElementById("teide-option-logwrap");
     if(elem != null){
-        Preferences.setPref("extensions.teide.logwrap", elem.checked);
+//        Preferences.setPref("extensions.teide.logwrap", elem.checked);
+        Preferences.setPref("logwrap", elem.checked);
         logger.debug("Tellurium IDE log Wrapping option " + elem.checked);
     }
 
     elem = document.getElementById("teide-option-grouplocating");
     if(elem != null){
-        Preferences.setPref("extensions.teide.grouplocating", elem.checked);
+//        Preferences.setPref("extensions.teide.grouplocating", elem.checked);
+        Preferences.setPref("grouplocating", elem.checked);
         logger.debug("Tellurium IDE group locating option " + elem.checked);
     }
 
     elem = document.getElementById("teide-option-extranodes");
     if(elem != null){
-        Preferences.setPref("extensions.teide.extranodes", elem.checked);
+//        Preferences.setPref("extensions.teide.extranodes", elem.checked);
+        Preferences.setPref("extranodes", elem.checked);
         logger.debug("Tellurium IDE extra nodes option " + elem.checked);
     }
     
@@ -86,6 +91,11 @@ function loadOptions() {
         if(extra == undefined){
             extra = Preferences.DEFAULT_OPTIONS.defaultExtraNodes;
         }
-        elem.checked = extra;
+        if(extra){
+           elem.setAttribute("checked", "true");
+        }else{
+           elem.removeAttribute("checked");
+        }        
+//        elem.checked = extra;
     }
 }
