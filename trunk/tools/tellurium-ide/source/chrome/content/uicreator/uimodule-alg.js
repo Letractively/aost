@@ -222,7 +222,7 @@ UiExtraVisitor.prototype.selectExtraNodes = function(node){
         for(var i=0; i< this.nodeLimit; i++){
             var extra = $extras.get(i);
             var nodeObject = this.domCache.getData(extra, UimConst.NODE_OBJECT);
-            if(nodeObject == null){
+            if(extra !== undefined && nodeObject == null){
                 this.nodes.push(extra);
                 this.alg.createNodeObject(extra);
 
