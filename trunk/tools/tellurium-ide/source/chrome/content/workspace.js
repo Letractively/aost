@@ -230,11 +230,6 @@ Workspace.prototype.needNewUiModule = function(element){
     if(this.ancestor == null){
         return true;
     }
-
-/*    var height = this.domCache.getData(this.ancestor, UimConst.HEIGHT);
-    logger.debug("Current UI module height " + height);
-
-    return height > this.maxHeight;*/
     
     return this.currentHeight > this.maxHeight;
 };
@@ -250,7 +245,8 @@ Workspace.prototype.isMeaningful = function(node) {
     var childrenSize = $node.children().size();
 
     return (ContainerTagSet.indexOf(tag) != -1
-            || ((tag == "div" || tag == "span") && (childrenSize > 1
+//            || ((tag == "div" || tag == "span") && (childrenSize > 1
+            || ((tag == "div") && (childrenSize > 1
             || node.getAttribute("id") != null
             || node.getAttribute("onclick") != null
             || node.getAttribute("ondblclick") != null

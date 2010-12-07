@@ -751,7 +751,7 @@ Editor.prototype.buildCustomizeTree = function(xml) {
 
 Editor.prototype.populateUiTypeAutoComplete = function(){
     var uitypes = this.builder.getAvailableUiTypes();
-    logger.debug("Get registered UI types: " + uitypes.join(", "));
+//    logger.debug("Get registered UI types: " + uitypes.join(", "));
     Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.editor.getAutoCompleteSearchParam("uiType")),
                                                       XulUtils.toXPCOMArray(uitypes));
 };

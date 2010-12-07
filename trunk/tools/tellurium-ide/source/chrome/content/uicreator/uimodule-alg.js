@@ -181,8 +181,9 @@ UiExtraVisitor.prototype.visit = function(node){
     }
 };
 
+/*
 UiExtraVisitor.prototype.selectExtraNodes = function(node){
-    var $extras = teJQuery(node.domNode).find("input, a, link, form, select, button, ol, li, th, tr, td, ul, dl").filter(":visible");
+    var $extras = teJQuery(node.domNode).siblings("input, a, link, form, table, th, tr, td, select, button, ol, li ul, dl").filter(":visible");
     if($extras != null && $extras.size() > 0){
         var count = 0;
         for(var i=0; i<$extras.size(); i++){
@@ -195,6 +196,40 @@ UiExtraVisitor.prototype.selectExtraNodes = function(node){
                 count++;
                 this.extraCnt++;
                 if(count >= this.nodeLimit || this.extraCnt >= this.max){
+                    break;
+                }
+            }
+        }
+    }
+};
+
+UiExtraVisitor.prototype.shouldVisit = function(node){
+    if(node.parent == null){
+        return false;
+    }
+
+    return this.extraCnt < this.max;
+};
+*/
+
+UiExtraVisitor.prototype.selectExtraNodes = function(node){
+//    var $extras = teJQuery(node.domNode).find("input, a, img, link, form, select, button, ol, li, table, th, tr, td, ul, dl").filter(":visible");
+    var $extras = teJQuery(node.domNode).find("input, a, img, link, select, button").filter(":visible");
+
+    if($extras != null && $extras.size() > 0){
+//        var count = 0;
+//        for(var i=0; i<$extras.size(); i++){
+        for(var i=0; i< this.nodeLimit; i++){
+            var extra = $extras.get(i);
+            var nodeObject = this.domCache.getData(extra, UimConst.NODE_OBJECT);
+            if(nodeObject == null){
+                this.nodes.push(extra);
+                this.alg.createNodeObject(extra);
+
+//                count++;
+                this.extraCnt++;
+//                if(count >= this.nodeLimit || this.extraCnt >= this.max){
+                if(this.extraCnt >= this.max){
                     break;
                 }
             }
@@ -288,7 +323,7 @@ UimAlg.prototype.climbFrom = function(node) {
 };
 
 UimAlg.prototype.getExtraNodes = function(tree){
-    var visitor = new UiExtraVisitor(this, this.domCache, 20, 4);
+    var visitor = new UiExtraVisitor(this, this.domCache, 20, 8);
     tree.visitAfter(visitor);
 
     return visitor.nodes;
