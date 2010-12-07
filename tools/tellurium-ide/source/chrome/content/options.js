@@ -41,7 +41,7 @@ function loadOptions() {
 //    alert("OS is " + os);
     var elem = document.getElementById("teide-options-directory");
     if(elem != null){
-        var exportDir = Preferences.getPref("extensions.teide.exportdirectory");
+        var exportDir = Preferences.getPref("exportdirectory");
         if(exportDir == undefined || exportDir == null){
             if(os == "Windows"){
                 elem.value = Preferences.DEFAULT_OPTIONS.defaultWinDirectory;
@@ -55,7 +55,7 @@ function loadOptions() {
 
     elem = document.getElementById("teide-option-jslog");
     if(elem != null){
-        var jslog = Preferences.getPref("extensions.teide.jslog");
+        var jslog = Preferences.getPref("jslog");
         if(jslog == undefined){
             jslog = Preferences.DEFAULT_OPTIONS.defaultJSLog;
         }
@@ -64,7 +64,7 @@ function loadOptions() {
 
     elem = document.getElementById("teide-option-logwrap");
     if(elem != null){
-        var logwrap = Preferences.getPref("extensions.teide.logwrap");
+        var logwrap = Preferences.getPref("logwrap");
         if(logwrap == undefined){
             logwrap = Preferences.DEFAULT_OPTIONS.defaultLogWrap;
         }
@@ -73,7 +73,7 @@ function loadOptions() {
     
     elem = document.getElementById("teide-option-grouplocating");
     if(elem != null){
-        var glocating = Preferences.getPref("extensions.teide.grouplocating");
+        var glocating = Preferences.getPref("grouplocating");
         if(glocating == undefined){
             glocating = Preferences.DEFAULT_OPTIONS.defaultGroupLocating;
         }
@@ -82,7 +82,7 @@ function loadOptions() {
 
     elem = document.getElementById("teide-option-extranodes");
     if(elem != null){
-        var extra = Preferences.getPref("extensions.teide.extranodes");
+        var extra = Preferences.getPref("extranodes");
         if(extra == undefined){
             extra = Preferences.DEFAULT_OPTIONS.defaultExtraNodes;
         }

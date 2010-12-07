@@ -434,7 +434,8 @@ UimAlg.prototype.build = function(){
     tree.root = this.domCache.getData(this.root.node, UimConst.NODE_OBJECT);
     tree.document = this.tagObjectArray[0].node.ownerDocument;
 
-    var useExtraNodes = Preferences.getPref("extensions.teide.extranodes");
+//    var useExtraNodes = Preferences.getPref("extensions.teide.extranodes");
+    var useExtraNodes = Preferences.getPref("extranodes");
     if (useExtraNodes) {
         var extraNodes = this.getExtraNodes(tree);
         logger.debug("Found " + extraNodes.length + " extra nodes");

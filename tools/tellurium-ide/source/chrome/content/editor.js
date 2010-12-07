@@ -282,7 +282,7 @@ function suggestName(tagObject){
 
 Editor.prototype.validateOneUiModule = function(uim){
 
-    var glf = Preferences.getPref("extensions.teide.grouplocating");
+    var glf = Preferences.getPref("grouplocating");
     if(glf == undefined){
         glf = true;
     }
@@ -306,7 +306,7 @@ Editor.prototype.validateOneUiModule = function(uim){
 
 Editor.prototype.validateUI = function(){
 
-    var glf = Preferences.getPref("extensions.teide.grouplocating");
+    var glf = Preferences.getPref("grouplocating");
     if(glf == undefined){
         glf = true;
     }
@@ -954,7 +954,7 @@ Editor.prototype.exportGroovyDsl = function(){
         if (this.recorder.app != null && this.recorder.app.notEmpty()) {
             var txt = this.recorder.app.toGroovyDsl();
 
-            var dir = Preferences.getPref("extensions.teide.exportdirectory");
+            var dir = Preferences.getPref("exportdirectory");
             if (dir == undefined || dir == null) {
                 if (this.os == "Windows") {
                     dir = Preferences.DEFAULT_OPTIONS.defaultWinDirectory;
@@ -976,7 +976,7 @@ Editor.prototype.exportUiModule = function() {
         if (this.recorder.app != null && this.recorder.app.notEmpty()) {
             var txt = this.recorder.app.toUiModule();
 
-            var dir = Preferences.getPref("extensions.teide.exportdirectory");
+            var dir = Preferences.getPref("exportdirectory");
             if (dir == undefined || dir == null) {
                 if (this.os == "Windows") {
                     dir = Preferences.DEFAULT_OPTIONS.defaultWinDirectory;
@@ -998,7 +998,7 @@ Editor.prototype.exportJavaCode = function(){
         if (this.recorder.app != null && this.recorder.app.notEmpty()) {
             var txt = this.recorder.app.toJavaCode();
 
-            var dir = Preferences.getPref("extensions.teide.exportdirectory");
+            var dir = Preferences.getPref("exportdirectory");
             if (dir == undefined || dir == null) {
                 if (this.os == "Windows") {
                     dir = Preferences.DEFAULT_OPTIONS.defaultWinDirectory;
@@ -1106,7 +1106,7 @@ Editor.prototype.pasteFromClipboard = function() {
 
 Editor.prototype.updateOptions = function(){
     window.openDialog("chrome://source/content/preferences.xul", "options", "chrome,modal,resizable", this.os);
-    var jslog = Preferences.getPref("extensions.teide.jslog");
+    var jslog = Preferences.getPref("jslog");
     if(jslog ==undefined){
         jslog = true;
     }
@@ -1114,7 +1114,7 @@ Editor.prototype.updateOptions = function(){
 
     var elem = window.frames["logViewFrame"].document.getElementById("logging-console");
     if (elem != null) {
-        var logWrap = Preferences.getPref("extensions.teide.logwrap");
+        var logWrap = Preferences.getPref("logwrap");
         if(logWrap == undefined){
             logWrap = true;
         }
