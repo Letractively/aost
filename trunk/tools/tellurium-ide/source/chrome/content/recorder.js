@@ -422,6 +422,19 @@ Recorder.prototype.recordDomNode = function (element){
         //check if the element is already selected
         var index = this.selectedElements.indexOf(element);
         if (index == -1) {
+            var needNewUim = false;
+
+            if (this.needNewUiModule(element)) {
+                needNewUim = true;
+                logger.debug("Generate UI module because we need a new one");
+                this.generateSource();
+            }
+
+            if (needNewUim) {
+                //This is a new UI module, re-find the ancestor
+                this.workspace.findAncestor(element);
+            }
+
 //            this.decorator.addBackground(element);
             this.selectedElements.push(element);
 
@@ -435,6 +448,8 @@ Recorder.prototype.recordDomNode = function (element){
 //            this.workspace.addNode(element, this.frameName, refId);
         }else {
             refId = this.workspace.domCache.getRefId(element);
+
+/*
             var succeed = this.workspace.unRecordDomNode(index, element);
             if(succeed){
                 //we are assuming to remove the element
@@ -443,6 +458,7 @@ Recorder.prototype.recordDomNode = function (element){
                 this.tagObjectArray.splice(index, 1);
                 this.treeView.deleteRow(index);
             }
+*/            
         }
     } catch(error) {
         logger.error("Record node " + element.tagName + " failed:\n" + describeErrorStack(error));
@@ -456,7 +472,6 @@ Recorder.prototype.recordCommand = function(name, element, value, valueType){
     var result, cmd;
 
     if (element != null && element != undefined) {
-        var needNewUim = false;
 
         if (this.first) {
             this.workspace.addCommand("open", null, element.ownerDocument.location.href, ValueType.STRING);
@@ -465,6 +480,7 @@ Recorder.prototype.recordCommand = function(name, element, value, valueType){
             this.first = false;
         }
         
+/*
         if (this.needNewUiModule(element)) {
             needNewUim = true;
             logger.debug("Generate UI module because we need a new one");
@@ -475,17 +491,10 @@ Recorder.prototype.recordCommand = function(name, element, value, valueType){
             //This is a new UI module, re-find the ancestor
             this.workspace.findAncestor(element);
         }
+*/
         
         var uid = this.recordDomNode(element);
         this.workspace.increaseCount(element);
-
-/*        var count = teJQuery(element).data("count");
-        if (count == undefined) {
-            logger.warn("Element count is undefined for command " + name);
-            teJQuery(element).data("count", 1);
-        } else {
-            teJQuery(element).data("count", count + 1);
-        }*/
         
         result = this.workspace.addCommand(name, uid, value, valueType);
         if (result) {
@@ -694,12 +703,28 @@ Recorder.addEventHandler('clickLocator', 'click', function(event) {
                 this.recordCommand("click", event.target, null, null);
             } else {
                 var target = event.target;
+                if(this.findTextElement(target)){
+                    this.recordDomNode(target);                    
+                }
                 this.callIfMeaningfulEvent(function() {
                         this.recordCommand("click", target, null);
                     });
             }
 		}
 	}, { capture: true });
+
+Recorder.prototype.findTextElement = function(e){
+    if (e == null || e.tagName == undefined){
+        return null;
+    }
+    
+    var tagName = e.tagName.toLowerCase();
+    if(tagName == "span" || tagName == "b" || tagName.startsWith("h")){
+        return e;
+    }
+
+    return null;
+};
 
 Recorder.prototype.findClickableElement = function(e) {
 	if (!e.tagName) return null;
