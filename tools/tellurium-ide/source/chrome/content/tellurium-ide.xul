@@ -98,7 +98,7 @@
 
     </toolbar>
 
-    <tabbox flex="3" height="300" width="250">
+    <tabbox flex="4" height="300" width="250">
         <tabs orient="horizontal" id="editorTabs">
             <tab id="recordTab" label="&recordTab.label;" />
             <tab id="customizeTab" label="&customizeTab.label;" />
@@ -117,7 +117,7 @@
                                  <label control="commandValue" value="&commandList.label;" align="center"/>
                                  <spacer flex="1"/>
                              </hbox>
-                             <tree id="commandListTree" flex="1" rows="10" hidecolumnpicker="true">
+                             <tree id="commandListTree" flex="3" hidecolumnpicker="true">
                                <treecols>
                                  <treecol id="listCommandName" label="&listCommandName.label;" flex="1" align="center"/>
                                  <treecol id="listCommandRef" label="&listCommandRef.label;" flex="1" align="center"/>
@@ -138,7 +138,7 @@
                             <label control="commandValue" value="&domNodeList.label;" align="center"/>
                             <spacer flex="1"/>
                         </hbox>                        
-                        <tree id="recordTree" flex="1" rows="15" onselect="window.editor.selectedTreeItem()" hidecolumnpicker="true">
+                        <tree id="recordTree" flex="3" onselect="window.editor.selectedTreeItem()" hidecolumnpicker="true">
                           <treecols>
                             <treecol id="selectedElement" label="&element.label;" flex="1" align="center"/>
                             <treecol id="selecetedElementName" label="&element.name.label;" flex="1" align="center"/>
@@ -162,7 +162,7 @@
                                  <label control="commandValue" value="&recordedCommandList.label;" align="center"/>
                                  <spacer flex="1"/>
                              </hbox>
-                             <tree id="recordedCommandListTree" flex="1" rows="10" hidecolumnpicker="true" seltype="single" onselect="window.editor.selectUiCommand()">
+                             <tree id="recordedCommandListTree" flex="3" hidecolumnpicker="true" seltype="single" onselect="window.editor.selectUiCommand()">
                                <treecols>
                                  <treecol id="recordedCommandName" label="&recordedCommandName.label;" flex="1" align="center"/>
                                  <treecol id="recordedCommandUid" label="&recordedCommandUid.label;" flex="1" align="center"/>
