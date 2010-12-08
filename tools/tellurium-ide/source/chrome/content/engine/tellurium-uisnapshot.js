@@ -554,8 +554,14 @@ var MarkInvalidVisitor = STreeVisitor.extend({
     },
 
     visit: function(context, node){
-        var uid = node.fullUid();
-        node.isLocatorValid = !(this.invalid != null && teJQuery.inArray(uid, this.invalid));
+        node.isLocatorValid = true;
+        if(this.invalid != null && this.invalid.length > 0){
+            var uid = node.fullUid();
+            if(this.invalid.indexOf(uid) !== -1){
+                node.isLocatorValid = false;
+            }
+        }
+//        node.isLocatorValid = !(this.invalid != null && teJQuery.inArray(uid, this.invalid));
     }
 });
 
