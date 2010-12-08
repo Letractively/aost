@@ -482,7 +482,12 @@ App.prototype.describeTestSetup = function(){
 App.prototype.describeCommand = function(commandList, mapper){
     var sb = new StringBuffer();
     if(commandList !== null && commandList.length > 0){
-        for(var i=0; i<commandList.length; i++){
+        var firstCmd = commandList[0];
+        var start = 0;
+        if(firstCmd.name == "waitForPageToLoad"){
+            start++;
+        }
+        for(var i=start; i<commandList.length; i++){
             var cmd = commandList[i];
             var name = cmd.name;
             if(mapper !== null){
