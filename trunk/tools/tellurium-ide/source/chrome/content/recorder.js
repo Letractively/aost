@@ -731,6 +731,7 @@ Recorder.prototype.findClickableElement = function(e) {
 	var tagName = e.tagName.toLowerCase();
 	var type = e.type;
 	if (e.hasAttribute("onclick") || e.hasAttribute("href") || tagName == "button" ||
+//            e.class == "button" ||
 		(tagName == "input" &&
 		 (type == "submit" || type == "button" || type == "image" || type == "radio" || type == "checkbox" || type == "reset"))) {
 		return e;
