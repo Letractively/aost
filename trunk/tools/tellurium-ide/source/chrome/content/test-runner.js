@@ -181,10 +181,18 @@ var TestRunner = Class.extend({
         if(uim == null){
             uim = this.uimMap.get(first);
             this.cmdExecutor.cacheUiModule(uim);
-            this.cmdExecutor.locateUI(first);
+            try{
+                this.cmdExecutor.locateUI(first);
+            }catch(error){
+               logger.error("Error Locating UI module " + first + ":\n" + describeErrorStack(error));
+            }
         }else{
             if(!uim.valid){
-                this.cmdExecutor.locateUI(first);
+                try{
+                    this.cmdExecutor.locateUI(first);     
+                }catch(error){
+                    logger.error("Error Locating UI module " + first + ":\n" + describeErrorStack(error));
+                }
             }
         }
     },

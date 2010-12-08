@@ -826,7 +826,7 @@ Workspace.prototype.validate = function(){
 
 Workspace.prototype.validateUiModule = function() {
     logger.debug("Start validating UI Module");
-    //validate UI object's XPath
+    //validate UI objects
     if (this.innerTree.root != null) {
         this.uim = this.uimBuilder.build(this.innerTree);
         this.uim.doc = this.innerTree.document;
