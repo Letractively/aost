@@ -1,0 +1,30 @@
+#summary Tellurium Engine: An Object-based Test Driving Engine.
+#labels Phase-Implementation,Phase-Support
+
+= Introduction =
+
+Tellurium Engine is an object based test driving engine. It has the following features.
+
+  * UI module group locating
+  * UID based API
+  * Command Bundle
+  * UI module caching and reuse
+
+
+= Architecture =
+
+= UID Based API =
+
+Tellurium Engine API is UID based, not locator base. For example, the type method is defined as.
+
+{{{
+  Tellurium.prototype.type = function(uid, val){
+    ......
+  }
+}}}
+
+That is to say, you can call the api like
+
+{{{
+  type("GoogleSearchModule.Input", "Tellurium test")
+}}}
