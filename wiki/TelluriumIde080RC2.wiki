@@ -13,7 +13,7 @@ Tellurium IDE is a Firefox plugin to record user actions and automatically gener
 
 Tellurium IDE 0.8.0 RC2 can be downloaded from [http://aost.googlecode.com/files/TelluriumIDE-0.8.0-RC2.xpi Tellurium Download site] or from [https://addons.mozilla.org/en-US/firefox/addon/217284/ Firefox add-on site].
 
-Note: if you got "Download Error -228" from firefox add-on site. Please uninstall Tellurium IDE first, and then install the new version.
+Note: if you got "Download Error -228" from firefox add-on site. Please uninstall Tellurium IDE first, and then install the new version. Or right click install button, "save link as" download xpi to desktop, then File > Open File, browse to xpi, open to install.
 
 = Features =
 
