@@ -599,3 +599,87 @@ UiModule.prototype.validate = function(alg, doc){
    ......
 };
 }}}
+
+= UI Module Algorithms =
+
+The UiAlg object defines the algorithms used to handle UI modules and UI objects.
+
+{{{
+//algorithms to handle UI modules and UI Objects
+function UiAlg(){
+    //current root DOM element
+    this.dom = null;
+
+    //whether allow to use closest matching element if no one matches
+    this.allowRelax = false;
+
+    //FIFO queue to hold UI snapshots
+    this.squeue = new FifoQueue();
+
+    //FIFO queue to hold UI objects in the UI module
+    this.oqueue = new FifoQueue();
+
+    //jQuery builder to build CSS selectors
+    this.cssbuilder = new JQueryBuilder();
+
+}
+}}}
+
+The most important algorithm is the Santa algorithm to locate the whole UI module.
+
+{{{
+UiAlg.prototype.santa = function(uimodule, rootdom){
+
+    this.currentColor = this.colors.GRAY;
+    //start from the root element in the UI module
+    if(!uimodule.root.lazy){
+        this.oqueue.push(uimodule.root);
+        var ust = new UiSnapshot();
+        ust.color = this.colors.GRAY;
+        this.squeue.push(ust);
+    }else{
+        return false;
+    }
+    while(this.oqueue.size() > 0){
+        var uiobj = this.oqueue.pop();
+
+        uiobj.locate(this);
+    }
+    if(this.squeue.size() == 0){
+        throw new SeleniumError("Cannot locate UI module " +  uimodule.root.uid);
+    }
+
+    //if allow closest match
+    if (this.allowRelax) {
+        uimodule.matches = this.squeue.size();
+        //use match score to select the best match
+        var snapshot = this.squeue.pop();
+        var maxscore = snapshot.getScaledScore();
+        while (this.squeue.length > 0) {
+            var nsnapshot = this.squeue.pop();
+            var nscore = nsnapshot.getScaledScore();
+            if (nscore > maxscore) {
+                snapshot = nsnapshot;
+                maxscore = nscore;
+            }
+        }
+
+        this.bindToUiModule(uimodule, snapshot);
+        this.unmark();
+    } else {
+        //for exact match, cannot have multiple matches
+        if (this.squeue.size() > 1) {
+            throw new SeleniumError("Found " + this.squeue.size() + " matches for UI module " + uimodule.root.uid);
+        }
+        //found only one snapshot, happy path
+        var osnapshot = this.squeue.pop();
+        this.bindToUiModule(uimodule, osnapshot);
+        this.unmark();
+        uimodule.matches = 1;
+    }
+
+    uimodule.valid = true;
+    return true;
+};
+
+}}}
