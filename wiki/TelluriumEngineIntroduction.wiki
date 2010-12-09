@@ -730,5 +730,63 @@ UiAlg.prototype.santa = function(uimodule, rootdom){
     uimodule.valid = true;
     return true;
 };
+}}}
 
+= Customize =
+
+By default, Tellurium Engine registered the following UI objects,
+
+{{{
+Tellurium.prototype.registerDefaultUiBuilders = function(){
+    this.uiBuilderMap.put("Button", new UiButtonBuilder());
+    this.uiBuilderMap.put("CheckBox", new UiCheckBoxBuilder());
+    this.uiBuilderMap.put("Div", new UiDivBuilder());
+    this.uiBuilderMap.put("Icon", new UiIconBuilder());
+    this.uiBuilderMap.put("Image", new UiImageBuilder());
+    this.uiBuilderMap.put("InputBox", new UiInputBoxBuilder());
+    this.uiBuilderMap.put("RadioButton", new UiRadioButtonBuilder());
+    this.uiBuilderMap.put("Selector", new UiSelectorBuilder());
+    this.uiBuilderMap.put("Span", new UiSpanBuilder());
+    this.uiBuilderMap.put("SubmitButton", new UiSubmitButtonBuilder());
+    this.uiBuilderMap.put("TextBox", new UiTextBoxBuilder());
+    this.uiBuilderMap.put("UrlLink", new UiUrlLinkBuilder());
+    this.uiBuilderMap.put("Container", new UiContainerBuilder());
+    this.uiBuilderMap.put("Frame", new UiFrameBuilder());
+    this.uiBuilderMap.put("Form", new UiFormBuilder());
+    this.uiBuilderMap.put("List", new UiListBuilder());
+    this.uiBuilderMap.put("Table", new UiTableBuilder());
+    this.uiBuilderMap.put("StandardTable", new UiStandardTableBuilder());
+    this.uiBuilderMap.put("Window", new UiWindowBuilder());
+    this.uiBuilderMap.put("Repeat", new UiRepeatBuilder());
+    this.uiBuilderMap.put("UiAllPurposeObject", new UiAllPurposeObjectBuilder());
+};
+}}}
+
+and the following APIs.
+
+{{{
+Tellurium.prototype.registerCommands = function(){
+    this.registerCommand("useTeApi", CommandType.NoUid, ReturnType.VOID, this.useTeApi);
+    this.registerCommand("isUseLog", CommandType.NoUid, ReturnType.BOOLEAN, this.isUseLog);
+    this.registerCommand("open", CommandType.NoUid, ReturnType.VOID, this.open);
+    this.registerCommand("toggle", CommandType.HasUid, ReturnType.VOID, this.toggle);
+    this.registerCommand("blur", CommandType.HasUid, ReturnType.VOID, this.blur);
+    this.registerCommand("click", CommandType.HasUid, ReturnType.VOID, this.click);
+
+    ......
+}
+}}}
+
+Tellurium provides the following two methods for you to register your own UI objects and APIs.
+
+{{{
+//expose this so that users can hook in their own custom UI objects or even overwrite the default UI objects
+Tellurium.prototype.registerUiBuilder = function(name, builder){
+    this.uiBuilderMap.put(name, builder);
+};
+
+Tellurium.prototype.registerCommand = function(name, type, returnType, handler){
+    var cmd = new TelluriumCommand(name, type, returnType, handler);
+    this.cmdMap.put(name, cmd);
+};
 }}}
