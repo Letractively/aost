@@ -6,3 +6,37 @@
 Tellurium is an expressive testing framework and it uses [http://code.google.com/p/aost/wiki/UserGuide070UIObjects#UI_Module UI modules] to define the web UIs under testing. [http://code.google.com/p/aost/wiki/UserGuide070TelluriumBasics#UiID_Attribute UIDs] are used to reference UI elements instead of hardcoded locators. 
 
 Tellurium IDE is a Firefox plugin to record user actions and automatically generate Tellurium DSL script. Tellurium IDE is developed from the codebase of Tellurium UI Module Firefox Plugin  [http://code.google.com/p/aost/wiki/UserGuide070TelluriumSubprojects#Tellurium_UI_Module_Plugin_%28TrUMP%29 Trump], which is used to record user's selection of UIs and automatically generate UI modules. Tellurium IDE is a step further to automatically generate Tellurium commands and UI modules. The exported Groovy DSL script could be run directly with [http://code.google.com/p/aost/wiki/TelluriumWorks080RC1 TelluriumWorks].
+
+= Download =
+
+Tellurium IDE 0.8.0 RC2 can be downloaded from [http://aost.googlecode.com/files/TelluriumIDE-0.8.0-RC2.xpi Tellurium Download site] or from [https://addons.mozilla.org/en-US/firefox/addon/217284/ Firefox add-on site].
+
+= Features =
+
+Tellurium 0.8.0 RC2 has the following update.
+
+  # Changed the JavaScript event record mechanism
+  # Fixed Mac OS X spinning cursor problem
+  # Updated UI module generation algorithm
+  # Improved UI layout on Windows systems
+  # Other bug fixes and improvement
+
+= What's Next =
+
+Be aware that Tellurium IDE 0.8.0 RC2 is work in process, please report any problems back to [http://groups.google.com/group/tellurium-users Tellurium user group].
+
+We will work on Tellurium UI module generation algorithm to automatically generate UI templates such as List and Table.
+
+We are looking for JavaScript experts to join our team to help with the Tellurium IDE and Tellurium Engine development. If you are interested, please send emails to telluriumsource at gmail dot com. 
+
+Thanks in advance,
+
+Tellurium Team
+
+= Resources =
+
+  * [https://addons.mozilla.org/en-US/firefox/addon/217284/ Tellurium IDE on Firefox addon site]
+  * [http://www.youtube.com/watch?v=yVIBY8QzWzE/ Tellurium IDE 0.8.0 RC1 tutorial video]
+  * [http://code.google.com/p/aost/ Tellurium Project Home]
+  * [http://groups.google.com/group/tellurium-users Tellurium User Group]
+  * [http://twitter.com/TelluriumSource Tellurium on Twitter]
