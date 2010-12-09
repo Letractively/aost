@@ -767,7 +767,7 @@ function UiAlg(){
 }
 }}}
 
-The most important algorithm is [http://code.google.com/p/aost/wiki/SantaUiModuleGroupLocatingAlgorithm] the Santa algorithm] to locate the whole UI module.
+The most important algorithm is [http://code.google.com/p/aost/wiki/SantaUiModuleGroupLocatingAlgorithm the Santa algorithm] to locate the whole UI module.
 
 {{{
 UiAlg.prototype.santa = function(uimodule, rootdom){
