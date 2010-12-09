@@ -719,7 +719,7 @@ Recorder.prototype.findTextElement = function(e){
     }
     
     var tagName = e.tagName.toLowerCase();
-    if(tagName == "span" || tagName == "b" || tagName.startsWith("h")){
+    if(tagName == "span" || tagName == "b" || tagName == "label" || tagName.startsWith("h")){
         return e;
     }
 
