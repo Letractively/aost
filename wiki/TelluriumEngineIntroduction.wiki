@@ -168,6 +168,8 @@ Tellurium.prototype.execCommand = function(cmd, uid, param){
 };
 }}}
 
+The proxy object is used for general purpose objects that are internally used by the API call getUiByTag().
+
 = Tellurium UI Objects =
 
 Tellurium UI objects are build blocks for Tellurium UI module. The basic UI object is defined as
