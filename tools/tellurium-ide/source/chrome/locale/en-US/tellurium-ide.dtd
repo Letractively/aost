@@ -52,8 +52,8 @@
 <!ENTITY updateCommandValue.label "Value">
 <!ENTITY updateCommand.label "Update">
 <!ENTITY removeCommand.label "Remove">
-<!ENTITY insertBeforeCommand.label "InsertBefore">
-<!ENTITY insertAfterCommand.label "InsertAfter">
+<!ENTITY insertBeforeCommand.label "Insert &gt;">
+<!ENTITY insertAfterCommand.label "&lt; Insert">
 
 <!ENTITY uid.label "UID">
 <!ENTITY type.label "Type">
