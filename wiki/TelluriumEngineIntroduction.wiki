@@ -7,11 +7,41 @@ Tellurium Engine is an object based test driving engine. It has the following fe
 
   * UI module group locating
   * UID based API
-  * Command Bundle
+  * Macro Command
   * UI module caching and reuse
 
 
 = Architecture =
+
+= Macro Command =
+
+Multiple API calls could be bundled into one API call, i.e., {{{getBundleResponse(bundle)}}}.
+
+The following method parses each command in the bundle, dispatch to Tellurium Engine or Selenium core, and construct the response object for the bundle.
+
+{{{
+Tellurium.prototype.dispatchMacroCmd = function(){
+    var response = new BundleResponse();
+
+    while (this.macroCmd.size() > 0) {
+        var cmd = this.macroCmd.first();
+        if(cmd.name == "getUseUiModule"){
+            //do UI module locating
+            var result = this.useUiModule(cmd.args[0]);
+            response.addResponse(cmd.sequ, cmd.name, ReturnType.OBJECT, result);
+        }else{
+            //for other commands
+             if ((!this.isUseTeApi) || this.isApiMissing(cmd.name)) {
+                this.delegateToSelenium(response, cmd);
+            }else{
+               this.delegateToTellurium(response, cmd);
+            }
+        }
+    }
+
+    return response.toJSon();
+};
+}}}
 
 = UID Based API =
 
