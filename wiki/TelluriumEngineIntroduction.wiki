@@ -121,6 +121,55 @@ That is to say, you can call the api like
   type("GoogleSearchModule.Input", "Tellurium test")
 }}}
 
+The API execution flow is as follows, i.e., it tries to find the UI object from the UID, and then check if the UI object has the method defined. If it does, then call the method, otherwise, throw an exception.
+
+{{{Tellurium.prototype.execCommand = function(cmd, uid, param){
+    var context = new WorkflowContext();
+    context.alg = this.uiAlg;
+    var uiid = new Uiid();
+    uiid.convertToUiid(uid);
+
+    var first = uiid.peek();
+    var uim = this.cache.get(first);
+    if(uim != null){
+        var obj = uim.walkTo(context, uiid);
+        if(obj != null){
+            if(obj.respondsTo(cmd)){
+                var params = [context];
+                if(param != null && param != undefined){
+                    params.push(param);
+                }
+                return obj[cmd].apply(obj, params);
+            }else{
+                  throw new TelluriumError(ErrorCodes.INVALID_CALL_ON_UI_OBJ, "UI Object " + uid  + " of type "
+                        + obj.uiType + " and tag " + obj.tag + " does not have method " + cmd);
+            }
+        }else{
+            logger.error("Cannot find UI object " + uid);
+            throw new TelluriumError(ErrorCodes.UI_OBJ_NOT_FOUND, "Cannot find UI object " + uid);
+        }
+    }else{
+        var proxyObject = this.proxyObject.walkTo(context, uid);
+        if(proxyObject != null){
+            if(proxyObject.respondsTo(cmd)){
+                var params = [context];
+                if(param != null && param != undefined){
+                    params.push(param);
+                }
+
+                return proxyObject[cmd].apply(proxyObject, params);
+            }else{
+                throw new TelluriumError(ErrorCodes.INVALID_CALL_ON_UI_OBJ, "Proxy UI Object " + uid + " does not have method " + cmd);
+            }    
+        }else{
+            throw new TelluriumError(ErrorCodes.UI_MODULE_IS_NULL, "Cannot find UI Module " + first);
+        }
+    }
+};
+
+
+}}}
+
 = Tellurium UI Objects =
 
 Tellurium UI objects are build blocks for Tellurium UI module. The basic UI object is defined as
