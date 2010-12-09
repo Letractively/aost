@@ -6,7 +6,7 @@
 
 Tellurium Engine is an object based test driving engine. It has the following features.
 
-  * UI module group locating
+  * UI module group locating 
   * UID based API
   * Macro Command
   * UI module caching and reuse
@@ -26,7 +26,7 @@ The Tellurium Core will convert the UI module into a JSON representation and pas
 
 = Macro Command =
 
-Multiple API calls could be bundled into one API call, i.e., {{{getBundleResponse(bundle)}}}.
+Multiple API calls could be bundled into one API call, i.e., {{{getBundleResponse(bundle)}}}. This bundle is called [http://code.google.com/p/aost/wiki/UserGuide070TelluriumAdvancedTopics#Macro_Command Macro Command].
 
 The following method parses each command in the bundle, dispatch to Tellurium Engine or Selenium core, and construct the response object for the bundle.
 
@@ -118,7 +118,7 @@ function Tellurium(){
 
 = UID Based API =
 
-Tellurium Engine API is UID based, not locator base. For example, the type method is defined as.
+Tellurium Engine API is [http://code.google.com/p/aost/wiki/UserGuide070TelluriumBasics#UiID_Attribute UID] based, not locator base. For example, the type method is defined as.
 
 {{{
   Tellurium.prototype.type = function(uid, val){
@@ -183,7 +183,7 @@ The proxy object is used for general purpose objects that are internally used by
 
 = Tellurium UI Objects =
 
-Tellurium UI objects are build blocks for Tellurium UI module. The basic UI object is defined as
+[http://code.google.com/p/aost/wiki/UserGuide070UIObjects#Tellurium_UI_Objects Tellurium UI objects] are build blocks for Tellurium UI module. The basic UI object is defined as
 
 {{{
 //base UI object
@@ -354,7 +354,7 @@ var UiList = UiContainer.extend({
     ......
 }}}
 
-The flag noCacheForChildren is used to indicate that the List holds UI templates and the Engine will not try to cache its child nodes. The rTree is used to for Tellurium UID Description Language to find the actual UID reference. 
+The flag noCacheForChildren is used to indicate that the List holds UI templates and the Engine will not try to cache its child nodes. The rTree is used to for [http://code.google.com/p/aost/wiki/TelluriumUIDDescriptionLanguage Tellurium UID Description Language] to find the actual UID reference. 
 
 UI objects are build from UI object builders. The basic UI object builder is defined as.
 
@@ -660,6 +660,88 @@ UiModule.prototype.validate = function(alg, doc){
 };
 }}}
 
+= UI Module Cache =
+
+[http://code.google.com/p/aost/wiki/UserGuide070TelluriumAdvancedTopics#UI_Module_Caching
+ UI modules are cached for reuse in Tellurium]. The cache object is defined as
+
+{{{
+
+function TelluriumUiCache(){
+
+    //cache for UI modules
+    this.cache = new Hashtable();
+
+    this.maxCacheSize = 50;
+
+    this.cachePolicy;
+
+    //Cache hit, i.e., direct get dom reference from the cache
+    this.cacheHit = 0;
+
+    //Cache miss, i.e., have to use walkTo to locate elements
+    this.cacheMiss = 0;
+
+}
+}}}
+
+The cached data includes the data itself, a time stamp, and a counter.
+
+{{{
+function CacheData(){
+    this.data = null;
+    this.timestamp = null;
+    this.count = 0;
+}
+}}}
+
+Tellurium Engine provides the following cache polices to automatically handle cache.
+
+{{{
+var CachePolicy = Class.extend({
+    init: function(){
+        this.name = "";
+    },
+
+    myName: function(){
+        return this.name;
+    },
+
+    applyPolicy: function (cache, key, data){
+
+    }
+});
+
+var DiscardNewPolicy = CachePolicy.extend({
+    init: function(){
+        this.name = "DiscardNewPolicy";
+    }
+});
+
+var DiscardOldPolicy = CachePolicy.extend({
+    init: function() {
+        this.name = "DiscardOldPolicy";
+    },
+    ......
+};
+
+var DiscardLeastUsedPolicy = CachePolicy.extend({
+    init: function() {
+        this.name = "DiscardLeastUsedPolicy";
+    },
+
+    ......
+};
+
+var DiscardInvalidPolicy = CachePolicy.extend({
+    init: function() {
+        this.name = "DiscardOldPolicy";
+    },
+
+    ......
+}
+}}}
+
 = UI Module Algorithms =
 
 The UiAlg object defines the algorithms used to handle UI modules and UI objects.
@@ -685,7 +767,7 @@ function UiAlg(){
 }
 }}}
 
-The most important algorithm is the Santa algorithm to locate the whole UI module.
+The most important algorithm is [http://code.google.com/p/aost/wiki/SantaUiModuleGroupLocatingAlgorithm] the Santa algorithm] to locate the whole UI module.
 
 {{{
 UiAlg.prototype.santa = function(uimodule, rootdom){
