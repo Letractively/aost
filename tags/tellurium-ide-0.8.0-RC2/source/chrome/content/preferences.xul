@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+
+<!DOCTYPE window [
+        <!ENTITY % telluriumIdeDTD SYSTEM "chrome://source/locale/tellurium-ide.dtd">
+        %telluriumIdeDTD;
+]>
+
+<!-- Tellurium IDE Preferences Window -->
+<prefwindow id="IdePreferences" buttons="accept,cancel" defaultButton="accept,cancel"
+            ondialogaccept="return saveOptions()"
+            onload="loadOptions()"
+            title="Tellurium IDE Options"
+            width="400"
+            height="450"
+            xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <!-- Create a new pane (tab) for Tellurium IDE. -->
+    <prefpane id="idePrefPane" label="&options.general.label;">
+        <!--prefpane id="idePrefPane" label="&options.general.label;" onpaneload="populateIDE()"-->
+
+        <preferences>
+            <preference id="ideExportDirectory" name="extensions.teide.exportdirectory" type="string"/>
+            <preference id="ideJSLog" name="extensions.teide.jslog" type="bool"/>
+            <preference id="ideLogWrap" name="extensions.teide.logWrap" type="bool"/>
+            <preference id="ideGroupLocating" name="extensions.teide.grouplocating" type="bool"/>
+            <preference id="ideExtraNodes" name="extensions.teide.extranodes" type="bool"/>
+        </preferences>
+        
+        <script type="application/x-javascript" src="chrome://source/content/options.js"/>
+        <script type="application/x-javascript" src="chrome://source/content/preferences.js"/>
+        <!--<script type="application/x-javascript" src="chrome://source/content/extlib/log4js.js"/>-->
+        <script type="application/x-javascript" src="chrome://source/content/telluriumIdeLogger.js"/>
+        <!--<script type="application/x-javascript" src="chrome://source/content/jslogger.js"/>-->
+
+        <stringbundle id="strings" src="chrome://source/locale/string.properties"/>
+
+        <hbox align="center">
+            <textbox id="teide-options-directory" preference="ideExportDirectory" multiline="false" oninput=""/>
+        </hbox>
+
+        <separator class="thin"/>
+
+        <description>&options.jslog.description;</description>
+        <hbox align="center">
+            <checkbox id="teide-option-jslog" preference="ideJSLog"/>
+        </hbox>
+
+        <separator class="thin"/>
+
+        <description>&options.logwrap.description;</description>
+        <hbox align="center">
+            <checkbox id="teide-option-logwrap" preference="ideLogWrap"/>
+        </hbox>
+
+         <description>&options.grouplocating;</description>
+        <hbox align="center">
+            <checkbox id="teide-option-grouplocating" preference="ideGroupLocating"/>
+        </hbox>
+
+        <description>&options.extranodes;</description>
+        <hbox align="center">
+            <checkbox id="teide-option-extranodes" preference="ideExtraNodes"/>
+        </hbox>
+
+        <hbox pack="center">
+          <!--button id="saveButton" label="&save.label;" oncommand="saveOptions();" /-->
+	        <!--button id="cancelButton" label="&cancel.label;" oncommand="cancelOptions();" /-->
+        </hbox>
+
+    </prefpane>
+
+</prefwindow>
