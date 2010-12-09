@@ -58,3 +58,184 @@ That is to say, you can call the api like
 {{{
   type("GoogleSearchModule.Input", "Tellurium test")
 }}}
+
+= Tellurium UI Objects =
+
+Tellurium UI objects are build blocks for Tellurium UI module. The basic UI object is defined as
+
+{{{
+//base UI object
+var UiObject = Class.extend({
+    
+    init: function() {
+        //reference ID during UI module recording and generating process
+        this.refId = null;
+
+        //UI object identification
+        this.uid = null;
+
+        //meta data
+        this.metaData = null;
+
+        //its parent UI object
+        this.parent = null;
+
+        //namespace, useful for XML, XHTML, XForms
+        this.namespace = null;
+
+        this.locator = null;
+        
+        //optional attributes
+        this.optionalAttributes = null;
+
+        //event this object should be respond to
+        this.events = null;
+
+        //should we do lazy locating or not, i.e., wait to the time we actually use this UI object
+        //usually this flag is set because the content is dynamic at runtime
+        this.lazy = false;
+
+        //If it is contained in its parent or not
+        this.self = false;
+
+        this.uiType = null;
+
+        //Tellurium Core generated locator for this UI Object
+        this.generated = null;
+
+        //dom reference
+        this.domRef = null;
+
+        //UI Module reference, which UI module this UI object belongs to
+        this.uim = null;
+
+        //the node associated with this UiObject
+        this.node = null;
+        
+    },
+
+    fullUid: function() {
+        if (this.parent != null) {
+            return this.parent.fullUid() + "." + this.uid;
+        }
+
+        return this.uid;
+    },
+
+    respondsTo: function(methodName) {
+        return this[methodName] != undefined; 
+    },
+
+    traverse: function(context, visitor){
+        visitor.visit(context, this);
+    },
+
+    around: function(context, visitor){
+        visitor.before(context, this);
+        visitor.after(context, this);
+    },
+
+    walkTo: function(context, uiid) {
+       .......
+    },
+
+......
+}
+}}}
+
+In addition, the basic UI object includes a list of methods existing in all UI objects.
+
+{{{
+
+
+    blur: function(context){
+        var element = context.domRef;
+        tellurium.cmdExecutor.blur(element);
+    },
+
+    focus: function(context){
+        var element = context.domRef;
+        tellurium.cmdExecutor.focus(element);
+    },
+
+    click: function(context){
+        var element = context.domRef;
+        tellurium.cmdExecutor.click(element);
+    },
+
+    clickAt: function(context, coordString){
+        var element = context.domRef;
+        tellurium.cmdExecutor.clickAt(element, coordString);
+    },
+
+    doubleClick: function(context){
+        var element = context.domRef;
+        tellurium.cmdExecutor.doubleClick(element);
+    },
+
+    mouseOver: function(context){
+        var element = context.domRef;
+        tellurium.cmdExecutor.mouseOver(element);
+    },
+
+    mouseDown: function(context){
+        var element = context.domRef;
+        tellurium.cmdExecutor.mouseDown(element);
+    },
+
+    mouseEnter: function(context){
+        var element = context.domRef;
+        tellurium.cmdExecutor.mouseEnter(element);
+    },
+
+    mouseLeave: function(context){
+        var element = context.domRef;
+        tellurium.cmdExecutor.mouseLeave(element);
+    },
+
+    mouseOut: function(context){
+        var element = context.domRef;
+        tellurium.cmdExecutor.mouseOut(element);
+    },
+
+    toggle: function(context){
+        var element = context.domRef;
+        tellurium.cmdExecutor.toggle(element);
+    },
+
+    getValue: function(context) {
+        var element = context.domRef;
+        return tellurium.cmdExecutor.getValue(element);
+    },
+
+    getAttribute: function(context, attribute){
+        var element = context.domRef;
+        return tellurium.cmdExecutor.getAttribute(element, attribute);
+    },
+
+    getText: function(context){
+        var element = context.domRef;
+        return tellurium.cmdExecutor.getText(element);
+    },
+
+    isVisible: function(context){
+        var element = teJQuery(context.domRef);
+        return tellurium.cmdExecutor.isVisible(element);
+    },
+    
+    isEditable: function(context) {
+        var element = context.domRef;
+        return tellurium.cmdExecutor.isEditable(element);
+    },
+
+    getCSS: function(context, cssName){
+        var element = context.domRef;
+        return tellurium.cmdExecutor.getCSS(element, cssName);
+    },
+
+    isDisabled: function(context){
+        var element = context.domRef;
+        return tellurium.cmdExecutor.isDisabled(element);
+    }
+
+}}}
