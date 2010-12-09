@@ -146,13 +146,6 @@ var UiObject = Class.extend({
 In addition, the basic UI object includes a list of methods existing in all UI objects.
 
 {{{
-
-
-    blur: function(context){
-        var element = context.domRef;
-        tellurium.cmdExecutor.blur(element);
-    },
-
     focus: function(context){
         var element = context.domRef;
         tellurium.cmdExecutor.focus(element);
@@ -163,44 +156,9 @@ In addition, the basic UI object includes a list of methods existing in all UI o
         tellurium.cmdExecutor.click(element);
     },
 
-    clickAt: function(context, coordString){
-        var element = context.domRef;
-        tellurium.cmdExecutor.clickAt(element, coordString);
-    },
-
-    doubleClick: function(context){
-        var element = context.domRef;
-        tellurium.cmdExecutor.doubleClick(element);
-    },
-
     mouseOver: function(context){
         var element = context.domRef;
         tellurium.cmdExecutor.mouseOver(element);
-    },
-
-    mouseDown: function(context){
-        var element = context.domRef;
-        tellurium.cmdExecutor.mouseDown(element);
-    },
-
-    mouseEnter: function(context){
-        var element = context.domRef;
-        tellurium.cmdExecutor.mouseEnter(element);
-    },
-
-    mouseLeave: function(context){
-        var element = context.domRef;
-        tellurium.cmdExecutor.mouseLeave(element);
-    },
-
-    mouseOut: function(context){
-        var element = context.domRef;
-        tellurium.cmdExecutor.mouseOut(element);
-    },
-
-    toggle: function(context){
-        var element = context.domRef;
-        tellurium.cmdExecutor.toggle(element);
     },
 
     getValue: function(context) {
@@ -223,19 +181,87 @@ In addition, the basic UI object includes a list of methods existing in all UI o
         return tellurium.cmdExecutor.isVisible(element);
     },
     
-    isEditable: function(context) {
-        var element = context.domRef;
-        return tellurium.cmdExecutor.isEditable(element);
+......
+
+}}}
+
+where the command executor cmdExecutor will be discussed in the next section.
+
+All Tellurium UI objects inherit from the basic object, for example, The InputBox object has extra methods such as type() and typeKey().
+
+{{{
+var UiInputBox = UiObject.extend({
+    init: function(){
+        this._super();
+        this.uiType = 'InputBox';
+        this.tag = "input";
     },
 
-    getCSS: function(context, cssName){
+    type: function(context, val){
         var element = context.domRef;
-        return tellurium.cmdExecutor.getCSS(element, cssName);
+        tellurium.cmdExecutor.type(element, val);
     },
 
-    isDisabled: function(context){
+    typeKey: function(context, key){
         var element = context.domRef;
-        return tellurium.cmdExecutor.isDisabled(element);
+        tellurium.cmdExecutor.typeKey(element, key);
+    },
+......
+});
+
+}}}
+
+The List and Table objects are used to represent UI templates in Tellurium. For example, the List object is defined as.
+
+{{{
+
+var UiList = UiContainer.extend({
+    init: function(){
+        this._super();
+        this.uiType = 'List';
+        this.noCacheForChildren = true;
+        this.separator = null;
+        this.defaultUi = new UiTextBox();
+        this.rTree= new RTree();
+    },
+
+    getListSize: function(context){
+        ......
+    },
+
+    ......
+}}}
+
+The flag noCacheForChildren is used to indicate that the List holds UI templates and the Engine will not try to cache its child nodes. The rTree is used to for Tellurium UID Description Language to find the actual UID reference. 
+
+UI objects are build from UI object builders. The basic UI object builder is defined as.
+
+{{{
+
+var UiObjectBuilder = Class.extend({
+    build: function(){
+        return new UiObject();
+    },
+
+    buildFrom: function(attributes, respond){
+        var obj = this.build();
+        obj.tag = attributes.get(CONSTANTS.TAG);
+        obj.respond = respond;
+        obj.locator = new CompositeLocator();
+        obj.locator.buildLocator(attributes);
+
+        return obj;
     }
+});
 
+}}}
+
+All UI object builders extend the basic builder, for example.
+
+{{{
+var UiInputBoxBuilder = UiObjectBuilder.extend({
+    build : function(){
+        return new UiInputBox();
+    }
+});
 }}}
