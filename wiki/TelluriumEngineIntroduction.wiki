@@ -1,5 +1,6 @@
 #summary Tellurium Engine: An Object-based Test Driving Engine.
 #labels Phase-Implementation,Phase-Support
+<wiki:toc max_depth="5" />
 
 = Introduction =
 
@@ -12,6 +13,16 @@ Tellurium Engine is an object based test driving engine. It has the following fe
 
 
 = Architecture =
+
+Tellurium architecture is shown in the following diagram.
+
+http://tellurium-users.googlegroups.com/web/telluriumnewarchitecture070.png?gda=0Cry3VEAAAA7fMi2EBxrNTLhqoq3FzPraJRXcLj8Noz0FE1yhGyZ4Cj9p0mTDab5g6bwssabHmxXgg0UR0O9X9-Irzu_uB8AUwk_6Qi3BU8HCN0q6OYwM5VxXgp_nHWJXhfr7YhqVgA&gsc=jkTIIgsAAACI9y1tsPXdLT5_3omT2FAm
+
+The workflow of Tellurium Engine is shown in the following sequence diagram.
+
+http://tellurium-users.googlegroups.com/web/TelluriumRunningMode2.png?gda=kwN3wEsAAAA7fMi2EBxrNTLhqoq3FzPro_2kwg16ExMe9wfbYSgXCQdoVt8RgM6Q8hpOVtSHouWqzYvvFLF4HH6kcFg68ZqyBkXa90K8pT5MNmkW1w_4BQ&gsc=jkTIIgsAAACI9y1tsPXdLT5_3omT2FAm
+
+The Tellurium Core will convert the UI module into a JSON representation and pass it to Tellurium Engine for the first time when the UI module is used. The Tellurium Engine uses the Santa algorithm to locate the whole UI module and put it into a cache. For the sequent calls, the cached UI module will be used instead of locating them again. 
 
 = Macro Command =
 
