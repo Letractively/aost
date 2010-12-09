@@ -1,0 +1,8 @@
+#summary Tellurium IDE 0.8.0 RC2 released.
+#labels Phase-Implementation,Phase-Support
+
+= Introduction =
+
+Tellurium is an expressive testing framework and it uses [http://code.google.com/p/aost/wiki/UserGuide070UIObjects#UI_Module UI modules] to define the web UIs under testing. [http://code.google.com/p/aost/wiki/UserGuide070TelluriumBasics#UiID_Attribute UIDs] are used to reference UI elements instead of hardcoded locators. 
+
+Tellurium IDE is a Firefox plugin to record user actions and automatically generate Tellurium DSL script. Tellurium IDE is developed from the codebase of Tellurium UI Module Firefox Plugin  [http://code.google.com/p/aost/wiki/UserGuide070TelluriumSubprojects#Tellurium_UI_Module_Plugin_%28TrUMP%29 Trump], which is used to record user's selection of UIs and automatically generate UI modules. Tellurium IDE is a step further to automatically generate Tellurium commands and UI modules. The exported Groovy DSL script could be run directly with [http://code.google.com/p/aost/wiki/TelluriumWorks080RC1 TelluriumWorks].
