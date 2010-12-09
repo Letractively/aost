@@ -56,25 +56,26 @@ Tellurium.prototype.isUiModuleCached = function(id){
 
 Tellurium.prototype.useUiModule = function(jsonarray){
     var uim = new UiModule();
-    !tellurium.logManager.isUseLog || fbLog("Input JSON Array for UI Module: ", jsonarray);
+    !this.logManager.isUseLog || fbLog("Input JSON Array for UI Module: ", jsonarray);
     uim.parseUiModule(jsonarray);
     var response = new UiModuleLocatingResponse();
     var result = this.uiAlg.santa(uim, null);
     if(result){
         //set the UI Module to be valid after it is located
         uim.valid = true;
-        !tellurium.logManager.isUseLog || fbLog("Ui Module after Group Locating: ", uim);
+        !this.logManager.isUseLog || fbLog("Ui Module after Group Locating: ", uim);
         var id = uim.getId();
         this.cacheUiModule(uim);
 
         response.id = id;
         response.relaxed = uim.relaxed;
-        if (!response.relaxed)
-            response.found = true;
+        if (!response.relaxed){
+            response.found = true;            
+        }
         response.relaxDetails = uim.relaxDetails;
         response.matches = uim.matches;
         response.score = uim.score;
-        !tellurium.logManager.isUseLog || fbLog("UseUiModule Response for " + id, response);
+        !this.logManager.isUseLog || fbLog("UseUiModule Response for " + id, response);
     }
 
     return response;
@@ -82,12 +83,12 @@ Tellurium.prototype.useUiModule = function(jsonarray){
 
 Tellurium.prototype.validateUiModule = function(jsonarray){
     var uim = new UiModule();
-    !tellurium.logManager.isUseLog || fbLog("Input JSON for UI Module: ", jsonarray);
+    !this.logManager.isUseLog || fbLog("Input JSON for UI Module: ", jsonarray);
     uim.parseUiModule(jsonarray);
     this.uiAlg.validate(uim, null);
     //set the UI Module to be valid after it is located
     uim.valid = true;
-    !tellurium.logManager.isUseLog || fbLog("Ui Module after Group Locating: ", uim);
+    !this.logManager.isUseLog || fbLog("Ui Module after Group Locating: ", uim);
     var id = uim.getId();
 
     var response = new UiModuleLocatingResponse();
@@ -99,7 +100,7 @@ Tellurium.prototype.validateUiModule = function(jsonarray){
     response.relaxDetails = uim.relaxDetails;
     response.matches = uim.matches;
     response.score = uim.score;
-    !tellurium.logManager.isUseLog || fbLog("UseUiModule Response for " + id, response);
+    !this.logManager.isUseLog || fbLog("UseUiModule Response for " + id, response);
 
     return response;
 };
@@ -138,35 +139,14 @@ Tellurium.prototype.describeUiModule = function(uiModelArray) {
 };
 
 Tellurium.prototype.useClosestMatch = function(isUse){
-    !tellurium.logManager.isUseLog || fbLog("call useClosestMatch", isUse);
+    !this.logManager.isUseLog || fbLog("call useClosestMatch", isUse);
     if (typeof(isUse) == "boolean") {
         this.uiAlg.allowRelax = isUse;
     } else {
         this.uiAlg.allowRelax = ("true" == isUse || "TRUE" == isUse);
     }
 
-    !tellurium.logManager.isUseLog || fbLog("Call useClosestMatch(" + isUse + ") to set allowRelax to ", this.uiAlg.allowRelax);
-};
-
-Tellurium.prototype.run = function(name, uid, param){
-//    var api = this[name];
-    var cmd = this.cmdMap.get(name);
-    if(cmd != null){
-        var api = cmd.handler;
-        if (typeof(api) == 'function') {
-            var params = [];
-            params.push(uid);
-            params.push(param);
-            return api.apply(this, params);
-        }else{
-            logger.error("Invalid Tellurium command " + name);
-            throw new TelluriumError(ErrorCodes.INVALID_TELLURIUM_COMMAND, "Invalid Tellurium command " + name);
-         }
-    }else{
-        logger.error("Cannot find Tellurium command " + name);
-        throw new TelluriumError(ErrorCodes.INVALID_TELLURIUM_COMMAND, "Invalid Tellurium command " + name);
-    }
-
+    !this.logManager.isUseLog || fbLog("Call useClosestMatch(" + isUse + ") to set allowRelax to ", this.uiAlg.allowRelax);
 };
 
 Tellurium.prototype.locateUI = function(uid){
@@ -261,7 +241,7 @@ Tellurium.prototype.getUiByTag = function(tag, attributes){
     var teuids = new Array();
     for(i=0; i<$found.size(); i++){
         var $e = $found.eq(i);
-        !tellurium.logManager.isUseLog || fbLog("Found element for getUiByTag " + tag, $e.get());
+        !this.logManager.isUseLog || fbLog("Found element for getUiByTag " + tag, $e.get());
         var teuid = "te-" + tellurium.idGen.next();
         $e.attr("teuid", teuid);
         this.proxyObject.addUiObject(teuid, $e.get(0));
@@ -279,7 +259,9 @@ Tellurium.prototype.removeMarkedUids = function(tag){
 };
 
 Tellurium.prototype.assertTrue = function(variable){
-    try{
+    return true === variable;
+
+/*    try{
         assertTrue(variable);
     }catch(error){
         if(error.isJsUnitFailure){
@@ -287,11 +269,13 @@ Tellurium.prototype.assertTrue = function(variable){
             throw new TelluriumError(ErrorCodes.ASSERTION_ERROR, message);
         }
         throw error;
-    }
+    }*/
 };
 
 Tellurium.prototype.assertFalse = function(variable){
-    try{
+    return false === variable;
+
+/*    try{
         assertFalse(variable);
     }catch(error){
         if(error.isJsUnitFailure){
@@ -299,11 +283,13 @@ Tellurium.prototype.assertFalse = function(variable){
             throw new TelluriumError(ErrorCodes.ASSERTION_ERROR, message);
         }
         throw error;
-    }
+    }*/
 };
 
 Tellurium.prototype.assertEquals = function(variable1, variable2){
-    try{
+    return variable1 == variable2;
+
+/*    try{
         assertEquals(variable1, variable2);
     }catch(error){
         if(error.isJsUnitFailure){
@@ -311,11 +297,13 @@ Tellurium.prototype.assertEquals = function(variable1, variable2){
             throw new TelluriumError(ErrorCodes.ASSERTION_ERROR, message);
         }
         throw error;
-    }
+    }*/
 };
 
 Tellurium.prototype.assertNotEquals = function(variable1, variable2){
-    try{
+    return variable1 != variable2;
+
+/*    try{
         assertNotEquals(variable1, variable2);
     }catch(error){
         if(error.isJsUnitFailure){
@@ -323,11 +311,13 @@ Tellurium.prototype.assertNotEquals = function(variable1, variable2){
             throw new TelluriumError(ErrorCodes.ASSERTION_ERROR, message);
         }
         throw error;
-    }
+    }*/
 };
 
 Tellurium.prototype.assertNull = function(variable){
-    try{
+    return variable === null;
+
+/*    try{
         assertNull(variable);
     }catch(error){
         if(error.isJsUnitFailure){
@@ -335,11 +325,13 @@ Tellurium.prototype.assertNull = function(variable){
             throw new TelluriumError(ErrorCodes.ASSERTION_ERROR, message);
         }
         throw error;
-    }
+    }*/
 };
 
 Tellurium.prototype.assertNotNull = function(variable){
-    try{
+    return null !== variable;
+
+/*    try{
         assertNotNull(variable);
     }catch(error){
         if(error.isJsUnitFailure){
@@ -347,7 +339,7 @@ Tellurium.prototype.assertNotNull = function(variable){
             throw new TelluriumError(ErrorCodes.ASSERTION_ERROR, message);
         }
         throw error;
-    }
+    }*/
 };
 
 Tellurium.prototype.toggle = function(uid) {
@@ -437,20 +429,25 @@ Tellurium.prototype.getAttribute = function(uid, attribute){
 Tellurium.prototype.getOptionSelector = function(optionLocator){
     var split = optionLocator.split("=");
     var sel = "";
-    split[0] = split[0].trim();
-    split[1] = split[1].trim();
-    if(split[0] == "label" || split[0] == "text"){
-        sel = this.cssBuilder.buildText(split[1]);
-    }else if(split[0] == "value"){
-        sel = this.cssBuilder.buildAttribute(split[0], split[1]);
-    }else if(split[0] == "index"){
-        var inx = parseInt(split[1]) - 1;
-        sel = ":eq(" + inx + ")"
-    }else if(split[0] == "id"){
-        sel = this.cssBuilder.buildId(split[1]);
+    if(split.length > 1){
+        split[0] = split[0].trim();
+        split[1] = split[1].trim();
+        if(split[0] == "label" || split[0] == "text"){
+            sel = this.cssBuilder.buildText(split[1]);
+        }else if(split[0] == "value"){
+            sel = this.cssBuilder.buildAttribute(split[0], split[1]);
+        }else if(split[0] == "index"){
+            var inx = parseInt(split[1]) - 1;
+            sel = ":eq(" + inx + ")";
+        }else if(split[0] == "id"){
+            sel = this.cssBuilder.buildId(split[1]);
+        }else{
+            logger.error("Invalid Selector optionLocator " + optionLocator);
+            return null;
+        }
     }else{
-        logger.error("Invalid Selector optionLocator " + optionLocator);
-        return null;
+        //use label or text as default if no prefix
+        sel = this.cssBuilder.buildText(split[0].trim());
     }
 
     return sel;
@@ -465,7 +462,6 @@ Tellurium.prototype.select = function(uid, option){
 Tellurium.prototype.selectByLabel = function(uid, option){
 //    var optionSelector = this.getOptionSelector("label=" + option);
     var optionSelector = this.getOptionSelector(option);
-//    alert("selectByLabel option: " + optionSelector);
     this.execCommand("select", uid, optionSelector);
 };
 
@@ -628,6 +624,7 @@ Tellurium.prototype.isDisabled = function(uid) {
     return this.execCommand("isDisabled", uid);
 };
 
+/*
 Tellurium.prototype.showUi = function(uid) {
     var context = new WorkflowContext();
     context.alg = this.uiAlg;
@@ -698,6 +695,7 @@ Tellurium.prototype.cleanUi = function(uid) {
         throw new TelluriumError(ErrorCodes.UI_MODULE_IS_NULL, "Cannot find UI Module " + uid);
     }
 };
+*/
 
 Tellurium.prototype.getHTMLSource = function(uid) {
     var context = new WorkflowContext();
@@ -884,7 +882,7 @@ Tellurium.prototype.toJSONString = function(uid){
     return JSON.stringify(json);
 };
 
-Tellurium.prototype.waitForPageToLoad = function(uid, timeout){
+Tellurium.prototype.waitForPageToLoad = function(timeout){
     var self = this;
     logger.debug("Set up page load timeout timer at " + (new Date()).getTime() + ": timeout=" + timeout);
     this.browserBot.pageTimeoutTimerId = setTimeout(function() {
@@ -930,14 +928,20 @@ function WaitPageLoad(scope){
     scope.onPageLoad();
 }
 
-Tellurium.prototype.open = function(url){
-    this.browserBot.showInBrowser(url);
-    var self = this;
-    this.browserBot.newPageLoaded = false;
-    this.browserBot.pageLoadError = null;
-    this.browserBot.pageTimeoutTimerId = null;
-    //Strange, change the timeout value to 3000, got the error that the dom is not set.
-    setTimeout(WaitPageLoad, 1000, self);
+Tellurium.prototype.open = function(url) {
+//    logger.debug("url " + url + ", browserBot current url " + this.browserBot.getCurrentUrl());
+    if (url == this.browserBot.getCurrentUrl()) {
+        this.onPageLoad();
+    } else {
+        this.browserBot.showInBrowser(url);
+        var self = this;
+        this.browserBot.newPageLoaded = false;
+        this.browserBot.pageLoadError = null;
+        this.browserBot.pageTimeoutTimerId = null;
+        //Strange, change the timeout value to 3000, got the error that the dom is not set.
+        setTimeout(WaitPageLoad, 1000, self);
+    }
+
     this.clearCache();
 };
 

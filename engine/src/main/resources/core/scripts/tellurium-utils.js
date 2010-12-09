@@ -449,7 +449,7 @@ String.prototype.startsWith = function(str)
 
 
 String.prototype.beginsWith = function(t, i) {
-    if (i==false) {
+    if (!i) {
         return (t == this.substring(0, t.length)); 
     } else {
         return (t.toLowerCase() == this.substring(0, t.length).toLowerCase());
@@ -457,7 +457,7 @@ String.prototype.beginsWith = function(t, i) {
 };
 
 String.prototype.endsWith = function(t, i) {
-    if (i==false) {
+    if (!i) {
         return (t== this.substring(this.length - t.length));
     } else {
         return (t.toLowerCase() == this.substring(this.length - t.length).toLowerCase());
@@ -910,7 +910,6 @@ function escapeString(str){
 
     if(newstr.indexOf("&") != -1){
         newstr = newstr.replace(/\&/g, "&amp;");
-//        alert("Replace & in " + str + " as " + newstr);
     }
 
     if(newstr.indexOf("<") != -1){

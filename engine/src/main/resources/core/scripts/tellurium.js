@@ -10,6 +10,7 @@ var ErrorCodes = {
     ELEMENT_HAS_NO_VALUE: "No value attribute in element",
     TIME_OUT: "Command Timeouts",
     ASSERTION_ERROR: "Assertion Error",
+    MAX_HEIGHT_NOT_SET: "Maximum height of the UI module is not set",
     UNKNOWN: "Unknown"
 };
 
@@ -261,8 +262,8 @@ function Tellurium(){
     this.synExecutor = new SynCmdExecutor();
     this.selExecutor = new SeleniumCmdExecutor();
     
-//    this.cmdExecutor = this.synExecutor;
-    this.cmdExecutor = this.selExecutor;
+    this.cmdExecutor = this.synExecutor;
+//    this.cmdExecutor = this.selExecutor;
 
     //Proxy object
     this.proxyObject = new UiProxyObject();
@@ -370,8 +371,8 @@ Tellurium.prototype.registerCommands = function(){
     this.registerCommand("getCSSAsString", CommandType.HasUid, ReturnType.STRING, this.getCSSAsString);
     this.registerCommand("isDisable",  CommandType.HasUid, ReturnType.BOOLEAN, this.isDisabled);
     this.registerCommand("reset", CommandType.HasUid, ReturnType.VOID, this.reset);
-    this.registerCommand("showUi", CommandType.HasUid, ReturnType.VOID, this.showUi);
-    this.registerCommand("cleanUi", CommandType.HasUid, ReturnType.VOID, this.cleanUi);
+//    this.registerCommand("showUi", CommandType.HasUid, ReturnType.VOID, this.showUi);
+//    this.registerCommand("cleanUi", CommandType.HasUid, ReturnType.VOID, this.cleanUi);
     this.registerCommand("getHTMLSource", CommandType.HasUid, ReturnType.ARRAY, this.getHTMLSource);
     this.registerCommand("getHTMLSourceAsString", CommandType.HasUid, ReturnType.STRING, this.getHTMLSourceAsString);
     this.registerCommand("getUids", CommandType.HasUid, ReturnType.ARRAY, this.getUids);
@@ -386,11 +387,11 @@ Tellurium.prototype.registerCommands = function(){
     this.registerCommand("validateUiModuleAsString", CommandType.NoUid, ReturnType.STRING, this.validateUiModuleAsString);
     this.registerCommand("toJSON", CommandType.HasUid, ReturnType.OBJECT, this.toJSON);
     this.registerCommand("toJSONString", CommandType.HasUid, ReturnType.STRING, this.toJSONString);
-//    this.registerCommand("waitForPageToLoad", CommandType.ACTION, ReturnType.VOID, this.waitForPageToLoad);
+    this.registerCommand("waitForPageToLoad", CommandType.NoUid, ReturnType.VOID, this.waitForPageToLoad);
     this.registerCommand("getUiByTag", CommandType.NoUid, ReturnType.OBJECT, this.getUiByTag);
     this.registerCommand("removeMarkedUids", CommandType.NoUid, ReturnType.VOID, this.removeMarkedUids);
     this.registerCommand("isUseCache", CommandType.NoUid, ReturnType.BOOLEAN, this.isUseCache);
-
+    this.registerCommand("clearCache", CommandType.NoUid, ReturnType.VOID, this.clearCache);
     this.registerCommand("getCacheState", CommandType.NoUid, ReturnType.BOOLEAN, this.getCacheState);
     this.registerCommand("getCacheSize", CommandType.NoUid, ReturnType.NUMBER, this.getCacheSize);
     this.registerCommand("enableCache", CommandType.NoUid, ReturnType.VOID, this.enableCache);
@@ -568,6 +569,17 @@ Tellurium.prototype.prepareArgumentList = function(args){
     return params;
 };
 
+Tellurium.prototype.runCmd = function(name, args){
+//    alert("Run command " + name + " with args " + args);
+    var cmd = this.getCommand(name);
+    logger.debug("Run command " + name + ", cmd " + strObject(cmd) + ", args " + strObject(args));
+    if(cmd != null){
+        return cmd.handler.apply(this, args);
+    }else {
+        throw TelluriumError(ErrorCodes.INVALID_TELLURIUM_COMMAND, "Invalid Tellurium command " + cmd.name);
+    }
+};
+
 Tellurium.prototype.delegateToTellurium = function(response, cmd) {
 
     var command = this.getCommand(cmd.name);
@@ -608,7 +620,6 @@ Tellurium.prototype.delegateToTellurium = function(response, cmd) {
         if(command.returnType == "VOID"){
             response.addResponse(cmd.sequ, cmd.name, command.returnType, result);
         }else {
-//            alert("Add response " + cmd.sequ + ", " + cmd.name + ", " + command.returnType + ", " + result);
             response.addResponse(cmd.sequ, cmd.name, command.returnType, result);
         }
     } else {
@@ -643,6 +654,28 @@ Tellurium.prototype.dispatchMacroCmd = function(){
     }
 
     return response.toJSon();
+};
+            
+Tellurium.prototype.run = function(name, uid, param){
+//    alert("Run tellurium command (name: " + name + ", uid: " + uid + ", param: " + param);
+//    var api = this[name];
+    var cmd = this.cmdMap.get(name);
+    if(cmd != null){
+        var api = cmd.handler;
+        if (typeof(api) == 'function') {
+            var params = [];
+            params.push(uid);
+            params.push(param);
+            return api.apply(this, params);
+        }else{
+            logger.error("Invalid Tellurium command " + name);
+            throw new TelluriumError(ErrorCodes.INVALID_TELLURIUM_COMMAND, "Invalid Tellurium command " + name);
+         }
+    }else{
+        logger.error("Cannot find Tellurium command " + name);
+        throw new TelluriumError(ErrorCodes.INVALID_TELLURIUM_COMMAND, "Invalid Tellurium command " + name);
+    }
+
 };
 
 Tellurium.prototype.locateElementByCurrentDom = function(locator, inDocument, inWindow){

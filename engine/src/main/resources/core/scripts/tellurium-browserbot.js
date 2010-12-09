@@ -14,6 +14,14 @@ var TelluriumBrowserBot = Class.extend({
         this.pagePollTimerId = null;
     },
 
+    getCurrentUrl: function(){
+        if(this.currentWindow != null){
+            return this.currentWindow.location.href;
+        }
+
+        return null;
+    },
+
     clear: function() {
         if (this.pageTimeoutTimerId != null) {
             clearTimeout(this.pageTimeoutTimerId);

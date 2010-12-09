@@ -9,6 +9,22 @@ function dumpObject(obj) {
     }
 }
 
+function strObject(obj){
+    if(obj == null){
+        return "null";    
+    }
+
+    if(obj == undefined){
+        return "undefined";
+    }
+    var output = "";
+    for(var p in obj){
+        output += p + ": " + obj[p] + ", "
+    }
+
+    return output;
+}
+
 function fbLog(msg, obj){
     logger.debug(msg);
     if (typeof(console) != "undefined") {
@@ -65,8 +81,8 @@ function fbDir(obj){
 
 
 function LogManager(){
-//    this.isUseLog = false;
-    this.isUseLog = true;
+    this.isUseLog = false;
+//    this.isUseLog = true;
     this.logLevel = "info";
 }
 
@@ -109,6 +125,6 @@ jslogger.setLevel(Log4js.Level.ALL);
 //jslogger.addAppender(new Log4js.MozillaJSConsoleAppender());
 jslogger.addAppender(new Log4js.ConsoleAppender());
 */
-var logger = new Log4js.getLogger("TeEngine");
 
+//var logger = new Log4js.getLogger("TeEngine");
 var jslogger = new DummyLogger();
