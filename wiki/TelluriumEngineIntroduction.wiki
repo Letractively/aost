@@ -43,6 +43,68 @@ Tellurium.prototype.dispatchMacroCmd = function(){
 };
 }}}
 
+
+= Tellurium Object =
+
+Tellurium object is the main object in Tellurium Engine.
+
+{{{
+
+function Tellurium(){
+
+    this.currentWindow = null;
+
+    this.currentDocument = null;
+
+    //whether to use Tellurium new jQuery selector based APIs
+    this.isUseTeApi = false;
+
+    //Macro command for Tellurium
+    this.macroCmd = new MacroCmd();
+
+    this.browserBot = new TelluriumBrowserBot();
+
+    this.dom = null;
+
+    this.cache = new TelluriumUiCache();
+
+    this.uiAlg = new UiAlg();
+
+    this.textWorker = new TextUiWorker();
+
+    this.cssBuilder = new JQueryBuilder();
+
+    this.cmdMap = new Hashtable();
+
+    //UI object name to Javascript object builder mapping
+    this.uiBuilderMap = new Hashtable();
+
+    //JQuery Builder
+    this.jqbuilder = new JQueryBuilder();
+
+    //identifier generator
+    this.idGen = new Identifier(100);
+
+    //log manager for Tellurium
+    this.logManager = new LogManager();
+
+    //outlines
+    this.outlines = new Outlines();
+
+    this.currentDom = null;
+
+    this.jqExecutor = new JQueryCmdExecutor();
+    this.synExecutor = new SynCmdExecutor();
+    this.selExecutor = new SeleniumCmdExecutor();
+    
+    this.cmdExecutor = this.synExecutor;
+
+    //Proxy object
+    this.proxyObject = new UiProxyObject();
+}
+
+}}}
+
 = UID Based API =
 
 Tellurium Engine API is UID based, not locator base. For example, the type method is defined as.
@@ -265,3 +327,109 @@ var UiInputBoxBuilder = UiObjectBuilder.extend({
     }
 });
 }}}
+
+= Command Executor =
+
+The command executor is the actual code to act on JavaScript events. The basic executor is defined as.
+
+{{{
+var CmdExecutor = Class.extend({
+
+    init: function() {
+        this.ctrl = false;
+        this.shift = false;
+        this.alt = false;
+        this.meta = false;
+    }
+});
+
+}}}
+
+Tellurium Engine defined three command executors. The first one is jQuery command executor, i.e, use jQuery to fire all JavaScript events and get DOM attributes and states.
+
+{{{
+
+var JQueryCmdExecutor = CmdExecutor.extend({
+
+    init: function() {
+        this._super();
+    },
+
+
+    fireEvent: function(element, event){
+        teJQuery(element).trigger(event);
+    },
+
+    blur: function(element){
+        teJQuery(element).blur();
+    },
+    getText: function(element){
+        return teJQuery(element).text();
+    },
+
+    isVisible: function(element){
+        var isHiddenCSS = element.css("visibility") == "hidden" ? true : false;
+        var isHidden = element.is(":hidden");
+
+        if (isHidden) {
+            return false;
+        } else if (isHiddenCSS) {
+            return false;
+        } else {
+            return true;
+        }
+    },
+
+    ......
+
+}
+}}}
+
+Syn command executor is used to solve the problem that jQuery click event does not work properly in some web application.
+
+{{{
+var SynCmdExecutor = JQueryCmdExecutor.extend({
+
+    init: function() {
+        this._super();
+    },
+
+    click: function(element){
+        Syn.click(element);
+    },
+
+    ......
+
+});
+
+}}}
+
+The last one is the Selenium command executor, i.e, dispatch command to Selenium core for actions only (not do locating).
+
+{{{
+
+var SeleniumCmdExecutor = SynCmdExecutor.extend({
+
+    init: function() {
+        this._super();
+    },
+
+    click: function(element) {
+        tellurium.setCurrentDom(element);
+        selenium.doClick("tedom=current");
+    },
+
+    ......
+}
+}}}
+
+To use different command executors, simply set the command executor in the Tellurium object. For example, we can select the Syn command executor in the following way.
+
+{{{
+function Tellurium(){
+    ......
+    this.cmdExecutor = this.synExecutor;
+}
+}}}
+
+
