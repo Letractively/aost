@@ -120,7 +120,6 @@ teJQuery.fn.outerHTML = function() {
         fbWarn("Error getting outHTML: " + error.message, error);
         return "";
     }
-
 };
 
 function getColor(elem, cssName){

@@ -93,7 +93,7 @@ var UiSNode = Class.extend({
     },
 
     walkTo: function(context, uiid) {
-        !tellurium.logManager.isUseLog || fbLog("Walk to Snapshot Tree Node", this);
+//        !tellurium.logManager.isUseLog || fbLog("Walk to Snapshot Tree Node", this);
         uiid.pop();
 
         return this;
@@ -130,7 +130,7 @@ var UiCNode = UiSNode.extend({
     },
 
     walkTo: function(context, uiid) {
-        !tellurium.logManager.isUseLog || fbLog("Walk to Snapshot Tree Container Node", this);
+//        !tellurium.logManager.isUseLog || fbLog("Walk to Snapshot Tree Container Node", this);
 
         if (uiid.size() < 1) {
 /*            var result = new Array();
@@ -214,7 +214,7 @@ var UiTNode = UiSNode.extend({
     },
 
     walkTo: function(context, uiid) {
-        !tellurium.logManager.isUseLog || fbLog("Walk to Snapshot Tree Table Node", this);
+//        !tellurium.logManager.isUseLog || fbLog("Walk to Snapshot Tree Table Node", this);
 
         if (uiid.size() < 1) {
 /*            var result = new Array();
@@ -346,7 +346,7 @@ function UiSTree(){
 }
 
 UiSTree.prototype.walkTo = function(context, uiid){
-    !tellurium.logManager.isUseLog || fbLog("Walk to Snapshot Tree Node", this);
+//    !tellurium.logManager.isUseLog || fbLog("Walk to Snapshot Tree Node", this);
     if(this.root != null){
         if(uiid.size() > 0){
             var rid = uiid.pop();
@@ -554,8 +554,14 @@ var MarkInvalidVisitor = STreeVisitor.extend({
     },
 
     visit: function(context, node){
-        var uid = node.fullUid();
-        node.isLocatorValid = !(this.invalid != null && teJQuery.inArray(uid, this.invalid));
+        node.isLocatorValid = true;
+        if(this.invalid != null && this.invalid.length > 0){
+            var uid = node.fullUid();
+            if(this.invalid.indexOf(uid) !== -1){
+                node.isLocatorValid = false;
+            }
+        }
+//        node.isLocatorValid = !(this.invalid != null && teJQuery.inArray(uid, this.invalid));
     }
 });
 
