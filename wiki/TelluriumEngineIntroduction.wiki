@@ -898,6 +898,10 @@ Tellurium.prototype.registerCommand = function(name, type, returnType, handler){
 };
 }}}
 
+= Summary =
+
+Tellurium Engine is a novel and young project, we need more JavaScript experts to join our team to improve the JavaScript event handling, i.e., the Command Executors. If you are interested to help, please join [http://groups.google.com/group/tellurium-developers Tellurium developer group] and send emails to telluriumsource at gmail dot com.
+
 = Resources =
 
   * [http://groups.google.com/group/tellurium-users Tellurium User Group]
