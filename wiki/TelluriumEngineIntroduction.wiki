@@ -898,3 +898,13 @@ Tellurium.prototype.registerCommand = function(name, type, returnType, handler){
     this.cmdMap.put(name, cmd);
 };
 }}}
+
+= Resources =
+
+  * [http://groups.google.com/group/tellurium-users Tellurium User Group]
+  * [http://twitter.com/TelluriumSource Tellurium on Twitter]
+  * [http://code.google.com/p/aost/wiki/TelluriumIde080RC2 Tellurium IDE 0.8.0 RC2] is released
+  * Haroon published an article on _Test Experience_ magazine: [http://aost.googlecode.com/files/testingexperience12_12_10_Article.pdf Tellurium Automated Testing Framework]
+  * [http://www.infoq.com/articles/tellurium_intro InfoQ Article: Introducing the Tellurium Automated Testing Framework]
+  * [http://www.youtube.com/watch?v=yVIBY8QzWzE/ Tellurium IDE 0.8.0 RC1 tutorial video]
+  * [http://code.google.com/p/aost/wiki/TelluriumIde080RC1 Tellurium IDE 0.8.0 RC1: Tellurium test script generation]
