@@ -25,6 +25,12 @@ http://tellurium-users.googlegroups.com/web/TelluriumRunningMode2.png?gda=kwN3wE
 
 The Tellurium Core will convert the UI module into a JSON representation and pass it to Tellurium Engine for the first time when the UI module is used. The Tellurium Engine uses the Santa algorithm to locate the whole UI module and put it into a cache. For the sequent calls, the cached UI module will be used instead of locating them again. 
 
+A normal Tellurium call flow is illustrated by the following diagram.
+
+http://tellurium-users.googlegroups.com/web/EngineCallFlow.png?gda=XLvDt0QAAACUfGPUXLvcuK0uzit5_KjesoSc0t0-ML4CpJcI1zDB__ks16rt3dIrSOBrH6RbcC1V6u9SiETdg0Q2ffAyHU-dzc4BZkLnSFWX59nr5BxGqA&gsc=uHB3QQsAAAA6XNPREUnCgB2jJaR_3yZJ
+
+The API tries to find the UI module from cache, then walks to the UI object by its UID. Call the method on the UI object, which delegates the call to the command executor.
+
 = Implementation =
 
 == APIs ==
