@@ -900,7 +900,7 @@ Tellurium.prototype.registerCommand = function(name, type, returnType, handler){
 
 = Summary =
 
-Tellurium Engine is a novel and young project, we need more JavaScript experts to join our team to improve the JavaScript event handling, i.e., the Command Executors. If you are interested to help, please join [http://groups.google.com/group/tellurium-developers Tellurium developer group] and send emails to telluriumsource at gmail dot com.
+Tellurium Engine is a novel and young project and it has been used by many users. [http://code.google.com/p/aost/wiki/TelluriumIde080RC2 Tellurium IDE] uses Tellurium Engine to drive tests. But we need more JavaScript experts to join our team to improve the JavaScript event handling, i.e., the Command Executors. If you are interested to help, please join [http://groups.google.com/group/tellurium-developers Tellurium developer group] and send emails to telluriumsource at gmail dot com.
 
 = Resources =
 
