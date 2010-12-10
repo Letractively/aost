@@ -677,8 +677,7 @@ UiModule.prototype.validate = function(alg, doc){
 
 === UI Module Cache ===
 
-[http://code.google.com/p/aost/wiki/UserGuide070TelluriumAdvancedTopics#UI_Module_Caching
- UI modules are cached for reuse in Tellurium]. The cache object is defined as
+[http://code.google.com/p/aost/wiki/UserGuide070TelluriumAdvancedTopics#UI_Module_Caching UI modules are cached for reuse in Tellurium]. The cache object is defined as
 
 {{{
 
