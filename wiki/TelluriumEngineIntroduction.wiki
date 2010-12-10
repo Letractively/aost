@@ -29,7 +29,7 @@ A normal Tellurium call flow is illustrated by the following diagram.
 
 http://tellurium-users.googlegroups.com/web/EngineCallFlow.png?gda=XLvDt0QAAACUfGPUXLvcuK0uzit5_KjesoSc0t0-ML4CpJcI1zDB__ks16rt3dIrSOBrH6RbcC1V6u9SiETdg0Q2ffAyHU-dzc4BZkLnSFWX59nr5BxGqA&gsc=uHB3QQsAAAA6XNPREUnCgB2jJaR_3yZJ
 
-The API tries to find the UI module from cache, then walks to the UI object by its UID. Call the method on the UI object, which delegates the call to the command executor.
+The API tries to find the UI module from cache, then walks to the UI object by its UID. After that, it calls the method on the UI object, which delegates the call to the command executor under the hood.
 
 = Implementation =
 
