@@ -55,3 +55,4 @@
   * [http://code.google.com/p/aost/wiki/FirefoxPluginDevelopmentWithTelluriumIDE My Firefox Plugin Development Experience with Tellurium IDE.]
   * [http://code.google.com/p/aost/wiki/TelluriumWorks080RC1 TelluriumWorks 0.8.0 RC1: A Tellurium DSL Script Runner.]
   * [http://code.google.com/p/aost/wiki/DependencyInjectionWithGroovyASTTransformation Simple Dependency Injection with Groovy AST Transformation.]
+  * [http://code.google.com/p/aost/wiki/TelluriumEngineIntroduction Tellurium Engine: An Object-based Test Driving Engine]
