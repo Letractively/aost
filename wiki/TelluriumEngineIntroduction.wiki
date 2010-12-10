@@ -29,7 +29,7 @@ The Tellurium Core will convert the UI module into a JSON representation and pas
 
 == APIs ==
 
-=== Tellurium ===
+=== Tellurium Object Definition ===
 
 Tellurium object is the main object in Tellurium Engine.
 
