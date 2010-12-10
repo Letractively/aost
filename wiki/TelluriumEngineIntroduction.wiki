@@ -11,7 +11,7 @@ Tellurium Engine is an object based test driving engine. It has the following fe
   * Macro Command
   * UI module caching and reuse
 
-Tellurium Engine is a test driving engine similar to Selenium Core. But why we need a new test driving engine? The reason is that Selenium Core is locator based, i.e, it focuses on individual UI element. But Tellurium is UI module, i.e., widget, based and it locates the whole UI module in one attempt, cache it, and for later reuse. Selenium core is not very efficient to handle UI module. Thus, we need a new test driving engine. 
+Tellurium Engine is a test driving engine similar to Selenium Core. But why we need a new test driving engine? The reason is that Selenium Core is locator based, i.e, it focuses on individual UI element. But Tellurium is UI module, i.e., widget, based. Tellurium Engine could locate the whole UI module in one attempt, cache it for later reuse. In this way, Tellurium Engine is more efficient to handle UI modules. Thus, we need a new test driving engine. 
  
 = Architecture =
 
