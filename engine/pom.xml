@@ -41,33 +41,33 @@
                 </dependencies>
 
                 <executions>
-                    <execution>
-                        <id>jsLint-test</id>
-                        <phase>test</phase>
-                        <configuration>
-                            <tasks>
+                    <!--<execution>-->
+                        <!--<id>jsLint-test</id>-->
+                        <!--<phase>test</phase>-->
+                        <!--<configuration>-->
+                            <!--<tasks>-->
 
-                                <!--<mkdir dir="${basedir}/target/test-reports"/>-->
-                                <mkdir dir="${basedir}/target"/>
-<!--                                <touch file="${basedir}/target/jslint.txt" />-->
-                                <path id="project.testcompile.classpath">
-                                    <path refid="maven.test.classpath"/>
-                                </path>
+                                <!--&lt;!&ndash;<mkdir dir="${basedir}/target/test-reports"/>&ndash;&gt;-->
+                                <!--<mkdir dir="${basedir}/target"/>-->
+<!--&lt;!&ndash;                                <touch file="${basedir}/target/jslint.txt" />&ndash;&gt;-->
+                                <!--<path id="project.testcompile.classpath">-->
+                                    <!--<path refid="maven.test.classpath"/>-->
+                                <!--</path>-->
 
-                                <taskdef name="jslint" classname="com.googlecode.jslint4java.ant.JSLintTask" classpathref="project.testcompile.classpath"/>
-                                <jslint options="browser,cap,debug,devel,evil,fragment,laxbreak,on">
-                                    <formatter type="plain" destfile="${basedir}/target/jslint.txt" />
-                                    <!--<formatter type="junit" destfile="${basedir}/target/test-reports" /> -->
-                                    <fileset dir="src/main/resources/core/scripts" includes="**/*.js"/>
-                                </jslint>
+                                <!--<taskdef name="jslint" classname="com.googlecode.jslint4java.ant.JSLintTask" classpathref="project.testcompile.classpath"/>-->
+                                <!--<jslint options="browser,cap,debug,devel,evil,fragment,laxbreak,on">-->
+                                    <!--<formatter type="plain" destfile="${basedir}/target/jslint.txt" />-->
+                                    <!--&lt;!&ndash;<formatter type="junit" destfile="${basedir}/target/test-reports" /> &ndash;&gt;-->
+                                    <!--<fileset dir="src/main/resources/core/scripts" includes="**/*.js"/>-->
+                                <!--</jslint>-->
 
-                            </tasks>
+                            <!--</tasks>-->
 
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
+                        <!--</configuration>-->
+                        <!--<goals>-->
+                            <!--<goal>run</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
                 </executions>
             </plugin>
         </plugins>

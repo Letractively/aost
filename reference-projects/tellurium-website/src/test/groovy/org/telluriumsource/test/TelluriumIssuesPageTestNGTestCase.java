@@ -9,8 +9,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import static org.testng.Assert.*;
 
@@ -41,13 +39,13 @@ public class TelluriumIssuesPageTestNGTestCase extends TelluriumTestNGTestCase {
     @Test
     public void testGetIssueTypes(){
         connectUrl("http://code.google.com/p/aost/issues/list");
-        useCache(true);
+        //useCache(true);
         String[] ists = tisp.getIsssueTypes();
         assertNotNull(ists);
         assertTrue(ists[2].contains("Open issues"));
         tisp.selectIssueType(ists[2]);
         tisp.searchIssue("Alter");
-        useCache(false);
+        //useCache(false);
     }
 
     @Test
@@ -164,13 +162,13 @@ public class TelluriumIssuesPageTestNGTestCase extends TelluriumTestNGTestCase {
         connectUrl("http://code.google.com/p/aost/issues/list");
 
         useCssSelector(true);
-        useCache(true);
+        //useCache(true);
         setCacheMaxSize(10);
         String[] ists = tisp.getIsssueTypes();
         tisp.selectIssueType(ists[2]);
         tisp.searchIssue("Alter");
         showCacheUsage();
-        useCache(false);
+        //useCache(false);
     }
 
     @Test
@@ -180,13 +178,13 @@ public class TelluriumIssuesPageTestNGTestCase extends TelluriumTestNGTestCase {
         tisp.dump("issueAdvancedSearch");
 
         useCssSelector(true);
-        useCache(false);
+        //useCache(false);
         tisp.dump("issueAdvancedSearch");
 
         useCssSelector(true);
-        useCache(true);
+        //useCache(true);
         tisp.dump("issueAdvancedSearch");
-        useCache(false);
+        //useCache(false);
     }
 
     @AfterClass

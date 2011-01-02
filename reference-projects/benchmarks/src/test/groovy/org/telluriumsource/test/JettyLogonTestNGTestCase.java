@@ -1,10 +1,9 @@
 package org.telluriumsource.test;
 
+import org.telluriumsource.module.JettyLogonModule;
 import org.telluriumsource.test.java.TelluriumTestNGTestCase;
 import org.telluriumsource.test.mock.MockHttpServer;
 import org.testng.annotations.*;
-
-import org.telluriumsource.module.JettyLogonModule;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -93,8 +92,8 @@ public class JettyLogonTestNGTestCase  extends TelluriumTestNGTestCase {
     @Parameters({"useSelector", "useCache", "useTeApi"})
     public void testLogon(boolean useSelector, boolean useCache, boolean useTeApi) {
         useCssSelector(useSelector);
-        useCache(useCache);
-        useTelluriumApi(useTeApi);
+//        useCache(useCache);
+//        useTelluriumApi(useTeApi);
         jlm.logon("test", "test");
     }
 
@@ -105,8 +104,8 @@ public class JettyLogonTestNGTestCase  extends TelluriumTestNGTestCase {
     public void testGoodLogonWithClosestMatch(boolean useSelector, boolean useCache, boolean useTeApi) {
         useClosestMatch(true);
         useCssSelector(useSelector);
-        useCache(useCache);
-        useTelluriumApi(useTeApi);
+//        useCache(useCache);
+//        useTelluriumApi(useTeApi);
         jlm.plogon("test", "test");
         useClosestMatch(false);
     }
@@ -117,8 +116,8 @@ public class JettyLogonTestNGTestCase  extends TelluriumTestNGTestCase {
     public void testBadLogonWithClosestMatch(boolean useSelector, boolean useCache, boolean useTeApi) {
         useClosestMatch(true);
         useCssSelector(useSelector);
-        useCache(useCache);
-        useTelluriumApi(useTeApi);
+//        useCache(useCache);
+//        useTelluriumApi(useTeApi);
         jlm.plogon("test", "test");
         useClosestMatch(false);
     }

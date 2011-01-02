@@ -1,18 +1,17 @@
 package org.telluriumsource.test;
 
-import org.testng.annotations.BeforeClass;
+import org.telluriumsource.entity.CachePolicy;
+import org.telluriumsource.module.GoogleSearchModule;
+import org.telluriumsource.test.java.TelluriumTestNGTestCase;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import static org.testng.Assert.*;
 
-import org.telluriumsource.test.java.TelluriumTestNGTestCase;
-import org.telluriumsource.entity.CachePolicy;
-
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
-import org.telluriumsource.module.GoogleSearchModule;
+import static org.testng.Assert.*;
 
 
 /**
@@ -124,17 +123,17 @@ public class GoogleSearchTestNGTestCase extends TelluriumTestNGTestCase{
         useCssSelector(true);
     }
 
-    @Test
-    public void testUseCache(){
-        useCache(true);
-        boolean result = gsm.getCacheState();
-        assertTrue(result);
-
-        useCache(false);
-        result = gsm.getCacheState();
-        assertFalse(result);
-        useCache(true);
-    }
+//    @Test
+//    public void testUseCache(){
+//        useCache(true);
+//        boolean result = gsm.getCacheState();
+//        assertTrue(result);
+//
+//        useCache(false);
+//        result = gsm.getCacheState();
+//        assertFalse(result);
+//        useCache(true);
+//    }
 
     @Test
     public void testRegisterNamespace(){
