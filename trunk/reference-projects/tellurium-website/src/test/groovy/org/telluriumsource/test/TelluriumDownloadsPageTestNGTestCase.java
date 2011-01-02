@@ -1,13 +1,15 @@
 package org.telluriumsource.test;
 
+import org.telluriumsource.module.TelluriumDownloadsPage;
 import org.telluriumsource.test.java.TelluriumTestNGTestCase;
 import org.telluriumsource.util.Helper;
-import org.telluriumsource.module.TelluriumDownloadsPage;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
-import static org.testng.Assert.*;
+import org.testng.annotations.Test;
+
 import java.util.List;
+
+import static org.testng.Assert.*;
 
 /**
  * Tests Downloads Page on Tellurium project website
@@ -26,7 +28,7 @@ public class TelluriumDownloadsPageTestNGTestCase extends TelluriumTestNGTestCas
         downloadPage = new TelluriumDownloadsPage();
         downloadPage.defineUi();
         connectSeleniumServer();
-        useCache(true);
+//        useCache(true);
 //        useCssSelector(true);
 //        useClosestMatch(true);
     }
@@ -69,9 +71,9 @@ public class TelluriumDownloadsPageTestNGTestCase extends TelluriumTestNGTestCas
         downloadPage.selectDownloadType(" All downloads");
         downloadPage.searchDownload("Tellurium-0.6.0");
 
-        useTelluriumApi(true);
+//        useTelluriumApi(true);
         List<String> list = downloadPage.getDownloadFileNames();
-        useTelluriumApi(false);
+//        useTelluriumApi(false);
         assertNotNull(list);
         assertFalse(list.isEmpty());
         assertTrue(Helper.include(list, "tellurium-core.0.6.0.tar.gz"));
@@ -83,9 +85,9 @@ public class TelluriumDownloadsPageTestNGTestCase extends TelluriumTestNGTestCas
         downloadPage.selectDownloadType(" All downloads");
         downloadPage.searchDownload("label:Featured");
 
-        useTelluriumApi(true);
+//        useTelluriumApi(true);
         List<String> list = downloadPage.getDownloadFileNames();
-        useTelluriumApi(false);
+//        useTelluriumApi(false);
         assertNotNull(list);
         assertFalse(list.isEmpty());
     }

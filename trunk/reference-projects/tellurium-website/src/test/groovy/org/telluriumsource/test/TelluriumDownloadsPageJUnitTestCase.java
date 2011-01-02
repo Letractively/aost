@@ -28,7 +28,7 @@ public class TelluriumDownloadsPageJUnitTestCase extends TelluriumJUnitTestCase 
         downloadPage = new TelluriumDownloadsPage();
         downloadPage.defineUi();
         connectSeleniumServer();
-        useCache(true);
+        //useCache(true);
         useCssSelector(true);
 //        useClosestMatch(true);
     }
@@ -67,10 +67,10 @@ public class TelluriumDownloadsPageJUnitTestCase extends TelluriumJUnitTestCase 
         downloadPage.selectDownloadType(" All downloads");
         downloadPage.searchDownload("Tellurium-0.6.0");
 
-        useTelluriumApi(true);
+//        useTelluriumApi(true);
         useEngineLog(true);
         List<String> list = downloadPage.getDownloadFileNames();
-        useTelluriumApi(false);
+//        useTelluriumApi(false);
         useEngineLog(false);
         assertNotNull(list);
         assertFalse(list.isEmpty());
@@ -83,10 +83,10 @@ public class TelluriumDownloadsPageJUnitTestCase extends TelluriumJUnitTestCase 
         downloadPage.selectDownloadType(" All downloads");
         downloadPage.searchDownload("label:Featured");
 
-        useTelluriumApi(true);
+//        useTelluriumApi(true);
         useEngineLog(true);
         List<String> list = downloadPage.getDownloadFileNames();
-        useTelluriumApi(false);
+//        useTelluriumApi(false);
         useEngineLog(false);
         assertNotNull(list);
         assertFalse(list.isEmpty());
@@ -101,9 +101,9 @@ public class TelluriumDownloadsPageJUnitTestCase extends TelluriumJUnitTestCase 
         assertNotNull(list);
         assertEquals(7, list.size());
         assertTrue(Helper.include(list, "Filename"));
-        useTelluriumApi(true);
+//        useTelluriumApi(true);
         list = downloadPage.getDownloadFileNames();
-        useTelluriumApi(false);
+//        useTelluriumApi(false);
         assertNotNull(list);
         assertFalse(list.isEmpty());
         assertTrue(Helper.include(list, "tellurium-core.0.6.0.tar.gz"));

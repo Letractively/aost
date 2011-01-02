@@ -2,7 +2,6 @@ package org.telluriumsource.test;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.telluriumsource.module.TelluriumProjectPage;
 import org.telluriumsource.test.java.TelluriumJUnitTestCase;
@@ -20,7 +19,7 @@ public class TelluriumProjectPageJUnitTestCase extends TelluriumJUnitTestCase {
         app = new TelluriumProjectPage();
         app.defineUi();
         connectSeleniumServer();
-        useCache(true);
+        //useCache(true);
         useClosestMatch(true);
     }
 

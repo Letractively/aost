@@ -1,5 +1,6 @@
 package org.telluriumsource.test;
 
+import org.json.simple.JSONArray;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -10,7 +11,6 @@ import org.telluriumsource.util.Helper;
 import java.util.List;
 
 import static org.junit.Assert.*;
-import org.json.simple.JSONArray;
 
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
@@ -26,7 +26,7 @@ public class TelluriumIssuesPageJUnitTestCase extends TelluriumJUnitTestCase {
         tisp.defineUi();
         connectSeleniumServer();
         useCssSelector(true);
-        useCache(true);
+        //useCache(true);
     }
 
     @Test
@@ -134,36 +134,36 @@ public class TelluriumIssuesPageJUnitTestCase extends TelluriumJUnitTestCase {
     @Test
     public void testIdMenu(){
         connectUrl("http://code.google.com/p/aost/issues/list");
-        useCache(false);
+        //useCache(false);
         useCssSelector(false);
         tisp.clickOnTableHeader(2);
         tisp.mouseMoveIdMenu();
         tisp.clickIdMenuSortDown();
         tisp.clickIdMenuSortUp();
-        useCache(true);
+        //useCache(true);
         useCssSelector(true);
     }
 
     @Test
     public void testSelectColumnMenu(){
         connectUrl("http://code.google.com/p/aost/issues/list");
-        useCache(false);
+        //useCache(false);
         useCssSelector(false);
         tisp.toggleIdColumn("ID");
         tisp.toggleIdColumn("Owner");
 //        tisp.toggleIdColumn("Closed");
-        useCache(true);
+        //useCache(true);
         useCssSelector(false);
     }
 
     @Test
     public void testSelectDataLayout(){
         connectUrl("http://code.google.com/p/aost/issues/list");
-        useCache(false);
+        //useCache(false);
         useCssSelector(false);
         tisp.selectDataLayout("Grid");
         tisp.selectDataLayout("List");
-        useCache(true);
+        //useCache(true);
         useCssSelector(false);
     }
 
@@ -171,13 +171,13 @@ public class TelluriumIssuesPageJUnitTestCase extends TelluriumJUnitTestCase {
     public void testGetCellCount(){
         connectUrl("http://code.google.com/p/aost/issues/list");
         useCssSelector(true);
-        useCache(true);
-        useTelluriumApi(true);
+        //useCache(true);
+//        useTelluriumApi(true);
         int count = tisp.getTableCellCount();
         assertTrue(count > 0);
         System.out.println("Cell size: " + count);
         String[] details = tisp.getAllText();
-        useTelluriumApi(false);
+//        useTelluriumApi(false);
         assertNotNull(details);
         assertEquals(details.length, count);
     }
@@ -186,7 +186,7 @@ public class TelluriumIssuesPageJUnitTestCase extends TelluriumJUnitTestCase {
     public void testSearchIssueTypes(){
         connectUrl("http://code.google.com/p/aost/issues/list");
         useCssSelector(true);
-        useCache(true);
+        //useCache(true);
         setCacheMaxSize(10);
         String[] ists = tisp.getIsssueTypes();
         tisp.selectIssueType(ists[2]);
@@ -200,11 +200,11 @@ public class TelluriumIssuesPageJUnitTestCase extends TelluriumJUnitTestCase {
         tisp.dump("issueAdvancedSearch");
 
         useCssSelector(true);
-        useCache(false);
+        //useCache(false);
         tisp.dump("issueAdvancedSearch");
 
         useCssSelector(true);
-        useCache(true);
+        //useCache(true);
         tisp.dump("issueAdvancedSearch");
     }
 
