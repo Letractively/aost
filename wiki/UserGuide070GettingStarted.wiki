@@ -48,6 +48,8 @@ mvn archetype:create -DgroupId=your_group_id -DartifactId=your_artifact_id \
    -DarchetypeRepository=http://maven.kungfuters.org/content/repositories/releases
 }}}
 
+Note: for Maven 2.2.1, please use {{{mvn archetype:generate}}} instead.
+
 === Tellurium Ant Projects ===
 
 For an Ant user: 
