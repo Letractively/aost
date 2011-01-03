@@ -47,7 +47,9 @@ Preferences.DEFAULT_OPTIONS = {
 
     defaultLogWrap: "false",
 
-    defaultGroupLocating: "true"
+    defaultGroupLocating: "true",
+
+    defaultIgnoredAttributes: ""
 };
 
 Preferences.initialize();

@@ -23,6 +23,12 @@ function saveOptions(){
         logger.debug("TrUMP group locating option " + elem.checked);
     }
 
+    elem = document.getElementById("trump-option-ignoredattributes");
+    if(elem != null){
+        Preferences.setPref("extensions.trump.ignoredattributes", elem.value);
+        logger.debug("TrUMP ignored attributes updated to " + elem.value);
+    }
+
 	return true;
 }
 
@@ -72,5 +78,15 @@ function loadOptions() {
             glocating = Preferences.DEFAULT_OPTIONS.defaultGroupLocating;
         }
         elem.checked = glocating;
+    }
+
+    elem = document.getElementById("trump-option-ignoredattributes");
+    if(elem != null){
+        var ignoredAttributes = Preferences.getPref("extensions.trump.ignoredattributes");
+        if(ignoredAttributes == undefined || ignoredAttributes == null){
+            elem.value = Preferences.DEFAULT_OPTIONS.defaultIgnoredAttributes;
+        }else{
+            elem.value = ignoredAttributes;
+        }
     }
 };

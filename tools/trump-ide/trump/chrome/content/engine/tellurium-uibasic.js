@@ -242,7 +242,7 @@ CompositeLocator.prototype.updateLocator = function(attributes){
         this.header =  esAttributes.get(CONSTANTS.HEADER);
         this.trailer = esAttributes.get(CONSTANTS.TRAILER);
 
-        this.buildLocatorFromAttributes(esAttributes);
+        this.buildLocatorFromAttributes(esAttributes, true);
     }
 
     return this;
@@ -439,13 +439,22 @@ CompositeLocator.prototype.buildLocator = function(attributes){
 };
 
 
-CompositeLocator.prototype.buildLocatorFromAttributes = function(attributes) {
+CompositeLocator.prototype.buildLocatorFromAttributes = function(attributes, overrideignoredattributes) {
     if (attributes != null && attributes.size() > 0) {
+        // load ignored attributes from preferences
+        var ignoredAttributes = [];
+        if (!overrideignoredattributes) {
+            var prefIgnoredAttributes = Preferences.getPref("extensions.trump.ignoredattributes");
+            if (prefIgnoredAttributes && prefIgnoredAttributes != "") {
+                ignoredAttributes = ignoredAttributes.concat(prefIgnoredAttributes.split(";"));
+            }
+        }
+
         var keys = attributes.keySet();
         for (var i = 0; i < keys.length; i++) {
             var key = keys[i];
 //            if(key != CONSTANTS.TAG && key != CONSTANTS.TEXT && key != CONSTANTS.POSITION && key != CONSTANTS.HEADER && key != CONSTANTS.TRAILER){
-            if (key != CONSTANTS.TAG && key != CONSTANTS.HEADER && key != CONSTANTS.TRAILER && key != CONSTANTS.TEXT) {
+            if (key != CONSTANTS.TAG && key != CONSTANTS.HEADER && key != CONSTANTS.TRAILER && key != CONSTANTS.TEXT && ignoredAttributes.indexOf(key) == -1) {
                 var value = attributes.get(key);
                 if (value != null && trimString(value).length > 0) {
                     this.attributes.set(key, value);

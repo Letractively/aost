@@ -24,6 +24,7 @@
             <preference id="trumpExportDirectory" name="extensions.trump.exportdirectory" type="string"/>
             <preference id="trumpJSLog" name="extensions.extensions.trump.jslog" type="bool"/>
             <preference id="trumpLogWrap" name="extensions.extensions.trump.logWrap" type="bool"/>
+            <preference id="trumpIgnoredAttributes" name="extensions.trump.ignoredattributes" type="string"/>
         </preferences>
         
         <script type="application/x-javascript" src="chrome://trump/content/options.js"/>
@@ -52,9 +53,16 @@
             <checkbox id="trump-option-logwrap" preference="trumpLogWrap" disabled="false" checked="false"/>
         </hbox>
 
-         <description>&options.grouplocating;</description>
+        <description>&options.grouplocating;</description>
         <hbox align="center">
             <checkbox id="trump-option-grouplocating" preference="trumpGroupLocating" disabled="false" checked="true"/>
+        </hbox>
+
+        <separator class="thin"/>
+
+        <description>&options.ignoredattributes.description;</description>
+        <hbox align="center">
+            <textbox id="trump-option-ignoredattributes" preference="trumpIgnoredAttributes" multiline="false"/>
         </hbox>
         
         <hbox pack="center">
