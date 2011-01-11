@@ -1,5 +1,3 @@
-
-
 var TE = {
     /*
      * Mechanism for creating namespace modules. 
