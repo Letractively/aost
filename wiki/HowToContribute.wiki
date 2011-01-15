@@ -22,3 +22,8 @@ We need a technical writer to join our support team to help us with documents an
 
 We also expect to have some Evangelism Team members, who could write blogs and articles about Tellurium, or present Tellurium to people, i.e., promote Tellurium in various ways. We welcome Evangelism Team members from different parts of the world and promote Tellurium in different Languages.  A person could become an evangelism team member only after this person has already done enough work to promote Tellurium and want to join our team. If you are interested in, please let us know whenever you create a blog about Tellurium, or promote Tellurium in other ways. We will keep a record of your contributions
 and once the contributions reach a certain level, we will accept you as an Evangelism Team member.  
+
+A team lead should lead the team to finish all the requested tasks on time, makes roadmap/future directions,
+schedules the tasks, makes sure the tasks are completed. Team lead has the privilege to recruit members for
+his/her team. Team lead will be reviewed by tellurium members on yearly basis. Inactive team lead will be replaced. Active,
+devoted, and highly-motivated team leaders could be prompted to Tellurium project joint owner based on his/her contributions.
