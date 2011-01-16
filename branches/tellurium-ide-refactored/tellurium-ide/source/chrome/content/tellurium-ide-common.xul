@@ -50,5 +50,6 @@
     <script type="application/x-javascript" src="chrome://source/content/options.js"/>
     <script type="application/x-javascript" src="chrome://source/content/test-runner.js"/>
     <script type="application/x-javascript" src="chrome://source/content/editor.js"/>
+    <script type="application/x-javascript" src="chrome://source/content/engine/TE.editor.js"/>
 
 </overlay>
