@@ -1,9 +1,15 @@
 var TE = {
     /*
      * Mechanism for creating namespace modules. 
-     * @param the string to convert to a namespace
+     * @param String the string to convert to a namespace
+     * @param Map the default value of the map if it doesnt exist yet
+     * @return true of space doesnt exist yet
      * */
-    namespace:function(ns){
+    namespace:function(ns,map){
+        //protect default map to make sure it can have properties
+        if(this.isNotNull(map)){
+            if(typeof map!=="object")map=null;
+        }
         var spaces = ns.split(".");
         var space=null;
         this.each(spaces,function(item){
@@ -11,7 +17,7 @@ var TE = {
                space = eval(item); 
             }
             else if(this.isNull(space[item])){
-               space[item] = {};
+               space[item] = map||{};
                space = space[item];
             }
             else space = space[item];
@@ -20,9 +26,10 @@ var TE = {
     },
     /* Shortcut for the namespace method
      * @param the string to convert to a namespace
+     * @param Map the default value of the map if it doesnt exist yet
      **/
-    ns:function(ns){
-        return this.namespace(ns);
+    ns:function(ns,map){
+        return this.namespace(ns,map);
     },
     /*
      * This functions iterate over an array
@@ -74,6 +81,14 @@ var TE = {
      * */
     isNull:function(v){
         return v === null || v==undefined; 
+    },
+    /*
+     * Opposite of isNull function
+     * @param v the object to assert
+     * @return {Boolean}
+     * */
+    isNotNull:function(v){
+        return !this.isNull(v);
     },
     /*
      * Checks if a parameters is either a null or undefined
