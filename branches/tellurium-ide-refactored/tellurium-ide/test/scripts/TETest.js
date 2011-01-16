@@ -13,6 +13,11 @@ TETest.prototype.testNamespace=function() {
     TE.ns("TE.main.newns");
     this.assertEquals("TE.main.dummy is still available","test",TE.main.dummy);
     this.assertNotNull("TE.main.newns exists",TE.main.newns);
+    //namespace can have default value
+    TE.ns("TE.newspace",{
+        utils:"etc"
+    });
+    this.assertEquals("TE.newspace.utils exist", "etc",TE.newspace.utils)
 };
 
 TETest.prototype.testMap=function() {
