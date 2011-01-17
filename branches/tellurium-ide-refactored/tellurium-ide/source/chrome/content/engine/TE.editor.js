@@ -156,7 +156,7 @@ TE.merge(TE.editor.Editor.prototype,{
 
             this.buildCustomizeTree(xml);
             var uiTypes = this.builder.getAvailableUiTypes();
-            Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("uiType")),
+            TE.editor.Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("uiType")),
                     XulUtils.toXPCOMArray(uiTypes));
 
             this.recorder.generateSource();
@@ -361,7 +361,7 @@ TE.merge(TE.editor.Editor.prototype,{
                 cmdUid.disabled = false;
                 cmdValue.disabled = false;
                 cmdName.value = cmd.name;
-                Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("updateCommandName")),
+                TE.editor.Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("updateCommandName")),
                                                               XulUtils.toXPCOMArray(this.commandList));
                 var cmdDef = this.getCommandDef(cmd.name);
                 this.checkVariableAssignButtonFor(cmdDef.returnType);
@@ -371,12 +371,12 @@ TE.merge(TE.editor.Editor.prototype,{
                     cmdUid.value = cmd.strTarget();
                     if (type != CommandType.ASSERTION) {
                         var uids = this.recorder.app.getUids(cmd.target);
-                        Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("updateCommandUID")),
+                        TE.editor.Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("updateCommandUID")),
                                 XulUtils.toXPCOMArray(uids));
                     }
                 }else{
                     cmdUid.value = '';
-                    Editor.GENERIC_AUTOCOMPLETE.clearCandidates(XulUtils.toXPCOMString(this.autoCompleteSearchParams["updateCommandUID"]));
+                    TE.editor.Editor.GENERIC_AUTOCOMPLETE.clearCandidates(XulUtils.toXPCOMString(this.autoCompleteSearchParams["updateCommandUID"]));
                 }
                 if(cmd.value != null && cmd.value != undefined){
                     cmdValue.value = cmd.strValue();
@@ -402,7 +402,7 @@ TE.merge(TE.editor.Editor.prototype,{
                 cmdTarget.disabled = false;
                 cmdValue.disabled = false;
                 cmdName.value = cmd.name;
-                Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("updateCommandName")),
+                TE.editor.Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("updateCommandName")),
                                                               XulUtils.toXPCOMArray(this.commandList));
                 var cmdDef = this.getCommandDef(cmd.name);
                 this.checkVariableAssignButtonFor(cmdDef.returnType);
@@ -412,19 +412,19 @@ TE.merge(TE.editor.Editor.prototype,{
                     cmdTarget.value = cmd.strTarget();
                     if (type != CommandType.ASSERTION) {
                         var uids = this.recorder.app.getUids(cmd.target);
-                        Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("updateCommandUID")),
+                        TE.editor.Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("updateCommandUID")),
                                 XulUtils.toXPCOMArray(uids));
                         var uim = this.recorder.app.getUiModule(cmd.target);
                         var xml = uim.buildXML();
                         this.buildCustomizeTree(xml);
                     } else {
-                        Editor.GENERIC_AUTOCOMPLETE.clearCandidates(XulUtils.toXPCOMString(this.autoCompleteSearchParams["updateCommandUID"]));
+                        TE.editor.Editor.GENERIC_AUTOCOMPLETE.clearCandidates(XulUtils.toXPCOMString(this.autoCompleteSearchParams["updateCommandUID"]));
                         this.buildCustomizeTree(DEFAULT_XML);
                     }
 
                 }else{
                     cmdTarget.value = '';
-                    Editor.GENERIC_AUTOCOMPLETE.clearCandidates(XulUtils.toXPCOMString(this.autoCompleteSearchParams["updateCommandUID"]));
+                    TE.editor.Editor.GENERIC_AUTOCOMPLETE.clearCandidates(XulUtils.toXPCOMString(this.autoCompleteSearchParams["updateCommandUID"]));
                     this.buildCustomizeTree(DEFAULT_XML);
                 }
                 this.clearCustomizeUiObject();
@@ -628,7 +628,7 @@ TE.merge(TE.editor.Editor.prototype,{
     populateUiTypeAutoComplete : function(){
         var uitypes = this.builder.getAvailableUiTypes();
     //    logger.debug("Get registered UI types: " + uitypes.join(", "));
-        Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.editor.getAutoCompleteSearchParam("uiType")),
+        TE.editor.Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.editor.getAutoCompleteSearchParam("uiType")),
                                                           XulUtils.toXPCOMArray(uitypes));
     },
     processCustomizeEvent: function(event){
@@ -646,7 +646,7 @@ TE.merge(TE.editor.Editor.prototype,{
     updateUiModuleName : function(uid) {
         var uids = tellurium.getUids(uid);
         if (uids != null && uids.length > 0) {
-            Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("commandUID")),
+            TE.editor.Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("commandUID")),
                     XulUtils.toXPCOMArray(uids));
 
         }
@@ -657,8 +657,8 @@ TE.merge(TE.editor.Editor.prototype,{
         document.getElementById("updateCommandValue").value = "";
         document.getElementById("commandReturnResult").value = "";
         document.getElementById("returnValueVariable").value = "";
-        Editor.GENERIC_AUTOCOMPLETE.clearCandidates(XulUtils.toXPCOMString(this.autoCompleteSearchParams["updateCommandName"]));
-        Editor.GENERIC_AUTOCOMPLETE.clearCandidates(XulUtils.toXPCOMString(this.autoCompleteSearchParams["updateCommandUID"]));
+        TE.editor.Editor.GENERIC_AUTOCOMPLETE.clearCandidates(XulUtils.toXPCOMString(this.autoCompleteSearchParams["updateCommandName"]));
+        TE.editor.Editor.GENERIC_AUTOCOMPLETE.clearCandidates(XulUtils.toXPCOMString(this.autoCompleteSearchParams["updateCommandUID"]));
 
         this.cmdView.clearAll();
     },
@@ -793,7 +793,7 @@ TE.merge(TE.editor.Editor.prototype,{
 
             this.buildCustomizeTree(xml);
             var uiTypes = this.builder.getAvailableUiTypes();
-            Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("uiType")),
+            Te.editor.editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("uiType")),
                     XulUtils.toXPCOMArray(uiTypes));
             if(isUidChanged){
                 this.currentUid = uiObject.fullUid();
