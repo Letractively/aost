@@ -6,7 +6,7 @@
 ]>
 <overlay id="tellurium-ide-common"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-
+    <script type="application/x-javascript" src="chrome://source/content/engine/TE.js"/>
     <script type="application/x-javascript" src="chrome://source/content/extlib/json2.js"/>
     <script type="application/x-javascript" src="chrome://source/content/extlib/jquery-1.4.4.js "/>
     <script type="application/x-javascript" src="chrome://source/content/extlib/syn.js"/>

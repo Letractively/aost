@@ -1,62 +1,148 @@
 TE.ns("TE.editor");
-TE.editor.Editor = function(window){
-    this.window = window;
+TE.merge(TE.editor,{
+    Editor:function(window){
+        this.window = window;
 //    var self = this;
-    
-    window.editor = this;
+
+        window.editor = this;
 //    window.browserBot = browserBot;
-    window.browserBot = tellurium.browserBot;
+        window.browserBot = tellurium.browserBot;
 
-    this.document = document;
-    
-    this.logView = new LogView(this);
-    this.logView.setLog(logger);
-    
-    this.buildCustomizeTree(DEFAULT_XML);
+        this.document = document;
 
-    this.currentUid = null;
+        this.logView = new LogView(this);
+        this.logView.setLog(logger);
 
-    this.decorator = new Decorator();
+        this.buildCustomizeTree(DEFAULT_XML);
 
-    this.builder = new UiBuilder();
+        this.currentUid = null;
 
-    this.refIdSetter = new RefIdSetter();
+        this.decorator = new Decorator();
 
-    this.workspace = new Workspace(this.builder, new UiChecker(), this.refIdSetter);
+        this.builder = new UiBuilder();
 
-    this.recorder = null;
+        this.refIdSetter = new RefIdSetter();
 
-    this.recordingEnabled = true;
+        this.workspace = new Workspace(this.builder, new UiChecker(), this.refIdSetter);
 
-    this.registerRecorder();
+        this.recorder = null;
 
-    this.cmdHistory = new Array();
+        this.recordingEnabled = true;
 
-    this.cmdView = CommandView;
-    this.cmdTree = document.getElementById('recordedCommandListTree');
-    this.cmdTree.view = this.cmdView;
+        this.registerRecorder();
+        this.cmdHistory = new Array();
 
-    this.currentSelectedCommand = null;
-//    this.currentCommandIndex = -1;
+        this.cmdView = CommandView;
+        this.cmdTree = document.getElementById('recordedCommandListTree');
+        this.cmdTree.view = this.cmdView;
 
-    //Map the command, because some command needs to convert the format for display, for example, array to String
-    this.commandMap = new Hashtable();
+        this.currentSelectedCommand = null;
+    //    this.currentCommandIndex = -1;
 
-    this.testResultObserver = new TestResultObserver(document);
+        //Map the command, because some command needs to convert the format for display, for example, array to String
+        this.commandMap = new Hashtable();
 
-    this.testRunner = new TestRunner();
-    this.testRunner.addObserver(this.cmdView);
-    this.testRunner.addObserver(this.testResultObserver);
-    this.commandList = this.testRunner.cmdExecutor.getCommandList();
-    this.workspace.cmdExecutor = this.testRunner.cmdExecutor;
-    
-//    this.options = new Preferences();
+        this.testResultObserver = new TestResultObserver(document);
 
-    //Detect the browser properties
-    BrowserDetect.init();
-    this.os = BrowserDetect.OS;
+        this.testRunner = new TestRunner();
+        this.testRunner.addObserver(this.cmdView);
+        this.testRunner.addObserver(this.testResultObserver);
+        this.commandList = this.testRunner.cmdExecutor.getCommandList();
+        this.workspace.cmdExecutor = this.testRunner.cmdExecutor;
 
-}
+    //    this.options = new Preferences();
+
+        //Detect the browser properties
+        BrowserDetect.init();
+        this.os = BrowserDetect.OS;
+    },
+    GENERIC_AUTOCOMPLETE : Components.classes["@mozilla.org/autocomplete/search;1?name=selenium-ide-generic"].getService(Components.interfaces.nsISeleniumIDEGenericAutoCompleteSearch),
+    suggestName:function(tagObject){
+        var tag = tagObject.tag;
+        var attributes = tagObject.attributes;
+
+        var name = attributes.get("id");
+        if(name == null || name.length == 0){
+            name = attributes.get("value");
+        }
+        if(name == null || name.length == 0){
+            name = attributes.get("name");
+        }
+        if(name == null || name.length == 0){
+            name = attributes.get("title");
+        }
+        if(name == null || name.length == 0){
+            name = attributes.get("text");
+        }
+        if(name == null || name.length == 0){
+            name = attributes.get("class");
+        }
+        if(name == null || name.length == 0){
+            if(tag == "input"){
+                var type = attributes.get("type");
+                if(type == "text"){
+                    name = "Input";
+                }else if(type == "submit"){
+                    name = "Submit";
+                }else if(type == "image"){
+                    name = "Image";
+                }else if(type == "checkbox"){
+                    name = "Option";
+                }else if(type == "radio"){
+                    name = "Option";
+                }else if(type == "password"){
+                    name = "Password";
+                }else{
+                    name = "Button";
+                }
+            }else if(tag == "a" || tag == "link"){
+                name = "Link";
+            }else if(tag == "select"){
+                name = "Select";
+            }else if(tag == "tr"){
+                name = "Section";
+            }else if(tag == "td"){
+                name = "Part";
+            }else if(tag == "th"){
+                name = "Header";
+            }else if(tag == "tfoot"){
+                name = "Footer";
+            }else if(tag == "tbody"){
+                name = "Group";
+            }else if(tag == "form"){
+                name = "Form";
+            }else if(tag == "image"){
+                name = "Image";
+            }else if(tag == "table"){
+                name = "Table";
+            }
+        }
+        if(name != null && name.length > 0){
+            var split = name.split(" ");
+            if(split.length > 1){
+                name = split[0].toCamel() + split[1].toCamel();
+            }
+        }
+
+        if(name != null && name.length > 0){
+            //remove special characters and only keep alphanumeric and "_"
+            name = name.replace(/[^a-zA-Z_0-9]+/g,'');
+        }
+
+        if(name == null || name.trim().length == 0){
+            name = tag;
+        }
+
+        return name.toCamel();
+    },
+    TestCmd:function(name, target, param){
+       this.name = name;
+       this.target = target;
+       this.param = param;
+       this.result = null;
+   }
+});
+
 TE.merge(TE.editor.Editor.prototype,{
     onDOMContentLoaded:function(event) {
         try {
@@ -94,7 +180,7 @@ TE.merge(TE.editor.Editor.prototype,{
     cleanupAutoComplete:function() {
         if (this.autoCompleteSearchParams) {
             for (var id in this.autoCompleteSearchParams) {
-                TE.editor.Editor.GENERIC_AUTOCOMPLETE.clearCandidates(XulUtils.toXPCOMString(this.autoCompleteSearchParams[id]));
+                TE.editor.GENERIC_AUTOCOMPLETE.clearCandidates(XulUtils.toXPCOMString(this.autoCompleteSearchParams[id]));
             }
         }
     },
@@ -111,7 +197,7 @@ TE.merge(TE.editor.Editor.prototype,{
     },
     populateWindowUrl : function(){
         var contentWindows = getAvailableContentDocumentUrls(Components.interfaces.nsIDocShellTreeItem.typeChrome);
-        TE.editor.Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("windowURL")),
+        TE.editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("windowURL")),
                 XulUtils.toXPCOMArray(contentWindows));
     },
     unload : function(){
@@ -156,7 +242,7 @@ TE.merge(TE.editor.Editor.prototype,{
 
             this.buildCustomizeTree(xml);
             var uiTypes = this.builder.getAvailableUiTypes();
-            TE.editor.Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("uiType")),
+            TE.editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("uiType")),
                     XulUtils.toXPCOMArray(uiTypes));
 
             this.recorder.generateSource();
@@ -361,7 +447,7 @@ TE.merge(TE.editor.Editor.prototype,{
                 cmdUid.disabled = false;
                 cmdValue.disabled = false;
                 cmdName.value = cmd.name;
-                TE.editor.Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("updateCommandName")),
+                TE.editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("updateCommandName")),
                                                               XulUtils.toXPCOMArray(this.commandList));
                 var cmdDef = this.getCommandDef(cmd.name);
                 this.checkVariableAssignButtonFor(cmdDef.returnType);
@@ -371,12 +457,12 @@ TE.merge(TE.editor.Editor.prototype,{
                     cmdUid.value = cmd.strTarget();
                     if (type != CommandType.ASSERTION) {
                         var uids = this.recorder.app.getUids(cmd.target);
-                        TE.editor.Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("updateCommandUID")),
+                        TE.editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("updateCommandUID")),
                                 XulUtils.toXPCOMArray(uids));
                     }
                 }else{
                     cmdUid.value = '';
-                    TE.editor.Editor.GENERIC_AUTOCOMPLETE.clearCandidates(XulUtils.toXPCOMString(this.autoCompleteSearchParams["updateCommandUID"]));
+                    TE.editor.GENERIC_AUTOCOMPLETE.clearCandidates(XulUtils.toXPCOMString(this.autoCompleteSearchParams["updateCommandUID"]));
                 }
                 if(cmd.value != null && cmd.value != undefined){
                     cmdValue.value = cmd.strValue();
@@ -402,7 +488,7 @@ TE.merge(TE.editor.Editor.prototype,{
                 cmdTarget.disabled = false;
                 cmdValue.disabled = false;
                 cmdName.value = cmd.name;
-                TE.editor.Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("updateCommandName")),
+                TE.editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("updateCommandName")),
                                                               XulUtils.toXPCOMArray(this.commandList));
                 var cmdDef = this.getCommandDef(cmd.name);
                 this.checkVariableAssignButtonFor(cmdDef.returnType);
@@ -412,19 +498,19 @@ TE.merge(TE.editor.Editor.prototype,{
                     cmdTarget.value = cmd.strTarget();
                     if (type != CommandType.ASSERTION) {
                         var uids = this.recorder.app.getUids(cmd.target);
-                        TE.editor.Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("updateCommandUID")),
+                        TE.editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("updateCommandUID")),
                                 XulUtils.toXPCOMArray(uids));
                         var uim = this.recorder.app.getUiModule(cmd.target);
                         var xml = uim.buildXML();
                         this.buildCustomizeTree(xml);
                     } else {
-                        TE.editor.Editor.GENERIC_AUTOCOMPLETE.clearCandidates(XulUtils.toXPCOMString(this.autoCompleteSearchParams["updateCommandUID"]));
+                        TE.editor.GENERIC_AUTOCOMPLETE.clearCandidates(XulUtils.toXPCOMString(this.autoCompleteSearchParams["updateCommandUID"]));
                         this.buildCustomizeTree(DEFAULT_XML);
                     }
 
                 }else{
                     cmdTarget.value = '';
-                    TE.editor.Editor.GENERIC_AUTOCOMPLETE.clearCandidates(XulUtils.toXPCOMString(this.autoCompleteSearchParams["updateCommandUID"]));
+                    TE.editor.GENERIC_AUTOCOMPLETE.clearCandidates(XulUtils.toXPCOMString(this.autoCompleteSearchParams["updateCommandUID"]));
                     this.buildCustomizeTree(DEFAULT_XML);
                 }
                 this.clearCustomizeUiObject();
@@ -646,7 +732,7 @@ TE.merge(TE.editor.Editor.prototype,{
     updateUiModuleName : function(uid) {
         var uids = tellurium.getUids(uid);
         if (uids != null && uids.length > 0) {
-            TE.editor.Editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("commandUID")),
+            TE.editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("commandUID")),
                     XulUtils.toXPCOMArray(uids));
 
         }
@@ -657,8 +743,8 @@ TE.merge(TE.editor.Editor.prototype,{
         document.getElementById("updateCommandValue").value = "";
         document.getElementById("commandReturnResult").value = "";
         document.getElementById("returnValueVariable").value = "";
-        TE.editor.Editor.GENERIC_AUTOCOMPLETE.clearCandidates(XulUtils.toXPCOMString(this.autoCompleteSearchParams["updateCommandName"]));
-        TE.editor.Editor.GENERIC_AUTOCOMPLETE.clearCandidates(XulUtils.toXPCOMString(this.autoCompleteSearchParams["updateCommandUID"]));
+        TE.editor.GENERIC_AUTOCOMPLETE.clearCandidates(XulUtils.toXPCOMString(this.autoCompleteSearchParams["updateCommandName"]));
+        TE.editor.GENERIC_AUTOCOMPLETE.clearCandidates(XulUtils.toXPCOMString(this.autoCompleteSearchParams["updateCommandUID"]));
 
         this.cmdView.clearAll();
     },
@@ -793,7 +879,7 @@ TE.merge(TE.editor.Editor.prototype,{
 
             this.buildCustomizeTree(xml);
             var uiTypes = this.builder.getAvailableUiTypes();
-            Te.editor.editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("uiType")),
+            Te.editor.GENERIC_AUTOCOMPLETE.setCandidates(XulUtils.toXPCOMString(this.getAutoCompleteSearchParam("uiType")),
                     XulUtils.toXPCOMArray(uiTypes));
             if(isUidChanged){
                 this.currentUid = uiObject.fullUid();
@@ -981,90 +1067,4 @@ TE.merge(TE.editor.Editor.prototype,{
         }
     }
 });
-TE.editor.Editor= {
-    GENERIC_AUTOCOMPLETE : Components.classes["@mozilla.org/autocomplete/search;1?name=selenium-ide-generic"].getService(Components.interfaces.nsISeleniumIDEGenericAutoCompleteSearch),
-    suggestName:function(tagObject){
-        var tag = tagObject.tag;
-        var attributes = tagObject.attributes;
 
-        var name = attributes.get("id");
-        if(name == null || name.length == 0){
-            name = attributes.get("value");
-        }
-        if(name == null || name.length == 0){
-            name = attributes.get("name");
-        }
-        if(name == null || name.length == 0){
-            name = attributes.get("title");
-        }
-        if(name == null || name.length == 0){
-            name = attributes.get("text");
-        }
-        if(name == null || name.length == 0){
-            name = attributes.get("class");
-        }
-        if(name == null || name.length == 0){
-            if(tag == "input"){
-                var type = attributes.get("type");
-                if(type == "text"){
-                    name = "Input";
-                }else if(type == "submit"){
-                    name = "Submit";
-                }else if(type == "image"){
-                    name = "Image";
-                }else if(type == "checkbox"){
-                    name = "Option";
-                }else if(type == "radio"){
-                    name = "Option";
-                }else if(type == "password"){
-                    name = "Password";
-                }else{
-                    name = "Button";
-                }
-            }else if(tag == "a" || tag == "link"){
-                name = "Link";
-            }else if(tag == "select"){
-                name = "Select";
-            }else if(tag == "tr"){
-                name = "Section";
-            }else if(tag == "td"){
-                name = "Part";
-            }else if(tag == "th"){
-                name = "Header";
-            }else if(tag == "tfoot"){
-                name = "Footer";
-            }else if(tag == "tbody"){
-                name = "Group";
-            }else if(tag == "form"){
-                name = "Form";
-            }else if(tag == "image"){
-                name = "Image";
-            }else if(tag == "table"){
-                name = "Table";
-            }
-        }
-        if(name != null && name.length > 0){
-            var split = name.split(" ");
-            if(split.length > 1){
-                name = split[0].toCamel() + split[1].toCamel();
-            }
-        }
-
-        if(name != null && name.length > 0){
-            //remove special characters and only keep alphanumeric and "_"
-            name = name.replace(/[^a-zA-Z_0-9]+/g,'');
-        }
-
-        if(name == null || name.trim().length == 0){
-            name = tag;
-        }
-
-        return name.toCamel();
-    },
-    TestCmd:function(name, target, param){
-       this.name = name;
-       this.target = target;
-       this.param = param;
-       this.result = null;
-   }
-}

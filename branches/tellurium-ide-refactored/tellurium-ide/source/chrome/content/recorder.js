@@ -475,7 +475,7 @@ Recorder.prototype.recordCommand = function(name, element, value, valueType){
 
         if (this.first) {
             this.workspace.addCommand("open", null, element.ownerDocument.location.href, ValueType.STRING);
-            var ocmd = new TestCmd("open", null, element.ownerDocument.location.href);
+            var ocmd = new TE.editor.TestCmd("open", null, element.ownerDocument.location.href);
             this.recordCommandList.push(ocmd);
             this.first = false;
         }
@@ -498,7 +498,7 @@ Recorder.prototype.recordCommand = function(name, element, value, valueType){
         
         result = this.workspace.addCommand(name, uid, value, valueType);
         if (result) {
-            cmd = new TestCmd(name, uid, value);
+            cmd = new TE.editor.TestCmd(name, uid, value);
             this.recordCommandList.push(cmd);
             this.cmdListView.setTestCommands(this.recordCommandList);
             this.cmdListView.rowInserted();
@@ -509,7 +509,7 @@ Recorder.prototype.recordCommand = function(name, element, value, valueType){
     } else {
         result = this.workspace.addCommand(name, null, value, valueType);
         if (result) {
-            cmd = new TestCmd(name, null, value);
+            cmd = new TE.editor.TestCmd(name, null, value);
             this.recordCommandList.push(cmd);
             this.cmdListView.setTestCommands(this.recordCommandList);
             this.cmdListView.rowInserted();
