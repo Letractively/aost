@@ -3,6 +3,7 @@
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://source/skin/telluriumide.css" type="text/css"?>
 <?xml-stylesheet href="chrome://source/content/extlib/jquery-ui.css" type="text/css"?>
+
 <?xul-overlay href="chrome://source/content/tellurium-ide-common.xul"?>
 
 <!DOCTYPE window [
@@ -17,7 +18,7 @@
     xmlns:html="http://www.w3.org/1999/xhtml"
     width="800"
     height="600"
-    onload="new Editor(window)"
+    onload="new TE.editor.Editor(window)"
     onunload="window.editor.unload()"
     onclose="return window.editor.close()">
 
