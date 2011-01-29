@@ -15,10 +15,12 @@ Selenium.prototype.getAllText = function(locator) {
 
 Selenium.prototype.getCssSelectorCount = function(locator) {
     !tellurium.logManager.isUseLog || fbLog("GetCssSelectorCount for Locator", locator);
-    if(locator.startsWith("jquery=")){
+//    if(locator.startsWith("jquery=")){
+    if(startsWith(locator,"jquery=")){
         locator = locator.substring(7);
-    }else if(locator.startsWith("uimcal=")){
-        var cal = JSON.parse(locator.substring(7), null);
+//    }else if(locator.startsWith("uimcal=")){
+    }else if(startsWith(locator,"uimcal=")){
+        var cal = JSON.parse(locator.substring(7));
          locator = cal.locator;
     }
     !tellurium.logManager.isUseLog || fbLog("Parsed locator", locator);
@@ -279,7 +281,7 @@ Selenium.prototype.getDiagnosisResponse = function(locator, dreq){
                 var id = request.attributes["id"];
                 var tag = request.attributes["tag"];
 
-                if(tag == null || tag == undefined || tag.trim().length == 0){
+                if(tag == null || tag == undefined || trimString(tag).length == 0){
                     //TODO: need to double check if this is correct or not in jQuery
                     tag = "*";
                 }

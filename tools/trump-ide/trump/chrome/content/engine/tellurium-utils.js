@@ -430,24 +430,36 @@ function trimString(str) {
 };
 */
 
-String.prototype.trim = function() {
+/**
+ * Checks to see if str1 starts with str2
+ * @returns true if str1 starts with str2, false otherwise
+ * @param str1
+ * @param str2
+ */
+function startsWith(/* String */ str1, /*String*/ str2){
+    str1 = str1 + "";
+    str2 = str2 + "";
+    return (str1.indexOf(str2) === 0);
+}
+
+/*String.prototype.trim = function() {
     var result = this.replace(/^\s+/g, "");
     // strip leading
     return result.replace(/\s+$/g, "");
     // strip trailing
-};
+};*/
 
-String.prototype.startsWith = function(str)
+/*String.prototype.startsWith = function(str)
 {
     str = str + "";
 //    logger.debug("str " + str + " its type: " + typeof(str));
     return (this.indexOf(str) === 0);
-};
+};*/
 //Have problem if the str starts with "*"
 //String.prototype.startsWith = function(str)
 //{return (this.match("^"+str)==str);}
 
-
+/*
 String.prototype.beginsWith = function(t, i) {
     if (i==false) {
         return (t == this.substring(0, t.length)); 
@@ -455,16 +467,38 @@ String.prototype.beginsWith = function(t, i) {
         return (t.toLowerCase() == this.substring(0, t.length).toLowerCase());
     }
 };
+*/
 
-String.prototype.endsWith = function(t, i) {
+/**
+ * Returns true if str1 ends with str2 , false otherwise
+ * @param str1
+ * @param str2
+ */
+function endsWith(/*String*/ str1, /*String*/ str2){
+    return str2.toLowerCase() == str1.substring(str1.length - str2.length).toLowerCase();    
+}
+
+/*String.prototype.endsWith = function(t, i) {
     if (i==false) {
         return (t== this.substring(this.length - t.length));
     } else {
         return (t.toLowerCase() == this.substring(this.length - t.length).toLowerCase());
     }
-};
+};*/
 
-String.prototype.toCamel = function(){
+function toCamel(/*String*/ str1){
+    if(str1 != null && str1.length > 0){
+        if(str1.length == 1){
+            return str1.charAt(0).toUpperCase();
+        }else{
+            return str1.charAt(0).toUpperCase() + str1.substring(1);
+        }
+    }
+
+    return str1;
+}
+
+/*String.prototype.toCamel = function(){
     if(this != null && this.length > 0){
         if(this.length == 1){
             return this.charAt(0).toUpperCase();
@@ -474,7 +508,7 @@ String.prototype.toCamel = function(){
     }
 
     return this;
-};
+};*/
 
 function ltrim(str) {
     return str.replace(/^\s+/, '');
@@ -696,7 +730,8 @@ printStackTrace.implementation.prototype = {
         lines.splice(j, lines.length - j);
         return lines;
     },
-
+/*
+     TODO Check with Jian, we dont need all these since the plugin is only for firefox
     // Safari, Opera 9+, IE, and others
     other: function(curr) {
         var ANON = "{anonymous}", fnRE = /function\s*([\w\-$]+)?\s*\(/i, stack = [], j = 0, fn, args;
@@ -716,6 +751,7 @@ printStackTrace.implementation.prototype = {
         }
         return stack;
     },
+*/
 
     stringifyArguments: function(args) {
         for (var i = 0; i < args.length; ++i) {

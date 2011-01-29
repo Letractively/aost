@@ -231,7 +231,7 @@ TelluriumApi.prototype.isElementPresent = function(locator){
 };*/
 
 TelluriumApi.prototype.getAttribute = function(attributeLocator){
-    var cal = JSON.parse(attributeLocator.substring(7), null);
+    var cal = JSON.parse(attributeLocator.substring(7));
     !tellurium.logManager.isUseLog || fbLog("Parsed attribute locator", cal);
     var locator = cal.locator;
     var attributeName = null;
@@ -239,13 +239,13 @@ TelluriumApi.prototype.getAttribute = function(attributeLocator){
     var attributePos = locator.lastIndexOf("@");
     if (attributePos != -1) {
         attributeName = locator.slice(attributePos + 1);
-        if (attributeName.endsWith("]")) {
+        if (endsWith(attributeName, "]")) {
             attributeName = attributeName.substr(0, attributeName.length - 1);
         }
         !tellurium.logManager.isUseLog || fbLog("attribute name", attributeName);
         //update locator
         cal.locator = locator.slice(0, attributePos);
-        if (cal.locator.endsWith("[")) {
+        if (endsWith(cal.locator, "[")) {
             cal.locator = cal.locator.substr(0, cal.locator.length - 1);
         }
     }
@@ -268,8 +268,8 @@ TelluriumApi.prototype.type = function(locator, val){
 TelluriumApi.prototype.getOptionSelector = function(optionLocator){
     var split = optionLocator.split("=");
     var sel = "";
-    split[0] = split[0].trim();
-    split[1] = split[1].trim();
+    split[0] = trimString(split[0]);
+    split[1] = trimString(split[1]);
     if(split[0] == "label" || split[0] == "text"){
         sel = this.cssBuilder.buildText(split[1]);
     }else if(split[0] == "value"){
@@ -480,10 +480,12 @@ TelluriumApi.prototype.getAllText = function(locator) {
 
 TelluriumApi.prototype.getCssSelectorCount = function(locator) {
    !tellurium.logManager.isUseLog || fbLog("GetCssSelectorCount for Locator", locator);
-    if(locator.startsWith("jquery=")){
+//    if(locator.startsWith("jquery=")){
+    if(startsWith(locator, "jquery=")){
         locator = locator.substring(7);
-    }else if(locator.startsWith("uimcal=")){
-        var cal = JSON.parse(locator.substring(7), null);
+//    }else if(locator.startsWith("uimcal=")){
+    }else if(startsWith(locator,"uimcal=")){
+        var cal = JSON.parse(locator.substring(7));
         locator = cal.locator;
     }
     !tellurium.logManager.isUseLog || fbLog("Parsed locator", locator);

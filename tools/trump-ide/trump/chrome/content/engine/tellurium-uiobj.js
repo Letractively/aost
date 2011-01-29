@@ -316,8 +316,11 @@ var UiObject = Class.extend({
                     var alg = context.alg;
                     var sel = alg.buildSelector(this.locator);
                     var $found = teJQuery(context.domRef);
-                    if(sel !=null && sel.trim().length > 0){
-                        $found = $found.find(sel);
+                    if(sel !=null){
+                        sel = trimString(sel);
+                        if(sel.length > 0){
+                            $found = $found.find(sel);
+                        }
                     }
                     if ($found.size() == 1) {
                         context.domRef = $found.get(0);
@@ -969,8 +972,11 @@ var UiContainer = UiObject.extend({
             var alg = context.alg;
             var sel = alg.buildSelector(child.locator);
             var $found = teJQuery(domRef);
-            if(sel != null && sel.trim().length > 0){
-                $found = $found.find(sel);
+            if(sel != null){
+                sel = trimString(sel);
+                if(sel.length > 0){
+                    $found = $found.find(sel);
+                }
             }
             if ($found.size() > 1) {
                 $found = alg.lookId(child, $found);
@@ -1001,8 +1007,11 @@ var UiContainer = UiObject.extend({
             var alg = context.alg;
             var sel = alg.buildSelector(child.locator);
             var $found = teJQuery(domRef);
-            if(sel != null && sel.trim().length > 0){
-                $found = $found.find(sel);
+            if(sel != null ){
+                sel = trimString(sel);
+                if(sel.length > 0){
+                    $found = $found.find(sel);
+                }
             }
             if ($found.size() > 1) {
                 $found = alg.lookId(child, $found);
@@ -1046,8 +1055,11 @@ var UiContainer = UiObject.extend({
                     var sel = alg.buildSelector(this.locator);
 
                     var $found = teJQuery(context.domRef);
-                    if(sel != null && sel.trim().length > 0){
-                        $found = $found.find(sel);
+                    if(sel != null ){
+                        sel = trimString(sel);
+                        if(sel.length > 0){
+                            $found = $found.find(sel);
+                        }
                     }
                     if ($found.size() > 1) {
                         //first try lookId
@@ -1154,7 +1166,11 @@ var UiRepeat = UiContainer.extend({
             var sel = alg.buildSelector(this.locator);
 
             var $found = teJQuery(context.domRef);
-            if(sel != null && sel.trim().length > 0){
+            if(sel != null){
+                sel = trimString(sel);
+                if(sel.length > 0){
+                    $found = $found.find(sel);
+                }
                 $found = $found.find(sel);
             }
             !tellurium.logManager.isUseLog || fbLog("Context domRef is ", context.domRef);
@@ -1196,8 +1212,11 @@ var UiRepeat = UiContainer.extend({
                     var alg = context.alg;
                     var sel = alg.buildSelectorWithPosition(this.locator, index);
                     var $found = teJQuery(context.domRef);
-                    if(sel != null && sel.trim().length > 0){
-                        $found = $found.find(sel);
+                    if(sel != null){
+                        sel = trimString(sel);
+                        if(sel.length > 0){
+                            $found = $found.find(sel);
+                        }
                     }
 
                     if ($found.size() > 1) {
@@ -1291,12 +1310,18 @@ var UiFrame = UiContainer.extend({
         }
         sb.append(this.uiType).append("(uid: \"").append(this.uid);
 
-        if(this.id != null && this.id.trim().length > 0){
-           sb.append(", id: \"").append(this.id).append("\"");
+        if(this.id != null){
+            this.id = trimString(this.id);
+            if(this.id.length > 0){
+                sb.append(", id: \"").append(this.id).append("\"");
+            }
         }
 
-        if(this.name != null && this.name.trim().length > 0){
-           sb.append(", name: \"").append(this.name).append("\"");  
+        if(this.name != null){
+            this.name = trimString(this.name);
+            if (this.name.length > 0) {
+                sb.append(", name: \"").append(this.name).append("\"");
+            }
         }
 
 /*
@@ -1484,17 +1509,20 @@ var UiList = UiContainer.extend({
             key = obj.metaData.index.value + "";
         }
 
-        if (this.separator != null && this.separator.trim().length > 0) {
-            if (key == "any") {
-                return this.getAnySelectorWithSeparator(obj);
-            } else if (key == "first") {
-                return this.getFirstSelectorWithSeparator();
-            } else if (key == "last") {
-                return this.getLastSelectorWithSeparator();
-            } else if (key.match(/[0-9]+/)) {
-                return this.getSelectorByIndexWithSeparator(key);
-            } else {
-                throw new SeleniumError("Invalid ID " + key);
+        if (this.separator != null) {
+            this.separator = trimString(this.separator);
+            if (this.separator.length > 0) {
+                if (key == "any") {
+                    return this.getAnySelectorWithSeparator(obj);
+                } else if (key == "first") {
+                    return this.getFirstSelectorWithSeparator();
+                } else if (key == "last") {
+                    return this.getLastSelectorWithSeparator();
+                } else if (key.match(/[0-9]+/)) {
+                    return this.getSelectorByIndexWithSeparator(key);
+                } else {
+                    throw new SeleniumError("Invalid ID " + key);
+                }
             }
         } else {
             if (key == "any") {
@@ -1688,8 +1716,11 @@ var UiList = UiContainer.extend({
                     var alg = context.alg;
                     var sel = alg.buildSelector(this.locator);
                     var $found = teJQuery(context.domRef);
-                    if(sel != null && sel.trim().length > 0){
-                        $found = $found.find(sel);
+                    if(sel != null){
+                        sel = trimString(sel);
+                        if(sel.length > 0){
+                            $found = $found.find(sel);
+                        }
                     }
                     if ($found.size() > 1) {
                         //Use bestEffort() to eliminate multipe matches
@@ -1761,7 +1792,7 @@ var UiList = UiContainer.extend({
 
         //If the List does not have a separator
         //tell WorkflowContext not to process the next object's locator because List has already added that
-        if(this.separator == null || this.separator.trim().length == 0 || child.self){
+        if(this.separator == null || (this.separator = trimString(this.separator)).length == 0 || child.self){
             context.skipNext = true;
         }
 
@@ -2554,8 +2585,11 @@ var UiTable = UiContainer.extend({
             var sel = this.getHeaderSelector(key, cobj);
 
             var $found = teJQuery(context.domRef);
-            if(sel != null && sel.trim().length > 0){
-                $found = $found.find(sel);
+            if(sel != null ){
+                sel = trimString(sel);
+                if(sel.length > 0){
+                    $found = $found.find(sel);
+                }
             }
             !tellurium.logManager.isUseLog || fbLog("Found child " + key + " with CSS selector '" + sel +"' for Table " + this.uid, $found.get());
             if ($found.size() == 1) {
@@ -2611,8 +2645,11 @@ var UiTable = UiContainer.extend({
             var sel = this.getCellSelector(context, child, cobj);
 
             var $found = teJQuery(context.domRef);
-            if(sel != null && sel.trim().length > 0){
-                $found = $found.find(sel);
+            if(sel != null){
+                sel = trimString(sel);
+                if(sel.length > 0){
+                    $found = $found.find(sel);
+                }
             }
             !tellurium.logManager.isUseLog || fbLog("Found child with CSS selector '" + sel +"' for Table " + this.uid, $found.get());
             if ($found.size() == 1) {
@@ -2697,8 +2734,11 @@ var UiTable = UiContainer.extend({
                     var alg = context.alg;
                     var sel = alg.buildSelector(this.locator);
                     var $found = teJQuery(context.domRef);
-                    if(sel != null && sel.trim().length > 0){
-                        $found = $found.find(sel);
+                    if(sel != null){
+                        sel = trimString(sel);
+                        if(sel.length > 0){
+                            $found = $found.find(sel);
+                        }
                     }
                     if ($found.size() > 1) {
                         //Use bestGuess() to eliminate multipe matches
@@ -2732,7 +2772,7 @@ var UiTable = UiContainer.extend({
 
         var child = uiid.peek();
 
-        if(child == "header" || child.startsWith("_HEADER")){
+        if(child == "header" || startsWith(child, "_HEADER")){
             return this.walkToHeader(context, uiid);
         } else {
             return this.walkToElement(context, uiid);
@@ -4060,8 +4100,11 @@ var UiStandardTable = UiContainer.extend({
             var sel = this.getHeaderSelector(key, cobj);
 
             var $found = teJQuery(context.domRef);
-            if(sel != null && sel.trim().length > 0){
-                $found = $found.find(sel);
+            if(sel != null){
+                sel = trimString(sel);
+                if(sel.length > 0){
+                    $found = $found.find(sel);
+                }
             }
             !tellurium.logManager.isUseLog || fbLog("Found child " + key + " with CSS selector '" + sel +"' for Table " + this.uid, $found.get());
             if ($found.size() == 1) {
@@ -4122,8 +4165,11 @@ var UiStandardTable = UiContainer.extend({
             var sel = this.getFooterSelector(cobj);
 
             var $found = teJQuery(context.domRef);
-            if(sel != null && sel.trim().length > 0){
-                $found = $found.find(sel);
+            if(sel != null){
+                sel = trimString(sel);
+                if(sel.length > 0){
+                    $found = $found.find(sel);
+                }
             }
             !tellurium.logManager.isUseLog || fbLog("Found child " + key + " with CSS selector '" + sel +"' for Table " + this.uid, $found.get());
             if ($found.size() == 1) {
@@ -4189,8 +4235,11 @@ var UiStandardTable = UiContainer.extend({
             var sel = this.getCellSelector(context, child, cobj);
 
             var $found = teJQuery(context.domRef);
-            if(sel != null && sel.trim().length > 0){
-                $found = $found.find(sel);
+            if(sel != null){
+                sel = trimString(sel);
+                if(sel.length > 0){
+                    $found = $found.find(sel);
+                }
             }
             !tellurium.logManager.isUseLog || fbLog("Found child with CSS selector '" + sel +"' for StandardTable " + this.uid, $found.get());
             if ($found.size() == 1) {
@@ -4237,8 +4286,11 @@ var UiStandardTable = UiContainer.extend({
                     var alg = context.alg;
                     var sel = alg.buildSelector(this.locator);
                     var $found = teJQuery(context.domRef);
-                    if(sel != null && sel.trim().length > 0){
-                        $found = $found.find(sel);
+                    if(sel != null){
+                        sel = trimString(sel);
+                        if(sel.length > 0){
+                            $found = $found.find(sel);
+                        }
                     }
                     if ($found.size() > 1) {
                         //Use bestGuess() to eliminate multipe matches
@@ -4272,9 +4324,9 @@ var UiStandardTable = UiContainer.extend({
         var child = uiid.peek();
         !tellurium.logManager.isUseLog || fbLog("Peek child " + child, this);
         
-        if(child == "header" || child.startsWith("_HEADER")){
+        if(child == "header" || startsWith(child,"_HEADER")){
             return this.walkToHeader(context, uiid);
-        }else if(child == "footer" || child.startsWith("_FOOTER")){
+        }else if(child == "footer" || startsWith(child, "_FOOTER")){
             return this.walkToFooter(context, uiid);
         } else {
             return this.walkToElement(context, uiid);
@@ -4308,12 +4360,18 @@ var UiWindow = UiContainer.extend({
         }
         sb.append(this.uiType).append("(uid: \"").append(this.uid);
 
-        if(this.id != null && this.id.trim().length > 0){
-           sb.append(", id: \"").append(this.id).append("\"");
+        if(this.id != null){
+            this.id = trimString(this.id);
+            if (this.id.length > 0) {
+                sb.append(", id: \"").append(this.id).append("\"");
+            }
         }
 
-        if(this.name != null && this.name.trim().length > 0){
-           sb.append(", name: \"").append(this.name).append("\"");
+        if(this.name != null){
+            this.name = trimString(this.name);
+            if (this.name.length > 0) {
+                sb.append(", name: \"").append(this.name).append("\"");
+            }
         }
 
 /*

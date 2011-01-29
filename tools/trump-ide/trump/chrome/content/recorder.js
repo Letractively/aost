@@ -63,8 +63,9 @@ Recorder.prototype.record = function(command, target, value){
     }
     
     var baseUrl = document.getElementById("windowURL").value;
+    baseUrl = trimString(baseUrl);
     var actualUrl = element.ownerDocument.location.href;
-    if (baseUrl.trim().length == 0 || baseUrl != actualUrl) {
+    if (baseUrl.length == 0 || baseUrl != actualUrl) {
         document.getElementById("windowURL").value = actualUrl;
     }
 };
@@ -147,8 +148,9 @@ Recorder.prototype.registerClickListener = function() {
                 }
 
                 var baseUrl = document.getElementById("windowURL").value;
+                baseUrl = trimString(baseUrl);
                 var actualUrl = element.ownerDocument.location.href;
-                if (baseUrl.trim().length == 0 || baseUrl != actualUrl) {
+                if (baseUrl.length == 0 || baseUrl != actualUrl) {
                     document.getElementById("windowURL").value = actualUrl;
                 }
             };
@@ -233,8 +235,9 @@ Recorder.prototype.reRegisterClickListener = function(url) {
                 }
 
                 var baseUrl = document.getElementById("windowURL").value;
+                baseUrl = trimString(baseUrl);
                 var actualUrl = element.ownerDocument.location.href;
-                if (baseUrl.trim().length == 0 || baseUrl != actualUrl) {
+                if (baseUrl.length == 0 || baseUrl != actualUrl) {
                     document.getElementById("windowURL").value = actualUrl;
                 }
             };
