@@ -265,7 +265,7 @@ function suggestName(tagObject){
     if(name != null && name.length > 0){
         var split = name.split(" ");
         if(split.length > 1){
-            name = split[0].toCamel() + split[1].toCamel();
+            name = toCamel(split[0]) + toCamel(split[1]);
         }
     }
 
@@ -274,11 +274,11 @@ function suggestName(tagObject){
         name = name.replace(/[^a-zA-Z_0-9]+/g,'');
     }
 
-    if(name == null || name.trim().length == 0){
+    if(name == null || trimString(name).length == 0){
         name = tag;
     }
     
-    return name.toCamel();
+    return toCamel(name);
 }
 
 Editor.prototype.generateButton = function(){

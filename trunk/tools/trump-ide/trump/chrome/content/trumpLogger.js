@@ -10,9 +10,9 @@ function TrumpLogger() {
 						   self.log(message, level);
                            //check if we also log to Javascript Console
 
-                           if (this.jslog) {
+                           /*if (this.jslog) {
                                self.logToJsConsole(message, level);
-                           }
+                           }*/
 					   }
 				   });
 
@@ -41,7 +41,7 @@ function TrumpLogger() {
 		this.observers.forEach(function(o) { o.onClear() });
 	};
 
-    this.logToJsConsole = function(message, level){
+    /*this.logToJsConsole = function(message, level){
         if(level == "debug"){
             jslogger.debug(message);
         }
@@ -54,7 +54,7 @@ function TrumpLogger() {
         if(level == "error"){
             jslogger.error(message);
         }
-    }
+    }*/
 }
 
 var logger = new TrumpLogger();

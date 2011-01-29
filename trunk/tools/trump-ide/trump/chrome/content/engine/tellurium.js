@@ -315,7 +315,7 @@ MacroCmd.prototype.addCmd = function(sequ, uid, name, args){
 MacroCmd.prototype.parse = function(json){
     //Need to empty the bundle otherwise, old bundle commands will stay in the case of exception
     this.empty();
-    var cmdbundle = JSON.parse(json, null);
+    var cmdbundle = JSON.parse(json);
     for(var i=0; i<cmdbundle.length; i++){
         this.addCmd(cmdbundle[i].sequ,  cmdbundle[i].uid, cmdbundle[i].name, cmdbundle[i].args);
     }
@@ -629,7 +629,7 @@ Tellurium.prototype.isLocator = function(locator){
     if(typeof(locator) != "string")
         return false;
     
-    return locator.startsWith('//') || locator.startsWith('jquery=') || locator.startsWith('jquerycache=') || locator.startsWith('document.');
+    return startsWith(locator, '//') || startsWith(locator, 'jquery=') || startsWith(locator, 'jquerycache=') || startsWith(locator, 'document.');
 };
 
 Tellurium.prototype.camelizeApiName = function(apiName){
@@ -663,12 +663,12 @@ Tellurium.prototype.processMacroCmd = function(){
                     if (cmd.name == "getAttribute" || cmd.name == "isElementPresent") {
                         var attributePos = locator.lastIndexOf("@");
                         var attributeName = locator.slice(attributePos + 1);
-                        if(attributeName.endsWith("]")){
+                        if(endsWith(attributeName, "]")){
                             attributeName = attributeName.substr(0, attributeName.length-1);
                         }
                         cmd.args.push(attributeName);
                         locator = locator.slice(0, attributePos);
-                        if(locator.endsWith("[")){
+                        if(endsWith(locator, "[")){
                             locator = locator.substr(0, locator.length-1);
                         }
                     }
@@ -782,7 +782,7 @@ Tellurium.prototype.parseLocator = function(locator){
         input.isAttribute = true;
     }
 //    alert("Pured locator " + purged);
-    var tecmd = JSON.parse(purged, null);
+    var tecmd = JSON.parse(purged);
 
     input.selector = tecmd.locator;
     input.optimized = tecmd.optimized;
@@ -895,7 +895,7 @@ Tellurium.prototype.locateElementWithCacheAware = function(json, inDocument, inW
 //    var json = locator.substring(7);
 //    var json = locator;
     !tellurium.logManager.isUseLog || fbLog("JSON presentation of the cache aware locator: ", json);
-    var cal = JSON.parse(json, null);
+    var cal = JSON.parse(json);
     !tellurium.logManager.isUseLog || fbLog("Parsed cache aware locator: ", cal);
     
     !tellurium.logManager.isUseLog || fbLog("Tellurium Cache option: ", this.isUseCache());
@@ -915,10 +915,13 @@ Tellurium.prototype.locateElementWithCacheAware = function(json, inDocument, inW
                 !tellurium.logManager.isUseLog || fbLog("After relocating UI module, found ui element" + cal.rid, element);
             }
         }else{
-            if(cal.locator != null && cal.locator.trim().length > 0){
-                //If cannot find the UI element from the cache, locate it as the last resort
-                !tellurium.logManager.isUseLog || fbLog("Trying to locate the UI element " + cal.rid + " with its locator " + cal.locator + " because cannot find vaild one from cache", cal);
-                element = this.locate(cal.locator);
+            if(cal.locator != null){
+                cal.locator = trimString(cal.locator);
+                if (cal.locator.length > 0) {
+                    //If cannot find the UI element from the cache, locate it as the last resort
+                    !tellurium.logManager.isUseLog || fbLog("Trying to locate the UI element " + cal.rid + " with its locator " + cal.locator + " because cannot find vaild one from cache", cal);
+                    element = this.locate(cal.locator);
+                }
             }
         }
     }else{
@@ -977,12 +980,12 @@ Tellurium.prototype.delegateToSelenium = function(response, cmd) {
         returnType = handler.returnType;
     }
     
-    if (apiName.startsWith("is")) {
+    if (startsWith(apiName, "is")) {
         result = selenium[apiName].apply(selenium, cmd.args);
         if(returnType == null)
             returnType = "BOOLEAN";
         response.addResponse(cmd.sequ, apiName, returnType, result);
-    } else if (apiName.startsWith("get")) {
+    } else if (startsWith(apiName, "get")) {
         result = selenium[apiName].apply(selenium, cmd.args);
         if(apiName.indexOf("All") != -1){
             //api Name includes "All" should return an array

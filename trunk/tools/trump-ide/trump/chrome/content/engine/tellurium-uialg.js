@@ -729,8 +729,11 @@ function MatchResult(){
 
 UiAlg.prototype.relax = function(clocator, pref) {
     var attrs = new Hashtable();
-    if(clocator.text != null && clocator.text.trim().length > 0){
-        attrs.put("text", clocator.text);
+    if(clocator.text != null){
+        clocator.text = trimString(clocator.text);
+        if( clocator.text.length > 0){
+            attrs.put("text", clocator.text);
+        }
     }
     if(clocator.position != null){
         attrs.put("position", clocator.position);
@@ -751,7 +754,7 @@ UiAlg.prototype.relax = function(clocator, pref) {
     var jqs = "";
     var tag = clocator.tag;
 
-    if (tag == null || tag == undefined || tag.trim().length == 0) {
+    if (tag == null || tag == undefined || trimString(tag).length == 0) {
         //TODO: need to double check if this is correct or not in jQuery
         tag = "*";
     }

@@ -86,7 +86,7 @@ function getInputNodeType(node){
 }
 
 function getNodeValue(node){
-    jslogger.debug(node.innerHTML);
+//    jslogger.debug(node.innerHTML);
     return node.nodeValue != null ? node.nodeValue : node.innerHTML;
 }
 

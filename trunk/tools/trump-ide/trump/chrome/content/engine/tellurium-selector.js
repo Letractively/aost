@@ -251,13 +251,13 @@ JQueryBuilder.prototype.attrId = function(id){
     if(id == null)
        return "[id]";
     
-    if (id.startsWith(this.START_PREFIX)) {
+    if (startsWith(id,this.START_PREFIX)) {
       return "[id^=" + id.substring(1) + "]";
-    } else if (id.startsWith(this.END_PREFIX)) {
+    } else if (startsWith(id,this.END_PREFIX)) {
       return "[id\$=" + id.substring(1) + "]";
-    } else if (id.startsWith(this.ANY_PREFIX)) {
+    } else if (startsWith(id,this.ANY_PREFIX)) {
       return "[id*=" + id.substring(1) + "]";
-    } else if (id.startsWith(this.NOT_PREFIX)) {
+    } else if (startsWith(id,this.NOT_PREFIX)) {
       return "[id!=" + id.substring(1) + "]";
     } else {
       //should never come here
@@ -295,13 +295,13 @@ JQueryBuilder.prototype.attrSingleClass = function(clazz) {
         return "[class]";
     }
 
-    if (clazz.startsWith(this.START_PREFIX)) {
+    if (startsWith(clazz,this.START_PREFIX)) {
         return "[class^=" + clazz.substring(1) + "]";
-    } else if (clazz.startsWith(this.END_PREFIX)) {
+    } else if (startsWith(clazz,this.END_PREFIX)) {
         return "[class\$=" + clazz.substring(1) + "]";
-    } else if (clazz.startsWith(this.ANY_PREFIX)) {
+    } else if (startsWith(clazz,this.ANY_PREFIX)) {
         return "[class*=" + clazz.substring(1) + "]";
-    } else if (clazz.startsWith(this.NOT_PREFIX)) {
+    } else if (startsWith(clazz,this.NOT_PREFIX)) {
 //        return "[class!=" + clazz.substring(1) + "]";
         return ":not(." + clazz.substring(1) + ")";
     } else {
@@ -311,7 +311,7 @@ JQueryBuilder.prototype.attrSingleClass = function(clazz) {
 
 JQueryBuilder.prototype.attrPairs = function(attr, val) {
     
-    if (val == null || val.trim().length == 0) {
+    if (val == null || trimString(val).length == 0) {
         return "[" + attr + "]";
     }
 
@@ -329,13 +329,13 @@ JQueryBuilder.prototype.attrPairs = function(attr, val) {
         return "[" + attr + "*=" + max + "]";
     }
 
-    if (val.startsWith(this.START_PREFIX)) {
+    if (startsWith(val,this.START_PREFIX)) {
         return "[" + attr + "^=" + val.substring(1) + "]";
-    } else if (val.startsWith(this.END_PREFIX)) {
+    } else if (startsWith(val,this.END_PREFIX)) {
         return "[" + attr + "\$=" + val.substring(1) + "]";
-    } else if (val.startsWith(this.ANY_PREFIX)) {
+    } else if (startsWith(val,this.ANY_PREFIX)) {
         return "[" + attr + "*=" + val.substring(1) + "]";
-    } else if (val.startsWith(this.NOT_PREFIX)) {
+    } else if (startsWith(val,this.NOT_PREFIX)) {
         return "[" + attr + "!=" + val.substring(1) + "]";
     } else {
         return "[" + attr + "=" + val + "]";
@@ -361,7 +361,7 @@ JQueryBuilder.prototype.includeSingleQuote = function(val) {
 JQueryBuilder.prototype.buildIdSelector = function(id) {
     if (id != null && trimString(id).length > 0) {
         id = trimString(id);
-        if (id.startsWith(this.START_PREFIX) || id.startsWith(this.END_PREFIX) || id.startsWith(this.ANY_PREFIX) || id.startsWith(this.NOT_PREFIX)) {
+        if (startsWith(id,this.START_PREFIX) || startsWith(id,this.END_PREFIX) || startsWith(id,this.ANY_PREFIX) || startsWith(id,this.NOT_PREFIX)) {
             return this.attrId(id);
         } else {
             //should not add other attributes if the ID is presented since jQuery will only select the first element for
@@ -410,7 +410,7 @@ JQueryBuilder.prototype.buildCssSelector = function(tag, text, position, direct,
         var id = attributes.get(this.ID);
         if (id != null && trimString(id).length > 0) {
             id = trimString(id);
-            if (id.startsWith(this.START_PREFIX) || id.startsWith(this.END_PREFIX) || id.startsWith(this.ANY_PREFIX) || id.startsWith(this.NOT_PREFIX)) {
+            if (startsWith(id,this.START_PREFIX) || startsWith(id,this.END_PREFIX) || startsWith(id,this.ANY_PREFIX) || startsWith(id,this.NOT_PREFIX)) {
                 sb.append(this.attrId(id));
             } else {
                 //should not add other attributes if the ID is presented since jQuery will only select the first element for
@@ -452,12 +452,12 @@ JQueryBuilder.prototype.buildCssSelector = function(tag, text, position, direct,
 
             sb.append(this.containText(max));
         } else {
-            if (text.startsWith(this.CONTAIN_PREFIX)) {
+            if (startsWith(text,this.CONTAIN_PREFIX)) {
                 sb.append(this.containText(text.substring(2)));
-            } else if (text.startsWith(this.START_PREFIX) || text.startsWith(this.END_PREFIX) || text.startsWith(this.ANY_PREFIX)) {
+            } else if (startsWith(text,this.START_PREFIX) || startsWith(text,this.END_PREFIX) || startsWith(text,this.ANY_PREFIX)) {
                 //TODO: need to refactor this to use start, end, any partial match
                 sb.append(this.containText(text.substring(1)));
-            } else if (text.startsWith(this.NOT_PREFIX)) {
+            } else if (startsWith(text,this.NOT_PREFIX)) {
                 sb.append(":not(" + this.containText(text.substring(1)) + ")");
             } else {
                 sb.append(this.attrText(text));
@@ -515,19 +515,19 @@ JQueryBuilder.prototype.convTrailer = function(trailer) {
 
 JQueryBuilder.prototype.isPartial = function(val){
 
-    return val != null && (val.startsWith(this.START_PREFIX) || val.startsWith(this.END_PREFIX)
-            || val.startsWith(this.ANY_PREFIX) || val.startsWith(this.NOT_PREFIX)
-            || val.startsWith(this.CONTAIN_PREFIX));
+    return val != null && (startsWith(val,this.START_PREFIX) || startsWith(val,this.END_PREFIX)
+            || startsWith(val,this.ANY_PREFIX) || startsWith(val,this.NOT_PREFIX)
+            || startsWith(val,this.CONTAIN_PREFIX));
 };
 
 JQueryBuilder.prototype.buildId = function(id){
-    if(id.startsWith("^")){
+    if(startsWith(id,"^")){
         return "[id^=" + id.substring(1) + "]";
-    }else if(id.startsWith("$")){
+    }else if(startsWith(id,"$")){
         return "[id$=" + id.substring(1) + "]";
-    }else if(id.startsWith("*")){
+    }else if(startsWith(id,"*")){
         return "[id*=" + id.substring(1) + "]";
-    }else if(id.startsWith("!")){
+    }else if(startsWith(id,"!")){
         return "[id!=" + id.substring(1) + "]";
     }else{
         return "#" + id;
@@ -535,13 +535,13 @@ JQueryBuilder.prototype.buildId = function(id){
 };
 
 JQueryBuilder.prototype.buildSingleClass = function(clazz){
-    if(clazz.startsWith("^")){
+    if(startsWith(clazz,"^")){
         return "[class^=" + clazz.substring(1) + "]";
-    }else if(clazz.startsWith("$")){
+    }else if(startsWith(clazz,"$")){
         return "[class$=" + clazz.substring(1) + "]";
-    }else if(clazz.startsWith("*")){
+    }else if(startsWith(clazz,"*")){
         return "[class*=" + clazz.substring(1) + "]";
-    }else if(clazz.startsWith("!")){
+    }else if(startsWith(clazz,"!")){
 //        return "[class!=" + clazz.substring(1) + "]";
         return ":not(." + clazz.substring(1) + ")";
     }else{
@@ -572,16 +572,16 @@ JQueryBuilder.prototype.buildClass = function(clazz){
 
 JQueryBuilder.prototype.buildText = function(text){
     if (text != null && trimString(text).length > 0) {
-        if (text.startsWith(this.CONTAIN_PREFIX)) {
+        if (startsWith(text,this.CONTAIN_PREFIX)) {
             return this.containText(text.substring(2));
-        } else if (text.startsWith(this.START_PREFIX)){
+        } else if (startsWith(text,this.START_PREFIX)){
             return "[text^=" + text.substring(1) + "]";
-        } else if(text.startsWith(this.END_PREFIX)){
+        } else if(startsWith(text,this.END_PREFIX)){
             return "[text$=" + text.substring(1) + "]";
-        } else if(text.startsWith(this.ANY_PREFIX)) {
+        } else if(startsWith(text,this.ANY_PREFIX)) {
 //            return "[text*=" + text.substring(1) + "]";
             return this.containText(text.substring(1));
-        } else if (text.startsWith(this.NOT_PREFIX)) {
+        } else if (startsWith(text,this.NOT_PREFIX)) {
             return ":not(" + this.containText(text.substring(1)) + ")";
         } else {
             return this.attrText(text);
@@ -610,13 +610,13 @@ JQueryBuilder.prototype.buildAttribute = function(attr, val) {
         return "[" + attr + "*=" + max + "]";
     }
 
-    if (val.startsWith(this.START_PREFIX)) {
+    if (startsWith(val,this.START_PREFIX)) {
         return "[" + attr + "^=" + val.substring(1) + "]";
-    } else if (val.startsWith(this.END_PREFIX)) {
+    } else if (startsWith(val,this.END_PREFIX)) {
         return "[" + attr + "$=" + val.substring(1) + "]";
-    } else if (val.startsWith(this.ANY_PREFIX)) {
+    } else if (startsWith(val,this.ANY_PREFIX)) {
         return "[" + attr + "*=" + val.substring(1) + "]";
-    } else if (val.startsWith(this.NOT_PREFIX)) {
+    } else if (startsWith(val,this.NOT_PREFIX)) {
         return "[" + attr + "!=" + val.substring(1) + "]";
     } else {
         return "[" + attr + "=" + val + "]";
@@ -628,13 +628,13 @@ JQueryBuilder.prototype.buildStyle = function(style){
       return "[style]";
     }
 
-    if(style.startsWith("^")){
+    if(startsWith(style,"^")){
         return "[style^=" + style.substring(1) + "]";
-    }else if(style.startsWith("$")){
+    }else if(startsWith(style,"$")){
         return "[style$=" + style.substring(1) + "]";
-    }else if(style.startsWith("*")){
+    }else if(startsWith(style,"*")){
         return "[style*=" + style.substring(1) + "]";
-    }else if(style.startsWith("!")){
+    }else if(startsWith(style,"!")){
         return "[style!=" + style.substring(1) + "]";
     }else{
 

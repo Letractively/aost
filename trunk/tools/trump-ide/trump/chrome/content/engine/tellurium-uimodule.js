@@ -142,9 +142,12 @@ UiModule.prototype.buildTree = function(keys){
         var id = uiobj.getIdAttribute();
         //build ID Prefix tree, i.e., Trie
         //TODO: may consider stricter requirement that the ID cannot be partial, i.e., cannot starts with * ^ ! $
-        if(id != null && id.trim().length > 0){
-            !tellurium.logManager.isUseLog || fbLog("Add object " + keys[i] + "'s id " + id + " to ID Trie. ", uiobj);
-            this.idTrie.insert(keys[i], id);
+        if(id != null){
+            id = trimString(id);
+            if (id.length > 0) {
+                !tellurium.logManager.isUseLog || fbLog("Add object " + keys[i] + "'s id " + id + " to ID Trie. ", uiobj);
+                this.idTrie.insert(keys[i], id);
+            }
         }
 
         if(this.root == null){
@@ -206,8 +209,11 @@ UiModule.prototype.addUiObject = function(uid, obj){
         var id = obj.getIdAttribute();
         //build ID Prefix tree, i.e., Trie
         //TODO: may consider stricter requirement that the ID cannot be partial, i.e., cannot starts with * ^ ! $
-        if (id != null && id.trim().length > 0) {
-            this.idTrie.insert(uid, id);
+        if (id != null) {
+            id = trimString(id);
+            if(id.length > 0){
+                this.idTrie.insert(uid, id);
+            }
         }
     }
 };

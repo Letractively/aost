@@ -299,8 +299,8 @@ TelluriumCommand.prototype.getAttribute = function(uid, attribute){
 TelluriumCommand.prototype.getOptionSelector = function(optionLocator){
     var split = optionLocator.split("=");
     var sel = "";
-    split[0] = split[0].trim();
-    split[1] = split[1].trim();
+    split[0] = trimString(split[0]);
+    split[1] = trimString(split[1]);
     if(split[0] == "label" || split[0] == "text"){
         sel = this.cssBuilder.buildText(split[1]);
     }else if(split[0] == "value"){
@@ -535,7 +535,7 @@ TelluriumCommand.prototype.getCssSelectorMatchAsString = function(uid, sel){
 TelluriumCommand.prototype.validateUiModule = function(uid, jsonString){
     var newuim = new UiModule();
     newuim.dom = this.dom;
-    var jsonArray = JSON.parse(jsonString, null);
+    var jsonArray = JSON.parse(jsonString);
     newuim.parseUiModule(jsonArray);
     var response = new UiModuleLocatingResponse();
     var result = this.uiAlg.santa(newuim, this.dom);
@@ -566,7 +566,7 @@ TelluriumCommand.prototype.validateUiModuleAsString = function(uid,jsonString){
 TelluriumCommand.prototype.useUiModule = function(uid, jsonString){
     var newuim = new UiModule();
     newuim.dom = this.dom;
-    var jsonArray = JSON.parse(jsonString, null);
+    var jsonArray = JSON.parse(jsonString);
     newuim.parseUiModule(jsonArray);
     var result = this.uiAlg.santa(newuim, this.dom);
 

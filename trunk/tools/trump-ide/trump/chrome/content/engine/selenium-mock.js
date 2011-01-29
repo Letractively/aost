@@ -7,7 +7,8 @@ function BrowserBot(){
 }
 
 BrowserBot.prototype.findElement = function(locator){
-    if(locator.startsWith("jquery=")){
+//    if(locator.startsWith("jquery=")){
+    if(startsWith(locator, "jquery=")){
         return teJQuery(locator.substring(7));
     }
 

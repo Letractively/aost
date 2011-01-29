@@ -226,9 +226,9 @@ var UiTNode = UiSNode.extend({
 
         var child = uiid.peek();
 
-        if(child.startsWith("_HEADER")){
+        if(startsWith(child,"_HEADER")){
             return this.walkToHeader(context, uiid);
-        }else if(child.startsWith("_FOOTER")){
+        }else if(startsWith(child, "_FOOTER")){
             return this.walkToFooter(context, uiid);
         } else {
             return this.walkToElement(context, uiid);
@@ -327,9 +327,9 @@ var UiTNode = UiSNode.extend({
     insert: function(context, node){
         var rid = node.rid;
 
-        if(rid.startsWith("_HEADER")){
+        if(startsWith(rid,"_HEADER")){
             this.insertInto(context, this.headers, node);
-        }else if(rid.startsWith("_FOOTER")){
+        }else if(startsWith(rid,"_FOOTER")){
             this.insertInto(context, this.footers, node);
         } else {
             this.insertInto(context, this.components, node);

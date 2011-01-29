@@ -146,29 +146,31 @@ Uiid.prototype.preprocess = function(uid){
 //                Table[1][2]  <---> Table._1_2
 
 function convertRidToUid(rid){
-    if(rid != null && rid.trim().length > 0){
-        var ids = rid.split(".");
-        var idl = new StringBuffer();
-        var last = null;
-        for(var i=0; i<ids.length; i++){
-            var t = convertRidField(ids[i]);
-            if(last != null){
-                if(!t.match(/^\[/) || last.match(/\]$/)){
-                    idl.append(".");
+    if(rid != null){
+        rid = trimString(rid);
+        if(rid.length > 0){
+            var ids = rid.split(".");
+            var idl = new StringBuffer();
+            var last = null;
+            for(var i=0; i<ids.length; i++){
+                var t = convertRidField(ids[i]);
+                if(last != null){
+                    if(!t.match(/^\[/) || last.match(/\]$/)){
+                        idl.append(".");
+                    }
                 }
+                idl.append(t);
+                last = t;
             }
-            idl.append(t);
-            last = t;
+            return idl.toString();
         }
-
-        return idl.toString();
     }else{
         return "";
     }
 }
 
 function convertRidField(field){
-    if(field == null || field.trim().length == 0){
+    if(field == null || trimString(field).length == 0){
         return "";
     }
 
@@ -176,7 +178,8 @@ function convertRidField(field){
     var ar = new StringBuffer();
     for(var i=0; i<fields.length; i++){
         var f = fields[i];
-        if(f.trim().length > 0){
+        f = trimString(f);
+        if(f.length > 0){
             if(f.match(/^\d+$/)){
                 ar.append("[" + f + "]");
             }else{
