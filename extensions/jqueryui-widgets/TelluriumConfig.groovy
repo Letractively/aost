@@ -17,7 +17,7 @@ tellurium{
       //whether to trust all SSL certs, i.e., option "-trustAllSSLCertificates"
       trustAllSSLCertificates = true
       //whether to run the embedded selenium server. If false, you need to manually set up a selenium server
-      runInternally = true
+      runInternally = false
       //By default, Selenium proxies every browser request; set this flag to make the browser use proxy only for URLs containing '/selenium-server'
       avoidProxy = false
       //stops re-initialization and spawning of the browser between tests
@@ -118,6 +118,8 @@ tellurium{
             //Here the ? will be replaced by the timestamp and you might also want to put
             //file path in the file name pattern
             filenamePattern = "Screenshot?.png"
+            //Whether to generate bug report
+            bugReport = false
         }
     }
     uiobject{
