@@ -259,4 +259,4 @@ To run the above test page, first, I copy the above page to {{{JETTY_HOME/webapp
   * [http://groups.google.com/group/tellurium-users Tellurium User Group]
   * [http://code.google.com/p/aost/wiki/SantaUiModuleGroupLocatingAlgorithm the Santa algorithm]
   * [http://code.google.com/p/aost/wiki/TelluriumUiModuleVisualEffect UI module visual effect]
-  * [http://code.google.com/p/aost/w/edit/TelluriumJQueryFirebug Use Firebug and JQuery to Trace Problems in Tellurium Tests]
+  * [http://code.google.com/p/aost/wiki/TelluriumJQueryFirebug Use Firebug and JQuery to Trace Problems in Tellurium Tests]
