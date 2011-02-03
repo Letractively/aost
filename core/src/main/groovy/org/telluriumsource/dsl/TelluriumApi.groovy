@@ -996,4 +996,8 @@ class TelluriumApi extends BaseDslContext {
     }
   }
 
+  public void attachFile(String fieldLocator, String fileLocator){
+    WorkflowContext context = WorkflowContext.getDefaultContext();
+    extension.attachFile(context, fieldLocator, fileLocator)
+  }
 }

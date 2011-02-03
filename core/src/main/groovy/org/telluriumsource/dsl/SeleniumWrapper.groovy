@@ -1509,19 +1509,23 @@ class SeleniumWrapper extends BaseDslContext {
       return extension.getCachePolicyName(context)
     }
 
-  public void setCookie(String cookieName, String value, Object options) {
+    public void setCookie(String cookieName, String value, Object options) {
 
-  }
+    }
 
-  public void setCookie(String cookieName, String value) {
+    public void setCookie(String cookieName, String value) {
 
-  }
+    }
 
-  //let the missing property return the a string of the properity, this is useful for the onWidget method
-  //so that we can pass in widget method directly, instead of passing in the method name as a String
+    public void attachFile(String fieldLocator, String fileLocator){
+      WorkflowContext context = WorkflowContext.getContextByEnvironment(this.exploreCssSelector(), this.exploreNewEngine())
+      extension.attachFile(context, fieldLocator, fileLocator)
+    }
 
-  def propertyMissing(String name) {
-    println i18nBundle.getMessage("BaseDslContext.PropertyIsMissing", name)
-    return name
-  }
+    //let the missing property return the a string of the properity, this is useful for the onWidget method
+    //so that we can pass in widget method directly, instead of passing in the method name as a String
+    def propertyMissing(String name) {
+      println i18nBundle.getMessage("BaseDslContext.PropertyIsMissing", name)
+      return name
+    }
 }

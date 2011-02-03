@@ -56,6 +56,12 @@ public class LogonTestCase extends TelluriumMockJUnitTestCase {
         lm.clearForm();
     }
 
+    @Test
+    public void testAttachFile(){
+        useTelluriumEngine(false);
+        lm.attachFile("selectFile", "http://www.gotdogsonline.com/chinese-foo-dog-pictures-breeders-puppies-rescue/pictures/chinese-foo-dog-0003.jpg");
+    }
+
     @AfterClass
     public static void tearDown() {
         showTrace();
