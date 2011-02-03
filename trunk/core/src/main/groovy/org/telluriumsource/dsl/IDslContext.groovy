@@ -465,4 +465,6 @@ public interface IDslContext {
   void waitForPageToLoad(int timeout);
 
   String getXMLDocument();
+
+  void attachFile(String fieldLocator, String fileLocator);
 }

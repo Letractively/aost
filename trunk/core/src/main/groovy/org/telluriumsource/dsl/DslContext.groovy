@@ -925,4 +925,8 @@ class DslContext implements IDslContext {
     println getDelegate().i18nBundle.getMessage("BaseDslContext.PropertyIsMissing", name)
     return name
   }
+
+  void attachFile(String fieldLocator, String fileLocator) {
+    getDelegate().attachFile(fieldLocator, fileLocator);
+  }
 }
