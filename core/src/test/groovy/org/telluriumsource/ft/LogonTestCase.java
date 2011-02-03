@@ -1,9 +1,6 @@
 package org.telluriumsource.ft;
 
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 import org.telluriumsource.module.LogonModule;
 import org.telluriumsource.test.java.TelluriumMockJUnitTestCase;
 
@@ -56,6 +53,7 @@ public class LogonTestCase extends TelluriumMockJUnitTestCase {
         lm.clearForm();
     }
 
+    @Ignore
     @Test
     public void testAttachFile(){
         useTelluriumEngine(false);
