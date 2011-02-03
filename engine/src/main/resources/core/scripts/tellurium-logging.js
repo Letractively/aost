@@ -128,4 +128,4 @@ jslogger.addAppender(new Log4js.ConsoleAppender());
 
 //var logger = new Log4js.getLogger("TeEngine");
 var jslogger = new DummyLogger();
-var logger = new DummyLogger();
+var logger = LOG;
