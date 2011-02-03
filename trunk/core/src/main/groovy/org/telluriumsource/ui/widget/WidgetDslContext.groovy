@@ -724,7 +724,7 @@ class WidgetDslContext extends BaseDslContext {
       return getDelegate().toHTML();
     }
 
-    public List getHTMLSourceResponse(String uid) {
+    public java.util.List getHTMLSourceResponse(String uid) {
       return getDelegate().getHTMLSourceResponse(uid);
     }
 
