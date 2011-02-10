@@ -853,7 +853,7 @@ Call the following command to remove the script.
 
 You should escape the "." or other jQuery reserved characters.
 
-For example, use "dateOfBirth.\\month" for "dateOfBirth.month" as the ID.
+For example, use "dateOfBirth\\.month" for "dateOfBirth.month" as the ID.
 
 == How to Use Tellurium for XHTML ==
 
