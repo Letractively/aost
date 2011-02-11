@@ -1443,7 +1443,7 @@ cleanUi = function(uid) {
             this.browserBot.pageLoadError = null;
             this.browserBot.pageTimeoutTimerId = null;
             //Strange, change the timeout value to 3000, got the error that the dom is not set.
-            setTimeout(WaitPageLoad, 1000, self);
+            setTimeout(TE.util.WaitPageLoad, 1000, self);
         }
 
         this.clearCache();
@@ -1454,9 +1454,5 @@ cleanUi = function(uid) {
         this.execCommand("reset", uid);
     }
 });
-
-function WaitPageLoad(scope){
-    scope.onPageLoad();
-}
 
 
