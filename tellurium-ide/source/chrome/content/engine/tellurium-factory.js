@@ -5,7 +5,7 @@ function TelluriumFactory() {
     var initialized = false;
 
     function initialize () {
-        _tellurium = new Tellurium();
+        _tellurium = new TE.tellurium.Tellurium();
         _tellurium.initialize();
         initialized = true;
     }

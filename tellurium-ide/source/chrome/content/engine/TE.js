@@ -106,6 +106,10 @@ var TE = {
        }
     },
     util:{
+        //extracted from tellurium-api.js
+        WaitPageLoad:function(scope){
+            scope.onPageLoad();
+        },
         /*
          * Converts an iterable object to an array, copied from Prototype.js
          * */
