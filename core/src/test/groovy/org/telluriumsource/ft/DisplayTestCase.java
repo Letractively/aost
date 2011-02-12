@@ -2,6 +2,7 @@ package org.telluriumsource.ft;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.telluriumsource.module.DisplayModule;
 import org.telluriumsource.test.java.TelluriumMockJUnitTestCase;
@@ -39,6 +40,12 @@ public class DisplayTestCase extends TelluriumMockJUnitTestCase {
     public void testIsVisibleForTellurium(){
         useTelluriumEngine(false);
         assertFalse(dm.isVisible("Container1"));
+    }
+
+    @Ignore
+    @Test
+    public void testWindow(){
+        dm.openPopupWindow();
     }
 
 }

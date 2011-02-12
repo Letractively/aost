@@ -11,8 +11,16 @@ import org.telluriumsource.dsl.DslContext
  */
 class DisplayModule extends DslContext {
 
-   public void defineUi() {
-     ui.Container(uid: "Container1", clocator: [tag: "div", id: "Container1"])
-   }
-  
+    public void defineUi() {
+        ui.Container(uid: "Container1", clocator: [tag: "div", id: "Container1"])
+        ui.Window(uid: "testWindow", name: "TestWindow") {
+
+        }
+    }
+
+    public openPopupWindow() {
+        click "testWindow"
+        waitForPopUp("testWindow", 5000)
+        selectWindow("testWindow")
+    }
 }
