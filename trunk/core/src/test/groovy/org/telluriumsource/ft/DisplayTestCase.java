@@ -42,6 +42,12 @@ public class DisplayTestCase extends TelluriumMockJUnitTestCase {
         assertFalse(dm.isVisible("Container1"));
     }
 
+    @Test
+    public void testUiModule(){
+        dm.diagnose("name.newArticle.body.discussionTextArea.bodyLabel");
+        dm.validate("name");
+    }
+
     @Ignore
     @Test
     public void testWindow(){
