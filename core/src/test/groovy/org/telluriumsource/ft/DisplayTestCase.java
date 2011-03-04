@@ -44,6 +44,8 @@ public class DisplayTestCase extends TelluriumMockJUnitTestCase {
 
     @Test
     public void testUiModule(){
+        useTelluriumEngine(false);
+        useCssSelector(true);
         dm.diagnose("name.newArticle.body.discussionTextArea.bodyLabel");
         dm.validate("name");
     }
