@@ -262,12 +262,12 @@
         <module>udl</module>
         <module>injector</module>
         <module>core</module>
-        <module>engine</module>
+        <!--module>engine</module>
         <module>extensions</module>
         <module>reference-projects</module>
         <module>tools</module>
         <module>tellurium-reference</module>
-        <module>tellurium-assembly</module>
+        <module>tellurium-assembly</module-->
         <!--module>tellurium-easyb</module-->
     </modules>
     <repositories>
@@ -460,6 +460,11 @@
             <name>Kungfuters.org Public Snapshot Repository</name>
             <url>http://maven.kungfuters.org/content/repositories/snapshots</url>
         </snapshotRepository>
+        <!--snapshotRepository>
+            <id>localhost-public-snapshots-repo</id>
+            <name>Localhost.org Public Snapshot Repository</name>
+            <url>http://localhost:8081/nexus/content/repositories/snapshots</url>
+        </snapshotRepository-->
         <site>
             <id>tellurium-site</id>
             <name>Tellurium Site</name>
@@ -468,7 +473,7 @@
     </distributionManagement>
     <properties>
         <java-version>1.6</java-version>
-        <groovy-version>1.7.0</groovy-version>
+        <groovy-version>1.7.3</groovy-version>
         <gmaven-version>1.2</gmaven-version>
         <selenium-version>1.0.1</selenium-version>
         <selenium-server-version>1.0.1-te4-SNAPSHOT</selenium-server-version>
