@@ -116,7 +116,9 @@ public class DefaultSelenium implements Selenium {
     }
 
     public void stop() {
-        commandProcessor.stop();
+        if(commandProcessor != null){
+            commandProcessor.stop();
+        }
         isConnected = false;
     }
 
