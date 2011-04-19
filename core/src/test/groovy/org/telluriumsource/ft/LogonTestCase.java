@@ -4,6 +4,9 @@ import org.junit.*;
 import org.telluriumsource.module.LogonModule;
 import org.telluriumsource.test.java.TelluriumMockJUnitTestCase;
 
+import static org.junit.Assert.assertEquals;
+
+
 /**
  * @author Jian Fang (John.Jian.Fang@gmail.com)
  * 
@@ -58,6 +61,14 @@ public class LogonTestCase extends TelluriumMockJUnitTestCase {
     public void testAttachFile(){
         useTelluriumEngine(false);
         lm.attachFile("selectFile", "http://www.gotdogsonline.com/chinese-foo-dog-pictures-breeders-puppies-rescue/pictures/chinese-foo-dog-0003.jpg");
+    }
+
+    @Test
+    public void testEnvironment(){
+        String fileName = (String) getEnvironment("tellurium.test.result.filename");
+        setEnvironment("tellurium.test.result.filename", "/tmp/TestResult.output");
+        fileName = (String) getEnvironment("tellurium.test.result.filename");
+        assertEquals("/tmp/TestResult.output", fileName);
     }
 
     @AfterClass

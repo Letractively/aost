@@ -13,7 +13,7 @@ import com.sun.net.httpserver.HttpServer
 
 public class MockHttpServer {
   //default port
-  private int port = 8080;
+  private int port = 8088;
 
   private HttpServer server = null;
   private MockHttpHandler handler;
