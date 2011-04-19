@@ -14,10 +14,10 @@ import org.telluriumsource.annotation.Inject
  */
 class FileOutput implements ResultOutput, Configurable{
     @Inject(name="tellurium.test.result.filename")
-    private String fileName
+    private String filename
 
     public String output(String results) {
-        File wf= new File(fileName)
+        File wf= new File(filename)
         wf.append(results)
 
         return results
