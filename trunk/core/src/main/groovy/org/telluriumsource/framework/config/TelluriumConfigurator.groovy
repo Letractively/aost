@@ -154,11 +154,13 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
 
   protected void configFileOutput(FileOutput fileOutput) {
     checkConfig("conf.tellurium.test.result.filename")
-    fileOutput.setProperty("fileName", conf.tellurium.test.result.filename)
+//    fileOutput.setProperty("fileName", conf.tellurium.test.result.filename)
+    fileOutput.setProperty("filename", conf.tellurium.test.result.filename)
   }
 
   protected void configFileOutputDefaultValues(FileOutput fileOutput) {
-    fileOutput.setProperty("fileName", "TestResult.output")
+//    fileOutput.setProperty("fileName", "TestResult.output")
+     fileOutput.setProperty("filename", "TestResult.output")
   }
 
   protected void configUiObjectBuilder(UiObjectBuilderRegistry uobRegistry) {
@@ -388,7 +390,7 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
 
     env.setEnvironmentVariable("tellurium.test.result.output", new ConsoleOutput())
 
-    env.setEnvironmentVariable("tellurium.test.result.fileName", "TestResult.output")
+    env.setEnvironmentVariable("tellurium.test.result.filename", "TestResult.output")
 
     env.setEnvironmentVariable("tellurium.uiobject.builder", null)
 
@@ -499,7 +501,7 @@ class TelluriumConfigurator extends TelluriumConfigParser implements Configurato
     }
 
     checkConfig("conf.tellurium.test.result.filename")
-    env.setEnvironmentVariable("tellurium.test.result.fileName", conf.tellurium.test.result.filename)
+    env.setEnvironmentVariable("tellurium.test.result.filename", conf.tellurium.test.result.filename)
 
     Map builders = conf.tellurium.uiobject.builder
 

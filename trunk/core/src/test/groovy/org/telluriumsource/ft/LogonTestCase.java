@@ -5,6 +5,7 @@ import org.telluriumsource.module.LogonModule;
 import org.telluriumsource.test.java.TelluriumMockJUnitTestCase;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 
 /**
@@ -66,9 +67,13 @@ public class LogonTestCase extends TelluriumMockJUnitTestCase {
     @Test
     public void testEnvironment(){
         String fileName = (String) getEnvironment("tellurium.test.result.filename");
+        assertNotNull(fileName);
+        System.out.println("Default test result file name " + fileName);
+
         setEnvironment("tellurium.test.result.filename", "/tmp/TestResult.output");
         fileName = (String) getEnvironment("tellurium.test.result.filename");
         assertEquals("/tmp/TestResult.output", fileName);
+        System.out.println("New file name " + fileName);
     }
 
     @AfterClass
