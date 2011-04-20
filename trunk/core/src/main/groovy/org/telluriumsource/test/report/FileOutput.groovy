@@ -13,7 +13,7 @@ import org.telluriumsource.annotation.Inject
  *
  */
 class FileOutput implements ResultOutput, Configurable{
-    @Inject(name="tellurium.test.result.filename")
+    @Inject(name="tellurium.test.result.filename", lazy=true)
     private String filename
 
     public String output(String results) {

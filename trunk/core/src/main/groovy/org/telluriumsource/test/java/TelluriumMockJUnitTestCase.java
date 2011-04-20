@@ -14,7 +14,7 @@ public class TelluriumMockJUnitTestCase extends TelluriumJUnitTestCase {
 
     @BeforeClass
     public static void init(){
-        server = new MockHttpServer(8080);
+        server = new MockHttpServer(8088);
         server.start();
         connectSeleniumServer();
     }
@@ -32,7 +32,7 @@ public class TelluriumMockJUnitTestCase extends TelluriumJUnitTestCase {
     }
 
     public static void connect(String testname){
-        connectUrl("http://localhost:8080/" + testname + ".html");
+        connectUrl("http://localhost:8088/" + testname + ".html");
     }
 
     @AfterClass
