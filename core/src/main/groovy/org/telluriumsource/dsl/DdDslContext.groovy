@@ -16,6 +16,7 @@ import org.telluriumsource.test.report.StepStatus
 import org.telluriumsource.test.report.AssertionResult
 import junit.framework.AssertionFailedError
 import org.telluriumsource.framework.SessionManager
+import org.telluriumsource.test.report.ComparisonAssertionValue
 
 /**
  *
@@ -224,8 +225,12 @@ abstract class DdDslContext extends DslContext{
         AssertionResult assertResult = new AssertionResult()
 
         result.setProperty("stepId", stepCount)
-        assertResult.setProperty("expected", expected)
-        assertResult.setProperty("actual", actual)
+        ComparisonAssertionValue value = new ComparisonAssertionValue();
+        value.expected = expected;
+        value.actual = actual;
+//        assertResult.setProperty("expected", expected)
+//        assertResult.setProperty("actual", actual)
+        assertResult.value = value;
 
         try{
             //allow user to override the default assertion use
