@@ -110,16 +110,11 @@ public class TelluriumFramework {
     }
 
     public synchronized void start() {
-//        Session session;
         if (!isStarted) {
             IResourceBundle i18nBundle = new org.telluriumsource.crosscut.i18n.ResourceBundle();
             telluriumConfigurator = new TelluriumConfigurator();
             telluriumConfigurator.i18nBundle = i18nBundle;
             defaultEnvironment = telluriumConfigurator.createDefaultRuntimeEnvironment();
-
-//            session = reuseExistingOrCreateNewSession();
-//            session = createNewSession(defaultEnvironment);
-//            SessionManager.setSession(session);
 
             String fileName = System.properties.getProperty("telluriumConfigFile");
             if (fileName == null)
@@ -141,8 +136,6 @@ public class TelluriumFramework {
                 }
             }
 
-//            session = reuseExistingOrCreateNewSession();
-//            session = createNewSession(defaultEnvironment);
             Session session = reuseExistingOrCreateNewSession();
             SessionManager.setSession(session);
             assembleFramework(session);
