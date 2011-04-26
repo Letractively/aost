@@ -109,7 +109,7 @@ tellurium{
             //valid options include "Console", "File" at this point
             //if the option is "File", you need to specify the file name, other wise it will use the default
             //file name "TestResults.output"
-            output = "File"
+            output = "Console"
             //test result output file name
             filename = "TestResult.output"
         }
