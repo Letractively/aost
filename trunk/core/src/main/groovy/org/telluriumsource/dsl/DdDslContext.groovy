@@ -221,6 +221,7 @@ abstract class DdDslContext extends DslContext{
     public boolean compareResult(expected, actual, Closure c){
         boolean passed = true
 
+        //TODO: The current implementation does not work, need to figure out how to pass the expected and actual to result listener
         TestResult result = new TestResult()
         AssertionResult assertResult = new AssertionResult()
 
