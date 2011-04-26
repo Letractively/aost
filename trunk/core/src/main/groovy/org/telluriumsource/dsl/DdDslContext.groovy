@@ -248,7 +248,7 @@ abstract class DdDslContext extends DslContext{
 
         assertResult.setProperty("passed", passed)
         result.addAssertationResult(assertResult)
-        listenForResult(result)
+//        listenForResult(result)
 
         return passed
     }
