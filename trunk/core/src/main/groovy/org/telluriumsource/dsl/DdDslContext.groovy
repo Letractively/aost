@@ -225,7 +225,7 @@ abstract class DdDslContext extends DslContext{
         TestResult result = new TestResult()
         AssertionResult assertResult = new AssertionResult()
 
-        result.setProperty("stepId", stepCount)
+        result.setProperty("stepId", stepCount + 1)
         ComparisonAssertionValue value = new ComparisonAssertionValue();
         value.expected = expected;
         value.actual = actual;
@@ -249,7 +249,7 @@ abstract class DdDslContext extends DslContext{
 
         assertResult.setProperty("passed", passed)
         result.addAssertationResult(assertResult)
-//        listenForResult(result)
+        listenForResult(result)
 
         return passed
     }
