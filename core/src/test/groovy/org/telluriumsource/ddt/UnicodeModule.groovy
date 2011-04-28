@@ -26,7 +26,7 @@ class UnicodeModule extends TelluriumDataDrivenModule{
       String abst = bind("record.abstract")
       String email = bind("record.email")
       boolean indicator = bind("record.indicator")
-      compareResult(true, indicator)
+      compareResult(false, indicator)
       println "$title, $abst, $email, $indicator"
     }
 
