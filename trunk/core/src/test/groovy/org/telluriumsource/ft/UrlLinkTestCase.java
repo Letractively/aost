@@ -15,6 +15,7 @@ public class UrlLinkTestCase extends TelluriumMockJUnitTestCase {
 
         ulm = new UrlLinkModule();
         ulm.defineUi();
+        useTelluriumEngine(true);
         useTrace(true);
     }
 
