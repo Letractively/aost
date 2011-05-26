@@ -10,7 +10,7 @@
     </description>
     <url>http://code.google.com/p/aost</url>
     <prerequisites>
-        <maven>2.0.9</maven>
+        <maven>2.2.1</maven>
     </prerequisites>
     <issueManagement>
         <system>googlecode</system>
@@ -473,7 +473,7 @@
     </distributionManagement>
     <properties>
         <java-version>1.6</java-version>
-        <groovy-version>1.7.3</groovy-version>
+        <groovy-version>1.7.6</groovy-version>
         <gmaven-version>1.2</gmaven-version>
         <selenium-version>1.0.1</selenium-version>
         <selenium-server-version>1.0.1-te4-SNAPSHOT</selenium-server-version>
