@@ -357,7 +357,7 @@ class Accessor implements Configurable {
   }
 
   String waitForText(WorkflowContext context, String locator, int timeout) {
-    waitForElementPresent(locator, timeout)
+    waitForElementPresent(context, locator, timeout)
 
     return cbp.getText(context, locator)
   }

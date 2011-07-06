@@ -97,6 +97,11 @@ public class JettyLogonJUnitTestCase extends TelluriumMockJUnitTestCase {
     }
 
     @Test
+    public void testWaitForText(){
+        jlm.waitForText("Form.Username.Input", 1000);
+    }
+
+    @Test
     public void testIsDisabled(){
         useTelluriumEngine(false);
         useCssSelector(true);
