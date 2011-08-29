@@ -68,7 +68,8 @@ tellurium{
         //  *iexplore [absolute path]
         //  *chrome
         //  *iehta
-        browser = "*chrome"
+//        browser = "*chrome"
+        browser = "*firefox /usr/lib64/firefox-6/firefox"
 //        browser = "*safari"
         //user's class to hold custom selenium methods associated with user-extensions.js
         //should in full class name, for instance, "com.mycom.CustomSelenium"

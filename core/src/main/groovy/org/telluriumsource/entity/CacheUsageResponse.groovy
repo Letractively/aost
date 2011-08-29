@@ -33,7 +33,8 @@ public class CacheUsageResponse {
 
   public JSONObject toJSON(){
     JSONObject obj = new JSONObject();
-    map?.each{String uim, CacheUsage usage ->
+//    map?.each{String uim, CacheUsage usage ->
+      map?.each{String uim, Long usage ->
       obj.put(uim, usage);
     }
 
