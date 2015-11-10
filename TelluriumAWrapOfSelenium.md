@@ -1,0 +1,123 @@
+# Introduction #
+
+From time to time, we heard about the following statement: "Tellurium is just a wrap of Selenium". Is this true?
+
+Well, the statement is both true and false. Actually, we said the similar words before Tellurium 0.6.0. Up to Tellurium 0.6.0, Tellurium mainly focus on Groovy object to runtime locator mapping, then use Selenium RC under the hood to drive the tests. But from 0.6.0, Tellurium started to divert from this path. We had pretty big discussions about one year ago in our team about "Would Tellurium be a wrap of multiple web testing framework such as Selenium or should we have our own test driving engine?" We voted to go on our own path. In 0.6.0, we introduced [CSS selector](http://code.google.com/p/aost/wiki/UserGuide070TelluriumBasics#CSS_Selector) with jQuery and in 0.7.0, we have a prototype [Engine](http://code.google.com/p/aost/wiki/UserGuide070TelluriumSubprojects#Tellurium_Engine) with a set of algorithms to support Tellurium more efficiently.
+
+As a result, up to Tellurium 0.6.0, Tellurium is just a wrap of Selenium, but 0.7.0 is not just a wrap of Selenium.
+
+Tellurium architecture is illustrated in the following diagram.
+
+http://tellurium-users.googlegroups.com/web/telluriumnewarchitecture070.png?gda=0Cry3VEAAAA7fMi2EBxrNTLhqoq3FzPraJRXcLj8Noz0FE1yhGyZ4Cj9p0mTDab5g6bwssabHmxXgg0UR0O9X9-Irzu_uB8AUwk_6Qi3BU8HCN0q6OYwM5VxXgp_nHWJXhfr7YhqVgA&gsc=jkTIIgsAAACI9y1tsPXdLT5_3omT2FAm
+
+There are two major parts, i.e., the Tellurium Core, which does Groovy object to runtime locator mapping, event handling, and command bundling. The Tellurium Engine is embedded inside the Selenium server and is a test driving engine for Tellurium. The two are connected by Selenium RC.
+
+Tellurium 0.7.0 still supports to work as a wrap of the Selenium framework.
+
+http://tellurium-users.googlegroups.com/web/TelluriumRunningMode1.png?gda=qNEKqUsAAAA7fMi2EBxrNTLhqoq3FzPro_2kwg16ExMe9wfbYSgXCQdoVt8RgM6Q8hpOVtSHouVBqckrS9zbalJdCfH3I_v9BkXa90K8pT5MNmkW1w_4BQ&gsc=jkTIIgsAAACI9y1tsPXdLT5_3omT2FAm
+
+That is to say, Tellurium core generates the runtime locator based on the attributes in a UI module and then pass the selenium calls to Selenium core with Tellurium extensions.
+
+Tellurium 0.7.0 also supports to use its own test driving Engine as follows.
+
+http://tellurium-users.googlegroups.com/web/TelluriumRunningMode2.png?gda=kwN3wEsAAAA7fMi2EBxrNTLhqoq3FzPro_2kwg16ExMe9wfbYSgXCQdoVt8RgM6Q8hpOVtSHouWqzYvvFLF4HH6kcFg68ZqyBkXa90K8pT5MNmkW1w_4BQ&gsc=jkTIIgsAAACI9y1tsPXdLT5_3omT2FAm
+
+The Tellurium Core will convert the UI module into a JSON representation and pass it to Tellurium Engine for the first time when the UI module is used. The Tellurium Engine uses the [Santa algorithm](http://code.google.com/p/aost/wiki/SantaUiModuleGroupLocatingAlgorithm) to locate the whole UI module and put it into a cache. For the sequent calls, the cached UI module will be used instead of locating them again. Another new feature in Tellurium 0.7.0 is the [Macro Command](http://code.google.com/p/aost/wiki/Tellurium070Update#Macro_Command), which combine multiple commands into one batch and then send them to Tellurium engine in one call to reduce the round trip latency.
+
+# Tellurium vs. Selenium #
+
+Overall, Tellurium and Selenium have different focuses for different purposes. In the near future, Tellurium should still support Selenium as its web testing driven Engine until Tellurium Engine grows mature. Selenium RC may be merged with Tellurium Core soon.
+
+Why we need to go a different path from Selenium? Selenium is a great framework as a low level web test driving framework, but Tellurium focuses more on a group of UI elements, which we called a UI module. The main goals and advantages of Tellurium are expressive, robust to Changes, address dynamic web content, and easy to maintain.
+
+## Expressive ##
+
+First, Tellurium shows clearly what the UIs you are testing by the UI module, i.e., widget, definition. For instance, the Google search UI is represented as follows in Tellurium.
+
+```
+ui.Container(uid: "GoogleSearchModule", clocator: [tag: "td"], group: "true"){
+   InputBox(uid: "Input", clocator: [title: "Google Search"])
+   SubmitButton(uid: "Search", clocator: [name: "btnG", value: "Google Search"])
+   SubmitButton(uid: "ImFeelingLucky", clocator: [value: "I'm Feeling Lucky"])
+}
+```
+
+Second, Test code _expressive_ is provided by Groovy in Tellurium Core. For example, you can see clearly what the UI you are testing against. For the test code, you have DSL style test code such as:
+
+
+```
+   type "GoogleSearchModule.Input", "Tellurium test"
+   click "GoogleSearchModule.Search"
+   waitForPageToLoad 30000
+```
+
+## Robust to Changes ##
+
+Test robust is always a big issue for Web testing frameworks. To solve this problem is one of the main motivations that Tellurium was created for. Tellurium uses UI attributes to describe UI instead of fixed locators. If we change the attributes, new runtime locators will be generated by the framework so that Tellurium can self-adapt to UI changes to some degree. [The Santa algorithm](http://code.google.com/p/aost/wiki/SantaUiModuleGroupLocatingAlgorithm) in Tellurium new engine further improves the test robust by using UI Module partial matching.
+
+## Address Dynamic Web Content Easily ##
+
+The [Tellurium UI templates](http://code.google.com/p/aost/wiki/UserGuide070TelluriumBasics#UI_Templates) are used to represent dynamic web content very easily. For example, [Tellurium issue search result widget](http://code.google.com/p/aost/issues/list) can be easily represented as follows.
+
+```
+    ui.Table(uid: "issueResult", clocator: [id: "resultstable", class: "results"], group: "true") {
+      //Define the header elements
+      UrlLink(uid: "{header: any} as ID", clocator: [text: "*ID"])
+      UrlLink(uid: "{header: any} as Type", clocator: [text: "*Type"])
+      UrlLink(uid: "{header: any} as Status", clocator: [text: "*Status"])
+      UrlLink(uid: "{header: any} as Priority", clocator: [text: "*Priority"])
+      UrlLink(uid: "{header: any} as Milestone", clocator: [text: "*Milestone"])
+      UrlLink(uid: "{header: any} as Owner", clocator: [text: "*Owner"])
+      UrlLink(uid: "{header: any} as Summary", clocator: [text: "*Summary + Labels"])
+      UrlLink(uid: "{header: any} as Extra", clocator: [text: "*..."])
+
+      //Define table body elements
+      //Column "Extra" are TextBoxs
+      TextBox(uid: "{row: all, column -> Extra}", clocator: [:])
+      //For the rest, they are UrlLinks
+      UrlLink(uid: "{row: all, column: all}", clocator: [:])
+    }
+```
+
+## Easy to Maintain ##
+
+Tellurium emphasizes the decoupling of UI from test code. The structured test code makes Tellurium easier to maintain and refactor.
+
+
+# Tellurium Future Directions #
+
+There are couple very interesting future directions:
+
+  * Use jQuery to re-implement Selenium APIs. 0.7.0 has implemented a set of Selenium APIs, but there are still a lot of remaining work.
+  * Algorithm design, for example, automatically build UI module from HTML source. Reverse engineering to build UI templates from HTML source is very challenging.
+  * Tellurium Widgets, create reusable Dojo, ExtJS, and jQuery UI widgets so that other people can reuse the widgets simply by including the jar files to their projects.
+  * Tellurium UID Description Language improvement.
+  * Improve Trump Firefox Plugin, for example, generate test script as well as UI modules so that Tellurium is not only good for developers, but also QA people.
+  * Add Behavior Driven Testing support
+  * Add testing flow support. Many unit testing and functional testing frameworks do not really have the testing flow/stage concept.
+  * Tellurium as a cloud testing tool.
+  * Tellurium as a web security testing tool.
+  * IDE and other plugins.
+  * Improve code quality.
+
+Tellurium is still young and needs your love, tender, and care. We welcome contributions in many different ways, for example,
+
+  1. Try out Tellurium
+  1. Use Tellurium in your project and report bugs
+  1. Ask questions and answer other users' questions
+  1. Promote Tellurium and post your experience on Tellurium
+  1. Fix bugs for Tellurium
+  1. Improve Tellurium documents
+  1. Bring in new ideas and suggestions
+  1. Fork [Tellurium repository on GitHub](http://github.com/telluriumsource/tellurium) and contribute back your bug fixes and new features.
+  1. Join Tellurium team and work as a core committer.
+
+# Resources #
+
+  * [Tellurium Project Home](http://code.google.com/p/aost/)
+  * [Tellurium User Group](http://groups.google.com/group/tellurium-users)
+  * [Tellurium Developer Group](http://groups.google.com/group/tellurium-developers)
+  * [Tellurium on Twitter](http://twitter.com/TelluriumSource)
+  * [TelluriumSource](http://telluriumsource.org)
+  * [Tellurium 0.7.0](http://code.google.com/p/aost/wiki/Tellurium070Released)
+  * [Tellurium Reference Documentation](http://aost.googlecode.com/files/tellurium-reference-0.7.0.pdf)
